@@ -164,33 +164,28 @@ def fig_four_gauges(lang: str) -> str:
                    cap="示意:四个口径量的不是同一个东西——存量创新高,入口端崩塌(条长为示意,各口径基线不同)"),
         "en": dict(title="One market, four dashboards",
                    r1="Employment stock (BLS)", v1="record high", r2="Job postings (Indeed)", v2="−27.5% vs 2020",
-                   r3="New-grad share, Big Tech (SignalFire)", v3="≈ −65% vs 2019", r4="Age 22–25 on payroll (ADP)", v4="≈ −20% vs late-2022 peak",
+                   r3="New-grad share (SignalFire)", v3="≈ −65% vs 2019", r4="Age 22–25 on payroll (ADP)", v4="≈ −20% vs late-2022 peak",
                    cap="Schematic: the four gauges measure different things — the stock at a record while the entrance collapses (bar lengths illustrative; baselines differ)"),
     }[lang]
     rows = [
-        (t['r1'], t['v1'], 14, "#52b788", 1),
-        (t['r2'], t['v2'], 110, "#4cc9f0", -1),
-        (t['r3'], t['v3'], 250, "#ff6ec4", -1),
-        (t['r4'], t['v4'], 82, "#7b61ff", -1),
+        (t['r1'], t['v1'], 14, "#52b788"),
+        (t['r2'], t['v2'], 110, "#4cc9f0"),
+        (t['r3'], t['v3'], 250, "#ff6ec4"),
+        (t['r4'], t['v4'], 82, "#7b61ff"),
     ]
-    # two-line rows: label on its own line, bar + value on the line below,
-    # so long labels never collide with long negative bars.
+    # same single-baseline layout as fig_review_scissors: label right-aligned to the
+    # axis, bar grows right, value at the bar end — direction lives in the value text.
     bars = []
-    y = 62
-    for label, val, w, color, sign in rows:
-        bars.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="12" font-family="Menlo,monospace">{label}</text>')
-        by = y + 10
-        x = 430 if sign > 0 else 430 - w
-        bars.append(f'<rect x="{x}" y="{by}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.8"/>')
-        if sign > 0:
-            bars.append(f'<text x="{430 + w + 8}" y="{by + 14}" fill="{color}" font-size="12" font-weight="700" text-anchor="start" font-family="-apple-system,sans-serif">{val}</text>')
-        else:
-            bars.append(f'<text x="{430 - w - 8}" y="{by + 14}" fill="{color}" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{val}</text>')
-        y += 68
+    y = 64
+    for label, val, w, color in rows:
+        bars.append(f'<text x="218" y="{y + 15}" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="230" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{230 + w + 8}" y="{y + 15}" fill="{color}" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 52
     return f"""<figure>
-<svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img">
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
-  <line x1="430" y1="48" x2="430" y2="330" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <line x1="230" y1="52" x2="230" y2="252" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
   {''.join(bars)}
 </svg>
 <figcaption>{t['cap']}</figcaption>
@@ -283,17 +278,16 @@ def fig_review_scissors(lang: str) -> str:
         (t['r4'], t['v4'], 30, "#7b61ff"),
     ]
     bars = []
-    y = 72
+    y = 64  # top of each bar; label & value share the bar's vertical center line
     for label, val, w, color in rows:
-        bars.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="12" font-family="Menlo,monospace">{label}</text>')
-        by = y + 10
-        bars.append(f'<rect x="230" y="{by}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
-        bars.append(f'<text x="{230 + w + 10}" y="{by + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
-        y += 64
+        bars.append(f'<text x="218" y="{y + 15}" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="230" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{230 + w + 10}" y="{y + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 52
     return f"""<figure>
-<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
-  <line x1="230" y1="52" x2="230" y2="322" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <line x1="230" y1="52" x2="230" y2="252" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
   {''.join(bars)}
 </svg>
 <figcaption>{t['cap']}</figcaption>
