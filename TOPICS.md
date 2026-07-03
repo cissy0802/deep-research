@@ -3,16 +3,19 @@
 > 入选标准:流行叙事强、争议大、但存在可核查的一手证据——对抗验证增值最大的题目。
 > 每个条目的"研究问题草案"可直接作为 deep-research workflow 的 args 起点;开跑前按当时最新进展微调。
 > 流程:多 agent 并行调研一手来源 → 关键论断 3 票对抗验证 → 易读版 + 深入版 × 中英,`build.py` 渲染发布。
+> **钩子收割**:每期发布后提炼 ≤5 个钩子(超出本篇范围的支线问题):适合 deep research 的进本文件「候选池」,适合某个 Second Brain routine 站的按该站 TOPICS 格式追加到其 backlog(单独 commit,行尾标「钩子·源自 #N」),并在本文件该期「已发布」条目下记录去向。
 
 ## 已发布
 
 ### 0. 传统软件组织的 AI-native 转型 ✅ 2026-07
 - 页面:`ai-native-plain/-deep` × zh/en
 - 底座:86 来源、166 票对抗验证;研究材料存本地 `~/design/ai-native-article/research/`
+- 钩子:→ system-design Day 41《当故障快于人类反应》(2026-07,反哺);→ AI code review 已升级为待研究 #2
 
 ### 1. "初级工程师正在消失"是真的吗? ✅ 2026-07
 - 页面:`junior-engineers-plain/-deep` × zh/en
 - 底座:7 条调研线索、103 论断、15 条承重论断 × 3 票对抗验证(13 HOLDS / 2 修正 / 0 推翻);研究材料存本地 `~/design/deep-research-runs/junior-engineers/`
+- 钩子:→ super-individual Day 53《用 AI 学习的护栏工程》(2026-07,反哺)
 
 ## 待研究
 
