@@ -6,14 +6,16 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"SF Pro Display","Noto Serif SC","Songti SC",serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
 .container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
-h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
-h2{font-size:1.35rem;font-weight:700;color:#fff;margin:44px 0 14px;padding-top:10px;border-top:1px solid rgba(123,97,255,0.25)}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
 h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
 p{margin:0 0 16px}
 ul,ol{margin:0 0 16px 1.4em}
 li{margin-bottom:8px}
 strong{color:#fff}
-em{color:#b8c4e8}
+em{color:#8be0e8;font-style:normal}
 code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
 a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
 a:hover{color:#7b61ff}
@@ -21,16 +23,35 @@ blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);paddin
 blockquote p{margin-bottom:8px}
 blockquote p:last-child{margin-bottom:0}
 hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
 .topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
 .topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
 .topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
 .topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
-.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 26px}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
 .version-note a{border-bottom:none;font-weight:700}
 .backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
 footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
 footer a{border-bottom:none}
 @media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
 </style>
 </head><body>
 <div class="topbar">
@@ -38,8 +59,11 @@ footer a{border-bottom:none}
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
 <h1>当写代码变得便宜:软件组织怎么转向 AI-native(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="ai-native-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 把「写代码」变便宜,把瓶颈推到「确认代码是对的」。个人变快 ≠ 组织变快;评估 AI 靠交付数据、不靠体感;维护高可靠老系统的组织,从迁移类任务切入、护栏先于规模。</div></div>
+<div class="chips"><span class="chip c1">90% 在用 AI</span><span class="chip c2">实测 −19% vs 自感 +20%</span><span class="chip c3">稳定性连续两年负相关</span><span class="chip c4">迁移:1.5 人年 → 6 周</span></div>
 <blockquote><p>本文是同名深入版的精简版。深入版有完整的理论推导、全部数据出处和证据分级;这一版只保留主线,用直白的话讲清楚。所有数字都经过独立核查,想看出处请移步深入版。</p></blockquote>
 <h2>一个怪现象</h2>
 <p>先看两组都是真的、但互相打架的数据。</p>
@@ -49,6 +73,24 @@ footer a{border-bottom:none}
 <p>这就是本文要回答的问题:<strong>为什么每个人都觉得 AI 让自己更快了,但组织整体却没有变快,甚至变得更不稳定?</strong>答案不复杂,但它会改变你对"AI 转型"该怎么做的全部判断。</p>
 <h2>成本没有消失,它搬家了</h2>
 <p>软件开发的总成本,粗略分两块:<strong>把代码写出来</strong>的成本,和<strong>确认代码是对的</strong>的成本(读代码、评审、测试、集成、出了问题排查)。</p>
+<figure>
+<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="52" fill="#7c8593" font-size="13" font-family="Menlo,monospace">传统开发</text>
+  <rect x="24" y="64" width="380" height="40" rx="6" fill="#4cc9f0" opacity="0.75"/>
+  <rect x="408" y="64" width="150" height="40" rx="6" fill="#7b61ff" opacity="0.6"/>
+  <text x="214" y="89" fill="#0a0e1a" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">写代码</text>
+  <text x="483" y="89" fill="#e4e6eb" font-size="12" text-anchor="middle" font-family="-apple-system,sans-serif">验证与整合</text>
+
+  <path d="M 350 118 Q 380 138 410 158" stroke="#ff6ec4" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6ec4"/></marker></defs>
+
+  <text x="24" y="166" fill="#7c8593" font-size="13" font-family="Menlo,monospace">人 + AI agent</text>
+  <rect x="24" y="178" width="64" height="40" rx="6" fill="#4cc9f0" opacity="0.75"/>
+  <rect x="92" y="178" width="466" height="40" rx="6" fill="#7b61ff" opacity="0.85" stroke="#ff6ec4" stroke-width="2"/>
+  <text x="325" y="203" fill="#fff" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">验证与整合 ← 新瓶颈</text>
+</svg>
+<figcaption>示意图:生成成本趋零后,成本与瓶颈移向验证/整合环节(比例为示意,非实测)</figcaption>
+</figure>
 <p>过去几十年,"写出来"很贵,所以整个行业的组织方式——团队规模、招聘标准、流程设计——都是围绕"写"来优化的。AI 把"写"的成本压到接近零,很多人以为总成本也跟着降了。</p>
 <p>没有。<strong>成本只是从"写"搬到了"确认写得对"。</strong></p>
 <ul><li>那 16 位资深开发者为什么变慢?屏幕录像显示,他们的时间从写代码转移到了给 AI 写提示、等待生成、然后逐行审查 AI 的产出。在他们熟悉的复杂代码库里,写本来就不是瓶颈,审查才是——AI 让不是瓶颈的环节更快,让是瓶颈的环节更堵。</li><li>一家做工程效能遥测的公司(Faros)分析了一万多名开发者的真实数据:重度使用 AI 的人,合并的代码提交量几乎翻倍——但每个提交变大了 1.5 倍,评审时间涨了 91%,而<strong>整个团队从需求到上线的周期没有任何变化</strong>。个人的产出堆到了评审环节,在那里排队。</li><li>为什么组织会不稳定?变更量放大了,但测试、灰度发布、回滚这些"确认"机制没有跟着加强,错误就会漏过去。DORA 给这个现象的总结很精辟:<strong>AI 不会修复一个团队,它放大这个团队本来的样子。</strong>强的更强,乱的更乱。</li></ul>
@@ -64,6 +106,27 @@ footer a{border-bottom:none}
 <p>对读者有用的不是站队,而是两个可以自己盯的指标:你的组织里,<strong>每次变更的验证成本</strong>是随着变更量线性涨还是更快地涨?如果验证越来越便宜,小团队化有戏;如果验证还是最贵的环节,大组织的优势会继续。谁现在就断言方向,谁就是在卖超出证据的确定性。</p>
 <h2>如果你维护的是"不能出事"的老系统</h2>
 <p>BigQuery、支付系统、核心银行系统——代码库几千万行、历史十几年、每秒扛海量请求、出事就上新闻。这类组织读到的 AI 转型文章几乎都是初创公司写的,而<strong>初创的玩法对你不但没用,而且危险</strong>。</p>
+<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <line x1="70" y1="340" x2="650" y2="340" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="70" y1="340" x2="70" y2="40" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="360" y="376" fill="#7c8593" font-size="13" text-anchor="middle" font-family="Menlo,monospace">交互复杂性 →</text>
+  <text x="34" y="190" fill="#7c8593" font-size="13" text-anchor="middle" font-family="Menlo,monospace" transform="rotate(-90 34 190)">耦合度 →</text>
+
+  <rect x="82" y="200" width="272" height="128" rx="10" fill="#52b788" opacity="0.12" stroke="#52b788" stroke-opacity="0.5"/>
+  <text x="218" y="252" fill="#52b788" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">初创绿地</text>
+  <text x="218" y="276" fill="#8fbfa8" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">错误预算宽裕 · 爆炸半径小</text>
+
+  <rect x="366" y="52" width="272" height="128" rx="10" fill="#e85a4f" opacity="0.14" stroke="#e85a4f" stroke-opacity="0.6"/>
+  <text x="502" y="104" fill="#ff8a80" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">高危象限</text>
+  <text x="502" y="128" fill="#d9a09a" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">BigQuery / 支付 / 交易系统</text>
+
+  <circle cx="150" cy="300" r="6" fill="#52b788"/>
+  <circle cx="560" cy="90" r="7" fill="#e85a4f"/>
+  <path d="M 175 292 Q 360 220 535 105" stroke="#7c8593" stroke-width="1.5" fill="none" stroke-dasharray="3,5"/>
+</svg>
+<figcaption>Perrow 风险透镜(示意):同一个 AI 工具,在两个象限积分出完全不同的风险;高危象限还叠加短时延——系统滑向灾难快于人类认知</figcaption>
+</figure>
 <p><strong>为什么危险,一个真实故事就够了。</strong>2012 年 8 月 1 日,做美股做市的骑士资本(Knight Capital)上线新代码,8 台服务器只更新了 7 台。没更新的那台,激活了一段停用八年但一直没删的旧代码。45 分钟,亏损超过 4.6 亿美元,公司一年内被收购。注意细节:系统开盘前其实发过 97 封报错邮件,但那些邮件"不是被设计成告警的",没人看。——现在想象 AI 以十倍速度生成代码,而你的组织连死代码都没人清理、告警没人管。老系统 + 高速变更 + 弱验证,这是灾难配方,AI 是加速剂。</p>
 <p><strong>为什么不划算,前面那个实验就是证据。</strong>METR 那个"用 AI 反而慢 19%"的实验,情境恰好是:资深工程师 + 百万行级成熟代码库 + 严格的质量门槛——<strong>这不是什么特殊实验室条件,这就是你们组织的日常</strong>。原因也直白:老系统里最难的东西是"潜规则"——历史上踩过的坑、没写文档的行为依赖、组织约定——这些恰恰是用公开代码训练出来的 AI 最不懂的。指望"把整个代码库塞进 AI 的上下文窗口"也不行,实测显示输入越长、模型表现越差,海量相似代码反而是干扰。</p>
 <p><strong>那从哪里开始?有一类任务,AI 在巨型老代码库上有多家公司验证过的成功记录:大规模迁移和升级。</strong>老写法换新写法、测试框架更换、语言版本升级——这类活有三个共同点:繁重、没人愿意干、<strong>机器能自动判断做没做对</strong>(编译过不过、测试过不过)。几个真实数字:Google 用 AI 做代码迁移,四分之三的修改由 AI 生成,项目时间省一半,搁置多年没人碰的迁移被重新启动;Airbnb 把 3,500 个测试文件迁到新框架,原本估 1.5 人年,实际 6 周。</p>
