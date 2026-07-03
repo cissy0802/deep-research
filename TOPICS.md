@@ -21,6 +21,7 @@
 - 页面:`ai-code-review-plain/-deep` × zh/en
 - 底座:7 条调研线索、15 条承重论断 × 3 票对抗验证(9 HOLDS / 6 修正 / 0 推翻),另沿用 #0 已验证的 6 组口径(METR、Sonar、Google 迁移、DORA、Faros 2025、Anthropic 会话);研究材料存本地 `~/design/deep-research-runs/ai-code-review/`
 - 核心修正记录:Sonar 96/48 实为"信任 vs 检查行为"口径(非语法/功能正确性);SAGA 32.58% 是合成测试套件 VAcc 且为最优方法成绩;CriticGPT 人机团队增益=降幻觉而非超越模型查全率;pr-review-bench 作者任职 Sentry(COI)
+- 钩子:→ system-design Day 50《把 Code Review 当信号检测系统》(2026-07,反哺);→ ai-ml Day 54《LLM-as-Judge 的偏差与校准》(2026-07,反哺);→ 候选池 2 条(scalable oversight 地基体检、AI 基准 Goodhart 化);另 1 条仅记运行报告(AI code review RCT 设计要点)
 
 ## 待研究
 
@@ -71,5 +72,7 @@
 ## 候选池(未排期)
 
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)
+- Scalable oversight 的地基体检:"验证比生成容易"是被证实的假设还是路线信仰——Leike 假设 vs 自我批评崩塌/GV-Gap/错误趋同(钩子·源自 #2)
+- AI 基准的 Goodhart 化:数据污染、榜单收割与评测激励结构,为什么评测体系一建成就失效(可与 #8 scaling laws 的基准饱和线互补)(钩子·源自 #2)
 - HRT 的兴衰与再评价(WHI 研究如何被重新解读——"证据翻转"经典案例)
 - AI 时代该让孩子学什么(编程还值得学吗)
