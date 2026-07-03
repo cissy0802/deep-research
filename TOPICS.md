@@ -10,14 +10,11 @@
 - 页面:`ai-native-plain/-deep` × zh/en
 - 底座:86 来源、166 票对抗验证;研究材料存本地 `~/design/ai-native-article/research/`
 
-## 待研究
+### 1. "初级工程师正在消失"是真的吗? ✅ 2026-07
+- 页面:`junior-engineers-plain/-deep` × zh/en
+- 底座:7 条调研线索、103 论断、15 条承重论断 × 3 票对抗验证(13 HOLDS / 2 修正 / 0 推翻);研究材料存本地 `~/design/deep-research-runs/junior-engineers/`
 
-### 1. "初级工程师正在消失"是真的吗?
-- **一句话**:AI 编码工具下,入门级工程岗位是否在结构性收缩,还是又一轮技术恐慌?
-- **为什么适合**:第 0 篇的自然续集,METR/DORA/Copilot RCT 数据可直接复用;话题几乎全是情绪化论述,没人认真核查过招聘数据。
-- **理论底座**:劳动经济学任务模型(Autor, Acemoglu & Restrepo)、技能溢价、干中学(learning-by-doing)与职业阶梯断裂问题、内部劳动力市场理论。
-- **关键争议/正反**:Copilot RCT"初级提效最大"vs 入门岗位招聘缩减报道的表面矛盾;"AI 取代初级"vs"AI 让初级更快变资深";大厂 headcount 数据 vs 宏观就业统计口径差异。
-- **实证锚点**:BLS/LinkedIn/Indeed 招聘时序数据、大厂校招规模、Cui et al. RCT 资历分化、Anthropic/GitHub 使用数据。
+## 待研究
 
 ### 2. 学习科学的证据等级:哪些方法真的有效?
 - **一句话**:间隔重复、检索练习、刻意练习、主动学习——按证据强度重新排座次。

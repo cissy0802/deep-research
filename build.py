@@ -155,6 +155,111 @@ def fig_perrow(lang: str) -> str:
 </figure>"""
 
 
+def fig_four_gauges(lang: str) -> str:
+    """Four measurement gauges of the same job market pointing different ways."""
+    t = {
+        "zh": dict(title="同一个市场,四个仪表盘",
+                   r1="存量就业 (BLS)", v1="历史新高", r2="招聘广告 (Indeed)", v2="−27.5% vs 2020",
+                   r3="大厂新人占比 (SignalFire)", v3="≈ −65% vs 2019", r4="22–25 岁在册 (ADP)", v4="≈ −20% vs 2022 峰值",
+                   cap="示意:四个口径量的不是同一个东西——存量创新高,入口端崩塌(条长为示意,各口径基线不同)"),
+        "en": dict(title="One market, four dashboards",
+                   r1="Employment stock (BLS)", v1="record high", r2="Job postings (Indeed)", v2="−27.5% vs 2020",
+                   r3="New-grad share, Big Tech (SignalFire)", v3="≈ −65% vs 2019", r4="Age 22–25 on payroll (ADP)", v4="≈ −20% vs late-2022 peak",
+                   cap="Schematic: the four gauges measure different things — the stock at a record while the entrance collapses (bar lengths illustrative; baselines differ)"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 14, "#52b788", 1),
+        (t['r2'], t['v2'], 110, "#4cc9f0", -1),
+        (t['r3'], t['v3'], 250, "#ff6ec4", -1),
+        (t['r4'], t['v4'], 82, "#7b61ff", -1),
+    ]
+    bars = []
+    y = 64
+    for label, val, w, color, sign in rows:
+        x = 430 if sign > 0 else 430 - w
+        bars.append(f'<text x="24" y="{y + 16}" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="{x}" y="{y}" width="{w}" height="24" rx="5" fill="{color}" opacity="0.8"/>')
+        tx = 438 if sign > 0 else 430 - w - 8
+        anchor = "start" if sign > 0 else "end"
+        bars.append(f'<text x="{tx if sign > 0 else 430 - w - 8}" y="{y + 16}" fill="{color}" font-size="12" font-weight="700" text-anchor="{anchor}" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="430" y1="52" x2="430" y2="276" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_age_scissors(lang: str) -> str:
+    """Diverging employment lines: older devs grow, 22-25 falls after late 2022."""
+    t = {
+        "zh": dict(older="26 岁以上:继续增长", young="22–25 岁:峰值以来 ≈ −20%", gpt="ChatGPT 发布",
+                   cap="示意:ADP 工资单口径(Canaries,2025-11 版)——同为软件开发者,分化只出现在最年轻一档;作者 2026-02 承认最宽控制下 2024 年后才显著"),
+        "en": dict(older="Age 26+: keeps growing", young="Age 22–25: ≈ −20% from peak", gpt="ChatGPT release",
+                   cap="Schematic: ADP payroll (Canaries, Nov 2025) — same occupation, divergence only in the youngest bracket; authors' Feb 2026 note concedes significance only after 2024 under broadest controls"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <line x1="60" y1="270" x2="660" y2="270" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="60" y2="40" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="70" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2021</text>
+  <text x="255" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2022</text>
+  <text x="420" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2024</text>
+  <text x="610" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2026</text>
+  <line x1="300" y1="58" x2="300" y2="270" stroke="#f0b429" stroke-width="1.2" stroke-dasharray="4,5" opacity="0.7"/>
+  <text x="308" y="70" fill="#f0b429" font-size="11" font-family="Menlo,monospace">{t['gpt']}</text>
+  <path d="M 70 190 C 160 160, 240 148, 300 145 C 400 141, 520 128, 645 112" stroke="#4cc9f0" stroke-width="3" fill="none"/>
+  <path d="M 70 196 C 160 168, 240 152, 300 150 C 380 152, 440 175, 500 200 C 560 224, 610 238, 645 246" stroke="#ff6ec4" stroke-width="3" fill="none"/>
+  <circle cx="300" cy="145" r="4" fill="#4cc9f0"/>
+  <circle cx="300" cy="150" r="4" fill="#ff6ec4"/>
+  <text x="640" y="100" fill="#4cc9f0" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{t['older']}</text>
+  <text x="640" y="240" fill="#ff6ec4" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{t['young']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rct_paradox(lang: str) -> str:
+    """Left: RCT gains largest for novices. Right: market outcome worst for novices."""
+    t = {
+        "zh": dict(lab="实验室(RCT):个体产出增益", mkt="劳动市场(2023–26):就业结果",
+                   nov="新手", vet="老手", lnov="+27–39%", lvet="+8–13%", mnov="≈ −20%", mvet="增长",
+                   arrow="组织的成本响应",
+                   cap="示意:同一项技术,个体层面最帮新手(左,Copilot 三场 RCT),市场层面新手岗位收缩最狠(右,ADP)——分岔发生在企业的雇佣决策,不在技术里"),
+        "en": dict(lab="The lab (RCTs): individual output gains", mkt="The market (2023–26): employment outcome",
+                   nov="Novice", vet="Veteran", lnov="+27–39%", lvet="+8–13%", mnov="≈ −20%", mvet="growing",
+                   arrow="the firm's cost response",
+                   cap="Schematic: the same technology helps novices most at the individual level (left, three Copilot RCTs) while novice jobs contract hardest (right, ADP) — the fork is the firm's hiring decision, not the technology"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="165" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['lab']}</text>
+  <text x="535" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['mkt']}</text>
+  <line x1="50" y1="220" x2="280" y2="220" stroke="#5a6378" stroke-width="1.5"/>
+  <rect x="80" y="90" width="60" height="130" rx="6" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="180" y="175" width="60" height="45" rx="6" fill="#4cc9f0" opacity="0.45"/>
+  <text x="110" y="82" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t['lnov']}</text>
+  <text x="210" y="167" fill="#7c8593" font-size="12" text-anchor="middle" font-family="Menlo,monospace">{t['lvet']}</text>
+  <text x="110" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['nov']}</text>
+  <text x="210" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['vet']}</text>
+  <line x1="420" y1="140" x2="650" y2="140" stroke="#5a6378" stroke-width="1.5"/>
+  <rect x="450" y="140" width="60" height="75" rx="6" fill="#ff6ec4" opacity="0.85"/>
+  <rect x="550" y="95" width="60" height="45" rx="6" fill="#52b788" opacity="0.7"/>
+  <text x="480" y="234" fill="#ff6ec4" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t['mnov']}</text>
+  <text x="580" y="87" fill="#52b788" font-size="12" text-anchor="middle" font-family="Menlo,monospace">{t['mvet']}</text>
+  <text x="480" y="256" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['nov']}</text>
+  <text x="580" y="156" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['vet']}</text>
+  <path d="M 300 150 Q 350 130 400 150" stroke="#f0b429" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#arrowp)"/>
+  <defs><marker id="arrowp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"/></marker></defs>
+  <text x="350" y="115" fill="#f0b429" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">{t['arrow']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 # slug → list of (lang_or_None, version_or_None, heading_text_prefix, figure_fn)
 # figure inserted right AFTER the first heading whose text starts with the prefix.
 FIGURES = {
@@ -169,6 +274,22 @@ FIGURES = {
         ("en", "1.4 What the pivot explains", fig_cost_transfer),
         ("zh", "4.1 为什么初创玩法不能照搬", fig_perrow),
         ("en", "4.1 Why the startup playbook", fig_perrow),
+    ],
+    "junior-engineers-plain": [
+        ("zh", "先看四个仪表盘", fig_four_gauges),
+        ("en", "Four gauges, four answers", fig_four_gauges),
+        ("zh", "可是,AI 明明最帮新手", fig_rct_paradox),
+        ("en", "But AI helps beginners most", fig_rct_paradox),
+        ("zh", "那到底是不是 AI 干的?", fig_age_scissors),
+        ("en", "So did AI actually do this?", fig_age_scissors),
+    ],
+    "junior-engineers-deep": [
+        ("zh", "1. 先对表:同一个市场,四个仪表盘", fig_four_gauges),
+        ("en", "1. Calibrating the gauges", fig_four_gauges),
+        ("zh", "3. 计量对战:两类数据,两个结论", fig_age_scissors),
+        ("en", "3. The econometric battle", fig_age_scissors),
+        ("zh", "5. 悖论的解法:个体生产率不是雇佣决策", fig_rct_paradox),
+        ("en", "5. Resolving the paradox", fig_rct_paradox),
     ],
 }
 
@@ -298,6 +419,22 @@ ARTICLES = [
      "When Code Becomes Cheap: Theory and Evidence for the AI-Native Transformation of Software Organizations",
      "Four theoretical spectra plus a high-reliability legacy chapter; fully adversarially verified.",
      "2026-07"),
+    ("junior-engineers-plain", "zh", "plain",
+     "「初级工程师正在消失」是真的吗?(易读版)",
+     "总就业创新高,22-25 岁一档却跌了近 20%——职业没消失,入口在收窄。易读版:主线论证 + 直白语言。",
+     "2026-07"),
+    ("junior-engineers-plain", "en", "plain",
+     "Are Junior Engineers Really Disappearing? (Plain-Language Edition)",
+     "Employment at a record high while the youngest bracket falls 20% — the profession isn't vanishing, the entrance is narrowing. The accessible edition.",
+     "2026-07"),
+    ("junior-engineers-deep", "zh", "deep",
+     "「初级工程师正在消失」是真的吗:入门岗位的证据体检(深入版)",
+     "四个数据口径对表、Canaries 对战空值派、RCT 悖论的组织经济学解法;15 条承重论断 × 3 票对抗验证。",
+     "2026-07"),
+    ("junior-engineers-deep", "en", "deep",
+     "Are Junior Engineers Really Disappearing? An Evidence Audit of the Entry-Level Software Job Market",
+     "Four gauges calibrated, Canaries versus the null camp, and the organizational economics that resolves the RCT paradox; 15 load-bearing claims adversarially verified.",
+     "2026-07"),
 ]
 
 KICKERS = {
@@ -316,6 +453,14 @@ TLDRS = {
         "交易成本没有消失,而是从生产/协调转移到整合/验证——这一枢轴同时解释了 METR 的减速、DORA 的稳定性惩罚与人的角色重构,并推出高可靠 legacy 组织「迁移切入 → 护栏先于规模 → 验证基础设施资本化」的转型序列。全文以六个可检验主张收尾。",
     ("ai-native-deep", "en"):
         "Transaction costs don't disappear — they migrate from production/coordination to integration/verification. This single pivot explains METR's slowdown, DORA's stability penalty, and the restructuring of human roles, and yields the sequence for high-reliability legacy organizations: enter through migrations → guardrails before scale → capitalize verification infrastructure. The essay closes with six testable claims.",
+    ("junior-engineers-plain", "zh"):
+        "美国软件开发者总就业创历史新高,但 22-25 岁一档从 2022 年底跌了近 20%:职业没消失,给新人开的门在收窄。实验反复证明 AI 最帮新手——这与新手岗位收缩不矛盾:帮新手最多的技术,恰恰让「不雇新手」变得可行。宏观因素解释了塌方,解释不了塌方只砸最年轻的人。",
+    ("junior-engineers-plain", "en"):
+        "Total US software developer employment is at a record high, yet the 22-25 bracket is down nearly 20% since late 2022: the profession isn't vanishing — the door for newcomers is narrowing. Experiments keep showing AI helps novices most, and that's no contradiction: the technology that helps beginners most is what makes not-hiring-them feasible. Macro forces explain the collapse, not why it lands only on the youngest.",
+    ("junior-engineers-deep", "zh"):
+        "「消失」是流量现象而非存量现象:存量创新高,入口端(22-25 岁 × 高 AI 暴露)在 firm-time 固定效应内持续收缩且 2024 年后加深。RCT 一致显示 AI 个体层面最帮新手;雇佣是组织对成本结构的响应,两者在企业账本上是同一句话。宏观混淆项解释水位、解释不了构成;离岸是唯一同样能解释构成的竞争假说。全文以七个可检验主张收尾。",
+    ("junior-engineers-deep", "en"):
+        "The \"disappearance\" is a flow phenomenon, not a stock phenomenon: record-high stock, contracting entrance — concentrated in the youngest-by-most-exposed cell, inside firm-time fixed effects, deepening after 2024. RCTs consistently show AI helps novices most at the individual level; hiring is the firm's response to a changed cost structure, and on the ledger those are one sentence. Confounders explain the water level, not the composition; offshoring is the one rival that fits both. Closes with seven testable claims.",
 }
 
 CHIPS = {
@@ -331,13 +476,25 @@ CHIPS = {
     ("ai-native-deep", "en"): [
         ("c1", "86 sources"), ("c2", "166 adversarial votes"), ("c3", "4 theoretical spectra"), ("c4", "6 testable claims"),
     ],
+    ("junior-engineers-plain", "zh"): [
+        ("c1", "总就业创新高"), ("c2", "22-25 岁 ≈ −20%"), ("c3", "大厂新人 3 成 → 1 成"), ("c4", "RCT:新手受益最大"),
+    ],
+    ("junior-engineers-plain", "en"): [
+        ("c1", "employment: record high"), ("c2", "age 22-25: ≈ −20%"), ("c3", "new grads: 3-in-10 → 1-in-10"), ("c4", "RCTs: novices gain most"),
+    ],
+    ("junior-engineers-deep", "zh"): [
+        ("c1", "7 条线索 · 103 论断"), ("c2", "45 票对抗验证"), ("c3", "13/15 挺过反驳"), ("c4", "7 个可检验主张"),
+    ],
+    ("junior-engineers-deep", "en"): [
+        ("c1", "7 lines · 103 claims"), ("c2", "45 adversarial votes"), ("c3", "13/15 survived refutation"), ("c4", "7 testable claims"),
+    ],
 }
 
 VERSION_NOTES = {
-    ("zh", "plain"): '本文是<strong>易读版</strong> · <a href="ai-native-deep.html">查看深入版(完整论证与出处)→</a>',
-    ("zh", "deep"):  '本文是<strong>深入版</strong> · <a href="ai-native-plain.html">查看易读版(精简直白)→</a>',
-    ("en", "plain"): 'This is the <strong>plain-language edition</strong> · <a href="ai-native-deep.en.html">read the deep dive (full arguments &amp; sources) →</a>',
-    ("en", "deep"):  'This is the <strong>deep-dive edition</strong> · <a href="ai-native-plain.en.html">read the plain-language edition →</a>',
+    ("zh", "plain"): '本文是<strong>易读版</strong> · <a href="{other}">查看深入版(完整论证与出处)→</a>',
+    ("zh", "deep"):  '本文是<strong>深入版</strong> · <a href="{other}">查看易读版(精简直白)→</a>',
+    ("en", "plain"): 'This is the <strong>plain-language edition</strong> · <a href="{other}">read the deep dive (full arguments &amp; sources) →</a>',
+    ("en", "deep"):  'This is the <strong>deep-dive edition</strong> · <a href="{other}">read the plain-language edition →</a>',
 }
 
 # Footer pointer lines in the md sources reference local files / the other edition by
@@ -366,6 +523,8 @@ def build_articles():
         body = inject_figures(body, slug, lang)
         other = article_fname(slug, "en" if lang == "zh" else "zh")
         this = article_fname(slug, lang)
+        other_version = (slug.replace("-plain", "-deep") if version == "plain"
+                         else slug.replace("-deep", "-plain"))
         if lang == "zh":
             lang_toggle = f'<a href="{this}" class="active">中文</a><a href="{other}">EN</a>'
             index_href = "index.html"
@@ -378,7 +537,7 @@ def build_articles():
             title=title, desc=desc, css=ARTICLE_CSS, h2_css=h2_color_css(body),
             lang_toggle=lang_toggle, index_href=index_href,
             kicker=KICKERS[(lang, version)],
-            version_note=VERSION_NOTES[(lang, version)],
+            version_note=VERSION_NOTES[(lang, version)].format(other=article_fname(other_version, lang)),
             tldr=TLDRS[(slug, lang)], chips=chips,
             body=body, date=date, scripts=SHARED_SCRIPTS,
         )
@@ -475,6 +634,15 @@ INDEX_ENTRIES = [
      "86 sources · 166 adversarial votes",
      [("t1", "组织经济学", "Org economics"), ("t2", "软件工程", "Software eng"), ("t3", "复杂系统/控制论", "Cybernetics"),
       ("t4", "创新理论", "Innovation"), ("t5", "高可靠 legacy", "HRO / legacy")]),
+    ("junior-engineers", "2026-07",
+     "「初级工程师正在消失」是真的吗?",
+     "Are Junior Engineers Really Disappearing?",
+     "总就业创新高,22-25 岁一档却跌近 20%——「消失」是流量现象不是存量现象。四个数据口径对表、Canaries 对战空值派、「AI 最帮新手为何新手岗位最先收缩」的组织经济学解法,以及没人测量的职业阶梯。",
+     "Record-high employment while the 22-25 bracket falls nearly 20% — a flow phenomenon, not a stock one. Four gauges calibrated, Canaries versus the null camp, why the technology that helps novices most shrinks novice jobs first, and the career ladder nobody instruments.",
+     "7 条调研线索 · 103 论断 · 45 票对抗验证",
+     "7 research lines · 103 claims · 45 adversarial votes",
+     [("t1", "劳动经济学", "Labor economics"), ("t2", "招聘数据", "Hiring data"), ("t3", "RCT 证据", "RCT evidence"),
+      ("t4", "职业阶梯", "Career ladder"), ("t5", "AI 与就业", "AI & jobs")]),
 ]
 
 

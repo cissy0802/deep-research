@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「初级工程师正在消失」是真的吗:入门岗位的证据体检(深入版) — BigCat Deep Research</title>
+<meta name="description" content="四个数据口径对表、Canaries 对战空值派、RCT 悖论的组织经济学解法;15 条承重论断 × 3 票对抗验证。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="junior-engineers-deep.html" class="active">中文</a><a href="junior-engineers-deep.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 深入版</div>
+<h1>「初级工程师正在消失」是真的吗:入门岗位的证据体检(深入版)</h1>
+<div class="version-note">本文是<strong>深入版</strong> · <a href="junior-engineers-plain.html">查看易读版(精简直白)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">「消失」是流量现象而非存量现象:存量创新高,入口端(22-25 岁 × 高 AI 暴露)在 firm-time 固定效应内持续收缩且 2024 年后加深。RCT 一致显示 AI 个体层面最帮新手;雇佣是组织对成本结构的响应,两者在企业账本上是同一句话。宏观混淆项解释水位、解释不了构成;离岸是唯一同样能解释构成的竞争假说。全文以七个可检验主张收尾。</div></div>
+<div class="chips"><span class="chip c1">7 条线索 · 103 论断</span><span class="chip c2">45 票对抗验证</span><span class="chip c3">13/15 挺过反驳</span><span class="chip c4">7 个可检验主张</span></div>
+<blockquote><p>本文数据截至 2026 年 6 月。写进正文的 15 条承重论断(关键就业数字、RCT 效应量、翻转性结论)各经 3 名独立验证者对抗核查(下载一手原文逐字核对、检索后续修订与反证):13 条原样通过、2 条按验证意见修正(BLS"从未下降"改为"微降后创新高";纽约联储数字对齐了数据年份)、0 条被推翻。未进验证流程的引用在文中标注来源等级,厂商与利益相关方的数字一律注明口径。</p></blockquote>
+<h2>0. 一个需要解释的悖论</h2>
+<p>关于 AI 与初级工程师,2025-2026 年的证据里埋着一对表面矛盾,它比任何单边论断都更有信息量。</p>
+<p>一边是实验室。目前最大规模的 AI 编程随机对照实验(Cui 等六人在微软、埃森哲和一家财富 100 强公司做的三场 GitHub Copilot 实验,4,867 名开发者,2026 年 2 月发表于《Management Science》)测得:拿到 AI 工具的开发者完成任务量平均增加 26.08%(标准误 10.3%),而且<strong>工龄短的开发者收益最大</strong>——短工龄组产出增加 27%-39%,长工龄组只有 8%-13%(作者注明这组分解噪声较大、未达统计显著)。经同行评审的姊妹证据在客服行业:Brynjolfsson、Li 与 Raymond 发表在《Quarterly Journal of Economics》的研究(5,172 名客服),AI 辅助让平均生产率升 15%,最缺经验的组升约 30%,工作满一年以上的老手几乎无变化。两组因果证据指向同一个方向:<strong>AI 是新手的放大器,不是老手的。</strong></p>
+<p>另一边是劳动市场。斯坦福数字经济实验室的 Canaries 研究(Brynjolfsson、Chandar &amp; Chen,ADP 工资单微观数据,2025 年 11 月版,已验证)测到:<strong>22-25 岁软件开发者的在册就业,从 2022 年底的峰值到 2025 年 9 月累计下滑近 20%</strong>,同期更年长的开发者就业还在增长。风投 SignalFire 的数据(厂商口径,方向被多方旁证、量级偏软)更极端:2026 年报告称 12 家"Tech Majors"的应届/入门级招聘比 2019 年跌了约 65%。《Pragmatic Engineer》的从业者数据:大公司工程招聘里应届生占比从 2023 年的约 3 成跌到 2025 年的约 1 成。</p>
+<p>把两边放在一起,就是本文要回答的问题:<strong>如果 AI 最帮初级,为什么最先收缩的恰恰是初级岗位?</strong>"初级工程师正在消失"这句流行论断,哪一半是真的、哪一半是恐慌、哪一半是别的东西在冒名?</p>
+<h2>1. 先对表:同一个市场,四个仪表盘</h2>
+<p>这个话题的争论有一半源于口径混战:发言者各自引用一个真实的数字,但四个数字量的不是同一个东西。先把仪表盘摆齐。</p>
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">同一个市场,四个仪表盘</text>
+  <line x1="430" y1="52" x2="430" y2="276" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="24" y="80" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">存量就业 (BLS)</text><rect x="430" y="64" width="14" height="24" rx="5" fill="#52b788" opacity="0.8"/><text x="438" y="80" fill="#52b788" font-size="12" font-weight="700" text-anchor="start" font-family="-apple-system,sans-serif">历史新高</text><text x="24" y="132" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">招聘广告 (Indeed)</text><rect x="320" y="116" width="110" height="24" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="312" y="132" fill="#4cc9f0" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">−27.5% vs 2020</text><text x="24" y="184" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">大厂新人占比 (SignalFire)</text><rect x="180" y="168" width="250" height="24" rx="5" fill="#ff6ec4" opacity="0.8"/><text x="172" y="184" fill="#ff6ec4" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">≈ −65% vs 2019</text><text x="24" y="236" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">22–25 岁在册 (ADP)</text><rect x="348" y="220" width="82" height="24" rx="5" fill="#7b61ff" opacity="0.8"/><text x="340" y="236" fill="#7b61ff" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">≈ −20% vs 2022 峰值</text>
+</svg>
+<figcaption>示意:四个口径量的不是同一个东西——存量创新高,入口端崩塌(条长为示意,各口径基线不同)</figcaption>
+</figure>
+<p><strong>存量(有多少人在岗)——历史新高。</strong>BLS 职业就业统计(OEWS,官方口径,已验证并修正):美国软件开发者总就业 2023 年 5 月约 165.7 万,2024 年 5 月微降 0.15% 至约 165.4 万(在抽样误差之内),2025 年 5 月升至约 168.8 万——最新数据是历史最高值。"软件工程师作为职业正在消失"在存量层面没有任何证据。</p>
+<p><strong>招聘广告(雇主想招多少人)——深坑后回升。</strong>Indeed 软件开发岗位发布指数(以 2020 年 2 月为 100,已验证):2022 年 2 月冲到 234 的峰值,2025 年 5 月跌到 61 的谷底,2026 年 6 月底回到 72.5——仍比疫情前低 27.5%,但同比回升约 10%。注意谷底在 2025 年,不在 ChatGPT 之后立刻出现;后文混淆变量一节会回到这条时间线。</p>
+<p><strong>新人入口(应届生拿到多少 offer)——崩塌最狠的一档。</strong>SignalFire 2025 年报告:应届生占大厂招聘的比例跌到 7%,比疫情前跌超过一半;2026 年报告进一步跌到比 2019 年低约 65%(VC 自建数据,基于抓取的职业档案,无误差披露)。求职端的镜像:纽约联储应届生就业数据(官方,已按验证意见对齐口径),计算机科学专业应届失业率 7.0%、计算机工程 7.8%,在全部专业里排第 2-4 高(全体应届生约 5.6%);但同一张表里,CS 的<strong>低就业</strong>率(做不需要学位的工作)只有 19%,在所有专业里几乎最低——找到工作的 CS 毕业生,拿到的仍然压倒性地是专业对口岗位。门变窄了,门后的房间没变差。</p>
+<p><strong>年龄分辨的在册就业(谁在岗位上)——只有最年轻一档在跌。</strong>这是四个仪表盘里最关键的一个,因为 BLS 不发布"职业×年龄"的就业序列,ADP 工资单数据是目前唯一能按年龄切开软件开发者就业的来源(Canaries 研究,working paper,未经同行评审,已验证):22-25 岁一档从 2022 年底峰值跌近 20%,26 岁以上各档持续增长。截至 2026 年 4 月的仪表盘更新显示分化仍在加深——高暴露职业里 22-25 岁就业以每年 3.8% 的速度收缩,而同龄人在低暴露职业里以约 2% 的速度增长(数字经 Fortune 转述,媒体口径)。</p>
+<p>四个仪表盘合成一句话,这是全文的第一块基石:<strong>"消失"是一个流量现象,不是存量现象。</strong>职业没有收缩,收缩的是进入职业的入口,而且集中在最年轻、最暴露于 AI 的那一格。任何不区分存量与流量的论断——无论是"工程师要没了"还是"数据显示一切正常"——都在用一个口径掩护另一个口径。</p>
+<h2>2. 理论:资历偏向型技术变迁</h2>
+<h3>2.1 任务模型:分析单位是任务,不是岗位</h3>
+<p>劳动经济学处理自动化的标准装备是 Autor、Levy &amp; Murnane 2003 年的任务模型:计算机资本"替代一组有限的、定义清晰的人类活动——常规(重复性)认知与体力任务,并互补于非常规问题解决与交互任务"(NBER 版摘要,已核对)。分析单位是任务而非岗位,所以模型预测的是岗位的<strong>重组</strong>而非消灭。2003 年的分类把写代码归入"非常规认知"——LLM 把其中相当一部分搬进了可自动化的列,这是原模型没有预料的移动,但框架本身不需要推翻,只需要重新填表。</p>
+<p>Acemoglu &amp; Restrepo 把方向问题形式化为两股力的赛跑:<strong>替代效应</strong>(自动化把任务从人手里拿走)对<strong>回填效应</strong>(新任务被创造出来还给人)。哪股赢是实证问题,不是理论问题——理论明确允许两个方向(《Journal of Economic Perspectives》2019)。所以"任务模型预测初级消失"和"任务模型预测初级没事"都是错误引用:模型只预测赛跑,不预测冠军。</p>
+<h3>2.2 锋利的一刀:Autor &amp; Thompson 的"专长"框架</h3>
+<p>对初级岗位问题,目前理论侧最锋利的预测来自 Autor &amp; Thompson 2025 年的 Expertise 论文(NBER 工作论文):用四十年职业数据估计,<strong>当自动化消灭的是一个职业里"不需要专长"的任务时,该职业工资上升、就业下降、剩余任务的专长门槛上升</strong>;消灭的是专家任务时方向相反。AI 编程工具在软件工程里消灭的恰好是前者——样板代码、简单 CRUD、初级 bug 修复,正是初级工程师传统上赖以入门的任务组合。把这个框架套到 AI 编码上是推论(论文本身用 AI 举例但估计基于历史数据):它预测的不是软件工程师消失,而是<strong>这个职业变得更小的入口、更高的门槛、更好的工资</strong>——与第 1 节四个仪表盘的形状严丝合缝。</p>
+<h3>2.3 学徒经济学:为什么市场可能修不好这件事</h3>
+<p>如果入口收窄只是周期,市场会自愈;麻烦在于有一个机制让它可能是自锁的。Arrow 1962 年的干中学是理论地基(原文已逐字核对):"学习是经验的产物。学习只能通过解决问题的尝试发生,因此只在活动中发生。"Doeringer &amp; Piore 1971 年的内部劳动力市场理论补上组织侧:企业通过有限的"入口端口"(ports of entry)招人,高阶岗位靠内部晋升填充——初级招聘本质上是一笔递延回报的投资。</p>
+<p>把两者接上 AI:如果"做"被 agent 吸收,新手失去干中学的介质;如果企业停开入口端口,晋升阶梯断在第一级。Ide 2026 年的学徒模型(arXiv 工作论文,纯理论)把这个直觉形式化:<strong>入门级自动化对单个企业私人有利,但可能社会性亏损</strong>——因为它切断专家向新手的默会知识传递,而这笔损失不进任何一家企业的损益表。这是一个市场失灵的形状:每家公司理性地少雇初级,全行业在五年后集体缺资深。Matt Beane 的田野研究(HBR 2019/《The Skill Code》2024)在 30 多个职业里记录了同一机制的前 AI 版本:智能机器把新手从专家身边分离,堵死在岗技能形成。</p>
+<p>反方理论同样来自 Autor 本人(Noema 2024,立场文):AI 是<strong>专长平权器</strong>,能"把人类专长的相关性、覆盖面与价值延伸给更大的劳动者群体"——照此,AI 应该让更多而非更少的人有资格干高价值工作。注意两个 Autor 并不矛盾:平权器说的是"会的人变多",Expertise 框架说的是"要的人变少"——工资与就业可以反向运动。这正是下一节计量对战的理论看点。</p>
+<h2>3. 计量对战:两类数据,两个结论</h2>
+<p>2025-2026 年的实证文献在这个问题上分成两个阵营,而分界线不是立场,是<strong>数据类型</strong>。</p>
+<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <line x1="60" y1="270" x2="660" y2="270" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="60" y2="40" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="70" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2021</text>
+  <text x="255" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2022</text>
+  <text x="420" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2024</text>
+  <text x="610" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2026</text>
+  <line x1="300" y1="58" x2="300" y2="270" stroke="#f0b429" stroke-width="1.2" stroke-dasharray="4,5" opacity="0.7"/>
+  <text x="308" y="70" fill="#f0b429" font-size="11" font-family="Menlo,monospace">ChatGPT 发布</text>
+  <path d="M 70 190 C 160 160, 240 148, 300 145 C 400 141, 520 128, 645 112" stroke="#4cc9f0" stroke-width="3" fill="none"/>
+  <path d="M 70 196 C 160 168, 240 152, 300 150 C 380 152, 440 175, 500 200 C 560 224, 610 238, 645 246" stroke="#ff6ec4" stroke-width="3" fill="none"/>
+  <circle cx="300" cy="145" r="4" fill="#4cc9f0"/>
+  <circle cx="300" cy="150" r="4" fill="#ff6ec4"/>
+  <text x="640" y="100" fill="#4cc9f0" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">26 岁以上:继续增长</text>
+  <text x="640" y="240" fill="#ff6ec4" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">22–25 岁:峰值以来 ≈ −20%</text>
+</svg>
+<figcaption>示意:ADP 工资单口径(Canaries,2025-11 版)——同为软件开发者,分化只出现在最年轻一档;作者 2026-02 承认最宽控制下 2024 年后才显著</figcaption>
+</figure>
+<h3>3.1 工资单阵营:看得见年龄梯度</h3>
+<p><strong>Canaries</strong>(斯坦福,ADP 工资单微观数据,已验证):22-25 岁在 AI 暴露度最高的职业里,相对最低暴露职业出现 <strong>16% 的相对就业下滑</strong>(2025 年 11 月版;8 月初版为 13%,数字在版本间被修正过)——控制企业×时间固定效应后依然成立,也就是说,同一家公司内部的整体冲击(裁员潮、利率、税改)解释不掉它。下滑集中在 AI<strong>替代型</strong>(而非增强型)使用占主导的职业;调整走的是<strong>就业量</strong>而不是工资;结论对剔除科技行业、剔除可远程职业都稳健。</p>
+<p><strong>Hosseini &amp; Lichtinger</strong>(哈佛,6,200 万份简历 + 招聘数据,SSRN 工作论文,已验证):给了现象一个名字——<strong>资历偏向型技术变迁</strong>(seniority-biased technological change)。从 2023 年一季度起,采用生成式 AI 的公司里初级就业相对未采用公司显著下滑,资深就业继续上升;下滑主要由<strong>放缓招聘</strong>驱动,不是裁员。两个独立数据源、两套方法,指向同一个形状:动的是入口,不是存量。</p>
+<h3>3.2 招聘广告与住户调查阵营:看不见 AI 信号</h3>
+<p><strong>耶鲁 Budget Lab</strong>(CPS 住户调查,已验证):ChatGPT 发布 33 个月后"更广泛的劳动市场没有经历可辨别的扰动";2026 年 5 月用合成双重差分重测,到 2026 年一季度为止对 AI 暴露职业的就业与工资"总体上没有发现统计或经济上显著的效应"。<strong>EIG</strong>:2022 到 2025 年初,AI 暴露度最高的劳动者失业率反而涨得更少(+0.30 个百分点 vs 最低暴露组 +0.94)。<strong>纽约联储</strong>(Lightcast 招聘广告 + Anthropic 暴露度量,2026 年 5 月,已验证):高暴露职业里"初级与资深岗位的劳动需求大体平行移动",高低暴露的缺口在 2022 年之前就存在、之后没有断点。<strong>LinkedIn 官方报告</strong>(2026 年 1 月,已验证):"入门级岗位没有受到不成比例的冲击","我们没有看到 AI 影响入门级岗位——目前还没有"(原文带着那个 yet)——值得一提的是,这份报告与 LinkedIn 自家高管 Aneesh Raman 半年前在《纽约时报》发表的"职业阶梯最底一级正在断裂"专栏唱的是反调,同一家公司,两个声音。</p>
+<h3>3.3 分歧的解剖:他们测的不是同一个东西</h3>
+<p>这不是"一半研究说有、一半研究说没有"的糊涂账。两个阵营的测量对象系统性不同:</p>
+<ul><li>工资单/简历数据测<strong>在册人头</strong>,按年龄切分,能看见"入口收窄"这种构成变化;</li><li>招聘广告数据测<strong>需求流量</strong>,但初级岗位大量不走公开广告(校招、内推、合同转正),且"junior"标题只占软件开发广告的约 2%;</li><li>CPS 住户调查测<strong>失业状态</strong>,但样本切到"年轻×单一职业"后格子太小,而且从未入职的毕业生不会被算成"软件开发者失业"——他们在数据里是别的职业、或不在劳动力里。</li></ul>
+<p>换句话说:<strong>如果真实现象恰好是"最年轻一档的招聘流量收缩",那么工资单数据应该看得见、广告和住户数据应该看不见——而这正是观察到的证据分布。</strong>空值结果不是矛盾,是测量分辨率的自然结果。经济学家 Jed Kolko 对这批文献的综述给了合适的时间戳:"这些研究没有一项是——也不可能是——最后的定论",研究"还在第一局"。</p>
+<p>工资单阵营自己也收窄过口径:Canaries 作者在 2026 年 2 月的回应文(已验证)里承认,<strong>用最宽的控制,就业下滑只在 2024 年之后统计显著</strong>,"下滑时点的一部分归因于 AI 以外的因素"——原版"2022 年底起步"的叙事被作者本人收窄了。同一篇回应也反击了利率批评:AI 暴露度与职业的利率敏感度<strong>负相关</strong>(利率最敏感的建筑业恰好 AI 暴露最低),"利率假说指向错误的方向"。</p>
+<h2>4. 混淆变量:2022 年的鸡尾酒</h2>
+<p>"其实是宏观,不是 AI"阵营手里有四张真牌,每张都得按面值收下,然后看它们解释不了什么。</p>
+<p><strong>时间线。</strong>Indeed 自家分析(已验证):美国科技岗位广告从 2022 年初峰值的下滑,<strong>近一半发生在 ChatGPT 公开发布之前</strong>。谷歌两位经济学家(利益相关方,口径注明)补充:AI 暴露最高档的岗位广告 2022 年 3-4 月见顶,踩着美联储加息的节奏,而非任何模型发布;人口普查局数据显示 2023 年四季度计划在生产中使用 AI 的大企业不到 10%。Apollo 首席经济学家 Slok 的版本:应届生失业缺口 2022 年初就出现了,"更可能是低招聘、低解雇市场的产物,而不是一项当时企业几乎还没部署的技术"。</p>
+<p><strong>税改。</strong>美国税法 Section 174 从 2022 年起强制软件研发工资五年摊销(海外 15 年),taxfoundation 分析师估算约 2 万个软件岗位因此消失(政策模型估计,非事后测量),微软 2023 年为此多缴 48 亿美元税。2025 年 7 月 4 日 OBBBA 法案恢复即时费用化——这制造了一个天然实验,结果两面开刃:<strong>总量反弹了</strong>(2026 年 3 月软件工程师广告同比 +11%,Citadel 分析 Indeed 数据;4 月 IT/CS 广告 +14.2%,ZipRecruiter),<strong>初级份额继续跌</strong>(入门级占 IT 广告份额 8.1%→7.4%,资深份额 38.8%→43.1%,媒体转述口径)。一项年龄中性的税改,解释不了年龄梯度在税改修复后继续加深。</p>
+<p><strong>过度招聘回吐。</strong>layoffs.fyi 口径:2023 年科技裁员 26.3 万(峰值),2024 年 15.3 万,2025 年 12.3 万,逐年递减——回吐主体发生在 AI 编码 agent 成熟之前。</p>
+<p><strong>离岸。</strong>印度全球能力中心(GCC)2026 年预计招聘 51 万人,上半年同比 +11%,其中<strong>早期职业(0-3 年)招聘同比 +18%</strong>(招聘平台口径)。初级软件工作没有消失,一部分搬去了班加罗尔——这是四个混淆项里被反驳得最少的一个:它和 AI 一样能解释"美国初级独跌",而且 OBBBA 保留海外 15 年摊销的惩罚都没拦住它。</p>
+<p>混淆项的合成判决,也是本文的第二块基石:<strong>宏观鸡尾酒解释水位,解释不了构成。</strong>利率、税改、回吐能解释 2022-2025 招聘总量的崩塌与回升,但它们都是年龄中性、行业中性的力量;而数据里最扎眼的形状恰恰是构成性的——同一家公司内部,同一时段,只有最年轻×最暴露的格子在跌(firm-time 固定效应内),同一套暴露度分类在 LLM 之前的历史时期(包括疫情失业冲击)预测不了年轻人的就业结果(Canaries 安慰剂检验,已验证)。AI 归因的份额仍然是推断,但"纯宏观、零 AI"的版本需要解释掉这个梯度,而目前没有谁做到。</p>
+<h2>5. 悖论的解法:个体生产率不是雇佣决策</h2>
+<p>现在回到开篇的矛盾:RCT 说 AI 最帮新手,市场说新手岗位最先收缩。两件事怎么同时为真?</p>
+<figure>
+<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="165" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">实验室(RCT):个体产出增益</text>
+  <text x="535" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">劳动市场(2023–26):就业结果</text>
+  <line x1="50" y1="220" x2="280" y2="220" stroke="#5a6378" stroke-width="1.5"/>
+  <rect x="80" y="90" width="60" height="130" rx="6" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="180" y="175" width="60" height="45" rx="6" fill="#4cc9f0" opacity="0.45"/>
+  <text x="110" y="82" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">+27–39%</text>
+  <text x="210" y="167" fill="#7c8593" font-size="12" text-anchor="middle" font-family="Menlo,monospace">+8–13%</text>
+  <text x="110" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">新手</text>
+  <text x="210" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">老手</text>
+  <line x1="420" y1="140" x2="650" y2="140" stroke="#5a6378" stroke-width="1.5"/>
+  <rect x="450" y="140" width="60" height="75" rx="6" fill="#ff6ec4" opacity="0.85"/>
+  <rect x="550" y="95" width="60" height="45" rx="6" fill="#52b788" opacity="0.7"/>
+  <text x="480" y="234" fill="#ff6ec4" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">≈ −20%</text>
+  <text x="580" y="87" fill="#52b788" font-size="12" text-anchor="middle" font-family="Menlo,monospace">增长</text>
+  <text x="480" y="256" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">新手</text>
+  <text x="580" y="156" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">老手</text>
+  <path d="M 300 150 Q 350 130 400 150" stroke="#f0b429" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#arrowp)"/>
+  <defs><marker id="arrowp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"/></marker></defs>
+  <text x="350" y="115" fill="#f0b429" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">组织的成本响应</text>
+</svg>
+<figcaption>示意:同一项技术,个体层面最帮新手(左,Copilot 三场 RCT),市场层面新手岗位收缩最狠(右,ADP)——分岔发生在企业的雇佣决策,不在技术里</figcaption>
+</figure>
+<p>第一步是把 RCT 的证据边界画清楚。Copilot 三场实验测的是<strong>已被雇佣的</strong>开发者的任务产出;QJE 客服研究测的是<strong>已入职</strong>客服的每小时解决量。没有任何一场实验测"企业因此多雇还是少雇新手"——这不是缺陷,是实验设计天然回答不了的问题。QJE 作者在结论里把两个分支都摆在了桌面上(原文已核对):"长期看,企业对新手生产率提升的响应,可能是<strong>雇更多新手</strong>,也可能是<strong>去开发更强的 AI 系统把劳动整个替换掉</strong>。"同一组实验证据,支持两个相反的雇佣预测——分岔点在企业的生产函数响应,而实验不识别它。</p>
+<p>第二步是看清哪个分支在数据里显形。第 3 节的工资单证据显示,至少 2023-2026 年的美国软件行业,企业选的是第二个分支:新手更能干了,但"新手 + AI"能干的活,"资深 + AI"干得更快更稳——而资深已经在册。当 AI 把初级产出的下限抬起来,它同时把"不雇初级"的成本降下去了。<strong>帮新手最多的技术,恰恰让新手变得最可替代——这两句话在组织的账本上是同一句话。</strong>这不是悖论,是互补品与替代品在不同分析层次上的换位:在个体层面 AI 与新手互补,在组织层面"资深+AI"组合替代了"资深带新手"组合。</p>
+<p>第三步是这个解法自带的长期账单,也就是第 2.3 节学徒经济学的实证接口。如果新手不被雇佣,干中学无从发生;如果新手被雇佣但活都让 agent 干了,干中学同样不发生。学习科学侧已有第一块因果证据(PNAS 2025,约千名高中生,已验证):无护栏的 GPT-4 让练习成绩涨 48%,但<strong>撤掉 AI 后比从未用过的对照组差 17%</strong>;而带护栏的导师版消除了大部分伤害。把它外推到工程师培养是类比不是证据——但方向与 QJE 研究的反例并存(该研究发现客服新手的收益反映"持久的学习",AI 宕机时技能仍在):<strong>AI 之于技能形成是毒是药,取决于使用架构,而不是取决于 AI。</strong>行业里没人测量的数字最能说明问题:截至 2026 年 7 月,"初级→资深晋升时长是否因 AI 改变"没有任何可信数据——整个行业在辩论阶梯断没断,却没有人在测量阶梯。</p>
+<p>顺带钉一块墓碑:曾被广泛引用来支持"AI 其实帮资深最多"的 MIT 材料科学家论文(Toner-Rodgers),2025 年 5 月被 MIT 官方以数据造假为由否认并要求撤稿。"反转文献"目前在 agentic 时代没有任何一篇发表的 RCT 撑腰——"资深指挥 agent 收益更大"在 2026 年 7 月仍是厂商遥测支持的假说,不是实验结论。</p>
+<h2>6. 行业行为:宣言、回摆与资历化</h2>
+<p>企业嘴上说的和手上做的,在 2025-2026 年之间裂开了一道缝,缝的形状本身是证据。</p>
+<p><strong>宣言期(2025 上半年)。</strong>Anthropic CEO Dario Amodei 通过 Axios 警告 AI 可能在 1-5 年内消灭一半入门级白领岗位、把失业率推到 10-20%(注意口径:这组数字是 Axios 的转述表述,非逐字引语;AI 厂商 CEO 对 AI 能力叙事有商业利益)。Meta 的 Zuckerberg 说 2025 年内 AI 能顶中级工程师;Salesforce 的 Benioff 宣布 2025 年不再新招软件工程师(理由是 Agentforce 带来 30% 生产率提升,厂商自报无方法学);亚马逊 Jassy 发内部信称生成式 AI"未来几年会缩减公司总部员工数"(官方一手,但未特指工程或初级)。</p>
+<p><strong>回摆期(2025 下半年-2026)。</strong>Klarna 2024 年宣传 AI 客服顶 700 人,2025 年 5 月开始重新雇人,CEO 承认"走得太远"。Benioff 7 月改口否认"白领末日"框架。IBM 2026 年 2 月宣布把美国入门级招聘扩大两倍,CHRO 把管道逻辑说得很直白:"三五年后最成功的公司,是那些在这个环境里加倍下注入门级招聘的公司"——不雇初级的公司届时只能去挖别家的中级。Robert Half 调查:32% 因 AI 裁掉岗位的招聘经理后来重新招回了同类岗位;Orgvue:55% 做过 AI 裁员的领导者认为裁错了(三家均为人力行业厂商,口径注明,回摆叙事对其有利)。AWS CEO Garman 说得最狠:用 AI 替代初级员工"是我听过最蠢的想法之一"——初级员工是"最便宜的员工、AI 工具用得最溜的一批",亚马逊 2026 年照招 1.1 万实习生和应届生。</p>
+<p><strong>宣言与回摆之间的净残留,是三件更结构性的事。</strong>其一,<strong>资历化</strong>(seniorisation,PwC 2026 Jobs Barometer 的术语,咨询厂商口径):入门岗位没有消失,而是被重新定义——高 AI 暴露职业的入门岗位要求传统资深技能的概率是低暴露职业的 7 倍,"资历化"的入门岗位自 2019 年增长 35%,传统口径的入门空缺只降 10%。岗位还在,但它不再是给 22 岁白纸准备的。其二,<strong>训练场任务被 agent 吸收</strong>(厂商遥测,未验证):Anthropic 经济指数显示 Claude Code 上 79% 的会话是"自动化"型(AI 直接完成任务),最集中的任务——简单 UI、CRUD 应用、bug 修复——恰好是初级工程师传统的练级区。其三,<strong>训练管道的商业模式先死</strong>:编程训练营行业 2024-2025 年成片倒闭(Epicodus、Code Fellows 关停,2U 报名跌 40% 后退出,高口碑的 Rithm 停招并直言 2024 年是十几年来最差的入门市场)——依赖"初级岗位充裕"的商业模式是这个生态的煤矿金丝雀,它们先于任何官方统计死掉了。</p>
+<p><strong>历史基率提供最后一层校准。</strong>Hinton 2016 年 10 月说"现在就该停止培养放射科医生"(原话已核对:"深度学习五年内显然会超过放射科医生……也可能十年");十年后的 2026 年,放射科住院医师匹配岗位数创历史纪录(1,478 个,填充率 97.6%),平均薪酬 57.1 万美元,Hinton 本人对《纽约时报》承认"说得太宽了"、时点错了。但这个先例的伤害同样入账:预测本身把入口漏斗打伤了——放射诊断科申请人数从 2023 年峰值跌了 14%,恐慌叙事对管道的破坏不需要预测成真。ATM 机曾让银行柜员就业逆势增长 15 年(单网点柜员 21→13 人,开网点变便宜),直到移动银行补上最后一刀;电子表格消灭 40 万记账员岗位、同期新增 60 万会计岗位——<strong>总量活下来是历史常态,routine 层吸收全部损失也是历史常态。</strong>问题从来不是"职业会不会消失",是"入口那一层归谁"。</p>
+<h2>7. 结语:七个可检验的主张</h2>
+<p>全文归结为七个主张,按证据强度排序:</p>
+<ol><li><strong>"消失"是流量现象,不是存量现象。</strong>软件开发者总就业创历史新高,同时 22-25 岁一档在册就业自 2022 年底累计跌近 20%——两者同真,不矛盾。(强:BLS 官方存量 + ADP 年龄分辨序列,两票均已验证)</li><li><strong>AI 在个体层面最帮新手。</strong>两组同行评审的因果证据(Copilot 三场 RCT、QJE 客服研究)方向一致;但全部预 agentic 时代,且"资深指挥 agent 反超"的反向假说尚无实验证据。(强,带时效边界)</li><li><strong>年龄×暴露梯度真实存在、且在 2024 年后加深。</strong>两个独立数据源(ADP 工资单、6,200 万简历)交叉;调整走招聘端而非裁员端。(中强:均为 working paper,未经同行评审)</li><li><strong>宏观混淆项解释水位,解释不了构成。</strong>利率、Section 174、过度招聘回吐足以解释总量崩塌;但年龄中性的力量解释不了 firm-time 固定效应内的年龄梯度,税改修复后初级份额继续下跌。离岸是唯一同样能解释构成的竞争假说。(中强)</li><li><strong>"帮新手最多"与"新手岗位最先收缩"不构成矛盾。</strong>RCT 测个体产出,雇佣是组织对成本结构的响应;QJE 作者本人明示两个分支,2023-2026 年的美国数据显形的是替代分支。(中:机制推断,踩在已验证证据上)</li><li><strong>阶梯断裂的成本真实但未被定价。</strong>干中学与入口端口理论成立,学徒市场失灵有形式化模型,PNAS 给了护栏因果证据;但"晋升时长是否已变"全行业无人测量——这个测量空洞本身是最值得盯的信号。(中:理论扎实,实证缺位)</li><li><strong>极端叙事的历史基率不利,且叙事本身有杀伤力。</strong>放射科预测十年未兑现但打掉了 14% 的申请人;2026 年的企业回摆(IBM、Robert Half 32%、Orgvue 55%)提示宣言期存在系统性过冲。(中:先例与调查证据,均带口径限制)</li></ol>
+<p>到 2027 年值得盯的判据:Canaries 梯度是否蔓延到 26-30 岁档(资历化的自然推论);招聘广告数据里初级/资深是否出现纽约联储目前没看到的分叉;IBM 式回摆是主流化还是个案;以及有没有任何组织开始发布"初级→资深晋升时长"数据。第一个把阶梯当资产负债表科目来测量的公司,会比所有宣言都更有信息量。</p>
+<hr>
+<h2>附:主要来源</h2>
+<p><strong>就业与招聘数据</strong>:BLS OEWS (SOC 15-1252, May 2023/2024/2025) · Indeed Hiring Lab 软件开发岗位指数 (FRED: IHLIDXUSTPSOFTDEVE) 及 Bernard "The US Tech Hiring Freeze Continues" (2025-07) · NY Fed, The Labor Market for Recent College Graduates (2026-02 更新) · LinkedIn Economic Graph, Labor Market Report (2026-01) · SignalFire State of Tech Talent 2025/2026 (VC 口径) · Orosz, The Pragmatic Engineer (2026-06) · CRA Taulbee Survey (2026-06) · layoffs.fyi</p>
+<p><strong>计量研究</strong>:Brynjolfsson, Chandar &amp; Chen, "Canaries in the Coal Mine?" (Stanford Digital Economy Lab, 2025-11 版 + 2026-02 回应 + Canaries Dashboard) · Hosseini &amp; Lichtinger, "Generative AI as Seniority-Biased Technological Change" (SSRN 5425555) · The Budget Lab at Yale (2025-10; 2026-05 SDID) · Eckhardt &amp; Goldschlag (EIG, 2025-08) · Audoly, Guerin &amp; Topa (NY Fed Liberty Street Economics, 2026-05) · Iscenko &amp; Curto Millet (Google, "Looking for the Ladder", 2026-01) · Kolko (PIIE, 2026-03) · Massenkoff &amp; McCrory (Anthropic, 2026-03, 厂商口径)</p>
+<p><strong>实验证据</strong>:Cui, Demirer, Jaffe, Musolff, Peng &amp; Salz, "The Effects of Generative AI on High-Skilled Work" (<em>Management Science</em>, 2026) · Brynjolfsson, Li &amp; Raymond, "Generative AI at Work" (<em>QJE</em> 140(2), 2025) · METR (arXiv:2507.09089; 2026-02 更新) · Paradis et al. (Google, arXiv:2410.12944) · Bastani et al., "Generative AI without guardrails can harm learning" (<em>PNAS</em> 122(26), 2025) · MIT 对 Toner-Rodgers 论文的撤稿声明 (2025-05)</p>
+<p><strong>理论</strong>:Autor, Levy &amp; Murnane (<em>QJE</em> 2003) · Acemoglu &amp; Restrepo (<em>AER</em> 2018; <em>JEP</em> 2019) · Acemoglu, "The Simple Macroeconomics of AI" (2024) · Autor &amp; Thompson, "Expertise" (NBER WP 33941, 2025) · Autor, Noema (2024) · Ide, "Automation, AI, and the Intergenerational Transmission of Knowledge" (arXiv:2507.16078) · Arrow (1962) · Doeringer &amp; Piore (1971) · Beane, "Learning to Work with Intelligent Machines" (HBR 2019) / <em>The Skill Code</em> (2024) · Deming, Ong &amp; Summers (NBER WP 33323) · Bessen (ATM/柜员) · NPR Planet Money #606 (电子表格)</p>
+<p><strong>行业行为</strong>:Amodei via Axios (2025-05-28, 转述口径) · Zuckerberg via JRE (2025-01) · Benioff (2025-02; 2025-07 改口) · Jassy 内部信 (2025-06-17) · IBM 入门级扩招 (2026-02) · Garman via Platformer (2026-06) · Robert Half / Orgvue / Careerminds 回摆调查 (2025-2026, 人力厂商口径) · PwC Global AI Jobs Barometer 2026 (咨询厂商口径) · Strada (2026-05) · NACE Job Outlook 2026 · LeadDev AI Impact Report 2025 · Anthropic Economic Index (2025-04 软件开发报告; 2026-03; 2026-06, 厂商口径) · Stack Overflow Developer Survey 2025 · DORA 2025 · Course Report 训练营年报 · Klarna/IBM/Duolingo/Shopify 各回摆时间线 · NRMP Match 2026 放射科数据 · Hinton 2016 演讲 / Fortune 2026-05 访谈</p>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>
