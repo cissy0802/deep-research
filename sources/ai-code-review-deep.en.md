@@ -120,7 +120,7 @@ Put the five sections together and the answer is not either/or — it is conditi
 
 ### 7.3 The market's own vote
 
-Supply-side behavior reveals practitioners' actual beliefs. Cursor paid a premium for Graphite — the company that writes code decided reviewing code is the next bottleneck, worth buying. GitHub moved Copilot code review to usage-based billing (June 2026) — usage grew past what the platform would subsidize, which is hard evidence of adoption. Google is sunsetting the consumer tier of Gemini Code Assist code review (effective July 17, 2026) — the first exit signal. And Greptile's CEO, after raising $30M, published "There is an AI code review bubble," conceding that signal-to-noise is the industry's fundamental problem. **Among the shovel-sellers, some have started telling the truth about the ore.**
+Supply-side behavior reveals practitioners' actual beliefs. Cursor paid a premium for Graphite — the company that writes code decided reviewing code is the next bottleneck, worth buying. GitHub moved Copilot code review to usage-based billing (June 2026) — usage grew past what the platform would subsidize, which is hard evidence of adoption. Google is sunsetting the consumer tier of Gemini Code Assist code review (effective July 17, 2026) — the first exit signal. And Greptile CEO Daksh Gupta, after raising $30M, published "There is an AI code review bubble," conceding that signal-to-noise is the industry's fundamental problem. **Among the shovel-sellers, some have started telling the truth about the ore.**
 
 ## 8. A guide for the parties involved
 
