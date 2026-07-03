@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 审代码,谁来审 AI?(易读版) — BigCat Deep Research</title>
+<meta name="description" content="查代码的人跟不上 AI 写代码的速度,行业的药方是再买一个 AI 来查——它什么时候是解药,什么时候是套娃。易读版:主线论证 + 直白语言。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="ai-code-review-plain.html" class="active">中文</a><a href="ai-code-review-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>AI 审代码,谁来审 AI?(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="ai-code-review-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 写代码提速,查代码的人跟不上——瓶颈是真的。行业的药方是再买一个 AI 来查,但 AI 检查员自己会捏造 bug,而且和写代码的 AI 犯的错越来越像。有测试兜底、误报受控、人握终审权时,它是每次一美元的廉价额外保险;三个条件缺任何一个,它就开始向套娃滑动。</div></div>
+<div class="chips"><span class="chip c1">评审时长 +441.5%</span><span class="chip c2">6/6 自办基准第一</span><span class="chip c3">Meta 离线 68% → 生产 19.75%</span><span class="chip c4">AI 评论采纳率 0.9–19.2%</span></div>
+<blockquote><p>本文是同名深入版的精简版。深入版有完整的论证链、全部数据出处和证据分级;这一版只保留主线,用直白的话讲清楚。关键数字都经过独立核查(数据截至 2026 年 7 月)。</p></blockquote>
+<h2>一句话先回答</h2>
+<p>AI 写代码越来越快,检查代码的人跟不上了——这是真问题。行业开出的药方是"再买一个 AI 来检查代码"。这副药<strong>在窄场景里真的有效,但在最需要它的地方,它更像套娃</strong>:用一个会犯错的 AI,去检查另一个会犯错的 AI,而且它们犯的错越来越像。</p>
+<h2>检查代码为什么成了瓶颈</h2>
+<p>先看需求是不是真的。AI 让写代码这件事提速了,但每一行代码在合入之前,都要有人确认它是对的——这道工序叫 code review(代码评审)。三家互不相关的数据源指向同一个方向:</p>
+<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">AI 高采用期 vs 低采用期(Faros 遥测,22,000 名开发者)</text>
+  <line x1="230" y1="52" x2="230" y2="322" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="24" y="72" fill="#7c8593" font-size="12" font-family="Menlo,monospace">任务完成 / 人</text><rect x="230" y="82" width="34" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="274" y="97" fill="#52b788" font-size="13" font-weight="700" font-family="Menlo,monospace">+33.7%</text><text x="24" y="136" fill="#7c8593" font-size="12" font-family="Menlo,monospace">PR 审查中位时长</text><rect x="230" y="146" width="400" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="640" y="161" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">+441.5%</text><text x="24" y="200" fill="#7c8593" font-size="12" font-family="Menlo,monospace">事故 / PR</text><rect x="230" y="210" width="220" height="20" rx="5" fill="#e8794b" opacity="0.85"/><text x="460" y="225" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">+242.7%</text><text x="24" y="264" fill="#7c8593" font-size="12" font-family="Menlo,monospace">零审查直接合并的 PR</text><rect x="230" y="274" width="30" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="270" y="289" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">+31.3%</text>
+</svg>
+<figcaption>示意:同一批组织,产出小幅上升,代价堆在评审环节——评审变慢、事故变多、越来越多 PR 无人审(厂商遥测,前后对比口径,条长为示意)</figcaption>
+</figure>
+<ul><li>GitHub 上每个月合并的代码提交(PR)同比增长 23%,洪峰已经形成;</li><li>一家监测 22,000 名工程师的遥测公司发现:AI 用得最猛的时期,评审一个 PR 的中位时间比低谷期<strong>涨了 441%</strong>,完全没人看就直接合并的 PR 多了 31%,每个 PR 出的事故多了 243%(这是厂商自己的监测数据,不是严格实验,但方向和另外两家一致);</li><li>谷歌自己的论文白纸黑字写着:内部用 AI 做代码迁移时,"瓶颈是工程师评审变更的速度,我们<strong>刻意限制了每周生成的变更数量</strong>,以免压垮评审者"。</li></ul>
+<p>写得快、查得慢,堵车堵在检查站——这个诊断成立。问题出在药方上。</p>
+<h2>卖家的成绩单,为什么不能直接信</h2>
+<p>市面上的 AI 审代码工具怎么证明自己有效?发成绩单。但这些成绩单有一个规律:<strong>谁办的考试,谁考第一。</strong>截至 2026 年初,至少 6 家厂商发布过自家的评测基准,发布者本人无一例外排名第一。有一家的工具在自家考卷上"抓住 82% 的 bug";换一家竞争对手用同样五个代码库重新出题,它得 45 分;再换第三家的考卷,它的评论里<strong>约 6 条有 5 条指向的根本不是真 bug</strong>。同一个工具,三张考卷,三个天差地别的分数。</p>
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个工具,四张考卷(Greptile,2025-07 至 2026-05)</text>
+  <text x="24" y="76" fill="#7c8593" font-size="12" font-family="Menlo,monospace">自家基准 · 捕获率</text><rect x="24" y="86" width="410" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="444" y="101" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">82%</text><text x="24" y="138" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Augment 重测 · F 分</text><rect x="24" y="148" width="225" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="259" y="163" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">45%</text><text x="24" y="200" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Tenki · 召回</text><rect x="24" y="210" width="181" height="20" rx="5" fill="#f0b429" opacity="0.85"/><text x="215" y="225" fill="#f0b429" font-size="13" font-weight="700" font-family="Menlo,monospace">36.1%</text><text x="24" y="262" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Tenki · 精确率</text><rect x="24" y="272" width="80" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="114" y="287" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">15.9%</text>
+  <rect x="24" y="326" width="500" height="30" rx="8" fill="#e85a4f" opacity="0.12" stroke="#e85a4f" stroke-opacity="0.5"/>
+  <text x="38" y="346" fill="#ff8a80" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">6 家自办基准,发布者 6 次全部第一</text>
+</svg>
+<figcaption>示意:分数取决于谁出题、量哪根轴——只报捕获率不报误报率,是信号检测论 1966 年就判过的度量错误(各基准指标不同,不可直接比大小)</figcaption>
+</figure>
+<p>更有意思的是,后来出现了一个由独立研究机构办的排行榜,总算没有利益冲突了吧?结果一个月之内,三家厂商各自发博客宣布"我们第一"——一家是"综合分第一",一家是"某单项第一",还有一家拿实验室特供版参赛拿了第一(它在售的产品排第四)。</p>
+<p>这里面的门道其实六十年前就被科学界解决过:<strong>光说"抓住了多少 bug"、不说"报了多少假警报",这个数字毫无意义</strong>——把警报阈值调灵敏一点,任何检测器都能"抓住更多 bug",代价是假警报淹死你。而假警报恰恰是审代码场景里最贵的东西,因为它消耗的是工程师本来就不够用的注意力。下次看到任何"我们能抓住 X% 的 bug",先问一句:误报率多少?不敢说的,按没有及格算。</p>
+<h2>大厂自己用得怎么样</h2>
+<p>真正值钱的数据来自把 AI 审代码用在自己身上、并且诚实公布漏斗的公司。</p>
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="170" y="58" fill="#e4e6eb" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Meta(2507.13499)</text><rect x="20.0" y="78" width="300" height="34" rx="6" fill="#4cc9f0" opacity="0.9"/><text x="170" y="100" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">67.96%</text><text x="170" y="128" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">离线 exact-match</text><rect x="75.0" y="144" width="190" height="34" rx="6" fill="#4cc9f0" opacity="0.68"/><text x="170" y="166" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">≈28.7%</text><text x="170" y="194" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">展示后被采纳</text><rect x="115.0" y="210" width="110" height="34" rx="6" fill="#4cc9f0" opacity="0.46"/><text x="170" y="232" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">19.75%</text><text x="170" y="260" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">生产 Actionable→Applied</text>
+  <text x="520" y="58" fill="#e4e6eb" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Google(ICSE-SEIP 2024)</text><rect x="370.0" y="78" width="300" height="34" rx="6" fill="#7b61ff" opacity="0.9"/><text x="520" y="100" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">49%</text><text x="520" y="128" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">模型高置信预测</text><rect x="425.0" y="144" width="190" height="34" rx="6" fill="#7b61ff" opacity="0.68"/><text x="520" y="166" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">10.7%</text><text x="520" y="194" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">被作者预览</text><rect x="465.0" y="210" width="110" height="34" rx="6" fill="#7b61ff" opacity="0.46"/><text x="520" y="232" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">7.5%</text><text x="520" y="260" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">被采纳入库</text>
+  <line x1="350" y1="52" x2="350" y2="280" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,5"/>
+</svg>
+<figcaption>示意:两家第一方漏斗——离线分数是自家精选考卷上的成绩,生产采纳率才是市场价(两家分母口径不同,不可互比,只看各自衰减)</figcaption>
+</figure>
+<p><strong>谷歌</strong>:AI 建议的修改,最终解决了全部人工评审意见的 <strong>7.5%</strong>。不是 75%,是 7.5%——而且谷歌论文里自己承认,他们能测量的这些指标都只是生产力的"容易测量的代理",至于 AI 到底抓住了多少真 bug,没人测得出来。</p>
+<p><strong>Meta</strong>:AI 修代码的模型,在自家精选考卷上能拿 <strong>68 分</strong>;上到真实生产环境,被工程师真正采纳的比例是 <strong>19.75%</strong>。离线分数和真实价值之间,隔着一个数量级。同一篇论文里还有个更扎心的实验:Meta 把 AI 生成的修复补丁展示给评审者看,结果评审<strong>反而变慢了 5.5%</strong>(统计显著)——AI 的产出本身成了评审者的新负担。最后怎么解决的?不是改进模型,是把 AI 补丁从评审者眼前<strong>藏起来</strong>。</p>
+<p><strong>独立研究</strong>补上另一面:开源的 AI 评审工具发出的评论,只有 <strong>0.9% 到 19.2%</strong> 真的导致了代码修改,而人类评审意见是 60%;有人在同一批真实 PR 上并行跑了四个主流工具,发现 <strong>93.4% 的问题只有一个工具报出来,四个工具全都同意的问题是零条</strong>(这个测试的作者在其中一家厂商工作,数字本身开源可查)。四个"检查员"对"什么是问题"几乎没有共识——它们给出的更像各自的意见,而不是检验结论。</p>
+<h2>套娃到底套在哪</h2>
+<p>最深的问题不是这些工具还不够好,而是这个结构本身有内伤。</p>
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <defs><marker id="arrowt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"/></marker></defs>
+  <rect x="60" y="60" width="250" height="48" rx="10" fill="#4cc9f0" opacity="0.18" stroke="#4cc9f0" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="89" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">AI 写代码</text><text x="336" y="89" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">产出不可靠 → 需要检查</text><path d="M 185 108 L 185 150" stroke="#5a6378" stroke-width="1.5" marker-end="url(#arrowt)"/><rect x="60" y="150" width="250" height="48" rx="10" fill="#7b61ff" opacity="0.18" stroke="#7b61ff" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="179" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">AI 审代码</text><text x="336" y="179" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">幻觉 bug · 与生成器错误趋同</text><path d="M 185 198 L 185 240" stroke="#5a6378" stroke-width="1.5" marker-end="url(#arrowt)"/><rect x="60" y="240" width="250" height="48" rx="10" fill="#ff6ec4" opacity="0.18" stroke="#ff6ec4" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="269" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">人审 AI 的审查</text><text x="336" y="269" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">自动化自满:「训练无法预防」</text>
+  <path d="M 185 288 L 185 326" stroke="#f0b429" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowt)"/>
+  <text x="185" y="352" fill="#f0b429" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">谁来验证验证者?</text>
+</svg>
+<figcaption>示意:每一层验证自身引入新的错误源;当验证层与生成层盲区相关,叠层降低的是体感风险而非真实风险</figcaption>
+</figure>
+<p>第一,<strong>AI 检查员自己会捏造 bug</strong>。OpenAI 训练了一个专门给代码挑错的模型(CriticGPT),论文的正面结果是真的:它挑错的意见在 63% 的对比中比人类外包审查员的更受欢迎,人机搭配的审查比人单干更全面、比 AI 单干更少胡说。但同一篇论文的摘要里,作者自己写了一句要命的话:AI 评论员幻觉出来的假 bug,"<strong>可能误导人类犯下本来不会犯的错误</strong>"。检查员不是中性的过滤网,它会往流程里注入新的错误。</p>
+<p>第二,<strong>AI 们犯的错越来越像</strong>。用第二个 AI 检查第一个 AI,前提是它们的盲区不同。但 2025 年一项研究发现:模型能力越强,不同模型犯的错误反而<strong>越相似</strong>。当写代码的 AI 和查代码的 AI 共享盲区,叠再多层检查,漏掉的还是同一批 bug——这就是"套娃"在数学上的准确含义:一层套一层,每层的花纹都一样。</p>
+<p>第三,<strong>指望人类当最后一道闸,是 1983 年就被判过死刑的方案</strong>。人因工程学四十年的结论:让人盯着一个大部分时候都正确的自动化系统、专门抓它罕见的错误,是"人类不可能完成的任务";自动化带来的自满和盲从,"无法通过培训或指令来预防"。2026 年的眼动实验也证实:告诉评审者"这段代码是 AI 写的",他们盯着看的时间变长了,<strong>但检查的彻底程度没有任何变化</strong>。更现实的图景来自对 AI 生成 PR 的大规模观察:<strong>大多数 AI 写的 PR 根本没有人看,有"人"看的,那个"人"往往也是另一个 AI。</strong></p>
+<h2>那它什么时候真的管用</h2>
+<p>把证据翻个面,AI 审代码在三个条件同时满足时,确实是划算的:</p>
+<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <line x1="70" y1="340" x2="650" y2="340" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="70" y1="340" x2="70" y2="40" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="360" y="376" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace">独立于 LLM 的 oracle(测试/编译器/类型)→</text>
+  <text x="34" y="190" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace" transform="rotate(-90 34 190)">人保留裁决权 →</text>
+
+  <rect x="366" y="52" width="272" height="128" rx="10" fill="#52b788" opacity="0.12" stroke="#52b788" stroke-opacity="0.5"/>
+  <text x="502" y="94" fill="#52b788" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">解药区</text>
+  <text x="502" y="118" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">Google 迁移 · Cloudflare 全量部署</text>
+  <text x="502" y="138" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">窄场景 · 控误报 · 廉价额外一层</text>
+
+  <rect x="82" y="200" width="272" height="128" rx="10" fill="#e85a4f" opacity="0.14" stroke="#e85a4f" stroke-opacity="0.6"/>
+  <text x="218" y="242" fill="#ff8a80" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">套娃区</text>
+  <text x="218" y="266" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">无测试兜底的业务逻辑 · AI 写 AI 审</text>
+  <text x="218" y="286" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">零审查合并 +31.3% 的漂移方向</text>
+
+  <circle cx="560" cy="90" r="7" fill="#52b788"/>
+  <circle cx="150" cy="300" r="6" fill="#e85a4f"/>
+  <path d="M 535 105 Q 360 200 175 292" stroke="#7c8593" stroke-width="1.5" fill="none" stroke-dasharray="3,5"/>
+</svg>
+<figcaption>示意:同一类工具,落在哪个象限由使用结构决定——oracle 密度与人的位置,比模型分数更能预测结果</figcaption>
+</figure>
+<ol><li><strong>有 AI 之外的裁判兜底。</strong>谷歌的迁移项目为什么成功?因为 AI 的每个改动都要过编译器、过测试、过和人写代码完全相同的评审流程——AI 只是流水线的一段,不是终审法官。测试覆盖高、变更类型单一的场景(代码迁移、依赖升级),是 AI 审查证据最扎实的地方。</li><li><strong>误报率被当回事。</strong>活下来的生产系统都有一个共同点:先拼命压误报,再谈抓 bug。字节跳动给 AI 评审专门加了一层"过滤器"再给人看;GitHub 的工具学会了在 29% 的情况下干脆闭嘴。反面教材是把 20 条投机性猜测和 1 条真 bug 混在一起发给你的工具——这话不是批评者说的,是某家 AI 审代码厂商的 CEO 自己在《AI 审代码有泡沫》一文里说的。</li><li><strong>人保留最终裁决权,而且这层检查足够便宜。</strong>Cloudflare 自建的系统每次审查平均成本 1.19 美元、一个月跑了 13 万次,作为叠加在人审之上的廉价额外一层,几乎稳赚——<strong>前提是它是"额外一层",而不是悄悄替代了人审</strong>。</li></ol>
+<p>反过来,三个条件都不满足的场景——没有测试兜底的核心业务逻辑、AI 写 AI 审、人只负责点"通过"——就是套娃的标准剧照。</p>
+<p>还有一个诚实的注脚:AI 审代码火了两年,整个行业<strong>至今没有做过一次随机对照实验</strong>来证明它有效,也没有任何一家公司具名发布过"我们为什么关掉了 AI 审查"的复盘。正反两个方向的严格证据都缺席。</p>
+<h2>该怎么办</h2>
+<p><strong>如果你在决定要不要给团队上 AI 审查</strong>:按"有没有测试和类型系统兜底"来选先上哪些仓库,别按厂商演示;采购时只认"抓住率+误报率"成对出现的数字,只给一半的直接扣分;试点期自己抽样统计"AI 评论里有多少真的被采纳",和文中的公开数字对照。</p>
+<p><strong>如果你是被 AI 评论刷屏的工程师</strong>:全信和全部无视都是输法。可行的做法是分层:高置信类别(编译错误、明确的 API 误用)默认处理,投机性类别(风格建议、"可能的"并发问题)批量降级、定期抽查。另外两条红线:别拿"测试通过"当"代码正确"的担保,尤其当测试也是 AI 写的;别让自己退化成只看 AI 摘要的评审者——亲手读代码的能力,恰恰是 AI 时代最保值的能力。</p>
+<p><strong>如果你在做这类工具</strong>:第一个在自家基准页公布误报率、并标注"本基准由参赛者运营"的厂商,能白捡整个行业正在流失的信任。</p>
+<h2>记住三件事</h2>
+<ol><li><strong>验证瓶颈是真的,但"再买一个 AI"不是自动成立的答案。</strong>检查代码的需求在暴涨,而 AI 检查员自己会捏造问题、会和写代码的 AI 犯一样的错。</li><li><strong>永远要求成对的数字。</strong>只说"抓住 X% 的 bug"不说误报率的成绩单,六十年前就被科学界判了无效;谁办的考试谁第一,是这个行业目前的常态。</li><li><strong>AI 审查的正确用法是"廉价的额外一层",不是"替代人的那一层"。</strong>有测试兜底、误报受控、人握终审权,它就是解药;三个条件拿掉任何一个,它就开始向套娃滑动。</li></ol>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>

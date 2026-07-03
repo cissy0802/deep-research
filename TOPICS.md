@@ -17,15 +17,12 @@
 - 底座:7 条调研线索、103 论断、15 条承重论断 × 3 票对抗验证(13 HOLDS / 2 修正 / 0 推翻);研究材料存本地 `~/design/deep-research-runs/junior-engineers/`
 - 钩子:→ super-individual Day 53《用 AI 学习的护栏工程》(2026-07,反哺)
 
-## 待研究
+### 2. AI code review:验证瓶颈的解药,还是套娃? ✅ 2026-07
+- 页面:`ai-code-review-plain/-deep` × zh/en
+- 底座:7 条调研线索、15 条承重论断 × 3 票对抗验证(9 HOLDS / 6 修正 / 0 推翻),另沿用 #0 已验证的 6 组口径(METR、Sonar、Google 迁移、DORA、Faros 2025、Anthropic 会话);研究材料存本地 `~/design/deep-research-runs/ai-code-review/`
+- 核心修正记录:Sonar 96/48 实为"信任 vs 检查行为"口径(非语法/功能正确性);SAGA 32.58% 是合成测试套件 VAcc 且为最优方法成绩;CriticGPT 人机团队增益=降幻觉而非超越模型查全率;pr-review-bench 作者任职 Sentry(COI)
 
-### 2. AI code review:验证瓶颈的解药,还是套娃?
-- **一句话**:AI code review 被推销为"验证瓶颈"的解药——但如果验证者自己是个不可靠的生成模型,瓶颈是被解决了还是被套了个娃?
-- **为什么适合**:第 0 篇验证瓶颈论点的直接续集,METR 9% 审查时间、Sonar 96%/48% 缺口、Google"刻意限速生成"等已验证素材全部复用;厂商基准数字混战(同一工具在不同基准 44%~52.5%)、且多为自办比赛自拿第一(Greptile 82%),COI 标注体系直接复用第 0 篇。
-- **理论底座**:验证不对称与 verifier's dilemma(接 SAGA verifier accuracy 32.58%)、信号检测论(precision/recall 的口径战争)、自动化信任校准(Parasuraman & Riley, misuse/disuse)、Bainbridge 自动化悖论在 review 场景的变体。
-- **关键争议/正反**:大厂一手生产数据(Google ICSE 2024:7.5% 评论由 ML 建议直接解决;Meta MetaMateCR:离线 68% vs 上线 ActionableToApplied 19.7%——离线/上线落差本身是素材)vs 学术反方(LLM reviewer 系统性过度纠正、CriticGPT 自认幻觉 bug 会误导人、眼动实验显示审 AI 标注的代码更慢);"评论被采纳"≠"抓住真 bug"的指标口径问题;独立实证 "From Industry Claims to Empirical Reality"(arXiv 2604.03196)对厂商宣称的逐条检验。
-- **实证锚点**:arXiv 2604.03196 / 2508.18771(AI 评论→代码变更转化率)/ 2605.02273 / 2606.26505(眼动)/ 2602.13377(基准综述)/ SWR-Bench;Google research.google ICSE 2024;Meta arXiv 2507.13499;CriticGPT(arXiv 2407.00215);LLM-as-judge 可靠性(arXiv 2507.16587、2603.00539);厂商基准(greptile.com/benchmarks、tenki.cloud)按 COI 口径引用。
-- **注意**:工具版图变化快,成文标注"截至 X 年 X 月";厂商横评重结构(方法学缺陷)轻具体排名。
+## 待研究
 
 ### 3. 学习科学的证据等级:哪些方法真的有效?
 - **一句话**:间隔重复、检索练习、刻意练习、主动学习——按证据强度重新排座次。

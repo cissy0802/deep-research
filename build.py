@@ -264,6 +264,184 @@ def fig_rct_paradox(lang: str) -> str:
 </figure>"""
 
 
+def fig_review_scissors(lang: str) -> str:
+    """Faros telemetry: throughput gain vs review-side pile-up."""
+    t = {
+        "zh": dict(title="AI 高采用期 vs 低采用期(Faros 遥测,22,000 名开发者)",
+                   r1="任务完成 / 人", v1="+33.7%", r2="PR 审查中位时长", v2="+441.5%",
+                   r3="事故 / PR", v3="+242.7%", r4="零审查直接合并的 PR", v4="+31.3%",
+                   cap="示意:同一批组织,产出小幅上升,代价堆在评审环节——评审变慢、事故变多、越来越多 PR 无人审(厂商遥测,前后对比口径,条长为示意)"),
+        "en": dict(title="High vs low AI-adoption periods (Faros telemetry, 22,000 devs)",
+                   r1="Tasks completed / dev", v1="+33.7%", r2="Median PR review time", v2="+441.5%",
+                   r3="Incidents / PR", v3="+242.7%", r4="PRs merged with zero review", v4="+31.3%",
+                   cap="Schematic: same organizations — a modest output gain, with the cost piling up at review: slower reviews, more incidents, more PRs merged unseen (vendor telemetry, before/after; bar lengths illustrative)"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 34, "#52b788"),
+        (t['r2'], t['v2'], 400, "#ff6ec4"),
+        (t['r3'], t['v3'], 220, "#e8794b"),
+        (t['r4'], t['v4'], 30, "#7b61ff"),
+    ]
+    bars = []
+    y = 72
+    for label, val, w, color in rows:
+        bars.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="12" font-family="Menlo,monospace">{label}</text>')
+        by = y + 10
+        bars.append(f'<rect x="230" y="{by}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{230 + w + 10}" y="{by + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 64
+    return f"""<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="230" y1="52" x2="230" y2="322" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_bench_spread(lang: str) -> str:
+    """Same tool, four benchmarks, four wildly different scores."""
+    t = {
+        "zh": dict(title="同一个工具,四张考卷(Greptile,2025-07 至 2026-05)",
+                   b1="自家基准 · 捕获率", b2="竞品 Augment 重测 · F 分", b3="竞品 Tenki · 召回", b4="竞品 Tenki · 精确率",
+                   note="6 家自办基准,发布者 6 次全部第一",
+                   cap="示意:分数取决于谁出题、量哪根轴——只报捕获率不报误报率,是信号检测论 1966 年就判过的度量错误(各基准指标不同,不可直接比大小)"),
+        "en": dict(title="One tool, four exams (Greptile, Jul 2025 – May 2026)",
+                   b1="Own benchmark · catch rate", b2="Rival Augment re-test · F-score", b3="Rival Tenki · recall", b4="Rival Tenki · precision",
+                   note="6 self-run benchmarks — publisher ranked #1 all 6 times",
+                   cap="Schematic: the score depends on who writes the exam and which axis gets measured — publishing catch rate without false-alarm rate is the measurement error signal detection theory settled in 1966 (metrics differ across benchmarks; not directly comparable)"),
+    }[lang]
+    rows = [
+        (t['b1'], "82%", 410, "#4cc9f0"),
+        (t['b2'], "45%", 225, "#7b61ff"),
+        (t['b3'], "36.1%", 181, "#f0b429"),
+        (t['b4'], "15.9%", 80, "#ff6ec4"),
+    ]
+    bars = []
+    y = 76
+    for label, val, w, color in rows:
+        bars.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="12" font-family="Menlo,monospace">{label}</text>')
+        by = y + 10
+        bars.append(f'<rect x="24" y="{by}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{24 + w + 10}" y="{by + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 62
+    return f"""<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(bars)}
+  <rect x="24" y="326" width="500" height="30" rx="8" fill="#e85a4f" opacity="0.12" stroke="#e85a4f" stroke-opacity="0.5"/>
+  <text x="38" y="346" fill="#ff8a80" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_offline_funnel(lang: str) -> str:
+    """Offline eval scores vs production adoption: the order-of-magnitude funnel."""
+    t = {
+        "zh": dict(meta="Meta(2507.13499)", google="Google(ICSE-SEIP 2024)",
+                   m1="离线 exact-match", m1v="67.96%", m2="展示后被采纳", m2v="≈28.7%", m3="生产 Actionable→Applied", m3v="19.75%",
+                   g1="模型高置信预测", g1v="49%", g2="被作者预览", g2v="10.7%", g3="被采纳入库", g3v="7.5%",
+                   cap="示意:两家第一方漏斗——离线分数是自家精选考卷上的成绩,生产采纳率才是市场价(两家分母口径不同,不可互比,只看各自衰减)"),
+        "en": dict(meta="Meta (2507.13499)", google="Google (ICSE-SEIP 2024)",
+                   m1="Offline exact-match", m1v="67.96%", m2="Applied when shown", m2v="≈28.7%", m3="Production Actionable→Applied", m3v="19.75%",
+                   g1="Confident model predictions", g1v="49%", g2="Previewed by author", g2v="10.7%", g3="Applied to the codebase", g3v="7.5%",
+                   cap="Schematic: two first-party funnels — the offline score is a grade on a self-curated exam; the production apply rate is the market price (different denominators; compare each funnel's decay, not the two columns)"),
+    }[lang]
+    def col(x, title, steps, color):
+        parts = [f'<text x="{x + 150}" y="58" fill="#e4e6eb" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{title}</text>']
+        y = 78
+        widths = [300, 190, 110]
+        for (label, val), w in zip(steps, widths):
+            bx = x + 150 - w / 2
+            parts.append(f'<rect x="{bx}" y="{y}" width="{w}" height="34" rx="6" fill="{color}" opacity="{0.9 - 0.22 * (widths.index(w))}"/>')
+            parts.append(f'<text x="{x + 150}" y="{y + 22}" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{val}</text>')
+            parts.append(f'<text x="{x + 150}" y="{y + 50}" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{label}</text>')
+            y += 66
+        return ''.join(parts)
+    meta_steps = [(t['m1'], t['m1v']), (t['m2'], t['m2v']), (t['m3'], t['m3v'])]
+    google_steps = [(t['g1'], t['g1v']), (t['g2'], t['g2v']), (t['g3'], t['g3v'])]
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  {col(20, t['meta'], meta_steps, "#4cc9f0")}
+  {col(370, t['google'], google_steps, "#7b61ff")}
+  <line x1="350" y1="52" x2="350" y2="280" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,5"/>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_review_turtles(lang: str) -> str:
+    """The nesting-doll verification chain with each layer's failure mode."""
+    t = {
+        "zh": dict(l1="AI 写代码", n1="产出不可靠 → 需要检查", l2="AI 审代码", n2="幻觉 bug · 与生成器错误趋同",
+                   l3="人审 AI 的审查", n3="自动化自满:「训练无法预防」", q="谁来验证验证者?",
+                   cap="示意:每一层验证自身引入新的错误源;当验证层与生成层盲区相关,叠层降低的是体感风险而非真实风险"),
+        "en": dict(l1="AI writes the code", n1="unreliable output → needs a check", l2="AI reviews the code", n2="hallucinated bugs · errors converging with the generator",
+                   l3="Humans review the AI's review", n3="automation complacency: 'cannot be prevented by training'", q="Who verifies the verifiers?",
+                   cap="Schematic: each verification layer introduces its own error source; when verifier and generator share blind spots, stacking layers lowers perceived — not actual — risk"),
+    }[lang]
+    rows = [
+        (t['l1'], t['n1'], "#4cc9f0", 60),
+        (t['l2'], t['n2'], "#7b61ff", 150),
+        (t['l3'], t['n3'], "#ff6ec4", 240),
+    ]
+    parts = []
+    for label, note, color, y in rows:
+        parts.append(f'<rect x="60" y="{y}" width="250" height="48" rx="10" fill="{color}" opacity="0.18" stroke="{color}" stroke-opacity="0.7" stroke-width="1.5"/>')
+        parts.append(f'<text x="185" y="{y + 29}" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<text x="336" y="{y + 29}" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{note}</text>')
+        if y < 240:
+            parts.append(f'<path d="M 185 {y + 48} L 185 {y + 90}" stroke="#5a6378" stroke-width="1.5" marker-end="url(#arrowt)"/>')
+    return f"""<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <defs><marker id="arrowt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"/></marker></defs>
+  {''.join(parts)}
+  <path d="M 185 288 L 185 326" stroke="#f0b429" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowt)"/>
+  <text x="185" y="352" fill="#f0b429" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t['q']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_cure_conditions(lang: str) -> str:
+    """Quadrant: independent oracle × human verdict → cure zone vs turtles zone."""
+    t = {
+        "zh": dict(x="独立于 LLM 的 oracle(测试/编译器/类型)→", y="人保留裁决权 →",
+                   cure="解药区", c1="Google 迁移 · Cloudflare 全量部署", c2="窄场景 · 控误报 · 廉价额外一层",
+                   turt="套娃区", t1="无测试兜底的业务逻辑 · AI 写 AI 审", t2="零审查合并 +31.3% 的漂移方向",
+                   cap="示意:同一类工具,落在哪个象限由使用结构决定——oracle 密度与人的位置,比模型分数更能预测结果"),
+        "en": dict(x="Oracle independent of the LLM (tests/compiler/types) →", y="Humans keep the verdict →",
+                   cure="Cure zone", c1="Google migrations · Cloudflare full deployment", c2="narrow scope · controlled false alarms · cheap extra layer",
+                   turt="Turtles zone", t1="untested business logic · AI writes, AI reviews", t2="the drift behind +31.3% zero-review merges",
+                   cap="Schematic: where the same tool lands is decided by the structure of use — oracle density and the human's position predict outcomes better than model scores"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <line x1="70" y1="340" x2="650" y2="340" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="70" y1="340" x2="70" y2="40" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="360" y="376" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace">{t['x']}</text>
+  <text x="34" y="190" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace" transform="rotate(-90 34 190)">{t['y']}</text>
+
+  <rect x="366" y="52" width="272" height="128" rx="10" fill="#52b788" opacity="0.12" stroke="#52b788" stroke-opacity="0.5"/>
+  <text x="502" y="94" fill="#52b788" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['cure']}</text>
+  <text x="502" y="118" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['c1']}</text>
+  <text x="502" y="138" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['c2']}</text>
+
+  <rect x="82" y="200" width="272" height="128" rx="10" fill="#e85a4f" opacity="0.14" stroke="#e85a4f" stroke-opacity="0.6"/>
+  <text x="218" y="242" fill="#ff8a80" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['turt']}</text>
+  <text x="218" y="266" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['t1']}</text>
+  <text x="218" y="286" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['t2']}</text>
+
+  <circle cx="560" cy="90" r="7" fill="#52b788"/>
+  <circle cx="150" cy="300" r="6" fill="#e85a4f"/>
+  <path d="M 535 105 Q 360 200 175 292" stroke="#7c8593" stroke-width="1.5" fill="none" stroke-dasharray="3,5"/>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 # slug → list of (lang_or_None, version_or_None, heading_text_prefix, figure_fn)
 # figure inserted right AFTER the first heading whose text starts with the prefix.
 FIGURES = {
@@ -294,6 +472,30 @@ FIGURES = {
         ("en", "3. The econometric battle", fig_age_scissors),
         ("zh", "5. 悖论的解法:个体生产率不是雇佣决策", fig_rct_paradox),
         ("en", "5. Resolving the paradox", fig_rct_paradox),
+    ],
+    "ai-code-review-plain": [
+        ("zh", "检查代码为什么成了瓶颈", fig_review_scissors),
+        ("en", "Why checking code became the bottleneck", fig_review_scissors),
+        ("zh", "卖家的成绩单", fig_bench_spread),
+        ("en", "Why you can", fig_bench_spread),
+        ("zh", "大厂自己用得怎么样", fig_offline_funnel),
+        ("en", "How is it going for the companies", fig_offline_funnel),
+        ("zh", "套娃到底套在哪", fig_review_turtles),
+        ("en", "Where exactly the nesting dolls", fig_review_turtles),
+        ("zh", "那它什么时候真的管用", fig_cure_conditions),
+        ("en", "So when does it actually work", fig_cure_conditions),
+    ],
+    "ai-code-review-deep": [
+        ("zh", "1. 需求侧", fig_review_scissors),
+        ("en", "1. The demand side", fig_review_scissors),
+        ("zh", "2. 供给侧的证明材料", fig_bench_spread),
+        ("en", "2. The supply side", fig_bench_spread),
+        ("zh", "3. 大厂一手数据", fig_offline_funnel),
+        ("en", "3. First-party data from big tech", fig_offline_funnel),
+        ("zh", "5. 根本问题", fig_review_turtles),
+        ("en", "5. The root question", fig_review_turtles),
+        ("zh", "7. 裁决", fig_cure_conditions),
+        ("en", "7. The verdict", fig_cure_conditions),
     ],
 }
 
@@ -439,6 +641,22 @@ ARTICLES = [
      "Are Junior Engineers Really Disappearing? An Evidence Audit of the Entry-Level Software Job Market",
      "Four gauges calibrated, Canaries versus the null camp, and the organizational economics that resolves the RCT paradox; 15 load-bearing claims adversarially verified.",
      "2026-07"),
+    ("ai-code-review-plain", "zh", "plain",
+     "AI 审代码,谁来审 AI?(易读版)",
+     "查代码的人跟不上 AI 写代码的速度,行业的药方是再买一个 AI 来查——它什么时候是解药,什么时候是套娃。易读版:主线论证 + 直白语言。",
+     "2026-07"),
+    ("ai-code-review-plain", "en", "plain",
+     "AI Reviews the Code — Who Reviews the AI? (Plain-Language Edition)",
+     "Humans can't keep up with AI-written code, so the industry bought another AI to do the checking — when that's medicine, and when it's nesting dolls. The accessible edition.",
+     "2026-07"),
+    ("ai-code-review-deep", "zh", "deep",
+     "AI code review:验证瓶颈的解药,还是套娃?(深入版)",
+     "基准混战解剖、大厂生产漏斗、'AI 验证 AI'的四个脚注与 1983 年的人因剧本;15 条承重论断 × 3 票对抗验证。",
+     "2026-07"),
+    ("ai-code-review-deep", "en", "deep",
+     "AI Code Review: Cure for the Verification Bottleneck, or Turtles All the Way Down? (Deep Dive)",
+     "An anatomy of the benchmark wars, big tech's production funnels, four footnotes to 'AI verifying AI', and the human-factors script written in 1983; 15 load-bearing claims adversarially verified.",
+     "2026-07"),
 ]
 
 KICKERS = {
@@ -465,6 +683,14 @@ TLDRS = {
         "「消失」是流量现象而非存量现象:存量创新高,入口端(22-25 岁 × 高 AI 暴露)在 firm-time 固定效应内持续收缩且 2024 年后加深。RCT 一致显示 AI 个体层面最帮新手;雇佣是组织对成本结构的响应,两者在企业账本上是同一句话。宏观混淆项解释水位、解释不了构成;离岸是唯一同样能解释构成的竞争假说。全文以七个可检验主张收尾。",
     ("junior-engineers-deep", "en"):
         "The \"disappearance\" is a flow phenomenon, not a stock phenomenon: record-high stock, contracting entrance — concentrated in the youngest-by-most-exposed cell, inside firm-time fixed effects, deepening after 2024. RCTs consistently show AI helps novices most at the individual level; hiring is the firm's response to a changed cost structure, and on the ledger those are one sentence. Confounders explain the water level, not the composition; offshoring is the one rival that fits both. Closes with seven testable claims.",
+    ("ai-code-review-plain", "zh"):
+        "AI 写代码提速,查代码的人跟不上——瓶颈是真的。行业的药方是再买一个 AI 来查,但 AI 检查员自己会捏造 bug,而且和写代码的 AI 犯的错越来越像。有测试兜底、误报受控、人握终审权时,它是每次一美元的廉价额外保险;三个条件缺任何一个,它就开始向套娃滑动。",
+    ("ai-code-review-plain", "en"):
+        "AI speeds up writing code and the humans checking it can't keep up — the bottleneck is real. The industry's prescription is another AI to do the checking, but AI inspectors invent bugs of their own and increasingly make the same mistakes as the AI writers. With tests underneath, false alarms controlled, and humans holding the verdict, it's a dollar-a-run extra safety layer; remove any one condition and it slides toward nesting dolls.",
+    ("ai-code-review-deep", "zh"):
+        "验证瓶颈真实且在恶化(评审中位时长 +441.5%、零审查合并 +31.3%),但供给侧的证明材料已经失效:6 家自办基准发布者全部第一,同一工具跨基准分数差 3.7 倍;第一方生产漏斗显示离线分数与生产价值隔一个数量级(Meta 67.96%→19.75%);错误趋同正在瓦解'AI 验证 AI'的独立性前提。裁决是条件句:独立 oracle + 控误报 + 人握裁决 = 解药,否则是套娃。全文以八个可检验主张收尾。",
+    ("ai-code-review-deep", "en"):
+        "The verification bottleneck is real and worsening (median review time +441.5%, zero-review merges +31.3%), but the supply side's evidence regime has failed: six self-run benchmarks, publisher first every time, the same tool varying 3.7× across exams; first-party production funnels put an order of magnitude between offline scores and production value (Meta 67.96%→19.75%); converging errors are dissolving the independence premise of AI-verifying-AI. The verdict is conditional: independent oracle + controlled false alarms + humans keeping the verdict = cure; otherwise, turtles. Closes with eight testable claims.",
 }
 
 CHIPS = {
@@ -491,6 +717,18 @@ CHIPS = {
     ],
     ("junior-engineers-deep", "en"): [
         ("c1", "7 lines · 103 claims"), ("c2", "45 adversarial votes"), ("c3", "13/15 survived refutation"), ("c4", "7 testable claims"),
+    ],
+    ("ai-code-review-plain", "zh"): [
+        ("c1", "评审时长 +441.5%"), ("c2", "6/6 自办基准第一"), ("c3", "Meta 离线 68% → 生产 19.75%"), ("c4", "AI 评论采纳率 0.9–19.2%"),
+    ],
+    ("ai-code-review-plain", "en"): [
+        ("c1", "review time +441.5%"), ("c2", "6/6 self-benchmarks won"), ("c3", "Meta offline 68% → prod 19.75%"), ("c4", "AI comments acted on: 0.9–19.2%"),
+    ],
+    ("ai-code-review-deep", "zh"): [
+        ("c1", "7 条线索 · 15 条承重论断"), ("c2", "45 票对抗验证"), ("c3", "9 过 · 6 修正 · 0 推翻"), ("c4", "8 个可检验主张"),
+    ],
+    ("ai-code-review-deep", "en"): [
+        ("c1", "7 lines · 15 load-bearing claims"), ("c2", "45 adversarial votes"), ("c3", "9 held · 6 amended · 0 overturned"), ("c4", "8 testable claims"),
     ],
 }
 
@@ -647,6 +885,15 @@ INDEX_ENTRIES = [
      "7 research lines · 103 claims · 45 adversarial votes",
      [("t1", "劳动经济学", "Labor economics"), ("t2", "招聘数据", "Hiring data"), ("t3", "RCT 证据", "RCT evidence"),
       ("t4", "职业阶梯", "Career ladder"), ("t5", "AI 与就业", "AI & jobs")]),
+    ("ai-code-review", "2026-07",
+     "AI code review:验证瓶颈的解药,还是套娃?",
+     "AI Code Review: Cure for the Verification Bottleneck, or Turtles All the Way Down?",
+     "查代码的人跟不上 AI 写代码的速度,行业的答案是再买一个 AI 来查。基准混战解剖(6/6 发布者第一)、大厂生产漏斗(离线 68% vs 生产 19.75%)、'AI 验证 AI'的独立性瓦解,以及它在什么条件下真的管用。",
+     "Humans can't keep up with AI-written code, so the industry bought another AI to do the checking. An anatomy of the benchmark wars (publisher first, 6 for 6), big tech's production funnels (68% offline vs 19.75% in production), the dissolving independence of AI-verifying-AI — and the conditions under which it genuinely works.",
+     "7 条调研线索 · 15 条承重论断 · 45 票对抗验证",
+     "7 research lines · 15 load-bearing claims · 45 adversarial votes",
+     [("t1", "验证不对称", "Verification asymmetry"), ("t2", "基准混战", "Benchmark wars"), ("t3", "大厂生产数据", "Production data"),
+      ("t4", "自动化人因", "Human factors"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
 ]
 
 
