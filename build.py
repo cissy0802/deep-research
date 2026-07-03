@@ -173,20 +173,24 @@ def fig_four_gauges(lang: str) -> str:
         (t['r3'], t['v3'], 250, "#ff6ec4", -1),
         (t['r4'], t['v4'], 82, "#7b61ff", -1),
     ]
+    # two-line rows: label on its own line, bar + value on the line below,
+    # so long labels never collide with long negative bars.
     bars = []
-    y = 64
+    y = 62
     for label, val, w, color, sign in rows:
+        bars.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="12" font-family="Menlo,monospace">{label}</text>')
+        by = y + 10
         x = 430 if sign > 0 else 430 - w
-        bars.append(f'<text x="24" y="{y + 16}" fill="#7c8593" font-size="12.5" font-family="Menlo,monospace">{label}</text>')
-        bars.append(f'<rect x="{x}" y="{y}" width="{w}" height="24" rx="5" fill="{color}" opacity="0.8"/>')
-        tx = 438 if sign > 0 else 430 - w - 8
-        anchor = "start" if sign > 0 else "end"
-        bars.append(f'<text x="{tx if sign > 0 else 430 - w - 8}" y="{y + 16}" fill="{color}" font-size="12" font-weight="700" text-anchor="{anchor}" font-family="-apple-system,sans-serif">{val}</text>')
-        y += 52
+        bars.append(f'<rect x="{x}" y="{by}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.8"/>')
+        if sign > 0:
+            bars.append(f'<text x="{430 + w + 8}" y="{by + 14}" fill="{color}" font-size="12" font-weight="700" text-anchor="start" font-family="-apple-system,sans-serif">{val}</text>')
+        else:
+            bars.append(f'<text x="{430 - w - 8}" y="{by + 14}" fill="{color}" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 68
     return f"""<figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
-  <line x1="430" y1="52" x2="430" y2="276" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+<svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="430" y1="48" x2="430" y2="330" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
   {''.join(bars)}
 </svg>
 <figcaption>{t['cap']}</figcaption>
