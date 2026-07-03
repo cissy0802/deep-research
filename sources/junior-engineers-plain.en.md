@@ -65,7 +65,21 @@ And the most telling fact in the industry: everyone is arguing about whether the
 
 **Employers:** skipping juniors saves money this year and overdraws the next three to five — by then you'll be paying premiums to poach someone else's mid-levels, or finding none to poach; a third of managers who cut roles for AI are already re-hiring them. The smarter move isn't deleting the entry role but redesigning it: make juniors the first line of review for AI output, with mentorship and the same quality gates — experiments show novices brought up this way reach six-month performance in two months, and the skills stick. And start measuring your career ladder (how long until a new hire owns something independently?) — nobody in the industry measures this today, and the first company that does will out-decide everyone else's slogans.
 
-## Three things to remember
+## How to check whether this essay is right
+
+The whole argument reduces to seven claims, ordered from hardest to softest evidence:
+
+1. **The "disappearance" is a narrowing entrance, not an evaporating stock** — record-high total employment and a ~20% drop in the 22–25 bracket are both true at once.
+2. **At the individual level, AI helps novices most** — two sets of rigorous experiments agree (both pre-agentic era).
+3. **The youngest bracket is hit hardest, and it deepened after 2024**; the adjustment happens through hiring less, not firing more.
+4. **Interest rates and the tax change explain the overall hiring drop, but not "specifically hiring fewer young people"** — the only rival hypothesis that also explains the composition shift is offshoring.
+5. **"Helps novices most" and "novice jobs shrink first" don't contradict**: experiments measure individual output; hiring is an organization's response to its cost structure.
+6. **The cost of a broken career ladder is real, but no company is measuring it** — the measurement gap is itself the signal.
+7. **"Programmers will disappear"-style predictions have never come true historically**, but the prediction itself scares off applicants and does real damage.
+
+Worth watching through 2027: whether the 26–30 bracket starts showing the same decline; whether junior/senior job postings diverge; whether IBM-style "hire juniors back" reversals go mainstream; whether any company starts publishing "years from junior to senior."
+
+## The things that matter most
 
 1. **The job isn't vanishing; the entrance is narrowing.** Total employment is at a record high while the 22-25 bracket is down nearly 20%. What's shrinking is the door for newcomers, not the profession.
 2. **"AI helps novices most" and "novice jobs shrink first" are the same coin.** Experiments measure personal productivity; hiring is a company cost decision. Don't use one to argue against the other.

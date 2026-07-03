@@ -75,7 +75,20 @@ Four organizational rules, each backed by decades of management research:
 3. **Don't invert the sequence: fix the foundations, then scale AI.** AI amplifies what you already are. A team with shaky testing and release discipline that adopts AI first will harvest instability, then lose its second chance when trust collapses. For teams with solid fundamentals, AI's dividend compounds.
 4. **The real bottleneck is the executive layer.** Whether engineers adopt tools was never the hard part (one experiment found 30–40% never touched a free, management-endorsed tool — time fixes that). The hard part is the decisions only leadership can make: moving investment from generation capacity to verification infrastructure, and repricing talent from execution to judgment.
 
-## Three things to remember
+## How to check whether this essay is right
+
+The whole argument reduces to six claims, ordered from hardest to softest evidence — future data can prove them right or wrong:
+
+1. **Faster individuals don't automatically make a faster organization** — the bottleneck moves downstream to testing and review.
+2. **The more senior the engineer and the more mature the codebase, the smaller AI's benefit — even negative at the tail**; and people's self-perception of it is unreliable.
+3. **The unifying mechanism: the cost didn't disappear, it moved from "writing code" to "confirming the code is right."**
+4. **Human value concentrates in judgment** — people who can state what's wanted and judge what's acceptable are appreciating.
+5. **For high-reliability legacy organizations, the path is: enter through migrations → guardrails before scale → treat verification capacity as a first-class asset.**
+6. **Nobody knows yet whether companies get bigger or smaller** — what you can watch is how your own verification cost grows with change volume.
+
+If, two years from now, the "more AI, less stable delivery" statistic has vanished, or rigorous experiments measure consistent speedups on mature codebases — this essay should be revised.
+
+## The things that matter most
 
 1. **Faster individuals ≠ a faster organization.** The cost moved from writing code to confirming it's right; without upgrading verification, AI just helps you produce problems faster.
 2. **Trust data, not feel.** The senior engineers slowed down by AI were convinced it sped them up. Evaluate AI with delivery cycle time, change failure rate, and review latency.

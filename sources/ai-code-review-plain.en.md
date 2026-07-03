@@ -64,7 +64,22 @@ One honest footnote: in two years of boom, this industry **has not run a single 
 
 **If you're building these tools**: the first vendor to publish its false-alarm rate on its own benchmark page — with a note saying "this benchmark is run by a contestant" — will collect, for free, the trust the whole industry is currently bleeding.
 
-## Three things to remember
+## How to check whether this essay is right
+
+The whole argument reduces to eight claims, ordered from hardest to softest evidence:
+
+1. **The verification bottleneck is real and worsening** — AI-written code keeps growing while human review capacity doesn't.
+2. **Vendor-run benchmarks don't count as evidence**: six vendors ran their own, six ranked first; the same tool's score varies 3.7× across benchmarks.
+3. **Discount offline scores by an order of magnitude before believing production value** (Meta: 68% offline → 19.75% in production).
+4. **AI output adds a new verification burden on reviewers** — Meta's experiment showed reviews slowing significantly, fixed only by hiding the AI's identity.
+5. **The independence of "AI verifying AI" doesn't hold**: the stronger the models, the more alike their errors; a model grading its own homework collapses.
+6. **"Humans will catch it" is not a reliable backstop** — forty years of human-factors research: automation complacency cannot be trained away.
+7. **In narrow settings it genuinely works**: an independent test oracle, controlled false positives, humans holding the final call — remove any one and it slides toward turtles.
+8. **The industry has never run a single randomized controlled trial, and there is no named failure post-mortem** — every conclusion here, including this essay's, should stay revisable.
+
+Worth watching: which way the first RCT points; whether the share of PRs merged with zero review keeps climbing or gets governed back; whether an independent evaluation protocol emerges that vendors can't harvest.
+
+## The things that matter most
 
 1. **The verification bottleneck is real, but "buy another AI" is not automatically the answer.** Demand for checking code is exploding, while the AI checkers invent problems of their own and increasingly make the same mistakes as the AI writers.
 2. **Always demand paired numbers.** A report card that says "catches X% of bugs" without a false-alarm rate was ruled invalid by science sixty years ago; "whoever runs the exam comes first" is this industry's current normal.
