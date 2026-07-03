@@ -57,6 +57,14 @@ Engineers grow by doing — that's not a platitude, it's Nobel-grade economics (
 
 And the most telling fact in the industry: everyone is arguing about whether the career ladder is broken, yet no company anywhere publishes whether junior-to-senior promotion time has gotten longer or shorter. The first one that starts measuring the ladder will be worth more than every opinion piece combined.
 
+## So what should you do?
+
+**Students (or anyone deciding whether to study CS):** don't make life decisions off headlines — the radiology prophecy went unfulfilled for a decade, and the applicants who fled simply handed their spots to those who stayed; CS enrollment is already shrinking, so competition may well be looser by the time you graduate. What actually helps is preparing for the new bar: entry jobs now want a "small senior" — real projects, internships, and the ability to read someone else's code and spot what's wrong. And one warning straight from a rigorous experiment: set rules for how you use AI while learning — write first, then let AI critique. People who copy answers end up worse than people who never used AI at all, once it's taken away.
+
+**New grads on the market:** get the framing right — you hit the worst timing (record graduating classes × the narrowest entrance), not a verdict on your ability, and the wind is turning (postings recovering, companies re-hiring roles they cut). Tactically: don't fixate on Big Tech — that's exactly where the new-grad share collapsed hardest; entry opportunities hide in campus pipelines, intern conversions, referrals, and software roles at non-tech companies (explicit "junior" titles are only ~2% of public postings). In interviews, demonstrate that you can direct AI and catch its mistakes — that's closer to what employers actually lack than whiteboard algorithms.
+
+**Employers:** skipping juniors saves money this year and overdraws the next three to five — by then you'll be paying premiums to poach someone else's mid-levels, or finding none to poach; a third of managers who cut roles for AI are already re-hiring them. The smarter move isn't deleting the entry role but redesigning it: make juniors the first line of review for AI output, with mentorship and the same quality gates — experiments show novices brought up this way reach six-month performance in two months, and the skills stick. And start measuring your career ladder (how long until a new hire owns something independently?) — nobody in the industry measures this today, and the first company that does will out-decide everyone else's slogans.
+
 ## Three things to remember
 
 1. **The job isn't vanishing; the entrance is narrowing.** Total employment is at a record high while the 22-25 bracket is down nearly 20%. What's shrinking is the door for newcomers, not the profession.

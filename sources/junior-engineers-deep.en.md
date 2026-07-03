@@ -110,7 +110,29 @@ What companies said and what they did diverged sharply across 2025-2026 — and 
 
 **Historical base rates supply the final calibration.** In October 2016 Geoffrey Hinton said: "People should stop training radiologists now. It's just completely obvious that within five years deep learning is going to do better than radiologists… It might be ten years." A decade later, the 2026 residency Match offered a record 1,478 radiology positions with a 97.6% fill rate, average radiologist pay reached $571,000, and Hinton conceded to the press that he had spoken too broadly and gotten the timing wrong. But the precedent bills both ways: the prediction itself wounded the funnel — radiology residency applications fell 14% from their 2023 peak even amid record demand. **A frightening forecast does not need to come true to scare away a cohort.** ATMs coexisted with *rising* teller employment for fifteen years (tellers per branch fell from ~21 to ~13, branches got cheaper, banks opened more) until mobile banking finally delivered the cut; spreadsheets erased ~400,000 bookkeeping-clerk jobs while ~600,000 higher-judgment accounting jobs were added. **The occupation surviving is the historical norm — and the routine tier absorbing all the losses is the historical norm too.** The question was never whether the profession disappears; it is who owns the bottom rung.
 
-## 7. Closing: seven testable claims
+## 7. A guide for the people involved: what the evidence can support
+
+The first six sections convert into three action lists. Each recommendation is tagged with the evidence it stands on — and stops where the evidence stops.
+
+### 7.1 If you are studying CS, or deciding whether to
+
+- **Don't switch majors on headlines.** The radiology precedent is on the table: the panic prediction went unfulfilled for a decade, positions hit records — but applicants fled 14% anyway. The CS mirror: among graduates who do land jobs, the share in degree-level work is nearly the highest of any major (underemployment just 19%); meanwhile supply is already retreating (new majors -13% in 2025) and postings have been recovering since the May 2025 trough — someone enrolling today and graduating in 2029-2030 likely faces a better competitive landscape than the 2023-2025 cohorts who hit the worst window. (Precedent + official data; the forward part is inference, not a guarantee)
+- **Prepare backward from the seniorised bar.** Entry roles in highly AI-exposed occupations are 7x more likely to demand traditionally senior skills (PwC, consulting-vendor grade) — what compounds in school is not problem-set volume but real projects, internships, and the ability to read someone else's code and find what's wrong with it. AI fluency is the floor, not a bonus (73% of tech postings already list AI skills, job-board grade).
+- **Put guardrails on your own AI use while learning.** The PNAS experiment: unguardrailed GPT raised practice scores 48% and left users 17% worse than never-users once removed; the tutor-style variant erased most of the harm. Same logic for code: write first, then have AI review — not the reverse. (Causal evidence; math-to-programming is a cross-domain analogy)
+
+### 7.2 If you are a new grad on the job market
+
+- **Understand this is a flow problem, not a verdict on you.** You hit the worst intersection: a record graduating class meeting a record-low entry hiring rate. Time is on your side: postings are recovering and employers are boomeranging.
+- **Don't fixate on Big Tech and "junior" titles.** The new-grad share collapsed hardest at big companies (3-in-10 → 1-in-10), and explicit "junior" titles are only about 2% of software postings — entry hiring runs through campus pipelines, intern conversions, and referrals, not public ads. Put publicly re-expanding employers (the IBM-style boomerangers) and software roles at non-tech companies on the list.
+- **Position yourself on the judgment side.** Coding execution is depreciating; verification skill and domain knowledge are appreciating (the core finding of this site's previous study, cashing out in the entry market too). Demonstrating that you can direct AI and catch its mistakes is closer to the employer's real bottleneck than whiteboard algorithms. (Inference, standing on the RCTs and industry telemetry)
+
+### 7.3 If you hire, or decide whether to
+
+- **A junior freeze is rational for one firm and a collective overdraft for the industry.** Ide's market-failure model plus IBM's CHRO arithmetic: in three to five years you either poach someone else's mid-levels at a premium or find none to poach. The boomerang is already happening — 32% of managers who cut roles for AI have rehired them; 55% of leaders who did AI layoffs call it a mistake (staffing-vendor survey grade). The all-in cost of the boomerang exceeds the cost of not freezing.
+- **Redesign the entry role rather than deleting it.** Cast juniors as the first line of verification for AI output: the QJE evidence shows AI-assisted novices climb the experience curve dramatically faster (2 months ≈ 6 unassisted months), with gains reflecting durable learning rather than dependence — provided there are guardrails (the same review gates, mentorship), not autopilot. (Experimental evidence + architectural inference)
+- **Start instrumenting the ladder.** Time from junior to independent owner, review pass rates of AI-assisted junior output, early-career retention — no company anywhere publishes these numbers. The organization that measures first will make hiring decisions that outrun everyone else's proclamations; this is the direct cash-out of Section 5's measurement hole.
+
+## 8. Closing: seven testable claims
 
 The essay compresses to seven claims, ordered by evidence strength:
 
