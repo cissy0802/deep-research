@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>当代码变得便宜:传统软件组织向 AI-native 转型的理论与证据(深入版) — BigCat Deep Research</title>
+<meta name="description" content="四大理论光谱 + 高可靠 legacy 专章;86 个来源、166 票对抗验证的完整论证。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"SF Pro Display","Noto Serif SC","Songti SC",serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.35rem;font-weight:700;color:#fff;margin:44px 0 14px;padding-top:10px;border-top:1px solid rgba(123,97,255,0.25)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#b8c4e8}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 26px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="ai-native-deep.html" class="active">中文</a><a href="ai-native-deep.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<h1>当代码变得便宜:传统软件组织向 AI-native 转型的理论与证据(深入版)</h1>
+<div class="version-note">本文是<strong>深入版</strong> · <a href="ai-native-plain.html">查看易读版(精简直白)→</a></div>
+<blockquote><p>本文的每一处实证引用都经过分级:理论论断在研究阶段经过三名独立验证者的对抗式核查(逐字核对一手原文、检索反证);正文引用的 13 条关键实证数字(METR、DORA、Google/Airbnb 迁移、Copilot RCT、Knight/TSB 案例等)在成文后另做了一轮 3 票对抗验证,12 条通过、1 条按验证意见修正、0 条被推翻。方法学限定(相关性/自报/厂商口径/n=1)在正文中如实交代,文末附完整来源索引。</p></blockquote>
+<h2>0. 一个需要解释的悖论</h2>
+<p>2025 年,DORA 对近 5,000 名技术从业者的调查给出了一组互相打架的数字:90% 的人在工作中使用 AI,超过 80% 的人认为 AI 提升了自己的生产力;与此同时,AI 采用度与软件交付<strong>稳定性</strong>的负相关连续第二年成立——"没有健壮的控制系统(自动化测试、成熟的版本控制、快速反馈回路),变更量的增加会导致不稳定"(DORA 2025,横断面相关性证据,已验证)。</p>
+<p>个体感知与组织指标的错位不是调查噪声,它本身被一个随机对照实验直接测到了。METR 在 2025 年招募 16 名资深开源维护者(对自己维护的仓库平均有 5 年经验,仓库平均百万行级、十年历史),246 个真实任务随机分配允许或禁止使用 AI。结果:允许 AI 使任务耗时平均<strong>增加</strong> 19%(约 +2% 到 +40%,论文图示的 95% CI)——而开发者事前预测 AI 会让自己快 24%,事后、在实际被拖慢之后,仍然自估快了 20%。主观感知与客观测量方向相反,错位约 40 个百分点。(这个结果有后续,需要连在一起读:METR 2026 年 2 月的复测中,原批次的点估计翻转为约 18% 提速,但置信区间仍跨零;30–50% 的参与者承认回避提交部分任务(不想在无 AI 条件下做),METR 因此称新数据"是当前 AI 生产力效应的不可靠信号"、当前估计"很可能只是真实效应的下界",并正在修改研究设计。这个研究最耐久的贡献不是 19% 这个数,而是感知-现实错位的实锤和减速机制清单——后文会用到。)</p>
+<p>把这两组证据放在一起,得到本文要解释的悖论:<strong>个体真实地感到被加速,组织真实地没有变快、甚至变得更不稳定。</strong>如果你的转型决策依据是工程师的体感、供应商的演示和 velocity 图表,你大概率正在优化那个感知,而不是那个现实。</p>
+<p>这个悖论不是 AI 特有的怪事。它有一个可以严格表述的理论解释,而且这个解释可以反过来推导出组织该怎么改。这就是本文的路线:先给理论枢轴(第 1 节),再看人的角色往哪移(第 2 节)、组织边界往哪移(第 3 节);然后处理最难的场景——维护着极复杂 legacy 代码库、扛着极高 QPS、可靠性要求苛刻的组织,BigQuery 式的组织(第 4 节);最后回答为什么传统组织难转、转型路径怎么设计(第 5 节)。</p>
+<h2>1. 理论枢轴:成本没有消失,它搬家了</h2>
+<h3>1.1 从 Coase 说起</h3>
+<p>1937 年 Coase 在《企业的性质》里给出的框架至今没有更好的替代品:企业之所以存在,是因为通过市场协调(搜寻、议价、缔约、监督)有成本;当内部科层协调比市场交易便宜时,活动被纳入企业内部。<strong>交易成本决定企业边界。</strong></p>
+<p>AI agent 直接作用于交易成本的每一个构成项:搜寻、缔约、监督、结算、验证都可以被自动化。NBER 收录的 "The Coasean Singularity?"(Shahidi, Rusak, Manning, Fradkin &amp; Horton, 2025)论证 AI agent 以极低边际成本执行询价、谈判、合规监督,firm-market 边界因此会移动——这一"边界会动"的方向中性命题经对抗验证成立。</p>
+<p>但"交易成本下降→企业收缩/科层消亡"的流行推论,在证据面前站不住。Berkeley《California Management Review》2025 年的分析(Warin, "From Coase to AI Agents")给出三条经过对抗验证的反驳:</p>
+<ol><li>AI agent 降低的是微观层面的交易成本,但 agent 的激增在组织层面制造<strong>新的协调成本</strong>——重复劳动、流程冲突、组织熵增。Coase 的逻辑没有失效,而是把成本从生产/协调环节<strong>转移到了整合环节</strong>。</li><li>依赖外部平台部署 agent 产生新型锁定:企业在不知不觉中把"组织一致性"本身外包给平台方(作者称之为 "digital feudalism")。旁证:a16z 2025 年企业调研发现 agentic workflow 场景下切换成本显著上升;Zapier 2026 年调查中 81% 的企业领导者担忧 AI 供应商依赖,仅 6% 认为可以无痛切换。</li><li>无治理的 agent 采用会威胁企业作为一致性实体的存在——AI-native 组织需要中心化的 agent 治理层,这不是官僚主义,是 Coase 意义上的必需品。</li></ol>
+<p>同一文献流里,《The Agentic Economy》(2026)提出 "coordination friction" 概念对交易成本经济学做了扩展(已验证,概念框架):agentic 系统在降低旧交易成本的同时制造新摩擦——模型错误、协议失败、审计不透明、人工覆核负担。原文有一句值得整段引用的话:"A system may act faster but become less auditable."(系统可能动作更快,但更难审计。)</p>
+<p>于是光谱一的稳健结论是一句话:<strong>交易成本不是消失,而是从生产与人际协调环节,转移到整合、验证与平台关系环节。</strong>这就是本文的理论枢轴。</p>
+<h3>1.2 一个诱人但已被证伪的强版本</h3>
+<p>有一个更激进的版本值得专门驳斥,因为它流传很广:"限制企业规模的协调摩擦(沟通带宽、默会知识、偷懒激励)是人类特有的,对 AI agent 不成立,所以 agent 化的企业可以突破规模上限。"这句话的出处(Hadfield &amp; Koh, 2025)原文其实是带着 "seem" 的研究议程式猜想,而当前实证明确指向相反:Google Research/MIT/DeepMind 的多 agent 系统扩展性研究(2025)实测协调轮次随 agent 数量呈幂律增长(指数 1.724),协调开销达 263%–515%,超过 3–4 个 agent 后单 agent 的推理容量"薄到不可用";MAST 失败分类学(Cemri et al., 2025)分析 1,600+ 条执行轨迹,约 79% 的失败源于规格、协调与验证缺口。</p>
+<p><strong>协调摩擦换了形态,没有消失</strong>:有界上下文对应有限理性,失准对应机会主义,错误传播对应代理成本——而且这些摩擦在远小于人类企业的规模上就已经发作。</p>
+<p>顺带一提,委托-代理理论在这里获得了新生命:AI 对齐问题与不完全契约理论构成紧密类比(Hadfield-Menell &amp; Hadfield, AIES 2019;注意是"类比"不是"等价"——人类的不完全契约有外部规范和法律执行兜底,AI agent 没有)。reward specification 就是委托人与代理人之间注定不完备的契约:"即使 AI agent 是优化器,我们也无法确定它在优化什么。"把工作委托给 agent,principal-agent 问题不消失,只是变形——对齐、监督、验证成本就是新的代理成本。</p>
+<h3>1.3 软件工程侧的镜像:Brooks 被改写,而非废除</h3>
+<p>组织经济学的"成本转移"在软件工程理论里有一个精确的镜像。Brooks 在《人月神话》里给出的 n(n-1)/2 沟通成本是软件组织理论最著名的定律。当 agent 承担大量编码工作,这个 O(n²) 项消失了吗?</p>
+<p>三位独立作者在 2025–2026 年得出了同构的答案(均为高声望从业者论述,方向一致但未经受控实证):</p>
+<ul><li>Wes McKinney(pandas 作者):协调问题"不消失而是改变形态"——变成人类去调和多个 agent 会话产出的相互矛盾的计划:每个 agent 会话没有持久记忆、彼此之间没有共享理解,就像一群从不开会、每天失忆的临时工。用 Brooks《没有银弹》的经典二分来说(本质复杂性是问题本身固有的难度,偶然复杂性是工具和流程附加的麻烦):偶然复杂性基本被 AI 消除了,但 agent 无法可靠地识别哪些难度是本质的,而且以机器速度生成<strong>新的</strong>偶然复杂性——防御性样板代码、不必要的过度设计。他还给出了一个实测拐点:自建项目约 10 万行时 agent 开始"追自己的尾巴",百万行级代码库中挣扎得更严重。"agent 在加速'容易的部分'的同时,悖论式地让'困难的部分'变得更难。"</li><li>Forret 把 Brooks 定律逐项平移到了 agent 时代:"向已延期项目加入自主 AI agent,同样使其更晚。"Brooks 的原始机制是两条——新人需要老人花时间带(ramp-up),而且团队每加一人、沟通路径就多一批。换成 agent,这两笔成本没有消失,只是换了名字:"带新人"变成了给 agent 准备上下文(把任务背景、代码约定、没写成文档的隐性知识整理成 agent 能消化的输入);"沟通"变成了人对 agent 产出的评审与集成。而且这笔评审成本常常<strong>高于</strong>评审人类同事的代码,因为 agent 的错误有一种特别的欺骗性:语法完美、风格体面,但逻辑有缺陷、和现有架构不一致——人类新手的错误往往一眼可辨,agent 的错误藏在专业的外表下面,你必须真的读懂每一行才能抓住它。</li><li>O'Reilly Radar:"当生成代码免费,知道何时说'不'是你最后的防线。"</li></ul>
+<p>Conway 定律同样被放大而非失效:领域边界清晰时 agent 强化边界,边界模糊时 agent 制造耦合——AI 放大组织的既有模式。这与 DORA 2025 的核心发现严格同构(已验证):<strong>"AI 不会修复团队;它放大团队已有的东西。"</strong></p>
+<p>Team Topologies 的认知负荷视角给出同一结论的第三种表述:实现类负荷(语法、API 记忆)大降,集成/协调类负荷上升。一个从业者假说说得直白(注意:其中所有数字都无实证出处):"一个 5 人 AI 增强团队以 12 个传统工程师的速率产出,同时制造了 12 个工程师量级的集成面。"</p>
+<h3>1.4 枢轴的解释力:回到开篇悖论</h3>
+<p>现在可以解释第 0 节的悖论了。成本转移论同时解释了全部四组数据:</p>
+<ul><li><strong>METR 的减速</strong>:资深开发者在成熟代码库上,生成不是瓶颈,验证才是——屏幕录像显示允许 AI 组约 9% 的时间花在审查/清理 AI 输出上,主动编码时间被提示、等待、审查取代。生成侧的提速被验证侧的新增成本吃掉,在验证成本最高的情境(专家 + 复杂 legacy)甚至倒挂。</li><li><strong>DORA 的稳定性惩罚</strong>:整合成本以"不稳定"的形式显形。变更量放大穿透薄弱的下游控制系统,这正是转移过来的那部分成本。</li><li><strong>Faros 的遥测</strong>(10,000+ 开发者,厂商研究):高 AI 采用者合并 PR +98%,但 PR 体积 +154%、评审时间 +91%、cycle time 与 AI 采用<strong>无相关</strong>——个体吞吐上升,组织交付速度不变,成本在评审环节堆积。</li><li><strong>GitClear 的代码质量纵向数据</strong>(2.11 亿行,厂商数据集,相关性):克隆代码占比从 8.3% 升到 12.3%,重构相关改动行占比从 2021 年的 25% 萎缩到 2024 年的不足 10%——"复制/粘贴"行数历史上首次超过"移动"(重构复用)行数。生成便宜了,于是结构性维护被挤出。</li></ul>
+<p>一句话总结第 1 节:<strong>AI 把软件生产中"写"的成本压向零,把"确认写得对"的成本推向组织瓶颈的位置。</strong>一切 AI-native 组织设计,本质上都是围绕这次成本转移的重新布局。</p>
+<h2>2. 人往哪去:预测与判断的分工</h2>
+<h3>2.1 一个经过 12 票验证的经济学框架</h3>
+<p>要回答"agent 干活之后人干什么",目前最扎实的理论出处是 Agrawal、Gans &amp; Goldfarb 的预测-判断框架(NBER, 2018;三位作者 2024 年在 HBR 撰文确认框架适用于生成式 AI)。这是本研究全部材料中验证最扎实的理论:12+ 票对抗验证全部通过,引文逐字核实。</p>
+<p>框架的两句核心论断:</p>
+<ol><li>"我们把 AI 领域的近期进展解读为<strong>预测技术的改进</strong>"——而非通用智能。这不是贬低,是让 AI 变得可以被经济学建模:预测成本下降,则预测的互补品升值、替代品贬值。</li><li>"只要判断本身不太困难,预测与判断是互补品。"判断(judgment)指确定各状态下收益的高成本活动——定目标、定收益函数、决定什么算"好"。</li></ol>
+<p>映射到软件工程(注意:这是推论,原文 2018 年完全未提软件开发):代码生成、补全、执行属于预测端;需求规格、架构取舍、验收标准、"这个变更值不值得冒险"属于判断端。预测变便宜,判断升值——<strong>人的价值向规格与验收集中。</strong></p>
+<p>框架自带一个反向条款,引用者常常把它略去:如果判断本身可以被编码进状态相依的机器行为(即"什么算好"可以写成规则),互补关系翻转为替代。同一作者的姊妹篇明言"并非所有人类判断都是 AI 的互补品"。"人永远保留判断"不是这个理论的承诺,它承诺的是一个动态边界。</p>
+<h3>2.2 实证:方向一致,但都来自厂商</h3>
+<p>Anthropic 对约 40 万个 Claude Code 会话的分析(厂商自研,未验证)给出与框架方向一致的分工数据:人类保留约 70% 的规划类决策,约 80% 的执行类决策交给 agent——人机分工恰好沿"规划 vs 执行"轴切开。更有意思的是专长的角色:专家单条指令能触发约 12 个动作、3,200 词的产出,新手只有 5 个动作、600 词;编码职业与非编码职业在编码任务上的验证成功率相差不大(34% vs 29%,产出代码的会话口径)。<strong>编码执行技能在贬值,领域知识在升值</strong>——"把 agent 引向成功的能力,更多来自对领域的掌握,而非写代码的能力。"</p>
+<h3>2.3 边界测试:一个人加一队 agent 能走多远</h3>
+<p>巴西 Itaú 银行的案例(arXiv 2605.18461,2026)是目前"团队最小规模"方向上最完整的一手记录:受监管的棕地环境里,一名 8 年经验的 staff 工程师在规格驱动开发(Spec-Driven Development)工作流下,用三种 AI 工具承担四个 agent 角色,3 个 sprint 完成了原本为 4 人小队规划 6 个 sprint 的项目。质量与成本数字经对抗验证核实:AI 生成代码首轮评审 90% 无结构性修改即被接受,集成测试 113/113 通过,上线后零缺陷,直接成本降低 88%;每业务能力点的工时从 8.93 小时降到 4.35 小时(−51%)。</p>
+<p>这个案例的限定条件同样清楚:n=1;工程师本人是论文作者;对照是历史项目而非平行实验;论文自称这是"边界测试而非目标运营模型"。</p>
+<p>但这个案例最有理论价值的部分不是数字,是机制归因,它与第 1 节严丝合缝:<strong>提速的主因不是单人编码变快,而是跨职能协调的"外环"被压缩</strong>——产品分析、架构、安全、QA 等学科由单一工程师指挥的 agent 体现后,跨学科往返成本从数天降到数分钟。而约束成功的不是模型能力,是<strong>规格质量与机构知识</strong>:含糊的规格无论用什么工具都产出废码,棕地环境中未文档化的遗留集成契约是返工的最大来源。</p>
+<p>这三组证据(理论、遥测、案例)指向同一个组织设计推论:AI-native 组织的稀缺岗位不是"会用 AI 的程序员",而是<strong>能把领域知识压缩成高质量规格、并拥有验收判断权的人</strong>。招聘、晋升、培养体系如果还在按"编码执行能力"定价,定价的是一项正在贬值的资产。</p>
+<h2>3. 组织会变小吗:一场诚实的未决之争</h2>
+<p>"AI 让十人团队干百人的活,企业将碎片化为微型专业单元"——这是 AI-native 叙事里最流行的推论,也是本研究中被对抗验证摧毁得最彻底的推论。但这一节给不出结论,只能给出争议的现状——证据本身是未决的,任何单边断言都超出了证据能支撑的范围。</p>
+<p><strong>收缩派的明星论文没能挺过验证。</strong>《The Headless Firm》(2026)提出的沙漏模型——生成式界面在上、协议腰在中、微型专业化执行 agent 市场在下——三条核心断言("集成成本 O(n²)→O(n)"、"沙漏是稳定均衡"、"企业规模分布按知识衰减率分岔")作为事实陈述全部被反驳:论文是未经同行评审的预印本,两位作者是 agentic 基础设施公司 Mantix 的创始人(已披露的利益冲突,沙漏架构就是其产品论题),文中全部是条件式模型推演、零实证;而多 agent 失败实证(MAST)显示当前验证与协调成本仍随交互数增长。该论文可以合法引用的部分是两条可证伪预测:若协议腰成立,新增执行方的边际集成成本应近似常数;协调成本/吞吐比(C/T)应随生态增长保持稳定,骤升即模型坍缩的信号。这两条值得记住——它们是判断"解绑"是否真的发生的<strong>可观测判据</strong>。</p>
+<p><strong>扩张派反而握着同行评审的实证。</strong>Babina, Fedyk, He &amp; Hodson(<em>Journal of Financial Economics</em>, 2024)发现 AI 投资集中于更大的企业、驱动其增长并<strong>提高行业集中度</strong>——包括快变的科技领域,迄今未观测到碎片化。理论侧,Chen/Elliott/Koh 的能力形成模型(<em>JET</em>, 2023,经验证转述准确)给出一个相变预测:当 AI 压低维持多元能力的组织成本、<strong>且</strong>不同市场开始重视相似能力(比如经由迁移学习)时,经济从许多专业化小企业突变为少数跨行业巨头。注意这是双条件的理论预测,与收缩预测互为竞争性均衡。</p>
+<p>旁证归旁证:Anthropic/OpenAI 人均营收约 $14M/$6.5M,超过 Forbes Global 2000 的全部科技公司(Epoch AI)——但这是相关性,新兴垄断利润与组织形态之间隔着太多混杂变量。</p>
+<p><strong>文章能安全断言的只有机制,不是方向</strong>:交易成本的转移会移动企业边界;边界往哪移,取决于验证成本的标度律(如果验证成本随任务量亚线性增长,解绑有戏;如果验证仍然随交互拓扑增长,集中继续)和问责体制(专业签核、监管工作流、证据链——Hydari &amp; Muzaffar 论证这是独立于验证成本的必要条件)。<strong>谁声称知道方向,谁就在贩卖超出证据的确定性。</strong></p>
+<p>对读者的操作含义:与其押注"小团队化"或"平台化"哪个赢,不如盯住自己组织的可观测量——你的每次变更的验证成本随变更量怎么增长?你的 agent 生态的 C/T 比在升还是稳?这两个量,你自己的遥测就能测。</p>
+<h2>4. 专章:当你运维的是 BigQuery——高可靠 legacy 组织的特殊解</h2>
+<p>前三节的理论对所有软件组织成立。但有一类组织值得专门处理:代码库极其复杂且深度 legacy、服务极高 QPS、可靠性要求苛刻——Google BigQuery/Spanner、大型支付与交易系统、核心银行系统。这类组织读到的几乎所有 AI-native 布道都来自初创语境,而<strong>初创的玩法对它们不但不适用,而且系统性地危险</strong>。这一节论证为什么,以及可行路径长什么样。</p>
+<h3>4.1 为什么初创玩法不能照搬:风险几何学不同</h3>
+<p>Perrow 的常态事故理论(<em>Normal Accidents</em>, 1984)提供了正确的透镜:同时具备<strong>紧耦合</strong>(毫秒级传导、低冗余时延)与<strong>交互复杂性</strong>(千万行 legacy、隐性依赖网)的系统,处在事故风险最高的象限;在任一维度上降级(松耦合或线性化)都能降低灾难性错误率。</p>
+<p>这个理论有必须先正视的边界:NAT 与它的对手高可靠性组织理论(HRO)共同面临不可证伪性批评——耦合与复杂性的阈值无法客观测定(此点已验证);按最严格的技术性定义,甚至没有一场真实事故完全符合 Perrow 的"常态事故"判据,Le Coze(2015)的重构是"Perrow 说事故是常态说对了,但理由错了——根源在组织与治理,而非技术架构本身"。所以下文把 Perrow 用作<strong>风险分类透镜</strong>而非事故定律——"引入 AI 必然出事故"这样的强因果断言,证据并不支持。</p>
+<p>透镜之下,初创与高可靠组织的差异是几何性的:绿地系统天然处于低耦合、低复杂象限,错误预算宽裕、爆炸半径小,可以用低可靠性换学习速度;BigQuery 式系统坐在高危象限,而且是<strong>短时延</strong>的高危象限——系统从表面正常滑向灾难的速度快于人类认知速度(已验证的理论表述)。Knight Capital 是量级标定(类比案例,与 AI 无关):2012 年 8 月 1 日,一次部署错误——8 台服务器只更新了 7 台,未更新的那台激活了停用八年但未删除的死代码 Power Peg——45 分钟亏损超过 4.6 亿美元,公司一年内丧失独立性。注意根因链的形态:<strong>死代码 + 复用的标志位 + 开盘前的自动错误通知无人响应</strong>(SEC 特别指出,那 97 封错误邮件"并非被设计为系统告警",员工惯常不查看——通知存在与告警生效是两回事)。AI 大量生成代码而没有死代码治理的组织,是在批量制造 Power Peg。</p>
+<p>同一个 AI 工具,在两个象限的风险积分完全不同。这就是"不能照搬"的第一性原理版本。</p>
+<h3>4.2 收益侧也不成立:METR 的情境恰好是你的日常</h3>
+<p>更狠的是,对这类组织,初创玩法不但风险大,收益侧的证据也是反的。回看 METR RCT 的情境设定:资深开发者(平均 5 年仓库经验)、大型成熟代码库(百万行、十年历史)、极高的贡献质量门槛(文档、测试覆盖、lint 规范)——<strong>这不是随便一个实验情境,这就是高可靠 legacy 组织的日常</strong>。正是在这个情境下测得 19% 减速(CI +2%~+39%,early-2025 工具链,后续更新见第 0 节)。论文的因素分析给出机制:对仓库越熟悉的任务减速越严重;AI 无法利用隐性的仓库上下文;高质量标准放大验证成本。</p>
+<p>为什么"更大的上下文窗口"救不了:Chroma 的 Context Rot 评测(18 个前沿模型)显示性能随输入长度持续衰减,语义相似但不相关的干扰项叠加性地降低表现——巨型代码库里海量"相似但不相关"的代码模式正是这种干扰源。把千万行塞进窗口不是方案。</p>
+<p>Google 内部的破法指向真正的杠杆:DIDACT 用内部<strong>开发过程数据</strong>(细粒度编辑、build 修复、review 往返)而非仅成品代码训练模型。含义残酷而清晰:<strong>高可靠 legacy 组织的 AI 能力部分取决于私有过程数据资产,这不是买工具能补的。</strong></p>
+<p>Lehman 的软件演化定律解释了为什么这个约束是结构性的:演化中的软件复杂度默认递增(第二定律),legacy 复杂度不是工程失误,是演化的热力学;而 Hyrum's Law 保证了"行为等价"的重构在巨型代码库中永远不是零风险——接口的一切可观察行为都已被某个使用者依赖。这些复杂度的主体是<strong>隐性知识</strong>:边缘 case 的历史修复、未文档化的行为依赖、组织约定——恰好是公开语料训练的 LLM 最缺的分布。</p>
+<h3>4.3 汇合点:验证瓶颈,以及一条 1999 年的组织学原理</h3>
+<p>风险侧(4.1)与收益侧(4.2)在同一个机制上汇合,而这个机制正是第 1 节的枢轴在极端条件下的显形:<strong>生成成本趋零后,瓶颈移到验证;而验证产能恰好是高可靠组织最贵、最不可压缩的资产。</strong></p>
+<p>这条线的证据在本研究中四路汇聚,是全部材料中最扎实的:</p>
+<ul><li><strong>行业行为数据</strong>(已验证,溯源到官方新闻稿并经独立媒体交叉证实):据 Sonar 2026 年调查(n&gt;1,100;注意 Sonar 作为代码质量厂商对此叙事有商业利益),96% 的开发者不<strong>完全</strong>信任 AI 生成代码的功能正确性——但只有 48% 的人在提交前总是评审 AI 辅助的代码。不信任与验证行为之间有一道 48 个百分点的缺口,这道缺口就是组织级风险的蓄水池。</li><li><strong>一线实践</strong>(已验证):安全审计机构 SRLabs 的操作结论——"AI 能产出有用的线索,但验证与上下文设定仍是主导成本";他们把 AI 放在审计流程后期、窄范围、作为覆盖工具而非一线发现工具,早期实践中 AI 漏洞发现约 80% 误报率、每条都需人工复核。</li><li><strong>学术量化</strong>:自动化验证器远未可靠——SAGA 方法在 TCGBench 基准上能检出 90.62% 的缺陷,但作为"裁判"判断一段代码整体对不对时准确率仅 32.58%。更深一层:弱测试用例还会污染模型训练本身——当前主流的"可验证奖励强化学习"(RLVR)靠测试通过与否给模型发奖励,测试不严,模型就会把"骗过烂测试"当成"写对了"来学习。<strong>验证质量约束的不只是部署,还有 AI 能力改进的闭环本身。</strong></li><li><strong>组织级实证</strong>(一手,自报):Google 的 JUnit3→JUnit4 迁移中,约 87% 的 AI 生成代码未经修改直接提交,而团队明确记录:<strong>瓶颈是人工 review 速度,他们刻意限速生成变更以免压垮 reviewer。</strong>生成端产能过剩、验证端限流——这是验证瓶颈论最直接的组织级实锤。</li></ul>
+<p>理论侧,有一条 1999 年的组织学原理恰好为此而生,并且是本研究验证得最干净的理论论断之一(6 票全过,验证者下载原始 PDF 逐字核对):Weick、Sutcliffe &amp; Obstfeld 对高可靠性组织的核心刻画——<strong>可靠性不来自稳定的活动模式,而来自"稳定的认知过程"作用于"可变的行动模式"</strong>;认知稳定,行动可变。追求效率的组织常常做相反的拆分:活动稳定(流程固化),认知可变(判断随人)。</p>
+<p>翻译到 AI 时代(这一步是本文的推导,机制本身已验证):<strong>AI 使"行动生成"空前地便宜和多变,组织必须相应地让"检测、评估、修正"这些认知过程更稳定、更被资本化——而不是让 AI 同时接管生成与验证两端。</strong>这就是"先建护栏、再上规模"的理论内核,它不是保守主义,是控制论。</p>
+<p>Dietterich(2018,已验证,规范性立场文)把同一逻辑表述为部署判据:高风险应用中,可靠性是"人+AI 组合系统"的属性而非 AI 单体的属性;<strong>不要把 AI 部署到周边人类组织无法实现高可靠的场景</strong>——验证产能不足的团队不应吸收高产量的 AI 输出。初创式玩法(全员 agent、体感驱动、先上再说)正是对这条判据的系统性违反。</p>
+<h3>4.4 可行路径第一步:迁移任务——唯一有一手成功证据的切入点</h3>
+<p>指出约束之后,好消息是存在一类任务,AI 在巨型 legacy 代码库上有<strong>多个独立组织的一手成功记录</strong>——而且恰好是 legacy 组织最深的痛。</p>
+<p>任务画像:旧模式→新模式的转换,单元粒度,自带 oracle——"oracle"指能自动判定"结果对不对"的裁判,这里就是编译器、测试套件、类型检查器——劳动密集且无人愿做。也就是:大规模代码迁移、测试框架迁移、语言/框架版本升级、build 修复。</p>
+<ul><li><strong>Google,int32→int64 大仓迁移</strong>(FSE 2025):12 个月、3 名开发者、39 个迁移、93,574 个 edits,LLM 生成了 74.45% 的 code changes;开发者自估总时长缩短 50%(注意:3 人自报,非仪器化测量)。论文对动机的陈述本身就是论点:这类迁移劳动密集、无成就感、可以拖数年——<strong>它是 legacy 组织经济上最合理的第一个 AI 工作负载。</strong></li><li><strong>Google,Ads int32→int64 与 JUnit 迁移</strong>(2025):落地 changelist 中 80% 的代码修改完全由 AI 生成(按逐字符 diff 计算);JUnit3→JUnit4 三个月迁移 5,359 个文件、14.9 万行,87% 的 AI 生成代码未改直接提交;靠 LLM 重启了搁置多年的迁移,少数工程师完成原需数百工程师年的工作。Google 给每个迁移项目设的成功标准就是端到端省时 ≥50%。</li><li><strong>Airbnb,Enzyme→React Testing Library</strong>(2025):约 3,500 个测试文件,原估 1.5 人年,实际 6 周。自动化曲线很有信息量:首轮 4 小时自动迁移 75%,4 天针对常见失败模式调优后到 97%,剩余 3% 人工一周收尾——自动化有明确上限,人工长尾不可省。团队复盘的成功主因是"选对相关文件"(困难文件的上下文扩到 40K–100K token、拉入多达 50 个相关文件)——<strong>上下文工程,而非提示词措辞。</strong></li><li><strong>Amazon Q,Java 8/11→17</strong>(厂商自报口径,无同行评审):数万生产应用,单应用从约 50 开发者日降到数小时,宣称累计省 4,500 开发者年。</li></ul>
+<p>四个案例的架构交集,就是护栏工程的现成模板:</p>
+<ol><li><strong>确定性夹层</strong>:确定性工具(AST、Code Search/Kythe、静态分析)负责定位,LLM 只在夹层中间负责生成,确定性验证循环(测试/编译/lint)负责裁决——AI 从不拥有"合入"的决定权;</li><li><strong>同流程原则</strong>:AI 代码与人写代码走同一 review、同一测试门禁;</li><li><strong>按验证产能限流</strong>:生成吞吐服从 reviewer 产能,而非按生成能力放量;</li><li><strong>上下文工程是主要杠杆</strong>;</li><li><strong>诚实的未知</strong>:对代码质量的长期影响尚不可知(Google 原文承认)。</li></ol>
+<p>反面的对照案例是现成的。TSB 银行 2018 年把 500 万客户一次性 big-bang 迁移到新平台:独立调查认定"未充分论证单次事件式迁移是否正确",live proving 规模不足,结果是网银瘫痪、钓鱼欺诈峰值 70 倍、迁移相关总成本约 £3.3 亿(后经向供应商追偿部分抵消)、8 万客户流失,监管机构 2022 年另处罚款 £4,870 万。Queensland Health 薪资系统 600 万美元的重写最终造成约 12 亿美元损失。大重写杀死组织的机制正是 Lehman/Hyrum 预言的:<strong>以代码形式沉淀的制度性知识随旧代码被丢弃,然后必须痛苦地重新发现。</strong></p>
+<p>绞杀者模式(Fowler)之所以是正确路径,是因为"新旧共存、按可验证的小切片渐进替换、每步可回退"的结构恰好就是 AI 需要的护栏。<strong>AI 没有改变绞杀者模式的正确性,它把绞杀者模式中最贵的体力环节——逐单元改写——变便宜了一个数量级。</strong>这就是"迁移是 legacy 组织切入 AI 的最优路径"的完整论证。</p>
+<h3>4.5 三阶段序列,以及每一阶段的证据等级</h3>
+<p>把本节收拢成一个可执行序列,并诚实标注每一步踩在什么证据上:</p>
+<p><strong>阶段一:从封闭验证任务切入。</strong>(有多组织一手实证)大规模迁移、测试迁移、框架升级、build 修复。用 Google/Airbnb 的确定性夹层架构。这一阶段同时在为阶段二积累两样东西:组织自己的 AI 变更遥测基线,和上下文工程能力。</p>
+<p><strong>阶段二:护栏先于规模。</strong>(部分实证、部分外推)实证支撑的部分:同流程原则、确定性夹层、按 review 产能限流、AI 后置窄用、嵌入既有工具链——Google 2024 年的全景数据显示其 AI 部署本身就走"度量+灰度"路径,且"需要用户记得主动触发的 AI 功能无法规模化",杠杆在嵌入既有工具链。DORA 2025 的处方向一致:回报来自对测试、版本控制、反馈回路的投资,而非工具本身。<strong>理论外推的部分(目前没有任何组织实施的一手案例)</strong>:将 AI 生成变更纳入统一的错误预算(error budget,SRE 实践的核心机制:可靠性目标之外的余量就是可以花的"变更预算",预算烧完即冻结发布——把"稳定 vs 速度"从文化争论变成算术),按可靠性目标的剩余余量自动调节 AI 变更的配额;用 TLA+ 类形式化规约作为 AI 高风险变更的验收 oracle——AWS 证明了形式化方法在此类组织的可行性与 ROI(DynamoDB 上模型检查发现过一个穿透全部人工评审、最短错误轨迹 35 步的设计 bug;工程师从零学 TLA+ 到产出结果只需 2–3 周),但 Newcombe 等自己承认设计级验证与代码级验证之间的鸿沟——"用形式化护 AI 变更"是本文的推导,不是已证实践。</p>
+<p><strong>阶段三:组织结构配置。</strong>(以理论外推为主,踩在已验证的机制上)把验证基础设施——测试 oracle、灰度、可观测性、review 工具链——确立为一等资产与专职团队,而非各团队自理(Weick 机制的组织学翻译);agent 权限中心化治理、局部执行——Leveson 对去中心化的批评在此适用(归因式引用:她论证在紧耦合系统中,不协调的局部决策本身就是事故模式;HRO 学派的平衡视角是"决策权随问题迁移",专业知识优先于层级);AI 收益评估必须仪器化(交付指标、变更失败率、review 时延),<strong>禁用体感自报作为决策依据</strong>——这是 METR 感知-现实错位的直接治理后果。</p>
+<p>最后有一层必须说破:本节的处方("先护栏后规模、从可验证任务切入")与 Google/AWS/Airbnb 的实际路径一致——但这些组织本来就是全球验证基础设施最强的组织。<strong>"护栏最强的组织最先成功用 AI"既是本文论点的证据,也可能是幸存者偏差。</strong>这是一个开放问题,不是一个已闭合的结论。</p>
+<h2>5. 为什么难转,怎么转:来自创新理论的最后一块拼图</h2>
+<p>前四节回答了"转成什么样",还剩"为什么转不动"。这一问在管理学里有四十年的理论与实证积累,而且结论出奇地一致。</p>
+<p><strong>难转不是因为蠢,是因为理性。</strong>Christensen 的框架在 AI 语境下的表现形式:在位组织采用 AI 时,会理性地用它优化既有流程——更快地做原来的事——而非重构工作的组织方式。HBR 2026 年的观察与此吻合:广泛部署 AI 的在位者只获边际收益,约束是组织设计而非技术部署强度。同行评审侧,Bughin(2025)的发现更细:AI 带来的外部竞争压力确实促进创新,但驱动战略更新的主导力量是<strong>企业内部组织动力</strong>——瓶颈在内部。</p>
+<p><strong>难转的量化机制:系统性探索不足。</strong>March 的探索-利用框架及其实证传统给出硬数字:Uotila 等对上市公司的估计是 <strong>80% 的企业探索不足、利用过度</strong>——组织天然偏向短期确定性,系统性挤压探索。Gilbert 对报业数字化的研究提供了最有杀伤力的细节:转型失败不是因为资源投入不足,而是<strong>未能改变使用资源的流程</strong>——直接反驳"买 AI 工具、加预算即可转型"。三场 Copilot 现场实验(4,867 名开发者,事后注册)里还有个常被忽略的数字:免费接入加管理层推动(其中一场还配了培训)的条件下,仍有 30–40% 的工程师从未尝试——闸门不是接入,是吸收摩擦。</p>
+<p><strong>路径设计:结构性双元。</strong>O'Reilly &amp; Tushman 的综述(跨数百项研究)支持的配方是:探索与利用分设自治单元,各自配置不同的能力、激励、流程与文化,靠共同的战略意图连接——而不是让同一个团队"既保交付又搞转型"(顺序式切换在快变环境中失效)。对应到 AI-native 转型:分设 AI-native 探索单元,让它按新的成本结构重新设计工作方式,站稳后再整合回主体。注意诚实边界:双元性的经典实证很厚,但"AI-native 探索单元最终跑赢"目前没有一例对照证据——这是把经典理论外推到新情境。</p>
+<p><strong>转型顺序不可颠倒。</strong>吸收能力理论(Cohen &amp; Levinthal)与 DORA 放大器论(已验证)在此汇合:组织吸收新技术的收益取决于既有能力存量,AI 放大组织已有的强弱而不是修复它。推论:<strong>弱组织先修底层系统(测试、版本控制、反馈回路)再上 AI;强组织的 AI 红利是既有工程能力的复利。</strong>先买工具后补基本功的顺序,会让你先收获 DORA 曲线上的稳定性惩罚,再在信任崩塌后失去第二次机会。</p>
+<p><strong>瓶颈的最终位置:高管层。</strong>Teece 的动态能力框架(sensing-seizing-reconfiguring)把话说完:AI-native 转型的约束不在开发者个体的工具采纳率,而在高管层感知机会、重组资产与组织的决策能力。这与本文的成本转移枢轴呼应:资产重组的具体内容,就是把投资从"生成产能"移向"验证基础设施",把人才定价从"执行能力"移向"判断能力",把治理从"事后合规"移向"中心协调、分布执行"。</p>
+<h2>6. 结语:六个可检验的主张</h2>
+<p>全文的论证归结为六个主张,按证据强度排序,每一个都写成可检验的形式:</p>
+<ol><li><strong>个体提效不自动转化为组织交付性能;瓶颈转移到下游控制系统。</strong>(强:DORA 两年纵向 + Faros 遥测 + METR 微观时间,相关性与 RCT 互证)</li><li><strong>AI 收益随开发者经验与代码库成熟度递减,在曲线尾端可为负;且从业者自我感知不可靠。</strong>(强:METR 与 Copilot RCT 两组因果证据方向互补;METR 点估计带不确定性,感知错位是其最稳健发现)</li><li><strong>交易成本从生产/协调环节转移到整合/验证/平台关系环节,这是上述现象的统一机制。</strong>(中强:理论已验证,软件侧为多源独立收敛的从业者证据;量化的成本转移账本尚无人做出)</li><li><strong>人的价值沿判断/执行轴重构,规格质量与领域知识成为主约束。</strong>(中:理论已验证且自带反向条款;实证方向一致但主要来自厂商数据与 n=1 案例)</li><li><strong>高可靠 legacy 组织的最优路径是:封闭验证任务切入 → 护栏先于规模 → 验证基础设施资本化。</strong>(阶段一有多组织一手实证;阶段二三是踩在已验证机制上的外推,且存在幸存者偏差风险)</li><li><strong>企业边界会移动,但方向未决;可观测判据是验证成本的标度律与问责体制。</strong>(诚实的未决:收缩派明星证据未挺过验证,扩张派握有同行评审实证)</li></ol>
+<p>如果两年后 DORA 的稳定性负相关消失了、METR 式实验在成熟代码库上测出稳定提速、或者出现了第一例"AI-native 探索单元跑赢主体"的对照研究——本文的相应主张应当被修订。理论的价值不在于永远正确,在于告诉你该盯着哪些数字。</p>
+<hr>
+<h2>附:主要来源</h2>
+<p><strong>组织经济学</strong>:Coase, "The Nature of the Firm" (1937) · Shahidi et al., "The Coasean Singularity?" (NBER, 2025) · Warin, "From Coase to AI Agents" (<em>California Management Review</em> Insights, 2025) · Gondauri &amp; Batiashvili, "The Agentic Economy" (arXiv:2605.18935) · Hadfield &amp; Koh, "An Economy of AI Agents" (arXiv:2509.01063) · Hadfield-Menell &amp; Hadfield, "Incomplete Contracting and AI Alignment" (AIES 2019) · Agrawal, Gans &amp; Goldfarb, "Prediction, Judgment, and Complexity" (NBER, 2018) + "Generative AI Is Still Just a Prediction Machine" (HBR, 2024) · Chen, Elliott &amp; Koh (<em>JET</em>, 2023) · Babina et al. (<em>Journal of Financial Economics</em>, 2024) · Klein &amp; Wieczorek, "The Headless Firm" (arXiv:2602.21401,受限引用:未评审、作者 COI) · Hydari &amp; Muzaffar, "Going Headless?" (arXiv:2605.17812)</p>
+<p><strong>软件工程实证</strong>:DORA 2024 (dora.dev/research/2024/dora-report) · DORA 2025 (dora.dev/dora-report-2025) · METR (arXiv:2507.09089;更新 metr.org/blog/2026-02-24-uplift-update) · Cui et al., Copilot 三场 RCT (MIT working paper) · GitClear 2025 · Faros AI 遥测研究 · Itaú 单人小队 (arXiv:2605.18461) · Anthropic Claude Code 使用研究 (anthropic.com/research/claude-code-expertise) · Wes McKinney, "The Mythical Agent-Month" · O'Reilly Radar 同题 · Forret 同题 · Google "Towards a Science of Scaling Agent Systems" (arXiv:2512.08296) · Cemri et al., MAST (arXiv:2503.13657)</p>
+<p><strong>高可靠与安全理论</strong>:Perrow, <em>Normal Accidents</em> (1984) · Weick, Sutcliffe &amp; Obstfeld, "Organizing for High Reliability" (<em>ROB</em>, 1999) · Leveson et al., "Moving Beyond Normal Accidents and High Reliability Organizations" (<em>Organization Studies</em>, 2009) · Le Coze (2015) · Dietterich, "Robust Artificial Intelligence and Robust Human Organizations" (arXiv:1811.10840) · Williams &amp; Yampolskiy (<em>Philosophies</em>, 2021) · Bainbridge, "Ironies of Automation" (1983) · Lehman, "Programs, Life Cycles, and Laws of Software Evolution" (1980) · Hyrum's Law (hyrumslaw.com) · Beyer et al., <em>Site Reliability Engineering</em> (2016) · Newcombe et al., "How Amazon Web Services Uses Formal Methods" (<em>CACM</em>, 2015)</p>
+<p><strong>迁移与实践</strong>:Fowler, "Strangler Fig Application" (2004) · Ziftci et al., "Migrating Code At Scale With LLMs At Google" (FSE 2025) · Nikolov et al. (arXiv:2501.06972) · Airbnb Engineering, "Accelerating Large-Scale Test Migration with LLMs" (2025) · AWS DevOps Blog (Amazon Q, 厂商自报) · Google Research, "AI in software engineering at Google" (2024) · DIDACT (2023) · SRLabs, "The verification bottleneck" (2026) · Sonar State of Code Survey 2026 · Chroma, "Context Rot" · TSB 独立调查 (Slaughter and May, 2019) · Knight Capital (SEC 2013 处罚令) · 昆士兰 Health 薪资系统审计</p>
+<p><strong>管理与创新</strong>:Christensen, <em>The Innovator's Dilemma</em> (1997) · March, "Exploration and Exploitation" (1991) · O'Reilly &amp; Tushman, "Organizational Ambidexterity" (<em>AMP</em>, 2013) · Gilbert (2005) · Uotila et al. (2008) · Teece et al. (1997/2007) · Cohen &amp; Levinthal, "Absorptive Capacity" (1990) · Bughin (<em>TASM</em>, 2025) · HBR 2026-02, "Why New Technologies Don't Transform Incumbents"</p>
+<p><strong>控制论(作为设计语言引用,零受控实证)</strong>:Ashby, <em>An Introduction to Cybernetics</em> (1956) · Conant &amp; Ashby (1970) · Beer, <em>Brain of the Firm</em> (1972) · Snowden &amp; Boone (HBR, 2007) · Trist &amp; Bamforth (1951) · Ang, Sankaran &amp; Liu (<em>Applied Ergonomics</em>, 2025) · Thoughtworks, "Cybernetics and human-on-the-loop" (2026)</p>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>
