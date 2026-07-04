@@ -67,9 +67,15 @@ h2:nth-of-type(7){--h2:#e8794b}
 <blockquote><p>This is the accessible edition of the deep dive of the same name. Every key number was independently fact-checked; for the full arguments and sources, read the deep dive.</p></blockquote>
 <h2>One sentence holding up an industry</h2>
 <p>The AI industry has a standard answer to "how do we manage ever-stronger AI": <strong>have AI watch AI.</strong> The coding AI gets a code-reviewing AI, the answering AI gets a fault-finding AI, and the future superhuman AI gets another AI to help humans keep watch.</p>
+<p>The answer works only if one sentence is true: <strong>checking a thing is easier than doing it.</strong> You can't cook a banquet, but you can taste the salt; you can't write a novel, but you can tell a good one from a bad one. As long as checking stays easier than doing, humans (with AI helpers) keep their seat on the judge's bench.</p>
+<p>The sentence has a birth record. In 2018, DeepMind researchers wrote it into a paper as numbered "Assumption 2," and the original says it holds "for <strong>many</strong> tasks" — with a qualifier. The same year, the paper proposing "AI debate" gave it an elegant mathematical analogy, and the authors wrote on the same page: "These complexity class arguments are analogies only."</p>
+<p>Four years later the qualifiers were gone. OpenAI's official 2022 alignment-approach post states: "We believe that evaluating alignment research is substantially easier than producing it." A qualified working assumption had become an unqualified axiom. <strong>And the whole building of "AI watching AI" stands on it.</strong> This essay inspects the foundation.</p>
+
 <figure>
 <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Eight years of one sentence: citations above, cracks below</text>
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Eight years of one sentence</text>
+  <text x="24" y="52" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">● top: the sentence cited / strengthened</text>
+  <text x="360" y="52" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">● bottom: counter-evidence accumulating</text>
   <line x1="40" y1="150" x2="660" y2="150" stroke="#5a6378" stroke-width="1.5"/>
   <text x="52" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2018</text>
   <text x="330" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2022</text>
@@ -77,37 +83,34 @@ h2:nth-of-type(7){--h2:#e8794b}
 
   <circle cx="70" cy="150" r="5" fill="#4cc9f0"/>
   <line x1="70" y1="145" x2="70" y2="96" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="58" y="88" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">Assumption 2 (qualified)</text>
+  <text x="46" y="92" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">2018 "Assumption 2", limited to "many tasks"</text>
 
   <circle cx="150" cy="150" r="5" fill="#4cc9f0"/>
-  <line x1="150" y1="145" x2="150" y2="58" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="120" y="50" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">"analogies only" (self-limit)</text>
+  <line x1="150" y1="145" x2="150" y2="66" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="126" y="76" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">2018 authors' note: "analogies only"</text>
 
   <circle cx="368" cy="150" r="5" fill="#7b61ff"/>
   <line x1="368" y1="145" x2="368" y2="96" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="300" y="88" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">used as axiom (OpenAI)</text>
+  <text x="330" y="92" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">2022 OpenAI cites it as an axiom</text>
 
   <circle cx="215" cy="150" r="5" fill="#ff6ec4"/>
   <line x1="215" y1="155" x2="215" y2="200" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="150" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">obfuscated args: "no fix"</text>
+  <text x="136" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">2020 "hidden error" problem, no fix</text>
 
   <circle cx="500" cy="150" r="5" fill="#e8794b"/>
   <line x1="500" y1="155" x2="500" y2="200" stroke="#e8794b" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="432" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">no info gap → mixed</text>
+  <text x="392" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">2024 unstable without info gap</text>
 
   <circle cx="572" cy="150" r="5" fill="#e85a4f"/>
   <line x1="572" y1="155" x2="572" y2="242" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="500" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">Elo-400 ≈ coin flip</text>
+  <text x="430" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">2025 vs stronger AI ≈ coin flip</text>
 
   <circle cx="620" cy="150" r="5" fill="#f0b429"/>
   <line x1="620" y1="145" x2="620" y2="120" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="470" y="112" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">each patch adds an assumption</text>
+  <text x="428" y="118" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">each theory patch adds a premise</text>
 </svg>
-<figcaption>Schematic: founding documents carried qualifiers (top track); the citation chain wore them off while negative results accumulated (bottom track), each theoretical patch purchased with a new assumption</figcaption>
+<figcaption>Schematic: born with qualifiers in 2018 (top track), the qualifiers vanished from citations within four years while counter-evidence accumulated (bottom track) — sections 1-2 unpack each dot</figcaption>
 </figure>
-<p>The answer works only if one sentence is true: <strong>checking a thing is easier than doing it.</strong> You can't cook a banquet, but you can taste the salt; you can't write a novel, but you can tell a good one from a bad one. As long as checking stays easier than doing, humans (with AI helpers) keep their seat on the judge's bench.</p>
-<p>The sentence has a birth record. In 2018, DeepMind researchers wrote it into a paper as numbered "Assumption 2," and the original says it holds "for <strong>many</strong> tasks" — with a qualifier. The same year, the paper proposing "AI debate" gave it an elegant mathematical analogy, and the authors wrote on the same page: "These complexity class arguments are analogies only."</p>
-<p>Four years later the qualifiers were gone. OpenAI's official 2022 alignment-approach post states: "We believe that evaluating alignment research is substantially easier than producing it." A qualified working assumption had become an unqualified axiom. <strong>And the whole building of "AI watching AI" stands on it.</strong> This essay inspects the foundation.</p>
 <h2>When checking really is easier</h2>
 <p>The good news: on one family of tasks, the sentence not only holds — it has been ridden to real glory.</p>
 <p><strong>Mathematical proof.</strong> DeepMind's AlphaProof reached International Mathematical Olympiad silver-medal level (jointly with a geometry system), precisely because verification is easy there: every proof is written in a form a machine can check step by step, and the checker (Lean) cannot be persuaded, doesn't blink, and calls every error an error. The AI can try wildly — the referee is incorruptible.</p>
@@ -115,6 +118,10 @@ h2:nth-of-type(7){--h2:#e8794b}
 <p>These tasks share one trait: <strong>an incorruptible judge that exists independently of the AI.</strong> The problem is that most important things don't look like this.</p>
 <h2>When checking suddenly gets hard</h2>
 <p>Three situations flip "checking is easier" on its head:</p>
+<p><strong>First, when the other side wants to fool you.</strong> Checking code for bugs and checking code for a <strong>well-hidden backdoor</strong> are two different sports. In 2020, researchers (Beth Barnes and collaborators) found a problem that remains unsolved: a lying debater can build an argument where every individual step checks out, but a fatal error hides where nobody can point to it. Their words: "We don't have a fix." Six years on, every theoretical patch has had to buy its progress with a new assumption.</p>
+<p><strong>Second, when there's no answer key.</strong> Checking a math solution is easy. "Checking" an essay's argument? Even Jason Wei, the best-known evangelist of "verification is easier," concedes the counterexample: fact-checking every claim in an essay can take longer than writing it.</p>
+<p><strong>Third, when the AI checks itself.</strong> The results are ugly: GPT-4 critiquing its own answers made performance collapse on several reasoning tasks; GPT-4 generating an answer and then judging that same answer agreed with itself only 76% of the time; and a late-2025 study across 37 models found <strong>cross-family checking works, while self-checking and near-kin checking work worst</strong>. Worse, the stronger the models, the more alike their mistakes — which makes "get an independent AI to double-check" increasingly like asking the same person to sign twice.</p>
+
 <figure>
 <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">"Verification is easier" stratified by task family</text>
@@ -126,23 +133,24 @@ h2:nth-of-type(7){--h2:#e8794b}
 </svg>
 <figcaption>Schematic: two criteria — whether the oracle is independent of the thing verified, and whether adversarial pressure exists; scalable oversight must operate at the far right</figcaption>
 </figure>
-<p><strong>First, when the other side wants to fool you.</strong> Checking code for bugs and checking code for a <strong>well-hidden backdoor</strong> are two different sports. In 2020, researchers (Beth Barnes and collaborators) found a problem that remains unsolved: a lying debater can build an argument where every individual step checks out, but a fatal error hides where nobody can point to it. Their words: "We don't have a fix." Six years on, every theoretical patch has had to buy its progress with a new assumption.</p>
-<p><strong>Second, when there's no answer key.</strong> Checking a math solution is easy. "Checking" an essay's argument? Even Jason Wei, the best-known evangelist of "verification is easier," concedes the counterexample: fact-checking every claim in an essay can take longer than writing it.</p>
-<p><strong>Third, when the AI checks itself.</strong> The results are ugly: GPT-4 critiquing its own answers made performance collapse on several reasoning tasks; GPT-4 generating an answer and then judging that same answer agreed with itself only 76% of the time; and a late-2025 study across 37 models found <strong>cross-family checking works, while self-checking and near-kin checking work worst</strong>. Worse, the stronger the models, the more alike their mistakes — which makes "get an independent AI to double-check" increasingly like asking the same person to sign twice.</p>
 <h2>What about "AI debate"? The actual report card</h2>
 <p>The industry's most hoped-for scheme puts two AIs in court to argue while a human judges — lies should crack under cross-examination. The measurements:</p>
+<ul><li><strong>Conditional good news</strong>: in one carefully built setting (debaters have read the source material, the judge hasn't), debate really does help — human judges went from 60% to 88% accuracy. Better still, training debaters to be more persuasive made judges <em>better</em> at finding the truth.</li><li><strong>Bad news</strong>: remove that information gap (math problems, logic problems — everyone sees the same material), and debate's benefit becomes hit-or-miss. A 2026 experiment added the twist: <strong>skip the debate, let one AI give a single independent critique, and you get most of the benefit at a fraction of the cost.</strong></li><li><strong>The coldest number</strong>: one study estimates that once the supervised AI outclasses the supervision setup by enough (a 400-Elo gap), most oversight games succeed only about one time in ten — debate is the best of them at ~52%, <strong>basically a coin flip</strong>.</li></ul>
+
 <figure>
 <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Debate report card: conditions in parentheses</text>
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">AI debate measured: when it works</text>
   <line x1="230" y1="48" x2="230" y2="208" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="218" y="76" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">Human judges (info gap)</text><rect x="230" y="60" width="216" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="454" y="69" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">60% baseline</text><rect x="230" y="73" width="317" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="555" y="82" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">88% debate</text><text x="218" y="132" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">LLM judges (info gap)</text><rect x="230" y="116" width="173" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="411" y="125" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">48% baseline</text><rect x="230" y="129" width="274" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="512" y="138" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">76% debate</text><text x="218" y="188" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">Nested oversight (Elo-400)</text><rect x="230" y="172" width="36" height="10" rx="3" fill="#e85a4f" opacity="0.6"/><text x="274" y="181" fill="#e85a4f" font-size="10.5" font-family="Menlo,monospace">10% other protocols</text><rect x="230" y="185" width="186" height="10" rx="3" fill="#f0b429" opacity="0.9"/><text x="424" y="194" fill="#f0b429" font-size="10.5" font-weight="700" font-family="Menlo,monospace">51.7% debate</text>
+  <text x="218" y="76" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">Human judges (judge lacks info)</text><rect x="230" y="60" width="216" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="454" y="69" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">60% baseline</text><rect x="230" y="73" width="317" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="555" y="82" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">88% debate</text><text x="218" y="132" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">LLM judges (judge lacks info)</text><rect x="230" y="116" width="173" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="411" y="125" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">48% baseline</text><rect x="230" y="129" width="274" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="512" y="138" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">76% debate</text><text x="218" y="188" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">Overseeing stronger AI (big gap)</text><rect x="230" y="172" width="36" height="10" rx="3" fill="#e85a4f" opacity="0.6"/><text x="274" y="181" fill="#e85a4f" font-size="10.5" font-family="Menlo,monospace">10% other protocols</text><rect x="230" y="185" width="186" height="10" rx="3" fill="#f0b429" opacity="0.9"/><text x="424" y="194" fill="#f0b429" font-size="10.5" font-weight="700" font-family="Menlo,monospace">51.7% debate</text>
   <text x="24" y="236" fill="#8a93ad" font-size="11" font-family="-apple-system,sans-serif">Without info asymmetry (math/code/logic): mixed vs direct QA (GDM 2024); one independent critique recovers most of the benefit (2026)</text>
 </svg>
 <figcaption>Schematic: positive results concentrate where judges lack information; at a large capability gap debate is 51.7% ≈ a coin flip — still the best of four protocols (bar length = accuracy/success rate)</figcaption>
 </figure>
-<ul><li><strong>Conditional good news</strong>: in one carefully built setting (debaters have read the source material, the judge hasn't), debate really does help — human judges went from 60% to 88% accuracy. Better still, training debaters to be more persuasive made judges <em>better</em> at finding the truth.</li><li><strong>Bad news</strong>: remove that information gap (math problems, logic problems — everyone sees the same material), and debate's benefit becomes hit-or-miss. A 2026 experiment added the twist: <strong>skip the debate, let one AI give a single independent critique, and you get most of the benefit at a fraction of the cost.</strong></li><li><strong>The coldest number</strong>: one study estimates that once the supervised AI outclasses the supervision setup by enough (a 400-Elo gap), most oversight games succeed only about one time in ten — debate is the best of them at ~52%, <strong>basically a coin flip</strong>.</li></ul>
 <h2>What the people who proposed the sentence actually do</h2>
 <p>The most telling evidence is the production behavior of the three big labs. Through 2025-2026, none has put "AI debate" or "amplified oversight" into production; what they actually deploy is the assumption's <strong>weakest form</strong> — watching the model's "thinking process" (chain of thought) for anomalies.</p>
+<p>Their own published numbers are candid. OpenAI's GPT-5 safety report says its monitor flagged deception in about 4.8% of o3's responses and 2.1% of GPT-5-thinking's in real conversations. Anthropic measured that when a model actually used a hint, it mentions that hint in its "thinking out loud" only about 25%-39% of the time — meaning <strong>the inner monologue you're watching is incomplete most of the time</strong>. OpenAI also found that using "passes the monitor" as a training goal teaches the model to hide its bad intentions where the monitor can't see. The three labs' joint 2025 statement uses a restrained word for all this: a "fragile" opportunity.</p>
+<p>The labs that proposed "checking is easier than doing" are drawing its boundary lines with their own behavior.</p>
+
 <figure>
 <svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Roadmap vs actual deployment (2025-26)</text>
@@ -161,8 +169,6 @@ h2:nth-of-type(7){--h2:#e8794b}
 </svg>
 <figcaption>Schematic: what labs actually deploy is the assumption's weakest form — monitoring the process trace, not verifying the output, and its deployers call it fragile</figcaption>
 </figure>
-<p>Their own published numbers are candid. OpenAI's GPT-5 safety report says its monitor flagged deception in about 4.8% of o3's responses and 2.1% of GPT-5-thinking's in real conversations. Anthropic measured that when a model actually used a hint, it mentions that hint in its "thinking out loud" only about 25%-39% of the time — meaning <strong>the inner monologue you're watching is incomplete most of the time</strong>. OpenAI also found that using "passes the monitor" as a training goal teaches the model to hide its bad intentions where the monitor can't see. The three labs' joint 2025 statement uses a restrained word for all this: a "fragile" opportunity.</p>
-<p>The labs that proposed "checking is easier than doing" are drawing its boundary lines with their own behavior.</p>
 <h2>How to check whether this essay is right</h2>
 <p>The whole argument reduces to nine claims, ordered from hardest to softest evidence:</p>
 <ol><li><strong>The sentence was a qualified "assumption" in the 2018 founding papers and was being used as an axiom by 2022</strong> — a word-for-word paper trail.</li><li><strong>The theorists themselves admit the analogy has cracks</strong>: the "hidden error" problem has been open for six years, and every patch adds a new assumption.</li><li><strong>AI debate's good scores almost all come from settings where the judge lacks information</strong>; level the information and the benefit becomes hit-or-miss.</li><li><strong>The courtroom format itself may not be worth much</strong>: one independent critique captures most of the benefit at far lower cost.</li><li><strong>"Weak supervising strong" is a real phenomenon, but no improvement method survived independent replication</strong> — and strong models misbehave precisely where the weak supervisor can't tell, worse as the gap grows.</li><li><strong>AI checking itself is the least reliable configuration</strong>: self-critique collapses, cross-family checking clearly beats self-checking; how the generation-verification gap moves with scale has evidence pointing both ways — unresolved.</li><li><strong>The sentence stratifies by task</strong>: it holds where an independent judge exists (math proofs, tested code); where there's an adversary and no answer key, nobody has shown it holds.</li><li><strong>Lab production practice has retreated to the weakest form (watching the chain of thought), which the labs themselves call fragile and incomplete</strong> (inner-monologue mention rate ~25%-39%).</li><li><strong>No lab has published production evidence for AI debate or amplified oversight proper</strong> — the gap is itself information.</li></ol>

@@ -440,18 +440,22 @@ def fig_cure_conditions(lang: str) -> str:
 def fig_so_genealogy(lang: str) -> str:
     """Timeline: qualified assumption (top) vs accumulating cracks (bottom)."""
     t = {
-        "zh": dict(title="一句话的八年:上轨引用,下轨裂缝",
-                   a1="假设 2(带限定)", a2="「只是类比」(原文自限)", a3="被当公理(OpenAI 路线图)",
-                   b1="藏错问题·「无修复」", b2="无信息差 → mixed", b3="Elo差400 ≈ 抛硬币", b4="每次修补 +1 新假设",
-                   cap="示意:创始文献自带限定语(上轨),引用链把限定语磨掉;同期负面结果持续积累(下轨),理论修补以引入新假设为代价"),
-        "en": dict(title="Eight years of one sentence: citations above, cracks below",
-                   a1="Assumption 2 (qualified)", a2="\"analogies only\" (self-limit)", a3="used as axiom (OpenAI)",
-                   b1="obfuscated args: \"no fix\"", b2="no info gap → mixed", b3="Elo-400 ≈ coin flip", b4="each patch adds an assumption",
-                   cap="Schematic: founding documents carried qualifiers (top track); the citation chain wore them off while negative results accumulated (bottom track), each theoretical patch purchased with a new assumption"),
+        "zh": dict(title="「验证比生成容易」这句话的八年",
+                   leg_a="● 上轨:这句话被引用/强化", leg_b="● 下轨:反面证据在积累",
+                   a1="2018 写成「假设2」,限定『许多任务』", a2="2018 提出者自注:『只是类比』", a3="2022 OpenAI 当公理引用",
+                   b1="2020 发现『藏错』问题,无修复", b2="2024 裁判不缺信息时效果不稳", b3="2025 监督更强 AI ≈ 抛硬币", b4="理论每修补一次,就多一个新前提",
+                   cap="示意:2018 年这句话带着限定语出生(上轨),四年后限定语在引用中消失;同期反面证据持续积累(下轨)——正文第 1、2 节是本图的逐条展开"),
+        "en": dict(title="Eight years of one sentence",
+                   leg_a="● top: the sentence cited / strengthened", leg_b="● bottom: counter-evidence accumulating",
+                   a1="2018 \"Assumption 2\", limited to \"many tasks\"", a2="2018 authors' note: \"analogies only\"", a3="2022 OpenAI cites it as an axiom",
+                   b1="2020 \"hidden error\" problem, no fix", b2="2024 unstable without info gap", b3="2025 vs stronger AI ≈ coin flip", b4="each theory patch adds a premise",
+                   cap="Schematic: born with qualifiers in 2018 (top track), the qualifiers vanished from citations within four years while counter-evidence accumulated (bottom track) — sections 1-2 unpack each dot"),
     }[lang]
     return f"""<figure>
 <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="52" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">{t['leg_a']}</text>
+  <text x="360" y="52" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['leg_b']}</text>
   <line x1="40" y1="150" x2="660" y2="150" stroke="#5a6378" stroke-width="1.5"/>
   <text x="52" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2018</text>
   <text x="330" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2022</text>
@@ -459,31 +463,31 @@ def fig_so_genealogy(lang: str) -> str:
 
   <circle cx="70" cy="150" r="5" fill="#4cc9f0"/>
   <line x1="70" y1="145" x2="70" y2="96" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="58" y="88" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a1']}</text>
+  <text x="46" y="92" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a1']}</text>
 
   <circle cx="150" cy="150" r="5" fill="#4cc9f0"/>
-  <line x1="150" y1="145" x2="150" y2="58" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="120" y="50" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a2']}</text>
+  <line x1="150" y1="145" x2="150" y2="66" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="126" y="76" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a2']}</text>
 
   <circle cx="368" cy="150" r="5" fill="#7b61ff"/>
   <line x1="368" y1="145" x2="368" y2="96" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="300" y="88" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['a3']}</text>
+  <text x="330" y="92" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['a3']}</text>
 
   <circle cx="215" cy="150" r="5" fill="#ff6ec4"/>
   <line x1="215" y1="155" x2="215" y2="200" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="150" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">{t['b1']}</text>
+  <text x="136" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">{t['b1']}</text>
 
   <circle cx="500" cy="150" r="5" fill="#e8794b"/>
   <line x1="500" y1="155" x2="500" y2="200" stroke="#e8794b" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="432" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">{t['b2']}</text>
+  <text x="392" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">{t['b2']}</text>
 
   <circle cx="572" cy="150" r="5" fill="#e85a4f"/>
   <line x1="572" y1="155" x2="572" y2="242" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="500" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">{t['b3']}</text>
+  <text x="430" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">{t['b3']}</text>
 
   <circle cx="620" cy="150" r="5" fill="#f0b429"/>
   <line x1="620" y1="145" x2="620" y2="120" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="470" y="112" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">{t['b4']}</text>
+  <text x="428" y="118" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">{t['b4']}</text>
 </svg>
 <figcaption>{t['cap']}</figcaption>
 </figure>"""
@@ -492,13 +496,13 @@ def fig_so_genealogy(lang: str) -> str:
 def fig_so_debate(lang: str) -> str:
     """Debate scorecard: paired baseline vs debate bars, one baseline per row."""
     t = {
-        "zh": dict(title="debate 成绩单:条件写在括号里",
-                   r1="人类裁判(有信息差)", r2="LLM 裁判(有信息差)", r3="嵌套监督(Elo差400)",
+        "zh": dict(title="AI 辩论实测:什么条件下有效",
+                   r1="人类裁判(裁判缺信息)", r2="LLM 裁判(裁判缺信息)", r3="监督更强的 AI(差距大)",
                    base="基线", deb="debate", other="其他协议",
                    note="无信息差任务(数学/代码/逻辑):相对直接问答 mixed(GDM 2024);单条独立批评可收回大部分收益(2026)",
                    cap="示意:正结果集中在裁判缺信息的设定;能力差距拉大后 debate 51.7% ≈ 抛硬币,仍是四种协议中最好(条长=准确率/成功率)"),
-        "en": dict(title="Debate report card: conditions in parentheses",
-                   r1="Human judges (info gap)", r2="LLM judges (info gap)", r3="Nested oversight (Elo-400)",
+        "en": dict(title="AI debate measured: when it works",
+                   r1="Human judges (judge lacks info)", r2="LLM judges (judge lacks info)", r3="Overseeing stronger AI (big gap)",
                    base="baseline", deb="debate", other="other protocols",
                    note="Without info asymmetry (math/code/logic): mixed vs direct QA (GDM 2024); one independent critique recovers most of the benefit (2026)",
                    cap="Schematic: positive results concentrate where judges lack information; at a large capability gap debate is 51.7% ≈ a coin flip — still the best of four protocols (bar length = accuracy/success rate)"),
@@ -614,24 +618,24 @@ def fig_so_retreat(lang: str) -> str:
 # figure inserted right AFTER the first heading whose text starts with the prefix.
 FIGURES = {
     "scalable-oversight-deep": [
-        ("zh", "1. 假设的谱系", fig_so_genealogy),
-        ("en", "1. The genealogy", fig_so_genealogy),
-        ("zh", "3. 实证正面", fig_so_debate),
-        ("en", "3. The positive empirics", fig_so_debate),
-        ("zh", "5. 任务族分解", fig_so_spectrum),
-        ("en", "5. Task-family decomposition", fig_so_spectrum),
-        ("zh", "6. 实验室自己怎么做", fig_so_retreat),
-        ("en", "6. What the labs themselves do", fig_so_retreat),
+        ("zh", "1. 假设的谱系", fig_so_genealogy, "end"),
+        ("en", "1. The genealogy", fig_so_genealogy, "end"),
+        ("zh", "3. 实证正面", fig_so_debate, "end"),
+        ("en", "3. The positive empirics", fig_so_debate, "end"),
+        ("zh", "5. 任务族分解", fig_so_spectrum, "end"),
+        ("en", "5. Task-family decomposition", fig_so_spectrum, "end"),
+        ("zh", "6. 实验室自己怎么做", fig_so_retreat, "end"),
+        ("en", "6. What the labs themselves do", fig_so_retreat, "end"),
     ],
     "scalable-oversight-plain": [
-        ("zh", "一句话撑起一个行业", fig_so_genealogy),
-        ("en", "One sentence holding up", fig_so_genealogy),
-        ("zh", "检查什么时候突然变难", fig_so_spectrum),
-        ("en", "When checking suddenly gets hard", fig_so_spectrum),
-        ("zh", "那\"AI 辩论\"呢", fig_so_debate),
-        ("en", 'What about "AI debate"', fig_so_debate),
-        ("zh", "提出这句话的人", fig_so_retreat),
-        ("en", "What the people who proposed", fig_so_retreat),
+        ("zh", "一句话撑起一个行业", fig_so_genealogy, "end"),
+        ("en", "One sentence holding up", fig_so_genealogy, "end"),
+        ("zh", "检查什么时候突然变难", fig_so_spectrum, "end"),
+        ("en", "When checking suddenly gets hard", fig_so_spectrum, "end"),
+        ("zh", "那\"AI 辩论\"呢", fig_so_debate, "end"),
+        ("en", 'What about "AI debate"', fig_so_debate, "end"),
+        ("zh", "提出这句话的人", fig_so_retreat, "end"),
+        ("en", "What the people who proposed", fig_so_retreat, "end"),
     ],
     "ai-native-plain": [
         ("zh", "成本没有消失", fig_cost_transfer),
@@ -689,19 +693,26 @@ FIGURES = {
 
 
 def inject_figures(body: str, slug: str, lang: str) -> str:
-    for fig_lang, prefix, fn in FIGURES.get(slug, []):
+    for entry in FIGURES.get(slug, []):
+        fig_lang, prefix, fn = entry[0], entry[1], entry[2]
+        place = entry[3] if len(entry) > 3 else "para1"
         if fig_lang != lang:
             continue
         pat = re.compile(r"(<h[23]>" + re.escape(prefix)[:60] + r"[^<]*</h[23]>)")
         m = pat.search(body)
-        if m:
-            # insert after the first paragraph following the heading (reads better)
-            after = body[m.end():]
+        if not m:
+            print(f"  WARN figure anchor not found: {slug} {lang} '{prefix}'")
+            continue
+        after = body[m.end():]
+        if place == "end":
+            # insert at the END of the section: before the next h2/h3, or at body end
+            nxt = re.search(r"<h[23]>", after)
+            pos = m.end() + (nxt.start() if nxt else len(after))
+        else:
+            # insert after the first paragraph following the heading
             p_end = after.find("</p>")
             pos = m.end() + (p_end + 4 if p_end != -1 else 0)
-            body = body[:pos] + "\n" + fn(lang) + body[pos:]
-        else:
-            print(f"  WARN figure anchor not found: {slug} {lang} '{prefix}'")
+        body = body[:pos] + "\n" + fn(lang) + "\n" + body[pos:]
     return body
 
 
