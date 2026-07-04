@@ -18,7 +18,7 @@ The good news: on one family of tasks, the sentence not only holds — it has be
 
 **Mathematical proof.** DeepMind's AlphaProof reached International Mathematical Olympiad silver-medal level (jointly with a geometry system), precisely because verification is easy there: every proof is written in a form a machine can check step by step, and the checker (Lean) cannot be persuaded, doesn't blink, and calls every error an error. The AI can try wildly — the referee is incorruptible.
 
-**Code with tests** is similar: pass is pass, fail is fail — though as the last essay showed, bad tests get gamed, and the referee's quality caps the checking's quality.
+**Code with tests** is similar: pass is pass, fail is fail — though as [the last essay](https://cissy0802.github.io/deep-research/ai-code-review-plain.en.html) showed, bad tests get gamed, and the referee's quality caps the checking's quality.
 
 These tasks share one trait: **an incorruptible judge that exists independently of the AI.** The problem is that most important things don't look like this.
 
