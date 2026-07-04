@@ -23,15 +23,14 @@
 - 核心修正记录:Sonar 96/48 实为"信任 vs 检查行为"口径(非语法/功能正确性);SAGA 32.58% 是合成测试套件 VAcc 且为最优方法成绩;CriticGPT 人机团队增益=降幻觉而非超越模型查全率;pr-review-bench 作者任职 Sentry(COI)
 - 钩子:→ system-design Day 50《把 Code Review 当信号检测系统》(2026-07,反哺);→ ai-ml Day 54《LLM-as-Judge 的偏差与校准》(2026-07,反哺);→ 候选池 2 条(scalable oversight 地基体检、AI 基准 Goodhart 化);另 1 条仅记运行报告(AI code review RCT 设计要点)
 
+### 3. Scalable oversight 的地基体检:"验证比生成容易"是被证实的假设,还是路线信仰? ✅ 2026-07
+- 页面:`scalable-oversight-plain/-deep` × zh/en
+- 底座:6 条调研线、112 论断、20 条承重论断 × 3 票对抗验证(20 HOLDS / 0 推翻,30+ 处口径修正);复用 #2 验证者可靠性文献;研究材料存本地 `~/design/deep-research-runs/scalable-oversight/`
+- 核心口径记录:prover-estimator 的 stability 只撑完备性(soundness 不依赖);Lu et al. 为 ICLR 2026 workshop 非主会;Anthropic 25%/39% 为提示复述率;AlphaProof 银牌为与 AlphaGeometry 2 组合成绩;Bowman 自限对象是其对话式基线
+- 钩子:→ ai-ml《CoT 监控与可监控性》(backlog,反哺);→ super-individual《给自己的 AI 工作流做 oracle 盘点》(backlog,反哺);→ 候选池 1 条(形式化方法的 LLM 复兴);另 1 条仅记运行报告(NSO 复现与 stability 实证检验设计)
+
 ## 待研究
 
-### 3. Scalable oversight 的地基体检:"验证比生成容易"是被证实的假设,还是路线信仰?
-- **一句话**:整个"用 AI 监督 AI"的路线(scalable oversight、debate、weak-to-strong)都站在"验证比生成容易"这块地基上——这块地基本身经得起体检吗?
-- **为什么适合**:#2(AI code review)"套娃"论证的直接地基追问,#2 已验证的验证者可靠性文献(自我批评崩塌、GV-Gap、错误趋同、judge 偏差)全部复用;正反双方都是 2023-2026 一手论文,且这个假设很少被当成可检验命题正面体检——多数文献把它当公理引用。
-- **理论底座**:计算复杂性的验证-生成不对称(P vs NP 直觉的适用边界、交互式证明 IP=PSPACE 作为 debate 的理论根基)、Leike et al. recursive reward modeling 的 scalable oversight 假设(arXiv 1811.07871)、Irving/Christiano debate(arXiv 1805.00899)、sandwiching 实验范式(Cotra;Bowman et al. arXiv 2211.03540)、weak-to-strong generalization(Burns et al. arXiv 2312.09390)。
-- **关键争议/正反**:正方——debate 实验的正结果(Khan et al. arXiv 2402.06782:辩论帮助非专家裁判;GDM Kenton et al. 2024 部分复现)、CriticGPT 人机团队越过纯模型 Pareto 前沿、W2S 泛化部分成功;反方——自我批评导致性能崩塌(Stechly et al. arXiv 2402.08115)、GV-Gap(对 LLM 而言验证并不比生成容易,ICLR 2025)、模型越强错误越趋同(Goel et al. ICML 2025, arXiv 2502.04313,独立性前提瓦解)、judge 偏差与自我偏好(Panickssery NeurIPS 2024)、复杂性类比的适用性质疑(自然语言任务无 NP 式证书,"spot-check 一个证明"与"评一篇论证"不同构)。
-- **实证锚点**:上列一手论文 + #2 研究材料 05-criticgpt-judge.md 的全部验证者可靠性文献;Anthropic/OpenAI/GDM 三家对 oversight 路线的最新立场文;sandwiching 范式的后续实证(Bowman 团队及批评)。
-- **注意**:AI safety 语境,写作严格区分"对齐路线论战"(立场文)与"工程实证"(实验结果);与 #2 大量共享文献,本篇增量必须在"地基层"(假设本身的真伪与适用条件),不要复写 #2 的工具层结论;"验证比生成容易"要拆成任务族逐类体检(有形式 oracle / 有测试 / 纯自然语言论证),避免一刀切结论。
 
 ### 4. 学习科学的证据等级:哪些方法真的有效?
 - **一句话**:间隔重复、检索练习、刻意练习、主动学习——按证据强度重新排座次。
@@ -79,6 +78,7 @@
 
 ## 候选池(未排期)
 
+- 形式化方法的 LLM 复兴:当验证真的容易时——Lean/AlphaProof、verifier-grounded RL、TLA+ 护 AI 变更的前景(接 #0 阶段二外推与 #3 任务族第一象限)(钩子·源自 #3)
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)
 - AI 基准的 Goodhart 化:数据污染、榜单收割与评测激励结构,为什么评测体系一建成就失效(可与 #8 scaling laws 的基准饱和线互补)(钩子·源自 #2)
 - HRT 的兴衰与再评价(WHI 研究如何被重新解读——"证据翻转"经典案例)
