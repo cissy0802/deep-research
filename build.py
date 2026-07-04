@@ -616,7 +616,264 @@ def fig_so_retreat(lang: str) -> str:
 
 # slug → list of (lang_or_None, version_or_None, heading_text_prefix, figure_fn)
 # figure inserted right AFTER the first heading whose text starts with the prefix.
+def fig_ls_control(lang: str) -> str:
+    """Same technique, three control groups, three numbers (Yang 2021)."""
+    t = {
+        "zh": dict(title="同一个「测验有效」,三个对照组,三个数字",
+                   r1="对无活动/填充任务", v1="g=0.610", r2="对重读(严格对照)", v2="g=0.330",
+                   r3="对精细加工策略", v3="g=0.095(不显著)",
+                   cap="示意:课堂测验的效应量随对照组类型变化(Yang 等 2021,222 项课堂研究、48,478 名学生);对概念图等精细加工策略的 0.095 不显著(p=.062)——宣传引第一个数,严格比较看后两个"),
+        "en": dict(title="One “quizzing works”, three controls, three numbers",
+                   r1="vs no activity / filler", v1="g=0.610", r2="vs restudying (strict)", v2="g=0.330",
+                   r3="vs elaborative strategies", v3="g=0.095 (ns)",
+                   cap="Schematic: the effect of class quizzing by control-group type (Yang et al. 2021; 222 classroom studies, 48,478 students); 0.095 vs elaborative strategies is non-significant (p=.062) — ads quote the first number, strict comparisons are the other two"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 340, "#4cc9f0"),
+        (t['r2'], t['v2'], 184, "#7b61ff"),
+        (t['r3'], t['v3'], 53, "#ff6ec4"),
+    ]
+    bars = []
+    y = 64
+    for label, val, w, color in rows:
+        bars.append(f'<text x="258" y="{y + 15}" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="270" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{270 + w + 8}" y="{y + 15}" fill="{color}" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="270" y1="52" x2="270" y2="204" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ls_lab2class(lang: str) -> str:
+    """Lab-to-classroom shrinkage, with interleaving as the exception."""
+    t = {
+        "zh": dict(title="实验室的尺子,课堂的账本",
+                   r1="检索·实验室(Rowland 2014)", v1="g=0.50",
+                   r2="检索·真实课堂(Yang 2021)", v2="g=0.33",
+                   r3="交错·课堂预注册 RCT(Rohrer 2020)", v3="g≈0.83:罕见的不缩水",
+                   note="间隔练习轻剂量塞进 9 门常规大学课:平均只 +2.06 个百分点(Bego 2024)",
+                   cap="示意:同为「对重读」口径,检索练习从实验室到课堂缩水约三分之一;交错练习是罕见例外(七年级数学,54 班预注册整群 RCT);间隔练习轻剂量进常规课堂时收益缩到约 2 个百分点"),
+        "en": dict(title="The lab's ruler vs the classroom's ledger",
+                   r1="retrieval, lab (Rowland 2014)", v1="g=0.50",
+                   r2="retrieval, classroom (Yang 2021)", v2="g=0.33",
+                   r3="interleaving RCT (Rohrer 2020)", v3="g≈0.83: the rare survivor",
+                   note="Spacing added lightly to 9 regular university courses: avg +2.06 percentage points (Bego 2024)",
+                   cap="Schematic: on the same vs-restudy calibration, retrieval practice loses about a third from lab to classroom; interleaving is the rare exception (7th-grade math, 54-class preregistered cluster RCT); light-dose spacing in regular courses shrinks to ~2 percentage points"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 250, "#4cc9f0"),
+        (t['r2'], t['v2'], 165, "#7b61ff"),
+        (t['r3'], t['v3'], 415, "#52b788"),
+    ]
+    bars = []
+    y = 60
+    for label, val, w, color in rows:
+        bars.append(f'<text x="268" y="{y + 15}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="280" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        if w > 300:
+            bars.append(f'<text x="{280 + w - 8}" y="{y + 15}" fill="#0a0e1a" font-size="11.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{val}</text>')
+        else:
+            bars.append(f'<text x="{280 + w + 8}" y="{y + 15}" fill="{color}" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 50
+    return f"""<figure>
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="280" y1="50" x2="280" y2="200" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+  <rect x="24" y="216" width="652" height="36" rx="8" fill="#f0b429" opacity="0.08" stroke="#f0b429" stroke-opacity="0.4" stroke-dasharray="4,4"/>
+  <text x="350" y="239" fill="#f0b429" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ls_practice_war(lang: str) -> str:
+    """Timeline of the deliberate-practice war, 1993-2024."""
+    t = {
+        "zh": dict(title="刻意练习之战:三十年时间线",
+                   e1a="1993 强主张登场", e1b="练习量「很大程度上解释」差异(N=30)",
+                   e2a="2008《Outliers》", e2b="一万小时=「伟大的魔法数字」",
+                   e3a="2014 Macnamara meta:12%", e3b="(2018 勘误为 14%)",
+                   e4a="2016 定义之战", e4b="双方互指对方口径",
+                   e5a="2019 预注册复现", e5b="顶尖组 8,224h ≯ 优秀组 9,844h",
+                   e6a="2024 交互模型", e6b="天赋×练习相互放大",
+                   cap="示意:从 1993 年强主张到 2019 年预注册复现失败——「练习很重要」活着,「练习量解释一切」死了;两派均为同一批数据的再编码者"),
+        "en": dict(title="The deliberate-practice war: a 30-year timeline",
+                   e1a="1993 strong claim", e1b="practice “largely accounts” (N=30)",
+                   e2a="2008 Outliers", e2b="10,000 hrs = “magic number”",
+                   e3a="2014 Macnamara meta: 12%", e3b="(corrected to 14% in 2018)",
+                   e4a="2016 definition war", e4b="each side disputes coding",
+                   e5a="2019 preregistered replication", e5b="best 8,224h ≯ good 9,844h",
+                   e6a="2024 interaction model", e6b="talent × practice amplify",
+                   cap="Schematic: from the 1993 strong claim to the failed 2019 preregistered replication — “practice matters” survives, “practice explains it all” does not; both camps re-code the same datasets"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="50" y1="160" x2="670" y2="160" stroke="#5a6378" stroke-width="1.5"/>
+  <circle cx="80" cy="160" r="6" fill="#4cc9f0"/><line x1="80" y1="154" x2="80" y2="86" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="30" y="62" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['e1a']}</text>
+  <text x="30" y="79" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">{t['e1b']}</text>
+  <circle cx="205" cy="160" r="6" fill="#ff6ec4"/><line x1="205" y1="166" x2="205" y2="204" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="120" y="222" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['e2a']}</text>
+  <text x="120" y="239" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">{t['e2b']}</text>
+  <circle cx="345" cy="160" r="6" fill="#7b61ff"/><line x1="345" y1="154" x2="345" y2="116" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="345" y="93" fill="#7b61ff" font-size="12" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['e3a']}</text>
+  <text x="345" y="110" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['e3b']}</text>
+  <circle cx="455" cy="160" r="6" fill="#f0b429"/><line x1="455" y1="166" x2="455" y2="204" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="455" y="222" fill="#f0b429" font-size="12" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['e4a']}</text>
+  <text x="455" y="239" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['e4b']}</text>
+  <circle cx="560" cy="160" r="6" fill="#e85a4f"/><line x1="560" y1="154" x2="560" y2="86" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="676" y="62" fill="#ff8a80" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{t['e5a']}</text>
+  <text x="676" y="79" fill="#8a93ad" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">{t['e5b']}</text>
+  <circle cx="655" cy="160" r="6" fill="#5eead4"/><line x1="655" y1="166" x2="655" y2="204" stroke="#5eead4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="676" y="222" fill="#5eead4" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{t['e6a']}</text>
+  <text x="676" y="239" fill="#8a93ad" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">{t['e6b']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ls_styles_gap(lang: str) -> str:
+    """Learning styles: belief prevalence vs evidence."""
+    t = {
+        "zh": dict(title="学习风格:信念与证据的剪刀差",
+                   r1="相信匹配教学的教育者", v1="89.1%(18 国 15,405 人)",
+                   r2="呈现交叉互作的结果", v2="26%(最有利的 2024 meta)",
+                   r3="2008 权威综述的合格证据", v3="「几乎不存在」",
+                   cap="示意:18 国教育者的信念率(Newton & Salvi 2020)vs 理论所需交叉互作在最有利 meta 中的出现率(Clinton-Lisell 2024,且仅 5/21 研究达质量标准)vs Pashler 等 2008 的判语"),
+        "en": dict(title="Learning styles: the belief-evidence scissors",
+                   r1="educators who believe matching works", v1="89.1% (15,405 educators, 18 countries)",
+                   r2="outcomes showing the crossover", v2="26% (friendliest 2024 meta)",
+                   r3="qualifying evidence, 2008 review", v3="“virtually no evidence”",
+                   cap="Schematic: educator belief across 18 countries (Newton & Salvi 2020) vs the rate of theoretically required crossover interactions in the friendliest meta-analysis (Clinton-Lisell 2024; only 5/21 studies met quality standards) vs the Pashler et al. 2008 verdict"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 321, "#ff6ec4", True),
+        (t['r2'], t['v2'], 94, "#4cc9f0", False),
+        (t['r3'], t['v3'], 3, "#e85a4f", False),
+    ]
+    bars = []
+    y = 64
+    for label, val, w, color, inside in rows:
+        bars.append(f'<text x="273" y="{y + 15}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="285" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        if inside:
+            bars.append(f'<text x="{285 + w - 8}" y="{y + 15}" fill="#0a0e1a" font-size="11.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">{val}</text>')
+        else:
+            bars.append(f'<text x="{285 + w + 8}" y="{y + 15}" fill="{color}" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="285" y1="52" x2="285" y2="204" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ls_feel_vs_learn(lang: str) -> str:
+    """Deslauriers 2019: measured learning up, felt learning down."""
+    t = {
+        "zh": dict(title="同一批学生,两把尺子",
+                   r1="实测成绩(随堂测验)", v1="+0.46 SD", r2="自感学到多少", v2="−0.56 SD",
+                   zero="0",
+                   cap="示意:Deslauriers 等 2019(哈佛物理导论,N=149,随机分组、讲义相同)——主动学习组实测多学 0.46 SD,自我感觉却少学 0.56 SD;与「读 14 遍最自信、记得最少」是同一个元认知现象"),
+        "en": dict(title="Same students, two rulers",
+                   r1="measured learning (test)", v1="+0.46 SD", r2="feeling of learning", v2="−0.56 SD",
+                   zero="0",
+                   cap="Schematic: Deslauriers et al. 2019 (intro physics at Harvard, N=149, randomized, identical handouts) — the active group measurably learned 0.46 SD more yet felt it learned 0.56 SD less; the same metacognitive illusion as “read it 14 times, most confident, remembered least”"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="380" y1="52" x2="380" y2="188" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="380" y="204" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{t['zero']}</text>
+  <text x="225" y="85" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{t['r1']}</text>
+  <rect x="380" y="70" width="115" height="22" rx="5" fill="#52b788" opacity="0.9"/>
+  <text x="503" y="86" fill="#52b788" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">{t['v1']}</text>
+  <text x="225" y="145" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{t['r2']}</text>
+  <rect x="240" y="130" width="140" height="22" rx="5" fill="#e85a4f" opacity="0.9"/>
+  <text x="388" y="146" fill="#ff8a80" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">{t['v2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ls_ladder(lang: str) -> str:
+    """The final evidence-tier table."""
+    t = {
+        "zh": dict(title="重排座次:证据等级表",
+                   t1="一档:检索练习 · 间隔练习", s1="多 meta 收敛 · 课堂成立 · 偏倚检验干净;条件:反馈 + 延迟",
+                   t2="二档:交错 · 主动学习 · 例题学习", s2="方向稳,幅度或边界存疑(词汇反向 · 0.47 SD 打折读 · 随专长反转)",
+                   t3="三档:刻意练习", s3="结构化练习必要,但「一万小时」是包装——勘误后仅解释 14% 方差",
+                   t4="四档:学习风格匹配 · 纯发现式教学", s4="合格检验反复失败;后者是两大对立学派唯一的共识敌人",
+                   cap="示意:按效应稳健性 × 课堂证据 × 独立复现 × 偏倚检验四判据排出的座次;重读/划线为「低效用」而非无效"),
+        "en": dict(title="The re-seated ranking: evidence tiers",
+                   t1="Tier 1: retrieval practice · spaced practice", s1="converging metas · classroom-valid · clean bias checks; conditions: feedback + delay",
+                   t2="Tier 2: interleaving · active learning · worked examples", s2="direction solid, size or borders in question (vocab reverses · discount 0.47 SD · reverses with expertise)",
+                   t3="Tier 3: deliberate practice", s3="structured practice is necessary, but “10,000 hours” is packaging — 14% of variance post-corrigendum",
+                   t4="Tier 4: styles matching · pure discovery", s4="fails qualified tests repeatedly; the latter is the one shared enemy of both opposing schools",
+                   cap="Schematic: seating by four criteria — effect robustness × classroom evidence × independent replication × bias checks; rereading/highlighting are “low utility”, not useless"),
+    }[lang]
+    tiers = [
+        (t['t1'], t['s1'], "#52b788"),
+        (t['t2'], t['s2'], "#4cc9f0"),
+        (t['t3'], t['s3'], "#f0b429"),
+        (t['t4'], t['s4'], "#e85a4f"),
+    ]
+    boxes = []
+    y = 50
+    for main, sub, color in tiers:
+        boxes.append(f'<rect x="24" y="{y}" width="652" height="54" rx="10" fill="{color}" opacity="0.10" stroke="{color}" stroke-opacity="0.5"/>')
+        boxes.append(f'<text x="42" y="{y + 23}" fill="{color}" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">{main}</text>')
+        boxes.append(f'<text x="42" y="{y + 42}" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">{sub}</text>')
+        y += 62
+    return f"""<figure>
+<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(boxes)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "learning-science-deep": [
+        ("zh", "1. 读数说明书", fig_ls_control, "end"),
+        ("en", "1. How to read the numbers", fig_ls_control, "end"),
+        ("zh", "3. 间隔与交错", fig_ls_lab2class, "end"),
+        ("en", "3. Spacing and interleaving", fig_ls_lab2class, "end"),
+        ("zh", "4. 刻意练习之战", fig_ls_practice_war, "end"),
+        ("en", "4. The deliberate-practice war", fig_ls_practice_war, "end"),
+        ("zh", "5. 学习风格", fig_ls_styles_gap, "end"),
+        ("en", "5. Learning styles", fig_ls_styles_gap, "end"),
+        ("zh", "6. 主动学习 vs 讲授", fig_ls_feel_vs_learn, "end"),
+        ("en", "6. Active learning vs. lecture", fig_ls_feel_vs_learn, "end"),
+        ("zh", "8. 重排座次", fig_ls_ladder, "end"),
+        ("en", "8. The re-seated ranking", fig_ls_ladder, "end"),
+    ],
+    "learning-science-plain": [
+        ("zh", "你听过的学习建议", fig_ls_ladder, "end"),
+        ("en", "Most study advice you", fig_ls_ladder, "end"),
+        ("zh", "先学三个防骗口诀", fig_ls_control, "end"),
+        ("en", "First, three anti-scam questions", fig_ls_control, "end"),
+        ("zh", "座次表最上面", fig_ls_lab2class, "end"),
+        ("en", "Top of the table", fig_ls_lab2class, "end"),
+        ("zh", "座次表中间", fig_ls_feel_vs_learn, "end"),
+        ("en", "Middle of the table", fig_ls_feel_vs_learn, "end"),
+        ("zh", "座次表下面", fig_ls_practice_war, "end"),
+        ("en", "Bottom of the table", fig_ls_practice_war, "end"),
+        ("zh", "座次表下面", fig_ls_styles_gap, "end"),
+        ("en", "Bottom of the table", fig_ls_styles_gap, "end"),
+    ],
     "scalable-oversight-deep": [
         ("zh", "1. 假设的谱系", fig_so_genealogy, "end"),
         ("en", "1. The genealogy", fig_so_genealogy, "end"),
@@ -808,6 +1065,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("learning-science-deep", "zh", "deep",
+     "学习科学的证据等级:哪些学习方法真的有效?(深入版)",
+     "检索、间隔、交错、刻意练习、学习风格、主动学习——五场学术对战逐一对账,把常见学习方法按证据强度重新排座次;含一处几乎没人引用的正式勘误。",
+     "2026-07"),
+    ("learning-science-deep", "en", "deep",
+     "The Evidence Hierarchy of Learning Science: What Actually Works? (Deep Dive)",
+     "Retrieval, spacing, interleaving, deliberate practice, learning styles, active learning — five academic battles audited line by line, the common study methods re-seated by evidence strength; includes a rarely cited official corrigendum.",
+     "2026-07"),
+    ("learning-science-plain", "zh", "plain",
+     "学习方法排座次:哪些真有效,哪些是神话?(易读版)",
+     "一万小时、学习风格、划重点——流行的学习建议大多没有你以为的那种证据。易读版:主线论证 + 直白语言。",
+     "2026-07"),
+    ("learning-science-plain", "en", "plain",
+     "Ranking Study Methods by Evidence: What Works and What's Myth (Plain-Language Edition)",
+     "Ten thousand hours, learning styles, highlighting — most popular study advice lacks the evidence you think it has. The accessible edition.",
+     "2026-07"),
     ("scalable-oversight-deep", "zh", "deep",
      "验证真的比生成容易吗?——Scalable oversight 的地基体检(深入版)",
      "整个「AI 看住 AI」的路线站在「验证比生成容易」上——创始假设如何被公理化,理论裂缝、条件化实证与实验室的退守。",
@@ -882,6 +1155,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("learning-science-deep", "zh"):
+        "把常见学习方法按证据强度重排座次:检索练习与间隔是证据最厚的两项(课堂成立、出版偏倚五法检验干净);交错强但边界窄(词汇反向);主动学习方向稳、数字虚(0.47 SD 站在 88% 准实验上);刻意练习勘误后仅解释 14% 方差,预注册复现中顶尖组没练得更多;学习风格匹配在合格检验下反复失败,却有约九成教育者相信。效应量必须连着对照组与场景读。十二个可检验主张收尾。",
+    ("learning-science-deep", "en"):
+        "The common study methods, re-seated by evidence strength: retrieval practice and spacing carry the thickest dossiers (classroom-valid, five bias checks clean); interleaving is strong within narrow borders (vocabulary reverses); active learning is directionally solid with soft numbers (0.47 SD atop 88% quasi-experiments); deliberate practice explains just 14% of variance post-corrigendum, and in preregistered replication the best violinists hadn't practiced more; learning-styles matching keeps failing qualified tests while ~9 in 10 educators believe it. Every effect size must be read with its control group and setting. Twelve testable claims close the essay.",
+    ("learning-science-plain", "zh"):
+        "考自己 + 隔开学是证据最硬的两个方法;混着练只在内容易混时有效;一万小时是畅销书发明——练习量只解释约 14% 的成就差异,重做原研究时顶尖组根本没练得更多;学习风格匹配教学检验了几十年都不过关,九成教师却相信。看任何宣传数字先问三件事:跟谁比、在哪测、谁在卖。",
+    ("learning-science-plain", "en"):
+        "Self-testing + spacing are the two best-evidenced methods; mixing practice only helps when material is confusable; the 10,000-hour rule is a bestseller's invention — practice explains ~14% of achievement differences, and in the redo of the original study the top group hadn't practiced more; learning-styles matching has failed tests for decades while nine in ten teachers believe it. Before trusting any advertised number, ask: compared to what, measured where, and who's selling.",
     ("scalable-oversight-deep", "zh"):
         "「验证比生成容易」在 2018 年是带限定语的编号假设,四年后被当公理引用。理论裂缝(obfuscated arguments 六年未解)、条件化的实证(debate 正结果几乎全靠信息不对称)、与实验室退守 CoT 监控的生产行为共同表明:这块地基按任务族分层——有独立 oracle 处坚实,对抗与开放论证处至今无人证明其承重。九个可检验主张收尾。",
     ("scalable-oversight-deep", "en"):
@@ -917,6 +1198,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("learning-science-deep", "zh"): [
+        ("c1", "72 票对抗验证 · 24/24 挺过"), ("c2", "刻意练习:方差仅 14%(勘误后)"), ("c3", "学习风格:信念 89% vs 互作 26%"), ("c4", "12 个可检验主张"),
+    ],
+    ("learning-science-deep", "en"): [
+        ("c1", "72 votes · 24/24 survived"), ("c2", "deliberate practice: 14% of variance"), ("c3", "styles: 89% belief vs 26% crossover"), ("c4", "12 testable claims"),
+    ],
+    ("learning-science-plain", "zh"): [
+        ("c1", "读 14 遍 40% vs 考 3 次 61%"), ("c2", "一万小时:复现不成立"), ("c3", "九成教师信学习风格"), ("c4", "交错课堂 RCT:61 vs 38 分"),
+    ],
+    ("learning-science-plain", "en"): [
+        ("c1", "read 14×: 40% vs test 3×: 61%"), ("c2", "10,000 hrs: failed replication"), ("c3", "9 in 10 teachers buy styles"), ("c4", "interleaving RCT: 61 vs 38"),
+    ],
     ("scalable-oversight-deep", "zh"): [
         ("c1", "60 票对抗验证 · 20/20 挺过"), ("c2", "创始假设 → 公理:4 年"), ("c3", "debate@Elo差400 ≈ 抛硬币"), ("c4", "9 个可检验主张"),
     ],
@@ -1102,6 +1395,15 @@ INDEX_I18N = {
 
 # slug, date, title_zh, title_en, desc_zh, desc_en, stats_zh, stats_en, tags[(cls, zh, en)]
 INDEX_ENTRIES = [
+    ("learning-science", "2026-07",
+     "学习科学的证据等级:哪些方法真的有效?",
+     "The Evidence Hierarchy of Learning Science: What Actually Works?",
+     "一万小时、学习风格、划重点——为什么流行的学习建议和实测证据几乎对不上?五场学术对战逐一对账,把常见学习方法按证据强度重新排座次,并给出读效应量数字的防骗规则。",
+     "Ten thousand hours, learning styles, highlighting — why does popular study advice barely overlap with the measured evidence? Five academic battles audited one by one, the common methods re-seated by evidence strength, with anti-scam rules for reading effect sizes.",
+     "72 票对抗验证 · 12 个可检验主张",
+     "72 adversarial votes · 12 testable claims",
+     [("t1", "学习科学", "Learning science"), ("t2", "meta 分析", "Meta-analyses"), ("t3", "刻意练习之战", "Deliberate practice"),
+      ("t4", "学习风格神话", "Learning styles"), ("t5", "主动学习", "Active learning")]),
     ("ai-native", "2026-07",
      "传统软件组织的 AI-native 转型",
      "The AI-Native Transformation of Software Organizations",

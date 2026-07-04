@@ -29,15 +29,14 @@
 - 核心口径记录:prover-estimator 的 stability 只撑完备性(soundness 不依赖);Lu et al. 为 ICLR 2026 workshop 非主会;Anthropic 25%/39% 为提示复述率;AlphaProof 银牌为与 AlphaGeometry 2 组合成绩;Bowman 自限对象是其对话式基线
 - 钩子:→ ai-ml《CoT 监控与可监控性》(backlog,反哺);→ super-individual《给自己的 AI 工作流做 oracle 盘点》(backlog,反哺);→ 候选池 1 条(形式化方法的 LLM 复兴);另 1 条仅记运行报告(NSO 复现与 stability 实证检验设计)
 
+### 4. 学习科学的证据等级:哪些方法真的有效? ✅ 2026-07
+- 页面:`learning-science-plain/-deep` × zh/en
+- 底座:6 条调研线、106 论断、24 组承重论断 × 3 票对抗验证(72 票:24/24 挺过、0 推翻,15 组含修正票、30+ 处口径修正);研究材料存本地 `~/design/deep-research-runs/learning-science/`
+- 核心口径记录:Macnamara 2014 有 2018 正式勘误(12%→14%,分域 24/23/20/5/1)——头条数字是勘误前的;Latimier g=0.74 系 trim-and-fill 校正值(未校正 1.01,间隔化子集仅 11 项研究);Ericsson & Harwell 29%=未校正、61%=衰减校正(信度假设 0.6/0.8);M&M 2019 双盲=实验者+被试(非编码者),practice alone=独自练习;Yang 2021 对精细加工策略 0.095 不显著;Nancekivell 93.7% 为排除前 383 人口径;准教师 vs 在职信念差异不显著;Martella"0 篇全控制"=计入实施保真度口径;Cepeda 2008 正式版为 20-40%→5-10%
+- 钩子:→ 候选池 1 条(神经神话传播动力学);→ super-individual《把三个已验证开关装进自己的学习流程》(backlog,反哺);→ meta-knowledge《学习≠表现:元认知错觉》(backlog,反哺);另 1 条仅记运行报告(Kraft 基准商榷线 + Dunlosky 评级无十年更新的跟踪信号)
+
 ## 待研究
 
-
-### 4. 学习科学的证据等级:哪些方法真的有效?
-- **一句话**:间隔重复、检索练习、刻意练习、主动学习——按证据强度重新排座次。
-- **为什么适合**:教科书级学术对战("一万小时"神话 vs Macnamara meta 分析 vs Ericsson 回应);结论能直接反哺全部学习站的内容设计。
-- **理论底座**:认知负荷理论(Sweller)、检索练习效应(Roediger & Karpicke)、间隔效应(Ebbinghaus→Cepeda meta)、刻意练习(Ericsson 1993)、desirable difficulties(Bjork)。
-- **关键争议/正反**:刻意练习解释力(Macnamara et al. 2014/2016 meta:体育/音乐/教育中方差解释远低于宣称)、学习风格神话(已被反复证伪但仍流行)、主动学习 vs 讲授的实证(Freeman 2014 meta 及其批评)。
-- **实证锚点**:各效应的 meta 分析效应量、预注册复现研究、Dunlosky et al. 2013 十大学习技巧评级。
 
 ### 5. 屏幕时间与青少年心理健康:Haidt 对不对?
 - **一句话**:《焦虑的一代》的因果主张,经得起方法学检验吗?
@@ -78,6 +77,7 @@
 
 ## 候选池(未排期)
 
+- 神经神话为什么杀不死:学习风格、多元智能、左右脑的传播动力学——师训体系为何成为误念的主要传染源,揭穿式干预的实效边界(信念降 37% 但行为传导仅半)(钩子·源自 #4)
 - 形式化方法的 LLM 复兴:当验证真的容易时——Lean/AlphaProof、verifier-grounded RL、TLA+ 护 AI 变更的前景(接 #0 阶段二外推与 #3 任务族第一象限)(钩子·源自 #3)
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)
 - AI 基准的 Goodhart 化:数据污染、榜单收割与评测激励结构,为什么评测体系一建成就失效(可与 #8 scaling laws 的基准饱和线互补)(钩子·源自 #2)

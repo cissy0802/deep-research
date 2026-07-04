@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习方法排座次:哪些真有效,哪些是神话?(易读版) — BigCat Deep Research</title>
+<meta name="description" content="一万小时、学习风格、划重点——流行的学习建议大多没有你以为的那种证据。易读版:主线论证 + 直白语言。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="learning-science-plain.html" class="active">中文</a><a href="learning-science-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>学习方法排座次:哪些真有效,哪些是神话?(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="learning-science-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">考自己 + 隔开学是证据最硬的两个方法;混着练只在内容易混时有效;一万小时是畅销书发明——练习量只解释约 14% 的成就差异,重做原研究时顶尖组根本没练得更多;学习风格匹配教学检验了几十年都不过关,九成教师却相信。看任何宣传数字先问三件事:跟谁比、在哪测、谁在卖。</div></div>
+<div class="chips"><span class="chip c1">读 14 遍 40% vs 考 3 次 61%</span><span class="chip c2">一万小时:复现不成立</span><span class="chip c3">九成教师信学习风格</span><span class="chip c4">交错课堂 RCT:61 vs 38 分</span></div>
+<blockquote><p>本文是同名深入版的精简版。所有关键数字都经过独立核查,想看完整论证和出处请读深入版。</p></blockquote>
+<h2>你听过的学习建议,大多没有你以为的那种证据</h2>
+<p>关于怎么学习,流行文化有一套标准答案:练满一万小时就能成大师;每个人有自己的学习风格,按风格教才有效;划重点、反复读是学生的基本功。</p>
+<p>学习科学也有一套答案——有的效应已经被测了一百多年——但它和流行答案几乎对不上。这篇文章把常见的学习方法按证据强度重新排了座次:哪些方法经得起反复检验,哪些是被畅销书造出来的神话。</p>
+
+<figure>
+<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">重排座次:证据等级表</text>
+  <rect x="24" y="50" width="652" height="54" rx="10" fill="#52b788" opacity="0.10" stroke="#52b788" stroke-opacity="0.5"/><text x="42" y="73" fill="#52b788" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">一档:检索练习 · 间隔练习</text><text x="42" y="92" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">多 meta 收敛 · 课堂成立 · 偏倚检验干净;条件:反馈 + 延迟</text><rect x="24" y="112" width="652" height="54" rx="10" fill="#4cc9f0" opacity="0.10" stroke="#4cc9f0" stroke-opacity="0.5"/><text x="42" y="135" fill="#4cc9f0" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">二档:交错 · 主动学习 · 例题学习</text><text x="42" y="154" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">方向稳,幅度或边界存疑(词汇反向 · 0.47 SD 打折读 · 随专长反转)</text><rect x="24" y="174" width="652" height="54" rx="10" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.5"/><text x="42" y="197" fill="#f0b429" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">三档:刻意练习</text><text x="42" y="216" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">结构化练习必要,但「一万小时」是包装——勘误后仅解释 14% 方差</text><rect x="24" y="236" width="652" height="54" rx="10" fill="#e85a4f" opacity="0.10" stroke="#e85a4f" stroke-opacity="0.5"/><text x="42" y="259" fill="#e85a4f" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">四档:学习风格匹配 · 纯发现式教学</text><text x="42" y="278" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">合格检验反复失败;后者是两大对立学派唯一的共识敌人</text>
+</svg>
+<figcaption>示意:按效应稳健性 × 课堂证据 × 独立复现 × 偏倚检验四判据排出的座次;重读/划线为「低效用」而非无效</figcaption>
+</figure>
+<h2>先学三个防骗口诀</h2>
+<p>看任何"某方法让成绩提升 X%"的说法之前,先问三个问题:</p>
+<p><strong>跟谁比?</strong>同一个"做练习题有效",跟"什么都不做"比,效果数字是跟"重读课本"比的两倍;跟"画概念图"这类认真学法比,优势几乎归零。卖课的永远引第一个数字。</p>
+<p><strong>在哪测的?</strong>实验室里背单词测出的大效果,搬进真实课堂常常大幅缩水。教育实验里,一个方法能让成绩提高"0.1 个标准差"就已经跑赢了大多数干预——听起来不性感,但这才是真实世界的刻度。</p>
+<p><strong>谁在卖?</strong>这个领域里,畅销书作者、测评问卷公司、培训机构都在报数字。连教育界最有名的"什么方法最有效"排行榜(Hattie 的《可见的学习》),都被统计学家抓到过算出"负的概率"这种低级错误,直接判为伪科学。排行榜也会错,而且错得离谱。</p>
+
+<figure>
+<svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">同一个「测验有效」,三个对照组,三个数字</text>
+  <line x1="270" y1="52" x2="270" y2="204" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="258" y="79" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">对无活动/填充任务</text><rect x="270" y="64" width="340" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="618" y="79" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">g=0.610</text><text x="258" y="131" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">对重读(严格对照)</text><rect x="270" y="116" width="184" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="462" y="131" fill="#7b61ff" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">g=0.330</text><text x="258" y="183" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">对精细加工策略</text><rect x="270" y="168" width="53" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="331" y="183" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">g=0.095(不显著)</text>
+</svg>
+<figcaption>示意:课堂测验的效应量随对照组类型变化(Yang 等 2021,222 项课堂研究、48,478 名学生);对概念图等精细加工策略的 0.095 不显著(p=.062)——宣传引第一个数,严格比较看后两个</figcaption>
+</figure>
+<h2>座次表最上面:考自己 + 隔开学</h2>
+<p><strong>考自己(检索练习)。</strong>读完一篇材料,合上书回忆一遍,效果远好于再读一遍。经典实验:一组人反复读了 14 遍,一周后只记得 40%;另一组只读了 3 遍多、但做了三次回忆测试,记得 61%。最讽刺的是,读 14 遍的那组对自己最有信心——<strong>顺畅的感觉骗人,费力的回忆才在建记忆</strong>。两个使用条件:要延迟看效果(当天测,重读反而占优),最好带对答案的反馈。这个方法在几百项真实课堂研究里依然成立,而且被多种统计手段查过,没有发现"只发表好结果"的水分——这在教育研究里非常罕见。顺带说一句,担心"老考自己会焦虑"的方向也测过了:练习测验反而<strong>降低</strong>考试焦虑。</p>
+<p><strong>隔开学(间隔练习)。</strong>同样是复习三次,分三天做远胜一天连做三遍。这是心理学里最老、证据最厚的效应之一。两个实用口径:复习间隔大致取"离考试还有多久"的两成左右(备考一个月,隔几天复习一轮);流行软件里"间隔必须越拉越长"的设定,实测和均匀间隔没差别——不用迷信递增。要泼的冷水:把间隔练习轻飘飘塞进大学常规课程的实验里,平均只提高了 2 个百分点。方法真,但别指望不费力气的魔法。</p>
+<p><strong>混着练(交错练习)。</strong>做数学题时把不同类型的题混在一起做,而不是一类练完再练下一类。它有全领域最漂亮的一项课堂证据:787 名中学生、预注册的随机实验、练了四个月,一个月后突击测验,混着练的班 61 分,分块练的班 38 分。但边界很清楚:它只在"内容容易混淆、需要练判断"时有效(数学题型、画家风格);背单词时反而是分块更好。而且混着练更费时间、练的当下错得更多——又是"感觉差、效果好"。</p>
+
+<figure>
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">实验室的尺子,课堂的账本</text>
+  <line x1="280" y1="50" x2="280" y2="200" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="268" y="75" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">检索·实验室(Rowland 2014)</text><rect x="280" y="60" width="250" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="538" y="75" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">g=0.50</text><text x="268" y="125" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">检索·真实课堂(Yang 2021)</text><rect x="280" y="110" width="165" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="453" y="125" fill="#7b61ff" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">g=0.33</text><text x="268" y="175" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">交错·课堂预注册 RCT(Rohrer 2020)</text><rect x="280" y="160" width="415" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="687" y="175" fill="#0a0e1a" font-size="11.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">g≈0.83:罕见的不缩水</text>
+  <rect x="24" y="216" width="652" height="36" rx="8" fill="#f0b429" opacity="0.08" stroke="#f0b429" stroke-opacity="0.4" stroke-dasharray="4,4"/>
+  <text x="350" y="239" fill="#f0b429" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">间隔练习轻剂量塞进 9 门常规大学课:平均只 +2.06 个百分点(Bego 2024)</text>
+</svg>
+<figcaption>示意:同为「对重读」口径,检索练习从实验室到课堂缩水约三分之一;交错练习是罕见例外(七年级数学,54 班预注册整群 RCT);间隔练习轻剂量进常规课堂时收益缩到约 2 个百分点</figcaption>
+</figure>
+<h2>座次表中间:方向对,但数字被吹大了</h2>
+<p><strong>上课动脑(主动学习)。</strong>几百项大学理工科研究说,课堂里让学生做题、讨论、回答问题,比全程听讲平均高 0.47 个标准差,挂科率从 34% 降到 22%。方向基本可信,但两个折扣要打:第一,这堆研究九成不是严格的随机实验,数字本身别当精确值;第二,哈佛做过一个漂亮的实验——同样的讲义,主动学习组实测多学了,但他们<strong>自我感觉</strong>学得更少,给课的评分更低。轻松听讲的"学到了"的感觉,很大程度是错觉。另外,争论双方其实有共识:有效的是"动脑+有引导",完全放羊的"自己探索"式教学,两派都反对。新手先看例题、学套路,有基础了再上难度——同一个方法对新手和熟手效果会反转。</p>
+
+<figure>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">同一批学生,两把尺子</text>
+  <line x1="380" y1="52" x2="380" y2="188" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="380" y="204" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">0</text>
+  <text x="225" y="85" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">实测成绩(随堂测验)</text>
+  <rect x="380" y="70" width="115" height="22" rx="5" fill="#52b788" opacity="0.9"/>
+  <text x="503" y="86" fill="#52b788" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">+0.46 SD</text>
+  <text x="225" y="145" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">自感学到多少</text>
+  <rect x="240" y="130" width="140" height="22" rx="5" fill="#e85a4f" opacity="0.9"/>
+  <text x="388" y="146" fill="#ff8a80" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">−0.56 SD</text>
+</svg>
+<figcaption>示意:Deslauriers 等 2019(哈佛物理导论,N=149,随机分组、讲义相同)——主动学习组实测多学 0.46 SD,自我感觉却少学 0.56 SD;与「读 14 遍最自信、记得最少」是同一个元认知现象</figcaption>
+</figure>
+<h2>座次表下面:两个著名神话</h2>
+<p><strong>一万小时定律。</strong>这个说法不是科学家提的,是作家 Malcolm Gladwell 2008 年从一项 30 人的小提琴研究里包装出来的,原作者 Ericsson 生前明确否认"一万"有任何魔法。更要命的是后续账目:汇总近百项研究,练习量只能解释成就差异的约 14%——练习非常重要,但离"解释一切"差得远。2019 年有人用更严格的方法重做了那项小提琴研究:<strong>最顶尖的那组学生,累计练习时间根本不比次一档的组多</strong>。练习是必要条件,不是充分条件;天赋和练习也不是对手,而是互相放大的关系。</p>
+<p><strong>学习风格。</strong>"视觉型学习者要看图、听觉型要听讲"——这是全世界教师中流传最广的理论:各国调查里九成上下的教育者相信它。但按合格标准做的检验(先测风格、随机分配教法、统一考试),几十年来几乎全军覆没;2024 年对它最友好的一次汇总分析,也只找到一个勉强够到显著线的微弱效应,作者自己都说"太小、太罕见,不值得推广"。连 VARK 风格问卷的设计者本人都承认:没有任何可靠研究能证明知道自己的风格对学习有益。这个理论最大的本事不是帮人学习,是自我传播——它主要通过教师培训体系扩散。</p>
+<p><strong>附注:重读和划线</strong>没被判死刑,只是"性价比最低"——它们恰好是学生最常用的方法,却最不稳定。把重读换成"合上书回忆",是单位努力回报最高的一次替换。</p>
+
+<figure>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">刻意练习之战:三十年时间线</text>
+  <line x1="50" y1="160" x2="670" y2="160" stroke="#5a6378" stroke-width="1.5"/>
+  <circle cx="80" cy="160" r="6" fill="#4cc9f0"/><line x1="80" y1="154" x2="80" y2="86" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="30" y="62" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">1993 强主张登场</text>
+  <text x="30" y="79" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">练习量「很大程度上解释」差异(N=30)</text>
+  <circle cx="205" cy="160" r="6" fill="#ff6ec4"/><line x1="205" y1="166" x2="205" y2="204" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="120" y="222" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">2008《Outliers》</text>
+  <text x="120" y="239" fill="#8a93ad" font-size="10.5" font-family="-apple-system,sans-serif">一万小时=「伟大的魔法数字」</text>
+  <circle cx="345" cy="160" r="6" fill="#7b61ff"/><line x1="345" y1="154" x2="345" y2="116" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="345" y="93" fill="#7b61ff" font-size="12" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">2014 Macnamara meta:12%</text>
+  <text x="345" y="110" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">(2018 勘误为 14%)</text>
+  <circle cx="455" cy="160" r="6" fill="#f0b429"/><line x1="455" y1="166" x2="455" y2="204" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="455" y="222" fill="#f0b429" font-size="12" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">2016 定义之战</text>
+  <text x="455" y="239" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">双方互指对方口径</text>
+  <circle cx="560" cy="160" r="6" fill="#e85a4f"/><line x1="560" y1="154" x2="560" y2="86" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="676" y="62" fill="#ff8a80" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">2019 预注册复现</text>
+  <text x="676" y="79" fill="#8a93ad" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">顶尖组 8,224h ≯ 优秀组 9,844h</text>
+  <circle cx="655" cy="160" r="6" fill="#5eead4"/><line x1="655" y1="166" x2="655" y2="204" stroke="#5eead4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="676" y="222" fill="#5eead4" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">2024 交互模型</text>
+  <text x="676" y="239" fill="#8a93ad" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">天赋×练习相互放大</text>
+</svg>
+<figcaption>示意:从 1993 年强主张到 2019 年预注册复现失败——「练习很重要」活着,「练习量解释一切」死了;两派均为同一批数据的再编码者</figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">学习风格:信念与证据的剪刀差</text>
+  <line x1="285" y1="52" x2="285" y2="204" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="273" y="79" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">相信匹配教学的教育者</text><rect x="285" y="64" width="321" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="598" y="79" fill="#0a0e1a" font-size="11.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">89.1%(18 国 15,405 人)</text><text x="273" y="131" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">呈现交叉互作的结果</text><rect x="285" y="116" width="94" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="387" y="131" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">26%(最有利的 2024 meta)</text><text x="273" y="183" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">2008 权威综述的合格证据</text><rect x="285" y="168" width="3" height="20" rx="5" fill="#e85a4f" opacity="0.85"/><text x="296" y="183" fill="#e85a4f" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">「几乎不存在」</text>
+</svg>
+<figcaption>示意:18 国教育者的信念率(Newton & Salvi 2020)vs 理论所需交叉互作在最有利 meta 中的出现率(Clinton-Lisell 2024,且仅 5/21 研究达质量标准)vs Pashler 等 2008 的判语</figcaption>
+</figure>
+<h2>这篇文章的判断,怎么检验</h2>
+<p>十二个可检验的主张,按证据从硬到软排:</p>
+<ol><li><strong>考自己和隔开学是证据最厚的两个方法</strong>——多项大规模汇总收敛,课堂成立,统计查重没查出水分。</li><li><strong>效果数字取决于对照组</strong>:跟"啥也不干"比 0.61,跟"重读"比 0.33,跟"认真学法"比接近 0——看到宣传数字先问跟谁比。</li><li><strong>测试的好处要延迟才显现</strong>,当天比反而输;自信和实效经常反着走。</li><li><strong>"复习间隔必须递增"没有证据</strong>,和均匀间隔打平;"最优间隔"只是个随考期变化的粗略比例。</li><li><strong>实验室效果进课堂会缩水</strong>,幅度看方法:检索练习缩三分之一,轻剂量间隔练习缩到只剩 2 个百分点,混着练是罕见的不缩水例外。</li><li><strong>混着练有硬边界</strong>:内容要能混淆才有效,背单词反而分块好,还更费时间。</li><li><strong>练习量只解释成就差异的约 14%</strong>(勘误后数字),重做原始研究时"顶尖组练得更多"直接不成立。</li><li><strong>练习量本身有四到七成是遗传的</strong>;天赋和练习是相互放大,不是二选一。</li><li><strong>学习风格匹配教学在合格检验下反复失败</strong>,但九成教育者相信——传染源主要是师训体系。</li><li><strong>主动学习方向稳、数字虚</strong>:证据堆里九成是不严格的对照;而且学得多的学生自感学得少,评教会惩罚好教法。</li><li><strong>两派教学之争的共识</strong>:有效的是动脑+引导;新手要例题和结构,熟手才受益于"合意的困难"。</li><li><strong>教育研究本身有系统缺陷</strong>:只有 0.13% 的论文做复现,最著名的效应排行榜有算术错误——任何排行榜先查口径。</li></ol>
+<p>值得盯什么:学习技巧的权威评级(2013 年版)会不会出更新版;"混着练"能不能在数学之外再拿到一个严格课堂实验;AI 学习工具会把"考自己+隔开学+反馈"做成默认功能,还是继续卖"个性化学习风格"。</p>
+<h2>最要紧的几件事</h2>
+<ol><li><strong>把"再读一遍"换成"合上书回忆一遍"</strong>,错了看答案——这是证据最硬、成本最低的一个改动。</li><li><strong>把复习拆开摊在日历上</strong>,间隔大约是"离考试时间"的两成;不用纠结间隔要不要递增。</li><li><strong>感觉费劲不等于学得差,感觉顺畅不等于学得好</strong>——挑学习方法时,警惕一切"轻松就能学会"的承诺。</li><li><strong>别按"学习风格"买课或分班</strong>,那笔钱和时间投给检索、间隔、例题任何一个都更值。</li><li><strong>练习很重要,但别拿一万小时给自己或孩子立军令状</strong>——方向、反馈、结构和天赋的匹配,和时长一样重要。</li><li><strong>新手和熟手用药不同</strong>:入门先看例题、要引导;有基础了再自测、混练、上难度。</li></ol>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>
