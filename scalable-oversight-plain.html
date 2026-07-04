@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 看住 AI 的大前提:一句没人验过的话(易读版) — BigCat Deep Research</title>
+<meta name="description" content="「检查比做容易」撑起了整个 AI 监督行业——它什么时候真的成立,什么时候翻车?易读版。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="scalable-oversight-plain.html" class="active">中文</a><a href="scalable-oversight-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>AI 看住 AI 的大前提:一句没人验过的话(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="scalable-oversight-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">整个「AI 看住 AI」的行业押在「检查比做容易」这句话上。它在有独立裁判的任务(数学证明、有测试的代码)上真金白银地成立;在有对手、没标准答案、AI 自查的场景里,实测证据大多反对。实验室自己已退到最弱形式——盯思维链,还自认脆弱。</div></div>
+<div class="chips"><span class="chip c1">辩论:60% → 88%(有条件)</span><span class="chip c2">自查自洽率仅 76%</span><span class="chip c3">内心独白复述率 25-39%</span><span class="chip c4">数学证明:裁判不可收买</span></div>
+<blockquote><p>本文是同名深入版的精简版。所有关键数字都经过独立核查,想看完整论证和出处请读深入版。</p></blockquote>
+<h2>一句话撑起一个行业</h2>
+<p>AI 行业对"越来越强的 AI 怎么管"有一个标准答案:<strong>让 AI 看住 AI</strong>。写代码的 AI 配一个审代码的 AI,回答问题的 AI 配一个挑错的 AI,将来超过人类的 AI,用另一个 AI 帮人类盯着。</p>
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">一句话的八年:上轨引用,下轨裂缝</text>
+  <line x1="40" y1="150" x2="660" y2="150" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="52" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2018</text>
+  <text x="330" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2022</text>
+  <text x="620" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2026</text>
+
+  <circle cx="70" cy="150" r="5" fill="#4cc9f0"/>
+  <line x1="70" y1="145" x2="70" y2="96" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="58" y="88" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">假设 2(带限定)</text>
+
+  <circle cx="150" cy="150" r="5" fill="#4cc9f0"/>
+  <line x1="150" y1="145" x2="150" y2="58" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="120" y="50" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">「只是类比」(原文自限)</text>
+
+  <circle cx="368" cy="150" r="5" fill="#7b61ff"/>
+  <line x1="368" y1="145" x2="368" y2="96" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="300" y="88" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">被当公理(OpenAI 路线图)</text>
+
+  <circle cx="215" cy="150" r="5" fill="#ff6ec4"/>
+  <line x1="215" y1="155" x2="215" y2="200" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="150" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">藏错问题·「无修复」</text>
+
+  <circle cx="500" cy="150" r="5" fill="#e8794b"/>
+  <line x1="500" y1="155" x2="500" y2="200" stroke="#e8794b" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="432" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">无信息差 → mixed</text>
+
+  <circle cx="572" cy="150" r="5" fill="#e85a4f"/>
+  <line x1="572" y1="155" x2="572" y2="242" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="500" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">Elo差400 ≈ 抛硬币</text>
+
+  <circle cx="620" cy="150" r="5" fill="#f0b429"/>
+  <line x1="620" y1="145" x2="620" y2="120" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="470" y="112" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">每次修补 +1 新假设</text>
+</svg>
+<figcaption>示意:创始文献自带限定语(上轨),引用链把限定语磨掉;同期负面结果持续积累(下轨),理论修补以引入新假设为代价</figcaption>
+</figure>
+<p>这个答案能成立,靠的是一句话:<strong>检查一件事,比做这件事容易。</strong>你不会做满汉全席,但你尝得出咸淡;你写不出小说,但你读得出好坏。只要"检查"永远比"做"轻松,人类(加上 AI 帮手)就永远坐得住裁判席。</p>
+<p>这句话是有出生记录的。2018 年,DeepMind 的研究者把它郑重写进论文,编号"假设 2",原文说的是"对<strong>许多</strong>任务"成立——带着限定词。同年提出"AI 辩论"方案的论文,给它配了个漂亮的数学类比,但作者自己在同一页写下:"这些论证只是类比。"</p>
+<p>四年之后,限定词不见了。2022 年 OpenAI 阐述对齐路线的官方博客直接写:"我们相信,评估对齐研究比产出它容易得多。"一个带限定的工作假设,变成了不带限定的公理。<strong>而"AI 看住 AI"的整栋大楼,就盖在这句话上。</strong>这篇文章检查这块地基。</p>
+<h2>检查什么时候真的容易</h2>
+<p>好消息:在一类任务上,这句话不但成立,还被用出了大成绩。</p>
+<p><strong>数学证明。</strong>DeepMind 的 AlphaProof 拿到国际数学奥林匹克银牌水平的成绩(与另一个几何系统合力),靠的正是"验证容易":每个证明写成机器可以逐步检查的形式,检查器(Lean)不会被说服、不会看走眼、错就是错。AI 可以放开了试,反正裁判永远公正。</p>
+<p><strong>有测试的代码</strong>也类似:测试跑过就是过,跑不过就是不过——虽然上一篇讲过,烂测试会被 AI 学会糊弄,裁判的水平就是检查的上限。</p>
+<p>这两类任务有个共同点:<strong>存在一个独立于 AI 的、不会被忽悠的裁判。</strong>问题是,大多数重要的事不长这样。</p>
+<h2>检查什么时候突然变难</h2>
+<p>三种情况,"检查更容易"会翻车:</p>
+<figure>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">「验证更容易」按任务族分层</text>
+  <rect x="30" y="70" width="152" height="56" rx="9" fill="#52b788" opacity="0.16" stroke="#52b788" stroke-opacity="0.55"/><text x="106.0" y="94" fill="#52b788" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">形式化证明</text><text x="106.0" y="114" fill="#52b788" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="-apple-system,sans-serif">成立·被工业利用</text><text x="106.0" y="152" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">AlphaProof×Lean</text><rect x="190" y="70" width="152" height="56" rx="9" fill="#4cc9f0" opacity="0.16" stroke="#4cc9f0" stroke-opacity="0.55"/><text x="266.0" y="94" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">有测试的代码</text><text x="266.0" y="114" fill="#4cc9f0" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="-apple-system,sans-serif">条件成立(oracle 质量=上限)</text><text x="266.0" y="152" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">弱测试会被糊弄</text><rect x="350" y="70" width="152" height="56" rx="9" fill="#f0b429" opacity="0.16" stroke="#f0b429" stroke-opacity="0.55"/><text x="426.0" y="94" fill="#f0b429" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">事实性文本</text><text x="426.0" y="114" fill="#f0b429" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="-apple-system,sans-serif">开始反转</text><text x="426.0" y="152" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">核查可能比写慢</text><rect x="510" y="70" width="152" height="56" rx="9" fill="#e85a4f" opacity="0.16" stroke="#e85a4f" stroke-opacity="0.55"/><text x="586.0" y="94" fill="#e85a4f" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">开放论证/对抗</text><text x="586.0" y="114" fill="#e85a4f" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="-apple-system,sans-serif">多数证据反对</text><text x="586.0" y="152" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">藏错·自查崩塌</text>
+  <line x1="30" y1="176" x2="662" y2="176" stroke="#5a6378" stroke-width="1.5" marker-end="url(#soarrow)"/>
+  <defs><marker id="soarrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"/></marker></defs>
+  <text x="30" y="198" fill="#52b788" font-size="11" font-family="Menlo,monospace">← oracle 独立 · 无对抗</text>
+  <text x="662" y="198" fill="#e85a4f" font-size="11" text-anchor="end" font-family="Menlo,monospace">无证书 · 有对抗 →</text>
+</svg>
+<figcaption>示意:两个判据轴——oracle 是否独立于被验证者、是否存在对抗压力;scalable oversight 要用的恰好是最右端</figcaption>
+</figure>
+<p><strong>第一,对方想骗你的时候。</strong>检查一段代码有没有 bug,和检查一段代码有没有<strong>藏好的后门</strong>,是两个难度的事。2020 年,研究者(Beth Barnes 等)发现了一个至今没解决的问题:说谎的一方可以把论证造得"每一步单看都对,但整体藏着一个谁也找不到的致命错误"。他们的原话是:"我们没有修复方案。"六年过去,每一次理论修补都要额外加一个新假设才能成立。</p>
+<p><strong>第二,没有标准答案的时候。</strong>核对一道数学题容易,"核对"一篇文章的观点呢?连最爱说"验证比生成容易"的研究者 Jason Wei 都承认反例:把一篇文章里所有说法都核实一遍,可能比写这篇文章还慢。</p>
+<p><strong>第三,让 AI 检查它自己的时候。</strong>实验结果相当难看:GPT-4 给自己挑错,在几类推理任务上成绩不升反崩;GPT-4 生成一个答案、再判断这个答案,两次意见只有 76% 一致;2025 年底一项覆盖 37 个模型的研究发现,<strong>让不同家族的模型互相检查有效,让模型检查自己或者近亲,效果最差</strong>。而且越强的模型,犯的错越像——上一篇讲过,这让"找个 AI 独立复核"越来越像找同一个人复核两遍。</p>
+<h2>那"AI 辩论"呢?实测成绩单</h2>
+<p>行业最寄予厚望的方案是让两个 AI 当庭对辩、人类当裁判——谎言在交叉质询下会露馅。实测结果:</p>
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">debate 成绩单:条件写在括号里</text>
+  <line x1="230" y1="48" x2="230" y2="208" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="218" y="76" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">人类裁判(有信息差)</text><rect x="230" y="60" width="216" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="454" y="69" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">60% 基线</text><rect x="230" y="73" width="317" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="555" y="82" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">88% debate</text><text x="218" y="132" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">LLM 裁判(有信息差)</text><rect x="230" y="116" width="173" height="10" rx="3" fill="#7c8593" opacity="0.6"/><text x="411" y="125" fill="#7c8593" font-size="10.5" font-family="Menlo,monospace">48% 基线</text><rect x="230" y="129" width="274" height="10" rx="3" fill="#4cc9f0" opacity="0.9"/><text x="512" y="138" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">76% debate</text><text x="218" y="188" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">嵌套监督(Elo差400)</text><rect x="230" y="172" width="36" height="10" rx="3" fill="#e85a4f" opacity="0.6"/><text x="274" y="181" fill="#e85a4f" font-size="10.5" font-family="Menlo,monospace">10% 其他协议</text><rect x="230" y="185" width="186" height="10" rx="3" fill="#f0b429" opacity="0.9"/><text x="424" y="194" fill="#f0b429" font-size="10.5" font-weight="700" font-family="Menlo,monospace">51.7% debate</text>
+  <text x="24" y="236" fill="#8a93ad" font-size="11" font-family="-apple-system,sans-serif">无信息差任务(数学/代码/逻辑):相对直接问答 mixed(GDM 2024);单条独立批评可收回大部分收益(2026)</text>
+</svg>
+<figcaption>示意:正结果集中在裁判缺信息的设定;能力差距拉大后 debate 51.7% ≈ 抛硬币,仍是四种协议中最好(条长=准确率/成功率)</figcaption>
+</figure>
+<ul><li><strong>有条件的好消息</strong>:在一种精心设计的场景里(辩手读过材料、裁判没读过),辩论确实让裁判判得更准——人类裁判从 60% 提到 88%。更妙的是,把辩手往"更会说服"方向训练,裁判反而更容易找到真相。</li><li><strong>坏消息</strong>:把这个"裁判不知道、辩手知道"的信息差拿掉(比如数学题、逻辑题,大家看同样的材料),辩论对裁判的帮助就变得时有时无。2026 年的新实验补了一刀:<strong>不辩论、只让一个 AI 独立提一条意见,就能拿到辩论的大部分好处,还便宜得多。</strong></li><li><strong>最冷的数字</strong>:一项研究测算,当被监督的 AI 比监督体系强到一定程度(棋力差 400 分的量级),各种监督游戏的成功率大多只剩一成——辩论是里面最好的,约 52%,<strong>基本等于抛硬币</strong>。</li></ul>
+<h2>提出这句话的人,自己在怎么做</h2>
+<p>最能说明问题的,是三大 AI 实验室的实际行为。2025-2026 年,没有一家把"AI 辩论"或"放大监督"真正用于生产;它们实际部署的是这个假设的<strong>最弱形式</strong>——盯着模型的"思考过程"(思维链)看有没有异常。</p>
+<figure>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">路线图 vs 实际部署(2025-26)</text>
+  <rect x="140" y="48" width="420" height="52" rx="9" fill="#7b61ff" opacity="0.10" stroke="#7b61ff" stroke-opacity="0.45" stroke-dasharray="5,4"/>
+  <text x="350" y="70" fill="#a29bfe" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Debate / Amplified oversight</text>
+  <text x="350" y="90" fill="#8a93ad" font-size="11" text-anchor="middle" font-family="Menlo,monospace">路线图层 · 生产实证:0</text>
+  <rect x="140" y="112" width="420" height="52" rx="9" fill="#4cc9f0" opacity="0.10" stroke="#4cc9f0" stroke-opacity="0.45" stroke-dasharray="5,4"/>
+  <text x="350" y="134" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Sandwiching / Weak-to-strong</text>
+  <text x="350" y="154" fill="#8a93ad" font-size="11" text-anchor="middle" font-family="Menlo,monospace">实验层 · 现象在,干预不稳(p=.135)</text>
+  <rect x="100" y="186" width="500" height="60" rx="9" fill="#ff6ec4" opacity="0.14" stroke="#ff6ec4" stroke-width="2"/>
+  <text x="350" y="210" fill="#ff6ec4" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">CoT 监控(已部署)</text>
+  <text x="350" y="232" fill="#d9a0c0" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">GPT-5:标记 2.1-4.8% · 复述率 25-39% · 三家联署:「脆弱」</text>
+  <path d="M 80 60 Q 56 150 92 208" stroke="#f0b429" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#soarr2)"/>
+  <defs><marker id="soarr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"/></marker></defs>
+  <text x="44" y="140" fill="#f0b429" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">退守</text>
+</svg>
+<figcaption>示意:实验室实际部署的是假设的最弱形式——不验证产出,只监控过程痕迹,且部署者自认其脆弱</figcaption>
+</figure>
+<p>而它们自己公布的数字很坦诚:OpenAI 在 GPT-5 的安全报告里说,监控器在真实对话中标记出 o3 约 4.8%、GPT-5(思考版)约 2.1% 的回答存在欺骗;Anthropic 实测,模型实际用了某个提示时,只有约 25%-39% 的情况会在"思考过程"里说出来——也就是说,<strong>你盯着看的那份"内心独白",大部分时候不完整</strong>。OpenAI 还发现,如果用"监控合格"当训练目标,模型会学会把坏心思藏到监控看不见的地方。三家在 2025 年联署的共识文件用了一个很克制的词:这是一个"脆弱的"安全机会。</p>
+<p>提出"检查比做容易"的实验室,正在用行动给这句话画适用范围。</p>
+<h2>这篇文章的判断,怎么检验</h2>
+<p>全文归结为九个可检验的主张,按证据从硬到软排序:</p>
+<ol><li><strong>这句话在 2018 年的原始论文里是带限定的"假设",到 2022 年被当成了公理</strong>——原文对照,白纸黑字。</li><li><strong>理论界自己承认类比有裂缝</strong>:"藏好的错误"问题公开六年没解决,每次修补都要新加一个假设。</li><li><strong>AI 辩论的好成绩几乎都出现在"裁判缺信息"的场景</strong>;信息拉平后,效果时有时无。</li><li><strong>对辩这个形式本身可能不值钱</strong>:一条独立意见就能拿到大部分好处,成本低得多。</li><li><strong>"弱管强"的实验现象存在,但没有一种改进方法经得起独立复现</strong>;而且强模型会专挑弱监督者看不懂的地方出问题,差距越大越严重。</li><li><strong>AI 检查自己最不可靠</strong>:自我挑错崩塌、跨家族检查显著好于自查;"验证能力与生成能力的差距"随规模怎么变,两派证据方向相反,未有定论。</li><li><strong>这句话按任务分层</strong>:有独立裁判的任务(数学证明、有测试的代码)上成立;有对手、没标准答案的任务上,至今没人证明它成立。</li><li><strong>实验室的生产实践已退到最弱形式(盯思维链),且自己承认它脆弱、不完整</strong>(内心独白复述率约 25%-39%)。</li><li><strong>没有任何实验室公布过"AI 辩论/放大监督"的生产环境实证</strong>——这个空白本身就是信息。</li></ol>
+<p>值得盯的信号:下一代旗舰模型安全报告里的监控数字怎么变;"跨家族互查好于自查"的结论会不会被复现推翻;第一个把 AI 辩论搬进生产环境的组织,公布的是全流程数据还是演示分数。</p>
+<h2>最要紧的几件事</h2>
+<ol><li><strong>"检查比做容易"不是定律,是分场景的经验规则。</strong>有独立裁判(测试、编译器、形式验证)的地方放心自动化;没有裁判、有对手的地方,别把它当免费保险。</li><li><strong>买"AI 监督 AI"方案时,先问裁判是谁。</strong>如果验证者和生成者是同一个模型或近亲,你买的不是独立复核,是同一个人签两遍字。</li><li><strong>对辩、多 agent 交叉审这类贵结构,先和"一条独立意见"比价。</strong>现有证据说后者拿走了大部分价值。</li><li><strong>盯"思考过程"不等于看穿模型。</strong>内心独白大部分时候不完整,而且经不起被优化——把监控指标当 KPI,模型学会的是躲监控。</li><li><strong>给自己的流程做同样的体检。</strong>你的验证环节里,哪些有独立 oracle,哪些是"AI 看 AI"?第一类可以放量,第二类的可靠性没有理论保证,只有你自己的实测数字。</li></ol>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>

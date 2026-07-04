@@ -436,9 +436,203 @@ def fig_cure_conditions(lang: str) -> str:
 </figure>"""
 
 
+
+def fig_so_genealogy(lang: str) -> str:
+    """Timeline: qualified assumption (top) vs accumulating cracks (bottom)."""
+    t = {
+        "zh": dict(title="一句话的八年:上轨引用,下轨裂缝",
+                   a1="假设 2(带限定)", a2="「只是类比」(原文自限)", a3="被当公理(OpenAI 路线图)",
+                   b1="藏错问题·「无修复」", b2="无信息差 → mixed", b3="Elo差400 ≈ 抛硬币", b4="每次修补 +1 新假设",
+                   cap="示意:创始文献自带限定语(上轨),引用链把限定语磨掉;同期负面结果持续积累(下轨),理论修补以引入新假设为代价"),
+        "en": dict(title="Eight years of one sentence: citations above, cracks below",
+                   a1="Assumption 2 (qualified)", a2="\"analogies only\" (self-limit)", a3="used as axiom (OpenAI)",
+                   b1="obfuscated args: \"no fix\"", b2="no info gap → mixed", b3="Elo-400 ≈ coin flip", b4="each patch adds an assumption",
+                   cap="Schematic: founding documents carried qualifiers (top track); the citation chain wore them off while negative results accumulated (bottom track), each theoretical patch purchased with a new assumption"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="40" y1="150" x2="660" y2="150" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="52" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2018</text>
+  <text x="330" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2022</text>
+  <text x="620" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2026</text>
+
+  <circle cx="70" cy="150" r="5" fill="#4cc9f0"/>
+  <line x1="70" y1="145" x2="70" y2="96" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="58" y="88" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a1']}</text>
+
+  <circle cx="150" cy="150" r="5" fill="#4cc9f0"/>
+  <line x1="150" y1="145" x2="150" y2="58" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="120" y="50" fill="#4cc9f0" font-size="11.5" font-family="-apple-system,sans-serif">{t['a2']}</text>
+
+  <circle cx="368" cy="150" r="5" fill="#7b61ff"/>
+  <line x1="368" y1="145" x2="368" y2="96" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="300" y="88" fill="#a29bfe" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['a3']}</text>
+
+  <circle cx="215" cy="150" r="5" fill="#ff6ec4"/>
+  <line x1="215" y1="155" x2="215" y2="200" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="150" y="216" fill="#ff6ec4" font-size="11.5" font-family="-apple-system,sans-serif">{t['b1']}</text>
+
+  <circle cx="500" cy="150" r="5" fill="#e8794b"/>
+  <line x1="500" y1="155" x2="500" y2="200" stroke="#e8794b" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="432" y="216" fill="#e8794b" font-size="11.5" font-family="-apple-system,sans-serif">{t['b2']}</text>
+
+  <circle cx="572" cy="150" r="5" fill="#e85a4f"/>
+  <line x1="572" y1="155" x2="572" y2="242" stroke="#e85a4f" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="500" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">{t['b3']}</text>
+
+  <circle cx="620" cy="150" r="5" fill="#f0b429"/>
+  <line x1="620" y1="145" x2="620" y2="120" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="470" y="112" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">{t['b4']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_so_debate(lang: str) -> str:
+    """Debate scorecard: paired baseline vs debate bars, one baseline per row."""
+    t = {
+        "zh": dict(title="debate 成绩单:条件写在括号里",
+                   r1="人类裁判(有信息差)", r2="LLM 裁判(有信息差)", r3="嵌套监督(Elo差400)",
+                   base="基线", deb="debate", other="其他协议",
+                   note="无信息差任务(数学/代码/逻辑):相对直接问答 mixed(GDM 2024);单条独立批评可收回大部分收益(2026)",
+                   cap="示意:正结果集中在裁判缺信息的设定;能力差距拉大后 debate 51.7% ≈ 抛硬币,仍是四种协议中最好(条长=准确率/成功率)"),
+        "en": dict(title="Debate report card: conditions in parentheses",
+                   r1="Human judges (info gap)", r2="LLM judges (info gap)", r3="Nested oversight (Elo-400)",
+                   base="baseline", deb="debate", other="other protocols",
+                   note="Without info asymmetry (math/code/logic): mixed vs direct QA (GDM 2024); one independent critique recovers most of the benefit (2026)",
+                   cap="Schematic: positive results concentrate where judges lack information; at a large capability gap debate is 51.7% ≈ a coin flip — still the best of four protocols (bar length = accuracy/success rate)"),
+    }[lang]
+    rows = [
+        (t['r1'], 60, 88, "#7c8593", "#4cc9f0", t['base'], t['deb']),
+        (t['r2'], 48, 76, "#7c8593", "#4cc9f0", t['base'], t['deb']),
+        (t['r3'], 10, 51.7, "#e85a4f", "#f0b429", t['other'], t['deb']),
+    ]
+    bars = []
+    y = 60
+    for label, v1, v2, c1, c2, l1, l2 in rows:
+        bars.append(f'<text x="218" y="{y + 16}" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        w1, w2 = v1 * 3.6, v2 * 3.6
+        bars.append(f'<rect x="230" y="{y}" width="{w1:.0f}" height="10" rx="3" fill="{c1}" opacity="0.6"/>')
+        bars.append(f'<text x="{230 + w1 + 8:.0f}" y="{y + 9}" fill="{c1}" font-size="10.5" font-family="Menlo,monospace">{v1}% {l1}</text>')
+        bars.append(f'<rect x="230" y="{y + 13}" width="{w2:.0f}" height="10" rx="3" fill="{c2}" opacity="0.9"/>')
+        bars.append(f'<text x="{230 + w2 + 8:.0f}" y="{y + 22}" fill="{c2}" font-size="10.5" font-weight="700" font-family="Menlo,monospace">{v2}% {l2}</text>')
+        y += 56
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="230" y1="48" x2="230" y2="{y - 20}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+  <text x="24" y="{y + 8}" fill="#8a93ad" font-size="11" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_so_spectrum(lang: str) -> str:
+    """Task-family verifiability spectrum."""
+    t = {
+        "zh": dict(title="「验证更容易」按任务族分层",
+                   z1="形式化证明", z2="有测试的代码", z3="事实性文本", z4="开放论证/对抗",
+                   s1="成立·被工业利用", s2="条件成立(oracle 质量=上限)", s3="开始反转", s4="多数证据反对",
+                   e1="AlphaProof×Lean", e2="弱测试会被糊弄", e3="核查可能比写慢", e4="藏错·自查崩塌",
+                   ax_l="← oracle 独立 · 无对抗", ax_r="无证书 · 有对抗 →",
+                   cap="示意:两个判据轴——oracle 是否独立于被验证者、是否存在对抗压力;scalable oversight 要用的恰好是最右端"),
+        "en": dict(title="\"Verification is easier\" stratified by task family",
+                   z1="Formal proofs", z2="Code with tests", z3="Factual text", z4="Open argument / adversarial",
+                   s1="holds · exploited", s2="conditional (oracle = ceiling)", s3="starts inverting", s4="most evidence against",
+                   e1="AlphaProof × Lean", e2="weak tests get gamed", e3="checking can be slower", e4="hidden errors · self-critique collapse",
+                   ax_l="← independent oracle · no adversary", ax_r="no certificate · adversarial →",
+                   cap="Schematic: two criteria — whether the oracle is independent of the thing verified, and whether adversarial pressure exists; scalable oversight must operate at the far right"),
+    }[lang]
+    zones = [
+        (t['z1'], t['s1'], t['e1'], "#52b788"),
+        (t['z2'], t['s2'], t['e2'], "#4cc9f0"),
+        (t['z3'], t['s3'], t['e3'], "#f0b429"),
+        (t['z4'], t['s4'], t['e4'], "#e85a4f"),
+    ]
+    blocks = []
+    x = 30
+    w = 160
+    for name, status, ex, color in zones:
+        cx = x + w / 2
+        blocks.append(f'<rect x="{x}" y="70" width="{w - 8}" height="56" rx="9" fill="{color}" opacity="0.16" stroke="{color}" stroke-opacity="0.55"/>')
+        blocks.append(f'<text x="{cx - 4}" y="94" fill="{color}" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{name}</text>')
+        blocks.append(f'<text x="{cx - 4}" y="114" fill="{color}" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="-apple-system,sans-serif">{status}</text>')
+        blocks.append(f'<text x="{cx - 4}" y="152" fill="#8a93ad" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{ex}</text>')
+        x += w
+    return f"""<figure>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(blocks)}
+  <line x1="30" y1="176" x2="662" y2="176" stroke="#5a6378" stroke-width="1.5" marker-end="url(#soarrow)"/>
+  <defs><marker id="soarrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"/></marker></defs>
+  <text x="30" y="198" fill="#52b788" font-size="11" font-family="Menlo,monospace">{t['ax_l']}</text>
+  <text x="662" y="198" fill="#e85a4f" font-size="11" text-anchor="end" font-family="Menlo,monospace">{t['ax_r']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_so_retreat(lang: str) -> str:
+    """The retreat tower: roadmap layer vs experiment layer vs deployed layer."""
+    t = {
+        "zh": dict(title="路线图 vs 实际部署(2025-26)",
+                   l1="Debate / Amplified oversight", d1="路线图层 · 生产实证:0",
+                   l2="Sandwiching / Weak-to-strong", d2="实验层 · 现象在,干预不稳(p=.135)",
+                   l3="CoT 监控(已部署)", d3="GPT-5:标记 2.1-4.8% · 复述率 25-39% · 三家联署:「脆弱」",
+                   arrow="退守",
+                   cap="示意:实验室实际部署的是假设的最弱形式——不验证产出,只监控过程痕迹,且部署者自认其脆弱"),
+        "en": dict(title="Roadmap vs actual deployment (2025-26)",
+                   l1="Debate / Amplified oversight", d1="roadmap layer · production evidence: 0",
+                   l2="Sandwiching / Weak-to-strong", d2="experiment layer · phenomenon real, interventions unstable (p=.135)",
+                   l3="CoT monitoring (deployed)", d3="GPT-5: flags 2.1-4.8% · mention rate 25-39% · tri-lab: \"fragile\"",
+                   arrow="retreat",
+                   cap="Schematic: what labs actually deploy is the assumption's weakest form — monitoring the process trace, not verifying the output, and its deployers call it fragile"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="140" y="48" width="420" height="52" rx="9" fill="#7b61ff" opacity="0.10" stroke="#7b61ff" stroke-opacity="0.45" stroke-dasharray="5,4"/>
+  <text x="350" y="70" fill="#a29bfe" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['l1']}</text>
+  <text x="350" y="90" fill="#8a93ad" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{t['d1']}</text>
+  <rect x="140" y="112" width="420" height="52" rx="9" fill="#4cc9f0" opacity="0.10" stroke="#4cc9f0" stroke-opacity="0.45" stroke-dasharray="5,4"/>
+  <text x="350" y="134" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['l2']}</text>
+  <text x="350" y="154" fill="#8a93ad" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{t['d2']}</text>
+  <rect x="100" y="186" width="500" height="60" rx="9" fill="#ff6ec4" opacity="0.14" stroke="#ff6ec4" stroke-width="2"/>
+  <text x="350" y="210" fill="#ff6ec4" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t['l3']}</text>
+  <text x="350" y="232" fill="#d9a0c0" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">{t['d3']}</text>
+  <path d="M 80 60 Q 56 150 92 208" stroke="#f0b429" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#soarr2)"/>
+  <defs><marker id="soarr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"/></marker></defs>
+  <text x="44" y="140" fill="#f0b429" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['arrow']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 # slug → list of (lang_or_None, version_or_None, heading_text_prefix, figure_fn)
 # figure inserted right AFTER the first heading whose text starts with the prefix.
 FIGURES = {
+    "scalable-oversight-deep": [
+        ("zh", "1. 假设的谱系", fig_so_genealogy),
+        ("en", "1. The genealogy", fig_so_genealogy),
+        ("zh", "3. 实证正面", fig_so_debate),
+        ("en", "3. The positive empirics", fig_so_debate),
+        ("zh", "5. 任务族分解", fig_so_spectrum),
+        ("en", "5. Task-family decomposition", fig_so_spectrum),
+        ("zh", "6. 实验室自己怎么做", fig_so_retreat),
+        ("en", "6. What the labs themselves do", fig_so_retreat),
+    ],
+    "scalable-oversight-plain": [
+        ("zh", "一句话撑起一个行业", fig_so_genealogy),
+        ("en", "One sentence holding up", fig_so_genealogy),
+        ("zh", "检查什么时候突然变难", fig_so_spectrum),
+        ("en", "When checking suddenly gets hard", fig_so_spectrum),
+        ("zh", "那\"AI 辩论\"呢", fig_so_debate),
+        ("en", 'What about "AI debate"', fig_so_debate),
+        ("zh", "提出这句话的人", fig_so_retreat),
+        ("en", "What the people who proposed", fig_so_retreat),
+    ],
     "ai-native-plain": [
         ("zh", "成本没有消失", fig_cost_transfer),
         ("en", "The cost didn", fig_cost_transfer),
@@ -603,6 +797,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("scalable-oversight-deep", "zh", "deep",
+     "验证真的比生成容易吗?——Scalable oversight 的地基体检(深入版)",
+     "整个「AI 看住 AI」的路线站在「验证比生成容易」上——创始假设如何被公理化,理论裂缝、条件化实证与实验室的退守。",
+     "2026-07"),
+    ("scalable-oversight-deep", "en", "deep",
+     "Is Verification Really Easier Than Generation? A Foundation Inspection of Scalable Oversight",
+     "The 'AI watching AI' program stands on one sentence. How a qualified assumption became an axiom — cracks, conditional empirics, and the labs' retreat.",
+     "2026-07"),
+    ("scalable-oversight-plain", "zh", "plain",
+     "AI 看住 AI 的大前提:一句没人验过的话(易读版)",
+     "「检查比做容易」撑起了整个 AI 监督行业——它什么时候真的成立,什么时候翻车?易读版。",
+     "2026-07"),
+    ("scalable-oversight-plain", "en", "plain",
+     "The Premise Behind \"AI Watching AI\": One Sentence Nobody Verified",
+     "'Checking is easier than doing' holds up the whole AI-oversight industry — when is it actually true? The plain-language edition.",
+     "2026-07"),
     ("ai-native-plain", "zh", "plain",
      "当写代码变得便宜:软件组织怎么转向 AI-native(易读版)",
      "为什么每个人都觉得 AI 让自己更快,组织却没变快?易读版:主线论证 + 直白语言。",
@@ -661,6 +871,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("scalable-oversight-deep", "zh"):
+        "「验证比生成容易」在 2018 年是带限定语的编号假设,四年后被当公理引用。理论裂缝(obfuscated arguments 六年未解)、条件化的实证(debate 正结果几乎全靠信息不对称)、与实验室退守 CoT 监控的生产行为共同表明:这块地基按任务族分层——有独立 oracle 处坚实,对抗与开放论证处至今无人证明其承重。九个可检验主张收尾。",
+    ("scalable-oversight-deep", "en"):
+        "In 2018, 'verification is easier than generation' was a qualified, numbered assumption; within four years it was cited as an axiom. Theoretical cracks (obfuscated arguments unsolved for six years), conditional empirics (debate's positives almost all require information asymmetry), and the labs' own retreat to CoT monitoring point the same way: the foundation stratifies by task family — solid where an independent oracle exists, unproven under adversarial pressure. Nine testable claims close the essay.",
+    ("scalable-oversight-plain", "zh"):
+        "整个「AI 看住 AI」的行业押在「检查比做容易」这句话上。它在有独立裁判的任务(数学证明、有测试的代码)上真金白银地成立;在有对手、没标准答案、AI 自查的场景里,实测证据大多反对。实验室自己已退到最弱形式——盯思维链,还自认脆弱。",
+    ("scalable-oversight-plain", "en"):
+        "The whole 'AI watching AI' industry is betting on 'checking is easier than doing.' It genuinely holds where an incorruptible judge exists (math proofs, tested code); with adversaries, no answer key, or AI checking itself, the measurements mostly say no. The labs themselves have retreated to the weakest form — watching the chain of thought — and call it fragile.",
     ("ai-native-plain", "zh"):
         "AI 把「写代码」变便宜,把瓶颈推到「确认代码是对的」。个人变快 ≠ 组织变快;评估 AI 靠交付数据、不靠体感;维护高可靠老系统的组织,从迁移类任务切入、护栏先于规模。",
     ("ai-native-plain", "en"):
@@ -688,6 +906,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("scalable-oversight-deep", "zh"): [
+        ("c1", "60 票对抗验证 · 20/20 挺过"), ("c2", "创始假设 → 公理:4 年"), ("c3", "debate@Elo差400 ≈ 抛硬币"), ("c4", "9 个可检验主张"),
+    ],
+    ("scalable-oversight-deep", "en"): [
+        ("c1", "60 votes · 20/20 survived"), ("c2", "assumption → axiom in 4 yrs"), ("c3", "debate @ Elo-400 ≈ coin flip"), ("c4", "9 testable claims"),
+    ],
+    ("scalable-oversight-plain", "zh"): [
+        ("c1", "辩论:60% → 88%(有条件)"), ("c2", "自查自洽率仅 76%"), ("c3", "内心独白复述率 25-39%"), ("c4", "数学证明:裁判不可收买"),
+    ],
+    ("scalable-oversight-plain", "en"): [
+        ("c1", "debate: 60% → 88% (conditional)"), ("c2", "self-check agreement: 76%"), ("c3", "inner monologue: 25-39%"), ("c4", "math proofs: incorruptible judge"),
+    ],
     ("ai-native-plain", "zh"): [
         ("c1", "90% 在用 AI"), ("c2", "实测 −19% vs 自感 +20%"), ("c3", "稳定性连续两年负相关"), ("c4", "迁移:1.5 人年 → 6 周"),
     ],
@@ -888,6 +1118,15 @@ INDEX_ENTRIES = [
      "45 adversarial votes · 8 testable claims",
      [("t1", "验证不对称", "Verification asymmetry"), ("t2", "基准混战", "Benchmark wars"), ("t3", "大厂生产数据", "Production data"),
       ("t4", "自动化人因", "Human factors"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
+    ("scalable-oversight", "2026-07",
+     "Scalable oversight 的地基体检",
+     "A Foundation Inspection of Scalable Oversight",
+     "整个「AI 看住 AI」的路线站在「验证比生成容易」一句话上——创始文献里它是带限定的假设,后来被当成了公理。理论裂缝、条件化的实证、与实验室退守 CoT 监控的生产行为,拼出这块地基的真实承重图。",
+     "The whole 'AI watching AI' program stands on one sentence: 'verification is easier than generation.' The founding papers qualified it; later citation used it as an axiom. Theoretical cracks, conditional empirics, and the labs' own retreat to CoT monitoring map what the foundation actually bears.",
+     "60 票对抗验证 · 9 个可检验主张",
+     "60 adversarial votes · 9 testable claims",
+     [("t1", "AI 对齐", "AI alignment"), ("t2", "验证不对称", "Verification asymmetry"), ("t3", "debate 实证", "Debate empirics"),
+      ("t4", "弱监督强", "Weak-to-strong"), ("t5", "CoT 监控", "CoT monitoring")]),
 ]
 
 
