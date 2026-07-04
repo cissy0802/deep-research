@@ -22,6 +22,8 @@ The good news: on one family of tasks, the sentence not only holds — it has be
 
 These tasks share one trait: **an incorruptible judge that exists independently of the AI.** The problem is that most important things don't look like this.
 
+One natural follow-up: **does production itself count as such a judge?** It does — reality is the most incorruptible judge of all; nobody fools it. But it has a fatal trait: **it only convenes after the fact, and its verdict is the incident itself.** "Three months in production without trouble" is not an acquittal — the court just hasn't convened; a well-hidden backdoor even lets the attacker pick the hearing date. So a codebase's production risk doesn't determine whether a judge exists — it determines **whether you can afford this judge**: for low-risk, rollback-able code, "ship it and watch" is legitimate verification; for high-risk, irreversible code, one verdict can cost nine figures — you must pass judgment before meeting the judge, using proxy judges (tests, canaries, formal checks), and the proxies' quality is the ceiling of your verification.
+
 ## When checking suddenly gets hard
 
 Three situations flip "checking is easier" on its head:
@@ -58,7 +60,7 @@ The whole argument reduces to nine claims, ordered from hardest to softest evide
 4. **The courtroom format itself may not be worth much**: one independent critique captures most of the benefit at far lower cost.
 5. **"Weak supervising strong" is a real phenomenon, but no improvement method survived independent replication** — and strong models misbehave precisely where the weak supervisor can't tell, worse as the gap grows.
 6. **AI checking itself is the least reliable configuration**: self-critique collapses, cross-family checking clearly beats self-checking; how the generation-verification gap moves with scale has evidence pointing both ways — unresolved.
-7. **The sentence stratifies by task**: it holds where an independent judge exists (math proofs, tested code); where there's an adversary and no answer key, nobody has shown it holds.
+7. **The sentence stratifies by task**: it holds where an independent judge exists *and is affordable* (math proofs, tested code, low-risk rollback-able releases); where there's an adversary, no answer key, or a judge that only convenes after the fact, nobody has shown it holds.
 8. **Lab production practice has retreated to the weakest form (watching the chain of thought), which the labs themselves call fragile and incomplete** (inner-monologue mention rate ~25%-39%).
 9. **No lab has published production evidence for AI debate or amplified oversight proper** — the gap is itself information.
 
