@@ -541,13 +541,13 @@ def fig_so_spectrum(lang: str) -> str:
                    s1="成立·被工业利用", s2="条件成立(oracle 质量=上限)", s3="开始反转", s4="多数证据反对",
                    e1="AlphaProof×Lean", e2="弱测试会被糊弄", e3="核查可能比写慢", e4="藏错·自查崩塌",
                    ax_l="← oracle 独立 · 无对抗", ax_r="无证书 · 有对抗 →",
-                   cap="示意:两个判据轴——oracle 是否独立于被验证者、是否存在对抗压力;scalable oversight 要用的恰好是最右端"),
+                   cap="示意:判据轴——oracle 是否独立、是否有对抗压力;第三轴见正文:请裁判开庭的成本与时延(生产是终极裁判,但判决在事后)。scalable oversight 要用的恰好是最右端"),
         "en": dict(title="\"Verification is easier\" stratified by task family",
                    z1="Formal proofs", z2="Code with tests", z3="Factual text", z4="Open argument / adversarial",
                    s1="holds · exploited", s2="conditional (oracle = ceiling)", s3="starts inverting", s4="most evidence against",
                    e1="AlphaProof × Lean", e2="weak tests get gamed", e3="checking can be slower", e4="hidden errors · self-critique collapse",
                    ax_l="← independent oracle · no adversary", ax_r="no certificate · adversarial →",
-                   cap="Schematic: two criteria — whether the oracle is independent of the thing verified, and whether adversarial pressure exists; scalable oversight must operate at the far right"),
+                   cap="Schematic: criteria — oracle independence and adversarial pressure; the third axis is in the text: the cost and latency of the judge's verdicts (production is the ultimate judge, but it rules after the fact). Scalable oversight must operate at the far right"),
     }[lang]
     zones = [
         (t['z1'], t['s1'], t['e1'], "#52b788"),
