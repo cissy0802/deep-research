@@ -443,19 +443,19 @@ def fig_so_genealogy(lang: str) -> str:
         "zh": dict(title="「验证比生成容易」这句话的八年",
                    leg_a="● 上轨:这句话被引用/强化", leg_b="● 下轨:反面证据在积累",
                    a1="2018 写成「假设2」,限定『许多任务』", a2="2018 提出者自注:『只是类比』", a3="2022 OpenAI 当公理引用",
-                   b1="2020 发现『藏错』问题,无修复", b2="2024 裁判不缺信息时效果不稳", b3="2025 监督更强 AI ≈ 抛硬币", b4="理论每修补一次,就多一个新前提",
+                   b1="2020:谎言能藏到裁判找不出(无修复)", b2="2024 裁判不缺信息时效果不稳", b3="2025 监督更强 AI ≈ 抛硬币", b4="理论每修补一次,就多一个新前提",
                    cap="示意:2018 年这句话带着限定语出生(上轨),四年后限定语在引用中消失;同期反面证据持续积累(下轨)——正文第 1、2 节是本图的逐条展开"),
         "en": dict(title="Eight years of one sentence",
                    leg_a="● top: the sentence cited / strengthened", leg_b="● bottom: counter-evidence accumulating",
                    a1="2018 \"Assumption 2\", limited to \"many tasks\"", a2="2018 authors' note: \"analogies only\"", a3="2022 OpenAI cites it as an axiom",
-                   b1="2020 \"hidden error\" problem, no fix", b2="2024 unstable without info gap", b3="2025 vs stronger AI ≈ coin flip", b4="each theory patch adds a premise",
+                   b1="2020: lies can hide from judges (no fix)", b2="2024 unstable without info gap", b3="2025 vs stronger AI ≈ coin flip", b4="each theory patch adds a premise",
                    cap="Schematic: born with qualifiers in 2018 (top track), the qualifiers vanished from citations within four years while counter-evidence accumulated (bottom track) — sections 1-2 unpack each dot"),
     }[lang]
     return f"""<figure>
 <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
   <text x="24" y="52" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">{t['leg_a']}</text>
-  <text x="360" y="52" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['leg_b']}</text>
+  <text x="24" y="288" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['leg_b']}</text>
   <line x1="40" y1="150" x2="660" y2="150" stroke="#5a6378" stroke-width="1.5"/>
   <text x="52" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2018</text>
   <text x="330" y="168" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2022</text>
@@ -486,8 +486,8 @@ def fig_so_genealogy(lang: str) -> str:
   <text x="430" y="258" fill="#ff8a80" font-size="11.5" font-family="-apple-system,sans-serif">{t['b3']}</text>
 
   <circle cx="620" cy="150" r="5" fill="#f0b429"/>
-  <line x1="620" y1="145" x2="620" y2="120" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
-  <text x="428" y="118" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">{t['b4']}</text>
+  <line x1="620" y1="155" x2="620" y2="230" stroke="#f0b429" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="676" y="242" fill="#f0b429" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{t['b4']}</text>
 </svg>
 <figcaption>{t['cap']}</figcaption>
 </figure>"""
