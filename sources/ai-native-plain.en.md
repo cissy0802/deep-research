@@ -92,6 +92,8 @@ If, two years from now, the "more AI, less stable delivery" statistic has vanish
 
 1. **Faster individuals ≠ a faster organization.** The cost moved from writing code to confirming it's right; without upgrading verification, AI just helps you produce problems faster.
 2. **Trust data, not feel.** The senior engineers slowed down by AI were convinced it sped them up. Evaluate AI with delivery cycle time, change failure rate, and review latency.
-3. **Legacy organizations: enter through migrations, guardrails before scale.** It is the only path with real success records from multiple major companies — and the big-bang rewrite is still a death trap.
+3. **Reprice your talent.** The scarcest person is not "a programmer who can use AI" but someone who can articulate the business, turn it into clear specifications, and judge whether the output is acceptable. Hiring and promotion that still price coding speed are pricing a depreciating asset.
+4. **Legacy organizations: enter through migrations, guardrails before scale.** It is the only path with real success records from multiple major companies — and the big-bang rewrite is still a death trap.
+5. **Don't bet on the "companies will shrink" narrative.** Nobody knows the direction, and the peer-reviewed evidence so far points to big companies getting bigger. What you can watch is your own number: how per-change verification cost grows with change volume.
 
 *For the full arguments, every source, and the counter-evidence, read the deep-dive edition: "When Code Becomes Cheap: Theory and Evidence for the AI-Native Transformation of Software Organizations."*
