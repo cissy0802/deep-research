@@ -1025,7 +1025,6 @@ figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font
 footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
 footer a{border-bottom:none}
 .mmd-lang-toggle{display:none!important}
-#search-fab{bottom:78px!important}
 @media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}"""
 
 
@@ -1351,7 +1350,6 @@ header .method{max-width:660px;margin:20px auto 0;font-size:0.82rem;color:#8a93a
 footer{text-align:center;padding:44px 0 12px;font-size:0.78rem;color:#5a6378}
 footer a{color:#7b61ff;text-decoration:none}
 .mmd-lang-toggle{display:none!important}
-#search-fab{bottom:78px!important}
 @media(max-width:700px){header h1{font-size:1.6rem}.container{padding:36px 16px 60px}}"""
 
 INDEX_TMPL = """<!DOCTYPE html>
