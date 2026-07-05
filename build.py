@@ -1024,6 +1024,8 @@ figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font
 .backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
 footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
 footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+#search-fab{bottom:78px!important}
 @media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}"""
 
 
@@ -1348,6 +1350,8 @@ header .method{max-width:660px;margin:20px auto 0;font-size:0.82rem;color:#8a93a
 .entry .links a:hover{transform:translateY(-1px);filter:brightness(1.15)}
 footer{text-align:center;padding:44px 0 12px;font-size:0.78rem;color:#5a6378}
 footer a{color:#7b61ff;text-decoration:none}
+.mmd-lang-toggle{display:none!important}
+#search-fab{bottom:78px!important}
 @media(max-width:700px){header h1{font-size:1.6rem}.container{padding:36px 16px 60px}}"""
 
 INDEX_TMPL = """<!DOCTYPE html>
@@ -1395,15 +1399,6 @@ INDEX_I18N = {
 
 # slug, date, title_zh, title_en, desc_zh, desc_en, stats_zh, stats_en, tags[(cls, zh, en)]
 INDEX_ENTRIES = [
-    ("learning-science", "2026-07",
-     "学习科学的证据等级:哪些方法真的有效?",
-     "The Evidence Hierarchy of Learning Science: What Actually Works?",
-     "一万小时、学习风格、划重点——为什么流行的学习建议和实测证据几乎对不上?五场学术对战逐一对账,把常见学习方法按证据强度重新排座次,并给出读效应量数字的防骗规则。",
-     "Ten thousand hours, learning styles, highlighting — why does popular study advice barely overlap with the measured evidence? Five academic battles audited one by one, the common methods re-seated by evidence strength, with anti-scam rules for reading effect sizes.",
-     "72 票对抗验证 · 12 个可检验主张",
-     "72 adversarial votes · 12 testable claims",
-     [("t1", "学习科学", "Learning science"), ("t2", "meta 分析", "Meta-analyses"), ("t3", "刻意练习之战", "Deliberate practice"),
-      ("t4", "学习风格神话", "Learning styles"), ("t5", "主动学习", "Active learning")]),
     ("ai-native", "2026-07",
      "传统软件组织的 AI-native 转型",
      "The AI-Native Transformation of Software Organizations",
@@ -1440,6 +1435,15 @@ INDEX_ENTRIES = [
      "60 adversarial votes · 9 testable claims",
      [("t1", "AI 对齐", "AI alignment"), ("t2", "验证不对称", "Verification asymmetry"), ("t3", "debate 实证", "Debate empirics"),
       ("t4", "弱监督强", "Weak-to-strong"), ("t5", "CoT 监控", "CoT monitoring")]),
+    ("learning-science", "2026-07",
+     "学习科学的证据等级:哪些方法真的有效?",
+     "The Evidence Hierarchy of Learning Science: What Actually Works?",
+     "一万小时、学习风格、划重点——为什么流行的学习建议和实测证据几乎对不上?五场学术对战逐一对账,把常见学习方法按证据强度重新排座次,并给出读效应量数字的防骗规则。",
+     "Ten thousand hours, learning styles, highlighting — why does popular study advice barely overlap with the measured evidence? Five academic battles audited one by one, the common methods re-seated by evidence strength, with anti-scam rules for reading effect sizes.",
+     "72 票对抗验证 · 12 个可检验主张",
+     "72 adversarial votes · 12 testable claims",
+     [("t1", "学习科学", "Learning science"), ("t2", "meta 分析", "Meta-analyses"), ("t3", "刻意练习之战", "Deliberate practice"),
+      ("t4", "学习风格神话", "Learning styles"), ("t5", "主动学习", "Active learning")]),
 ]
 
 
