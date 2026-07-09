@@ -75,10 +75,20 @@
 - **实证锚点**:Epoch AI 的算力/效率/数据存量测算、Chinchilla 原文与复现、主要基准(MMLU→FrontierMath/ARC-AGI 等)的时序成绩、厂商技术报告 vs 独立评测的口径差。
 - **注意**:变化极快,开跑前先刷新到当月;成文时明确标注"截至 X 年 X 月"。
 
+### 10. 机器 Oracle 全景:业界公认的裁判有哪些,LLM 分别能把它们做大多少?
+- **一句话**:按公认分类法盘点软件验证的全部 oracle 家族,逐格核查"LLM 增益"的正反证据——检验一条可证伪的脊柱主张:裁判越独立,LLM 越是纯赚;裁判由 LLM 自己定义时,声称的增益在独立复测中系统性缩水。
+- **为什么适合**:#0/#2/#3 验证瓶颈三部曲的"建设篇"——前三篇说瓶颈在验证、AI 当裁判不可靠、"验证更容易"分任务族,本篇回答"那怎么把可信的机器裁判做大";形状是评估式综述(合法变体,参照系统综述),每格自带正反张力,可跑对抗验证。范围**限定在软件/代码 oracle**,不扩到 ML 评测 oracle。
+- **理论底座(锚定权威分类法,防"所有"承诺兜不住)**:Barr, Harman, McMinn, Shahbaz & Yoo,《The Oracle Problem in Software Testing》(IEEE TSE 2015)的四分类(specified / derived / implicit / human oracles)作组织骨架;metamorphic testing(Chen et al.)、差分测试(McKeeman;csmith/SQLancer 谱系)、mutation testing(DeMillo/Offutt)、property-based testing(Claessen & Hughes QuickCheck)、不变量挖掘(Ernst, Daikon)、形式验证工业谱系(Newcombe CACM 2015;seL4;CompCert)。
+- **脊柱主张(可证伪版,含指标定义——防可测性偏差的循环)**:每格的"LLM 增益"必须用该格自己的独立指标事先定义——测试格=mutation-kill 增量;fuzzing 格=独立 crash/新覆盖产出率;定理证明格=验证器判定的证明完成率;静态分析格=经人工裁决的真阳性率;生产格=escaped-defect 变化。主张:在裁判独立的格子,LLM 增益有受控/生产级数字;在裁判由 LLM 定义或裁决的格子,声称的增益在独立复测中缩水。**必须主动找反例**:有没有 LLM 起草规约/property 经独立校验后抓到真 bug 的一手案例(Meta ACH?、autoformalization 落地案例)——反例足够多则软化脊柱为条件式。
+- **必查格子(对照 Barr 分类逐格覆盖,loop-until-dry 补漏)**:形式验证/定理证明(TLA+、Lean/AlphaProof、autoformalization 及其基准污染问题);fuzzing+sanitizers(OSS-Fuzz 的 LLM fuzz-driver 一手数据;裁判=崩溃/ASan/TSan,独立性最强格);差分/变形测试(csmith、SQLancer;LLM 提议 metamorphic relations 的实证);property-based testing(LLM 推断不变量、Daikon 谱系;同义反复 property 的发生率);静态分析/类型(CodeQL/Semgrep 规则生成、误报分诊——注意分诊即 AI-judge,接 #2);测试+mutation(元 oracle;LLM 生成测试经 mutation 闸的通过率一手数字);运行时验证/生产断言(金丝雀作 oracle,接 #3 第三轴);并发检测器(TSan/race detector 作 implicit oracle)。
+- **关键争议/正反**:正方——OSS-Fuzz LLM 报告、AlphaProof/Lean、verifier-grounded RL 的训练收益;反方——同义反复 property/测试(接 #2 弱测试污染)、autoformalization 的"规约规定错了东西"(接 #3 规格-意图鸿沟)、LLM 生成规则的误报洪水、以及"增益只在可测处可见"的可测性偏差本身。
+- **实证锚点**:Barr et al. TSE 2015;Google OSS-Fuzz LLM 博客/论文;AlphaProof (Nature 2025,承 #3 已验证口径);Newcombe CACM 2015(承 #0);Meta 自动化合规/测试工作(ACH 等,需核);SQLancer/csmith 原文;QuickCheck/Hypothesis;Daikon;#2/#3 已验证的验证者可靠性文献全部复用。
+- **注意**:承 #2/#3 大量文献,增量必须在"每格的 LLM 增益实证"层,不复写"AI 当裁判不可靠"的结论;完整性用 Barr 分类逐格核对并做 loop-until-dry;每格指标不同,跨格不许直接比大小(各基线不同);"所有 oracle"表述收敛为"按公认分类法逐格覆盖的主要家族+显式纳入标准"。
+
 ## 候选池(未排期)
 
 - 神经神话为什么杀不死:学习风格、多元智能、左右脑的传播动力学——师训体系为何成为误念的主要传染源,揭穿式干预的实效边界(信念降 37% 但行为传导仅半)(钩子·源自 #4)
-- 形式化方法的 LLM 复兴:当验证真的容易时——Lean/AlphaProof、verifier-grounded RL、TLA+ 护 AI 变更的前景(接 #0 阶段二外推与 #3 任务族第一象限)(钩子·源自 #3)
+- ~~形式化方法的 LLM 复兴~~(已折叠进待研究 #10 作为其中一格)(钩子·源自 #3)
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)
 - AI 基准的 Goodhart 化:数据污染、榜单收割与评测激励结构,为什么评测体系一建成就失效(可与 #8 scaling laws 的基准饱和线互补)(钩子·源自 #2)
 - HRT 的兴衰与再评价(WHI 研究如何被重新解读——"证据翻转"经典案例)
