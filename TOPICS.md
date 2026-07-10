@@ -39,7 +39,7 @@
 - 页面:`machine-oracles-plain/-deep` × zh/en
 - 底座:8+3 条调研线、208 论断、29 组承重论断 × 3 票对抗验证(87 票:29/29 挺过、0 推翻,40+ 处口径修正);复用 #0/#2/#3 已验证口径(AlphaProof、Meta 离线→生产漏斗、弱测试欺骗、错误趋同 ICML 2025);研究材料存本地 `~/design/deep-research-runs/machine-oracles/`
 - 核心口径记录:脊柱=LLM 坐生成/提议席增益有硬数字、坐裁判席独立复测系统性缩水(判据是"坐哪把椅子"而非"用没用 LLM");Argus 消融证明器把关 0/20 vs GPT-5 当裁判 20/20(机制=低错误率×极低底率=误报淹没真报);TOGA 两次独立复测崩到 0.38%/0.3%;PrimeVul 68.26→3.09(去污染);ULT 覆盖 92.18→45.10(污染抬覆盖不抬杀伤);Kitten 无 LLM 反超 Fuzz4All;SQLancer++ 无 LLM 196 bug(difftest 线原设"SQLancer++ 含 LLM 消融"前提被纠正,干净对照改用 ShQveL 同框架/Argus 只换裁判);N-version LLM 复现 z=29.20 但三版本投票 387→131;并发格 LLM 结构性缺席(OSS-Fuzz 主流程无 TSan);curl 两幕剧 <5%→反超 15-16%(激励×工具代际调制)
-- 钩子:→ 候选池 1 条(autoformalization 规约层危机/"证明⊢陈述≠陈述=意图");→ ai-ml Day 56《LLM 错误趋同如何瓦解冗余与投票式可靠性》(backlog,源自本篇 N-version 复现线);→ system-design Day 51《低底率下的告警系统:AI-judge 当信号检测》(backlog,源自 Argus 底率机制)+ Day 52《给混沌工程装一个正确性 oracle》(backlog,对话中现推的差分 checksum oracle 架构);另 1 条仅记运行报告(mutation testing 工业复兴 + competent programmer 假设重检)。撤回 1 条:super-individual《举证责任推回提交侧》与其 Day 54 oracle 盘点重叠、治理尺度偏团队非个体,已删,核心洞见并入 system-design 机器裁判门控线
+- 钩子(ruthless pruning 后保留 3 条):→ 候选池 1 条(autoformalization 规约层危机/"证明⊢陈述≠陈述=意图");→ system-design Day 51《低底率下的告警系统:AI-judge 当信号检测》(backlog,源自 Argus 底率机制)+ Day 52《给混沌工程装一个正确性 oracle》(backlog,对话中现推的差分 checksum oracle 架构);另 1 条仅记运行报告(mutation testing 工业复兴 + competent programmer 假设重检)。撤回 2 条(均与目标站已有 Day 重叠):super-individual《举证责任推回提交侧》撞 Day 54 oracle 盘点;ai-ml《错误趋同/N-version》撞 Day 54 LLM-as-Judge 的 correlated errors。判据是"够格才留",非配额
 
 ## 待研究
 
