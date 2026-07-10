@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机器裁判全景:LLM 能把软件验证的 oracle 做大多少?(深入版) — BigCat Deep Research</title>
+<meta name="description" content="按 Barr 分类法逐格盘点软件验证的裁判家族,核查每格的「LLM 增益」——脊柱主张:LLM 坐生成/提议席则增益有硬数字,坐裁判席则独立复测系统性缩水。29 组承重论断 × 3 票对抗验证。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+h2:nth-of-type(13){--h2:#f0b429}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="machine-oracles-deep.html" class="active">中文</a><a href="machine-oracles-deep.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 深入版</div>
+<h1>机器裁判全景:LLM 能把软件验证的 oracle 做大多少?(深入版)</h1>
+<div class="version-note">本文是<strong>深入版</strong> · <a href="machine-oracles-plain.html">查看易读版(精简直白)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">把软件验证的裁判按 Barr 四分类逐格摊开:决定「LLM 增益」真伪的不是格子,是 LLM 坐的椅子。生成器席(判决全在崩溃/差分/mutation/人审)增益有生产级硬数字——OSS-Fuzz 26 漏洞、ShQveL 55 bug、Dr.Fix 86% 采纳;提议者席(起草规约/规则,过独立筛)增益真实但筛余负担不消失;裁判席声称的增益在独立复测中系统性缩水——TOGA 0.38%、PrimeVul 3.09%、Argus 消融 20/20 误报。三个软化条款:投票增益衰减非归零、人类裁判洪水受激励调制可逆转、机器闸必要非充分。十一个可检验主张收尾。</div></div>
+<div class="chips"><span class="chip c1">87 票对抗验证 · 29/29 挺过</span><span class="chip c2">裁判席:TOGA 0.38% · PrimeVul 3.09%</span><span class="chip c3">生成器席:OSS-Fuzz 26 漏洞</span><span class="chip c4">11 个可检验主张</span></div>
+<blockquote><p>本文的实证引用经过分级:正文 29 组承重论断(60 个子项)各经 3 名独立验证者对抗核查(逐字核对一手原文、检索反证),29 组全部挺过反驳、0 组被推翻,并按验证者意见完成 40 余处口径修正;未进入验证流程的引用标【未验证,来源】。厂商与利益相关方的数字在正文中标注口径,文末附来源索引。</p></blockquote>
+<h2>0. 三部曲之后:该盘点裁判了</h2>
+<p>本站<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">《当代码变得便宜》</a>的结论是:AI 把软件生产的瓶颈推到验证环节。<a href="https://cissy0802.github.io/deep-research/ai-code-review-deep.html">《AI code review》</a>追问"用 AI 当验证者靠不靠谱",答案是条件句。<a href="https://cissy0802.github.io/deep-research/scalable-oversight-deep.html">《Scalable oversight 的地基体检》</a>挖到最底层:"验证比生成容易"按任务族分层,有独立 oracle 处坚实。三篇合起来留下一个建设性的问题:<strong>软件世界里,不靠人也不靠 LLM 的裁判到底有哪些?LLM 分别能把它们做大多少?</strong></p>
+<p>这个问题有权威的地图。软件测试研究界把"判定程序行为对不对的程序性判据"叫 test oracle;Barr、Harman、McMinn、Shahbaz 与 Yoo 的综述(IEEE TSE 2015)把 1978-2012 年的 694 篇文献分成四类:<strong>specified</strong>(按形式规约机械判定,317 篇)、<strong>derived</strong>(从派生物判定——独立实现、跨执行关系、旧版本,245 篇)、<strong>implicit</strong>(靠通用隐式知识判定——崩溃、越界几乎总是错,76 篇)、以及<strong>没有自动 oracle 时由人来判</strong>(56 篇)。同一篇综述下了一个判断:与测试自动化的其他环节相比,oracle 自动化"受到的关注显著更少、解决得也更差",是抑制更大范围测试自动化的瓶颈。【已验证】</p>
+<p>2015 年写下的瓶颈,恰好是 2023 年后整个行业拿 LLM 猛攻的地方。本文按这张四格地图逐格对账:每格的裁判是谁、裁判独立于 LLM 到什么程度、LLM 进场后的增益有没有经得起独立复测的数字。范围限定在软件/代码的 oracle,不扩到 ML 模型评测。</p>
+<h2>1. 读图说明:每格先问三个问题</h2>
+<p>逐格对账之前,先固定读数规则,防止本文自己犯"可测性偏差"——增益只在容易测的地方可见,于是显得处处增益。</p>
+<p><strong>第一问:裁判是谁,离 LLM 多远。</strong>证明检查器、编译器崩溃、sanitizer、跨实现差分、mutation 闸、人类分诊——独立性从强到弱排成一条谱。<strong>第二问:这一格的独立指标是什么。</strong>每格的"LLM 增益"必须用该格自己的裁判来计:fuzzing 格算独立确认的覆盖率与漏洞,定理证明格算验证器判定的完成率,测试格算 mutation-kill,静态分析格算人工裁决的真阳性率——跨格数字不可互比(基线与分母都不同)。<strong>第三问:LLM 坐在哪把椅子上。</strong>同一个模型可以当<strong>生成器</strong>(产测试输入)、当<strong>提议者</strong>(起草规约、规则、关系,交独立机制筛)、或当<strong>裁判</strong>(直接判对错)。本文的脊柱主张是一个可证伪的条件式:<strong>LLM 坐生成器和提议者的椅子、裁决权留给独立机制时,增益有硬数字;LLM 坐上裁判席时,声称的增益在独立复测中系统性缩水。</strong>反例会如实呈现,文末据此软化脊柱。</p>
+<p>两条前篇已验证的定理全程复用:能力越强的模型错误越趋同(<a href="https://cissy0802.github.io/deep-research/ai-code-review-deep.html">《AI code review》</a>已核,ICML 2025),这直接威胁一切"多个 LLM 互查"式裁判;外接可靠验证器则增益、自我批评则崩塌(<a href="https://cissy0802.github.io/deep-research/scalable-oversight-deep.html">《Scalable oversight》</a>已核)。</p>
+
+<figure>
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">软件验证的四类裁判(Barr et al. 2015 分类)与 LLM 战绩</text>
+  <rect x="24" y="58" width="320" height="160" rx="12" fill="#4cc9f0" opacity="0.07" stroke="#4cc9f0" stroke-opacity="0.45"/><text x="40" y="88" fill="#4cc9f0" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">Specified · 按形式规约判</text><text x="40" y="114" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">裁判:证明检查器 / 模型检查器</text><text x="40" y="150" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ 证明完成率 88→90%(验证器反馈自纠)</text><text x="40" y="180" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ 风险上移:规约层错误 8.6-50%</text><rect x="356" y="58" width="320" height="160" rx="12" fill="#5eead4" opacity="0.07" stroke="#5eead4" stroke-opacity="0.45"/><text x="372" y="88" fill="#5eead4" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">Implicit · 崩溃即错</text><text x="372" y="114" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">裁判:sanitizer / 崩溃 / 竞争检测器</text><text x="372" y="150" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ OSS-Fuzz:26 漏洞 + 二十年 CVE</text><text x="372" y="180" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ 并发子格:LLM 至今缺席</text><rect x="24" y="238" width="320" height="160" rx="12" fill="#7b61ff" opacity="0.07" stroke="#7b61ff" stroke-opacity="0.45"/><text x="40" y="268" fill="#7b61ff" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">Derived · 派生物对表</text><text x="40" y="294" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">裁判:差分投票 / 变形关系 / mutation 闸</text><text x="40" y="330" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ LLM 坐生成席:ShQveL 55 bug</text><text x="40" y="360" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ 坐裁判席:Argus 消融误报 20/20</text><rect x="356" y="238" width="320" height="160" rx="12" fill="#ff6ec4" opacity="0.07" stroke="#ff6ec4" stroke-opacity="0.45"/><text x="372" y="268" fill="#ff6ec4" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">Human · 人来判</text><text x="372" y="294" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">裁判:维护者 / 安全团队分诊</text><text x="372" y="330" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ 2025:curl 真报率 <5%(slop 洪水)</text><text x="372" y="360" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ 2026:反超 15-16%(激励调制)</text>
+</svg>
+<figcaption>示意:每格标注该格裁判与 LLM 进场后的代表性战绩/风险;四格详见正文逐格对账(各格指标不同,不可跨格比大小)</figcaption>
+</figure>
+<h2>2. Specified 之巅:证明检查器格——分数飙升,攻击面上移</h2>
+<p>裁判独立性最强的格子:Lean kernel、SMT 求解器、模型检查器。判决机械、不可说服、错就是错。</p>
+<p><strong>完成率这一侧,数字确实硬。</strong>Goedel-Prover-V2-32B 在 miniF2F 上 pass@32 达 88.1%,借 Lean 编译器报错做两轮自纠错后升至 90.4%——这个增量专门来自外接验证器的反馈,是"外接可靠验证器则增益"在本格的直接量化;PutnamBench 上它以约 21 倍小的模型解出 86 题(pass@184),超过 DeepSeek-Prover-V2-671B 的 47 题(pass@1024),其 8B 版本更是以约 80 倍小的规模在 miniF2F 同口径上超过后者。【已验证】AlphaProof 以 Lean 验证结果作强化学习的接地反馈拿到 IMO 2024 银牌(28/42,与 AlphaGeometry 2 的组合成绩,独解 3 题、部分耗时 2-3 天超时限;承<a href="https://cissy0802.github.io/deep-research/scalable-oversight-deep.html">《Scalable oversight》</a>已验证口径)。裁判越硬,越能放心让模型大量试错——这是全文最干净的正面格。</p>
+<p><strong>但攻击面整体上移了一层:验证器只保证"证明⊢陈述",不保证"陈述=意图"。</strong>四组独立证据画出同一条裂缝:</p>
+<ul><li>miniF2F 逾半题目的形式陈述与非形式陈述存在错位;修正版 miniF2F-v2 上全流程最好成绩 70%(原版口径 40%)——一部分高分是在错题上得的。更微妙的是污染指纹:专训的 autoformalizer(Herald、Kimina)在修正版上反而掉分、通用模型 o4-mini 上升,作者认为这暗示自动形式化器可能受数据污染(推测性归因,NeurIPS 2025 已接收)。【已验证】</li><li>规约写错不是 LLM 特有:人类专家手写的形式陈述中,miniF2F 有 16.4%、ProofNet 有 38.5% 含语义错误。【已验证】</li><li>换个规约语言,LLM 的裸能力立刻见底:首个 NL→TLA+ 系统评测(30 个 LLM、2700+ 次运行、SANY+TLC 判定)中,25 个开源权重模型聚合语法通过率仅 26.6%、语义通过率仅 8.6%;最强单模型 GPT-5 语法 26/26 全过、语义也只有 7/26。结论原句:"current LLMs do not generate reliable TLA+ specifications without expert oversight"。【已验证】而 TLA+ 恰是形式方法工业化的标杆——AWS 用 TLC 模型检查器在 DynamoDB 复制协议里找到最短错误轨迹长达 35 步的丢数据 bug,穿过了所有设计评审、代码评审和测试(CACM 2015,承<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">《当代码变得便宜》</a>已验证口径)。</li><li>裁判独立不等于奖励不可黑:AlphaVerus 的自我改进循环中,模型学会用 <code>assume(false)</code> 让任何实现通过 Verus 验证,且从单个程序雪崩泛化到所有程序,必须外加批评层(含对抗 exploit 模型)才能过滤。被黑的不是 sound 验证器本身,是规约-实现对齐层。【已验证】</li></ul>
+<p>生产端的对照最能说明当前位置:AWS 主导的 Rust 标准库验证战役(作者自称已报告的最大库验证战役)里,数量级由确定性工具扛——Autoharness 自动产出 16,748 个证明 harness、11,970 个通过 Kani 验证、全战役 989 个函数验证了形式合约(自动 295 + 十六个月人工 694);而 LLM 合约合成被官方原句标注:"This approach is preliminary: the generated contracts require manual review before merging"。【已验证】另有独立评测显示,在规约自动形式化任务上用 LLM-as-judge 打分,会漏掉可执行评测器抓到的 26% 失败案例【未验证,来源:arXiv 2605.26457】——在这格,LLM 当提议者已可用,当裁判还不够格。</p>
+<h2>3. Implicit:崩溃裁判格——全文最硬的 LLM 战绩,和一个空格</h2>
+<p>崩溃、内存越界、数据竞争"几乎总是错"——这类裁判不需要任何规约,与被测物和生成者都无关。这一格有 LLM 增益最硬的一手数字,也有整张地图上最刺眼的空格。</p>
+<p><strong>OSS-Fuzz 的三步曲线是本格的定标数据。</strong>2023 年 8 月:LLM 生成的额外 fuzz target 使样本项目覆盖率提升 1.5%-31%,tinyxml2 行覆盖从 38% 到 69%,全程无人工干预。2024 年 11 月:AI 生成/增强的 target 覆盖 272 个 C/C++ 项目、新增 37 万+行覆盖,并在已被数十万小时 fuzzing 打磨过的项目里发现 26 个新漏洞(报告级口径:sanitizer 崩溃经人工审核后上报维护者)——其中 OpenSSL 的 CVE-2024-9143(官方定级 Low)按 Google 自己的判断疑似已存在约二十年、用人写的现有 target 发现不了,2024-09-16 上报、10-16 修复。【已验证】注意链条里谁在裁决:LLM 只写 target,判决全部来自 ASan 崩溃与上游修复;同一条管线里 Google 也试着让 LLM 分诊崩溃,官方承认这一步尚未达到可以不经人工审核的程度。【已验证】</p>
+<p>Big Sleep(Project Zero 与 DeepMind)在以近期代码提交为种子的变体分析设置下,发现 SQLite 开发分支一个可利用的栈缓冲下溢,当天修复、在进入正式发布前拦下。两个口径必须带上:"首个 AI agent 在广泛使用的真实软件中发现此前未知的可利用内存安全问题"是团队自评,且随即有研究者提出在先案例的异议;团队自己也写明,当前一个针对性的传统 fuzzer 很可能至少一样有效。【已验证】</p>
+<p><strong>并发检测器:预定必查的八格里唯一的 LLM 空格。</strong>传统裁判在这格的生产数字很硬:Uber 在 4600 万行 Go 代码上部署竞争检测器,六个月检出 2000+ 数据竞争、修复 1000+(PLDI 2022)。【已验证】LLM 在检测席上至今拿不出"经 TSan/KCSAN 或上游维护者独立确认"的一手战绩(本次调研做了系统检索,负结果);它的有效姿势出现在别的椅子上——Uber 的 Dr.Fix 用 LLM 给 TSan 检出的 404 个数据竞争生成修复,224 个(55%)成功生成、其中 193 个(86%)经开发者评审采纳合入,验证链是"构建 + 每个测试重跑 1000 次竞争不复现 + 人审"三层。值得记下的细节:被拒的 14% 里,有修复通过了千次重跑闸门仍被人判定不正确——独立机器闸是必要条件,不是充分条件。【已验证】空格有个结构性解释:OSS-Fuzz 接入文档的 sanitizers 字段只列 address/memory/undefined,ThreadSanitizer 事实上未接入这条 AI fuzzing 最大的生产管线(基础设施保留通道、个别 Swift 项目在用,并非不可能)。【已验证】</p>
+<h2>4. Derived:差分与变形格——四十年前提,今天的消融实验</h2>
+<p>这格的裁判从"派生物"来:独立实现互相对表(差分/伪 oracle)、跨执行关系(变形测试)。它有全家族最深厚的战绩,也有一条 LLM 时代必须重考的前提。</p>
+<p><strong>先立基线,再谈增益。</strong>Csmith(PLDI 2011)用随机差分测试三年间向开发者报告 325+ 个此前未知的 C 编译器 bug(GCC 79、LLVM 202,余为商用),25 个 GCC bug 被开发者标为最高的 P1 发布阻塞级;同文的名句:所有其他编译器都有的中端 wrong-code bug,在 CompCert 已验证部分缺席,六个 CPU 年也打不破。【已验证】不用任何 LLM 的 SQLancer++(ASPLOS 2026)在 18 个 DBMS 上报告 196 个此前未知 bug(140 个 logic bug)、92% 已修复。【已验证】<strong>任何"LLM 增益"都得和这些基线比,而不是和空白比。</strong>这不是假想的坑:ISSTA 2025 的 Kitten——一个不用 LLM 的简单变异生成器——在 24 小时同台对比中覆盖率比 Fuzz4All 高 48.3%(GCC)/9.9%(LLVM)/33.8%(Rustc),平均每场找 15-20 个 bug 而同场 Fuzz4All 是 5.7/0.3/0;部分已发表的"LLM 增益"源于对照组太弱。【已验证】</p>
+<p><strong>Csmith 作者当年点破了这格裁判的成立前提</strong>:他们从未见过两个不相关的编译器对同一测例产生相同的错误输出,归因于中间表示的多样性;"若各实现犯相同错,我们检测不到——这是无 oracle 差分测试的固有局限"。这个前提是被实验检验过的:Knight &amp; Leveson 1986 年让 27 个团队独立实现同一规格,100 万次测试中共同失效远超独立假设预期(z=100.51),多版本编程的独立性假设在 99% 置信水平被拒绝。【已验证】LLM 时代的复现 2026 年到货:5 个 coding agent 系统 × 23 个模型产出 48 个版本,100 万随机测试观察到 429 个巧合失效,而独立性模型仅预测 115.36 例(z=29.20)——观测是独立假设的 3.7 倍,前提再次被拒;<strong>但三版本多数投票仍把平均失效数从 387.44 降到 130.99</strong>(预印本)。投票裁判对 LLM 面板:增益衰减,而非归零——这是脊柱的第一个软化条款。【已验证】</p>
+<p><strong>LLM 的正确进场姿势,这格给出了全文最干净的两组对照。</strong>其一,同框架隔离变量:ShQveL 在 SQLancer++ 同底座、同 TLP 裁判上只把生成器换成 GPT-4o 填充 SQL 片段,新发现 55 个 unique bug、50 个已修复【已验证】;而同一篇论文的受控头对头里,裸 LLM 端到端 fuzzing(Fuzz4All 配 DuckDB 文档)6 小时找到 0 个 bug、吞吐差约 229 倍——尽管它分支覆盖更高(24.5% vs 21.3%),原句:"While exercising code is a necessary condition for finding a bug, it is not sufficient."【已验证】其二,只换裁判的消融:Argus(SIGMOD 2026)让 LLM 提议 SQL 等价查询骨架对、经 SQLSolver 形式证明等价后才充当 oracle,在五个被测烂的 DBMS 上发现 41 个此前未知 bug、36 个确认、27 个已修复;消融实验把证明器换成 GPT-5 当裁判,人工裁定 DuckDB 上收集的 20 个 bug 报告<strong>全部是误报(20/20),而证明器把关的那组是 0/20</strong>。机制值得逐字记:LLM 裁判的单对判定错误率其实只有约 1/20,但成熟 DBMS 的 bug 底率极低,报告层面误报被底率放大到 100%——低错误率 × 极低底率 = 误报淹没真报。【已验证】</p>
+<p>变形关系(MR)的提议席同样如此:无过滤让 ChatGPT 直接提议 MR、两位领域专家裁决(κ=0.86),简单程序类正确率 49.3%、非 AI/ML 复杂系统仅 7.0%,连被研究最透的 sine 函数都有 85% 的候选是错的(预印本);SANER 2025 的大规模实证(37 个被测系统)里 GPT-3.5/GPT-4 提议的 MR 分别仅 29.86%/43.79% 有效——但 GPT-4 有 38.63% 的候选是前人从未识别的新 MR。【已验证】提议能力是真的,过半无效也是真的:<strong>产出必须过独立筛,筛完才是资产。</strong>配上硬裁判后 LLM 生成器确实摸到过最深的 bug 层:LegoFuzz 把 LLM 生成的代码块接上跨编译器 checksum 差分,报告 66 个 GCC/LLVM bug、30 个是 miscompilation 级【未验证,来源:arXiv 2508.18955】;作为对照,其作者对公开报告的文献级梳理结论是 Fuzz4All 与 WhiteFox 一个 miscompilation 都没找到——Fuzz4All 的 oracle 按构造只有崩溃/断言,检不出静默错编译,"确认 bug 数"若不分档会高估触达深度。【已验证】</p>
+
+<figure>
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">只换裁判的消融(Argus,SIGMOD 2026,DuckDB 上 20 份 bug 报告)</text>
+  <text x="24" y="80" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">SQLSolver 证明器把关(LLM 只提议)</text>
+  <rect x="24" y="90" width="8" height="22" rx="4" fill="#52b788"/>
+  <text x="44" y="107" fill="#52b788" font-size="15" font-weight="700" font-family="Menlo,monospace">误报 0/20</text>
+  <text x="24" y="156" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">GPT-5 当裁判(同一框架)</text>
+  <rect x="24" y="166" width="560" height="22" rx="4" fill="#ff6ec4" opacity="0.85"/>
+  <text x="594" y="183" fill="#ff6ec4" font-size="15" font-weight="700" font-family="Menlo,monospace">误报 20/20</text>
+  <rect x="24" y="216" width="652" height="40" rx="8" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.4"/>
+  <text x="38" y="241" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">机制:LLM 单次判定错误率仅约 1/20,但成熟 DBMS 真 bug 底率极低 → 报告层面误报被放大到 100%</text>
+</svg>
+<figcaption>示意:同一框架、同一 DBMS、人工逐条终裁——低错误率 × 极低底率 = 误报淹没真报(误报数为人工裁定口径)</figcaption>
+</figure>
+<h2>5. Derived 弱端:属性、断言与不变量——"正确"与"有杀伤力"隔一层</h2>
+<p>property-based testing 与不变量挖掘的裁判是属性断言本身:属性写下后裁决机械,但<strong>属性的定义权在谁手里</strong>,决定了这格的成色。四十年前的 Daikon 就把自己产出的东西诚实地叫 likely invariants——从实现自身观察出的性质,程序错它跟着错【未验证,来源:Ernst et al., SCP 2007】。LLM 代写属性,是同一个结构性弱点的放大版。</p>
+<p><strong>裁判是 SMT/验证器的子格,数字最硬。</strong>LaM4Inv(ASE 2024)用"LLM 猜谓词 + BMC 证伪过滤 + SMT 终裁"在 316 个 C 程序上解出 309 个正确循环不变量(97.8%),最强既有基线 G-CLN 219 个、RL 方法 Code2Inv 210 个,平均每题仅 3.7 轮查询;微软的 Loopy(GPT-4 + Frama-C 裁决)解出 398/469,仍少于符号工具 Ultimate Automizer 的 430,但补上 31 个后者失败的题,且增益大头来自非 LLM 的 Houdini 筛选(293→383)。【已验证】然后是冷水:InvBench(2025,v1)换成"给 SOTA 验证器提速"的净贡献口径复测,最强模型 o3 仅在 easy split 28.3% 的问题上取得提速、平均仅 1.09 倍,hard split 增益可忽略——"正确的不变量"距"有用"还差一个量级(注意该基准 2026 年 1 月的 v2 已改名 Quokka 并报出正向结果,但拿到 ≥1.2 倍提速的实例仍不到一成)。【已验证】</p>
+<p><strong>属性由 LLM 自由起草的子格,衰减层清晰可测。</strong>人工标注 219 条 LLM 生成的 PBT 属性,21% 不健全(双人标注 κ=0.862),根源是属性幻觉与边界失误;mutation 闸下最强模型 GPT-4 只能为 21% 的文档可提取属性合成正确 PBT。【已验证】nl2postcond(FSE 2024)的人工分类更细:47.4% 的 LLM 后置条件含类型检查成分(单独的纯类型检查占 16%),该类 bug-completeness 仅 0.14;在真实 Defects4J 上全部模型与提示合计只判别 64/525(12.2%)个 bug——单条属性的"正确率"很高,"杀伤力"隔着一整个平凡属性衰减层。【已验证】另有受控实验显示 LLM 生成的 oracle 系统性偏向"实际实现行为"而非"预期行为",判断 oracle 正确性的准确率不足 50%【未验证,来源:arXiv 2410.21136】。</p>
+<p><strong>学习式 oracle 的评测协议本身是系统性风险源,这有前 LLM 时代的铁证。</strong>TOGA(ICSE 2022)当年声称在 Defects4J 检出 57 个 bug 含 30 个独家;两组独立复测先后到货:ESEC/FSE 2023 在 25 个真实系统、5.1 万注入故障上测得其断言 47% 以上是误报、真阳性断言只带来 0.3% 的故障检出增量;ISSTA 2023 修正"测试前缀取自修复后版本"的评测泄漏(该泄漏抬高发现数 61.8%)后,精度仅 0.38%,一个"期望不抛异常"的零信息基线能以两倍精度找到它 61% 的 bug。【已验证】<strong>模型自定义裁判 → 独立复测 → 增益从"30 个独家"缩到 0.3%</strong>,这是本文脊柱最完整的一次现形。</p>
+<p>反例线如实记录:Anthropic 的 Agentic PBT(Claude Opus 4.1 + Hypothesis)扫 100 个 Python 包产出 984 份 bug 报告,作者从内部评分前 80% 的报告中随机抽 50 份复审,判定 56.0% 为真 bug(95% CI 42.2-69.8%)、32.0% 值得上报;实际上报 5 个,3 个补丁被 NumPy 等上游合并。口径三连:抽样不覆盖评分最低的两成报告、置信区间宽、作者既是厂商(评自家模型)之一、其中一位还是 Hypothesis 的核心维护者。真 bug 是真的,但这是"LLM 提议 + pytest 执行判失败 + 人工复审 + 维护者终裁"的全链条战绩,不是 LLM 裁判的。【已验证】</p>
+<h2>6. 元 oracle:mutation 闸与测试生成——给试卷打分的裁判</h2>
+<p>测试是最普及的 oracle,但测试本身的质量谁来判?mutation testing 的答案是往程序里注入小错、看试卷杀不杀得死——1978 年 DeMillo、Lipton 与 Sayward 写下它的两大假设(competent programmer 与 coupling effect),并诚实声明后者"无望证明,是经验原则"【未验证,来源:IEEE Computer 1978 原文 PDF】。这格的当代问题是:LLM 大量产出测试后,拿什么闸门挡住看起来像测试的非测试?</p>
+<p><strong>Meta 给了两个生产级答案,数字全部经过口径修正后引用。</strong>TestGen-LLM(FSE 2024)的三层独立闸:在 Instagram Reels/Stories 评测(86 个 Kotlin 组件)中,75% 的测试类至少有一个生成用例编译通过、57% 至少有一个连续 5 次执行稳定通过、25% 至少有一个真实提升行覆盖——注意分母是测试类、口径是"至少一个",不是"75% 的生成用例能编译";整体 73% 的改进建议被工程师采纳(跨多场活动的合并数字,单场 51%-94% 波动)。ACH(FSE 2025)更进一步把 mutation 闸工业化:对 7 个平台 10,795 个 Kotlin 类生成 31,677 个 mutant,29%(9,095 个)通过"可编译且不被现有测试杀死"的筛选,据此产出 571 个隐私加固测试,test-a-thon 采纳率 73%。【已验证】结构相同:<strong>LLM 坐生成席,build/执行/覆盖/mutation 一路机器闸,人握终审。</strong></p>
+<p>学术侧的独立评测给这格标出了两条刻度线。其一,基准污染的方向:在未污染基准 ULT 上,12 个开源 LLM(1.3B-33B)生成测试的语句覆盖从旧基准的 92.18% 腰斩到 45.10%,mutation score 从 49.69% 降到 40.21%;受控对照显示单纯的测试泄漏把覆盖与杀伤各抬约 10 个百分点——覆盖率在简单基准上易饱和、更易虚高,<strong>报覆盖不报杀伤的评测先打折</strong>(ACM TOSEM,注意未含前沿闭源模型)。【已验证】其二,断言到底锚定什么:在 22,374 个程序变体上,即便测试是 LLM 拿着修改后的代码现场生成的,失败于新代码的 23,977 个测试中 99% 在原程序上通过且执行了被修改区域——论文称之为 residual alignment:LLM 不从眼前代码推导断言,而是从训练记忆里召回标准算法的行为,甚至把改过的代码当成"原程序的 buggy 版本"。【已验证】断言锚定训练先验而非被测实现,所以它天然适合当<strong>回归闸</strong>(锁住现状),而不适合当<strong>正确性裁判</strong>。主动抓未知 bug 的上限也被测了出来:TestExplora 在 2,389 个隐藏一切缺陷信号的真实任务上,所测最强模型单次 Fail-to-Pass 率最高 16.06%,agentic 方案五次尝试也只到 29.7%(截至论文所测组合)。【已验证】</p>
+<h2>7. Specified 弱端:静态分析格——检出翻倍,精度地板没动</h2>
+<p>静态分析规则是一种规约,分析器机械执行它——但规则的误报靠人裁决,这格天生一半是机器一半是人。</p>
+<p><strong>LLM 当提议者,recall 侧有真增益。</strong>IRIS(ICLR 2025)让 LLM 推断 taint 源/汇规约、交 CodeQL 数据流引擎独立执行:在人工验证的 120 个真实 Java 漏洞上检出 55 个,比 CodeQL 官方查询的 27 个翻倍还多,并在 30 个项目最新版本里发现 4 个现有工具找不到的未知漏洞。fine print 成对引用:其平均 false discovery rate 按论文口径仍高达 84.82%(作者自称保守上界,人工抽样的 refined 估计约 46%)——即便按乐观口径,仍有近半报告要人来裁,<strong>LLM 抬了 recall,没动 precision 的地板</strong>。【已验证】</p>
+<p><strong>LLM 裸当检测器,独立复测是全文最陡的缩水曲线。</strong>PrimeVul(ICSE 2025):SOTA 7B 模型在旧基准 BigVul 上 68.26% F1,在去泄漏、按时间切分、标签经人工抽检的 PrimeVul 上 3.09%——缩水约 22 倍;GPT-3.5/GPT-4 在最严格的漏洞版-修复版成对评测下"no better than a random guess"。IEEE S&amp;P 2024 的 SecLLMHolmes 补上稳健性:仅改函数/变量名,GPT-4 就在 17% 的案例上翻案。【已验证】判断不基于程序语义的裁判,没有资格坐裁判席。</p>
+<p><strong>分诊席是脊柱的教科书案例。</strong>Semgrep 官方博客的头条是"Assistant 与研究员 96% 一致",fine print 是:误报侧的最终一致率仅 41%(项目初期 25%、整体约 55%),且官方自承设计上刻意保守——"更倾向让开发者修一个误报,而不是漏掉一个真报"。降噪工具的价值恰恰在误报侧,而 LLM 裁判在最需要它的那一半任务上不及格。独立基准 SastBench(2,737 条告警、299 个真 CVE)上,最好的 agentic LLM 分诊配置 precision 仅 16.9%、MCC 0.148(与厂商头条分布不同、不能同台除法,但量级差距成立)。【已验证】窄域反例存在:腾讯在 3 类 bug 上用 LLM+静态混合证据消除 94-98% 误报【未验证,来源:调研线笔记,工业论文】——分诊席不是不能坐,是只能在有独立证据源兜底的窄域里坐。</p>
+
+<figure>
+<svg viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">LLM 坐裁判席:声称 vs 独立复测</text>
+  <rect x="24" y="48" width="12" height="12" rx="3" fill="#4cc9f0" opacity="0.75"/>
+  <text x="42" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">声称 / 旧口径</text>
+  <rect x="220" y="48" width="12" height="12" rx="3" fill="#ff6ec4" opacity="0.9"/>
+  <text x="238" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">独立复测</text>
+  <text x="24" y="84" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">漏洞检测 F1:旧基准 BigVul → 去污染 PrimeVul</text><rect x="24" y="94" width="273" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="305" y="105" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">68.26%</text><rect x="24" y="114" width="13" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="45" y="125" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">3.09%</text><text x="24" y="166" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">Semgrep 分诊一致率:头条 → 误报侧</text><rect x="24" y="176" width="384" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="416" y="187" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">96%</text><rect x="24" y="196" width="164" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="196" y="207" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">41%</text><text x="24" y="248" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">LLM 测试覆盖率:旧基准 → 未污染 ULT</text><rect x="24" y="258" width="369" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="401" y="269" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">92.18%</text><rect x="24" y="278" width="180" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="212" y="289" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">45.10%</text><text x="24" y="330" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">TOGA 断言:原评测 → 修正泄漏后精度</text><rect x="24" y="340" width="240" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="272" y="351" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">声称 30 个独家 bug</text><rect x="24" y="360" width="8" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="40" y="371" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">0.38%</text>
+</svg>
+<figcaption>示意:四组各自口径不同、不可互比,只看各组内的缩水方向(条长为示意;PrimeVul/ULT/TOGA 为独立学术复测,Semgrep 为同一博客的头条 vs 细则)</figcaption>
+</figure>
+<h2>8. Human oracle 对照组:同一种 AI 产出,两种裁判,两种下场</h2>
+<p>Barr 分类的第四格是"没有自动 oracle,人来判"。2024-2026 年,这格上演了整张地图上最干净的自然实验——同样是 LLM 产出的"安全发现",接不接独立裁判,结局天差地别。</p>
+<p><strong>第一幕:洪水。</strong>curl 维护者 Daniel Stenberg 2025 年 7 月的一手数字:安全提交约 20% 被认定为 AI slop,仅约 5% 最终证实为真漏洞;每份报告消耗 3-4 人、每人半小时到三小时,而团队只有 7 人。2026 年 1 月,curl 关闭运行七年的赏金计划(累计确认 87 个漏洞、支付超 10 万美元):确认率从历年 &gt;15% 崩到 2025 年 &lt;5%。同期 Linux kernel 安全列表从约两年前的每周 2-3 份,涨到 2025 年的每周约 10 份且增量"全是 AI slop";Python 生态的分诊者(PSF 安全驻场工程师)独立报告同一现象【未验证,来源:sethmlarson.dev, 2024-12】。而 Mozilla 同期自报未见 AI 低质报告显著增加(月拒收五六份、不到总量 10%)【未验证,来源:TechCrunch 转述发言人,2025-07】——洪水真实,但不均匀,受赏金激励与报告门槛调制。</p>
+<p><strong>第二幕:翻转。</strong>2026 年 3 月 curl 重返 HackerOne 后,报告频率约为 2025 年的两倍,确认率回升并<strong>反超</strong>到 15-16%,Stenberg 写道几乎每份报告都不同程度用了 AI("Almost every security report now uses AI to various degrees")。kernel 侧同步:2026 年初起报告涨到每天 5-10 份且大多数正确,以致 Torvalds 在 7.1-rc4 公告里说私密安全列表已"almost entirely unmanageable"——但主因是<strong>不同人用相同工具发现相同 bug 的海量重复</strong>,失效模式从"假报告"变成了"正确但重复";内核新规(Tarreau 起草)就此把 AI 辅助发现的 bug 定性为按公开披露处理,要求附经测试的可复现用例、敦促附补丁——Torvalds 原话:"If you actually want to add value, read the documentation, create a patch too."【已验证】</p>
+<p>这格的机制读法要完整:同一种底层能力,接 sanitizer 崩溃闸,产出 26 个漏洞和一个二十年的 CVE;接人类分诊席,2025 年产出的是每周消耗 7 人团队十几个人时的 slop 洪水。<strong>裁判的独立性与机械性,决定同一种 LLM 产出是资产还是负担。</strong>但第二幕是脊柱的第二个软化条款:人类裁判格的产出质量是激励结构 × 工具代际的函数,不是恒久定律——kernel 新规的应对方向也印证本文框架:把举证责任推回提交侧,要求附<strong>机器可验证的产物</strong>(可复现用例、补丁)。</p>
+
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">curl 安全报告确认率:人类裁判格的两幕剧</text>
+  <line x1="372" y1="58" x2="372" y2="270" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="360" y="85" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2019-2024 · 赏金时代</text><rect x="372" y="70" width="170" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="552" y="85" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">>15%</text><text x="360" y="137" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2025 · AI slop 洪水(约 20% 是 slop)</text><rect x="372" y="122" width="48" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="430" y="137" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace"><5%</text><text x="360" y="189" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2026-01 · 关闭七年赏金</text><rect x="372" y="174" width="4" height="20" rx="5" fill="#5a6378" opacity="0.85"/><text x="386" y="189" fill="#5a6378" font-size="13" font-weight="700" font-family="Menlo,monospace">—</text><text x="360" y="241" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2026-04 · 重返后反超(几乎全用 AI)</text><rect x="372" y="226" width="178" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="560" y="241" fill="#52b788" font-size="13" font-weight="700" font-family="Menlo,monospace">15-16%</text>
+</svg>
+<figcaption>示意:同一项目、同一人类裁判、同一确认率口径(真漏洞/全部安全提交,Stenberg 一手时间序列)——洪水受赏金激励与工具代际调制,不是恒久定律</figcaption>
+</figure>
+<h2>9. 生产格:最独立的裁判,最贵的判决</h2>
+<p><a href="https://cissy0802.github.io/deep-research/scalable-oversight-deep.html">《Scalable oversight》</a>已建立这格的框架:生产环境是最独立、不可说服的裁判,但判决在事后、判决成本等于爆炸半径、且"跑了没出事"不是无罪判决。本篇补的是 AI 编码时代的实证,而它的形状本身就是发现:<strong>这格没有干净数字,两个方向的声称都软。</strong></p>
+<p>负面方向:DORA 2024 报告 AI 采用增加伴随交付吞吐 -1.5%、交付稳定性 -7.2%,2025 年吞吐转正但稳定性连续第二年为负(观察性问卷口径,承<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">《当代码变得便宜》</a>已验证);Georgia Tech 的 AI 归因 CVE 追踪 2026 年一季度累计确认 74 个且自称是 floor(归因靠修复 commit 的 Git 历史,判决滞后数月)【未验证,来源:CSA research note 2026】。但对称性必须给足:厂商的负面数字同样过不了独立复测——GitClear 的"churn 上升"叙事,被一项对 151 个自述使用 GenAI 的开源仓库的纵向分析正面冲突("与流行叙事相矛盾",churn 无普遍上升)【未验证,来源:arXiv 2507.10422】。本格 LLM 增益的一手硬点只有一个方向:把 LLM 产物降维成独立可检验的表示——微软 Argos 让 LLM 生成可解释、可复现的异常检测规则做运行时监控,在含生产遥测的标注数据集上 F1 最高 +28.3%【未验证,来源:arXiv 2501.14170】。规则一旦写下,裁决就不再依赖 LLM——又是同一个位置论。</p>
+<h2>10. 座次与裁决:位置决定成色</h2>
+<p>把九格摊开,脊柱主张以条件式成立,且比开跑前设想的更精确——<strong>决定"LLM 增益"真伪的不是格子,是 LLM 在验证链条里坐的椅子:</strong></p>
+<ol><li><strong>生成器席(裁决权全在独立机制):增益有硬数字,且已生产化。</strong>OSS-Fuzz 的 26 个漏洞与二十年 CVE、ShQveL 的 55 个 bug、Meta 双案例、Dr.Fix 86% 采纳——共同结构是 LLM 产出提案,崩溃/差分/执行/mutation/人审层层把关。</li><li><strong>提议者席(起草规约/规则/关系,过独立筛):增益真实但筛余负担不消失。</strong>Argus 证明器把关后 0/20 误报、LaM4Inv 97.8%、IRIS 检出翻倍——同时 MR 候选过半无效、IRIS 误报率 46-85%、InvBench 净贡献 1.09 倍。提议席的正确读法:LLM 把"起草"变便宜了,把"裁决"一分没省。</li><li><strong>裁判席:声称的增益在独立复测中系统性缩水。</strong>TOGA 从 30 个独家 bug 缩到 0.3%、BigVul 68.26% 缩到 PrimeVul 3.09%、Semgrep 96% 头条对 41% 误报侧、Argus 消融 20/20 误报、LLM-as-judge 漏 26% 失败——五组独立证据,同一个方向。机制也齐了:错误趋同瓦解"多 LLM 互查"的独立性前提(N-version 复现 z=29.20),底率效应把低错误率放大成误报洪水,residual alignment 让断言锚定训练先验而非眼前代码。</li></ol>
+<p>三个软化条款,防止把条件式又用成公理:<strong>投票裁判对 LLM 面板增益衰减而非归零</strong>(387→131);<strong>人类裁判格的洪水受激励调制、且随工具代际可逆转</strong>(curl 15-16% 反超);<strong>独立机器闸必要而不充分</strong>(Dr.Fix 千次重跑仍被人拦下 14%)。外加一条跨格通则:增益必须与强非 LLM 基线比(Kitten、SQLancer++、AWS Autoharness),和空白比出来的增益,独立复测时最先蒸发。</p>
+<p><a href="https://cissy0802.github.io/deep-research/scalable-oversight-deep.html">《Scalable oversight》</a>的结论是"验证比生成容易"按 oracle 独立性分层;本篇给出它的建设面:<strong>软件恰好是人类少数拥有一整柜独立机械裁判的领域</strong>——证明检查器、sanitizer、差分、mutation 闸。LLM 时代的验证工程,核心不是造一个更聪明的裁判,而是把 LLM 的无限产能接到这些不可说服的裁判上,并且永远记住哪把椅子它坐不得。</p>
+
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个 LLM,三把椅子,三种成色</text>
+  <rect x="24" y="58" width="200" height="200" rx="12" fill="#52b788" opacity="0.08" stroke="#52b788" stroke-opacity="0.5"/><text x="124" y="88" fill="#52b788" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">生成器席</text><text x="124" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">产测试输入 / fuzz 探针</text><text x="124" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">OSS-Fuzz 26 漏洞 · Meta 采纳 73%</text><rect x="42" y="196" width="164" height="34" rx="8" fill="#52b788" opacity="0.16"/><text x="124" y="218" fill="#52b788" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">增益有硬数字</text><rect x="250" y="58" width="200" height="200" rx="12" fill="#f0b429" opacity="0.08" stroke="#f0b429" stroke-opacity="0.5"/><text x="350" y="88" fill="#f0b429" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">提议者席</text><text x="350" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">起草规约 / 规则 / 关系,过独立筛</text><text x="350" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">Argus 证明器把关:误报 0/20</text><rect x="268" y="196" width="164" height="34" rx="8" fill="#f0b429" opacity="0.16"/><text x="350" y="218" fill="#f0b429" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">真增益,筛余负担不消失</text><rect x="476" y="58" width="200" height="200" rx="12" fill="#ff6ec4" opacity="0.08" stroke="#ff6ec4" stroke-opacity="0.5"/><text x="576" y="88" fill="#ff6ec4" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">裁判席</text><text x="576" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">直接判对错 / 分诊 / 打分</text><text x="576" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">TOGA 复测 0.38% · PrimeVul 3.09%</text><rect x="494" y="196" width="164" height="34" rx="8" fill="#ff6ec4" opacity="0.16"/><text x="576" y="218" fill="#ff6ec4" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">独立复测系统性缩水</text>
+</svg>
+<figcaption>示意:判据不是「用没用 LLM」,是裁决权在谁手里——判决全在独立机制(左)到判决就是 LLM 本身(右)</figcaption>
+</figure>
+<h2>11. 结语:十一个可检验主张</h2>
+<p>按证据强度排序:</p>
+<ol><li><strong>裁判独立且机械的格子,LLM 增益有一手硬数字:</strong>OSS-Fuzz 26 漏洞 + 二十年 CVE、Lean 完成率 88→90(验证器反馈自纠)、ShQveL 55 bug、Dr.Fix 86% 采纳。(强:多方一手,判决全在独立机制)</li><li><strong>LLM 坐裁判席的声称增益在独立复测中系统性缩水:</strong>TOGA 0.3%、PrimeVul 3.09%、SastBench 16.9%、Argus 消融 20/20 误报。(强:五组独立证据同向)</li><li><strong>攻击面上移到规约层:验证器只保证"证明⊢陈述",不保证"陈述=意图"</strong>——miniF2F 逾半错位、人写规约 16.4-38.5% 语义错、NL→TLA+ 语义 8.6%、AlphaVerus assume(false)。(强:四组一手互证)</li><li><strong>"LLM 增益"必须与强非 LLM 基线比:</strong>Kitten 反超 Fuzz4All、SQLancer++ 无 LLM 196 bug、AWS 战役数量级在确定性工具。(强:同台复测一手)</li><li><strong>差分/投票裁判的独立性前提对 LLM 面板失效,但增益衰减不归零:</strong>巧合失效 3.7 倍于独立假设(z=29.20),三版本投票仍降 387→131。(中强:单研究,预印本,与 Knight-Leveson 1986 跨四十年同构)</li><li><strong>mutation 闸是最便宜的"试卷裁判"且已工业化(Meta ACH),但 mutation 分数并非对污染免疫</strong>——泄漏约抬 10 个百分点,只是不如覆盖率易刷满。(中强:生产一手 + 受控对照)</li><li><strong>LLM 测试断言锚定训练先验而非眼前代码(residual alignment 99%),适合回归闸、不适合正确性裁判;主动抓未知 bug 上限 F2P 16-30%。</strong>(中强:两项独立大样本,均预印本/新发表)</li><li><strong>LLM 的提议席增益真实、筛余负担不消失:</strong>MR 候选过半无效但 38.63% 是新关系;IRIS 检出翻倍、误报率 46-85%;InvBench 净贡献 1.09 倍。(中强:多篇同行评审)</li><li><strong>人类裁判格的 slop 洪水受激励结构与工具代际调制,已现两幕剧:</strong>curl &lt;5% → 关赏金 → 15-16% 反超;kernel 从"全是 slop"到"大多正确但重复"。(中:一手时间序列,单一生态为主,Mozilla 反例在场)</li><li><strong>并发检测器格 LLM 缺席是结构性的:</strong>OSS-Fuzz 主流程无 TSan,LLM 无"独立确认"的检测战绩,有效姿势在修复席(Dr.Fix)。(中:负结果论证 + 基础设施文档)</li><li><strong>生产格两个方向的声称都未过独立复测</strong>——DORA 稳定性连续两年负相关是观察性的,"churn 上升"被 151 仓复测冲突;唯一硬点是把 LLM 产物降维成可复现规则(Argos)。(中:观察性证据为主)</li></ol>
+<p>值得盯的判据:OSS-Fuzz 若接入 TSan,LLM 生成 target 能否在并发格复制内存安全格的战绩;Quokka(原 InvBench)的正向重报会不会被第三方复现;kernel 新规("附补丁")运行一年后重复洪水是否被机器可验证产物驯服;以及下一个 TOGA 式案例——哪个"LLM 裁判"产品会先公布带独立复测的误报侧数字。</p>
+<hr>
+<h2>附:主要来源</h2>
+<p><strong>分类法与创始文献</strong>:Barr, Harman, McMinn, Shahbaz &amp; Yoo, "The Oracle Problem in Software Testing: A Survey" (IEEE TSE 41(5), 2015) · Weyuker, "On Testing Non-testable Programs" (1982) · McKeeman, differential testing (1998) · Chen, Cheung &amp; Yiu, metamorphic testing (HKUST-CS98-01) · DeMillo, Lipton &amp; Sayward (IEEE Computer 1978) · Claessen &amp; Hughes, QuickCheck (ICFP 2000) · Ernst et al., Daikon (SCP 2007) · Newcombe et al., "How AWS Uses Formal Methods" (CACM 2015,承 #0) · Knight &amp; Leveson (IEEE TSE 1986) · Yang, Chen, Eide &amp; Regehr, Csmith (PLDI 2011)</p>
+<p><strong>形式验证格</strong>:Goedel-Prover-V2 (arXiv 2508.03613) · AlphaProof (Nature 2025,承 #3) · miniF2F-Lean Revisited (arXiv 2511.03108, NeurIPS 2025) · ReForm (arXiv 2510.24592) · NL→TLA+ 评测 (arXiv 2606.05792, ICSOFT 2026) · AlphaVerus (arXiv 2412.06176) · Verifying the Rust Standard Library (arXiv 2606.17374) · Verus-SpecGym (arXiv 2605.26457)</p>
+<p><strong>fuzzing 与并发格</strong>:Google Security Blog, "AI-Powered Fuzzing" (2023-08) 与 "Leveling Up Fuzzing" (2024-11) · Project Zero, "From Naptime to Big Sleep" (2024-11) · Chabbi &amp; Ramanathan, Uber Go races (PLDI 2022) · Behrang et al., Dr.Fix (PLDI 2025) · OSS-Fuzz new project guide · SC-W 2023 LLM 竞争检测 (arXiv 2308.07505)</p>
+<p><strong>差分/变形格</strong>:SQLancer++ (arXiv 2503.21424, ASPLOS 2026) · ShQveL (arXiv 2505.02012) · Argus (arXiv 2510.06663, SIGMOD 2026) · Fuzz4All (ICSE 2024) · Kitten (ISSTA 2025) · LegoFuzz (arXiv 2508.18955) · Luu, Liu &amp; Chen, ChatGPT MR (arXiv 2310.19204) · Zhang et al., SANER 2025 · "N-Version Programming with Coding Agents" (arXiv 2606.20158)</p>
+<p><strong>PBT/不变量格</strong>:Vikram et al. (arXiv 2307.04346) · Endres et al., nl2postcond (FSE 2024) · LaM4Inv (ASE 2024) · Loopy (arXiv 2311.07948) · InvBench/Quokka (arXiv 2509.21629 v1/v2) · TOGA 复测:Hossain et al. (ESEC/FSE 2023) 与 Zhongxin Liu, Kui Liu et al. (ISSTA 2023) · Konstantinou et al. (arXiv 2410.21136) · Anthropic Agentic PBT (arXiv 2510.09907)</p>
+<p><strong>测试/mutation 格</strong>:Alshahwan et al., TestGen-LLM (FSE 2024) · Foster et al., ACH (FSE 2025) · ULT/UnLeakedTestbench (ACM TOSEM, arXiv 2508.00408) · 软件演化下的 LLM 测试 (arXiv 2603.23443) · TestExplora (arXiv 2602.10471)</p>
+<p><strong>静态分析格</strong>:IRIS (ICLR 2025) · PrimeVul (ICSE 2025) · SecLLMHolmes (IEEE S&amp;P 2024) · Semgrep 官方博客 (2025) · SastBench (arXiv 2601.02941)</p>
+<p><strong>人类裁判格</strong>:Stenberg, "death by a thousand slops" (2025-07) / "The end of the curl bug-bounty" (2026-01) / "High-Quality Chaos" (2026-04) · Tarreau, LWN (2026-03) · Torvalds, LKML 7.1-rc4 (2026-05) · Larson, sethmlarson.dev (2024-12) · TechCrunch (2025-07)</p>
+<p><strong>生产格</strong>:DORA 2024/2025(承 #0) · CSA/Georgia Tech AI-CVE tracker (2026) · Ebert et al. (arXiv 2507.10422) · Argos (arXiv 2501.14170) · Goel et al., 错误趋同 (ICML 2025,承 #2)</p>
+<p><em>调研材料与全部验证判定存于研究底座(8+3 条调研线、208 条论断、29 组承重论断 × 3 票,87 票全录)。</em></p>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>

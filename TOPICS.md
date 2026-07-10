@@ -35,17 +35,13 @@
 - 核心口径记录:Macnamara 2014 有 2018 正式勘误(12%→14%,分域 24/23/20/5/1)——头条数字是勘误前的;Latimier g=0.74 系 trim-and-fill 校正值(未校正 1.01,间隔化子集仅 11 项研究);Ericsson & Harwell 29%=未校正、61%=衰减校正(信度假设 0.6/0.8);M&M 2019 双盲=实验者+被试(非编码者),practice alone=独自练习;Yang 2021 对精细加工策略 0.095 不显著;Nancekivell 93.7% 为排除前 383 人口径;准教师 vs 在职信念差异不显著;Martella"0 篇全控制"=计入实施保真度口径;Cepeda 2008 正式版为 20-40%→5-10%
 - 钩子:→ 候选池 1 条(神经神话传播动力学);→ super-individual《把三个已验证开关装进自己的学习流程》(backlog,反哺);→ meta-knowledge《学习≠表现:元认知错觉》(backlog,反哺);另 1 条仅记运行报告(Kraft 基准商榷线 + Dunlosky 评级无十年更新的跟踪信号)
 
-## 待研究
+### 5. 机器 Oracle 全景:业界公认的裁判有哪些,LLM 分别能把它们做大多少? ✅ 2026-07
+- 页面:`machine-oracles-plain/-deep` × zh/en
+- 底座:8+3 条调研线、208 论断、29 组承重论断 × 3 票对抗验证(87 票:29/29 挺过、0 推翻,40+ 处口径修正);复用 #0/#2/#3 已验证口径(AlphaProof、Meta 离线→生产漏斗、弱测试欺骗、错误趋同 ICML 2025);研究材料存本地 `~/design/deep-research-runs/machine-oracles/`
+- 核心口径记录:脊柱=LLM 坐生成/提议席增益有硬数字、坐裁判席独立复测系统性缩水(判据是"坐哪把椅子"而非"用没用 LLM");Argus 消融证明器把关 0/20 vs GPT-5 当裁判 20/20(机制=低错误率×极低底率=误报淹没真报);TOGA 两次独立复测崩到 0.38%/0.3%;PrimeVul 68.26→3.09(去污染);ULT 覆盖 92.18→45.10(污染抬覆盖不抬杀伤);Kitten 无 LLM 反超 Fuzz4All;SQLancer++ 无 LLM 196 bug(difftest 线原设"SQLancer++ 含 LLM 消融"前提被纠正,干净对照改用 ShQveL 同框架/Argus 只换裁判);N-version LLM 复现 z=29.20 但三版本投票 387→131;并发格 LLM 结构性缺席(OSS-Fuzz 主流程无 TSan);curl 两幕剧 <5%→反超 15-16%(激励×工具代际调制)
+- 钩子:→ 候选池 1 条(autoformalization 规约层危机/"证明⊢陈述≠陈述=意图");→ ai-ml《LLM 错误趋同如何瓦解冗余与投票式可靠性》(backlog,源自本篇 N-version 复现线);→ system-design《把 AI-judge 当信号检测:低底率下的误报放大》(backlog,源自 Argus 底率机制);→ super-individual《被 AI 报告淹没时,把举证责任推回提交侧》(backlog,源自 curl/kernel 治理转向);另 1 条仅记运行报告(mutation testing 工业复兴 + competent programmer 假设重检)
 
-### 5. 机器 Oracle 全景:业界公认的裁判有哪些,LLM 分别能把它们做大多少?
-- **一句话**:按公认分类法盘点软件验证的全部 oracle 家族,逐格核查"LLM 增益"的正反证据——检验一条可证伪的脊柱主张:裁判越独立,LLM 越是纯赚;裁判由 LLM 自己定义时,声称的增益在独立复测中系统性缩水。
-- **为什么适合**:#0/#2/#3 验证瓶颈三部曲的"建设篇"——前三篇说瓶颈在验证、AI 当裁判不可靠、"验证更容易"分任务族,本篇回答"那怎么把可信的机器裁判做大";形状是评估式综述(合法变体,参照系统综述),每格自带正反张力,可跑对抗验证。范围**限定在软件/代码 oracle**,不扩到 ML 评测 oracle。
-- **理论底座(锚定权威分类法,防"所有"承诺兜不住)**:Barr, Harman, McMinn, Shahbaz & Yoo,《The Oracle Problem in Software Testing》(IEEE TSE 2015)的四分类(specified / derived / implicit / human oracles)作组织骨架;metamorphic testing(Chen et al.)、差分测试(McKeeman;csmith/SQLancer 谱系)、mutation testing(DeMillo/Offutt)、property-based testing(Claessen & Hughes QuickCheck)、不变量挖掘(Ernst, Daikon)、形式验证工业谱系(Newcombe CACM 2015;seL4;CompCert)。
-- **脊柱主张(可证伪版,含指标定义——防可测性偏差的循环)**:每格的"LLM 增益"必须用该格自己的独立指标事先定义——测试格=mutation-kill 增量;fuzzing 格=独立 crash/新覆盖产出率;定理证明格=验证器判定的证明完成率;静态分析格=经人工裁决的真阳性率;生产格=escaped-defect 变化。主张:在裁判独立的格子,LLM 增益有受控/生产级数字;在裁判由 LLM 定义或裁决的格子,声称的增益在独立复测中缩水。**必须主动找反例**:有没有 LLM 起草规约/property 经独立校验后抓到真 bug 的一手案例(Meta ACH?、autoformalization 落地案例)——反例足够多则软化脊柱为条件式。
-- **必查格子(对照 Barr 分类逐格覆盖,loop-until-dry 补漏)**:形式验证/定理证明(TLA+、Lean/AlphaProof、autoformalization 及其基准污染问题);fuzzing+sanitizers(OSS-Fuzz 的 LLM fuzz-driver 一手数据;裁判=崩溃/ASan/TSan,独立性最强格);差分/变形测试(csmith、SQLancer;LLM 提议 metamorphic relations 的实证);property-based testing(LLM 推断不变量、Daikon 谱系;同义反复 property 的发生率);静态分析/类型(CodeQL/Semgrep 规则生成、误报分诊——注意分诊即 AI-judge,接 #2);测试+mutation(元 oracle;LLM 生成测试经 mutation 闸的通过率一手数字);运行时验证/生产断言(金丝雀作 oracle,接 #3 第三轴);并发检测器(TSan/race detector 作 implicit oracle)。
-- **关键争议/正反**:正方——OSS-Fuzz LLM 报告、AlphaProof/Lean、verifier-grounded RL 的训练收益;反方——同义反复 property/测试(接 #2 弱测试污染)、autoformalization 的"规约规定错了东西"(接 #3 规格-意图鸿沟)、LLM 生成规则的误报洪水、以及"增益只在可测处可见"的可测性偏差本身。
-- **实证锚点**:Barr et al. TSE 2015;Google OSS-Fuzz LLM 博客/论文;AlphaProof (Nature 2025,承 #3 已验证口径);Newcombe CACM 2015(承 #0);Meta 自动化合规/测试工作(ACH 等,需核);SQLancer/csmith 原文;QuickCheck/Hypothesis;Daikon;#2/#3 已验证的验证者可靠性文献全部复用。
-- **注意**:承 #2/#3 大量文献,增量必须在"每格的 LLM 增益实证"层,不复写"AI 当裁判不可靠"的结论;完整性用 Barr 分类逐格核对并做 loop-until-dry;每格指标不同,跨格不许直接比大小(各基线不同);"所有 oracle"表述收敛为"按公认分类法逐格覆盖的主要家族+显式纳入标准"。
+## 待研究
 
 ### 6. 屏幕时间与青少年心理健康:Haidt 对不对?
 - **一句话**:《焦虑的一代》的因果主张,经得起方法学检验吗?
@@ -86,6 +82,7 @@
 
 ## 候选池(未排期)
 
+- Autoformalization 的规约层危机:当"证明⊢陈述"被验证器守死,风险全部上移到"陈述=意图"——形式数学基准半数题面错位、autoformalization 忠实率、spec-intent 鸿沟的可测性与工程后果(钩子·源自 #5)
 - 神经神话为什么杀不死:学习风格、多元智能、左右脑的传播动力学——师训体系为何成为误念的主要传染源,揭穿式干预的实效边界(信念降 37% 但行为传导仅半)(钩子·源自 #4)
 - ~~形式化方法的 LLM 复兴~~(已折叠进待研究 #10 作为其中一格)(钩子·源自 #3)
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)

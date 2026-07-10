@@ -845,7 +845,224 @@ def fig_ls_ladder(lang: str) -> str:
 </figure>"""
 
 
+def fig_mo_map(lang: str) -> str:
+    """The four oracle categories (Barr 2015) with each cell's judge and LLM verdict."""
+    t = {
+        "zh": dict(title="软件验证的四类裁判(Barr et al. 2015 分类)与 LLM 战绩",
+                   c1t="Specified · 按形式规约判", c1j="裁判:证明检查器 / 模型检查器",
+                   c1v="证明完成率 88→90%(验证器反馈自纠)", c1w="风险上移:规约层错误 8.6-50%",
+                   c2t="Implicit · 崩溃即错", c2j="裁判:sanitizer / 崩溃 / 竞争检测器",
+                   c2v="OSS-Fuzz:26 漏洞 + 二十年 CVE", c2w="并发子格:LLM 至今缺席",
+                   c3t="Derived · 派生物对表", c3j="裁判:差分投票 / 变形关系 / mutation 闸",
+                   c3v="LLM 坐生成席:ShQveL 55 bug", c3w="坐裁判席:Argus 消融误报 20/20",
+                   c4t="Human · 人来判", c4j="裁判:维护者 / 安全团队分诊",
+                   c4v="2025:curl 真报率 <5%(slop 洪水)", c4w="2026:反超 15-16%(激励调制)",
+                   cap="示意:每格标注该格裁判与 LLM 进场后的代表性战绩/风险;四格详见正文逐格对账(各格指标不同,不可跨格比大小)"),
+        "en": dict(title="The four oracle families (Barr et al. 2015) and the LLM record",
+                   c1t="Specified · formal-spec judged", c1j="Judge: proof / model checker",
+                   c1v="Proof completion 88→90% (verifier feedback)", c1w="Risk moved up: spec errors 8.6–50%",
+                   c2t="Implicit · crash = wrong", c2j="Judge: sanitizers / crashes / race detectors",
+                   c2v="OSS-Fuzz: 26 vulns + 20-year CVE", c2w="Concurrency sub-cell: LLM absent",
+                   c3t="Derived · derived artefacts", c3j="Judge: diff voting / MRs / mutation gate",
+                   c3v="LLM as generator: ShQveL 55 bugs", c3w="As judge: Argus ablation 20/20 FPs",
+                   c4t="Human · humans judge", c4j="Judge: maintainer / security triage",
+                   c4v="2025: curl real-report rate <5% (slop)", c4w="2026: overshoot to 15-16% (incentives)",
+                   cap="Schematic: each cell lists its judge and the LLM's representative record/risk; see the essay for the cell-by-cell audit (metrics differ across cells — not comparable)"),
+    }[lang]
+    cells = [
+        (24, 58, t['c1t'], t['c1j'], t['c1v'], t['c1w'], "#4cc9f0"),
+        (356, 58, t['c2t'], t['c2j'], t['c2v'], t['c2w'], "#5eead4"),
+        (24, 238, t['c3t'], t['c3j'], t['c3v'], t['c3w'], "#7b61ff"),
+        (356, 238, t['c4t'], t['c4j'], t['c4v'], t['c4w'], "#ff6ec4"),
+    ]
+    parts = []
+    for x, y, title, judge, win, warn, color in cells:
+        parts.append(f'<rect x="{x}" y="{y}" width="320" height="160" rx="12" fill="{color}" opacity="0.07" stroke="{color}" stroke-opacity="0.45"/>')
+        parts.append(f'<text x="{x + 16}" y="{y + 30}" fill="{color}" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">{title}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 56}" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">{judge}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 92}" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ {win}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 122}" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ {warn}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_mo_seats(lang: str) -> str:
+    """The three seats an LLM can take in a verification chain, with verdicts."""
+    t = {
+        "zh": dict(title="同一个 LLM,三把椅子,三种成色",
+                   s1t="生成器席", s1d="产测试输入 / fuzz 探针", s1e="OSS-Fuzz 26 漏洞 · Meta 采纳 73%", s1v="增益有硬数字",
+                   s2t="提议者席", s2d="起草规约 / 规则 / 关系,过独立筛", s2e="Argus 证明器把关:误报 0/20", s2v="真增益,筛余负担不消失",
+                   s3t="裁判席", s3d="直接判对错 / 分诊 / 打分", s3e="TOGA 复测 0.38% · PrimeVul 3.09%", s3v="独立复测系统性缩水",
+                   cap="示意:判据不是「用没用 LLM」,是裁决权在谁手里——判决全在独立机制(左)到判决就是 LLM 本身(右)"),
+        "en": dict(title="One LLM, three seats, three grades",
+                   s1t="Generator seat", s1d="produces test inputs / fuzz probes", s1e="OSS-Fuzz 26 vulns · Meta 73% accepted", s1v="hard-numbered gains",
+                   s2t="Proposer seat", s2d="drafts specs/rules/relations, filtered", s2e="Argus behind prover: 0/20 FPs", s2v="real gains, residual burden stays",
+                   s3t="Judge seat", s3d="rules directly / triages / scores", s3e="TOGA re-test 0.38% · PrimeVul 3.09%", s3v="shrinks under re-testing",
+                   cap="Schematic: the criterion is not whether an LLM is used, but who holds adjudication — from fully independent mechanisms (left) to the LLM itself being the verdict (right)"),
+    }[lang]
+    seats = [
+        (24, t['s1t'], t['s1d'], t['s1e'], t['s1v'], "#52b788"),
+        (250, t['s2t'], t['s2d'], t['s2e'], t['s2v'], "#f0b429"),
+        (476, t['s3t'], t['s3d'], t['s3e'], t['s3v'], "#ff6ec4"),
+    ]
+    parts = []
+    for x, title, desc, ev, verdict, color in seats:
+        parts.append(f'<rect x="{x}" y="58" width="200" height="200" rx="12" fill="{color}" opacity="0.08" stroke="{color}" stroke-opacity="0.5"/>')
+        parts.append(f'<text x="{x + 100}" y="88" fill="{color}" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{title}</text>')
+        parts.append(f'<text x="{x + 100}" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{desc}</text>')
+        parts.append(f'<text x="{x + 100}" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">{ev}</text>')
+        parts.append(f'<rect x="{x + 18}" y="196" width="164" height="34" rx="8" fill="{color}" opacity="0.16"/>')
+        parts.append(f'<text x="{x + 100}" y="218" fill="{color}" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{verdict}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_mo_shrink(lang: str) -> str:
+    """Claimed vs independently re-tested numbers when the LLM defines/judges."""
+    t = {
+        "zh": dict(title="LLM 坐裁判席:声称 vs 独立复测",
+                   r1="漏洞检测 F1:旧基准 BigVul → 去污染 PrimeVul", r1a="68.26%", r1b="3.09%",
+                   r2="Semgrep 分诊一致率:头条 → 误报侧", r2a="96%", r2b="41%",
+                   r3="LLM 测试覆盖率:旧基准 → 未污染 ULT", r3a="92.18%", r3b="45.10%",
+                   r4="TOGA 断言:原评测 → 修正泄漏后精度", r4a="声称 30 个独家 bug", r4b="0.38%",
+                   la="声称 / 旧口径", lb="独立复测",
+                   cap="示意:四组各自口径不同、不可互比,只看各组内的缩水方向(条长为示意;PrimeVul/ULT/TOGA 为独立学术复测,Semgrep 为同一博客的头条 vs 细则)"),
+        "en": dict(title="LLM in the judge seat: claimed vs independently re-tested",
+                   r1="Vuln-detection F1: old BigVul → de-leaked PrimeVul", r1a="68.26%", r1b="3.09%",
+                   r2="Semgrep triage agreement: headline → FP side", r2a="96%", r2b="41%",
+                   r3="LLM test coverage: old bench → uncontaminated ULT", r3a="92.18%", r3b="45.10%",
+                   r4="TOGA assertions: original eval → post-leak-fix precision", r4a="claimed 30 exclusive bugs", r4b="0.38%",
+                   la="claimed / old scope", lb="independent re-test",
+                   cap="Schematic: four pairs with four different metrics — compare only the within-pair shrink direction (bar lengths illustrative; PrimeVul/ULT/TOGA are independent academic re-tests, Semgrep is headline vs fine print of one blog post)"),
+    }[lang]
+    rows = [
+        (t['r1'], t['r1a'], 273, t['r1b'], 13),
+        (t['r2'], t['r2a'], 384, t['r2b'], 164),
+        (t['r3'], t['r3a'], 369, t['r3b'], 180),
+        (t['r4'], t['r4a'], 240, t['r4b'], 8),
+    ]
+    parts = []
+    y = 84
+    for label, va, wa, vb, wb in rows:
+        parts.append(f'<text x="24" y="{y}" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">{label}</text>')
+        by = y + 10
+        parts.append(f'<rect x="24" y="{by}" width="{wa}" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/>')
+        parts.append(f'<text x="{24 + wa + 8}" y="{by + 11}" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">{va}</text>')
+        by2 = by + 20
+        parts.append(f'<rect x="24" y="{by2}" width="{max(wb, 4)}" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/>')
+        parts.append(f'<text x="{24 + max(wb, 4) + 8}" y="{by2 + 11}" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">{vb}</text>')
+        y += 82
+    return f"""<figure>
+<svg viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="24" y="48" width="12" height="12" rx="3" fill="#4cc9f0" opacity="0.75"/>
+  <text x="42" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">{t['la']}</text>
+  <rect x="220" y="48" width="12" height="12" rx="3" fill="#ff6ec4" opacity="0.9"/>
+  <text x="238" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">{t['lb']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_mo_argus(lang: str) -> str:
+    """Argus judge-swap ablation: prover-gated vs GPT-5-judged false positives."""
+    t = {
+        "zh": dict(title="只换裁判的消融(Argus,SIGMOD 2026,DuckDB 上 20 份 bug 报告)",
+                   b1="SQLSolver 证明器把关(LLM 只提议)", v1="误报 0/20",
+                   b2="GPT-5 当裁判(同一框架)", v2="误报 20/20",
+                   note="机制:LLM 单次判定错误率仅约 1/20,但成熟 DBMS 真 bug 底率极低 → 报告层面误报被放大到 100%",
+                   cap="示意:同一框架、同一 DBMS、人工逐条终裁——低错误率 × 极低底率 = 误报淹没真报(误报数为人工裁定口径)"),
+        "en": dict(title="The judge-swap ablation (Argus, SIGMOD 2026; 20 bug reports on DuckDB)",
+                   b1="SQLSolver prover gates (LLM only proposes)", v1="0/20 false positives",
+                   b2="GPT-5 as the judge (same framework)", v2="20/20 false positives",
+                   note="Mechanism: the LLM errs on only ~1/20 calls, but true-bug base rates in mature DBMSs are so low that report-level FPs amplify to 100%",
+                   cap="Schematic: same framework, same DBMS, human final adjudication per report — low error rate × very low base rate = false alarms drown true ones"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="80" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">{t['b1']}</text>
+  <rect x="24" y="90" width="8" height="22" rx="4" fill="#52b788"/>
+  <text x="44" y="107" fill="#52b788" font-size="15" font-weight="700" font-family="Menlo,monospace">{t['v1']}</text>
+  <text x="24" y="156" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">{t['b2']}</text>
+  <rect x="24" y="166" width="560" height="22" rx="4" fill="#ff6ec4" opacity="0.85"/>
+  <text x="594" y="183" fill="#ff6ec4" font-size="15" font-weight="700" font-family="Menlo,monospace">{t['v2']}</text>
+  <rect x="24" y="216" width="652" height="40" rx="8" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.4"/>
+  <text x="38" y="241" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_mo_curl(lang: str) -> str:
+    """curl's two-act play: confirmation rate over time under a human judge."""
+    t = {
+        "zh": dict(title="curl 安全报告确认率:人类裁判格的两幕剧",
+                   p1="2019-2024 · 赏金时代", v1=">15%", p2="2025 · AI slop 洪水(约 20% 是 slop)", v2="<5%",
+                   p3="2026-01 · 关闭七年赏金", v3="—", p4="2026-04 · 重返后反超(几乎全用 AI)", v4="15-16%",
+                   cap="示意:同一项目、同一人类裁判、同一确认率口径(真漏洞/全部安全提交,Stenberg 一手时间序列)——洪水受赏金激励与工具代际调制,不是恒久定律"),
+        "en": dict(title="curl's security-report confirmation rate: the human-judge cell's two acts",
+                   p1="2019-2024 · bounty era", v1=">15%", p2="2025 · AI slop flood (~20% slop)", v2="<5%",
+                   p3="2026-01 · 7-year bounty closed", v3="—", p4="2026-04 · post-return overshoot (nearly all AI-assisted)", v4="15-16%",
+                   cap="Schematic: same project, same human judges, same metric (real vulns / all security submissions; Stenberg's first-party time series) — the flood is modulated by bounty incentives and tool generations, not a permanent law"),
+    }[lang]
+    rows = [
+        (t['p1'], t['v1'], 170, "#4cc9f0"),
+        (t['p2'], t['v2'], 48, "#ff6ec4"),
+        (t['p3'], t['v3'], 4, "#5a6378"),
+        (t['p4'], t['v4'], 178, "#52b788"),
+    ]
+    parts = []
+    y = 70
+    for label, val, w, color in rows:
+        parts.append(f'<text x="360" y="{y + 15}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="372" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{372 + w + 10}" y="{y + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="372" y1="58" x2="372" y2="270" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "machine-oracles-deep": [
+        ("zh", "1. 读图说明", fig_mo_map, "end"),
+        ("en", "1. How to read the map", fig_mo_map, "end"),
+        ("zh", "4. Derived", fig_mo_argus, "end"),
+        ("en", "4. Derived", fig_mo_argus, "end"),
+        ("zh", "7. Specified 弱端", fig_mo_shrink, "end"),
+        ("en", "7. The weak end of specified", fig_mo_shrink, "end"),
+        ("zh", "8. Human oracle 对照组", fig_mo_curl, "end"),
+        ("en", "8. The human-oracle control group", fig_mo_curl, "end"),
+        ("zh", "10. 座次", fig_mo_seats, "end"),
+        ("en", "10. The seating chart", fig_mo_seats, "end"),
+    ],
+    "machine-oracles-plain": [
+        ("zh", "一个四十年的老问题", fig_mo_map, "end"),
+        ("en", "A forty-year-old problem", fig_mo_map, "end"),
+        ("zh", "裁判最铁面的地方", fig_mo_seats, "end"),
+        ("en", "Where the judge is most incorruptible", fig_mo_seats, "end"),
+        ("zh", "AI 一坐上裁判席", fig_mo_shrink, "end"),
+        ("en", "The moment AI takes the bench", fig_mo_shrink, "end"),
+        ("zh", "同一种 AI 产出", fig_mo_curl, "end"),
+        ("en", "One AI output, two judges", fig_mo_curl, "end"),
+    ],
     "learning-science-deep": [
         ("zh", "1. 读数说明书", fig_ls_control, "end"),
         ("en", "1. How to read the numbers", fig_ls_control, "end"),
@@ -1066,6 +1283,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("machine-oracles-deep", "zh", "deep",
+     "机器裁判全景:LLM 能把软件验证的 oracle 做大多少?(深入版)",
+     "按 Barr 分类法逐格盘点软件验证的裁判家族,核查每格的「LLM 增益」——脊柱主张:LLM 坐生成/提议席则增益有硬数字,坐裁判席则独立复测系统性缩水。29 组承重论断 × 3 票对抗验证。",
+     "2026-07"),
+    ("machine-oracles-deep", "en", "deep",
+     "The Machine-Judge Atlas: How Much Can LLMs Scale Software's Oracles? (Deep Dive)",
+     "A cell-by-cell audit of software's oracle families along the Barr taxonomy, checking each cell's 'LLM gain' — the spine: gains are hard-numbered in the generator/proposer seat and shrink under re-testing in the judge's seat. 29 load-bearing claims adversarially verified.",
+     "2026-07"),
+    ("machine-oracles-plain", "zh", "plain",
+     "AI 找 bug 靠不靠谱?先看裁判是谁(易读版)",
+     "AI 能写测试、报漏洞,但它的成绩取决于坐哪把椅子——干活的、起草的、还是当裁判的。易读版:主线论证 + 直白语言。",
+     "2026-07"),
+    ("machine-oracles-plain", "en", "plain",
+     "Can AI Find Real Bugs? First Ask Who the Judge Is (Plain-Language Edition)",
+     "AI can write tests and report bugs, but its score depends on which seat it takes — worker, drafter, or judge. The accessible edition.",
+     "2026-07"),
     ("learning-science-deep", "zh", "deep",
      "学习科学的证据等级:哪些学习方法真的有效?(深入版)",
      "检索、间隔、交错、刻意练习、学习风格、主动学习——五场学术对战逐一对账,把常见学习方法按证据强度重新排座次;含一处几乎没人引用的正式勘误。",
@@ -1156,6 +1389,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("machine-oracles-deep", "zh"):
+        "把软件验证的裁判按 Barr 四分类逐格摊开:决定「LLM 增益」真伪的不是格子,是 LLM 坐的椅子。生成器席(判决全在崩溃/差分/mutation/人审)增益有生产级硬数字——OSS-Fuzz 26 漏洞、ShQveL 55 bug、Dr.Fix 86% 采纳;提议者席(起草规约/规则,过独立筛)增益真实但筛余负担不消失;裁判席声称的增益在独立复测中系统性缩水——TOGA 0.38%、PrimeVul 3.09%、Argus 消融 20/20 误报。三个软化条款:投票增益衰减非归零、人类裁判洪水受激励调制可逆转、机器闸必要非充分。十一个可检验主张收尾。",
+    ("machine-oracles-deep", "en"):
+        "Software's judges, spread out along Barr's four categories: what decides whether an 'LLM gain' is real is not the cell but the seat the LLM takes. The generator seat (adjudication fully with crash/differencing/mutation/human review) has production-grade numbers — OSS-Fuzz's 26 vulnerabilities, ShQveL's 55 bugs, Dr.Fix's 86% acceptance; the proposer seat (drafting specs/rules, filtered independently) yields real gains with residual burden intact; the judge seat's claimed gains shrink under re-testing — TOGA 0.38%, PrimeVul 3.09%, Argus's 20/20 false-positive ablation. Three softening clauses: voting gains decay rather than vanish, the human-judge flood is incentive-modulated and reversible, machine gates are necessary but not sufficient. Eleven testable claims close the essay.",
+    ("machine-oracles-plain", "zh"):
+        "AI 找 bug 的成绩单,取决于它在验证流水线里坐哪把椅子:当干活的(生成测试输入)、起草的(提议规则交独立机制筛)、还是当裁判的(直接判对错)。前两把椅子有真金白银——26 个漏洞、二十年 CVE、Meta 73% 采纳;第三把椅子几乎每次独立复查都缩水——0.38%、3%、20/20 全是误报。评估任何「AI 找 bug」方案,第一个问题永远是:裁判是谁?",
+    ("machine-oracles-plain", "en"):
+        "AI's bug-finding report card depends on which seat it takes in the verification pipeline: the worker (generating test inputs), the drafter (proposing rules filtered by an independent mechanism), or the judge (ruling directly). The first two seats pay real money — 26 vulnerabilities, a twenty-year CVE, Meta's 73% acceptance; the third seat shrinks under nearly every independent re-check — 0.38%, 3%, 20/20 false alarms. Evaluating any 'AI finds bugs' product, the first question is always: who is the judge?",
     ("learning-science-deep", "zh"):
         "把常见学习方法按证据强度重排座次:检索练习与间隔是证据最厚的两项(课堂成立、出版偏倚五法检验干净);交错强但边界窄(词汇反向);主动学习方向稳、数字虚(0.47 SD 站在 88% 准实验上);刻意练习勘误后仅解释 14% 方差,预注册复现中顶尖组没练得更多;学习风格匹配在合格检验下反复失败,却有约九成教育者相信。效应量必须连着对照组与场景读。十二个可检验主张收尾。",
     ("learning-science-deep", "en"):
@@ -1199,6 +1440,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("machine-oracles-deep", "zh"): [
+        ("c1", "87 票对抗验证 · 29/29 挺过"), ("c2", "裁判席:TOGA 0.38% · PrimeVul 3.09%"), ("c3", "生成器席:OSS-Fuzz 26 漏洞"), ("c4", "11 个可检验主张"),
+    ],
+    ("machine-oracles-deep", "en"): [
+        ("c1", "87 votes · 29/29 survived"), ("c2", "judge seat: TOGA 0.38% · PrimeVul 3.09%"), ("c3", "generator seat: OSS-Fuzz 26 vulns"), ("c4", "11 testable claims"),
+    ],
+    ("machine-oracles-plain", "zh"): [
+        ("c1", "证明完成率 88→90%"), ("c2", "Argus 消融:证明器 0/20 → GPT-5 裁判 20/20"), ("c3", "curl 真报率 <5% → 反超 15-16%"), ("c4", "AI 断言 99% 锚旧行为"),
+    ],
+    ("machine-oracles-plain", "en"): [
+        ("c1", "proof completion 88→90%"), ("c2", "Argus: prover 0/20 → GPT-5 judge 20/20"), ("c3", "curl real rate <5% → 15-16%"), ("c4", "AI assertions: 99% anchor old behavior"),
+    ],
     ("learning-science-deep", "zh"): [
         ("c1", "72 票对抗验证 · 24/24 挺过"), ("c2", "刻意练习:方差仅 14%(勘误后)"), ("c3", "学习风格:信念 89% vs 互作 26%"), ("c4", "12 个可检验主张"),
     ],
@@ -1397,6 +1650,15 @@ INDEX_I18N = {
 
 # slug, date, title_zh, title_en, desc_zh, desc_en, stats_zh, stats_en, tags[(cls, zh, en)]
 INDEX_ENTRIES = [
+    ("machine-oracles", "2026-07",
+     "机器裁判全景:LLM 能把软件验证的 oracle 做大多少?",
+     "The Machine-Judge Atlas: How Much Can LLMs Scale Software's Oracles?",
+     "同一种 AI,接崩溃检测器产出二十年 CVE,扔给人类分诊却是 slop 洪水——差别只在裁判是谁。按软件验证的裁判家族逐格盘点,核查每格「LLM 增益」的正反证据。",
+     "The same AI yields a twenty-year CVE plugged into a crash detector and a slop flood dumped on human triage — the only difference is who judges. A cell-by-cell audit of software's oracle families, checking the evidence for and against each cell's 'LLM gain'.",
+     "87 票对抗验证 · 11 个可检验主张",
+     "87 adversarial votes · 11 testable claims",
+     [("t1", "验证不对称", "Verification asymmetry"), ("t2", "test oracle", "Test oracles"), ("t3", "形式验证", "Formal verification"),
+      ("t4", "fuzzing/差分", "Fuzzing / differencing"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
     ("ai-native", "2026-07",
      "传统软件组织的 AI-native 转型",
      "The AI-Native Transformation of Software Organizations",
