@@ -848,43 +848,59 @@ def fig_ls_ladder(lang: str) -> str:
 def fig_mo_map(lang: str) -> str:
     """The four oracle categories (Barr 2015) with each cell's judge and LLM verdict."""
     t = {
-        "zh": dict(title="软件验证的四类裁判(Barr et al. 2015 分类)与 LLM 战绩",
-                   c1t="Specified · 按形式规约判", c1j="裁判:证明检查器 / 模型检查器",
-                   c1v="证明完成率 88→90%(验证器反馈自纠)", c1w="风险上移:规约层错误 8.6-50%",
-                   c2t="Implicit · 崩溃即错", c2j="裁判:sanitizer / 崩溃 / 竞争检测器",
-                   c2v="OSS-Fuzz:26 漏洞 + 二十年 CVE", c2w="并发子格:LLM 至今缺席",
-                   c3t="Derived · 派生物对表", c3j="裁判:差分投票 / 变形关系 / mutation 闸",
-                   c3v="LLM 坐生成席:ShQveL 55 bug", c3w="坐裁判席:Argus 消融误报 20/20",
-                   c4t="Human · 人来判", c4j="裁判:维护者 / 安全团队分诊",
-                   c4v="2025:curl 真报率 <5%(slop 洪水)", c4w="2026:反超 15-16%(激励调制)",
-                   cap="示意:每格标注该格裁判与 LLM 进场后的代表性战绩/风险;四格详见正文逐格对账(各格指标不同,不可跨格比大小)"),
-        "en": dict(title="The four oracle families (Barr et al. 2015) and the LLM record",
-                   c1t="Specified · formal-spec judged", c1j="Judge: proof / model checker",
-                   c1v="Proof completion 88→90% (verifier feedback)", c1w="Risk moved up: spec errors 8.6–50%",
-                   c2t="Implicit · crash = wrong", c2j="Judge: sanitizers / crashes / race detectors",
-                   c2v="OSS-Fuzz: 26 vulns + 20-year CVE", c2w="Concurrency sub-cell: LLM absent",
-                   c3t="Derived · derived artefacts", c3j="Judge: diff voting / MRs / mutation gate",
-                   c3v="LLM as generator: ShQveL 55 bugs", c3w="As judge: Argus ablation 20/20 FPs",
-                   c4t="Human · humans judge", c4j="Judge: maintainer / security triage",
-                   c4v="2025: curl real-report rate <5% (slop)", c4w="2026: overshoot to 15-16% (incentives)",
-                   cap="Schematic: each cell lists its judge and the LLM's representative record/risk; see the essay for the cell-by-cell audit (metrics differ across cells — not comparable)"),
+        "zh": dict(title="判定「程序对不对」的四种裁判,AI 进场后各自的战绩",
+                   sub="裁判(oracle)=判定程序行为对错的机制;按判据从哪来分四类(Barr et al. 2015)",
+                   leg="✓ = AI 增益有独立硬数字 · ⚠ = 这一格的坑",
+                   c1t="按规格书判 · Specified", c1j="裁判:证明检查器——照规格自动判卷",
+                   c1a="✓", c1v="AI 证数学定理:完成率 88→90%",
+                   c1b="⚠", c1w="但规格书(题目)本身可能是错的",
+                   c2t="崩溃即错 · Implicit", c2j="裁判:崩溃 / 内存越界,不需要规格",
+                   c2a="✓", c2v="AI 写探针:26 个真漏洞+20 年老 CVE",
+                   c2b="⚠", c2w="并发 bug 这一格,AI 至今缺席",
+                   c3t="对照着判 · Derived", c3j="裁判:另一个实现 / 旧版本 / 对照关系",
+                   c3a="✓", c3v="AI 只当生成器:新挖 55 个数据库 bug",
+                   c3b="⚠", c3w="AI 亲自当裁判:20 份报告全是误报",
+                   c4t="人来判 · Human", c4j="裁判:维护者与安全团队人工分诊",
+                   c4a="⚠", c4v="2025:AI 垃圾报告洪水,真报率 <5%",
+                   c4b="✓", c4w="2026:报告质量反超,确认率 15-16%",
+                   cap="示意:每格一个代表性战绩与一个坑,详见正文逐格对账;四格各用自己的指标,不可跨格比大小"),
+        "en": dict(title="Four kinds of judges of 'is the program right?', and AI's record in each",
+                   sub="An oracle = the judge of program behavior; four families by where the criterion comes from (Barr et al. 2015)",
+                   leg="✓ = AI gain with hard independent numbers · ⚠ = the cell's trap",
+                   c1t="Judged by spec · Specified", c1j="Judge: proof checkers — mechanical grading",
+                   c1a="✓", c1v="AI proves math: completion 88→90%",
+                   c1b="⚠", c1w="but the spec (the question) can be wrong",
+                   c2t="Crash = wrong · Implicit", c2j="Judge: crashes / memory violations, no spec",
+                   c2a="✓", c2v="AI probes: 26 real vulns + a 20-yr CVE",
+                   c2b="⚠", c2w="concurrency bugs: AI still absent here",
+                   c3t="Judged by contrast · Derived", c3j="Judge: another implementation / relations",
+                   c3a="✓", c3v="AI as generator only: 55 new DB bugs",
+                   c3b="⚠", c3w="AI as the judge: 20/20 reports false",
+                   c4t="Humans judge · Human", c4j="Judge: maintainers and security triage",
+                   c4a="⚠", c4v="2025: AI slop flood, real rate <5%",
+                   c4b="✓", c4w="2026: quality overshoot, 15-16% confirmed",
+                   cap="Schematic: one representative win and one trap per cell — see the essay for the full audit; each cell uses its own metric, no cross-cell comparison"),
     }[lang]
     cells = [
-        (24, 58, t['c1t'], t['c1j'], t['c1v'], t['c1w'], "#4cc9f0"),
-        (356, 58, t['c2t'], t['c2j'], t['c2v'], t['c2w'], "#5eead4"),
-        (24, 238, t['c3t'], t['c3j'], t['c3v'], t['c3w'], "#7b61ff"),
-        (356, 238, t['c4t'], t['c4j'], t['c4v'], t['c4w'], "#ff6ec4"),
+        (24, 96, t['c1t'], t['c1j'], t['c1a'], t['c1v'], t['c1b'], t['c1w'], "#4cc9f0"),
+        (356, 96, t['c2t'], t['c2j'], t['c2a'], t['c2v'], t['c2b'], t['c2w'], "#5eead4"),
+        (24, 278, t['c3t'], t['c3j'], t['c3a'], t['c3v'], t['c3b'], t['c3w'], "#7b61ff"),
+        (356, 278, t['c4t'], t['c4j'], t['c4a'], t['c4v'], t['c4b'], t['c4w'], "#ff6ec4"),
     ]
     parts = []
-    for x, y, title, judge, win, warn, color in cells:
-        parts.append(f'<rect x="{x}" y="{y}" width="320" height="160" rx="12" fill="{color}" opacity="0.07" stroke="{color}" stroke-opacity="0.45"/>')
+    for x, y, title, judge, i1, l1, i2, l2, color in cells:
+        col1 = "#dde1ea" if i1 == "✓" else "#f0b429"
+        col2 = "#dde1ea" if i2 == "✓" else "#f0b429"
+        parts.append(f'<rect x="{x}" y="{y}" width="320" height="162" rx="12" fill="{color}" opacity="0.07" stroke="{color}" stroke-opacity="0.45"/>')
         parts.append(f'<text x="{x + 16}" y="{y + 30}" fill="{color}" font-size="13.5" font-weight="700" font-family="-apple-system,sans-serif">{title}</text>')
-        parts.append(f'<text x="{x + 16}" y="{y + 56}" fill="#a8b0c0" font-size="11" font-family="Menlo,monospace">{judge}</text>')
-        parts.append(f'<text x="{x + 16}" y="{y + 92}" fill="#dde1ea" font-size="11.5" font-family="-apple-system,sans-serif">✓ {win}</text>')
-        parts.append(f'<text x="{x + 16}" y="{y + 122}" fill="#f0b429" font-size="11.5" font-family="-apple-system,sans-serif">⚠ {warn}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 56}" fill="#a8b0c0" font-size="10.5" font-family="-apple-system,sans-serif">{judge}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 94}" fill="{col1}" font-size="11.5" font-family="-apple-system,sans-serif">{i1} {l1}</text>')
+        parts.append(f'<text x="{x + 16}" y="{y + 126}" fill="{col2}" font-size="11.5" font-family="-apple-system,sans-serif">{i2} {l2}</text>')
     return f"""<figure>
-<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img">
+<svg viewBox="0 0 700 466" xmlns="http://www.w3.org/2000/svg" role="img">
   <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="58" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{t['sub']}</text>
+  <text x="24" y="78" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{t['leg']}</text>
   {''.join(parts)}
 </svg>
 <figcaption>{t['cap']}</figcaption>
@@ -894,16 +910,16 @@ def fig_mo_map(lang: str) -> str:
 def fig_mo_seats(lang: str) -> str:
     """The three seats an LLM can take in a verification chain, with verdicts."""
     t = {
-        "zh": dict(title="同一个 LLM,三把椅子,三种成色",
-                   s1t="生成器席", s1d="产测试输入 / fuzz 探针", s1e="OSS-Fuzz 26 漏洞 · Meta 采纳 73%", s1v="增益有硬数字",
-                   s2t="提议者席", s2d="起草规约 / 规则 / 关系,过独立筛", s2e="Argus 证明器把关:误报 0/20", s2v="真增益,筛余负担不消失",
-                   s3t="裁判席", s3d="直接判对错 / 分诊 / 打分", s3e="TOGA 复测 0.38% · PrimeVul 3.09%", s3v="独立复测系统性缩水",
-                   cap="示意:判据不是「用没用 LLM」,是裁决权在谁手里——判决全在独立机制(左)到判决就是 LLM 本身(右)"),
-        "en": dict(title="One LLM, three seats, three grades",
-                   s1t="Generator seat", s1d="produces test inputs / fuzz probes", s1e="OSS-Fuzz 26 vulns · Meta 73% accepted", s1v="hard-numbered gains",
-                   s2t="Proposer seat", s2d="drafts specs/rules/relations, filtered", s2e="Argus behind prover: 0/20 FPs", s2v="real gains, residual burden stays",
-                   s3t="Judge seat", s3d="rules directly / triages / scores", s3e="TOGA re-test 0.38% · PrimeVul 3.09%", s3v="shrinks under re-testing",
-                   cap="Schematic: the criterion is not whether an LLM is used, but who holds adjudication — from fully independent mechanisms (left) to the LLM itself being the verdict (right)"),
+        "zh": dict(title="同一个 AI,三把椅子,三种成色",
+                   s1t="干活的(生成器)", s1d="产测试输入 / fuzz 探针,判决全在机器闸", s1e="挖出 26 个真漏洞 · 采纳率 73%", s1v="增益有硬数字",
+                   s2t="起草的(提议者)", s2d="起草规则 / 规约,先过独立筛再上岗", s2e="证明器把关后:误报 0/20", s2v="真增益,筛完人工不省",
+                   s3t="当裁判的", s3d="直接判对错 / 分诊 / 打分", s3e="独立复测:精度 0.38% · F1 3%", s3v="复测后系统性缩水",
+                   cap="示意:判据不是「用没用 AI」,是裁决权在谁手里——判决全在独立机制(左)到判决就是 AI 本身(右);数字详见正文"),
+        "en": dict(title="One AI, three seats, three grades",
+                   s1t="Worker (generator)", s1d="makes test inputs / probes; machines judge", s1e="26 real vulns · 73% accepted", s1v="hard-numbered gains",
+                   s2t="Drafter (proposer)", s2d="drafts rules / specs, filtered before duty", s2e="behind a prover: 0/20 FPs", s2v="real gains, human toll stays",
+                   s3t="Judge", s3d="rules directly / triages / scores", s3e="re-tested: 0.38% precision · 3% F1", s3v="shrinks under re-testing",
+                   cap="Schematic: the criterion is not whether AI is used, but who holds adjudication — from fully independent mechanisms (left) to the AI itself being the verdict (right); numbers detailed in the essay"),
     }[lang]
     seats = [
         (24, t['s1t'], t['s1d'], t['s1e'], t['s1v'], "#52b788"),
@@ -934,14 +950,14 @@ def fig_mo_shrink(lang: str) -> str:
                    r1="漏洞检测 F1:旧基准 BigVul → 去污染 PrimeVul", r1a="68.26%", r1b="3.09%",
                    r2="Semgrep 分诊一致率:头条 → 误报侧", r2a="96%", r2b="41%",
                    r3="LLM 测试覆盖率:旧基准 → 未污染 ULT", r3a="92.18%", r3b="45.10%",
-                   r4="TOGA 断言:原评测 → 修正泄漏后精度", r4a="声称 30 个独家 bug", r4b="0.38%",
+                   r4="AI 断言工具 TOGA:原评测 → 修正评测漏洞后的精度", r4a="声称 30 个独家 bug", r4b="0.38%",
                    la="声称 / 旧口径", lb="独立复测",
                    cap="示意:四组各自口径不同、不可互比,只看各组内的缩水方向(条长为示意;PrimeVul/ULT/TOGA 为独立学术复测,Semgrep 为同一博客的头条 vs 细则)"),
         "en": dict(title="LLM in the judge seat: claimed vs independently re-tested",
                    r1="Vuln-detection F1: old BigVul → de-leaked PrimeVul", r1a="68.26%", r1b="3.09%",
                    r2="Semgrep triage agreement: headline → FP side", r2a="96%", r2b="41%",
                    r3="LLM test coverage: old bench → uncontaminated ULT", r3a="92.18%", r3b="45.10%",
-                   r4="TOGA assertions: original eval → post-leak-fix precision", r4a="claimed 30 exclusive bugs", r4b="0.38%",
+                   r4="AI assertion tool TOGA: original eval → precision after fixing the eval leak", r4a="claimed 30 exclusive bugs", r4b="0.38%",
                    la="claimed / old scope", lb="independent re-test",
                    cap="Schematic: four pairs with four different metrics — compare only the within-pair shrink direction (bar lengths illustrative; PrimeVul/ULT/TOGA are independent academic re-tests, Semgrep is headline vs fine print of one blog post)"),
     }[lang]
@@ -1054,10 +1070,8 @@ FIGURES = {
         ("en", "10. The seating chart", fig_mo_seats, "end"),
     ],
     "machine-oracles-plain": [
-        ("zh", "一个四十年的老问题", fig_mo_map, "end"),
-        ("en", "A forty-year-old problem", fig_mo_map, "end"),
-        ("zh", "裁判最铁面的地方", fig_mo_seats, "end"),
-        ("en", "Where the judge is most incorruptible", fig_mo_seats, "end"),
+        ("zh", "一个四十年的老问题", fig_mo_seats, "end"),
+        ("en", "A forty-year-old problem", fig_mo_seats, "end"),
         ("zh", "AI 一坐上裁判席", fig_mo_shrink, "end"),
         ("en", "The moment AI takes the bench", fig_mo_shrink, "end"),
         ("zh", "同一种 AI 产出", fig_mo_curl, "end"),
