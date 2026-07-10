@@ -1650,15 +1650,6 @@ INDEX_I18N = {
 
 # slug, date, title_zh, title_en, desc_zh, desc_en, stats_zh, stats_en, tags[(cls, zh, en)]
 INDEX_ENTRIES = [
-    ("machine-oracles", "2026-07",
-     "机器裁判全景:LLM 能把软件验证的 oracle 做大多少?",
-     "The Machine-Judge Atlas: How Much Can LLMs Scale Software's Oracles?",
-     "同一种 AI,接崩溃检测器产出二十年 CVE,扔给人类分诊却是 slop 洪水——差别只在裁判是谁。按软件验证的裁判家族逐格盘点,核查每格「LLM 增益」的正反证据。",
-     "The same AI yields a twenty-year CVE plugged into a crash detector and a slop flood dumped on human triage — the only difference is who judges. A cell-by-cell audit of software's oracle families, checking the evidence for and against each cell's 'LLM gain'.",
-     "87 票对抗验证 · 11 个可检验主张",
-     "87 adversarial votes · 11 testable claims",
-     [("t1", "验证不对称", "Verification asymmetry"), ("t2", "test oracle", "Test oracles"), ("t3", "形式验证", "Formal verification"),
-      ("t4", "fuzzing/差分", "Fuzzing / differencing"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
     ("ai-native", "2026-07",
      "传统软件组织的 AI-native 转型",
      "The AI-Native Transformation of Software Organizations",
@@ -1704,6 +1695,15 @@ INDEX_ENTRIES = [
      "72 adversarial votes · 12 testable claims",
      [("t1", "学习科学", "Learning science"), ("t2", "meta 分析", "Meta-analyses"), ("t3", "刻意练习之战", "Deliberate practice"),
       ("t4", "学习风格神话", "Learning styles"), ("t5", "主动学习", "Active learning")]),
+    ("machine-oracles", "2026-07",
+     "机器裁判全景:LLM 能把软件验证的 oracle 做大多少?",
+     "The Machine-Judge Atlas: How Much Can LLMs Scale Software's Oracles?",
+     "同一种 AI,接崩溃检测器产出二十年 CVE,扔给人类分诊却是 slop 洪水——差别只在裁判是谁。按软件验证的裁判家族逐格盘点,核查每格「LLM 增益」的正反证据。",
+     "The same AI yields a twenty-year CVE plugged into a crash detector and a slop flood dumped on human triage — the only difference is who judges. A cell-by-cell audit of software's oracle families, checking the evidence for and against each cell's 'LLM gain'.",
+     "87 票对抗验证 · 11 个可检验主张",
+     "87 adversarial votes · 11 testable claims",
+     [("t1", "验证不对称", "Verification asymmetry"), ("t2", "test oracle", "Test oracles"), ("t3", "形式验证", "Formal verification"),
+      ("t4", "fuzzing/差分", "Fuzzing / differencing"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
 ]
 
 
