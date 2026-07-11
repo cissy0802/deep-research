@@ -1056,7 +1056,243 @@ def fig_mo_curl(lang: str) -> str:
 </figure>"""
 
 
+def fig_sp_life(lang: str) -> str:
+    """Timeline: the 70% number circulating (top) vs corrections/debunks (bottom)."""
+    t = {
+        "zh": dict(title="「70%」的一生:上轨在流通,下轨在辟谣",
+                   leg_a="● 上轨:数字被引用/强化", leg_b="● 下轨:收回与验尸(几乎无人引用)",
+                   t1="1993:『非科学估计』出生,只限流程再造", t2="2000:升级为『残酷的事实』,无出处",
+                   t3="2008-09:Kotter『我估计』+ 麦肯锡发明出处", t4="2024:宿主换成 AI 转型",
+                   b1="1995:作者收回,『不存在固有失败率』", b2="2011:Hughes 验尸,『无有效可靠实证』",
+                   cap="示意:数字每次变异都更响亮(上轨),两次纠偏几乎无人引用(下轨)——正文第 1 节是本图的逐条展开"),
+        "en": dict(title="The life of '70%': circulation above, debunking below",
+                   leg_a="● top: the number cited / strengthened", leg_b="● bottom: retraction &amp; autopsy (rarely cited)",
+                   t1="1993: born 'unscientific', reengineering only", t2="2000: upgraded to 'brutal fact', unsourced",
+                   t3="2008-09: Kotter 'I estimate' + McKinsey invents source", t4="2024: new host, AI transformation",
+                   b1="1995: authors retract, 'no inherent failure rate'", b2="2011: Hughes autopsy, 'no valid evidence'",
+                   cap="Schematic: every mutation got louder (top track) while both corrections went uncited (bottom) — section 1 unpacks each dot"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="52" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">{t['leg_a']}</text>
+  <text x="24" y="304" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['leg_b']}</text>
+  <line x1="40" y1="165" x2="660" y2="165" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="52" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">1993</text>
+  <text x="330" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2009</text>
+  <text x="620" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2026</text>
+
+  <circle cx="70" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="70" y1="160" x2="70" y2="106" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="46" y="100" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">{t['t1']}</text>
+
+  <circle cx="200" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="200" y1="160" x2="200" y2="70" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="176" y="64" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">{t['t2']}</text>
+
+  <circle cx="352" cy="165" r="5" fill="#7b61ff"/>
+  <line x1="352" y1="160" x2="352" y2="128" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="328" y="122" fill="#a29bfe" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['t3']}</text>
+
+  <circle cx="612" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="612" y1="160" x2="612" y2="92" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="688" y="86" fill="#4cc9f0" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">{t['t4']}</text>
+
+  <circle cx="115" cy="165" r="5" fill="#ff6ec4"/>
+  <line x1="115" y1="170" x2="115" y2="212" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="60" y="228" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['b1']}</text>
+
+  <circle cx="445" cy="165" r="5" fill="#ff6ec4"/>
+  <line x1="445" y1="170" x2="445" y2="248" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="380" y="264" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['b2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sp_gauge(lang: str) -> str:
+    """Two stacked bars: same self-reported data, packaged as 70%/88% failure."""
+    t = {
+        "zh": dict(title="定义机器:同一批数据,两种成绩单",
+                   h1="BCG 2020:数字化转型(825 名高管自评)", s1a="30% 达标", s1b="44% 有价值但未达标", s1c="26% 价值有限",
+                   br1="→ 打包卖出:『70% fall short』",
+                   h2="Bain 2024:企业转型(400+ 名高管自评)", s2a="12%", s2b="约 75% 完成过半、未达最初雄心", s2c="~13%",
+                   br2="→ 打包卖出:『88% 未达雄心』(同一批数据:约 87% 至少完成一半)",
+                   cap="示意:及格线设在「完美」,失败率想多高有多高;分段为各报告自己的拆分,正文 2.4 节逐条展开"),
+        "en": dict(title="The definition machine: one dataset, two report cards",
+                   h1="BCG 2020: digital transformations (825 executives, self-graded)", s1a="30% met targets", s1b="44% created value, missed targets", s1c="26% limited value",
+                   br1="→ packaged as: '70% fall short'",
+                   h2="Bain 2024: business transformations (400+ executives, self-graded)", s2a="12%", s2b="~75% got at least halfway, short of full ambition", s2c="~13%",
+                   br2="→ packaged as: '88% fail' (same data: ~87% achieved at least half)",
+                   cap="Schematic: set the pass bar at 'perfect' and the failure rate is whatever you need; segments are each report's own breakdown — section 2.4 unpacks both"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+
+  <text x="60" y="72" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{t['h1']}</text>
+  <rect x="60" y="82" width="168" height="24" fill="#52b788" opacity="0.85"/>
+  <rect x="228" y="82" width="246" height="24" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="474" y="82" width="146" height="24" fill="#e8794b" opacity="0.85"/>
+  <text x="66" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s1a']}</text>
+  <text x="234" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s1b']}</text>
+  <text x="480" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s1c']}</text>
+  <path d="M 228 112 L 228 120 L 620 120 L 620 112" stroke="#ff6ec4" stroke-width="1.5" fill="none"/>
+  <text x="424" y="136" fill="#ff6ec4" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['br1']}</text>
+
+  <text x="60" y="182" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{t['h2']}</text>
+  <rect x="60" y="192" width="67" height="24" fill="#52b788" opacity="0.85"/>
+  <rect x="127" y="192" width="420" height="24" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="547" y="192" width="73" height="24" fill="#e8794b" opacity="0.85"/>
+  <text x="66" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s2a']}</text>
+  <text x="133" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s2b']}</text>
+  <text x="553" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">{t['s2c']}</text>
+  <path d="M 127 222 L 127 230 L 620 230 L 620 222" stroke="#ff6ec4" stroke-width="1.5" fill="none"/>
+  <text x="373" y="248" fill="#ff6ec4" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">{t['br2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sp_fattail(lang: str) -> str:
+    """Bar rows: mean overrun vs fat-tail overruns (Flyvbjerg)."""
+    t = {
+        "zh": dict(title="实测的危险是肥尾,不是「多数失败」(Flyvbjerg 项目库)",
+                   r1="IT 项目平均成本超支(约 1.6 万项目库)", v1="+73%",
+                   r2="六分之一『黑天鹅』项目的平均超支", v2="+200%",
+                   r3="超支>50% 的那 18% IT 项目的平均超支", v3="+447%",
+                   cap="示意:均值可控、尾部致命——以决策时点为基线、实际价格计;bar 长度按数值等比,正文 2.2 节含口径与争议"),
+        "en": dict(title="The measured danger is the fat tail, not 'most fail' (Flyvbjerg database)",
+                   r1="Mean IT cost overrun (~16,000-project database)", v1="+73%",
+                   r2="Mean overrun of the 1-in-6 'Black Swan' projects", v2="+200%",
+                   r3="Mean overrun of the 18% of IT projects >50% over", v3="+447%",
+                   cap="Schematic: the mean is survivable, the tail is lethal — decision-to-build baseline, real terms; bars proportional to values, caveats in section 2.2"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 42, "#4cc9f0"),
+        (t['r2'], t['v2'], 116, "#ff6ec4"),
+        (t['r3'], t['v3'], 260, "#e8794b"),
+    ]
+    parts = []
+    y = 70
+    for label, val, w, color in rows:
+        parts.append(f'<text x="360" y="{y + 15}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="372" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{372 + w + 10}" y="{y + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="372" y1="58" x2="372" y2="220" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sp_archive(lang: str) -> str:
+    """Two-column comparison of the Agile vs DevOps archives."""
+    t = {
+        "zh": dict(title="两轮转型留下的档案,对照读",
+                   ha="Agile 档案(2001-2025)", hb="DevOps 档案(2014-2025)",
+                   r1="测量方式", a1="情绪问卷,厂商自办、样本自选", b1="结果指标(四键),可用自家数据复算",
+                   r2="档案要害", a2="『文化/领导层』障碍连续十七年居首", b2="2022 精英集群消失,年际不可比",
+                   r3="框架与证据", a3="SAFe:九年零项独立受控研究", b3="能力→绩效模型无独立复现",
+                   r4="具名退场", a4="Capital One 裁撤约 1,100 敏捷岗", b4="GE:150 亿美元目标 → 12 亿实际收入",
+                   cap="示意:一波比一波测得认真,但都测不出「行业失败率」;正文第 3、4 节逐格展开"),
+        "en": dict(title="Two waves, two archives, side by side",
+                   ha="The Agile archive (2001-2025)", hb="The DevOps archive (2014-2025)",
+                   r1="Method", a1="Sentiment surveys, vendor-run, self-selected", b1="Outcome metrics (four keys), recomputable",
+                   r2="The tell", a2="'Culture/leadership' top challenge for 17 years", b2="2022: elite cluster vanished; years not comparable",
+                   r3="Frameworks", a3="SAFe: zero independent controlled studies in 9 yrs", b3="Path model never independently replicated",
+                   r4="Retreat", a4="Capital One cut ~1,100 agile roles", b4="GE: $15B target → $1.2B revenue at carve-out",
+                   cap="Schematic: each wave measured harder than the last, and neither could produce an industry failure rate — sections 3-4 unpack each cell"),
+    }[lang]
+    rows = [(t['r1'], t['a1'], t['b1']), (t['r2'], t['a2'], t['b2']), (t['r3'], t['a3'], t['b3']), (t['r4'], t['a4'], t['b4'])]
+    parts = []
+    y = 100
+    for rl, a, b in rows:
+        parts.append(f'<text x="24" y="{y}" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">{rl}</text>')
+        parts.append(f'<text x="100" y="{y}" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">{a}</text>')
+        parts.append(f'<text x="400" y="{y}" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">{b}</text>')
+        parts.append(f'<line x1="24" y1="{y + 16}" x2="676" y2="{y + 16}" stroke="#2a3040" stroke-width="1"/>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="100" y="64" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  <text x="400" y="64" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  <line x1="392" y1="48" x2="392" y2="290" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sp_transfer(lang: str) -> str:
+    """Two panels: mechanisms replaying in AI adoption vs structural breaks."""
+    t = {
+        "zh": dict(title="上一轮剧本 vs 这一轮现实",
+                   ha="在重演的机制", hb="断裂的条件",
+                   a1="跟风投资:64% 的 CEO 自认先投钱后理解", a2="指标考核:Duolingo 12 个月走完强制→撤销",
+                   a3="仪式采纳:仅 21% 重设计过工作流", a4="认证工业:AI 认证升至近三成,约 20 倍",
+                   b1="方向倒转:78% 自带工具、57% 隐瞒使用", b2="工具在变强:能力约每 7 个月翻倍",
+                   b3="按席位收费的工具层(咨询层照涨,算半条)",
+                   cap="示意:组织机制在原样重演(左),但三个结构条件是上一轮档案里没有的(右)——正文第 7 节逐条展开"),
+        "en": dict(title="Last wave's script vs this wave's reality",
+                   ha="Mechanisms replaying", hb="Conditions that broke",
+                   a1="Herd: 64% of CEOs invest before seeing value", a2="Mandates: Duolingo, mandate→retreat in 12 months",
+                   a3="Ritual: only 21% redesigned workflows", a4="Cert boom: AI certs near 30%, ~20x pre-ChatGPT",
+                   b1="Inverted: 78% BYOAI, 57% hide their use", b2="Capability doubles ~every 7 months",
+                   b3="Seat-based SaaS layer (half a break)",
+                   cap="Schematic: the organizational machinery replays (left) while three structural conditions have no precedent in the last archive (right) — section 7 unpacks each"),
+    }[lang]
+    la = [t['a1'], t['a2'], t['a3'], t['a4']]
+    lb = [t['b1'], t['b2'], t['b3']]
+    parts = []
+    y = 96
+    for item in la:
+        parts.append(f'<circle cx="34" cy="{y - 4}" r="3" fill="#ff6ec4"/>')
+        parts.append(f'<text x="46" y="{y}" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">{item}</text>')
+        y += 44
+    y = 96
+    for item in lb:
+        parts.append(f'<circle cx="374" cy="{y - 4}" r="3" fill="#4cc9f0"/>')
+        parts.append(f'<text x="386" y="{y}" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">{item}</text>')
+        y += 44
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="64" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  <text x="364" y="64" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  <line x1="352" y1="48" x2="352" y2="270" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "seventy-percent-failure-deep": [
+        ("zh", "1. ", fig_sp_life, "end"),
+        ("en", "1. ", fig_sp_life, "end"),
+        ("zh", "2.2", fig_sp_fattail, "end"),
+        ("en", "2.2", fig_sp_fattail, "end"),
+        ("zh", "2.4", fig_sp_gauge, "end"),
+        ("en", "2.4", fig_sp_gauge, "end"),
+        ("zh", "4. ", fig_sp_archive, "end"),
+        ("en", "4. ", fig_sp_archive, "end"),
+        ("zh", "7.3", fig_sp_transfer, "end"),
+        ("en", "7.3", fig_sp_transfer, "end"),
+    ],
+    "seventy-percent-failure-plain": [
+        ("zh", "一个数字的一生", fig_sp_life, "end"),
+        ("en", "The life of a number", fig_sp_life, "end"),
+        ("zh", "那真实的失败率是多少", fig_sp_gauge, "end"),
+        ("en", "So what is the real failure rate", fig_sp_gauge, "end"),
+        ("zh", "AI 转型:剧本重演了多少", fig_sp_transfer, "end"),
+        ("en", "AI transformation: how much of the script", fig_sp_transfer, "end"),
+    ],
     "machine-oracles-deep": [
         ("zh", "1. 读图说明", fig_mo_map, "end"),
         ("en", "1. How to read the map", fig_mo_map, "end"),
@@ -1297,6 +1533,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("seventy-percent-failure-deep", "zh", "deep",
+     "「70% 转型失败」考古:上一轮转型的尸检报告,能预测 AI-native 吗?(深入版)",
+     "追溯「70%」的引用链原文、复算失败率测量、盘点 Agile/DevOps 档案并评估其对 AI-native 转型的预测力;30 组承重论断 × 3 票对抗验证。",
+     "2026-07"),
+    ("seventy-percent-failure-deep", "en", "deep",
+     "The '70% of Transformations Fail' Autopsy: Can the Last Wave's Post-Mortems Predict AI-Native? (Deep Dive)",
+     "Tracing the '70%' citation chain to its sources, re-reading the measured failure-rate record, and auditing the Agile/DevOps archives for what they predict about AI-native transformation; 30 load-bearing claim groups adversarially verified.",
+     "2026-07"),
+    ("seventy-percent-failure-plain", "zh", "plain",
+     "「70% 的转型都会失败」?这个数字是编的(易读版)",
+     "先吓你再卖你解药的「70% 会失败」,出生证上写着「非科学」。易读版:主线论证 + 直白语言。",
+     "2026-07"),
+    ("seventy-percent-failure-plain", "en", "plain",
+     "'70% of Transformations Fail'? That Number Was Made Up (Plain-Language Edition)",
+     "The scare-then-sell '70% fail' was born with 'unscientific' on its birth certificate. The accessible edition.",
+     "2026-07"),
     ("machine-oracles-deep", "zh", "deep",
      "机器裁判全景:LLM 能把软件验证的 oracle 做大多少?(深入版)",
      "按 Barr 分类法逐格盘点软件验证的裁判家族,核查每格的「LLM 增益」——脊柱主张:LLM 坐生成/提议席则增益有硬数字,坐裁判席则独立复测系统性缩水。29 组承重论断 × 3 票对抗验证。",
@@ -1403,6 +1655,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("seventy-percent-failure-deep", "zh"):
+        "「70% 的转型会失败」有精确的出生记录:1993 年以「非科学估计」出生、1995 年被作者收回、2000 年被改写成无出处的「残酷事实」、2009 年被麦肯锡发明出「Kotter 1995 研究」这个不存在的出处;2011 年学术验尸确认无实证基础,数字照样活进 AI 时代。真实基率的诚实答案是「未定」:已发表估计横跨 7-90%,失败率是及格线的函数,实测分布是肥尾而非多数失败。Agile/DevOps 档案显示组织机制正在 AI 采纳中原样重演(64% 的 CEO 先投资后理解、仅 21% 重设计工作流、Duolingo 跑完强制→撤销全周期),但影子式自下而上采纳与每 7 个月翻倍的工具能力,是上一轮档案里没有的变量。十一个可检验主张收尾。",
+    ("seventy-percent-failure-deep", "en"):
+        "'70% of transformations fail' has a precise birth record: born in 1993 as an 'unscientific estimate', retracted by its authors in 1995, rewritten in 2000 as an unsourced 'brutal fact', and gifted a fabricated pedigree in 2009 when McKinsey cited 'research Kotter published in 1995' that does not exist; a 2011 academic autopsy found no valid empirical basis, and the number lived on into the AI era anyway. The honest measured answer is 'undetermined': published estimates span 7-90%, the failure rate is a function of where you set the pass bar, and the measured distribution is fat-tailed rather than majority-failure. The Agile/DevOps archives show the organizational machinery replaying in AI adoption (64% of CEOs invest before understanding value, only 21% redesigned workflows, Duolingo ran the full mandate-to-retreat cycle), while shadow bottom-up adoption and capability doubling every ~7 months are variables the last archive never saw. Eleven testable claims close the essay.",
+    ("seventy-percent-failure-plain", "zh"):
+        "「70% 的转型会失败」没人测出来过:它以「非科学估计」出生,被作者收回、被升级成「事实」、被安上假出处,2011 年被学术验尸后照样流通到 AI 时代。真实失败率取决于及格线怎么画——同一批数据既能是「88% 失败」也能是「87% 至少干成一半」;实测的危险是少数惨败的肥尾,不是多数失败。上一轮敏捷/DevOps 的教训:买实践、别买仪式;这一轮的新变量:员工在藏着用 AI,工具自己在变强。",
+    ("seventy-percent-failure-plain", "en"):
+        "Nobody ever measured '70% of transformations fail': it was born an 'unscientific estimate', retracted by its authors, upgraded to a 'fact', given a fake pedigree, academically debunked in 2011 — and kept circulating right into the AI era. The real failure rate depends on where you draw the pass line: the same data can read '88% fail' or '87% got at least halfway'; the measured danger is a fat tail of disasters, not majority failure. The last wave's lesson: buy practices, not rituals. This wave's new variables: employees using AI in secret, and tools that keep getting stronger.",
     ("machine-oracles-deep", "zh"):
         "把软件验证的裁判按 Barr 四分类逐格摊开:决定「LLM 增益」真伪的不是格子,是 LLM 坐的椅子。生成器席(判决全在崩溃/差分/mutation/人审)增益有生产级硬数字——OSS-Fuzz 26 漏洞、ShQveL 55 bug、Dr.Fix 86% 采纳;提议者席(起草规约/规则,过独立筛)增益真实但筛余负担不消失;裁判席声称的增益在独立复测中系统性缩水——TOGA 0.38%、PrimeVul 3.09%、Argus 消融 20/20 误报。三个软化条款:投票增益衰减非归零、人类裁判洪水受激励调制可逆转、机器闸必要非充分。十一个可检验主张收尾。",
     ("machine-oracles-deep", "en"):
@@ -1454,6 +1714,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("seventy-percent-failure-deep", "zh"): [
+        ("c1", "90 票对抗验证 · 30/30 挺过"), ("c2", "考古:1993 非科学估计 → 2009 假出处"), ("c3", "基率:已发表估计 7-90%"), ("c4", "11 个可检验主张"),
+    ],
+    ("seventy-percent-failure-deep", "en"): [
+        ("c1", "90 votes · 30/30 survived"), ("c2", "1993 'unscientific' → 2009 invented source"), ("c3", "base rate: estimates span 7-90%"), ("c4", "11 testable claims"),
+    ],
+    ("seventy-percent-failure-plain", "zh"): [
+        ("c1", "Kotter 1995:原文无 70%"), ("c2", "同一批数据:88% 失败 或 87% 过半"), ("c3", "仅 21% 重设计工作流"), ("c4", "78% 员工自带 AI 工具"),
+    ],
+    ("seventy-percent-failure-plain", "en"): [
+        ("c1", "Kotter 1995: no 70% in the text"), ("c2", "same data: 88% fail or 87% halfway"), ("c3", "only 21% redesigned workflows"), ("c4", "78% bring their own AI"),
+    ],
     ("machine-oracles-deep", "zh"): [
         ("c1", "87 票对抗验证 · 29/29 挺过"), ("c2", "裁判席:TOGA 0.38% · PrimeVul 3.09%"), ("c3", "生成器席:OSS-Fuzz 26 漏洞"), ("c4", "11 个可检验主张"),
     ],
@@ -1718,6 +1990,15 @@ INDEX_ENTRIES = [
      "87 adversarial votes · 11 testable claims",
      [("t1", "验证不对称", "Verification asymmetry"), ("t2", "test oracle", "Test oracles"), ("t3", "形式验证", "Formal verification"),
       ("t4", "fuzzing/差分", "Fuzzing / differencing"), ("t5", "LLM 当裁判", "LLM-as-judge")]),
+    ("seventy-percent-failure", "2026-07",
+     "「70% 转型失败」考古:上一轮的尸检报告能预测 AI 吗?",
+     "The '70% of Transformations Fail' Autopsy: Does the Last Wave Predict AI?",
+     "被整个变革工业当了三十年招牌的「70% 会失败」,是谁测出来的?——没有人。追溯这个数字的引用链原文,复读真实失败率的测量记录,再用 Agile/DevOps 留下的完整档案,评估上一轮转型对 AI-native 转型的预测力。",
+     "The transformation industry's thirty-year calling card — '70% fail' — was measured by whom? Nobody, it turns out. A citation autopsy of the number, a re-reading of the measured failure-rate record, and an audit of the Agile/DevOps archives for what they do and don't predict about AI-native transformation.",
+     "90 票对抗验证 · 11 个可检验主张",
+     "90 adversarial votes · 11 testable claims",
+     [("t1", "组织变革", "Org change"), ("t2", "僵尸统计", "Zombie statistics"), ("t3", "Agile/DevOps 档案", "Agile/DevOps record"),
+      ("t4", "制度同构", "Institutional isomorphism"), ("t5", "AI 转型", "AI transformation")]),
 ]
 
 

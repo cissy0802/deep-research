@@ -41,15 +41,13 @@
 - 核心口径记录:脊柱=LLM 坐生成/提议席增益有硬数字、坐裁判席独立复测系统性缩水(判据是"坐哪把椅子"而非"用没用 LLM");Argus 消融证明器把关 0/20 vs GPT-5 当裁判 20/20(机制=低错误率×极低底率=误报淹没真报);TOGA 两次独立复测崩到 0.38%/0.3%;PrimeVul 68.26→3.09(去污染);ULT 覆盖 92.18→45.10(污染抬覆盖不抬杀伤);Kitten 无 LLM 反超 Fuzz4All;SQLancer++ 无 LLM 196 bug(difftest 线原设"SQLancer++ 含 LLM 消融"前提被纠正,干净对照改用 ShQveL 同框架/Argus 只换裁判);N-version LLM 复现 z=29.20 但三版本投票 387→131;并发格 LLM 结构性缺席(OSS-Fuzz 主流程无 TSan);curl 两幕剧 <5%→反超 15-16%(激励×工具代际调制)
 - 钩子(ruthless pruning 后保留 3 条):→ 候选池 1 条(autoformalization 规约层危机/"证明⊢陈述≠陈述=意图");→ system-design Day 51《低底率下的告警系统:AI-judge 当信号检测》(backlog,源自 Argus 底率机制)+ Day 52《给混沌工程装一个正确性 oracle》(backlog,对话中现推的差分 checksum oracle 架构);另 1 条仅记运行报告(mutation testing 工业复兴 + competent programmer 假设重检)。撤回 2 条(均与目标站已有 Day 重叠):super-individual《举证责任推回提交侧》撞 Day 54 oracle 盘点;ai-ml《错误趋同/N-version》撞 Day 54 LLM-as-Judge 的 correlated errors。判据是"够格才留",非配额
 
-## 待研究
+### 6. "70% 转型失败"考古:上一轮转型(Agile/DevOps)的尸检报告能预测 AI-native 吗? ✅ 2026-07
+- 页面:`seventy-percent-failure-plain/-deep` × zh/en
+- 底座:7 条调研线、30 组承重论断 × 3 票对抗验证(90 票:30/30 挺过、20 组含口径修正、0 推翻);沿用 #0 已验证口径(DORA 2024/2025 AI 效应量与放大器、METR);研究材料存本地 `~/design/deep-research-runs/seventy-percent-failure/`
+- 核心口径记录:Kotter 1995 无整体失败率、但含"第一步远超 50% 失败"的阶段性观察(不能写成"全文无百分比");Bain 的 68% 系 2018 Soul Searching 口径、2024 版配套口径为"~13% 达成不足半";Gartner 变革意愿 2022 年的 43% 与 38% 均出自 Gartner 自家出版物(非流传错误);Gallup 一线员工频繁使用 AI 为 23%(11% 系日用口径误传);QuantumBlack 约 1,000 人(非 1,700);E&V 的 5.8%→94.2% 为构造的镜像反事实;Coch & French"产量跌 20%"引文实为转述、原文 ~60→~50 件/时且增益约 14%;"Lewin 三步系死后构造"是 Cummings 2016 论点、有对手方(Burnes 2020);GE 2018 为"独立运营但全资持有"的改组且拆分最终未完成
+- 钩子:(收割中,见下次 commit)
 
-### 6. "70% 转型失败"考古:上一轮转型(Agile/DevOps)的尸检报告能预测 AI-native 吗?
-- **一句话**:"70% 变革失败"是流传三十年的僵尸数字吗?Agile/SAFe/DevOps 转型留下的可核查失败记录,对 AI-native 转型的组织困难有多少预测力?
-- **为什么适合**:主研究方向(传统软件组织 AI-native 转型的困难)的组织层核心——800 人规模 org 的真正阻力多在中层激励、变革疲劳、货物崇拜式采纳,而非技术;上一轮大转型留下完整档案,"70%"本身就是对抗验证格式的完美猎物。
-- **理论底座**:组织变革理论(Lewin、Kotter 8 步及其证据基础薄弱的批评)、制度同构(DiMaggio & Powell——为什么组织抄仪式不抄能力)、管理时尚传播(Abrahamson)、变革疲劳文献、DORA 能力模型、Team Topologies。
-- **关键争议/正反**:"70% 失败"数字考古(Hammer & Champy 1993 再造工程起源 → McKinsey/Kotter 复读 → Hughes 2011 JOCM《Do 70 per cent...really fail?》逐条溯源发现无实证基础)vs "失败率确实高"的独立证据;SAFe 大规模采用 vs 从业者/学界批评;State of Agile 自报口径 vs 独立测量;"frozen middle" 中层阻力的实证强度;DevOps 转型成功案例的幸存者偏差。
-- **实证锚点**:Hughes 2011 原文与后续引用链、Standish CHAOS 报告(及其方法学批评)、DORA/State of DevOps 历年报告、具名失败案例的一手复盘、敏捷转型学术综述。
-- **复用指引**:#0 已验证的 DORA amplifier、Conway/Team Topologies、METR 口径直接沿用,不再重验;验证票集中在"70% 考古链"和转型失败率一手数字上。
+## 待研究
 
 ### 7. 自动化的反讽:40 年人因工程证据对"人握终审"的预测
 - **一句话**:自动化越好,人这个终审席位退化越快——Bainbridge 1983 起的人因工程文献,对"human-in-the-loop"AI 工作流是判词还是可工程化的约束?

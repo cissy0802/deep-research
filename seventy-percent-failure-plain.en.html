@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>'70% of Transformations Fail'? That Number Was Made Up (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="The scare-then-sell '70% fail' was born with 'unscientific' on its birth certificate. The accessible edition.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="seventy-percent-failure-plain.html">中文</a><a href="seventy-percent-failure-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>'70% of Transformations Fail'? That Number Was Made Up (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="seventy-percent-failure-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">Nobody ever measured '70% of transformations fail': it was born an 'unscientific estimate', retracted by its authors, upgraded to a 'fact', given a fake pedigree, academically debunked in 2011 — and kept circulating right into the AI era. The real failure rate depends on where you draw the pass line: the same data can read '88% fail' or '87% got at least halfway'; the measured danger is a fat tail of disasters, not majority failure. The last wave's lesson: buy practices, not rituals. This wave's new variables: employees using AI in secret, and tools that keep getting stronger.</div></div>
+<div class="chips"><span class="chip c1">Kotter 1995: no 70% in the text</span><span class="chip c2">same data: 88% fail or 87% halfway</span><span class="chip c3">only 21% redesigned workflows</span><span class="chip c4">78% bring their own AI</span></div>
+<blockquote><p>This is the condensed edition of the deep dive of the same name. All key figures were independently verified; for the full argument and sources, read the deep dive.</p></blockquote>
+<h2>A number that's been a calling card for thirty years</h2>
+<p>You've probably heard the line: "Research shows that 70% of transformations fail." It shows up in management books, in consulting proposals, in leaders' rally-the-troops speeches. Now it has a new job: "70% of <strong>AI</strong> transformations fail — but we know how to make you one of the 30%."</p>
+<p>Scare you first, then sell you the cure. The formula hasn't changed in thirty years. This article does one simple thing: it goes and checks who actually measured that number.</p>
+<p>Here's the answer up front: <strong>nobody ever did.</strong> What follows is its résumé.</p>
+<h2>The life of a number</h2>
+<p><strong>1993: it is born, with "unscientific" written on the birth certificate.</strong> The two authors of <em>Reengineering the Corporation</em> estimated that among companies attempting process reengineering, 50% to 70% "do not achieve the dramatic results they intended." They said so themselves: this was an "unscientific estimate," it covered process reengineering only, and "failure" meant "fell short of the ambitious goals they had set" — not "made a mess of things."</p>
+<p><strong>1995: the author takes it back in person.</strong> Lead author Hammer wrote, specifically, that this descriptive observation had been widely twisted into a law — reengineering has no inherent success rate or failure rate. Almost nobody has ever cited the retraction. The number lived on; the disclaimer died.</p>
+<p><strong>2000: it mutates.</strong> Two Harvard professors wrote in <em>Harvard Business Review</em>: "The brutal fact is that about 70% of all change initiatives fail." No footnote, no study, no source. "Process reengineering" had quietly become "all change," and an "unscientific estimate" had been promoted to "brutal fact."</p>
+<p><strong>2008-2009: it acquires a fake pedigree.</strong> A McKinsey article wrote: "In 1995, John Kotter published research that revealed only 30 percent of change programs are successful." We checked Kotter's 1995 article from start to finish: <strong>the number is not in it — there is no overall failure rate of any kind.</strong> All he offered was an impression: most change efforts land somewhere between great success and utter failure, "with a distinct tilt toward the lower end of the scale." The "published research that revealed" was invented out of thin air. (Kotter himself first said 70% in 2008, in his own book — prefaced with "I estimate.")</p>
+<p><strong>2011: scholars perform the autopsy.</strong> The British scholar Hughes traced every published 70% claim back to its source. The conclusion: <strong>no valid and reliable empirical evidence supports the claim.</strong> That is a formal, peer-reviewed verdict.</p>
+<p><strong>After 2011: it becomes a zombie.</strong> McKinsey kept writing "70% of change programs fail" in 2015, with no source; in 2021 it went ahead and cited Kotter's 2008 book as backing — and the "research pedigree" behind Kotter's number was the one McKinsey itself had invented years earlier. The citation chain loops back into a circle. Then, starting in 2024, "70% of AI transformations fail" hit the market in bulk.</p>
+
+<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">The life of '70%': circulation above, debunking below</text>
+  <text x="24" y="52" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">● top: the number cited / strengthened</text>
+  <text x="24" y="304" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">● bottom: retraction &amp; autopsy (rarely cited)</text>
+  <line x1="40" y1="165" x2="660" y2="165" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="52" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">1993</text>
+  <text x="330" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2009</text>
+  <text x="620" y="183" fill="#7c8593" font-size="11" font-family="Menlo,monospace">2026</text>
+
+  <circle cx="70" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="70" y1="160" x2="70" y2="106" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="46" y="100" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">1993: born 'unscientific', reengineering only</text>
+
+  <circle cx="200" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="200" y1="160" x2="200" y2="70" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="176" y="64" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">2000: upgraded to 'brutal fact', unsourced</text>
+
+  <circle cx="352" cy="165" r="5" fill="#7b61ff"/>
+  <line x1="352" y1="160" x2="352" y2="128" stroke="#7b61ff" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="328" y="122" fill="#a29bfe" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">2008-09: Kotter 'I estimate' + McKinsey invents source</text>
+
+  <circle cx="612" cy="165" r="5" fill="#4cc9f0"/>
+  <line x1="612" y1="160" x2="612" y2="92" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="688" y="86" fill="#4cc9f0" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">2024: new host, AI transformation</text>
+
+  <circle cx="115" cy="165" r="5" fill="#ff6ec4"/>
+  <line x1="115" y1="170" x2="115" y2="212" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="60" y="228" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">1995: authors retract, 'no inherent failure rate'</text>
+
+  <circle cx="445" cy="165" r="5" fill="#ff6ec4"/>
+  <line x1="445" y1="170" x2="445" y2="248" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="380" y="264" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">2011: Hughes autopsy, 'no valid evidence'</text>
+</svg>
+<figcaption>Schematic: every mutation got louder (top track) while both corrections went uncited (bottom) — section 1 unpacks each dot</figcaption>
+</figure>
+<h2>So what is the real failure rate?</h2>
+<p>The honest answer comes in three layers.</p>
+<p><strong>Layer one: the most famous "measurement" doesn't survive inspection.</strong> The software industry's "most projects fail" lore comes from Standish's CHAOS reports (1994: only 16% of projects "succeeded"). But its definition of success was on time, on budget, delivering all planned features — hit all three or you lose. Two Dutch researchers redid the math on 1,211 real projects and found the method actually measures how conservatively your company writes its budgets: for the same company, flip the estimating habits and the "success rate" swings from 6% to 94%. Confronted directly, the Standish chairman's answer was that all the data in its reports "should be considered Standish opinion and the reader bears all risk in the use of this opinion."</p>
+<p><strong>Layer two: the people who measured carefully found "a few disasters," not "most fail."</strong> The Oxford scholar Flyvbjerg's database holds more than ten thousand projects. Average overruns are actually manageable (IT projects average 73% over budget, measured from the point of approval); the truly scary part is that <strong>one project in six is a "black swan"</strong> — averaging 200% over budget. It's like a health checkup: most people's numbers are just a bit elevated, and the danger sits with a few — it is not "70% of everyone is critical."</p>
+<p><strong>Layer three: academia's formal answer is "this question has no single answer."</strong> A systematic review gathered every published failure-rate estimate: they run from 7% to 90%. Why so scattered? Because <strong>"failure" is a word you can define however you like.</strong> Two live examples:</p>
+<ul><li>BCG said in 2020 that 70% of digital transformations "fall short of their objectives." Look at its own breakdown: 30% fully hit their targets, <strong>44% created value but missed the targets</strong>, 26% created limited value. That 44% of partial successes got booked as "failures."</li><li>Bain said in 2024 that "88% of business transformations fail to achieve their original ambitions." Ask the same data a different question: only about 13% achieved less than half their goals. <strong>The same companies are simultaneously "88% failed" and "87% got at least halfway there."</strong></li></ul>
+<p>Remember the trick: <strong>set the passing bar at "perfect," and the failure rate can be as high as you want.</strong> The organizations selling transformation services happen to be the same ones holding the power to set the bar.</p>
+
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">The definition machine: one dataset, two report cards</text>
+
+  <text x="60" y="72" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">BCG 2020: digital transformations (825 executives, self-graded)</text>
+  <rect x="60" y="82" width="168" height="24" fill="#52b788" opacity="0.85"/>
+  <rect x="228" y="82" width="246" height="24" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="474" y="82" width="146" height="24" fill="#e8794b" opacity="0.85"/>
+  <text x="66" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">30% met targets</text>
+  <text x="234" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">44% created value, missed targets</text>
+  <text x="480" y="98" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">26% limited value</text>
+  <path d="M 228 112 L 228 120 L 620 120 L 620 112" stroke="#ff6ec4" stroke-width="1.5" fill="none"/>
+  <text x="424" y="136" fill="#ff6ec4" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">→ packaged as: '70% fall short'</text>
+
+  <text x="60" y="182" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">Bain 2024: business transformations (400+ executives, self-graded)</text>
+  <rect x="60" y="192" width="67" height="24" fill="#52b788" opacity="0.85"/>
+  <rect x="127" y="192" width="420" height="24" fill="#4cc9f0" opacity="0.85"/>
+  <rect x="547" y="192" width="73" height="24" fill="#e8794b" opacity="0.85"/>
+  <text x="66" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">12%</text>
+  <text x="133" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">~75% got at least halfway, short of full ambition</text>
+  <text x="553" y="208" fill="#0f1115" font-size="10.5" font-weight="700" font-family="-apple-system,sans-serif">~13%</text>
+  <path d="M 127 222 L 127 230 L 620 230 L 620 222" stroke="#ff6ec4" stroke-width="1.5" fill="none"/>
+  <text x="373" y="248" fill="#ff6ec4" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">→ packaged as: '88% fail' (same data: ~87% achieved at least half)</text>
+</svg>
+<figcaption>Schematic: set the pass bar at 'perfect' and the failure rate is whatever you need; segments are each report's own breakdown — section 2.4 unpacks both</figcaption>
+</figure>
+<h2>What the last round of transformations left in the file</h2>
+<p>Before AI, the software industry had just been through two industry-wide transformations: Agile and DevOps. Their files are the most useful thing we have today.</p>
+<p><strong>Agile's file: a questionnaire filled out for seventeen years.</strong> The industry runs an annual State of Agile survey (vendor-run and self-selected — remember both). The most valuable thing it ever measured: <strong>"culture and leadership" has been named the biggest obstacle for well over a decade running</strong> — a movement that sold itself on culture change, whose own survey says year after year that the culture didn't change. In recent years the survey itself has been ebbing: satisfaction fell from 71% to 59%, the latest edition drew only 349 respondents, and 24% of companies are cutting their agile investment.</p>
+<p><strong>The framework business's evidence vacuum.</strong> SAFe, the best-selling scaling framework, advertises that "Seventy percent of Fortune 100 companies... have certified SAFe professionals" — note: "have employees who passed the exam," not "are using it." In nine years, <strong>not one independent controlled study</strong> has shown it works; the largest independent comparison (about 15,000 people) concluded that which framework you pick makes <strong>almost no practical difference</strong> to team effectiveness — what matters is the team's experience with agile. A 2019 US Air Force memo put it flatly: rigid frameworks like SAFe are strongly discouraged.</p>
+<p><strong>The homework the whole industry copied — the authors say it was made up.</strong> The "Spotify model," imitated by countless companies, was later disowned by Spotify's own agile coach: when they wrote it, they weren't even working that way themselves — it was half vision, half approximation.</p>
+<p><strong>The exits have started too.</strong> In January 2023, Capital One cut about 1,100 agile roles (agile coaches, delivery leads). The official line: the organization had matured, and agile should fold into engineering practice. You can read that as graduation or as layoffs; what's certain is that the full-time agile layer is disappearing.</p>
+<p><strong>To be fair: agile practices themselves may well be good.</strong> A Norwegian study of 196 projects found that projects using agile methods really did turn out better. The failure file belongs to "agile transformation," the organizational ritual — not to iterative delivery, the practice. <strong>Paying for the box and throwing away the pearl inside: that was the last round's biggest lesson.</strong></p>
+<p><strong>DevOps's file: measured the most seriously — and it measured a ceiling.</strong> The DORA reports are a step up from opinion surveys — they measure outcome metrics like deployment frequency and recovery from failure. But it had an accident in 2022: the "elite" cluster, present every prior year, vanished entirely, and the official explanation was an unverified pandemic guess. Its own FAQ admits that each year's clusters are recomputed from that year's different respondents — <strong>year-to-year comparisons don't hold</strong>. The loudest success story collapsed too: GE announced in 2015 that it would build a $15 billion software business, poured in billions of dollars, and when it announced at the end of 2018 that the digital unit would become an independently run but still wholly GE-owned company, annual revenue was $1.2 billion — 8% of the target.</p>
+<p>And one more thing needs saying out loud: nearly every transformation success story you've heard comes from <strong>winners volunteering to get on stage</strong>. The companies that failed don't host talks.</p>
+<h2>The "frozen middle" is a scapegoat</h2>
+<p>Every transformation story has an official villain: middle managers — "the top wants change, the bottom wants change, the middle is frozen solid."</p>
+<p>First, check the pedigree: the line is usually attributed to a General Motors CEO in the 1980s, but <strong>no primary source from the time can be found</strong> — only consulting blogs citing one another. Same species as the "70%."</p>
+<p>Then check the evidence, which mostly points the other way: research finds middle managers' involvement in strategy is <strong>positively correlated</strong> with performance; the common reason change goes sideways is that top leadership pulls back and middle managers are left guessing in an information vacuum — not deliberate resistance; and middle managers do block change — <strong>when the change hurts their interests</strong>. In other words, the middle is a thermometer, not permafrost: the three dials — incentives, trust, participation — all sit upstairs. The largest practitioner survey points the same way: the number-one factor in successful change is "active and visible executive sponsorship," mentioned about three times as often as the runner-up; "engagement with middle managers" ranks seventh.</p>
+<p>One honest aside: even the golden rule that "involve employees and they won't resist" rests on an original experiment with a few dozen participants — and it failed to replicate in another country. It's a rule of thumb, not a law.</p>
+<p>On the employee side, there is one solid number: in 2022 the average employee went through <strong>10</strong> company-level changes; in 2016 it was 2. Change fatigue is real — the last round's ritual abuse has already spent this round's patience in advance.</p>
+<h2>AI transformation: how much of the script is replaying?</h2>
+<p>Hold the file above against the 2024-2026 record of AI adoption: most of the machinery is replaying as-is, and three things are genuinely different.</p>
+<p><strong>Replaying:</strong></p>
+<ul><li><strong>Invest first, think later.</strong> IBM surveyed 2,000 CEOs: 64% admitted they invested for fear of falling behind, before being clear on the value; the CEOs themselves say only about 25% of AI projects have delivered the expected return.</li><li><strong>Push by decree, grade by metric.</strong> Shopify: AI use goes into performance reviews, and before requesting headcount you must prove "AI can't do this job." Microsoft's developer division: AI use is "no longer optional." Meta: from 2026, "AI-driven impact" enters everyone's performance review. Meanwhile, <strong>Duolingo has already run the whole script to the end</strong>: April 2025, it announces AI use will count in performance reviews → it softens within weeks → April 2026, the CEO confirms the reversal: "At the end, we backtracked... the most important thing in your performance is that you are doing whatever your job is as well as possible." One company has just climbed down from that metric while another writes it into policy.</li><li><strong>New label, same contents.</strong> McKinsey's own survey: among organizations using generative AI, only <strong>21%</strong> have actually redesigned their workflows — the rest slid the new tool under the old process. This is a reprint of the agile era's "hold the ceremonies, change nothing real."</li><li><strong>The medicine stands are back up.</strong> Accenture booked $5.9 billion in GenAI contracts in a year; about 20% of BCG's revenue comes from AI-related business; AI certifications' share of the credentials listed on professional profiles has surged to nearly 30% — 20 times the pre-ChatGPT level — the exact same curve as the agile certification industry back then.</li></ul>
+<p><strong>Genuinely different:</strong></p>
+<ul><li><strong>The direction is reversed.</strong> Agile was bought at the top and pushed down, with employees performing compliance; AI started with employees using it on their own — 75% of knowledge workers already use it, 78% bring their own tools, and <strong>57% admit to hiding it</strong> (handing in AI output as their own, for example). The last round's disease was pretending to use it; this round's is using it without saying so. The prescriptions are completely different: don't force people to use it — make the people already using it safe to say so, and help them use it right.</li><li><strong>The tool itself is getting stronger.</strong> Agile's rituals didn't change in twenty years; AI's capability has a measured doubling curve (the length of tasks it can complete on its own doubles roughly every 7 months). Last round, "transformation failure" basically meant "organizational failure," because the method was static; this round has a new possible ending: the organization gets nothing right and the technology grows good enough anyway — or the reverse.</li><li><strong>The tool sellers don't profit from delay.</strong> AI tools are sold per seat and bought self-serve, so vendor revenue tracks usage; the transformation-consulting layer on top is as busy as ever, though, so this one only counts as half a difference.</li></ul>
+
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Last wave's script vs this wave's reality</text>
+  <text x="24" y="64" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Mechanisms replaying</text>
+  <text x="364" y="64" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Conditions that broke</text>
+  <line x1="352" y1="48" x2="352" y2="270" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <circle cx="34" cy="92" r="3" fill="#ff6ec4"/><text x="46" y="96" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Herd: 64% of CEOs invest before seeing value</text><circle cx="34" cy="136" r="3" fill="#ff6ec4"/><text x="46" y="140" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Mandates: Duolingo, mandate→retreat in 12 months</text><circle cx="34" cy="180" r="3" fill="#ff6ec4"/><text x="46" y="184" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Ritual: only 21% redesigned workflows</text><circle cx="34" cy="224" r="3" fill="#ff6ec4"/><text x="46" y="228" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Cert boom: AI certs near 30%, ~20x pre-ChatGPT</text><circle cx="374" cy="92" r="3" fill="#4cc9f0"/><text x="386" y="96" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Inverted: 78% BYOAI, 57% hide their use</text><circle cx="374" cy="136" r="3" fill="#4cc9f0"/><text x="386" y="140" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Capability doubles ~every 7 months</text><circle cx="374" cy="180" r="3" fill="#4cc9f0"/><text x="386" y="184" fill="#e4e6eb" font-size="11" font-family="-apple-system,sans-serif">Seat-based SaaS layer (half a break)</text>
+</svg>
+<figcaption>Schematic: the organizational machinery replays (left) while three structural conditions have no precedent in the last archive (right) — section 7 unpacks each</figcaption>
+</figure>
+<h2>How to Check This Article's Claims</h2>
+<p>From hardest evidence to softest:</p>
+<ol><li><strong>"70% of transformations fail" has no empirical source</strong> — born in 1993 as an "unscientific estimate," retracted by its author in 1995, rewritten in 2000 as a sourceless "fact," and fitted with a fake research pedigree in 2008-09. Every link can be checked against the original texts.</li><li><strong>Kotter's 1995 article, the most commonly named source, does not contain the number at all.</strong> He first said 70% in 2008, calling it "I estimate."</li><li><strong>Academia performed the formal autopsy in 2011</strong> (verdict: no valid and reliable evidence), and the number circulates to this day, AI version included.</li><li><strong>The real failure rate has no single answer</strong>: published estimates run from 7% to 90%; the same data can be packaged as "88% failed" or as "87% got at least halfway" — the number is decided by whoever sets the passing bar.</li><li><strong>Measured software projects show "a few disasters," not "most fail"</strong>: average overruns are manageable, and one project in six is a black swan averaging 200% over budget.</li><li><strong>The agile survey named "culture/leadership" the biggest obstacle for seventeen years straight; scaling frameworks went nine years with zero independent controlled studies; the largest independent comparison found framework choice makes no practical difference.</strong></li><li><strong>Agile practices themselves correlate with better outcomes</strong> — what died was the transformation ritual, not the practices.</li><li><strong>The "frozen middle" has no traceable source, and the evidence points the other way</strong>: the top success factor is executive sponsorship; measured AI usage runs leaders 44% &gt; managers 30% &gt; frontline 23% — the frozen-middle story gets even the direction wrong.</li><li><strong>AI transformation is replaying the last round's organizational machinery</strong> (fear-driven investment, metric-based mandates, ritual adoption, a certification industry), <strong>while genuinely differing in two places</strong>: employees hiding their use (78% bring their own tools, 57% conceal it) and tool capability doubling every 7 months.</li></ol>
+<p><strong>What to watch:</strong> whether Meta's AI performance metric survives 2026 (on the Duolingo script, it retreats); whether the "21% redesigned workflows" number rises in next year's survey; and whether the next candidate zombie number — "95% of AI pilots fail" — walks the same road as the "70%."</p>
+<h2>The Things That Matter Most</h2>
+<ol><li><strong>When you hear "research shows X% fail," ask three questions: Who measured it? How was "failure" defined? What is the speaker selling?</strong> Thirty years of the "70%"'s résumé show that these three questions almost always dismantle the scare opener.</li><li><strong>A failure rate is not a constant of nature; it is a function of the definition.</strong> Set the passing bar at "perfect" and the failure rate can be whatever you want; the danger that actually shows up in measurement is the fat tail — a few disasters, not majority failure.</li><li><strong>Buy the practices, not the rituals.</strong> Last round, practices like iterative delivery worked, while "transformation frameworks" produced not one piece of independent controlled evidence in nine years. This round, spend the budget on redesigning workflows (only 21% of organizations have) — not on renaming things and issuing certificates.</li><li><strong>Don't force people to use AI; first make it safe to admit they already do.</strong> Your employees are most likely already using it (78% bring their own tools) — swap "grade the usage" for "show them safe, compliant ways to use it." Duolingo has already stepped on this rake for you.</li><li><strong>When a transformation fails, the rot starts upstairs.</strong> The evidence gives the top factor to executive sponsorship and incentive design, not middle-manager attitude. Before cursing the "frozen middle," check whether your own sponsorship has gone offline.</li><li><strong>Keep score with your own delivery data.</strong> The best legacy of the last round is outcome measurement (deployment frequency, failure rate, recovery time). Whether your AI transformation is going well, your dashboard will tell you — stop letting a made-up percentage do the navigating.</li></ol>
+<p><em>For the full argument, sources, and counter-evidence behind every conclusion, read the deep dive.</em></p>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>
