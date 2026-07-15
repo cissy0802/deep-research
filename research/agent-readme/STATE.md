@@ -30,10 +30,12 @@
 ## 运行日志
 
 - 2026-07-15:计划获批;TOPICS.md #14 已登记并 push(1668b95)。
-- 2026-07-15:启动 deep-research workflow(5 角度并行搜索 → 抓取 15 源 → 3 票对抗验证 → 综合)。
-- (workflow 完成后:把 findings/claims/verdicts 写入本目录 `01-search-*.md`、`02-claims.md`、`03-verification.md`、`04-synthesis.md`,commit + push)
+- 2026-07-15:Round 1 deep-research workflow 完成(wf_71d43d15-568):108 agents、26 源、124 论断提取、25 条验证全部 3-0 挺过。**但 25 条全部落在线 1-2(标准之争、厂商最佳实践)**;线 3-7 的原始论断已提取但未进入验证。
+  - `01-raw-claims.md`:26 个来源的全部原始论断(含线 3-7 的关键一手材料:arXiv 2602.11988 AGENTbench 对照、2605.10039 遵从率因子实验、2511.12884 2303 文件实证、2601.20404 Codex 效率对照、Chroma context rot、Ahrefs llms.txt 137k 域名实测、NVIDIA AGENTS.md 注入 PoC、prompt.security VS Code 攻击面、Anthropic large-codebases 文档、Sentry/Cloudflare/Airflow 生产实例)
+  - `02-verified-claims.md`:Round 1 已验证的 10 组合并结论(全部线 1-2)+ caveats + open questions
+- 2026-07-15:Round 2 对抗验证启动——从 01-raw-claims.md 挑出线 3-7 的 10 组承重论断(V1-V10,见 03 文件头部),每组 3 票独立反驳式验证。
 
 ## 下一步(恢复点)
 
-若 workflow 已完成且本目录有 04-synthesis.md → 从步骤 3(成文)继续。
-若本目录只有本文件 → 重跑 deep-research workflow(args 用上面 7 条线的摘要)。
+- 若本目录有 `03-verification-round2.md` 且完整 → 研究阶段完成,从计划步骤 3(成文 4 个源文件)继续,材料 = 02 + 03(+01 作背景色)。
+- 若 03 缺失/不完整 → 重跑 Round 2:承重组是 (V1) arXiv 2602.11988 数字组、(V2) arXiv 2605.10039 数字组、(V3) arXiv 2511.12884 数字组、(V4) arXiv 2601.20404 数字组、(V5) Chroma context rot、(V6) llms.txt(Ahrefs 数字+Mueller/Illyes 表态+Lighthouse 矛盾)、(V7) NVIDIA 注入 PoC、(V8) VS Code 自动注入 AGENTS.md、(V9) Anthropic large-codebases 官方口径、(V10) Sentry/Cloudflare/Airflow/coder 生产文件逐字核验;每组 3 票,refute-by-default。
