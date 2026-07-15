@@ -1533,6 +1533,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("agent-readme-deep", "zh", "deep",
+     "给 Agent 看的 README:上下文文件是基建还是货物崇拜?(深入版)",
+     "AGENTS.md/CLAUDE.md 的标准之争、厂商共识与第一批对照实证的正面对撞:能力没涨、效率真涨、写法民间智慧全体翻车;含企业落地 playbook;35 组承重论断 × 3 票对抗验证。",
+     "2026-07"),
+    ("agent-readme-deep", "en", "deep",
+     "The README for Agents: Are Context Files Infrastructure or Cargo Cult? (Deep Dive)",
+     "The AGENTS.md standards war, the vendor consensus, and the first controlled studies colliding head-on: no capability gain, real efficiency gain, and the formatting folklore failing its first test; with an enterprise rollout playbook; 35 load-bearing claim groups adversarially verified.",
+     "2026-07"),
+    ("agent-readme-plain", "zh", "plain",
+     "都说要给代码库写 AGENTS.md,写了真的有用吗?(易读版)",
+     "上下文文件省的是时间和账单,不是能力奇迹;「短了更听话」没有证据;llms.txt 97% 零请求。易读版:主线结论 + 行动清单。",
+     "2026-07"),
+    ("agent-readme-plain", "en", "plain",
+     "Everyone Says Your Repo Needs an AGENTS.md. Does It? (Plain-Language Edition)",
+     "Context files save time and tokens, not capability; 'shorter = more obedient' has no evidence; llms.txt gets zero requests 97% of the time. Plain edition: the main findings plus an action list.",
+     "2026-07"),
     ("seventy-percent-failure-deep", "zh", "deep",
      "「70% 转型失败」考古:上一轮转型的尸检报告,能预测 AI-native 吗?(深入版)",
      "追溯「70%」的引用链原文、复算失败率测量、盘点 Agile/DevOps 档案并评估其对 AI-native 转型的预测力;30 组承重论断 × 3 票对抗验证。",
@@ -1711,6 +1727,14 @@ TLDRS = {
         "验证瓶颈真实且在恶化(评审中位时长 +441.5%、零审查合并 +31.3%),但供给侧的证明材料已经失效:6 家自办基准发布者全部第一,同一工具跨基准分数差 3.7 倍;第一方生产漏斗显示离线分数与生产价值隔一个数量级(Meta 67.96%→19.75%);错误趋同正在瓦解'AI 验证 AI'的独立性前提。裁决是条件句:独立 oracle + 控误报 + 人握裁决 = 解药,否则是套娃。全文以八个可检验主张收尾。",
     ("ai-code-review-deep", "en"):
         "The verification bottleneck is real and worsening (median review time +441.5%, zero-review merges +31.3%), but the supply side's evidence regime has failed: six self-run benchmarks, publisher first every time, the same tool varying 3.7× across exams; first-party production funnels put an order of magnitude between offline scores and production value (Meta 67.96%→19.75%); converging errors are dissolving the independence premise of AI-verifying-AI. The verdict is conditional: independent oracle + controlled false alarms + humans keeping the verdict = cure; otherwise, turtles. Closes with eight testable claims.",
+    ("agent-readme-deep", "zh"):
+        "AGENTS.md 在标准之争中事实胜出(LF 中立托管、Cursor/Copilot/VS Code 原生消费),但互认不对称、symlink 仍是通用解;四厂商指南共识整齐却零对照组。第一批对照实证与厂商叙事不同向:上下文文件的已证实收益是效率(-28.64% 耗时、-16.58% token)而非成功率;LLM 全自动生成的文件在有文档仓库上是负收益;文件大小/位置/架构/矛盾四变量对遵从率无可检测效应,任务类型与会话深度才是主变量。llms.txt 是「采用≠消费」的盖棺案例(97% 零请求);上下文文件已是带 PoC 的攻击面。以六步落地 playbook 和十个可检验主张收尾。",
+    ("agent-readme-deep", "en"):
+        "AGENTS.md has won the standards war on facts (LF neutral hosting; native consumption by Cursor/Copilot/VS Code), but recognition is asymmetric and the symlink remains the universal adapter; the four vendor guides agree neatly — with zero control groups. The first controlled studies point differently: the demonstrated benefit is efficiency (−28.64% wall-clock, −16.58% tokens), not success rates; wholesale LLM-generated files are net-negative on documented repos; file size/position/architecture/contradictions show no detectable compliance effect — task identity and session depth dominate. llms.txt is the closed case for adoption ≠ consumption (97% zero requests); context files are now a PoC-backed attack surface. Closes with a six-step rollout playbook and ten testable claims.",
+    ("agent-readme-plain", "zh"):
+        "给代码库写 AGENTS.md/CLAUDE.md 有用,但用处和宣传的不一样:实测省 28.64% 时间、16.58% token,成功率不涨;AI 全自动生成的文件在有文档的仓库上反而降成功率;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。",
+    ("agent-readme-plain", "en"):
+        "Writing an AGENTS.md/CLAUDE.md for your repo helps — just not the way the slogans say: measured savings of 28.64% time and 16.58% tokens, no success-rate gain; AI-bulk-generated files lower success rates on documented repos; 'keep it short' and 'important things first' showed zero effect in the randomized test. Write commands, prohibitions, and the house rules AI can't guess; guard against supply-chain injection that treats the file as an attack surface. Six-step action list included.",
 }
 
 CHIPS = {
@@ -1797,6 +1821,18 @@ CHIPS = {
     ],
     ("ai-code-review-deep", "en"): [
         ("c1", "7 lines · 15 load-bearing claims"), ("c2", "45 adversarial votes"), ("c3", "9 held · 6 amended · 0 overturned"), ("c4", "8 testable claims"),
+    ],
+    ("agent-readme-deep", "zh"): [
+        ("c1", "105 票对抗验证 · 35/35 挺过"), ("c2", "实证:耗时 -28.64% · 成功率不涨"), ("c3", "llms.txt:97% 零请求"), ("c4", "10 个可检验主张"),
+    ],
+    ("agent-readme-deep", "en"): [
+        ("c1", "105 votes · 35/35 survived"), ("c2", "measured: −28.64% time · no success gain"), ("c3", "llms.txt: 97% zero requests"), ("c4", "10 testable claims"),
+    ],
+    ("agent-readme-plain", "zh"): [
+        ("c1", "省时 28.64% · 省 token 16.58%"), ("c2", "AI 生成文件:有文档仓库负收益"), ("c3", "写法讲究:随机实验全无效应"), ("c4", "六步行动清单"),
+    ],
+    ("agent-readme-plain", "en"): [
+        ("c1", "−28.64% time · −16.58% tokens"), ("c2", "AI-generated files: net-negative"), ("c3", "formatting folklore: zero effect"), ("c4", "six-step action list"),
     ],
 }
 
@@ -1999,6 +2035,15 @@ INDEX_ENTRIES = [
      "90 adversarial votes · 11 testable claims",
      [("t1", "组织变革", "Org change"), ("t2", "僵尸统计", "Zombie statistics"), ("t3", "Agile/DevOps 档案", "Agile/DevOps record"),
       ("t4", "制度同构", "Institutional isomorphism"), ("t5", "AI 转型", "AI transformation")]),
+    ("agent-readme", "2026-07",
+     "给 Agent 看的 README:上下文文件是基建还是货物崇拜?",
+     "The README for Agents: Infrastructure or Cargo Cult?",
+     "人人都说要给代码库写 AGENTS.md/CLAUDE.md,但第一批对照实证说:能力没涨、效率真涨、写法民间智慧全体翻车。标准之争、厂商共识、安全攻击面与企业落地 playbook,逐条对抗核验。",
+     "Everyone says your repo needs an AGENTS.md/CLAUDE.md — the first controlled studies say: no capability gain, real efficiency gain, and the formatting folklore fails its first test. The standards war, the vendor consensus, the attack surface, and an enterprise rollout playbook, adversarially verified claim by claim.",
+     "105 票对抗验证 · 10 个可检验主张",
+     "105 adversarial votes · 10 testable claims",
+     [("t1", "Agent 上下文文件", "Agent context files"), ("t2", "AGENTS.md 标准", "AGENTS.md standard"), ("t3", "对照实证", "Controlled evidence"),
+      ("t4", "prompt injection", "Prompt injection"), ("t5", "落地 playbook", "Rollout playbook")]),
 ]
 
 

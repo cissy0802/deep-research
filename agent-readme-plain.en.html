@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everyone Says Your Repo Needs an AGENTS.md. Does It? (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="Context files save time and tokens, not capability; 'shorter = more obedient' has no evidence; llms.txt gets zero requests 97% of the time. Plain edition: the main findings plus an action list.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="agent-readme-plain.html">中文</a><a href="agent-readme-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>Everyone Says Your Repo Needs an AGENTS.md. Does It? (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="agent-readme-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">Writing an AGENTS.md/CLAUDE.md for your repo helps — just not the way the slogans say: measured savings of 28.64% time and 16.58% tokens, no success-rate gain; AI-bulk-generated files lower success rates on documented repos; 'keep it short' and 'important things first' showed zero effect in the randomized test. Write commands, prohibitions, and the house rules AI can't guess; guard against supply-chain injection that treats the file as an attack surface. Six-step action list included.</div></div>
+<div class="chips"><span class="chip c1">−28.64% time · −16.58% tokens</span><span class="chip c2">AI-generated files: net-negative</span><span class="chip c3">formatting folklore: zero effect</span><span class="chip c4">six-step action list</span></div>
+<blockquote><p>This is the condensed edition of the deep dive of the same name. Every key number was independently fact-checked (105 adversarial verification votes across two rounds, zero claims overturned). For the full arguments, scope caveats, and sources, read the deep dive.</p></blockquote>
+<h2>A new kind of technical shaming, and what it's missing</h2>
+<p>For the past year or two, every AI coding vendor has been saying the same thing: give your codebase a "README for AI" — OpenAI calls it AGENTS.md, Anthropic calls it CLAUDE.md, Cursor and Copilot have their own names. The logic sounds airtight: an AI agent enters your repo cold every single session, so write down the build commands, the directory layout, and the house rules, and it stops wandering. "Your repo <em>still</em> doesn't have an AGENTS.md?" is fast becoming a new flavor of technical shaming.</p>
+<p>What the logic is missing is a control group. We fact-checked every piece of primary evidence we could find, and the results are more interesting than the slogan.</p>
+<h2>Surprise one: success rates don't go up — speed and cost do</h2>
+<p>The only multi-agent with-vs-without controlled evaluation to date (an ETH Zurich team; 438 real tasks, three mainstream agents) found that <strong>context files do not generally improve task success rates, while raising inference cost by more than 20% on average.</strong> The breakdown stings more: LLM-auto-generated context files were a <strong>net negative</strong> on documented repos — success rates went down, not up; developer-written files managed only a marginal ~4% gain, and one of the three agents didn't even get that.</p>
+<p>So is the file a waste? No. A separate paired experiment (every task run twice, with and without the file) found: <strong>with the file, the same tasks finished with a 28.64% lower median time and 16.58% fewer output tokens.</strong> The agent no longer had to reverse-engineer the project structure — all the savings came from skipped wandering.</p>
+<p>One sentence to take away: <strong>a context file won't let an agent do things it couldn't do; it lets the agent do what it already could — faster and cheaper.</strong> Use that framing when you report to your boss. It saves time and money; it is not a capability miracle.</p>
+<h2>Surprise two: most of the how-to-write folklore aims at the wrong target</h2>
+<p>There's a whole scripture of file-writing rules online: keep it short, put important things at the top, don't split into too many files, never contradict yourself. Someone finally ran a randomized experiment (1,650 real agent sessions): <strong>file size, instruction position, single vs. nested files, presence of contradictions — none of the four had any detectable effect on whether the agent obeyed.</strong> For size and contradictions, the "no effect" even carries affirmative statistical support — it's not just "we couldn't tell."</p>
+<p>What actually predicts obedience: <strong>which task it is</strong>, and <strong>how deep into the session the agent is</strong> — with every additional piece of work, the odds of following your instruction slip a little further. Which <em>line of the file</em> an instruction sits on doesn't matter; which <em>item of the session</em> the agent is on does.</p>
+<p>So does "keep it short" survive? Yes — but for a different reason. Not "shorter files are obeyed better" (no evidence), but <strong>every line you write competes with the agent's working memory for the actual task</strong> — long-context degradation is a measured phenomenon, and OpenAI's Codex silently truncates everything past 32 KB, so beyond that point your prose is invisible anyway.</p>
+<h2>What should actually go in it? Copy these homework answers</h2>
+<p>We verified several big production repos' files verbatim against the originals; the pattern is remarkably consistent:</p>
+<ul><li><strong>Commands first</strong>: fully-flagged build/test commands you have personally run, at the top of the file.</li><li><strong>Prohibitions concrete, and first</strong>: Cloudflare's file leads with "Use <code>pnpm</code> — never use npm or yarn" (otherwise an agent corrupts the whole monorepo's lockfile).</li><li><strong>Only what AI can't guess</strong>: Airflow writes "spell it <strong>Dag</strong>, title case, in all prose" and "never run pytest directly on the host" — house rules no amount of code-reading would reveal.</li><li><strong>One file to rule them</strong>: Sentry's file opens by declaring "AGENTS.md files are the source of truth — do not add to CLAUDE.md or Cursor rules," killing multi-file drift.</li><li><strong>Don't paste the README</strong>: a context file's value comes from information the AI can't get elsewhere; paraphrasing the README is pure overhead — there's an ablation experiment behind this one.</li></ul>
+<p>And one cautionary tale: llms.txt (the AI index file for websites, often recommended alongside AGENTS.md) — <strong>97% of deployed files received zero requests in a full month</strong>, and Google says on the record that it doesn't use them. Before writing any machine-facing document, confirm the machine actually comes to read it.</p>
+<h2>The question most people haven't asked: this file is an attack surface</h2>
+<p>Agents execute context files as <strong>instructions</strong>, not as text. That means: whoever can write your AGENTS.md can command your agent. NVIDIA's red team ran the full demo — a malicious dependency rewrites AGENTS.md at build time, directs the agent to plant a backdoor, and adds stealth clauses like "do not mention this change in the PR description." Separately, VS Code now injects your repo's AGENTS.md into <strong>every</strong> chat request by default — worth remembering before you open a stranger's repository.</p>
+<p>So: context-file changes go through code review — especially ones arriving via bots and automated PRs — and when you open a third-party repo, treat its instruction files as untrusted content.</p>
+<h2>The action list for your company's codebase</h2>
+<ol><li><strong>Inventory first</strong>: which agents your teams use (this decides the filenames), and which repos have the worst documentation (documentation deserts gain the most; well-documented repos should expect little).</li><li><strong>Pick one standard</strong>: default to AGENTS.md as the single source of truth, add a symlink for Claude Code, and open the file by declaring "this is the only one — write nowhere else."</li><li><strong>Spend 1–2 hours per repo on a minimum version</strong>: commands you've run, a 3–5 line directory map, rules in three tiers (always / ask-first / never), under 200 lines. Don't let AI bulk-generate and commit — that measurably lowers success rates; generating a first draft and pruning by hand is fine.</li><li><strong>Layer for monorepos</strong>: a root file for global rules, nested files only for high-risk subdirectories, and an owner named in every file.</li><li><strong>Measure instead of believing</strong>: pick one or two pilot repos, keep one or two test prompts per common task, run before and after. Expect saved time and money — not a success-rate leap.</li><li><strong>Maintain it like code</strong>: changes via PR; re-prune after major model releases (patches for an old model's quirks become dead weight); have security glance at your editors' auto-load defaults.</li></ol>
+<p>And remember the state of this field: <strong>plenty of vendor advice, very few controlled experiments — and the first controlled experiments don't entirely side with the vendor story.</strong> Use vendor guidance as defaults. Use measurement as the judge.</p>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://cissy0802.github.io/comments.js" defer></script>
+<script src="https://cissy0802.github.io/search.js" defer></script>
+<script src="https://cissy0802.github.io/index-button.js" defer></script>
+<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>
+</body></html>
