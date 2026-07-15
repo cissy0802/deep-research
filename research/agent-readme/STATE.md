@@ -33,7 +33,7 @@
 - 2026-07-15:Round 1 deep-research workflow 完成(wf_71d43d15-568):108 agents、26 源、124 论断提取、25 条验证全部 3-0 挺过。**但 25 条全部落在线 1-2(标准之争、厂商最佳实践)**;线 3-7 的原始论断已提取但未进入验证。
   - `01-raw-claims.md`:26 个来源的全部原始论断(含线 3-7 的关键一手材料:arXiv 2602.11988 AGENTbench 对照、2605.10039 遵从率因子实验、2511.12884 2303 文件实证、2601.20404 Codex 效率对照、Chroma context rot、Ahrefs llms.txt 137k 域名实测、NVIDIA AGENTS.md 注入 PoC、prompt.security VS Code 攻击面、Anthropic large-codebases 文档、Sentry/Cloudflare/Airflow 生产实例)
   - `02-verified-claims.md`:Round 1 已验证的 10 组合并结论(全部线 1-2)+ caveats + open questions
-- 2026-07-15:Round 2 对抗验证第一次启动(wf_9f678178-eaf)——**30 个验证 agent 全部因 Fable 5 quota limit 失败,0 票产出**。workflow 脚本已存为本目录 `verify-round2.workflow.js`(内含 V1-V10 的完整 claim 文本与 3 个 lens 的验证 prompt),quota 恢复后用 `Workflow({scriptPath: "research/agent-readme/verify-round2.workflow.js"})` 原样重跑即可。
+- 2026-07-15:Round 2 第一次启动因 quota 失败(0 票);重试后完成:**10/10 组全部 3-0 挺过,大量口径修正**,详见 `03-verification-round2.md`。研究阶段完成,进入成文。
 
 ## 下一步(恢复点)
 
