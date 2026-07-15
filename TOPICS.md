@@ -47,6 +47,12 @@
 - 核心口径记录:Kotter 1995 无整体失败率、但含"第一步远超 50% 失败"的阶段性观察(不能写成"全文无百分比");Bain 的 68% 系 2018 Soul Searching 口径、2024 版配套口径为"~13% 达成不足半";Gartner 变革意愿 2022 年的 43% 与 38% 均出自 Gartner 自家出版物(非流传错误);Gallup 一线员工频繁使用 AI 为 23%(11% 系日用口径误传);QuantumBlack 约 1,000 人(非 1,700);E&V 的 5.8%→94.2% 为构造的镜像反事实;Coch & French"产量跌 20%"引文实为转述、原文 ~60→~50 件/时且增益约 14%;"Lewin 三步系死后构造"是 Cummings 2016 论点、有对手方(Burnes 2020);GE 2018 为"独立运营但全资持有"的改组且拆分最终未完成
 - 钩子:→ 候选池 1 条(AI 是不是一场管理时尚——用时尚周期理论实测 AI 话语曲线并对照能力曲线);→ system-design Day 53《项目风险要按肥尾管理》(backlog,反哺);→ leadership Day 70《赞助不掉线》(backlog,反哺);→ meta-knowledge Day 66《僵尸统计》(backlog,反哺);另 1 条仅记运行报告(管理学经典实验的复现状态盘点:Harwood/Kotter 八步/Lewin 三步)
 
+### 14. 给 Agent 看的 README:代码库上下文文件是工程必需品还是货物崇拜? ✅ 2026-07
+- 页面:`agent-readme-plain/-deep` × zh/en
+- 底座:5 角度调研、26 来源、124 论断提取;两轮对抗验证 35 组承重论断 × 3 票(105 票:35/35 挺过、0 推翻、30+ 处口径修正);研究材料存仓库 `research/agent-readme/`(本期运行环境为临时容器,材料改存仓库内)
+- 核心口径记录:"CLAUDE.md 一万词以内"系伪引用(官方口径为 memory 页 target under 200 lines);AGENTbench 的 LLM 生成文件 -0.5/-2pp 为均值(最差 -3)、手写 +4% 对除 Claude Code 外成立、消融(+2.7%)做在 LLM 生成文件上不可移植给手写;llms.txt 的 8.8x/36,120 系 Originality.ai 口径,与 Ahrefs 137k 域名日志(97% 零请求)是两家独立研究,媒体常并成一家;Mueller Bluesky 原帖 2025-06-17(6-18 是报道日)、keywords meta tag 类比先于该帖;AGENTS.md 60k+ 查询可复跑但计文件非项目;NVIDIA 注入 PoC 仅演示于 Codex(.cursorrules/CLAUDE.md 为风险类别陈述);VS Code 默认注入自 v1.104(chat.useAgentsMdFile,与 copilot-instructions 设置是两回事);遵从率四零结果限 25-500 行、单一因变量,会话内衰减(OR=0.944)系探索性发现
+- 钩子:→ 候选池 2 条(prompt injection 防御独立体检;机器可读标准的死亡模式谱系);另 1 条仅记运行报告(会话内指令衰减的预注册复现设计)
+
 ## 待研究
 
 ### 7. 自动化的反讽:40 年人因工程证据对"人握终审"的预测
@@ -102,14 +108,6 @@
 - **关键争议/正反**:主动管理长期跑输(SPIVA/Morningstar Active-Passive Barometer)vs"被动扭曲定价"的实证(指数纳入溢价的衰减研究、大小盘相关性变化);"被动导致波动放大"的证据与反驳;三巨头投票权集中的治理研究。
 - **实证锚点**:SPIVA 年度报告、Sammon/Coles 等价格信息含量研究、指数纳入效应 meta。
 
-### 14. 给 Agent 看的 README:代码库上下文文件是工程必需品还是货物崇拜?
-- **一句话**:AGENTS.md/CLAUDE.md/分层 README 被说成 agent 时代的基建标配,但"写了 context 文件 agent 就更强"有多少实测证据?业界实际怎么写、哪些坑已被踩出来、怎么给一个真实公司代码库制定落地 plan?
-- **为什么适合**:与 #0/#2 互补(组织转型/审查视角 → 代码库基建视角);厂商指南密度极高但独立实证极少,"必须写"叙事与对照评测之间可能存在落差,正是对抗验证增值最大的形态;成文的落地 playbook 可直接复用到真实代码库。
-- **理论底座**:docs-as-code 与文档腐烂文献、上下文工程(context engineering)与长上下文干扰(context rot)研究、指令遵从(instruction following/compliance)评测、信息觅食理论(information foraging——agent 的 codebase 导航行为)、标准化经济学(AGENTS.md 标准之争)。
-- **关键争议/正反**:AGENTS.md(OpenAI/Google/Factory 联合开放标准)vs CLAUDE.md/.cursor/rules/copilot-instructions 的碎片化 vs 收敛;"context 文件显著提升表现"(厂商指南)vs 带/不带对照评测的实测落差;llms.txt 的采用叙事 vs Google 公开表态不消费;过时指令比没有更糟 vs 有总比没有强;第三方 instructions 文件作为 prompt injection 攻击面的安全研究。
-- **实证锚点**:各标准规范原文与 GitHub 采用量口径、Anthropic/OpenAI/GitHub/Cursor 官方最佳实践文档、带/不带 context 文件的对照评测一手数据、知名开源 repo 的实际文件与 git log 更新频率、prompt injection 安全通告。
-- **复用指引**:#2 的 agent 评测方法学口径、#5 的"厂商口径 vs 独立复测"标注体系直接沿用;验证票集中在对照评测数字、采用量口径、安全事件一手来源上。
-
 ## 候选池(未排期)
 
 - AI 是不是一场管理时尚?用 Abrahamson 时尚周期理论给 AI 话语做实测曲线(财报电话会提及/认证量/岗位名/文献计量的钟形检验),与真实能力曲线(METR 等)对照——时尚理论第一次遇到内在能力持续上升的宿主,钟形消退预测是否失效(钩子·源自 #6)
@@ -120,3 +118,5 @@
 - AI 基准的 Goodhart 化:数据污染、榜单收割与评测激励结构,为什么评测体系一建成就失效(可与 #10 scaling laws 的基准饱和线互补)(钩子·源自 #2)
 - HRT 的兴衰与再评价(WHI 研究如何被重新解读——"证据翻转"经典案例)
 - AI 时代该让孩子学什么(编程还值得学吗)
+- Prompt injection 防御的独立体检:78 研究 meta 的"自适应攻击 >85% 成功率"口径核验 + 主流 agent 平台护栏(权限模式/沙箱/注入过滤)的实测拦截率——防御声称 vs 红队复测的落差(钩子·源自 #14)
+- 机器可读标准的死亡模式谱系:llms.txt(97% 零请求)、keywords meta tag、P3P、Do-Not-Track——"给机器写文档"何时会死于无消费方?采用曲线与消费曲线脱钩的判据能否提前一年预警(钩子·源自 #14)

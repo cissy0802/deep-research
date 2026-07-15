@@ -5,9 +5,12 @@
 
 ## 总计划(已获批准,全文见 commit 历史或 /root/.claude/plans/deep-research-topic-industry-readme-fil-zany-quasar.md)
 
+**状态:全部完成 ✅(2026-07-15)。** 本文件保留作研究底座存档;发布物见 `sources/agent-readme-*.md` 与 `agent-readme-*.html`。
+
 1. ✅ TOPICS.md 登记 #14(commit 1668b95)
-2. ⏳ deep-research workflow:多线调研 → 承重论断 3 票对抗验证
-3. ☐ 成文 4 个源文件(格式对齐 sources/machine-oracles-*):
+2. ✅ deep-research workflow:Round 1(wf_71d43d15-568)+ Round 2 对抗验证(wf_9f678178-eaf),105 票 35/35 挺过
+3. ✅ 成文 4 个源文件(commit 5a45bbf);✅ build.py 注册与构建(commit 31d731c);✅ TOPICS.md #14 移入已发布
+4. 原步骤清单(存档):成文 4 个源文件(格式对齐 sources/machine-oracles-*):
    - deep 版:H1 带"(深入版)/(Deep Dive)"、blockquote 方法学前言(票数统计)、`## N.` 编号章节、`【verified】/【unverified, source: …】` 标注、结尾来源索引、落地 playbook 独立章节
    - plain 版:blockquote 指向深入版,无 inline 验证标注
 4. ☐ build.py 注册:ARTICLES 4 条 tuple(约 L1535)+ INDEX_ENTRIES 1 条(约 L1938);`python3 build.py` 构建验证
