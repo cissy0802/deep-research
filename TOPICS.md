@@ -102,6 +102,14 @@
 - **关键争议/正反**:主动管理长期跑输(SPIVA/Morningstar Active-Passive Barometer)vs"被动扭曲定价"的实证(指数纳入溢价的衰减研究、大小盘相关性变化);"被动导致波动放大"的证据与反驳;三巨头投票权集中的治理研究。
 - **实证锚点**:SPIVA 年度报告、Sammon/Coles 等价格信息含量研究、指数纳入效应 meta。
 
+### 14. 给 Agent 看的 README:代码库上下文文件是工程必需品还是货物崇拜?
+- **一句话**:AGENTS.md/CLAUDE.md/分层 README 被说成 agent 时代的基建标配,但"写了 context 文件 agent 就更强"有多少实测证据?业界实际怎么写、哪些坑已被踩出来、怎么给一个真实公司代码库制定落地 plan?
+- **为什么适合**:与 #0/#2 互补(组织转型/审查视角 → 代码库基建视角);厂商指南密度极高但独立实证极少,"必须写"叙事与对照评测之间可能存在落差,正是对抗验证增值最大的形态;成文的落地 playbook 可直接复用到真实代码库。
+- **理论底座**:docs-as-code 与文档腐烂文献、上下文工程(context engineering)与长上下文干扰(context rot)研究、指令遵从(instruction following/compliance)评测、信息觅食理论(information foraging——agent 的 codebase 导航行为)、标准化经济学(AGENTS.md 标准之争)。
+- **关键争议/正反**:AGENTS.md(OpenAI/Google/Factory 联合开放标准)vs CLAUDE.md/.cursor/rules/copilot-instructions 的碎片化 vs 收敛;"context 文件显著提升表现"(厂商指南)vs 带/不带对照评测的实测落差;llms.txt 的采用叙事 vs Google 公开表态不消费;过时指令比没有更糟 vs 有总比没有强;第三方 instructions 文件作为 prompt injection 攻击面的安全研究。
+- **实证锚点**:各标准规范原文与 GitHub 采用量口径、Anthropic/OpenAI/GitHub/Cursor 官方最佳实践文档、带/不带 context 文件的对照评测一手数据、知名开源 repo 的实际文件与 git log 更新频率、prompt injection 安全通告。
+- **复用指引**:#2 的 agent 评测方法学口径、#5 的"厂商口径 vs 独立复测"标注体系直接沿用;验证票集中在对照评测数字、采用量口径、安全事件一手来源上。
+
 ## 候选池(未排期)
 
 - AI 是不是一场管理时尚?用 Abrahamson 时尚周期理论给 AI 话语做实测曲线(财报电话会提及/认证量/岗位名/文献计量的钟形检验),与真实能力曲线(METR 等)对照——时尚理论第一次遇到内在能力持续上升的宿主,钟形消退预测是否失效(钩子·源自 #6)
