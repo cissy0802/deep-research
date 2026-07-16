@@ -42,3 +42,9 @@
 
 - 若本目录有 `03-verification-round2.md` 且完整 → 研究阶段完成,从计划步骤 3(成文 4 个源文件)继续,材料 = 02 + 03(+01 作背景色)。
 - 若 03 缺失/不完整 → 重跑 Round 2:承重组是 (V1) arXiv 2602.11988 数字组、(V2) arXiv 2605.10039 数字组、(V3) arXiv 2511.12884 数字组、(V4) arXiv 2601.20404 数字组、(V5) Chroma context rot、(V6) llms.txt(Ahrefs 数字+Mueller/Illyes 表态+Lighthouse 矛盾)、(V7) NVIDIA 注入 PoC、(V8) VS Code 自动注入 AGENTS.md、(V9) Anthropic large-codebases 官方口径、(V10) Sentry/Cloudflare/Airflow/coder 生产文件逐字核验;每组 3 票,refute-by-default。
+
+## Round 3 追记(2026-07-16)
+
+- 应用户对"0 推翻"的质疑,增设反证搜索席 + 方法学审计席(wf_d2e7c2ab-be4,12 agents),判决存 `04-verification-round3.md`。
+- 结局:G1(AGENTbench)方向性数字被审计否决且被两项独立测量矛盾;G4 普查百分比分母重标(332 标注子样本,非 2,303);G5/G6 升级多源证实;G2/G3 单源已核。
+- 四篇文章、build.py 文案、TOPICS.md 流程头均已按三级证据分级重写。

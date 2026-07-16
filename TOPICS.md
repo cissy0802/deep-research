@@ -2,7 +2,7 @@
 
 > 入选标准:流行叙事强、争议大、但存在可核查的一手证据——对抗验证增值最大的题目。
 > 每个条目的"研究问题草案"可直接作为 deep-research workflow 的 args 起点;开跑前按当时最新进展微调。
-> 流程:多 agent 并行调研一手来源 → 关键论断 3 票对抗验证 → 易读版 + 深入版 × 中英,`build.py` 渲染发布。
+> 流程:多 agent 并行调研一手来源 → 关键论断 3 票对抗验证(转述保真层) → 单源承重实证追加**反证搜索席**(独立团队+独立数据的矛盾/证实测量,记录全部搜索角度)与**方法学审计席**(敌意审稿,有否决权) → 按结局打证据分级(多源证实/单源已核/方向存争/已核/厂商口径/现场核验/未验证) → 易读版 + 深入版 × 中英,`build.py` 渲染发布。转述保真 ≠ 事实为真,分级即为此而设(#14 起实施;此前各期为转述保真层单轨)。
 > **钩子收割**:每期发布后提炼 ≤5 个钩子(超出本篇范围的支线问题):适合 deep research 的进本文件「候选池」,适合某个 Second Brain routine 站的按该站 TOPICS 格式追加到其 backlog(单独 commit,行尾标「钩子·源自 #N」),并在本文件该期「已发布」条目下记录去向。
 
 ## 已发布
@@ -49,9 +49,10 @@
 
 ### 14. 给 Agent 看的 README:代码库上下文文件是工程必需品还是货物崇拜? ✅ 2026-07
 - 页面:`agent-readme-plain/-deep` × zh/en
-- 底座:5 角度调研、26 来源、124 论断提取;两轮对抗验证 35 组承重论断 × 3 票(105 票:35/35 挺过、0 推翻、30+ 处口径修正);研究材料存仓库 `research/agent-readme/`(本期运行环境为临时容器,材料改存仓库内)
-- 核心口径记录:"CLAUDE.md 一万词以内"系伪引用(官方口径为 memory 页 target under 200 lines);AGENTbench 的 LLM 生成文件 -0.5/-2pp 为均值(最差 -3)、手写 +4% 对除 Claude Code 外成立、消融(+2.7%)做在 LLM 生成文件上不可移植给手写;llms.txt 的 8.8x/36,120 系 Originality.ai 口径,与 Ahrefs 137k 域名日志(97% 零请求)是两家独立研究,媒体常并成一家;Mueller Bluesky 原帖 2025-06-17(6-18 是报道日)、keywords meta tag 类比先于该帖;AGENTS.md 60k+ 查询可复跑但计文件非项目;NVIDIA 注入 PoC 仅演示于 Codex(.cursorrules/CLAUDE.md 为风险类别陈述);VS Code 默认注入自 v1.104(chat.useAgentsMdFile,与 copilot-instructions 设置是两回事);遵从率四零结果限 25-500 行、单一因变量,会话内衰减(OR=0.944)系探索性发现
+- 底座:5 角度调研、26 来源、124 论断提取;三轮验证:R1+R2 转述保真 35 组承重论断 × 3 票(105 票:35/35 挺过、30+ 处口径修正),R3 对 6 组单源实证增设反证搜索席 + 方法学审计席(12 份判决:**2 组承重数字被审计否决、1 组成本方向被独立测量矛盾、3 组升级多源证实**——本期起证据分级双轨制的首次实施);研究材料存仓库 `research/agent-readme/`(本期运行环境为临时容器,材料改存仓库内)
+- 核心口径记录:"CLAUDE.md 一万词以内"系伪引用(官方口径为 memory 页 target under 200 lines);**AGENTbench 方向性成功率数字(±0.5-4pp)被审计否决为假精度**(零推断统计、单次采样、MDE≈8-10pp、有效 n=12、基准由被评测的 Codex 参与构建),仅存弱结论"该设置下未见大效应";**Shepard & Albrecht(arXiv 2606.20512)测得 LLM 生成指导 +2.8~+7.5pp(p<0.001),与 ETH 方向相反**;成本方向 ETH(+20-23%)与 Lulla(-16.58% token)直接矛盾,无法裁决;**"2,303 文件普查"的内容百分比实际分母是 332 个人工标注 CLAUDE.md 子样本**(选样程序未说明),定性模式(架构居首、安全/性能缺席)获 UFMG 独立 328 文件样本证实;context rot 获 NoLiMa/Du(EMNLP 2025)/Databricks/LongMemEval 原作者独立同向,但"聚焦"条件系神谕检索上界;llms.txt 零消费获 OtterlyAI(0.1%)与 Adobe AEM(515M 事件)独立同向,8.8x/36,120 系 Originality.ai 口径与 Ahrefs 是两家独立研究;Mueller Bluesky 原帖 2025-06-17;AGENTS.md 60k+ 查询可复跑但计文件非项目;NVIDIA 注入 PoC 仅演示于 Codex;VS Code 默认注入自 v1.104(chat.useAgentsMdFile);遵从率四零结果限 25-500 行、单刺激因变量,会话内衰减(OR=0.944)系探索性发现
 - 钩子:→ 候选池 2 条(prompt injection 防御独立体检;机器可读标准的死亡模式谱系);另 1 条仅记运行报告(会话内指令衰减的预注册复现设计)
+- 方法学沉淀:R3 的两个席位(反证搜索/方法学审计)与证据分级自本期起写入流程头;workflow 脚本存 `research/agent-readme/verify-round{2,3}.workflow.js` 可复用
 
 ## 待研究
 
