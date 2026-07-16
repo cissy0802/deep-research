@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>都说要给代码库写 AGENTS.md,写了真的有用吗?(易读版) — BigCat Deep Research</title>
-<meta name="description" content="上下文文件省的是时间和账单,不是能力奇迹;「短了更听话」没有证据;llms.txt 97% 零请求。易读版:主线结论 + 行动清单。">
+<meta name="description" content="对照研究互相打架,唯一带统计检验的收益是省时省 token;「短了更听话」没有证据;llms.txt 97% 零请求。易读版:主线结论 + 行动清单。">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -62,30 +62,30 @@ h2:nth-of-type(6){--h2:#52b788}
 <div class="kicker">深度研究 · 易读版</div>
 <h1>都说要给代码库写 AGENTS.md,写了真的有用吗?(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="agent-readme-deep.html">查看深入版(完整论证与出处)→</a></div>
-<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">给代码库写 AGENTS.md/CLAUDE.md 有用,但用处和宣传的不一样:实测省 28.64% 时间、16.58% token,成功率不涨;AI 全自动生成的文件在有文档的仓库上反而降成功率;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。</div></div>
-<div class="chips"><span class="chip c1">省时 28.64% · 省 token 16.58%</span><span class="chip c2">AI 生成文件:有文档仓库负收益</span><span class="chip c3">写法讲究:随机实验全无效应</span><span class="chip c4">六步行动清单</span></div>
-<blockquote><p>本文是同名深入版的精简版。所有关键数字都经过独立核查(两轮共 105 票对抗验证、0 条被推翻),想看完整论证、限定条件和出处,请读深入版。</p></blockquote>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">给代码库写 AGENTS.md/CLAUDE.md 值得,但证据和口号不一样:省 28.64% 时间、16.58% token 是唯一带统计检验的数字;成功率方向三项研究互相打架,谁也没赢;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。</div></div>
+<div class="chips"><span class="chip c1">省时 28.64% · 省 token 16.58%</span><span class="chip c2">成功率:研究互相打架</span><span class="chip c3">写法讲究:随机实验全无效应</span><span class="chip c4">六步行动清单</span></div>
+<blockquote><p>本文是同名深入版的精简版。所有关键数字经过三轮独立核查(105 票转述保真验证 + 12 份反证搜索与方法学审计判决——审计否决了两组流传甚广的数字,反证搜索找到了互相矛盾的研究),想看完整论证、证据分级和出处,请读深入版。</p></blockquote>
 <h2>一个新的技术羞辱,和它缺的东西</h2>
 <p>这一两年,所有 AI coding 工具的厂商都在说同一件事:给你的代码库写一个"给 AI 看的 README"——OpenAI 叫它 AGENTS.md,Anthropic 叫 CLAUDE.md,Cursor 和 Copilot 各有各的名字。道理听起来无懈可击:AI agent 每次进你的仓库都要从零开始摸索,把构建命令、目录结构、团队规矩提前写好,它就不用瞎逛了。"你的 repo 居然还没有 AGENTS.md?"已经快成一种新的技术羞辱。</p>
 <p>这个道理缺的东西叫对照组。我们把能找到的一手证据全部核了一遍,结论比口号有意思得多。</p>
-<h2>第一个意外:成功率没涨,涨的是速度和账单</h2>
-<p>目前唯一一个"带文件 vs 不带文件"的多 agent 对照评测(ETH Zurich 团队,438 个真实任务、三个主流 agent)发现:<strong>上下文文件总体上不能提升任务成功率,反而让推理成本平均涨了两成多。</strong>更扎心的细分:让 AI 自动生成的上下文文件,在有文档的仓库上是<strong>负收益</strong>——成功率不升反降;开发者手写的也只有 4% 左右的边际提升,而且在其中一个 agent 上连这点提升都没有。</p>
-<p>那这文件是不是白写了?不是。另一个配对实验(每个任务跑两遍,带和不带)发现:<strong>带文件时,完成同样的任务,时间中位数少了 28.64%,输出 token 少了 16.58%。</strong>AI 不用自己摸清项目结构了,少走的全是弯路。</p>
-<p>一句话总结:<strong>上下文文件不能让 agent 做成原本做不成的事,但能让它更快更省地做成原本就能做成的事。</strong>给老板汇报时请用这个口径——它省的是时间和账单,不是能力奇迹。</p>
+<h2>第一个意外:对照研究互相打架,唯一有统计检验的是省时省钱</h2>
+<p>2026 年上半年出了三个"带文件 vs 不带文件"的对照研究,结论互相矛盾:ETH Zurich 团队说成功率不升、成本涨两成;另一团队的配对实验测得<strong>完成同样的任务,时间中位数少 28.64%、输出 token 少 16.58%</strong>(这是三项里唯一带统计显著性检验的数字);第三个团队测得 AI 生成的指导文件把成功率<strong>提高</strong>了 2.8-7.5 个百分点。</p>
+<p>我们对三项研究都做了敌意方法学审计,结果:名气最大的那项(ETH)的"成功率涨跌"数字被否决了——它全文没有任何统计检验、每个任务只跑一次、有效样本量其实只有 12 个仓库,±2-4 个百分点的"方向"在这种精度下是读不出来的。</p>
+<p>所以诚实的总结是:<strong>成功率有没有影响,现在谁也说不准;唯一站得住的收益是省时间省 token——而且这也只测过一次。</strong>给老板汇报请用这个口径:值得试、值得自己测,但别承诺能力奇迹。</p>
 <h2>第二个意外:"怎么写"的讲究,大多讲究错了地方</h2>
 <p>网上有一整套写法圣经:文件要短、重要的放开头、别拆太多文件、千万别有矛盾指令。有人真的做了随机对照实验(1,650 次真实 agent 会话):<strong>文件大小、指令位置、单文件还是嵌套、有没有矛盾——四个变量对 agent 听不听话全都没有可检测的影响。</strong>其中"大小"和"矛盾"两项还是统计上确证的"无效应",不是"没测出来"。</p>
 <p>真正影响 agent 听话程度的是两样:<strong>任务本身是什么</strong>,以及<strong>会话进行到多深</strong>——agent 每多干一个活,遵守你那条指令的概率就往下掉一点。指令写在文件哪一行不重要,agent 干到第几件事才重要。</p>
 <p>那"短"就不用讲究了?还是要短,但理由换了:不是"短了更听话"(没证据),而是<strong>你写的每一行都在挤占 agent 干活的工作记忆</strong>——长上下文的性能退化是实测出来的,而且 OpenAI 的 Codex 会对超过 32 KB 的部分直接静默截断,你写再多它也看不见。</p>
 <h2>那到底该写什么?抄作业时间</h2>
 <p>几个大厂生产仓库的文件,我们逐字核对过原文,共性非常一致:</p>
-<ul><li><strong>命令优先</strong>:把带完整参数、亲手跑过的构建/测试命令放最前面。</li><li><strong>禁令要具体、放最前</strong>:Cloudflare 的文件第一条就是"用 pnpm——永远不要用 npm 或 yarn"(不然 agent 会搞坏整个 monorepo 的依赖锁)。</li><li><strong>只写 AI 猜不到的</strong>:Airflow 写的是"所有文章里 Dag 一律首字母大写"和"永远别在宿主机直接跑 pytest"——这种团队私规,AI 读一万行代码也猜不出来。</li><li><strong>一个文件当老大</strong>:Sentry 的文件开头就声明"AGENTS.md 是唯一事实源,不要往 CLAUDE.md 或 Cursor rules 里加内容"——防止三个文件各说各话。</li><li><strong>别复制 README</strong>:上下文文件的价值来自"AI 从别处拿不到的信息";复述 README 是纯负担,这一点有消融实验背书。</li></ul>
+<ul><li><strong>命令优先</strong>:把带完整参数、亲手跑过的构建/测试命令放最前面。</li><li><strong>禁令要具体、放最前</strong>:Cloudflare 的文件第一条就是"用 pnpm——永远不要用 npm 或 yarn"(不然 agent 会搞坏整个 monorepo 的依赖锁)。</li><li><strong>只写 AI 猜不到的</strong>:Airflow 写的是"所有文章里 Dag 一律首字母大写"和"永远别在宿主机直接跑 pytest"——这种团队私规,AI 读一万行代码也猜不出来。</li><li><strong>一个文件当老大</strong>:Sentry 的文件开头就声明"AGENTS.md 是唯一事实源,不要往 CLAUDE.md 或 Cursor rules 里加内容"——防止三个文件各说各话。</li><li><strong>别复制 README</strong>:上下文文件的价值可能来自"AI 从别处拿不到的信息"——这是目前最有希望的机制假说,两个独立研究的弱信号都指向它;复述 README 大概率是纯负担。</li></ul>
 <p>顺带一个反面教材:常和 AGENTS.md 一起被安利的 llms.txt(给网站写的 AI 索引文件),实测 <strong>97% 的文件一整个月连一个请求都没收到</strong>,Google 官方明确说不用它。写任何"给机器看的文档"之前,先确认那台机器真的会来读。</p>
 <h2>一个多数人没想过的问题:这文件是攻击面</h2>
 <p>Agent 把上下文文件当<strong>指令</strong>执行,不当普通文本读。这意味着:谁能写你的 AGENTS.md,谁就能指挥你的 agent。NVIDIA 红队做过完整演示:一个恶意依赖包在构建时偷偷改写 AGENTS.md,指挥 agent 往代码里埋后门,还附带"不许在 PR 描述里提这件事"的隐身指令。另外,VS Code 现在<strong>默认</strong>把仓库里的 AGENTS.md 注入每一次对话——打开陌生仓库前,记得这一点。</p>
 <p>所以:上下文文件的改动要走 code review,来自机器人和自动化 PR 的改动尤其要盯;打开第三方仓库时,把它们的指令文件当不可信内容。</p>
 <h2>给你公司代码库的行动清单</h2>
-<ol><li><strong>先盘点</strong>:团队用哪些 agent(决定文件叫什么名字)、哪些仓库文档最烂(文档荒地收益最大,文档完善的仓库预期放低)。</li><li><strong>选一个标准</strong>:默认 AGENTS.md 当唯一事实源,给 Claude Code 加个软链接;文件开头声明"就我一个,别处别写"。</li><li><strong>每个仓库花一两小时写个最小版</strong>:跑过的命令、三五行目录地图、always/ask-first/never 三档规矩,200 行以内。别让 AI 全自动生成后直接提交——实测会降成功率;生成初稿再人工修剪可以。</li><li><strong>monorepo 分层</strong>:根文件管全局,只给高风险子目录加嵌套文件,每个文件写个负责人。</li><li><strong>度量代替信仰</strong>:挑一两个试点仓库,准备每类任务一两条测试提示词,改版前后各跑一遍,看完成率、耗时、token。预期是省时省钱,不是成功率飞跃。</li><li><strong>当代码维护</strong>:改动走 PR;模型大版本更新后重新修剪(给旧模型打的补丁会变成新负担);安全团队看一眼编辑器的自动加载开关。</li></ol>
-<p>最后记住这个领域的现状:<strong>厂商建议很多,对照实验很少,而且刚出现的几个对照实验并不完全站在厂商叙事那边。</strong>把厂商口径当默认值用,把度量当裁判用。</p>
+<ol><li><strong>先盘点</strong>:团队用哪些 agent(决定文件叫什么名字)、哪些仓库文档最烂(文档荒地收益最大,文档完善的仓库预期放低)。</li><li><strong>选一个标准</strong>:默认 AGENTS.md 当唯一事实源,给 Claude Code 加个软链接;文件开头声明"就我一个,别处别写"。</li><li><strong>每个仓库花一两小时写个最小版</strong>:跑过的命令、三五行目录地图、always/ask-first/never 三档规矩,200 行以内。AI 全自动生成后直接提交?两个研究一个说有害一个说有益,谁都没赢——稳妥做法是生成初稿、人工修剪、再用第 5 条的度量验收。</li><li><strong>monorepo 分层</strong>:根文件管全局,只给高风险子目录加嵌套文件,每个文件写个负责人。</li><li><strong>度量代替信仰</strong>:挑一两个试点仓库,准备每类任务一两条测试提示词,改版前后各跑一遍,看完成率、耗时、token。公开研究互相打架,你自己的度量是你唯一能拿到的本地真值;默认预期是省时省钱,成功率算意外之喜。</li><li><strong>当代码维护</strong>:改动走 PR;模型大版本更新后重新修剪(给旧模型打的补丁会变成新负担);安全团队看一眼编辑器的自动加载开关。</li></ol>
+<p>最后记住这个领域的现状:<strong>厂商建议很多,对照实验很少,而且刚出现的几个对照实验不但不站厂商,连彼此都说不到一起。</strong>把厂商口径当默认值用,把你自己的度量当裁判用。</p>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
 <script src="https://cissy0802.github.io/comments.js" defer></script>
