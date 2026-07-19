@@ -54,15 +54,13 @@
 - 钩子:→ 候选池 2 条(prompt injection 防御独立体检;机器可读标准的死亡模式谱系);另 1 条仅记运行报告(会话内指令衰减的预注册复现设计)
 - 方法学沉淀:R3 的两个席位(反证搜索/方法学审计)与证据分级自本期起写入流程头;workflow 脚本存 `research/agent-readme/verify-round{2,3}.workflow.js` 可复用
 
-## 待研究
+### 7. 自动化的反讽:40 年人因工程证据对"人握终审"的预测 ✅ 2026-07
+- 页面:`automation-irony-plain/-deep` × zh/en
+- 底座:5 条调研线、约 70 条 findings、32 组承重论断 × 3 票转述保真(154 票有效判决:32/32 挺过、0 推翻、40+ 处口径修正;两轮跑票因结构化输出失败补投,票池超发),另对 5 组单源承重实证增设反证搜索席+方法学审计席(9 份判决:Budzyń 扣引 aOR/定性降为待确认假说、Qazi 方向升多源+改组间口径、Buçinca"三重代价"缩水为仅感知复杂度显著、Vasconcelos 加"解释须真降核验成本"边界、coding-absence 补进 Anthropic 技能形成 RCT);复用 #0 METR 感知落差、#2 验证瓶颈、#5 Argus 底率机制;研究材料存本地 `~/design/deep-research-runs/automation-irony/`
+- 核心口径记录:Bainbridge 实时核查句原文无 "therefore",且原文约一半篇幅是工程处方(判词形象系后人裁剪);P&M 实验室"高可靠"条件故障率口径为约 12%(流传的 10-50% 实为首故障 commission 率,不可作故障率引);Arthur >365 天档 δ=-1.27(摘要 -1.4 与 Table 3 不符,该档仅 3 数据点);Haslbeck 机队主效应 ηp²=.45/LOC .39/GS .38(.11 系 Fleet×Rank 交互对接地点横偏,不可冒充机队效应);Budzyń "平均 28 年"系毕业后年数、aOR 0.69 被 2025-09-11 勘误波及故不引、correspondence 封数未逐一核实;Qazi 已过同行评审(NEJM AI 2026;3(5),CI 收窄为 -18.9~-9.1)、84.9→73.3 为组间对比、"培训防不住"限定为"20 小时通识课单独不够"(同组后续 nudge RCT +7.6pp 证明可缓解);Buçinca 0.64→0.48 限"AI 出错子任务"层(整体决策 0.30→0.26 不显著)、显著主观代价只有感知复杂度;Onnasch 边界原文措辞 critical boundary(非 ill-defined)、语料非 first-failure 范式;Vasconcelos "解释降过度依赖"被 Zhang 2024 独立反号(特征归因式解释只在简单任务有效)——机制层(核验成本是杠杆)多源、强推广被驳;适应性自动化已进高保真模拟/真机演示、缺的是受控运营部署评估("从未出实验室"系夸大);Green & Chen 25.9% 为条件性方向量(r>c 时对黑人被告的影响强度差);van der Sijs ADE 口径为"观察到"非"导致"
+- 钩子:→ system-design Day 54《Fail obviously:给 AI 工作流做失效可见性设计》(backlog,反哺);→ super-individual Day 59《给自己开"手动剂量":AI 时代的技能保鲜处方》(backlog,反哺);→ 候选池 1 条(人机组队何时真的更强);另 1 条仅记运行报告(职业开发者 AI 技能退化前后测的实验设计——2026 meta 确认该格子为空)
 
-### 7. 自动化的反讽:40 年人因工程证据对"人握终审"的预测
-- **一句话**:自动化越好,人这个终审席位退化越快——Bainbridge 1983 起的人因工程文献,对"human-in-the-loop"AI 工作流是判词还是可工程化的约束?
-- **为什么适合**:主研究方向的承重假设体检——#0/#2/#3/#5 的结论都收敛到"裁决留给人",但这个席位本身会不会在自动化下退化(警觉衰减、技能萎缩、自动化自满),整条主线还没检验过;这是在攻击自己方案最薄的地方。
-- **理论底座**:Bainbridge《Ironies of Automation》(1983)、Parasuraman & Riley(use/misuse/disuse/abuse, 1997)、automation complacency & bias(Parasuraman & Manzey 2010)、Endsley 态势感知/out-of-the-loop、信号检测论与底率(接 #5 Argus 机制)、技能衰退文献。
-- **关键争议/正反**:航空实证(AF447、Children of the Magenta、FAA 自动化依赖报告)vs "反讽被夸大/可用适应性自动化缓解"派;医疗警报疲劳与 CDSS 覆盖率数据;2024-2025 的 AI 版新证据(内镜 AI 撤除后医生检出率下降的 deskilling 研究、LLM 辅助的认知卸载研究、Copilot 技能影响)及其方法学强度;认知强制函数(cognitive forcing functions)等干预的实效。
-- **实证锚点**:Bainbridge 原文、BEA AF447 报告、NTSB/FAA 自动化报告、医疗 alert fatigue meta 分析、2025 年内镜 deskilling 研究原文、LLM 认知卸载研究一手数据。
-- **复用指引**:#5 的 Argus 底率×误报机制、#2 的眼动实验、#0 的 METR 感知落差直接沿用;验证票集中在航空/医疗一手数字与 2024-2025 新研究口径上。
+## 待研究
 
 ### 8. 企业 AI 落地实证失败率:"95% 试点失败"体检
 - **一句话**:MIT NANDA"95% 企业 GenAI 试点失败"病毒式数字的方法学体检,加上企业 AI ROI 口径混战——转型难度的基率到底是多少?
@@ -121,3 +119,4 @@
 - AI 时代该让孩子学什么(编程还值得学吗)
 - Prompt injection 防御的独立体检:78 研究 meta 的"自适应攻击 >85% 成功率"口径核验 + 主流 agent 平台护栏(权限模式/沙箱/注入过滤)的实测拦截率——防御声称 vs 红队复测的落差(钩子·源自 #14)
 - 机器可读标准的死亡模式谱系:llms.txt(97% 零请求)、keywords meta tag、P3P、Do-Not-Track——"给机器写文档"何时会死于无消费方?采用曲线与消费曲线脱钩的判据能否提前一年预警(钩子·源自 #14)
+- 人机组队什么时候真的更强?Vaccaro/Almaatouq/Malone 2024(Nature Human Behaviour,106 研究 370 效应量)发现决策类任务上人机组合平均劣于人或 AI 单独的最优者——互补性成立的条件(任务分型/置信路由/核验成本)能否工程化,与 #5 的裁判座次学、#7 的终审席位设计直接互补(钩子·源自 #7)

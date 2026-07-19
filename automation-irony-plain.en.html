@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Better the AI, the Worse the Human? A Question Predicted 42 Years Ago (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="Stronger with AI present, possibly weaker once it's gone; never-failing automation is the most dangerous kind; courses don't protect. Plain edition: the main findings plus four seat-design questions.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="automation-irony-plain.html">中文</a><a href="automation-irony-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>The Better the AI, the Worse the Human? A Question Predicted 42 Years Ago (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="automation-irony-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">With AI present the combo is stronger; once it's removed the human may be worse than before — keep two ledgers when evaluating AI. Never-failing automation is the most dangerous kind (33% vs 82% failure detection); experts follow wrong AI too, and a 20-hour AI course didn't protect (−14 points); unused skills rust, brain before hands. What works: experienced failure, outcome accountability, decision-time nudges, cheap verification. What doesn't: exhortations and lectures. Three unremovable floors: vigilance dies within half an hour, unknown failures can't be rehearsed, and the better the AI the worse the human's detection.</div></div>
+<div class="chips"><span class="chip c1">never-failing automation: 33% vs 82%</span><span class="chip c2">20h AI course didn't help: −14pp</span><span class="chip c3">even experts fall to 45.5%</span><span class="chip c4">after AI removed: 28.4%→22.4%</span></div>
+<blockquote><p>This is the condensed edition of the deep dive of the same name. Every key number went through graded verification (96 verbatim fidelity votes plus 9 contradiction-search and methods-audit verdicts — the audit withheld one widely quoted coefficient touched by a published correction, and drew boundaries around several popular conclusions). For the full argument, evidence grades, and sources, read the deep dive.</p></blockquote>
+<h2>One doctor's detection rate, and one five-page old paper</h2>
+<p>In 2025, a top medical journal published a study that chilled the field: four hospitals introduced AI to help spot polyps during colonoscopies. Months later, nineteen physicians averaging 28 years of practice had their detection rate <strong>without AI</strong> fall from 28.4% to 22.4%. With AI present, the human-machine combo really was stronger — but this observational study's signal is that once the AI was taken away, the humans were worse than before. (Observational means confounds remain; we give it a full physical later.)</p>
+<p>The script was written in 1983. A British psychologist predicted in five pages: the more advanced the automation, the more the human's job shrinks to "watch it, and take over when it breaks"; but skills rust without use, and nobody can truly keep watching a machine that almost never fails — <strong>the moment the system needs the human most is exactly the moment the human is least ready.</strong> She called it the irony of automation.</p>
+<p>We ran this issue because every previous issue of this site ends at the same place: "the final call stays with a human." If the person making the final call gets softened by the AI itself, we've built our house on crumbling ground. So this issue turned over forty years of evidence: is the irony a death sentence, or a constraint you can engineer around?</p>
+<p>The answer up front: <strong>it's a constraint, you can engineer around it, but three floors can't be removed — and every trick that works has a price tag.</strong></p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Two ledgers, one technology: adenoma detection rate (ADR) in colonoscopy</text>
+  <text x="60" y="62" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">Ledger 1: with AI present (meta of 21 RCTs)</text>
+  <text x="390" y="62" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">Ledger 2: after AI removed (one observational study)</text>
+  <line x1="352" y1="50" x2="352" y2="290" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <line x1="60" y1="250" x2="320" y2="250" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="390" y1="250" x2="650" y2="250" stroke="#5a6378" stroke-width="1.5"/>
+  <rect x="100" y="128" width="72" height="122" rx="6" fill="#4cc9f0" opacity="0.85"/><text x="136" y="120" fill="#4cc9f0" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">35.9%</text><text x="136" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">Standard</text>
+  <rect x="210" y="101" width="72" height="149" rx="6" fill="#52b788" opacity="0.85"/><text x="246" y="93" fill="#52b788" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">44.0%</text><text x="246" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">AI-assisted</text>
+  <rect x="430" y="154" width="72" height="96" rx="6" fill="#7b61ff" opacity="0.85"/><text x="466" y="146" fill="#7b61ff" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">28.4%</text><text x="466" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">Before AI era</text>
+  <rect x="540" y="174" width="72" height="76" rx="6" fill="#ff6ec4" opacity="0.85"/><text x="576" y="166" fill="#ff6ec4" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">22.4%</text><text x="576" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">After AI era</text>
+  <text x="190" y="300" fill="#52b788" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">35.9% → 44.0% (multi-source)</text>
+  <text x="520" y="300" fill="#ff6ec4" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">28.4% → 22.4% (unconfirmed hypothesis)</text>
+</svg>
+<figcaption>Schematic: left = Hassan 2023 RCT meta (in-use gain, RR 1.24); right = Budzyń 2025 (senior physicians' non-AI colonoscopies, −6.0pp, observational, confounds unexcluded) — deployment evaluation must keep both books (Chapter 5)</figcaption>
+</figure>
+<h2>The sharpest cuts from forty years of evidence</h2>
+<p><strong>Automation that never fails is the most dangerous kind.</strong> The classic experiment: people multitasking while supervising an automated system caught 82% of its failures when it failed now and then — but only 33% when it had been <strong>constantly reliable</strong>. Not laziness: "it never fails" teaches your attention to leave. The most dangerous thing isn't bad AI; it's good AI that almost never errs.</p>
+<p><strong>When the machine is wrong, experts follow it too.</strong> Twenty-seven radiologists read mammograms: with correct AI advice, every experience group sat near 80% accuracy; with deliberately wrong advice, junior readers fell to 20% and even the most experienced group fell to 45%. A 2026 randomized trial cuts deeper: 44 physicians <strong>who had completed a 20-hour AI course</strong> still lost 14 percentage points of diagnostic accuracy when handed ChatGPT advice laced with errors. <strong>The course didn't protect them.</strong></p>
+<p><strong>Skills rust fast — and the brain rusts before the hands.</strong> Meta-analysis: skills unused for over a year drop by more than a standard deviation, and cognitive skills decay faster than physical ones. Aviation measured it precisely: hand-flying precision tracks <em>recent</em> practice, not total career hours; and what actually degrades isn't stick-and-rudder — it's navigation reasoning and anomaly recognition. The <strong>judgment</strong> layer. Bad news: judgment is exactly what AI automates.</p>
+<p><strong>Aviation played the whole script out.</strong> Air France 447: the autopilot handed a perfectly flyable plane back to three pilots; the stall warning sounded continuously for 54 seconds; nobody mentioned it once; 228 people died. The report's verdict: a safety model that uses the human as automation's backup enters "common failure mode" — losing control makes the situation unreadable, and unreadability deepens the loss of control. US regulators reviewed 26 accidents: over 60% involved manual handling errors; in over half, pilots were "out of the control loop and not prepared to assume control." <strong>But say the other half too</strong>: aviation got dramatically safer in the automation era — the fatal accident rate fell 60% in two decades. Automation saves lives in aggregate, while concentrating the risk at the moment of handback.</p>
+
+<figure>
+<svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">The 1993 founding experiment: detecting automation failures</text>
+  <line x1="338" y1="58" x2="338" y2="228" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="326" y="85" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">Constantly reliable automation · multitasking</text><rect x="338" y="70" width="99" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="445" y="85" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">33%</text><text x="326" y="139" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">Occasionally failing automation · multitasking</text><rect x="338" y="124" width="246" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="592" y="139" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">82%</text><text x="326" y="193" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">Single-task pure monitoring (control)</text><rect x="338" y="178" width="291" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="637" y="193" fill="#52b788" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">~97%</text>
+</svg>
+<figcaption>Schematic: Parasuraman, Molloy & Singh 1993 (students, MATB multitask platform) — automation that never fails teaches attention to leave; lab failure rates far exceed real systems, so extrapolate with care (Chapter 3)</figcaption>
+</figure>
+<h2>But don't convict the human just yet</h2>
+<p>Two famous numbers turn out to wrong the human:</p>
+<ul><li>"Doctors ignore 90%+ of system alerts" — in fact, when experts reviewed those overrides, they agreed with the doctor 95.6% of the time. The problem is alarm systems that cry wolf, not derelict humans. <strong>Audit the system's signal quality before auditing the human.</strong></li><li>"Studies prove AI makes you dumber" — most of the viral 2024-25 studies fail methods review: the MIT EEG study is an unreviewed preprint with 54 participants (an independent analysis says the design needed ~159), and the authors themselves beg the media not to use the word "dumber." Last wave's star finding — "Google ruins your memory" — later failed replication twice. <strong>Don't trust the panic; the trustworthy alarms (the cuts above) happen to point the same way anyway.</strong></li></ul>
+<h2>What works, and what it costs</h2>
+<p>Forty years of intervention evidence, scorecard form — every row has a price:</p>
+<ul><li><strong>Letting people experience AI failure works.</strong> Telling trainees "AI can make mistakes" does nothing; letting them get genuinely burned once in a drill, and catch it, measurably cuts complacency. (That 20-hour course was the former.)</li><li><strong>Accountability works.</strong> Make it explicit that the final outcome is on you, and both blind trust and missed errors drop.</li><li><strong>Forcing thought before answers partly works.</strong> Making people commit to their own judgment before seeing the AI's cuts "following the AI into error" — the price is that people find it more taxing, and one independent experiment found it fails against bias-type errors. <strong>Friction is not a panacea; design matters.</strong></li><li><strong>Making verification cheap works.</strong> People skip checking the AI mostly because checking costs as much as redoing. Design AI output so it can be verified at a glance, and people actually verify. <strong>Giving the decision-maker a verification path far cheaper than redoing the work is the single most valuable design move.</strong></li><li><strong>A regular "manual dose" works — but often never happens.</strong> Doing the task periodically without AI preserves the skill. Aviation's lesson: regulators urged more hand-flying, and an audit three years later found nobody ever checked whether airlines complied. <strong>Writing the prescription is useless; watch the medicine get taken.</strong></li></ul>
+<p><strong>Three floors you can't remove:</strong> humans can't keep watching something that almost never fails for more than about half an hour — that's physiology; drills only rehearse <em>known</em> failures, and automation's new failures are by definition the unimagined ones; and the better the AI, the rarer its failures — so human detection gets worse and false alarms dominate. <strong>The veto seat's value and its reliability erode each other by construction.</strong></p>
+<p>So when you design a "human makes the final call" seat into an AI workflow, ask four questions: How many real anomalies does this seat see per day (too few → no full-time watcher; use spot checks plus automatic backstops)? How much cheaper is verifying one AI output than redoing it? When did this person last do the job without AI? And: <strong>when the AI breaks, does it break visibly?</strong> That last one is the hardest and most valuable in the LLM era, because LLMs fail fluently.</p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">Intervention scorecard: forty years of measurements</text>
+  <text x="24" y="64" fill="#52b788" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Measured effective (each with a cost)</text>
+  <text x="408" y="64" fill="#ff8a80" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Measured ineffective</text>
+  <line x1="396" y1="48" x2="396" y2="200" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <circle cx="36" cy="88" r="4" fill="#52b788"/><text x="50" y="92" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Drills with experienced AI failures (not briefings)</text><circle cx="36" cy="118" r="4" fill="#52b788"/><text x="50" y="122" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Personal accountability for overall outcomes</text><circle cx="36" cy="148" r="4" fill="#52b788"/><text x="50" y="152" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Behavioral nudges at decision time</text><circle cx="36" cy="178" r="4" fill="#52b788"/><text x="50" y="182" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Cutting verification cost to at-a-glance</text><circle cx="36" cy="208" r="4" fill="#52b788"/><text x="50" y="212" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Scheduled manual dose (audit that it happens)</text><circle cx="36" cy="238" r="4" fill="#52b788"/><text x="50" y="242" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Cognitive forcing: works at subtask level, feels harder</text><circle cx="420" cy="88" r="4" fill="#e85a4f"/><text x="434" y="92" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">"Please verify the AI" exhortations</text><circle cx="420" cy="118" r="4" fill="#e85a4f"/><text x="434" y="122" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Lecture-style training / 20-hour courses</text><circle cx="420" cy="148" r="4" fill="#e85a4f"/><text x="434" y="152" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Naive transparency</text>
+  <text x="408" y="214" fill="#f0b429" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Missing its last mile</text>
+  <circle cx="420" cy="238" r="4" fill="#f0b429"/>
+  <text x="434" y="242" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">Adaptive automation (rotating control):</text>
+  <text x="434" y="260" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">30 years in sims; no operational evaluation</text>
+</svg>
+<figcaption>Schematic: effect sizes, boundary conditions, and costs per lever in Chapter 8; 'effective' is not universal — most effects are design-dependent</figcaption>
+</figure>
+<h2>How to check this essay's judgments</h2>
+<p>The deep dive ends with eleven testable claims, ranked by evidence strength. In plain words:</p>
+<ol><li><strong>Wrong AI advice drags people down — this is nailed down</strong> (a randomized trial plus multiple independent teams; physicians dropped 14 to 69 points); seniority softens the fall but doesn't prevent it.</li><li><strong>"Stronger while using it" and "weaker after it's gone" are two separate ledgers</strong>: the first has dozens of randomized trials; the second has exactly one observational study so far. Keep both books before deploying.</li><li><strong>Almost-never-wrong automation is the most dangerous regime</strong> — the 33%-vs-82% experiment; don't rely on bad automation, and fight complacency with good automation.</li><li><strong>Unused skills rust, and the brain rusts faster than the hands</strong>; freshness comes from recent practice, not career totals.</li><li><strong>The 1983 prophecy's report card mostly reads "confirmed"</strong>: skill decay, the vigilance ceiling, and "least ready when most needed" all have empirical support; only "humans can't real-time-check a stronger system" remains at the reasoning stage.</li><li><strong>Forty years grew no "the prophecy was wrong" school</strong> — only a "how to mitigate" literature; the 40th-anniversary verdict: it applies to AI even more.</li><li><strong>Generic courses alone don't work; what works is experienced failure, outcome accountability, decision-time nudges, and cheap verification</strong> — each with measured effects, and each with a price or boundary.</li><li><strong>"Ignoring alerts" is usually right</strong> (95.6% expert-endorsed) — fix the system before blaming the person.</li><li><strong>Inserting a human into the loop does not equal safety</strong>: undesigned human review is a compliance placebo; design the human's role, then test it.</li><li><strong>Most viral "AI rots your brain" studies are methodologically unsound, but the solidest new evidence does point the bad way</strong> — distrust the panic, trust the alarm.</li><li><strong>Nobody has ever measured this in professional programmers</strong>: no published before/after skill study exists for working developers — the most overdue experiment in the field.</li></ol>
+<p><strong>What to watch:</strong> whether the endoscopy finding gets a prospective replication and holds; who first measures working developers' skill retention; and when "fails visibly" design for LLM workflows gets its first measured data.</p>
+<h2>The things that matter most</h2>
+<ul><li>Starting today, evaluate AI deployments with two ledgers: <strong>joint performance with AI present</strong>, and <strong>what's left of the human when AI is absent</strong>. Nobody kept the second ledger before 2025 — yet it decides what you hold on outage day, on out-of-scope tasks, and at the next migration.</li><li>Don't staff a "watch the AI full-time" seat — that's a bet against forty years of vigilance research. Use spot checks, automatic backstops, and a scheduled "hands-on without AI" dose — <strong>and audit that the dose actually happens.</strong></li><li>Spend the training budget not on "AI can make mistakes" slides but on <strong>drills where people genuinely get burned once</strong> — or cheaper still, a nudge at the decision moment. Both beat courses.</li><li>Every AI output that reaches the decision-maker needs a <strong>verification path far cheaper than redoing the work</strong>; if you can't provide one, the seat is furniture.</li><li>And keep the two-sided sentence: <strong>automation saves lives in aggregate, while concentrating risk at the moment it hands back to the human.</strong> Both halves are true; either one alone is a lie.</li></ul>
+<footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

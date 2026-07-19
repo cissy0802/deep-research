@@ -1272,7 +1272,216 @@ def fig_sp_transfer(lang: str) -> str:
 </figure>"""
 
 
+def fig_ai_lab(lang: str) -> str:
+    """1993 founding complacency experiment: detection rates under three conditions."""
+    t = {
+        "zh": dict(title="1993 奠基实验:人抓住自动化故障的比例",
+                   r1="自动化恒定可靠 · 人在多任务", v1="33%",
+                   r2="自动化偶尔出错 · 人在多任务", v2="82%",
+                   r3="单任务纯监控(对照条件)", v3="约 97%",
+                   cap="示意:Parasuraman, Molloy & Singh 1993(大学生、MATB 多任务平台)——从不出错的自动化教会注意力离开;注意实验室故障率远高于真实系统,外推受限(正文第 3 章)"),
+        "en": dict(title="The 1993 founding experiment: detecting automation failures",
+                   r1="Constantly reliable automation · multitasking", v1="33%",
+                   r2="Occasionally failing automation · multitasking", v2="82%",
+                   r3="Single-task pure monitoring (control)", v3="~97%",
+                   cap="Schematic: Parasuraman, Molloy & Singh 1993 (students, MATB multitask platform) — automation that never fails teaches attention to leave; lab failure rates far exceed real systems, so extrapolate with care (Chapter 3)"),
+    }[lang]
+    rows = [(t['r1'], t['v1'], 33, "#ff6ec4"), (t['r2'], t['v2'], 82, "#4cc9f0"), (t['r3'], t['v3'], 97, "#52b788")]
+    bars = []
+    y = 70
+    for label, val, pct, color in rows:
+        w = int(pct * 3.0)
+        bars.append(f'<text x="326" y="{y + 15}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="338" y="{y}" width="{w}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{338 + w + 8}" y="{y + 15}" fill="{color}" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{val}</text>')
+        y += 54
+    return f"""<figure>
+<svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="338" y1="58" x2="338" y2="228" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ai_tension(lang: str) -> str:
+    """The two ledgers: in-use gain vs post-withdrawal decay (colonoscopy ADR)."""
+    t = {
+        "zh": dict(title="同一项技术的两本账:AI 辅助肠镜的腺瘤检出率(ADR)",
+                   ha="账本一:AI 在场时(21 项 RCT 的 meta)", hb="账本二:AI 撤走后(单一观察性研究)",
+                   a1="标准肠镜", a2="AI 辅助", b1="引入 AI 前", b2="引入 AI 后",
+                   an="35.9% → 44.0%(多源证实)", bn="28.4% → 22.4%(待确认假说)",
+                   cap="示意:左=Hassan 2023 RCT meta(在场增益,RR 1.24);右=Budzyń 2025(资深医生无 AI 肠镜,-6.0pp,观察性、混杂未除)——部署评估必须同时记两本账(正文第 5 章)"),
+        "en": dict(title="Two ledgers, one technology: adenoma detection rate (ADR) in colonoscopy",
+                   ha="Ledger 1: with AI present (meta of 21 RCTs)", hb="Ledger 2: after AI removed (one observational study)",
+                   a1="Standard", a2="AI-assisted", b1="Before AI era", b2="After AI era",
+                   an="35.9% → 44.0% (multi-source)", bn="28.4% → 22.4% (unconfirmed hypothesis)",
+                   cap="Schematic: left = Hassan 2023 RCT meta (in-use gain, RR 1.24); right = Budzyń 2025 (senior physicians' non-AI colonoscopies, −6.0pp, observational, confounds unexcluded) — deployment evaluation must keep both books (Chapter 5)"),
+    }[lang]
+    def vbar(x, pct, color, label):
+        h = int(pct * 3.4)
+        y0 = 250 - h
+        return (f'<rect x="{x}" y="{y0}" width="72" height="{h}" rx="6" fill="{color}" opacity="0.85"/>'
+                f'<text x="{x + 36}" y="{y0 - 8}" fill="{color}" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{pct}%</text>'
+                f'<text x="{x + 36}" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{label}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="60" y="62" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  <text x="390" y="62" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  <line x1="352" y1="50" x2="352" y2="290" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <line x1="60" y1="250" x2="320" y2="250" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="390" y1="250" x2="650" y2="250" stroke="#5a6378" stroke-width="1.5"/>
+  {vbar(100, 35.9, "#4cc9f0", t['a1'])}
+  {vbar(210, 44.0, "#52b788", t['a2'])}
+  {vbar(430, 28.4, "#7b61ff", t['b1'])}
+  {vbar(540, 22.4, "#ff6ec4", t['b2'])}
+  <text x="190" y="300" fill="#52b788" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">{t['an']}</text>
+  <text x="520" y="300" fill="#ff6ec4" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">{t['bn']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ai_dratsch(lang: str) -> str:
+    """Radiologists' accuracy with correct vs wrong AI advice, by experience."""
+    t = {
+        "zh": dict(title="AI 建议错误时,放射科医生的判读准确率崩塌(Dratsch 2023)",
+                   g1="低年资组", g2="中年资组", g3="资深组",
+                   lc="AI 建议正确时", lw="AI 建议错误时",
+                   cap="示意:27 名放射科医生读乳腺X光,AI 提示为实验操纵;资历只买到部分抵抗力——「无论资历,所有放射科医生都可能发生 automation bias」(正文第 5 章)"),
+        "en": dict(title="Radiologists' accuracy collapses under wrong AI advice (Dratsch 2023)",
+                   g1="Inexperienced", g2="Moderately exp.", g3="Very experienced",
+                   lc="With correct AI advice", lw="With wrong AI advice",
+                   cap="Schematic: 27 radiologists reading mammograms, AI prompts experimentally manipulated; seniority buys only partial resistance — 'all radiologists, regardless of expertise, can be subject to automation bias' (Chapter 5)"),
+    }[lang]
+    groups = [(t['g1'], 79.7, 19.8, 90), (t['g2'], 81.3, 24.8, 300), (t['g3'], 82.3, 45.5, 510)]
+    parts = []
+    for label, ok, bad, x in groups:
+        h1, h2 = int(ok * 2.2), int(bad * 2.2)
+        parts.append(f'<rect x="{x}" y="{280 - h1}" width="52" height="{h1}" rx="5" fill="#4cc9f0" opacity="0.8"/>')
+        parts.append(f'<text x="{x + 26}" y="{280 - h1 - 7}" fill="#4cc9f0" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{ok}%</text>')
+        parts.append(f'<rect x="{x + 60}" y="{280 - h2}" width="52" height="{h2}" rx="5" fill="#ff6ec4" opacity="0.85"/>')
+        parts.append(f'<text x="{x + 86}" y="{280 - h2 - 7}" fill="#ff6ec4" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{bad}%</text>')
+        parts.append(f'<text x="{x + 56}" y="302" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">{label}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="440" y="44" width="12" height="12" rx="3" fill="#4cc9f0" opacity="0.8"/>
+  <text x="458" y="55" fill="#a8b4d0" font-size="11.5" font-family="-apple-system,sans-serif">{t['lc']}</text>
+  <rect x="440" y="64" width="12" height="12" rx="3" fill="#ff6ec4" opacity="0.85"/>
+  <text x="458" y="75" fill="#a8b4d0" font-size="11.5" font-family="-apple-system,sans-serif">{t['lw']}</text>
+  <line x1="60" y1="280" x2="660" y2="280" stroke="#5a6378" stroke-width="1.5"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ai_levers(lang: str) -> str:
+    """Intervention scorecard: what measurably works, with costs; what doesn't."""
+    t = {
+        "zh": dict(title="干预杠杆记分卡:40 年实测",
+                   h1="有实测效果(各有代价)", h2="实测无效", h3="缺最后一公里",
+                   a1="亲历 AI 失效的演习(非口头告知)", a2="对总体结果的个人问责",
+                   a3="决策时点的行为 nudge", a4="把核验成本降到一眼可核对",
+                   a5="定期手动剂量(需核查落地)", a6="认知强制:子任务层有效,感知更复杂",
+                   b1="叮嘱「请核对 AI 建议」", b2="说教式培训 / 20 小时通识课", b3="单纯增加透明度",
+                   c1="适应性自动化(动态轮换控制权):", c2="模拟环境有效 30 年,无运营部署评估",
+                   cap="示意:每条的效应量、边界条件与代价见正文第 8 章;「有效」不等于普适,多数效应依设计而定"),
+        "en": dict(title="Intervention scorecard: forty years of measurements",
+                   h1="Measured effective (each with a cost)", h2="Measured ineffective", h3="Missing its last mile",
+                   a1="Drills with experienced AI failures (not briefings)", a2="Personal accountability for overall outcomes",
+                   a3="Behavioral nudges at decision time", a4="Cutting verification cost to at-a-glance",
+                   a5="Scheduled manual dose (audit that it happens)", a6="Cognitive forcing: works at subtask level, feels harder",
+                   b1='"Please verify the AI" exhortations', b2="Lecture-style training / 20-hour courses", b3="Naive transparency",
+                   c1="Adaptive automation (rotating control):", c2="30 years in sims; no operational evaluation",
+                   cap="Schematic: effect sizes, boundary conditions, and costs per lever in Chapter 8; 'effective' is not universal — most effects are design-dependent"),
+    }[lang]
+    rows_a = [t['a1'], t['a2'], t['a3'], t['a4'], t['a5'], t['a6']]
+    rows_b = [t['b1'], t['b2'], t['b3']]
+    parts = []
+    y = 92
+    for item in rows_a:
+        parts.append(f'<circle cx="36" cy="{y - 4}" r="4" fill="#52b788"/>')
+        parts.append(f'<text x="50" y="{y}" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">{item}</text>')
+        y += 30
+    y2 = 92
+    for item in rows_b:
+        parts.append(f'<circle cx="420" cy="{y2 - 4}" r="4" fill="#e85a4f"/>')
+        parts.append(f'<text x="434" y="{y2}" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">{item}</text>')
+        y2 += 30
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="64" fill="#52b788" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['h1']}</text>
+  <text x="408" y="64" fill="#ff8a80" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['h2']}</text>
+  <line x1="396" y1="48" x2="396" y2="200" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+  <text x="408" y="214" fill="#f0b429" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['h3']}</text>
+  <circle cx="420" cy="238" r="4" fill="#f0b429"/>
+  <text x="434" y="242" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">{t['c1']}</text>
+  <text x="434" y="260" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">{t['c2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ai_map1983(lang: str) -> str:
+    """The four 1983 ironies and their 2026 evidence status."""
+    t = {
+        "zh": dict(title="1983 年四个反讽的 2026 成绩单",
+                   i1="技能不用则退化,监控者由老手变新手", s1="证实:航空对照实测 + 技能衰退元分析", c1="#52b788",
+                   i2="人对少事件信源的警觉撑不过约半小时", s2="证实:警戒实验稳健复现四十年", c2="#52b788",
+                   i3="最需要人接管时,人恰恰最不在状态", s3="现场档案强支持:AF447 / FAA 事故统计", c3="#5eead4",
+                   i4="人无法实时核查一台比自己强的机器", s4="仍是分析性论断;scalable oversight 证据同向", c4="#f0b429",
+                   cap="示意:「证实」指方向获独立证据支持,非逐字量化;分级与出处见正文各章与第 9 章"),
+        "en": dict(title="The four 1983 ironies: a 2026 report card",
+                   i1="Skills decay without use; the monitor turns novice", s1="Confirmed: aviation measurements + decay meta-analysis", c1="#52b788",
+                   i2="Vigilance on low-event sources fails after ~half an hour", s2="Confirmed: vigilance studies replicate across 40 years", c2="#52b788",
+                   i3="The human is least ready exactly when most needed", s3="Strong field support: AF447 / FAA accident statistics", c3="#5eead4",
+                   i4="Humans cannot real-time-check a stronger machine", s4="Still an analytical claim; oversight evidence points the same way", c4="#f0b429",
+                   cap="Schematic: 'confirmed' means the direction has independent empirical support, not literal quantification; grades and sources in the chapters and Chapter 9"),
+    }[lang]
+    rows = [(t['i1'], t['s1'], t['c1']), (t['i2'], t['s2'], t['c2']), (t['i3'], t['s3'], t['c3']), (t['i4'], t['s4'], t['c4'])]
+    parts = []
+    y = 78
+    for irony, status, color in rows:
+        parts.append(f'<rect x="24" y="{y - 20}" width="652" height="54" rx="8" fill="{color}" opacity="0.07" stroke="{color}" stroke-opacity="0.35"/>')
+        parts.append(f'<text x="40" y="{y}" fill="#e4e6eb" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{irony}</text>')
+        parts.append(f'<text x="40" y="{y + 21}" fill="{color}" font-size="11.5" font-family="-apple-system,sans-serif">{status}</text>')
+        y += 66
+    return f"""<figure>
+<svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "automation-irony-deep": [
+        ("zh", "3. 实验室 40 年", fig_ai_lab, "end"),
+        ("en", "3. Forty years in the lab", fig_ai_lab, "end"),
+        ("zh", "5. 医疗", fig_ai_tension, "end"),
+        ("en", "5. Medicine", fig_ai_tension, "end"),
+        ("zh", "6. AI 时代体检", fig_ai_dratsch, "end"),
+        ("en", "6. The AI-era physical", fig_ai_dratsch, "end"),
+        ("zh", "8. 可工程化清单", fig_ai_levers, "end"),
+        ("en", "8. The engineerable list", fig_ai_levers, "end"),
+        ("zh", "9. 结论", fig_ai_map1983, "end"),
+        ("en", "9. Conclusion", fig_ai_map1983, "end"),
+    ],
+    "automation-irony-plain": [
+        ("zh", "一位医生的检出率", fig_ai_tension, "end"),
+        ("en", "One doctor's detection rate", fig_ai_tension, "end"),
+        ("zh", "40 年证据最狠的几刀", fig_ai_lab, "end"),
+        ("en", "The sharpest cuts", fig_ai_lab, "end"),
+        ("zh", "有效的招和它们的价格", fig_ai_levers, "end"),
+        ("en", "What works, and what it costs", fig_ai_levers, "end"),
+    ],
     "seventy-percent-failure-deep": [
         ("zh", "1. ", fig_sp_life, "end"),
         ("en", "1. ", fig_sp_life, "end"),
@@ -1442,10 +1651,10 @@ def inject_figures(body: str, slug: str, lang: str) -> str:
 
 # ---------------------------------------------------------------- page templates
 
-SHARED_SCRIPTS = """<script src="https://cissy0802.github.io/comments.js" defer></script>
-<script src="https://cissy0802.github.io/search.js" defer></script>
-<script src="https://cissy0802.github.io/index-button.js" defer></script>
-<script src="https://cissy0802.github.io/i18n-tts.js" defer></script>"""
+SHARED_SCRIPTS = """<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>"""
 
 # Section accent colors cycled by h2 order (matches the hub's multi-color card language).
 H2_COLORS = ["#4cc9f0", "#7b61ff", "#ff6ec4", "#5eead4", "#f0b429", "#52b788", "#e8794b", "#a29bfe"]
@@ -1533,6 +1742,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("automation-irony-deep", "zh", "deep",
+     "自动化的反讽:AI 越好,人握的终审越会退化吗?(深入版)",
+     "1983 年的预言对上 40 年证据:实验室的 complacency/automation bias、航空与医疗两份现场档案、2024-2026 的 AI 新证据与干预实测——「人握终审」是判词还是可工程化约束;32 组承重论断 × 3 票对抗验证 + 反证搜索与方法学审计席。",
+     "2026-07"),
+    ("automation-irony-deep", "en", "deep",
+     "The Ironies of Automation: The Better the AI, the Faster the Human Veto Decays? (Deep Dive)",
+     "The 1983 prophecy against forty years of evidence: lab complacency and automation bias, the aviation and medicine field archives, the newest AI-era evidence and measured interventions — is 'the human holds the veto' a death sentence or an engineerable constraint; 32 load-bearing claim groups × 3 adversarial votes plus contradiction-search and methods-audit seats.",
+     "2026-07"),
+    ("automation-irony-plain", "zh", "plain",
+     "AI 越好用,人越不中用?一个 42 年前就被预言的问题(易读版)",
+     "AI 在场时人机更强,撤走后人可能比从前更差;从不出错的自动化最危险;上课防不住。易读版:主线结论 + 席位设计四问。",
+     "2026-07"),
+    ("automation-irony-plain", "en", "plain",
+     "The Better the AI, the Worse the Human? A Question Predicted 42 Years Ago (Plain-Language Edition)",
+     "Stronger with AI present, possibly weaker once it's gone; never-failing automation is the most dangerous kind; courses don't protect. Plain edition: the main findings plus four seat-design questions.",
+     "2026-07"),
     ("agent-readme-deep", "zh", "deep",
      "给 Agent 看的 README:上下文文件是基建还是货物崇拜?(深入版)",
      "AGENTS.md/CLAUDE.md 的标准之争、厂商共识与第一批对照实证的正面对撞:三项研究互相矛盾、方法学审计否决两组流传数字、唯一带统计检验的收益是效率;含企业落地 playbook;三轮验证(105 票转述保真 + 反证搜索与方法学审计席)。",
@@ -1671,6 +1896,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("automation-irony-deep", "zh"):
+        "「自动化越好,人握终审越会退化」在 1983 年是过程控制语境的分析性预言,原文一半篇幅其实是工程处方。40 年后的成绩单:技能退化(剂量依赖、认知先于运动)与警觉上限被证实;automation bias 多源证实且 RCT 因果确立——掺错的 LLM 建议让上过 20 小时 AI 课的医生准确率掉 14 个百分点,资深放射科医生也从 82.3% 掉到 45.5%。2025 年内镜研究首次给出「撤走 AI 后人比从前差」的真实世界信号(ADR 28.4%→22.4%,观察性、待确认),与在场增益(RCT meta RR 1.24)构成部署评估的两本账。40 年没长出「反讽被证伪」派,长出的是缓解文献:亲历失效、结果问责、决策 nudge、可核验性设计有实测效果,叮嘱与通识培训无效;警觉生理、未知故障不可预演、底率数学是三个不可工程化的硬底。十一个可检验主张收尾。",
+    ("automation-irony-deep", "en"):
+        "'The better the automation, the faster the human veto decays' was an analytical prophecy in a 1983 process-control paper — half of which was actually engineering prescriptions. The forty-year report card: skill decay (dose-dependent, cognitive-first) and the vigilance ceiling are confirmed; automation bias is multi-source with RCT causality — error-laced LLM advice cost physicians with 20 hours of AI training 14 points of diagnostic accuracy, and even very experienced radiologists fell from 82.3% to 45.5%. The 2025 endoscopy study delivered the first real-world signal of 'worse after AI is removed' (ADR 28.4%→22.4%, observational, unconfirmed), pairing with the in-use gain (RCT meta RR 1.24) as the two ledgers of deployment evaluation. Forty years grew no falsification school, only a mitigation literature: experienced failure, outcome accountability, decision-time nudges, and verifiability design have measured effects; exhortation and generic training don't. Vigilance physiology, unrehearsable unknown failures, and base-rate arithmetic are the three unengineerable floors. Eleven testable claims close the essay.",
+    ("automation-irony-plain", "zh"):
+        "AI 在场时人机组合更强,撤走后人可能比从前更差——评估 AI 部署要记两本账。从不出错的自动化最危险(故障检出 33% vs 82%);AI 说错时专家也跟着错,20 小时 AI 课防不住(-14 个百分点);技能停用就生锈,且脑子锈得比手快。有效的招:亲历失效、结果问责、决策时提醒、把核对做便宜;没用的招:口头叮嘱和说教课。三条绕不开的底线:盯梢撑不过半小时、未知故障没法预演、AI 越好人的检出越差。",
+    ("automation-irony-plain", "en"):
+        "With AI present the combo is stronger; once it's removed the human may be worse than before — keep two ledgers when evaluating AI. Never-failing automation is the most dangerous kind (33% vs 82% failure detection); experts follow wrong AI too, and a 20-hour AI course didn't protect (−14 points); unused skills rust, brain before hands. What works: experienced failure, outcome accountability, decision-time nudges, cheap verification. What doesn't: exhortations and lectures. Three unremovable floors: vigilance dies within half an hour, unknown failures can't be rehearsed, and the better the AI the worse the human's detection.",
     ("seventy-percent-failure-deep", "zh"):
         "「70% 的转型会失败」有精确的出生记录:1993 年以「非科学估计」出生、1995 年被作者收回、2000 年被改写成无出处的「残酷事实」、2009 年被麦肯锡发明出「Kotter 1995 研究」这个不存在的出处;2011 年学术验尸确认无实证基础,数字照样活进 AI 时代。真实基率的诚实答案是「未定」:已发表估计横跨 7-90%,失败率是及格线的函数,实测分布是肥尾而非多数失败。Agile/DevOps 档案显示组织机制正在 AI 采纳中原样重演(64% 的 CEO 先投资后理解、仅 21% 重设计工作流、Duolingo 跑完强制→撤销全周期),但影子式自下而上采纳与每 7 个月翻倍的工具能力,是上一轮档案里没有的变量。十一个可检验主张收尾。",
     ("seventy-percent-failure-deep", "en"):
@@ -1738,6 +1971,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("automation-irony-deep", "zh"): [
+        ("c1", "96 票对抗验证 · 32/32 挺过"), ("c2", "在场 RR 1.24 vs 撤后 -6.0pp"), ("c3", "可工程化 + 3 个硬底"), ("c4", "11 个可检验主张"),
+    ],
+    ("automation-irony-deep", "en"): [
+        ("c1", "96 votes · 32/32 survived"), ("c2", "in-use RR 1.24 vs post-AI −6.0pp"), ("c3", "engineerable + 3 hard floors"), ("c4", "11 testable claims"),
+    ],
+    ("automation-irony-plain", "zh"): [
+        ("c1", "从不出错的自动化:检出 33% vs 82%"), ("c2", "20 小时 AI 课防不住:-14pp"), ("c3", "资深医生也掉到 45.5%"), ("c4", "撤走 AI 后:28.4%→22.4%"),
+    ],
+    ("automation-irony-plain", "en"): [
+        ("c1", "never-failing automation: 33% vs 82%"), ("c2", "20h AI course didn't help: −14pp"), ("c3", "even experts fall to 45.5%"), ("c4", "after AI removed: 28.4%→22.4%"),
+    ],
     ("seventy-percent-failure-deep", "zh"): [
         ("c1", "90 票对抗验证 · 30/30 挺过"), ("c2", "考古:1993 非科学估计 → 2009 假出处"), ("c3", "基率:已发表估计 7-90%"), ("c4", "11 个可检验主张"),
     ],
@@ -2044,6 +2289,15 @@ INDEX_ENTRIES = [
      "117 verdicts across 3 rounds · 10 testable claims",
      [("t1", "Agent 上下文文件", "Agent context files"), ("t2", "AGENTS.md 标准", "AGENTS.md standard"), ("t3", "对照实证", "Controlled evidence"),
       ("t4", "prompt injection", "Prompt injection"), ("t5", "落地 playbook", "Rollout playbook")]),
+    ("automation-irony", "2026-07",
+     "自动化的反讽:AI 越好,人握的终审越会退化吗?",
+     "The Ironies of Automation: Does the Human Veto Decay as AI Improves?",
+     "自动化越可靠,人这个终审席位退化越快——1983 年的预言正在 AI 工作流里重演吗?从 40 年人因工程实验、航空与医疗两份现场档案,到最新的 AI 时代证据与干预实测,给「人握终审」做一次全面体检。",
+     "The more reliable the automation, the faster the human veto seat decays — is the 1983 prophecy replaying inside AI workflows? A full physical for 'the human holds the veto': forty years of human-factors experiments, the aviation and medicine field archives, and the newest AI-era evidence with measured interventions.",
+     "96 票对抗验证 · 11 个可检验主张",
+     "96 adversarial votes · 11 testable claims",
+     [("t1", "自动化人因", "Human factors"), ("t2", "技能退化", "Skill decay"), ("t3", "automation bias", "Automation bias"),
+      ("t4", "人在环", "Human-in-the-loop"), ("t5", "AI 工作流设计", "AI workflow design")]),
 ]
 
 
