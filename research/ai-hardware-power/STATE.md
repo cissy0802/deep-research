@@ -6,10 +6,13 @@
 
 ## 计划
 
-1. ☐ 调研线 1-6 → `01-raw-claims.md`
-2. ☐ 承重论断提取 + 逐条回源核验 + 反证搜索 → `02-verified-claims.md`
-3. ☐ 成文 4 个源文件(格式对齐 ai-capex-1999 系列)
-4. ☐ build.py 注册 + `python3 build.py` + TOPICS.md #15 移入已发布 + commit/push
+**状态:全部完成 ✅(2026-07-20)。** 发布物见 `sources/ai-hardware-power-*.md` 与渲染页面。
+
+1. ✅ 调研线 1-6 → `01-raw-claims.md`
+2. ✅ 承重论断提取 + 单线回源核验 → `02-verified-claims.md`(Round 1,后被 Round 2 部分推翻)
+3. ✅ 成文 4 个源文件(初版)
+4. ✅ 补验:12 组 × 3 票对抗验证(3 个独立 agent,单票原文 `votes/voter-{a,b,c}.md`)→ `03-verification-round2.md`;6 组单源双席审计(`votes/audit-d.md`)→ `04-verification-round3.md`;36 票 12/12 挺过、0 推翻、9 处口径修正
+5. ✅ 四篇按判决修订 + build.py 注册与构建 + TOPICS.md #15 移入已发布
 
 ## 6 条调研线
 
@@ -22,10 +25,10 @@
 
 ## 运行日志
 
-- 2026-07-20:TOPICS.md #15 登记并 commit(e685b53)。开始调研线 1。
+- 2026-07-20:TOPICS.md #15 登记并 commit(e685b53);调研线 1-6 完成(01);单线核验(02,修正 GE Vernova/内存口径两处);四篇成文;build.py 注册。
+- 2026-07-20:应用户对流程完整性的质疑,补跑标准验证:3 票对抗(A/B/C 独立投票)+ 双席审计(D)。结果:12/12 挺过、0 推翻、9 处修正——包括推翻 02 自己的"现货口径"修正、Shuli Ren 归属否决、Grid Strategies vs NERC 归属修正、ERCOT 198 件勘误、账单按辖区重写。四篇 + TLDRS/CHIPS 已按判决重写并重建。
+- 流程沉淀:本期教训写入仓库 `CLAUDE.md`(降级运行规则 + 红线)。
 
 ## 下一步(恢复点)
 
-- 若 `01-raw-claims.md` 不存在或不完整 → 从缺失的调研线继续
-- 若 01 完整、02 缺失 → 从承重论断提取开始
-- 若 02 完整 → 成文
+- 无。本期已发布。若后续季度数据更新(PJM 2029/30 拍卖、ERCOT 队列、内存 3Q26 合约价),按 CLAUDE.md 红线更新四版+重建。

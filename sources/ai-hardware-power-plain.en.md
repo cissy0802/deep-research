@@ -12,9 +12,9 @@ Both shortages are real. But how long they last, and who pays, differ.
 
 ## Hardware: 2026's memory sold out in the opening months
 
-The three big memory makers (SK Hynix, Samsung, Micron) sold out their entire 2026 capacity — including HBM, the high-bandwidth memory every AI chip requires — before the year was half over. Cloud giants are signing multi-year contracts at elevated prices just to lock in supply, textbook shortage-cycle behavior.
+Most of the memory industry's 2026 capacity sold out before the year was half over: SK Hynix confirmed DRAM, NAND and HBM all gone, Micron confirmed its entire output of HBM — the high-bandwidth memory every AI chip requires — is under contract, and Samsung confirmed its HBM is sold out. Cloud giants are signing multi-year contracts at elevated prices just to lock in supply, textbook shortage-cycle behavior.
 
-The primary price record: in Q2 2026, DRAM contract prices rose 58–63% in a single quarter and NAND 70–75% (the "+90%" in headlines is spot prices or specific parts — mildly exaggerated). The passthrough to you: a 16GB RAM stick went from $137 to $207; HP says memory and storage now make up a third of a PC's cost; the big PC makers have all raised prices 15–20%. The mechanism is simple: memory makers moved production lines to AI-grade memory, and consumer parts got crowded out — **the shortage isn't stopping AI from getting chips; it's stopping you from affording a RAM stick**.
+The primary price record: in Q1 2026, DRAM contract prices for large buyers rose 90–95% in a single quarter (yes — the "+90%" in headlines is the real contract price, not spot froth); Q2 added another 58–63%, with NAND up 70–75%. The passthrough to you: HP says memory and storage now make up a third of a PC's cost; the big PC makers have all raised prices 15–20%. The mechanism is simple: memory makers moved production lines to AI-grade memory, and consumer parts got crowded out — **the shortage isn't stopping AI from getting chips; it's stopping you from affording a RAM stick**.
 
 How long? **Tight through the end of 2027 — that's the consensus** (new factories physically can't arrive sooner). The split is 2028: if AI demand keeps surging, gradual relief; if AI demand slows, the memory industry's old script is a hard flip into **glut** — every memory supercycle in history has ended that way. Note who's talking: the loudest "shortage will last years" voices are the memory makers profiting from the price spike.
 
@@ -24,7 +24,7 @@ The hardest evidence on power isn't a forecast — it's what already happened. P
 
 Who caused it? PJM's independent market monitor did the math: 45% of the costs of the last three auctions ($21.3 billion) trace to forecast data-center load — much of it from data centers **that don't exist yet**.
 
-Who pays? Everyone. Washington DC residents pay $21/month more since June 2025; Maryland +$18; Ohio +$16 — roughly half attributed directly to the capacity-price spike.
+Who pays? Everyone. Per state consumer advocates' calculations: Baltimore residents pay about $21/month more, Washington DC about $20, Maryland jurisdictions $14–18, and Ohio's utility itself reports about $27 — increases cluster at $14–27/month, roughly half attributed directly to the capacity-price spike.
 
 ## But the demand numbers are full of ghosts
 
@@ -40,7 +40,7 @@ But this time has one material difference: **in the prior scares, the predicted 
 
 ## When supply catches up: lay out the delivery dates and the answer writes itself
 
-- **Gas turbines**: GE Vernova, the biggest maker, is booked to about 2030 (100 GW under contract; the CEO says only ~10 GW of capacity remains before 2030), and industry lead times stretch to 8 years. A plant ordered in 2026 generates power in 2029–2033.
+- **Gas turbines**: GE Vernova, the biggest maker, is booked to about 2030 (a 100 GW order book including slot reservations; the CEO says only ~10 GW of capacity remains before 2030), and industry lead times stretch to 8 years. A plant ordered in 2026 generates power in 2029–2033.
 - **Nuclear**: Microsoft's Three Mile Island restart — the fastest path in America, since it revives an existing reactor — arrives in 2027. Google's and Amazon's small modular reactors: first units after 2030, scale in 2035–2039. **Nuclear is the 2030s' answer; it cannot rescue this decade.**
 - What **can** scale fast: solar plus batteries (shortest queues), and data centers building their own power plants.
 
