@@ -60,15 +60,13 @@
 - 核心口径记录:Bainbridge 实时核查句原文无 "therefore",且原文约一半篇幅是工程处方(判词形象系后人裁剪);P&M 实验室"高可靠"条件故障率口径为约 12%(流传的 10-50% 实为首故障 commission 率,不可作故障率引);Arthur >365 天档 δ=-1.27(摘要 -1.4 与 Table 3 不符,该档仅 3 数据点);Haslbeck 机队主效应 ηp²=.45/LOC .39/GS .38(.11 系 Fleet×Rank 交互对接地点横偏,不可冒充机队效应);Budzyń "平均 28 年"系毕业后年数、aOR 0.69 被 2025-09-11 勘误波及故不引、correspondence 封数未逐一核实;Qazi 已过同行评审(NEJM AI 2026;3(5),CI 收窄为 -18.9~-9.1)、84.9→73.3 为组间对比、"培训防不住"限定为"20 小时通识课单独不够"(同组后续 nudge RCT +7.6pp 证明可缓解);Buçinca 0.64→0.48 限"AI 出错子任务"层(整体决策 0.30→0.26 不显著)、显著主观代价只有感知复杂度;Onnasch 边界原文措辞 critical boundary(非 ill-defined)、语料非 first-failure 范式;Vasconcelos "解释降过度依赖"被 Zhang 2024 独立反号(特征归因式解释只在简单任务有效)——机制层(核验成本是杠杆)多源、强推广被驳;适应性自动化已进高保真模拟/真机演示、缺的是受控运营部署评估("从未出实验室"系夸大);Green & Chen 25.9% 为条件性方向量(r>c 时对黑人被告的影响强度差);van der Sijs ADE 口径为"观察到"非"导致"
 - 钩子:→ system-design Day 54《Fail obviously:给 AI 工作流做失效可见性设计》(backlog,反哺);→ super-individual Day 59《给自己开"手动剂量":AI 时代的技能保鲜处方》(backlog,反哺);→ 候选池 1 条(人机组队何时真的更强);另 1 条仅记运行报告(职业开发者 AI 技能退化前后测的实验设计——2026 meta 确认该格子为空)
 
-## 待研究
+### 8. 企业 AI 落地实证失败率:"95% 试点失败"体检 ✅ 2026-07
+- 页面:`ninety-five-percent-plain/-deep` × zh/en
+- 底座:6 条调研线、160+ 来源、34 组承重论断 × 3 票对抗验证(102 票:34/34 挺过、0 推翻、11 组口径修正),4 组单源实证加反证搜索席+方法学审计席(8 份判决:C4 "任何版本"普遍否定降级为"唯一公开 v0.1"、C25 "两家对台差 10 倍"框架被独立证据推翻重写、C29 财报会自报 30% 禁止与 RCT 并列、C30 Census J 曲线因果拆分降级);复用 #6 已验证的 Standish/CHAOS 考古;研究材料存本地 `~/design/deep-research-runs/ninety-five-percent/`
+- 核心口径记录:95% 原句 "95% of organizations are getting zero return",报告唯一可追溯的 5% 是定制工具漏斗 60→20→5(80% 组织未试点过,试点者成功率 25%;同一对 95%/5% 套在三个互不等价构念上);成功定义=访谈口碑("users or executives have remarked"),附录另有 KPI+6 月第二定义;样本 52 访谈+153 会议问卷,Reviewers 栏=第四作者;Fortune 首发即换口径且把样本写成 150/350(未见于公开 v0.1,身份也从 senior leaders 漂成 employees,未更正);IDC $3.7x=自估选择题+剔除 not sure+1% No ROI,10.3x=循环定义;Google 两个 74%(时间维 vs 用例维)不得合并;McKinsey "AI high performers"≈6% 系双条件(≥5% EBIT 归因+显著价值);Bain "90% 加预算"分母=those same companies(欠交付子群);Ramp 50.4%(2026-03)与中位 $11.38(2026-06)分属两期;丹麦自报省时约 3%(2.8% 系 2025-05 旧版数字);Ghosh 口径 WSJ 原文 "more than 95% of start-ups fail";pilot purgatory 高侧有独立多源(BCG 71%/IDC 88%/WEF >70%/Capgemini 86%)、LNS 7-13% 系窄构念孤值("stuck with unclear results" 勾进 top-3);Census CES-WP-25-27=工业 AI 非 GenAI、IV 排他不可检验、机制(真实扰动)与 BRS(计量假象)相反;Toner-Rodgers 系 MIT 请求撤下/撤审,论文从未发表,非"撤稿"
+- 钩子:→ 候选池 1 条(生产率统计会裁决 AI 吗:Brynjolfsson vs Slok 对垒的可检验时间表);→ leadership《AI 预算的两本账》(backlog,反哺);→ meta-knowledge《先问尺子:读调查数字的口径阶梯》(backlog,反哺);另 2 条仅记运行报告(吸收能力 × GenAI 回报的学术空格;"对台测量"系统盘点)
 
-### 8. 企业 AI 落地实证失败率:"95% 试点失败"体检
-- **一句话**:MIT NANDA"95% 企业 GenAI 试点失败"病毒式数字的方法学体检,加上企业 AI ROI 口径混战——转型难度的基率到底是多少?
-- **为什么适合**:主研究方向的基率参照——和 leadership 对话时需要一个诚实的先验;该数字 2025 年病毒式传播但样本、"失败"定义、作者背景全被质疑,厂商自报 ROI 与独立测算落差极大,正是对抗验证的用武之地。
-- **理论底座**:生产率 J 曲线(Brynjolfsson——GPT 落地的先亏后赚)、吸收能力(Cohen & Levinthal)、Solow 悖论谱系(IT 生产率悖论的历史对照)、技术扩散 S 曲线。
-- **关键争议/正反**:NANDA 报告方法学(非同行评审、样本构成、"失败"=未达 P&L 影响的口径)vs 媒体转述层层加码;厂商自报 ROI(Microsoft/Google 案例集)vs 独立调查(Census BTOS、各国央行/统计局采用率数据);"试点炼狱"是 AI 特有还是所有企业 IT 的常态(对照 ERP/大数据时代的失败率);影子 AI(员工自带工具)对官方统计的侵蚀。
-- **实证锚点**:NANDA 报告原文与逐条批评、Census Bureau BTOS 时序数据、St. Louis Fed 采用研究、Ramp 企业 AI 支出数据、历史 IT 项目失败率文献(与 #6 的 CHAOS 考古共享)。
-- **复用指引**:#0 的企业采用与 ROI 口径直接沿用;与 #6 共享 Standish CHAOS 考古结论(先跑 #6 的话)。
+## 待研究
 
 ### 9. 这轮 AI 资本开支是不是 1999?
 - **一句话**:用铁路/电信/光纤泡沫的资本周期理论,给当前 AI capex 做体检。
@@ -120,3 +118,4 @@
 - Prompt injection 防御的独立体检:78 研究 meta 的"自适应攻击 >85% 成功率"口径核验 + 主流 agent 平台护栏(权限模式/沙箱/注入过滤)的实测拦截率——防御声称 vs 红队复测的落差(钩子·源自 #14)
 - 机器可读标准的死亡模式谱系:llms.txt(97% 零请求)、keywords meta tag、P3P、Do-Not-Track——"给机器写文档"何时会死于无消费方?采用曲线与消费曲线脱钩的判据能否提前一年预警(钩子·源自 #14)
 - 人机组队什么时候真的更强?Vaccaro/Almaatouq/Malone 2024(Nature Human Behaviour,106 研究 370 效应量)发现决策类任务上人机组合平均劣于人或 AI 单独的最优者——互补性成立的条件(任务分型/置信路由/核验成本)能否工程化,与 #5 的裁判座次学、#7 的终审席位设计直接互补(钩子·源自 #7)
+- 生产率统计会裁决 AI 吗:Brynjolfsson("harvest phase")vs Slok("everywhere except in the data")读同一批宏观数据结论相反——给这场对垒建可检验时间表(BLS 修订、AI 归因研究),并盘点让宏观测量失灵的三个盲区:无形投资不入账、官方问卷中途换口径(BTOS 2025-11)、影子使用对企业口径的侵蚀;与 #10 scaling laws 的"基准饱和 vs 能力真实"之争同构(钩子·源自 #8)

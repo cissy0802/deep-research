@@ -1461,7 +1461,297 @@ def fig_ai_map1983(lang: str) -> str:
 </figure>"""
 
 
+def fig_nf_constructs(lang: str) -> str:
+    """NANDA's two funnels and the three non-equivalent constructs behind one 95%."""
+    t = {
+        "zh": dict(title="同一份报告里的两条漏斗(NANDA 2025,占全体受访组织比例)",
+                   l_custom="定制/任务专用工具", l_generic="通用 LLM 聊天工具",
+                   s1="调研过", s2="进入试点", s3="用进生产",
+                   note1="同一对 95%/5% 被套在三个构念上:①95% 组织「零回报」 ②5% 的 integrated pilots 提取价值",
+                   note2="③定制工具 5% 进生产——三者互不等价,分子从「未进生产」被改写成「零回报」",
+                   cap="示意:报告的头条数字来自左边的漏斗(定制工具 5% 进生产),被执行摘要改写成「95% 组织零回报」;右边通用工具约 83% 的试点转化率几乎无人转述(条长按百分比等比)"),
+        "en": dict(title="Two funnels in the same report (NANDA 2025, share of all surveyed organizations)",
+                   l_custom="Custom / task-specific tools", l_generic="General-purpose LLM chatbots",
+                   s1="Investigated", s2="Piloted", s3="In production",
+                   note1="One 95%/5% pair, three constructs: ① 95% of orgs at \"zero return\" ② 5% of integrated pilots",
+                   note2="③ 5% of custom tools in production — non-equivalent; \"not in production\" rewritten as \"zero return\"",
+                   cap="Schematic: the headline number comes from the left funnel (5% of custom tools reach production), rewritten in the executive summary as \"95% of organizations get zero return\"; the right funnel's ~83% pilot-to-implementation rate went almost unquoted (bars proportional)"),
+    }[lang]
+    rows = [(t['s1'], 60, 80), (t['s2'], 20, 50), (t['s3'], 5, 40)]
+    parts = []
+    y = 92
+    sc = 3.4
+    for label, cv, gv in rows:
+        parts.append(f'<text x="188" y="{y + 12}" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        parts.append(f'<rect x="200" y="{y}" width="{max(cv * sc, 3)}" height="15" rx="4" fill="#ff6ec4" opacity="0.85"/>')
+        parts.append(f'<text x="{200 + max(cv * sc, 3) + 8}" y="{y + 12}" fill="#ff6ec4" font-size="12" font-weight="700" font-family="Menlo,monospace">{cv}%</text>')
+        parts.append(f'<rect x="200" y="{y + 19}" width="{gv * sc}" height="15" rx="4" fill="#4cc9f0" opacity="0.85"/>')
+        parts.append(f'<text x="{200 + gv * sc + 8}" y="{y + 31}" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">{gv}%</text>')
+        y += 58
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="24" y="52" width="12" height="12" rx="3" fill="#ff6ec4"/><text x="42" y="62" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">{t['l_custom']}</text>
+  <rect x="330" y="52" width="12" height="12" rx="3" fill="#4cc9f0"/><text x="348" y="62" fill="#a8b0c0" font-size="12" font-family="-apple-system,sans-serif">{t['l_generic']}</text>
+  <line x1="200" y1="84" x2="200" y2="256" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+  <rect x="24" y="268" width="652" height="42" rx="8" fill="#7b61ff" opacity="0.10" stroke="#7b61ff" stroke-opacity="0.45"/>
+  <text x="36" y="285" fill="#c9d4ff" font-size="11.5" font-family="-apple-system,sans-serif">{t['note1']}</text>
+  <text x="36" y="301" fill="#c9d4ff" font-size="11.5" font-family="-apple-system,sans-serif">{t['note2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_nf_mutation(lang: str) -> str:
+    """The mutation timeline of the 95%."""
+    t = {
+        "zh": dict(title="一个数字的变异链(2025-07 → 2026)",
+                   rows=[
+                       ("2025-07", "报告 v0.1:「95% of organizations are getting zero return」", "样本 52 访谈 + 153 问卷,自称「初步发现」", "#4cc9f0"),
+                       ("2025-08-18", "Fortune 首发:「95% 的生成式 AI 试点在失败」", "首发即换口径;样本被写成 150 访谈 + 350 员工", "#ff6ec4"),
+                       ("2025-08-19", "AI 股回调被归因于报告(Nvidia -3.5%)", "同周另有 Altman 泡沫言论;无事件研究可归因", "#f0b429"),
+                       ("2025 秋", "限定语全部脱落:「95% of AI projects fail」", "机构归属升格为「MIT Media Lab 研究」", "#e8794b"),
+                       ("2026", "厂商营销页主力引用;杂交出无出处的「90%」", "NANDA 零更正、零数据、零续作", "#a29bfe"),
+                   ],
+                   cap="示意:每一站的漂移都有逐字存证(变体谱系与出处见正文);报告原文与 Fortune 版样本量的不一致至今无人更正"),
+        "en": dict(title="The mutation chain of one number (Jul 2025 → 2026)",
+                   rows=[
+                       ("2025-07", "Report v0.1: \"95% of organizations are getting zero return\"", "Sample: 52 interviews + 153 surveys; self-labeled preliminary", "#4cc9f0"),
+                       ("2025-08-18", "Fortune launch: \"95% of generative AI pilots are failing\"", "Yardstick changed on arrival; sample printed as 150 + 350", "#ff6ec4"),
+                       ("2025-08-19", "AI selloff attributed to the report (Nvidia -3.5%)", "Altman's bubble remark same week; no event study", "#f0b429"),
+                       ("Fall 2025", "All qualifiers shed: \"95% of AI projects fail\"", "Pedigree upgraded to \"MIT Media Lab research\"", "#e8794b"),
+                       ("2026", "Vendor marketing cites it; sourceless \"90%\" hybrid appears", "NANDA: zero corrections, zero data, zero sequel", "#a29bfe"),
+                   ],
+                   cap="Schematic: every hop is documented verbatim (variant family and sources in the text); the sample-size mismatch between report and Fortune remains uncorrected"),
+    }[lang]
+    parts = []
+    y = 66
+    for date, main, sub, color in t['rows']:
+        parts.append(f'<circle cx="106" cy="{y - 4}" r="5" fill="{color}"/>')
+        parts.append(f'<text x="92" y="{y}" fill="#7c8593" font-size="11" text-anchor="end" font-family="Menlo,monospace">{date}</text>')
+        parts.append(f'<text x="122" y="{y}" fill="#e4e6eb" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{main}</text>')
+        parts.append(f'<text x="122" y="{y + 17}" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{sub}</text>')
+        y += 56
+    return f"""<figure>
+<svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="106" y1="54" x2="106" y2="{y - 48}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_nf_ladder(lang: str) -> str:
+    """The yardstick ladder: each notch of strictness drops the success rate a tier."""
+    t = {
+        "zh": dict(title="同一个问题,八把尺子(2024-2026 主要调查,「有回报」比例)",
+                   rows=[
+                       ("自估回报倍数,剔除「不知道」(IDC×微软)", "99%", 99, "#4cc9f0"),
+                       ("已部署企业第一年内自报 ROI(Google Cloud)", "74%", 74, "#4cc9f0"),
+                       ("高管感知正 ROI(Wharton;VP+ 81 / 中层 69)", "74%", 74, "#5eead4"),
+                       ("项目达成自家预期 ROI(IBM,2000 CEO)", "25%", 25, "#f0b429"),
+                       ("过去 12 个月实测增收+降本(PwC,4454 CEO)", "12%", 12, "#e8794b"),
+                       ("EBIT 归因 ≥5% 且显著价值(麦肯锡)", "6%", 6, "#ff6ec4"),
+                       ("规模化产生价值(BCG)", "5%", 5, "#ff6ec4"),
+                       ("定制工具试点→显著 P&L,6 个月(NANDA)", "5%", 5, "#ff6ec4"),
+                   ],
+                   cap="示意:光谱两端差九十个百分点,几乎全部由口径解释——分母、标尺、样本准入、答卷人职级、时间窗、自报还是实测(各调查样本与年份见正文)"),
+        "en": dict(title="One question, eight rulers (major surveys 2024-2026, share \"with returns\")",
+                   rows=[
+                       ("Self-estimated ROI multiple, \"not sure\" excluded (IDC×Microsoft)", "99%", 99, "#4cc9f0"),
+                       ("Deployers self-reporting first-year ROI (Google Cloud)", "74%", 74, "#4cc9f0"),
+                       ("Executives perceiving positive ROI (Wharton; VP+ 81 / mid 69)", "74%", 74, "#5eead4"),
+                       ("Initiatives meeting own expected ROI (IBM, 2,000 CEOs)", "25%", 25, "#f0b429"),
+                       ("Measured revenue + cost gains, 12 months (PwC, 4,454 CEOs)", "12%", 12, "#e8794b"),
+                       ("≥5% EBIT attributed, significant value (McKinsey)", "6%", 6, "#ff6ec4"),
+                       ("AI value at scale (BCG)", "5%", 5, "#ff6ec4"),
+                       ("Custom-tool pilot → marked P&L, 6 months (NANDA)", "5%", 5, "#ff6ec4"),
+                   ],
+                   cap="Schematic: ninety points separate the ends of the spectrum, almost entirely explained by the ruler — denominator, yardstick, sample admission, respondent seniority, time window, self-report vs measurement (samples and dates in the text)"),
+    }[lang]
+    parts = []
+    y = 62
+    sc = 2.65
+    for label, val, w, color in t['rows']:
+        parts.append(f'<text x="378" y="{y + 12}" fill="#7c8593" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="388" y="{y}" width="{max(w * sc, 4)}" height="16" rx="4" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{388 + max(w * sc, 4) + 8}" y="{y + 13}" fill="{color}" font-size="12" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 40
+    return f"""<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="388" y1="54" x2="388" y2="{y - 20}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_nf_gauges(lang: str) -> str:
+    """Three official adoption numbers at the same point in time."""
+    t = {
+        "zh": dict(title="同一时点,三个官方口径(美国,2025 年底)",
+                   rows=[
+                       ("问企业:任一业务职能在用 AI(Census BTOS)", "18%", 18, "#4cc9f0"),
+                       ("问工人:工作中用生成式 AI(RPS 自报)", "41%", 41, "#7b61ff"),
+                       ("按就业加权:所在企业已采用 AI(Atlanta Fed SBU)", "78%", 78, "#ff6ec4"),
+                   ],
+                   note="机制之一:57% 的员工向雇主隐瞒 AI 使用(KPMG-墨尔本大学,47 国 48,000 人)",
+                   cap="示意:三个数字都是官方/学术口径,差距来自问谁、怎么问——员工的影子使用对高管不可见,企业口径测的是官方部署率而非实际使用率(Fed 2026-04 研究简报口径)"),
+        "en": dict(title="Same point in time, three official yardsticks (US, end of 2025)",
+                   rows=[
+                       ("Ask firms: AI in any business function (Census BTOS)", "18%", 18, "#4cc9f0"),
+                       ("Ask workers: generative AI at work (RPS self-report)", "41%", 41, "#7b61ff"),
+                       ("Employment-weighted: at an adopting firm (Atlanta Fed SBU)", "78%", 78, "#ff6ec4"),
+                   ],
+                   note="One mechanism: 57% of employees hide their AI use from employers (KPMG-Melbourne, 47 countries)",
+                   cap="Schematic: all three are official or academic yardsticks; the spread comes from who answers and how the question is framed — shadow use is invisible to executives, so the firm-level statistic measures official deployment, not actual use (per the Fed's April 2026 note)"),
+    }[lang]
+    parts = []
+    y = 70
+    sc = 4.0
+    for label, val, w, color in t['rows']:
+        parts.append(f'<text x="338" y="{y + 14}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="348" y="{y}" width="{w * sc}" height="20" rx="5" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{348 + w * sc + 10}" y="{y + 15}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 52
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="348" y1="60" x2="348" y2="{y - 32}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+  <rect x="24" y="{y - 10}" width="652" height="30" rx="8" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.45"/>
+  <text x="36" y="{y + 10}" fill="#f7d070" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_nf_history(lang: str) -> str:
+    """Thirty years of viral failure rates, and how each one died."""
+    t = {
+        "zh": dict(title="三十年病毒失败率年表:每个数字的死法",
+                   rows=[
+                       ("1994", "Standish:「只有 16% 的软件项目成功」", "同一公司数据换口径可在 5.8%↔94.2% 间翻转", "#4cc9f0"),
+                       ("2012", "「按预期 ROI 口径,超过 95% 的创业公司失败」", "同批公司按清算口径失败率仅三四成——95% 的同款先例", "#5eead4"),
+                       ("2017", "「85% 的大数据项目失败」", "唯一出处是分析师个人推文,后被删除", "#f0b429"),
+                       ("2018", "「85% 的 AI 项目失败」", "原文是「会因偏差产出过错误结果」的预测,流通中变形", "#e8794b"),
+                       ("2018-21", "「七到八成制造企业卡在试点炼狱」", "高侧多源同向;低侧 7% 是更窄构念——差距是定义错位", "#a29bfe"),
+                       ("2025", "「95% 的组织 AI 零回报」", "报告自己的定义与数据都不支持「零回报」口径 → 本文", "#ff6ec4"),
+                   ],
+                   cap="示意:高失败率数字 + 权威署名 + 卖方传播的配方三十年未变;引用了辟谣文献的论文里,确认迷思与否定迷思之比约 12:1(Letrud & Hernes 2019)"),
+        "en": dict(title="Thirty years of viral failure rates, and how each one died",
+                   rows=[
+                       ("1994", "Standish: \"only 16% of software projects succeed\"", "Same company's data swings 5.8%↔94.2% under its rules", "#4cc9f0"),
+                       ("2012", "\"By projected ROI, more than 95% of start-ups fail\"", "Same firms fail at 30-40% by liquidation — the 95%'s twin", "#5eead4"),
+                       ("2017", "\"85% of big-data projects fail\"", "Sole source: an analyst's personal tweet, later deleted", "#f0b429"),
+                       ("2018", "\"85% of AI projects fail\"", "Original: a prediction of bias-driven erroneous outcomes", "#e8794b"),
+                       ("2018-21", "\"70-84% of manufacturers stuck in pilot purgatory\"", "High side multi-sourced; the low 7% counts a narrower construct", "#a29bfe"),
+                       ("2025", "\"95% of organizations get zero return from AI\"", "The report's own definition and data refuse \"zero return\" → this essay", "#ff6ec4"),
+                   ],
+                   cap="Schematic: the recipe — a high failure rate, an authoritative byline, seller-side distribution — is thirty years old; papers citing the debunking literature affirm the myths over rejecting them at ~12:1 (Letrud & Hernes 2019)"),
+    }[lang]
+    parts = []
+    y = 66
+    for date, main, sub, color in t['rows']:
+        parts.append(f'<circle cx="96" cy="{y - 4}" r="5" fill="{color}"/>')
+        parts.append(f'<text x="82" y="{y}" fill="#7c8593" font-size="11" text-anchor="end" font-family="Menlo,monospace">{date}</text>')
+        parts.append(f'<text x="112" y="{y}" fill="#e4e6eb" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{main}</text>')
+        parts.append(f'<text x="112" y="{y + 17}" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{sub}</text>')
+        y += 54
+    return f"""<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="96" y1="54" x2="96" y2="{y - 46}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_nf_theories(lang: str) -> str:
+    """Four theoretical readings of the 95%, on two diagnostics."""
+    t = {
+        "zh": dict(title="四种理论读法:两个判据,四个象限",
+                   xl="失败会自动收敛(等)", xr="失败不会自动收敛(改/放弃)",
+                   yt="问题在测量或必要成本", yb="问题在组织或技术本身",
+                   q1t="生产率 J 曲线", q1s="无形投资先计成本后兑现;越变革越先被低估——回报在路上",
+                   q2t="电气化同构(David/Devine)", q2s="回报等工作流重构与新一代工程师;扩散在加速,别等四十年",
+                   q3t="吸收能力(Cohen & Levinthal)", q3s="消化能力买不来,是干出来的副产品;停止投资会被锁死在门外",
+                   q4t="Acemoglu 上界", q4s="十年 TFP ≤0.66%;95% 是正确测到的小效应,等不来反弹",
+                   cap="示意:四个框架不能全对(J 曲线与 Acemoglu 对「早期数据怎么读」符号相反),但可分层各对一块——任务级增益真实、企业级归因缺席、宏观信号未至;裁决点是三层间的传导"),
+        "en": dict(title="Four theoretical readings: two diagnostics, four quadrants",
+                   xl="Failure self-corrects (wait)", xr="Failure does not self-correct (change / stop)",
+                   yt="Problem is measurement or necessary cost", yb="Problem is the organization or the technology",
+                   q1t="Productivity J-curve", q1s="Intangibles book as cost before they pay; the more transformative, the deeper the dip — returns are coming",
+                   q2t="Electrification rhyme (David/Devine)", q2s="Returns wait for workflow redesign and a new cadre; diffusion is faster now — don't wait forty years",
+                   q3t="Absorptive capacity (Cohen & Levinthal)", q3s="Digestion can't be bought — it's a byproduct of doing; stop investing and you lock out",
+                   q4t="Acemoglu's ceiling", q4s="≤0.66% TFP over ten years; the 95% is a small effect measured correctly — no rebound to wait for",
+                   cap="Schematic: the four can't all be right (J-curve and Acemoglu read the early data with opposite signs), but each can own a layer — task gains real, enterprise attribution absent, macro signal missing; the verdict is whether transmission happens"),
+    }[lang]
+    def cell(x, y, title, sub, color):
+        words = sub.split()
+        if lang == "zh":
+            segs = [sub[i:i + 20] for i in range(0, len(sub), 20)][:3]
+        else:
+            segs, cur = [], ""
+            for w in words:
+                if len(cur) + len(w) + 1 > 42:
+                    segs.append(cur); cur = w
+                else:
+                    cur = (cur + " " + w).strip()
+            if cur: segs.append(cur)
+            segs = segs[:3]
+        out = [f'<rect x="{x}" y="{y}" width="310" height="118" rx="10" fill="{color}" opacity="0.08" stroke="{color}" stroke-opacity="0.5"/>',
+               f'<text x="{x + 14}" y="{y + 26}" fill="{color}" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">{title}</text>']
+        for i, s in enumerate(segs):
+            out.append(f'<text x="{x + 14}" y="{y + 48 + i * 18}" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">{s}</text>')
+        return "".join(out)
+    return f"""<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="185" y="56" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['xl']}</text>
+  <text x="520" y="56" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['xr']}</text>
+  {cell(30, 66, t['q1t'], t['q1s'], "#4cc9f0")}
+  {cell(360, 66, t['q3t'], t['q3s'], "#ff6ec4")}
+  {cell(30, 196, t['q2t'], t['q2s'], "#5eead4")}
+  {cell(360, 196, t['q4t'], t['q4s'], "#f0b429")}
+  <text x="24" y="340" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">↑ {t['yt']}</text>
+  <text x="24" y="358" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">↓ {t['yb']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "ninety-five-percent-deep": [
+        ("zh", "1.1", fig_nf_constructs, "end"),
+        ("en", "1.1", fig_nf_constructs, "end"),
+        ("zh", "2.2", fig_nf_mutation, "end"),
+        ("en", "2.2", fig_nf_mutation, "end"),
+        ("zh", "4.4", fig_nf_ladder, "end"),
+        ("en", "4.4", fig_nf_ladder, "end"),
+        ("zh", "5.3", fig_nf_gauges, "end"),
+        ("en", "5.3", fig_nf_gauges, "end"),
+        ("zh", "6. 历史基率", fig_nf_history, "end"),
+        ("en", "6. Historical base rates", fig_nf_history, "end"),
+        ("zh", "7.5", fig_nf_theories, "end"),
+        ("en", "7.5", fig_nf_theories, "end"),
+    ],
+    "ninety-five-percent-plain": [
+        ("zh", "报告里到底写了什么", fig_nf_constructs, "end"),
+        ("en", "What the report actually says", fig_nf_constructs, "end"),
+        ("zh", "为什么", fig_nf_ladder, "end"),
+        ("en", "How ", fig_nf_ladder, "end"),
+        ("zh", "政府数据说", fig_nf_gauges, "end"),
+        ("en", "What the government data says", fig_nf_gauges, "end"),
+        ("zh", "历史上每次都这样", fig_nf_history, "end"),
+        ("en", "It happens every time", fig_nf_history, "end"),
+        ("zh", "四种理论怎么读这个数字", fig_nf_theories, "end"),
+        ("en", "Four theories, four readings", fig_nf_theories, "end"),
+    ],
     "automation-irony-deep": [
         ("zh", "3. 实验室 40 年", fig_ai_lab, "end"),
         ("en", "3. Forty years in the lab", fig_ai_lab, "end"),
@@ -1886,6 +2176,22 @@ ARTICLES = [
      "AI Code Review: Cure for the Verification Bottleneck, or Turtles All the Way Down? (Deep Dive)",
      "An anatomy of the benchmark wars, big tech's production funnels, four footnotes to 'AI verifying AI', and the human-factors script written in 1983; 15 load-bearing claims adversarially verified.",
      "2026-07"),
+    ("ninety-five-percent-deep", "zh", "deep",
+     "「95% 试点失败」体检:一个病毒数字的解剖,与企业 AI 的真实基率(深入版)",
+     "MIT NANDA「95% 组织零回报」的逐字解剖、一年传播变异链、发布方利益结构;厂商与咨询的 ROI 口径混战、官方统计与丹麦注册数据、三十年失败率数字考古与四种理论读法;34 组承重论断 × 3 票对抗验证 + 反证搜索与方法学审计席。",
+     "2026-07"),
+    ("ninety-five-percent-deep", "en", "deep",
+     "The \"95% of AI Pilots Fail\" Physical: Anatomy of a Viral Number, and the Real Base Rate of Enterprise AI (Deep Dive)",
+     "A verbatim anatomy of MIT NANDA's \"95% of organizations get zero return\", its year of mutation, and the publisher's interests; the vendor-consultant ROI yardstick war, official statistics and Danish registry data, thirty years of failure-rate archaeology, and four theoretical readings; 34 load-bearing claim groups × 3 adversarial votes plus contradiction-search and methods-audit seats.",
+     "2026-07"),
+    ("ninety-five-percent-plain", "zh", "plain",
+     "「95% 的 AI 试点都失败了」?这个数字连自己的报告都撑不住(易读版)",
+     "吓崩股市的「95%」在报告里是三个对不上的说法,成功的定义是「有人夸」;真正的图景是用得快、用得浅、藏着用。易读版:主线结论 + 三问拆数字。",
+     "2026-07"),
+    ("ninety-five-percent-plain", "en", "plain",
+     "\"95% of AI Pilots Fail\"? The Number Can't Even Stand On Its Own Report (Plain-Language Edition)",
+     "The market-spooking 95% is three mismatched statements in one report, with success defined as \"someone said nice things\"; the real picture is fast, shallow, and hidden adoption. Plain edition: the main findings plus three questions that dismantle any failure rate.",
+     "2026-07"),
 ]
 
 KICKERS = {
@@ -1968,6 +2274,14 @@ TLDRS = {
         "给代码库写 AGENTS.md/CLAUDE.md 值得,但证据和口号不一样:省 28.64% 时间、16.58% token 是唯一带统计检验的数字;成功率方向三项研究互相打架,谁也没赢;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。",
     ("agent-readme-plain", "en"):
         "Writing an AGENTS.md/CLAUDE.md is worth it — but the evidence differs from the slogans: 28.64% time and 16.58% token savings are the only statistically tested numbers; on success rates, three studies fight each other and nobody has won; 'keep it short' and 'important things first' showed zero effect in the randomized test. Write commands, prohibitions, and the house rules AI can't guess; guard against supply-chain injection that treats the file as an attack surface. Six-step action list included.",
+    ("ninety-five-percent-deep", "zh"):
+        "「95% of organizations are getting zero return」是执行摘要里的一句话;报告内唯一可追溯的 5% 是定制工具漏斗(调研 60%→试点 20%→进生产 5%),而 80% 的组织根本没试点过——同一对 95%/5% 被套在三个互不等价的构念上,「成功」的定义是访谈里「有人夸」。Fortune 首发即换口径,并把 52 家访谈+153 份问卷写成 150+350,至今未更正;四位作者都在做或卖报告推荐的 agentic 框架,无利益冲突披露,被公开要求「公布数据或撤稿」后一年零回应。把口径排成阶梯,混战消失:自估口径 99% 有回报,感知口径约 74%,实测双收益 12%,EBIT 严归因约 6%——NANDA 的 5% 在严口径端并不孤单,孤单的是它的措辞与样本。官方统计的三个事实:用得快(三年 53%)、用得浅(强度使用 7%、中位支出 $11.38/人/月、丹麦注册数据精确零效应)、藏着用(57% 员工隐瞒)。三十年失败率考古显示这些数字几乎从不测量它声称测量的东西;四种理论对「95% 会不会自己好起来」给出互斥答案。十二个可检验主张收尾。",
+    ("ninety-five-percent-deep", "en"):
+        "\"95% of organizations are getting zero return\" is one sentence in an executive summary; the report's only traceable 5% is the custom-tool funnel (60% investigated → 20% piloted → 5% in production), and 80% of organizations never piloted at all — one 95%/5% pair draped over three non-equivalent constructs, with \"success\" defined as someone remarking on impact in an interview. Fortune changed the yardstick on arrival and printed the 52-interview, 153-survey sample as 150+350, uncorrected to this day; all four authors build or sell the agentic frameworks the report recommends, with no conflict disclosure and zero response a year after being asked to release the data or retract. Line the yardsticks up as a ladder and the war dissolves: 99% report ROI by self-estimate, ~74% by perception, 12% by measured twin gains, ~6% by strict EBIT attribution — NANDA's 5% is not lonely at the strict end; its wording and sample are. Official statistics say three things: adopted fast (53% in three years), used shallow (7% intense use, $11.38/employee/month median spend, a precise null in Danish registry data), used in hiding (57% of employees conceal it). Thirty years of failure-rate archaeology show these numbers almost never measure what they claim; four theories give incompatible answers to whether the 95% fixes itself. Twelve testable claims close the essay.",
+    ("ninety-five-percent-plain", "zh"):
+        "「95% 的 AI 试点失败」连自己的报告都撑不住:报告里那是三个对不上的说法,「成功」的定义是访谈里有人夸,样本只有 52 家访谈加 153 份会议问卷,而写报告的人正在卖报告推荐的解药。同一个问题换把尺子,答案从 99% 成功变 6% 成功——成功率是尺子的函数。政府数据的三句话:用得快、用得浅、藏着用(57% 的员工瞒着老板用 AI)。高失败率数字配权威署名是三十年老配方:85% 是删掉的推特,95% 在风投行业有一模一样的先例。看到下一个失败率,先问三件事:分母是什么?失败怎么定义?说这话的人卖什么?",
+    ("ninety-five-percent-plain", "en"):
+        "\"95% of AI pilots fail\" can't stand on its own report: inside, it's three mismatched statements, \"success\" means someone praised the tool in an interview, the sample is 52 interviews plus 153 conference questionnaires — and the authors sell the cure the report prescribes. Swap the ruler and the same question answers 99% or 6% — success rates are functions of rulers. The government data says three things: fast, shallow, hidden (57% of employees conceal their AI use). High failure rates with authoritative bylines are a thirty-year-old recipe: the 85% was a deleted tweet, and the 95% has an exact twin in venture capital. Next failure rate you see, ask three things: What's the denominator? How is failure defined? What does the teller sell?",
 }
 
 CHIPS = {
@@ -2078,6 +2392,18 @@ CHIPS = {
     ],
     ("agent-readme-plain", "en"): [
         ("c1", "−28.64% time · −16.58% tokens"), ("c2", "success rates: studies at war"), ("c3", "formatting folklore: zero effect"), ("c4", "six-step action list"),
+    ],
+    ("ninety-five-percent-deep", "zh"): [
+        ("c1", "102 票对抗验证 · 34/34 挺过"), ("c2", "样本 52 访谈 · 媒体写成 150"), ("c3", "严口径收敛:5-12%"), ("c4", "12 个可检验主张"),
+    ],
+    ("ninety-five-percent-deep", "en"): [
+        ("c1", "102 votes · 34/34 survived"), ("c2", "sample: 52 → reported as 150"), ("c3", "strict yardsticks: 5-12%"), ("c4", "12 testable claims"),
+    ],
+    ("ninety-five-percent-plain", "zh"): [
+        ("c1", "成功的定义:「有人夸」"), ("c2", "换把尺子:99% ↔ 6%"), ("c3", "中位 AI 支出 $11.38/人/月"), ("c4", "57% 员工藏着用"),
+    ],
+    ("ninety-five-percent-plain", "en"): [
+        ("c1", "success = \"someone said so\""), ("c2", "swap rulers: 99% ↔ 6%"), ("c3", "median spend $11.38/employee/mo"), ("c4", "57% hide their AI use"),
     ],
 }
 
@@ -2298,6 +2624,15 @@ INDEX_ENTRIES = [
      "96 adversarial votes · 11 testable claims",
      [("t1", "自动化人因", "Human factors"), ("t2", "技能退化", "Skill decay"), ("t3", "automation bias", "Automation bias"),
       ("t4", "人在环", "Human-in-the-loop"), ("t5", "AI 工作流设计", "AI workflow design")]),
+    ("ninety-five-percent", "2026-07",
+     "「95% 试点失败」体检:企业 AI 的真实基率",
+     "The \"95% of AI Pilots Fail\" Physical: Enterprise AI's Real Base Rate",
+     "吓崩过股市的「95%」,连它自己的报告都撑不住——那到底有多少企业 AI 项目真的失败了?逐字解剖病毒数字的出生与变异,把厂商、咨询与官方统计的口径排成一把阶梯,再用三十年失败率考古和四种经济学理论,给「转型难度的基率」一个诚实的答案。",
+     "The market-spooking \"95%\" can't stand on its own report — so how much enterprise AI actually fails? A verbatim anatomy of the viral number's birth and mutations, the vendor, consultant, and official yardsticks arranged into one ladder, and an honest answer to the base rate of transformation difficulty, built on thirty years of failure-rate archaeology and four economic theories.",
+     "102 票对抗验证 · 12 个可检验主张",
+     "102 adversarial votes · 12 testable claims",
+     [("t1", "僵尸统计", "Zombie statistics"), ("t2", "企业 AI ROI", "Enterprise AI ROI"), ("t3", "口径混战", "Yardstick wars"),
+      ("t4", "生产率 J 曲线", "Productivity J-curve"), ("t5", "影子 AI", "Shadow AI")]),
 ]
 
 
