@@ -66,14 +66,13 @@
 - 核心口径记录:95% 原句 "95% of organizations are getting zero return",报告唯一可追溯的 5% 是定制工具漏斗 60→20→5(80% 组织未试点过,试点者成功率 25%;同一对 95%/5% 套在三个互不等价构念上);成功定义=访谈口碑("users or executives have remarked"),附录另有 KPI+6 月第二定义;样本 52 访谈+153 会议问卷,Reviewers 栏=第四作者;Fortune 首发即换口径且把样本写成 150/350(未见于公开 v0.1,身份也从 senior leaders 漂成 employees,未更正);IDC $3.7x=自估选择题+剔除 not sure+1% No ROI,10.3x=循环定义;Google 两个 74%(时间维 vs 用例维)不得合并;McKinsey "AI high performers"≈6% 系双条件(≥5% EBIT 归因+显著价值);Bain "90% 加预算"分母=those same companies(欠交付子群);Ramp 50.4%(2026-03)与中位 $11.38(2026-06)分属两期;丹麦自报省时约 3%(2.8% 系 2025-05 旧版数字);Ghosh 口径 WSJ 原文 "more than 95% of start-ups fail";pilot purgatory 高侧有独立多源(BCG 71%/IDC 88%/WEF >70%/Capgemini 86%)、LNS 7-13% 系窄构念孤值("stuck with unclear results" 勾进 top-3);Census CES-WP-25-27=工业 AI 非 GenAI、IV 排他不可检验、机制(真实扰动)与 BRS(计量假象)相反;Toner-Rodgers 系 MIT 请求撤下/撤审,论文从未发表,非"撤稿"
 - 钩子:→ 候选池 1 条(生产率统计会裁决 AI 吗:Brynjolfsson vs Slok 对垒的可检验时间表);→ leadership《AI 预算的两本账》(backlog,反哺);→ meta-knowledge《先问尺子:读调查数字的口径阶梯》(backlog,反哺);另 2 条仅记运行报告(吸收能力 × GenAI 回报的学术空格;"对台测量"系统盘点)
 
-## 待研究
+### 9. 这轮 AI 资本开支是不是 1999? ✅ 2026-07
+- 页面:`ai-capex-1999-plain/-deep` × zh/en
+- 底座:6 条调研线、42 组承重论断 × 3 票对抗验证(126 票:13 组全票挺过 / 29 组含口径修正 / 0 推翻),3 组单源实证加反证搜索席+方法学审计席(6 份判决:Moody's $662B 被五份 SEC 申报独立重建为多源一手、CoreWeave"95% 续约"被审计否决不得承重、Allianz 46%/32% 一手回溯成功但 32% 对照值零方法学支撑限制使用);研究材料存本地 `~/design/deep-research-runs/ai-capex-1999/`
+- 核心口径记录:"OpenAI 付 Azure $13B"系误植(实为微软投资承诺,正确数=2025 审计口径 ~$17B);Oracle"经济 capex ~$35B"查无(申报 $55.7B/净现金 $47.7B,$20-25B 是 FY2027);NVIDIA"$182B 不可撤销承诺"在 10-Q 中不存在(实为 $50.3B 且部分可撤销);Cahn $200B→$600B→$1.5T 是总需求序列、$125B→$500B 才是净窟窿;WorldCom 纯资本化仅 ~$3.5B(总虚增 $11B);铁路股跌幅=1845-07 峰→1849-10 谷约 60%(非"1846-1850 跌 50%");SWITCH 87%/144%(非 88%/165%);Oracle CDS 峰值 ~198bps 历史新高(非 125bps);1999 vendor financing 台账六子项五项重写(仅 Lucent 锚点站得住);Jensen"couldn't give Hoppers away"语境=推理非训练;Amy Hood 逐字="I have been short now for many quarters. I thought we were going to catch up. We are not."
+- 钩子:→ investing Day 58《资本周期投资法》(backlog,反哺);→ 候选池 1 条(泡沫的遗产会计);另 1 条仅记运行报告(GPU 单位经济学独立实证空白:旧卡出租利润率 vs 购置成本、V100 退役实证——多空双方在资产寿命之争里都缺这块地基)
 
-### 9. 这轮 AI 资本开支是不是 1999?
-- **一句话**:用铁路/电信/光纤泡沫的资本周期理论,给当前 AI capex 做体检。
-- **为什么适合**:与第 0 篇互补(组织视角 → 资本视角);历史对照有丰富的定量文献,当前数据全部公开可查;多空双方都在大声说话。
-- **理论底座**:资本周期理论(Marathon/Chancellor)、技术革命与金融资本(Perez 的 installation/deployment 框架)、Minsky 金融不稳定假说、通用技术(GPT)扩散经济学。
-- **关键争议/正反**:"收入缺口"论(capex vs AI 收入的缺口测算,Sequoia/经济学人口径差异)vs"算力稀缺是真需求"论;1999 光纤过剩的利用率数据 vs 当前 GPU 利用率;折旧周期(GPU 3-5 年 vs 光纤 20 年)对泡沫类比的破坏力;头部公司现金流自给 vs 1999 债务融资的结构差异。
-- **实证锚点**:四大云厂商 capex 与 AI 收入披露、Perez 框架的既有学术检验、1999-2002 电信 capex/利用率史料、GPU 转售/租赁市场价格。
+## 待研究
 
 ### 10. Scaling laws 撞墙了吗?
 - **一句话**:预训练收益递减是实测事实还是融资叙事?"数据墙"与推理时代的证据体检。
@@ -119,3 +118,4 @@
 - 机器可读标准的死亡模式谱系:llms.txt(97% 零请求)、keywords meta tag、P3P、Do-Not-Track——"给机器写文档"何时会死于无消费方?采用曲线与消费曲线脱钩的判据能否提前一年预警(钩子·源自 #14)
 - 人机组队什么时候真的更强?Vaccaro/Almaatouq/Malone 2024(Nature Human Behaviour,106 研究 370 效应量)发现决策类任务上人机组合平均劣于人或 AI 单独的最优者——互补性成立的条件(任务分型/置信路由/核验成本)能否工程化,与 #5 的裁判座次学、#7 的终审席位设计直接互补(钩子·源自 #7)
 - 生产率统计会裁决 AI 吗:Brynjolfsson("harvest phase")vs Slok("everywhere except in the data")读同一批宏观数据结论相反——给这场对垒建可检验时间表(BLS 修订、AI 归因研究),并盘点让宏观测量失灵的三个盲区:无形投资不入账、官方问卷中途换口径(BTOS 2025-11)、影子使用对企业口径的侵蚀;与 #10 scaling laws 的"基准饱和 vs 能力真实"之争同构(钩子·源自 #8)
+- 泡沫的遗产会计:"过剩基建留下生产性残留"是每轮泡沫的标配辩护,但从无严肃量化——过剩光纤对流媒体/云成本的实际贡献、铁路狂热的事后福利核算、暗光纤收购的价格记录;为什么这个测算没人做(方法学困难还是没人想做),以及若 AI 数据中心过剩,"遗产"该怎么提前记账(#9 已确认该量化空白存在)(钩子·源自 #9)

@@ -1725,6 +1725,303 @@ def fig_nf_theories(lang: str) -> str:
 </figure>"""
 
 
+def fig_ac_cahn(lang: str) -> str:
+    """Cahn's three questions: gross requirement vs net hole, two series."""
+    t = {
+        "zh": dict(title="Cahn 的三道算术题:总需求与净窟窿是两条序列",
+                   algo="算法:Nvidia 数据中心 run-rate 收入 ×2(GPU 约占 TCO 一半)×2(终端 50% 毛利)",
+                   rows=[
+                       ("2023-09《$200B Question》", 200, "$200B", 125, "净窟窿 $125B"),
+                       ("2024-06《$600B Question》", 600, "$600B", 500, "净窟窿 ~$500B"),
+                       ("2026-07《$1.5T Question》", 1500, "$1.5T(累计 ~$3T)", None, "未公布净窟窿"),
+                   ],
+                   legend_a="单年 capex 的终身回本总需求", legend_b="减大厂 AI 收入后的净窟窿",
+                   cap="示意:$200B→$600B→$1.5T 是「总需求」序列,$125B→$500B 才是「净窟窿」;把 $1.5T 读成窟窿是常见误读。Cahn 本人不喊泡沫,且 2026 自认 GPU-only 算法在低估分母(漏 TPU/ASIC 与内存)"),
+        "en": dict(title="Cahn's three questions: gross requirement and net hole are two different series",
+                   algo="Algorithm: Nvidia data center run-rate revenue ×2 (GPUs ≈ half of TCO) ×2 (50% end-user margin)",
+                   rows=[
+                       ("2023-09 \"$200B Question\"", 200, "$200B", 125, "net hole $125B"),
+                       ("2024-06 \"$600B Question\"", 600, "$600B", 500, "net hole ~$500B"),
+                       ("2026-07 \"$1.5T Question\"", 1500, "$1.5T (~$3T cumulative)", None, "no net-hole figure"),
+                   ],
+                   legend_a="lifetime revenue required by one year's capex", legend_b="net hole after big tech's AI revenue",
+                   cap="Schematic: $200B→$600B→$1.5T is the gross-requirement series; $125B→$500B is the net hole — reading $1.5T as \"the hole\" is a common error. Cahn calls no bubble, and in 2026 says his GPU-only math increasingly underestimates the denominator (TPUs/ASICs, memory)"),
+    }[lang]
+    sc = 420 / 1500.0
+    parts = []
+    y = 96
+    for label, gross, gtxt, hole, htxt in t['rows']:
+        parts.append(f'<text x="24" y="{y - 6}" fill="#c9d4ff" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="24" y="{y}" width="{gross * sc}" height="18" rx="4" fill="#7b61ff" opacity="0.75"/>')
+        parts.append(f'<text x="{24 + gross * sc + 8}" y="{y + 14}" fill="#7b61ff" font-size="12" font-weight="700" font-family="Menlo,monospace">{gtxt}</text>')
+        if hole:
+            parts.append(f'<rect x="24" y="{y + 21}" width="{hole * sc}" height="10" rx="3" fill="#ff6ec4" opacity="0.9"/>')
+            parts.append(f'<text x="{24 + hole * sc + 8}" y="{y + 30}" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{htxt}</text>')
+        else:
+            parts.append(f'<text x="24" y="{y + 30}" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{htxt}</text>')
+        y += 66
+    return f"""<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="58" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{t['algo']}</text>
+  {''.join(parts)}
+  <rect x="24" y="{y + 2}" width="12" height="12" rx="3" fill="#7b61ff" opacity="0.75"/>
+  <text x="42" y="{y + 12}" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{t['legend_a']}</text>
+  <rect x="24" y="{y + 22}" width="12" height="12" rx="3" fill="#ff6ec4" opacity="0.9"/>
+  <text x="42" y="{y + 32}" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{t['legend_b']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ac_ledger(lang: str) -> str:
+    """2026 ledger: big-four capex vs visible AI revenue yardsticks."""
+    t = {
+        "zh": dict(title="2026 账本:capex 与看得见的「AI 收入」(口径互不可加)",
+                   rows=[
+                       ("四大厂 2026 capex 指引合计(公司口径中点)", 710, "$710B", "#e8794b"),
+                       ("Anthropic run-rate(2026-05,公司自述)", 47, "$47B", "#4cc9f0"),
+                       ("Microsoft「AI business ARR」(FY26Q3)", 37, "$37B", "#4cc9f0"),
+                       ("OpenAI run-rate(2026-01 底)", 25, "$25B", "#4cc9f0"),
+                       ("AWS「AI 收入 run rate」(前三年)", 15, "$15B", "#4cc9f0"),
+                   ],
+                   note1="下四条为厂商/公司自定义、未审计口径,互不可加;",
+                   note2="OpenAI 付微软的 ~$17B 同时计入微软 AI 收入(重复计数)",
+                   cap="示意:即便全取最激进口径,可见 AI 收入合计为数百亿美元量级,对照 $710B 单年 capex 差约一个数量级——这是所有缺口测算的事实底座;但「缺口多大」取决于分母(全额 capex vs 年度折旧),见正文"),
+        "en": dict(title="The 2026 ledger: capex vs visible \"AI revenue\" (incompatible yardsticks)",
+                   rows=[
+                       ("Big-four 2026 capex guidance, company midpoints", 710, "$710B", "#e8794b"),
+                       ("Anthropic run rate (May 2026, self-reported)", 47, "$47B", "#4cc9f0"),
+                       ("Microsoft \"AI business ARR\" (FY26Q3)", 37, "$37B", "#4cc9f0"),
+                       ("OpenAI run rate (end of Jan 2026)", 25, "$25B", "#4cc9f0"),
+                       ("AWS \"AI revenue run rate\" (first 3 years)", 15, "$15B", "#4cc9f0"),
+                   ],
+                   note1="The four revenue bars are vendor-defined, unaudited, and non-summable;",
+                   note2="OpenAI's ~$17B paid to Microsoft is also inside Microsoft's AI revenue (double counting)",
+                   cap="Schematic: even on the most aggressive yardsticks, visible AI revenue sums to tens of billions against $710B of single-year capex — roughly an order of magnitude, the factual floor under every gap calculation; how big the \"gap\" is depends on the denominator (full capex vs annual depreciation), see text"),
+    }[lang]
+    sc = 350 / 710.0
+    parts = []
+    y = 64
+    for label, val, vtxt, color in t['rows']:
+        parts.append(f'<text x="268" y="{y + 13}" fill="#7c8593" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        w = max(val * sc, 3)
+        parts.append(f'<rect x="278" y="{y}" width="{w}" height="18" rx="4" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{278 + w + 8}" y="{y + 14}" fill="{color}" font-size="12" font-weight="700" font-family="Menlo,monospace">{vtxt}</text>')
+        y += 42
+    return f"""<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="278" y1="56" x2="278" y2="{y - 16}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+  <rect x="24" y="{y - 4}" width="652" height="44" rx="8" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.45"/>
+  <text x="36" y="{y + 13}" fill="#f7d070" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['note1']}</text>
+  <text x="36" y="{y + 30}" fill="#f7d070" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['note2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ac_1999(lang: str) -> str:
+    """1999: the demand myth vs measured traffic, and the capex round-trip."""
+    t = {
+        "zh": dict(title="1999 的两个仪表:需求神话 vs 实测,与 capex 过山车",
+                   m_label="神话:「每 100 天翻倍」= 年增 700–1500%", m_val=1100, m_txt="卖方口径",
+                   r_label="实测:约每年翻倍 = 年增 70–150%(Odlyzko)", r_val=110, r_txt="独立数据",
+                   sw="SWITCH 链路 1996-2001:容量年增 144% vs 流量年增 87% → 利用率结构性下降",
+                   capex=[("1996Q1", 62), ("2000Q4", 135), ("2001Q4", 93)],
+                   capex_label="美国通信设备投资(1996 美元,$B/年,Richmond Fed)",
+                   cap="示意:需求神话把真实增速夸大约十倍,散布者是卖光纤/带宽的一方;设备投资从 $62B 冲到 $135B 再崩回 $93B(仅为一年前 69%)。对照今天:token/订单可见度同样由供给方生产,独立测量缺席"),
+        "en": dict(title="Two 1999 gauges: demand myth vs measurement, and the capex round trip",
+                   m_label="Myth: \"doubling every 100 days\" = 700–1500%/yr", m_val=1100, m_txt="sellers' yardstick",
+                   r_label="Measured: doubling ~annually = 70–150%/yr (Odlyzko)", r_val=110, r_txt="independent data",
+                   sw="SWITCH link 1996-2001: capacity +144%/yr vs traffic +87%/yr → utilization fell structurally",
+                   capex=[("1996Q1", 62), ("2000Q4", 135), ("2001Q4", 93)],
+                   capex_label="US communications equipment investment (1996 $B/yr, Richmond Fed)",
+                   cap="Schematic: the demand myth inflated real growth ~10x, spread by those selling fiber and bandwidth; equipment investment ran $62B→$135B→$93B (69% of a year earlier). Today's parallel: token counts and order visibility are likewise supply-side-produced, with independent measurement absent"),
+    }[lang]
+    sc = 380 / 1100.0
+    parts = []
+    y = 62
+    for label, val, txt in ((t['m_label'], t['m_val'], t['m_txt']), (t['r_label'], t['r_val'], t['r_txt'])):
+        color = "#ff6ec4" if val > 500 else "#4cc9f0"
+        parts.append(f'<text x="24" y="{y - 5}" fill="#c9d4ff" font-size="11.5" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="24" y="{y}" width="{val * sc}" height="14" rx="4" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{24 + val * sc + 8}" y="{y + 11}" fill="{color}" font-size="11" font-family="-apple-system,sans-serif">{txt}</text>')
+        y += 46
+    parts.append(f'<text x="24" y="{y + 4}" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{t["sw"]}</text>')
+    y += 30
+    parts.append(f'<text x="24" y="{y + 6}" fill="#c9d4ff" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t["capex_label"]}</text>')
+    bx = 24
+    for qlabel, val in t['capex']:
+        h = val * 0.6
+        parts.append(f'<rect x="{bx}" y="{y + 120 - h}" width="70" height="{h}" rx="4" fill="#f0b429" opacity="0.8"/>')
+        parts.append(f'<text x="{bx + 35}" y="{y + 114 - h}" fill="#f0b429" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">${val}B</text>')
+        parts.append(f'<text x="{bx + 35}" y="{y + 136}" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">{qlabel}</text>')
+        bx += 110
+    return f"""<figure>
+<svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ac_circular(lang: str) -> str:
+    """Circular deals network: announced vs signed."""
+    t = {
+        "zh": dict(title="循环交易图:宣布额 vs 落地状态(截至 2026-07)",
+                   nv="NVIDIA", oa="OpenAI", or_="Oracle", ms="Microsoft", an="Anthropic", amd="AMD",
+                   e_nv_oa="最高 $100B 投资 · 未签定义性协议", e_oa_or="$300B 云合同 · 已签(2027-31)",
+                   e_ms_an="最高 $5B", e_nv_an="最高 $10B", e_an_ms="$30B Azure 采购承诺",
+                   e_amd_oa="1.6 亿股 $0.01 权证 ↔ 6GW 采购",
+                   leg_d="虚线 = 宣布/意向(未签定义性协议)", leg_s="实线 = 已签约",
+                   cap="示意:供应商资产负债表补贴客户需求——1999 年 Lucent「承诺 $8.1B、落地 $2.1B」的现代变体;虚线交易的宣布额不应计入需求证据。Oracle 合同已签,但对手方是单一未盈利客户"),
+        "en": dict(title="The circular-deal map: announced amounts vs status (as of 2026-07)",
+                   nv="NVIDIA", oa="OpenAI", or_="Oracle", ms="Microsoft", an="Anthropic", amd="AMD",
+                   e_nv_oa="up to $100B investment · no definitive agreement", e_oa_or="$300B cloud contract · signed (2027-31)",
+                   e_ms_an="up to $5B", e_nv_an="up to $10B", e_an_ms="$30B Azure purchase commitment",
+                   e_amd_oa="160M warrants at $0.01 ↔ 6GW purchases",
+                   leg_d="dashed = announced/LOI (no definitive agreement)", leg_s="solid = signed",
+                   cap="Schematic: supplier balance sheets subsidizing customer demand — the modern variant of Lucent's 1999 \"committed $8.1B, disbursed $2.1B\"; dashed announcements should not count as demand evidence. Oracle's contract is signed, but the counterparty is a single loss-making customer"),
+    }[lang]
+    def node(x, y, label, color):
+        w = max(11 * len(label), 64)
+        return (f'<rect x="{x - w // 2}" y="{y - 15}" width="{w}" height="30" rx="8" fill="{color}" opacity="0.18" stroke="{color}" stroke-opacity="0.8"/>'
+                f'<text x="{x}" y="{y + 5}" fill="{color}" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{label}</text>')
+    def arrow(x1, y1, x2, y2, color, dashed):
+        import math
+        dx, dy = x2 - x1, y2 - y1
+        L = math.hypot(dx, dy)
+        ux, uy = dx / L, dy / L
+        ex, ey = x2 - ux * 8, y2 - uy * 8
+        px, py = -uy, ux
+        dash = ' stroke-dasharray="6,5"' if dashed else ''
+        return (f'<line x1="{x1}" y1="{y1}" x2="{ex}" y2="{ey}" stroke="{color}" stroke-width="1.8" opacity="0.8"{dash}/>'
+                f'<polygon points="{x2},{y2} {ex + px * 4:.1f},{ey + py * 4:.1f} {ex - px * 4:.1f},{ey - py * 4:.1f}" fill="{color}" opacity="0.9"/>')
+    NV, OA, OR, MS, AN, AMD = (350, 78), (350, 210), (600, 210), (105, 128), (140, 300), (520, 320)
+    parts = [
+        arrow(NV[0], NV[1] + 15, OA[0], OA[1] - 15, "#ff6ec4", True),
+        f'<text x="362" y="140" fill="#ff6ec4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_nv_oa"]}</text>',
+        arrow(OA[0] + 45, OA[1], OR[0] - 48, OR[1], "#5eead4", False),
+        f'<text x="400" y="200" fill="#5eead4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_oa_or"]}</text>',
+        arrow(MS[0] + 20, MS[1] + 15, AN[0] - 10, AN[1] - 15, "#ff6ec4", True),
+        f'<text x="30" y="215" fill="#ff6ec4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_ms_an"]}</text>',
+        arrow(NV[0] - 40, NV[1] + 12, AN[0] + 50, AN[1] - 12, "#ff6ec4", True),
+        f'<text x="200" y="168" fill="#ff6ec4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_nv_an"]}</text>',
+        arrow(AN[0] + 55, AN[1] - 4, MS[0] + 60, MS[1] + 22, "#5eead4", False),
+        f'<text x="176" y="252" fill="#5eead4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_an_ms"]}</text>',
+        arrow(AMD[0] - 30, AMD[1] - 14, OA[0] + 30, OA[1] + 16, "#5eead4", False),
+        f'<text x="404" y="290" fill="#5eead4" font-size="10.5" font-family="-apple-system,sans-serif">{t["e_amd_oa"]}</text>',
+        node(*NV, t['nv'], "#4cc9f0"), node(*OA, t['oa'], "#7b61ff"), node(*OR, t['or_'], "#f0b429"),
+        node(*MS, t['ms'], "#4cc9f0"), node(*AN, t['an'], "#7b61ff"), node(*AMD, t['amd'], "#4cc9f0"),
+    ]
+    return f"""<figure>
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+  <line x1="24" y1="360" x2="60" y2="360" stroke="#ff6ec4" stroke-width="1.8" stroke-dasharray="6,5"/>
+  <text x="68" y="364" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['leg_d']}</text>
+  <line x1="24" y1="380" x2="60" y2="380" stroke="#5eead4" stroke-width="1.8"/>
+  <text x="68" y="384" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['leg_s']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ac_depre(lang: str) -> str:
+    """Depreciation schedules: collective stretch, Amazon's reversal, profit impact."""
+    t = {
+        "zh": dict(title="服务器折旧年限:集体拉长,与 Amazon 的逆转",
+                   rows=[
+                       ("Amazon:3→4→5→6 年(2020-2024)", 6, "#4cc9f0", None),
+                       ("Amazon 2025:部分改回 5 年,理由=「AI 迭代加速」", 5, "#ff6ec4", "10-K/10-Q 自证"),
+                       ("Microsoft:4→6 年(FY2023 起)", 6, "#4cc9f0", "利润 +$3.7B"),
+                       ("Alphabet:4→6 年(2023-01 起)", 6, "#4cc9f0", "折旧 −$3.9B"),
+                       ("Meta:渐进拉长至 5.5 年(2025-01 起)", 5.5, "#4cc9f0", "折旧预计 −$2.9B"),
+                   ],
+                   axis="折旧年限(年)",
+                   cap="示意:拉长年限显著抬高账面利润(事实层,一手 10-K);该不该拉是争议层——Burry 主张 GPU 经济寿命 2-3 年(指控级,推导在付费墙内),而 Amazon 已因 AI 反向缩短,是唯一的审计级内生印证。值得盯:其他几家跟不跟"),
+        "en": dict(title="Server depreciation: the collective stretch, and Amazon's reversal",
+                   rows=[
+                       ("Amazon: 3→4→5→6 years (2020-2024)", 6, "#4cc9f0", None),
+                       ("Amazon 2025: subset back to 5 yrs, citing \"pace of AI\"", 5, "#ff6ec4", "its own 10-K/10-Q"),
+                       ("Microsoft: 4→6 years (from FY2023)", 6, "#4cc9f0", "profit +$3.7B"),
+                       ("Alphabet: 4→6 years (from Jan 2023)", 6, "#4cc9f0", "depreciation −$3.9B"),
+                       ("Meta: stepwise to 5.5 years (from Jan 2025)", 5.5, "#4cc9f0", "est. −$2.9B (2025)"),
+                   ],
+                   axis="depreciation life (years)",
+                   cap="Schematic: longer lives materially lift reported profits (factual layer, primary 10-Ks); whether they should is the disputed layer — Burry claims 2-3-year GPU economic life (accusation-grade, math paywalled), while Amazon's AI-citing reversal is the only audit-grade internal confirmation. Watch whether the others follow"),
+    }[lang]
+    sc = 200 / 6.0
+    parts = []
+    y = 66
+    for label, yrs, color, note in t['rows']:
+        parts.append(f'<text x="300" y="{y + 12}" fill="#7c8593" font-size="10.8" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        parts.append(f'<rect x="310" y="{y}" width="{yrs * sc}" height="16" rx="4" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{310 + yrs * sc + 8}" y="{y + 13}" fill="{color}" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{yrs}</text>')
+        if note:
+            parts.append(f'<text x="{310 + yrs * sc + 36}" y="{y + 13}" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{note}</text>')
+        y += 44
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="310" y1="58" x2="310" y2="{y - 18}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+  <text x="310" y="{y + 6}" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">{t['axis']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ac_scorecard(lang: str) -> str:
+    """The verdict scorecard: like / unlike / what both sides skip."""
+    t = {
+        "zh": dict(title="计分卡:像 1999 的、不像的、双方都装没看见的",
+                   like_t="像(结构层)",
+                   like=["需求叙事由供给方生产,无独立核查", "vendor financing 现代变体(宣布≫落地)", "融资:现金流→债务/表外(BIS 定性)", "会计口径成利润变量(折旧之争)", "宏观集中:4% 投资贡献 92% 增长"],
+                   unlike_t="不像(实质层)",
+                   unlike=["出资方=史上最强资产负债表,非 CLEC", "收入高速兑现且供不应求", "规模 ~1% GDP,约 dot-com 一半(BIS)", "GPU 3-6 年资产 vs 光纤 20 年", "无 1999 式造假实证(折旧是口径之争)"],
+                   skip_t="双方都装没看见",
+                   skip="多头:基础设施留存≠出资人赚钱;90% OCF 的下行刚性 · 空头:折旧口径下缺口大幅收窄;BIS 的 ~1% GDP 降温 · 都引错:Allianz 的 32% 对照值零方法学支撑",
+                   cap="示意:裁决不是「是/不是」的二元,而是一组可监测的滑动变量——规模未到 1999、需求成色好于 1999、融资结构正向 1999 后期收敛"),
+        "en": dict(title="Scorecard: what rhymes with 1999, what doesn't, what both sides skip",
+                   like_t="Rhymes (structural)",
+                   like=["demand narrative supply-side-produced, unaudited", "modern vendor financing (announced ≫ deployed)", "financing: cash flow → debt/off-balance-sheet (BIS)", "accounting as a profit lever (depreciation fight)", "macro concentration: 4% of investment, 92% of growth"],
+                   unlike_t="Doesn't (substantive)",
+                   unlike=["funders = strongest balance sheets ever, not CLECs", "revenue materializing fast, supply-constrained", "scale ~1% GDP, about half of dot-com (BIS)", "GPUs are 3-6-yr assets vs fiber's 20", "no proven fraud (depreciation is a yardstick fight)"],
+                   skip_t="What both sides skip",
+                   skip="Bulls: infrastructure surviving ≠ investors paid; the rigidity of 90% OCF · Bears: the gap shrinks under a depreciation yardstick; BIS's ~1%-of-GDP cooling note · Both misquote: Allianz's 32% comparator has zero methodological support",
+                   cap="Schematic: the verdict is not a yes/no but a set of monitorable sliding variables — not 1999 in scale, better in demand quality, converging on late-1999 in financing structure"),
+    }[lang]
+    def col(x, title, items, color):
+        parts = [f'<rect x="{x}" y="56" width="316" height="24" rx="6" fill="{color}" opacity="0.18"/>',
+                 f'<text x="{x + 10}" y="73" fill="{color}" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{title}</text>']
+        yy = 100
+        for it in items:
+            parts.append(f'<circle cx="{x + 8}" cy="{yy - 4}" r="3" fill="{color}" opacity="0.9"/>')
+            parts.append(f'<text x="{x + 18}" y="{yy}" fill="#c3cad6" font-size="10.8" font-family="-apple-system,sans-serif">{it}</text>')
+            yy += 30
+        return ''.join(parts)
+    skip_parts = []
+    sy = 310
+    for seg in t['skip'].split(' · '):
+        skip_parts.append(f'<text x="36" y="{sy}" fill="#f7d070" font-size="10.8" font-family="-apple-system,sans-serif">{seg}</text>')
+        sy += 18
+    return f"""<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {col(24, t['like_t'], t['like'], "#ff6ec4")}
+  {col(360, t['unlike_t'], t['unlike'], "#5eead4")}
+  <rect x="24" y="268" width="652" height="{sy - 268}" rx="8" fill="#f0b429" opacity="0.10" stroke="#f0b429" stroke-opacity="0.45"/>
+  <text x="36" y="{268 + 18}" fill="#f0b429" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['skip_t']}</text>
+  {''.join(skip_parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
     "ninety-five-percent-deep": [
         ("zh", "1.1", fig_nf_constructs, "end"),
@@ -1900,6 +2197,34 @@ FIGURES = {
         ("zh", "那它什么时候真的管用", fig_cure_conditions),
         ("en", "So when does it actually work", fig_cure_conditions),
     ],
+    "ai-capex-1999-deep": [
+        ("zh", "1.2", fig_ac_1999, "end"),
+        ("en", "1.2", fig_ac_1999, "end"),
+        ("zh", "2.2", fig_ac_ledger, "end"),
+        ("en", "2.2", fig_ac_ledger, "end"),
+        ("zh", "2.3", fig_ac_cahn, "end"),
+        ("en", "2.3", fig_ac_cahn, "end"),
+        ("zh", "3.3", fig_ac_circular, "end"),
+        ("en", "3.3", fig_ac_circular, "end"),
+        ("zh", "4.1", fig_ac_depre, "end"),
+        ("en", "4.1", fig_ac_depre, "end"),
+        ("zh", "7. 裁决", fig_ac_scorecard, "end"),
+        ("en", "7. The Verdict", fig_ac_scorecard, "end"),
+    ],
+    "ai-capex-1999-plain": [
+        ("zh", "一道三年涨了七倍的算术题", fig_ac_cahn, "end"),
+        ("en", "An Arithmetic Problem", fig_ac_cahn, "end"),
+        ("zh", "1999 那次,真正发生了什么", fig_ac_1999, "end"),
+        ("en", "What Actually Happened in 1999", fig_ac_1999, "end"),
+        ("zh", "这轮的账", fig_ac_ledger, "end"),
+        ("en", "This Cycle's Books", fig_ac_ledger, "end"),
+        ("zh", "争议一", fig_ac_circular, "end"),
+        ("en", "Dispute One", fig_ac_circular, "end"),
+        ("zh", "争议二", fig_ac_depre, "end"),
+        ("en", "Dispute Two", fig_ac_depre, "end"),
+        ("zh", "是不是 1999:计分卡", fig_ac_scorecard, "end"),
+        ("en", "So Is It 1999", fig_ac_scorecard, "end"),
+    ],
     "ai-code-review-deep": [
         ("zh", "1. 需求侧", fig_review_scissors),
         ("en", "1. The demand side", fig_review_scissors),
@@ -2032,6 +2357,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("ai-capex-1999-deep", "zh", "deep",
+     "这轮 AI 资本开支是不是 1999?——给一个类比做体检(深入版)",
+     "把 1999 讲对(它被记错的程度超出想象),把 2026 的账本口径摆平,再把类比逐项体检:融资结构、资产寿命、需求成色三个争议,五套理论两套可操作;42 组承重论断 × 3 票对抗验证 + 单源双席审计。",
+     "2026-07"),
+    ("ai-capex-1999-deep", "en", "deep",
+     "Is This AI Capex Boom Another 1999? A Physical for an Analogy (Deep Dive)",
+     "Getting 1999 right first (it is misremembered more than you'd think), straightening 2026's ledger yardsticks, then running the analogy through a physical: financing structure, asset lives, and demand quality; five theories, two operational; 42 load-bearing claim groups × 3 adversarial votes plus dual-seat audits for single-source empirics.",
+     "2026-07"),
+    ("ai-capex-1999-plain", "zh", "plain",
+     "AI 大基建是不是又一个 1999?像的、不像的、别信的(易读版)",
+     "一年 $7100 亿开支对着数百亿收入;1999 的病根是假需求+假账+债务,不是建基础设施。易读版:计分卡 + 三个仪表盘。",
+     "2026-07"),
+    ("ai-capex-1999-plain", "en", "plain",
+     "Is the AI Build-Out Another 1999? What Rhymes, What Doesn't, What Not to Believe (Plain-Language Edition)",
+     "$710 billion a year against tens of billions of revenue; 1999's disease was fake demand, fake accounting, and debt — not infrastructure. Plain edition: the scorecard plus three gauges to watch.",
+     "2026-07"),
     ("automation-irony-deep", "zh", "deep",
      "自动化的反讽:AI 越好,人握的终审越会退化吗?(深入版)",
      "1983 年的预言对上 40 年证据:实验室的 complacency/automation bias、航空与医疗两份现场档案、2024-2026 的 AI 新证据与干预实测——「人握终审」是判词还是可工程化约束;32 组承重论断 × 3 票对抗验证 + 反证搜索与方法学审计席。",
@@ -2202,6 +2543,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("ai-capex-1999-deep", "zh"):
+        "四大厂 2026 capex 指引合计约 $7100 亿,对照看得见的「AI 收入」差约一个数量级——但缺口的含义取决于分母(全额 capex vs 年度折旧),喊泡沫的和反驳的经常在吵分母而非事实。1999 被记错的三件事:需求神话(流量实际每年翻倍,不是每 100 天)、会计造假(WorldCom line-cost 资本化约 $35 亿,非流传的 $110 亿整额)、以及「基础设施留存≠出资人赚钱」的铁律。这一轮的体检结果:规模还不到 1999(BIS:约 1% GDP,约 dot-com 一半),需求成色好于 1999(供不应求+收入高速兑现),但融资结构正以肉眼可见的速度向 1999 后期收敛——现金流转债务、$27B 表外 SPV 带 16 年残值担保、GPU 抵押贷款投资级化、循环交易宣布额 $1000 亿而定义性协议未签;而需求叙事全部由供给方生产、独立测量缺席,是与 1999 最深的结构相似。折旧之争双方证据都有残缺:拉长年限抬高利润是一手事实,Burry 的 2-3 年是指控级,「95% 续约」被审计否决,Amazon 因 AI 反向缩短年限是唯一审计级内生印证。Minsky 阶梯:hedge→speculative 已发生,未到 Ponzi。十二个可检验主张收尾。",
+    ("ai-capex-1999-deep", "en"):
+        "The big four's 2026 capex guidance sums to ~$710 billion against visible \"AI revenue\" roughly an order of magnitude smaller — but what the gap means depends on the denominator (full capex vs annual depreciation); bubble callers and their critics are frequently arguing about denominators, not facts. Three things 1999 is misremembered about: the demand myth (traffic doubled yearly, not every 100 days), the accounting fraud (WorldCom's line-cost capitalization was ~$3.5B, not the circulating $11B total), and the iron law that infrastructure surviving ≠ investors getting paid. This cycle's physical: not yet 1999 in scale (BIS: ~1% of GDP, about half of dot-com), better than 1999 in demand quality (supply-constrained, revenue materializing fast), but converging on late-1999 financing structure at visible speed — cash flow to debt, a $27B off-balance-sheet SPV with a 16-year residual guarantee, GPU-backed lending gone investment grade, $100B announced circular deals with no definitive agreement; and the demand narrative is produced entirely by the supply side with independent measurement absent — the deepest structural rhyme. The depreciation fight is flawed on both sides: stretched lives lifting profits is primary-source fact, Burry's 2-3 years is accusation-grade, \"95% re-booking\" was vetoed by audit, and Amazon's AI-citing reversal is the only audit-grade internal confirmation. On Minsky's ladder: hedge→speculative has happened; Ponzi has not. Twelve testable claims close the essay.",
+    ("ai-capex-1999-plain", "zh"):
+        "一年 $7100 亿的 AI 基建开支,对着几百亿看得见的 AI 收入——差十倍,但差多少取决于怎么算账。1999 真正的病根是假需求(流量神话夸大十倍,散布者全是卖货的)、假账(WorldCom)和债务,不是「建基础设施」本身;而「东西留下来了」救不了当年的股东。这轮像的地方:需求故事全靠卖方自己讲、供应商出钱制造客户需求、钱的来路从利润转向债务和表外结构。不像的地方:出钱的是史上最赚钱的公司、收入真的在涨、规模只有 dot-com 一半。三个仪表盘:钱的来路(债务)、芯片寿命(折旧,亚马逊已官方承认 AI 缩短设备寿命)、需求成色(等独立数据)。",
+    ("ai-capex-1999-plain", "en"):
+        "$710 billion a year of AI build-out against tens of billions of visible AI revenue — ten to one, though how far apart depends on the arithmetic. 1999's real disease was fake demand (the traffic myth inflated reality tenfold, spread entirely by sellers), fake accounting (WorldCom), and debt — not \"building infrastructure\"; and the infrastructure surviving didn't save that era's shareholders. What rhymes now: the demand story told only by sellers, suppliers financing their own customers, money shifting from profits to debt and off-balance-sheet structures. What doesn't: the funders are the most profitable companies in history, revenue is genuinely growing, and the scale is about half of dot-com. Three gauges: where the money comes from (debt), how long the chips live (depreciation — Amazon has officially conceded AI shortens equipment life), and demand quality (wait for independent data).",
     ("automation-irony-deep", "zh"):
         "「自动化越好,人握终审越会退化」在 1983 年是过程控制语境的分析性预言,原文一半篇幅其实是工程处方。40 年后的成绩单:技能退化(剂量依赖、认知先于运动)与警觉上限被证实;automation bias 多源证实且 RCT 因果确立——掺错的 LLM 建议让上过 20 小时 AI 课的医生准确率掉 14 个百分点,资深放射科医生也从 82.3% 掉到 45.5%。2025 年内镜研究首次给出「撤走 AI 后人比从前差」的真实世界信号(ADR 28.4%→22.4%,观察性、待确认),与在场增益(RCT meta RR 1.24)构成部署评估的两本账。40 年没长出「反讽被证伪」派,长出的是缓解文献:亲历失效、结果问责、决策 nudge、可核验性设计有实测效果,叮嘱与通识培训无效;警觉生理、未知故障不可预演、底率数学是三个不可工程化的硬底。十一个可检验主张收尾。",
     ("automation-irony-deep", "en"):
@@ -2285,6 +2634,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("ai-capex-1999-deep", "zh"): [
+        ("c1", "126 票对抗验证 · 42/42 挺过"), ("c2", "capex $710B vs AI 收入差一个量级"), ("c3", "BIS:现金流→债务 · ~1% GDP"), ("c4", "12 个可检验主张"),
+    ],
+    ("ai-capex-1999-deep", "en"): [
+        ("c1", "126 votes · 42/42 survived"), ("c2", "capex $710B vs AI revenue: 10x gap"), ("c3", "BIS: cash flow→debt · ~1% GDP"), ("c4", "12 testable claims"),
+    ],
+    ("ai-capex-1999-plain", "zh"): [
+        ("c1", "流量神话:每 100 天 vs 实际每年"), ("c2", "capex 吞 90% 经营现金流"), ("c3", "$100B 循环交易:协议未签"), ("c4", "亚马逊自认 AI 缩短设备寿命"),
+    ],
+    ("ai-capex-1999-plain", "en"): [
+        ("c1", "traffic myth: 100 days vs a year"), ("c2", "capex eats 90% of cash flow"), ("c3", "$100B circular deal: unsigned"), ("c4", "Amazon concedes AI shortens lives"),
+    ],
     ("automation-irony-deep", "zh"): [
         ("c1", "96 票对抗验证 · 32/32 挺过"), ("c2", "在场 RR 1.24 vs 撤后 -6.0pp"), ("c3", "可工程化 + 3 个硬底"), ("c4", "11 个可检验主张"),
     ],
@@ -2633,6 +2994,15 @@ INDEX_ENTRIES = [
      "102 adversarial votes · 12 testable claims",
      [("t1", "僵尸统计", "Zombie statistics"), ("t2", "企业 AI ROI", "Enterprise AI ROI"), ("t3", "口径混战", "Yardstick wars"),
       ("t4", "生产率 J 曲线", "Productivity J-curve"), ("t5", "影子 AI", "Shadow AI")]),
+    ("ai-capex-1999", "2026-07",
+     "这轮 AI 资本开支是不是 1999?",
+     "Is This AI Capex Boom Another 1999?",
+     "人人都在引用 1999 电信泡沫,但那场泡沫本身就被记错了——病根是需求神话、会计造假和债务,不是「建基础设施」。把 2026 的账本口径摆平,再对类比逐项体检:钱从哪来、资产能活多久、需求是不是真的,以及五套理论里哪两套真的能用。",
+     "Everyone cites the 1999 telecom bubble — but that bubble itself is misremembered: the disease was demand myths, accounting fraud, and debt, not \"building infrastructure.\" This physical straightens 2026's ledger yardsticks, then tests the analogy limb by limb: where the money comes from, how long the assets live, whether the demand is real, and which two of five theories are actually operational.",
+     "126 票对抗验证 · 12 个可检验主张",
+     "126 adversarial votes · 12 testable claims",
+     [("t1", "AI capex", "AI capex"), ("t2", "资本周期", "Capital cycle"), ("t3", "1999 电信泡沫", "Telecom bubble"),
+      ("t4", "融资结构", "Financing structure"), ("t5", "折旧之争", "Depreciation fight")]),
 ]
 
 
