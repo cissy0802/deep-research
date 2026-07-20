@@ -2357,6 +2357,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("ai-hardware-power-deep", "zh", "deep",
+     "AI 带来的硬件短缺与电力短缺:是真的吗,还要多久?(深入版)",
+     "把两场短缺拆开体检:硬件是涨价型(2026 产能售罄、价格翻倍传导到消费端),电力是排队型(PJM 三连触顶、ERCOT 队列 5 倍于峰值);预测有两次高估前科但约束已在实测兑现;供给交付时间表逐条摆开;单线回源核验+证据分级。",
+     "2026-07"),
+    ("ai-hardware-power-deep", "en", "deep",
+     "AI's Hardware Shortage and Power Shortage: Real, and For How Long? (Deep Dive)",
+     "Two shortages, examined separately: hardware is price-clearing (2026 capacity sold out, doubled prices reaching consumers), power is queue-rationing (PJM capped three times running, ERCOT's queue at 5× system peak); forecasts carry two priors of overestimation but the constraint has already cashed out in measurements; supply timetables laid out line by line; single-thread source-checked with evidence grading.",
+     "2026-07"),
+    ("ai-hardware-power-plain", "zh", "plain",
+     "AI 真的造成了硬件短缺和电力短缺吗?还要缺多久?(易读版)",
+     "内存年初售罄、电费账单上涨——两场短缺都真,但机制不同:硬件紧到 2027,电力(美国特有)结构性缺到 2030 前后。易读版:主线结论 + 三个最值得盯的数。",
+     "2026-07"),
+    ("ai-hardware-power-plain", "en", "plain",
+     "Is AI Really Causing a Hardware Shortage and a Power Shortage? For How Long? (Plain Version)",
+     "Memory sold out by spring, electricity bills up — both shortages are real but work differently: hardware tight through 2027, power (US-specific) structural to about 2030. Plain edition: the main findings plus the three numbers most worth watching.",
+     "2026-07"),
     ("ai-capex-1999-deep", "zh", "deep",
      "这轮 AI 资本开支是不是 1999?——给一个类比做体检(深入版)",
      "把 1999 讲对(它被记错的程度超出想象),把 2026 的账本口径摆平,再把类比逐项体检:融资结构、资产寿命、需求成色三个争议,五套理论两套可操作;42 组承重论断 × 3 票对抗验证 + 单源双席审计。",
@@ -2543,6 +2559,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("ai-hardware-power-deep", "zh"):
+        "两场短缺拆开看:硬件短缺是涨价型——三家内存厂 2026 产能年初售罄,DRAM 合约价单季 +58-63%(流传的 +90% 是现货口径),传导到消费端(内存条 +51%、PC 集体涨价);绑定约束已从晶圆迁到先进封装与内存,扩产周期 2-3 年,紧到 2027 是共识、2028 看 AI 需求(降速则按内存超级周期老剧本转过剩)。电力短缺是排队型且美国特有——PJM 容量拍卖连续第三次触及监管上限($325/MW-day)仍缺 6,831 MW,数据中心贡献近三次拍卖成本的 45%($21.3B,大量来自未建成项目),已传导到普通电费(DC +$21/月);但 ERCOT 队列 438 GW 是系统峰值 5 倍,幽灵申请约为实际建成量 5-10 倍,官方预测(945 TWh/12%/166 GW)全带 2 倍区间且有 1999/2007 两次高估前科。关键分辨:「预测不可信」推不出「短缺不真实」——约束已以拍卖价格、账单、订单簿形式兑现。供给时间表:燃机排到 2030(lead time 最长 8 年)、核电全在 2030s、能快速上量的只有光储和自建电源——需求以月签约、供给以 5-8 年交付,美国电力紧张结构性持续到 2030 前后。效率(Google 单位能耗一年改善 33×)改变斜率不解除约束:同一家 Google 总用电翻倍,Jevons 已是实测。十个可检验主张收尾。",
+    ("ai-hardware-power-deep", "en"):
+        "Two shortages, split: hardware is price-clearing — the three memory makers sold out 2026 capacity by spring, DRAM contract prices rose 58-63% in one quarter (the circulating +90% is spot), and it reached consumers (RAM sticks +51%, PC-wide price hikes); the binding constraint has migrated from wafers to advanced packaging and memory, build times are 2-3 years, tight-through-2027 is consensus and 2028 hangs on AI demand (decelerate, and the memory-supercycle script flips to glut). Power is queue-rationing and US-specific — PJM's capacity auction hit its regulatory cap a third consecutive time ($325/MW-day) while still 6,831 MW short; data centers drove 45% of the last three auctions' costs ($21.3B, much from unbuilt projects), already passed through to ordinary bills (DC +$21/month); yet ERCOT's 438 GW queue is 5× system peak, phantom filings run 5-10× actual builds, and the official forecasts (945 TWh / 12% / 166 GW) all carry ~2× ranges plus the 1999 and 2007 overestimation priors. The key distinction: unreliable forecasts do not make the shortage unreal — the constraint has already cashed out in auction prices, bills, and order books. Supply timetables: turbines queued to 2030 (lead times to 8 years), nuclear entirely in the 2030s, and only solar-plus-storage and on-site generation scale fast — demand signs in months, supply delivers in 5-8 years, so the US power crunch runs structurally to about 2030. Efficiency (Google's 33× per-prompt gain in one year) bends the slope without lifting the constraint: the same Google's total consumption doubled — Jevons, measured. Ten testable claims close the essay.",
+    ("ai-hardware-power-plain", "zh"):
+        "硬件和电力是两场性质不同的短缺:硬件是涨价型(2026 内存年初售罄、合约价单季 +58-63%、内存条从 $137 涨到 $207),AI 买得到、你买不起,紧到 2027,2028 看 AI 需求脸色;电力是排队型且美国特有(PJM 拍卖三连顶到监管上限还缺 6,831 MW,居民电费每月多 $16-21),燃机排队到 2030、核电是 2030 年代的答案,结构性缺到 2030 前后。需求数字里有大量幽灵(得州队列 438 GW = 全网峰值 5 倍),预测翻过两次车该打折——但拍卖价格和电费账单是已发生的实测,「预测不可信」和「短缺不真实」是两回事。最值得盯:PJM 下次是否第四次触顶、得州队列挤水后缩多少、三里岛 2027 是否如期并网。",
+    ("ai-hardware-power-plain", "en"):
+        "Hardware and power are two different shortages: hardware is price-clearing (2026 memory sold out by spring, contract prices +58-63% in a quarter, a RAM stick from $137 to $207) — AI can buy it, you can't afford it; tight through 2027, and 2028 depends on AI demand. Power is queue-rationing and US-specific (PJM's auction pinned at its regulatory cap three times running and still 6,831 MW short; household bills up $16-21/month), turbines queued to 2030 and nuclear an answer for the 2030s — structural to about 2030. The demand numbers are full of ghosts (Texas's 438 GW queue is 5× the grid's peak) and the forecasts have derailed twice before, so discount them — but auction prices and electricity bills are measurements that already happened: unreliable forecasts don't make the shortage unreal. Watch: whether PJM caps a fourth time, how far Texas's queue shrinks once the water is squeezed out, and whether Three Mile Island connects on schedule in 2027.",
     ("ai-capex-1999-deep", "zh"):
         "四大厂 2026 capex 指引合计约 $7100 亿,对照看得见的「AI 收入」差约一个数量级——但缺口的含义取决于分母(全额 capex vs 年度折旧),喊泡沫的和反驳的经常在吵分母而非事实。1999 被记错的三件事:需求神话(流量实际每年翻倍,不是每 100 天)、会计造假(WorldCom line-cost 资本化约 $35 亿,非流传的 $110 亿整额)、以及「基础设施留存≠出资人赚钱」的铁律。这一轮的体检结果:规模还不到 1999(BIS:约 1% GDP,约 dot-com 一半),需求成色好于 1999(供不应求+收入高速兑现),但融资结构正以肉眼可见的速度向 1999 后期收敛——现金流转债务、$27B 表外 SPV 带 16 年残值担保、GPU 抵押贷款投资级化、循环交易宣布额 $1000 亿而定义性协议未签;而需求叙事全部由供给方生产、独立测量缺席,是与 1999 最深的结构相似。折旧之争双方证据都有残缺:拉长年限抬高利润是一手事实,Burry 的 2-3 年是指控级,「95% 续约」被审计否决,Amazon 因 AI 反向缩短年限是唯一审计级内生印证。Minsky 阶梯:hedge→speculative 已发生,未到 Ponzi。十二个可检验主张收尾。",
     ("ai-capex-1999-deep", "en"):
@@ -2634,6 +2658,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("ai-hardware-power-deep", "zh"): [
+        ("c1", "单线回源核验 · 2 处口径修正"), ("c2", "PJM 三连触顶 · 缺 6,831 MW"), ("c3", "ERCOT 队列 = 峰值 5 倍"), ("c4", "10 个可检验主张"),
+    ],
+    ("ai-hardware-power-deep", "en"): [
+        ("c1", "source-checked · 2 corrections"), ("c2", "PJM capped 3× · 6,831 MW short"), ("c3", "ERCOT queue = 5× peak"), ("c4", "10 testable claims"),
+    ],
+    ("ai-hardware-power-plain", "zh"): [
+        ("c1", "内存条一季度 +51%"), ("c2", "电费每月多 $16-21"), ("c3", "燃机排队到 2030"), ("c4", "核电是 2030 年代的答案"),
+    ],
+    ("ai-hardware-power-plain", "en"): [
+        ("c1", "RAM stick +51% in a quarter"), ("c2", "bills up $16-21/month"), ("c3", "turbines queued to 2030"), ("c4", "nuclear answers in the 2030s"),
+    ],
     ("ai-capex-1999-deep", "zh"): [
         ("c1", "126 票对抗验证 · 42/42 挺过"), ("c2", "capex $710B vs AI 收入差一个量级"), ("c3", "BIS:现金流→债务 · ~1% GDP"), ("c4", "12 个可检验主张"),
     ],
@@ -3003,6 +3039,15 @@ INDEX_ENTRIES = [
      "126 adversarial votes · 12 testable claims",
      [("t1", "AI capex", "AI capex"), ("t2", "资本周期", "Capital cycle"), ("t3", "1999 电信泡沫", "Telecom bubble"),
       ("t4", "融资结构", "Financing structure"), ("t5", "折旧之争", "Depreciation fight")]),
+    ("ai-hardware-power", "2026-07",
+     "AI 带来的硬件短缺与电力短缺:是真的吗,还要多久?",
+     "AI's Hardware Shortage and Power Shortage: Real, and For How Long?",
+     "内存年初售罄、电费连年上涨——但硬件短缺和电力短缺是两场性质不同的短缺:一场涨价出清,一场排队失灵。预测有两次高估前科,约束却已写进拍卖结果和账单;把供给侧交付时间表逐条摆开,「还要多久」的答案基本自动得出。",
+     "Memory sold out by spring, electricity bills climbing — but the hardware and power shortages are two different animals: one clears by price, one rations by queue. The forecasts carry two priors of overestimation, yet the constraint is already written into auction results and bills; lay out the supply-side delivery timetables and 'how long' mostly answers itself.",
+     "单线回源核验 · 10 个可检验主张",
+     "Single-thread source-checked · 10 testable claims",
+     [("t1", "AI 基建", "AI infrastructure"), ("t2", "电网约束", "Grid constraints"), ("t3", "内存超级周期", "Memory supercycle"),
+      ("t4", "幽灵需求", "Phantom demand"), ("t5", "Jevons 悖论", "Jevons paradox")]),
 ]
 
 
