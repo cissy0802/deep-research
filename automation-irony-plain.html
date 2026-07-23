@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AI 越好用,人越不中用?一个 42 年前就被预言的问题(易读版) — BigCat Deep Research</title>
-<meta name="description" content="AI 在场时人机更强,撤走后人可能比从前更差;从不出错的自动化最危险;上课防不住。易读版:主线结论 + 席位设计四问。">
+<meta content="AI 在场时人机更强,撤走后人可能比从前更差;从不出错的自动化最危险;上课防不住。易读版:主线结论 + 席位设计四问。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -55,86 +56,83 @@ h2:nth-of-type(6){--h2:#52b788}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="automation-irony-plain.html" class="active">中文</a><a href="automation-irony-plain.en.html">EN</a>
+<a class="active" href="automation-irony-plain.html">中文</a><a href="automation-irony-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>AI 越好用,人越不中用?一个 42 年前就被预言的问题(易读版)</h1>
+<h1 data-tts="610a77e4652597d9">AI 越好用,人越不中用?一个 42 年前就被预言的问题(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="automation-irony-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 在场时人机组合更强,撤走后人可能比从前更差——评估 AI 部署要记两本账。从不出错的自动化最危险(故障检出 33% vs 82%);AI 说错时专家也跟着错,20 小时 AI 课防不住(-14 个百分点);技能停用就生锈,且脑子锈得比手快。有效的招:亲历失效、结果问责、决策时提醒、把核对做便宜;没用的招:口头叮嘱和说教课。三条绕不开的底线:盯梢撑不过半小时、未知故障没法预演、AI 越好人的检出越差。</div></div>
 <div class="chips"><span class="chip c1">从不出错的自动化:检出 33% vs 82%</span><span class="chip c2">20 小时 AI 课防不住:-14pp</span><span class="chip c3">资深医生也掉到 45.5%</span><span class="chip c4">撤走 AI 后:28.4%→22.4%</span></div>
 <blockquote><p>本文是同名深入版的精简版。所有关键数字经过分级核查(96 票逐字保真验证 + 9 份反证搜索与方法学审计判决——审计扣下了一个被广泛引用但被勘误波及的系数,也给几个流行结论加上了边界)。想看完整论证、证据分级和出处,请读深入版。</p></blockquote>
-<h2>一位医生的检出率,和一篇 5 页的老论文</h2>
+<h2 data-tts="32c0e73413e87f49">一位医生的检出率,和一篇 5 页的老论文</h2>
 <p>2025 年,顶级医学期刊登了一项让整个行业发凉的研究:四家医院引入 AI 帮医生在肠镜里找息肉,几个月后,19 位平均干了 28 年的老医生<strong>不用 AI</strong> 时的检出率,从 28.4% 掉到了 22.4%。AI 在场时人机组合确实更强——可这项观察性研究给出的信号是:AI 一撤走,人比从前更差了。(观察性意味着混杂未除,后文会给它做完整体检。)</p>
 <p>这个剧本其实 1983 年就写好了。一位英国心理学家在 5 页纸里预言:自动化越先进,人越只剩下"盯着它、出事时接管"这个活;可技能不用就生锈,盯着一台几乎不出错的机器人又根本盯不住——<strong>系统最需要人的那一刻,恰恰是人最不在状态的一刻。</strong>她管这个叫"自动化的反讽"。</p>
 <p>我们做这期研究,是因为本站前几期的结论全都落在"最后由人拍板"上。如果"拍板的人"会被 AI 泡软,那我们等于把房子盖在酥掉的地基上。所以这期把 40 年的证据翻了个底朝天:这个反讽,到底是死刑判决,还是可以设计绕开的约束?</p>
 <p>答案先给:<strong>是约束,能设计,但有三条底线绕不开;而且每个有效的招,都有它的价格。</strong></p>
-
 <figure>
-<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一项技术的两本账:AI 辅助肠镜的腺瘤检出率(ADR)</text>
-  <text x="60" y="62" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">账本一:AI 在场时(21 项 RCT 的 meta)</text>
-  <text x="390" y="62" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">账本二:AI 撤走后(单一观察性研究)</text>
-  <line x1="352" y1="50" x2="352" y2="290" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
-  <line x1="60" y1="250" x2="320" y2="250" stroke="#5a6378" stroke-width="1.5"/>
-  <line x1="390" y1="250" x2="650" y2="250" stroke="#5a6378" stroke-width="1.5"/>
-  <rect x="100" y="128" width="72" height="122" rx="6" fill="#4cc9f0" opacity="0.85"/><text x="136" y="120" fill="#4cc9f0" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">35.9%</text><text x="136" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">标准肠镜</text>
-  <rect x="210" y="101" width="72" height="149" rx="6" fill="#52b788" opacity="0.85"/><text x="246" y="93" fill="#52b788" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">44.0%</text><text x="246" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">AI 辅助</text>
-  <rect x="430" y="154" width="72" height="96" rx="6" fill="#7b61ff" opacity="0.85"/><text x="466" y="146" fill="#7b61ff" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">28.4%</text><text x="466" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">引入 AI 前</text>
-  <rect x="540" y="174" width="72" height="76" rx="6" fill="#ff6ec4" opacity="0.85"/><text x="576" y="166" fill="#ff6ec4" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">22.4%</text><text x="576" y="272" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">引入 AI 后</text>
-  <text x="190" y="300" fill="#52b788" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">35.9% → 44.0%(多源证实)</text>
-  <text x="520" y="300" fill="#ff6ec4" font-size="11.5" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">28.4% → 22.4%(待确认假说)</text>
+<svg role="img" viewbox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="30">同一项技术的两本账:AI 辅助肠镜的腺瘤检出率(ADR)</text>
+<text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" x="60" y="62">账本一:AI 在场时(21 项 RCT 的 meta)</text>
+<text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" x="390" y="62">账本二:AI 撤走后(单一观察性研究)</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1" x1="352" x2="352" y1="50" y2="290"></line>
+<line stroke="#5a6378" stroke-width="1.5" x1="60" x2="320" y1="250" y2="250"></line>
+<line stroke="#5a6378" stroke-width="1.5" x1="390" x2="650" y1="250" y2="250"></line>
+<rect fill="#4cc9f0" height="122" opacity="0.85" rx="6" width="72" x="100" y="128"></rect><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="136" y="120">35.9%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11" text-anchor="middle" x="136" y="272">标准肠镜</text>
+<rect fill="#52b788" height="149" opacity="0.85" rx="6" width="72" x="210" y="101"></rect><text fill="#52b788" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="246" y="93">44.0%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11" text-anchor="middle" x="246" y="272">AI 辅助</text>
+<rect fill="#7b61ff" height="96" opacity="0.85" rx="6" width="72" x="430" y="154"></rect><text fill="#7b61ff" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="466" y="146">28.4%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11" text-anchor="middle" x="466" y="272">引入 AI 前</text>
+<rect fill="#ff6ec4" height="76" opacity="0.85" rx="6" width="72" x="540" y="174"></rect><text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" x="576" y="166">22.4%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11" text-anchor="middle" x="576" y="272">引入 AI 后</text>
+<text fill="#52b788" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="190" y="300">35.9% → 44.0%(多源证实)</text>
+<text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="520" y="300">28.4% → 22.4%(待确认假说)</text>
 </svg>
 <figcaption>示意:左=Hassan 2023 RCT meta(在场增益,RR 1.24);右=Budzyń 2025(资深医生无 AI 肠镜,-6.0pp,观察性、混杂未除)——部署评估必须同时记两本账(正文第 5 章)</figcaption>
 </figure>
-<h2>40 年证据最狠的几刀</h2>
+<h2 data-tts="c35fa2c95396ec45">40 年证据最狠的几刀</h2>
 <p><strong>从不出错的自动化,最危险。</strong>经典实验:让人一边干活一边盯着自动系统,系统偶尔出错时,人能抓住 82% 的故障;系统<strong>一直很可靠</strong>时,只能抓住 33%。不是人懒——是"它从不出错"教会了你的注意力离开。所以最危险的不是烂 AI,是几乎从不犯错的好 AI。</p>
 <p><strong>机器一说错,专家也跟着错。</strong>27 名放射科医生读片子,AI 提示正确时大家准确率都在 80% 左右;AI 故意给错提示时,年轻医生掉到 20%,连最资深的组也掉到 45%。2026 年一项随机试验更扎心:44 名<strong>专门上过 20 小时 AI 课</strong>的医生,拿到掺了错的 ChatGPT 建议,诊断准确率还是被拉低了 14 个百分点——<strong>上课防不住这个。</strong></p>
 <p><strong>技能生锈快,而且先锈"脑子"。</strong>元分析:技能停用一年以上,水平掉掉超过一个标准差;认知类技能比动手类掉得更快。航空的实测更具体:手飞得准不准,跟"最近练没练"关系最大,跟"总共飞过多少小时"关系不大;而且真正退化的不是手上功夫,是导航推理、异常识别这些<strong>判断力</strong>。坏消息:AI 自动化的恰恰就是判断类工作。</p>
 <p><strong>航空把整个剧本演完了。</strong>法航 447:自动驾驶把一架完好的飞机交还给三名飞行员,失速警告连响 54 秒,没人提它一句,228 人遇难。事故报告的判词是:靠"人当自动化的后备"的安全模型,会进入"共因失效"——稳不住导致看不懂,看不懂导致更稳不住。美国监管机构复核 26 起事故:六成以上有手飞差错,一半以上飞行员"脱离了控制回路,需要时没准备好接管"。<strong>但另一半也要说</strong>:自动化时代的航空总体安全性大幅提升,致命事故率二十年降了 60%。自动化在总量上救人,同时把风险集中到了"交还给人的那一刻"。</p>
-
 <figure>
-<svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">1993 奠基实验:人抓住自动化故障的比例</text>
-  <line x1="338" y1="58" x2="338" y2="228" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="326" y="85" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">自动化恒定可靠 · 人在多任务</text><rect x="338" y="70" width="99" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="445" y="85" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">33%</text><text x="326" y="139" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">自动化偶尔出错 · 人在多任务</text><rect x="338" y="124" width="246" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="592" y="139" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">82%</text><text x="326" y="193" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">单任务纯监控(对照条件)</text><rect x="338" y="178" width="291" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="637" y="193" fill="#52b788" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">约 97%</text>
+<svg role="img" viewbox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" x="24" y="32">1993 奠基实验:人抓住自动化故障的比例</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1.5" x1="338" x2="338" y1="58" y2="228"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="11.5" text-anchor="end" x="326" y="85">自动化恒定可靠 · 人在多任务</text><rect fill="#ff6ec4" height="20" opacity="0.85" rx="5" width="99" x="338" y="70"></rect><text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" x="445" y="85">33%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11.5" text-anchor="end" x="326" y="139">自动化偶尔出错 · 人在多任务</text><rect fill="#4cc9f0" height="20" opacity="0.85" rx="5" width="246" x="338" y="124"></rect><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" x="592" y="139">82%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="11.5" text-anchor="end" x="326" y="193">单任务纯监控(对照条件)</text><rect fill="#52b788" height="20" opacity="0.85" rx="5" width="291" x="338" y="178"></rect><text fill="#52b788" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" x="637" y="193">约 97%</text>
 </svg>
-<figcaption>示意:Parasuraman, Molloy & Singh 1993(大学生、MATB 多任务平台)——从不出错的自动化教会注意力离开;注意实验室故障率远高于真实系统,外推受限(正文第 3 章)</figcaption>
+<figcaption>示意:Parasuraman, Molloy &amp; Singh 1993(大学生、MATB 多任务平台)——从不出错的自动化教会注意力离开;注意实验室故障率远高于真实系统,外推受限(正文第 3 章)</figcaption>
 </figure>
-<h2>但先别急着给"人"定罪</h2>
+<h2 data-tts="2701f6ab48bb28de">但先别急着给"人"定罪</h2>
 <p>有两个流行数字,查完发现冤枉了人:</p>
 <ul><li>"医生 90% 以上无视系统警报"——真相是,专家复核这些"无视"时,95.6% 认为医生做得对。问题出在警报系统乱叫,不是人失职。<strong>先查系统是不是在滥发信号,再谈人靠不靠谱。</strong></li><li>"研究证明 AI 让人变笨"——2024 年以来刷屏的那几篇,大多撑不住方法学审查:MIT 那篇脑电研究是未评审的预印本,样本 54 人,独立测算说这种设计需要约 159 人才够检验力,连作者自己都在官网求媒体"别用变笨这个词"。上一轮"Google 让人记性变差"的明星研究,后来两次复现失败。<strong>恐慌文章不可信;但可信的警报(上面那几刀)恰好也指向同一个方向。</strong></li></ul>
-<h2>有效的招和它们的价格</h2>
+<h2 data-tts="a216eaf36bf76b68">有效的招和它们的价格</h2>
 <p>40 年攒下来的干预记分卡,每行都带价格:</p>
 <ul><li><strong>让人亲身经历 AI 出错,有效。</strong>培训里只说"AI 可能出错",没用;演习中让人真的被 AI 坑一次、当场抓到,自满显著下降。(那门 20 小时的课就是前者的下场。)</li><li><strong>让人对结果负责,有效。</strong>明确"这单最终算你的",漏检和盲从都显著下降。</li><li><strong>强制先想后看,部分有效。</strong>先让人自己判断、再看 AI 答案,能把"跟着 AI 错"明显压低——价格是大家觉得更费劲,而且这招对偏见类错误有一次独立实验测出无效:<strong>加摩擦不是万灵药,得看设计。</strong></li><li><strong>把"核对"做便宜,有效。</strong>人不核对 AI,多数时候是因为核对跟重做一样贵。把 AI 的输出设计成一眼能验对错的形式,人就真的会去验。<strong>给拍板的人配一条比重做便宜得多的核对路径,是最值钱的一条设计。</strong></li><li><strong>保持"手动剂量",有效但常落空。</strong>定期不带 AI 做一遍,技能就保得住——航空的教训是:监管发文鼓励手飞,三年后审计发现没人核实航司真的照做了。<strong>开处方没用,要看着把药吃下去。</strong></li></ul>
 <p><strong>三条绕不开的底线:</strong>人盯着几乎不出事的东西,撑不过半小时,这是生理;演习只能练"已知的故障",而自动化的新故障恰恰是没人想到过的;AI 越好、故障越稀有,人的检出就越差、误报占比就越高——<strong>终审席位的价值,和它的可靠性天生互相消耗。</strong></p>
 <p>所以给 AI 工作流设计"人拍板"席位,要问四个问题:这个席位每天见到几个真问题(太少就别设全职盯梢,改抽检+自动兜底)?核对一条 AI 产出比重做便宜多少?这个人上次不带 AI 干这活是什么时候?<strong>AI 坏的时候,坏得显眼吗?</strong>——最后这条在大模型时代最难也最值钱,因为大模型的特长是"错得流畅"。</p>
-
 <figure>
-<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">干预杠杆记分卡:40 年实测</text>
-  <text x="24" y="64" fill="#52b788" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">有实测效果(各有代价)</text>
-  <text x="408" y="64" fill="#ff8a80" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">实测无效</text>
-  <line x1="396" y1="48" x2="396" y2="200" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
-  <circle cx="36" cy="88" r="4" fill="#52b788"/><text x="50" y="92" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">亲历 AI 失效的演习(非口头告知)</text><circle cx="36" cy="118" r="4" fill="#52b788"/><text x="50" y="122" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">对总体结果的个人问责</text><circle cx="36" cy="148" r="4" fill="#52b788"/><text x="50" y="152" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">决策时点的行为 nudge</text><circle cx="36" cy="178" r="4" fill="#52b788"/><text x="50" y="182" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">把核验成本降到一眼可核对</text><circle cx="36" cy="208" r="4" fill="#52b788"/><text x="50" y="212" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">定期手动剂量(需核查落地)</text><circle cx="36" cy="238" r="4" fill="#52b788"/><text x="50" y="242" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">认知强制:子任务层有效,感知更复杂</text><circle cx="420" cy="88" r="4" fill="#e85a4f"/><text x="434" y="92" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">叮嘱「请核对 AI 建议」</text><circle cx="420" cy="118" r="4" fill="#e85a4f"/><text x="434" y="122" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">说教式培训 / 20 小时通识课</text><circle cx="420" cy="148" r="4" fill="#e85a4f"/><text x="434" y="152" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">单纯增加透明度</text>
-  <text x="408" y="214" fill="#f0b429" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">缺最后一公里</text>
-  <circle cx="420" cy="238" r="4" fill="#f0b429"/>
-  <text x="434" y="242" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">适应性自动化(动态轮换控制权):</text>
-  <text x="434" y="260" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">模拟环境有效 30 年,无运营部署评估</text>
+<svg role="img" viewbox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" x="24" y="30">干预杠杆记分卡:40 年实测</text>
+<text fill="#52b788" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="24" y="64">有实测效果(各有代价)</text>
+<text fill="#ff8a80" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="408" y="64">实测无效</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1" x1="396" x2="396" y1="48" y2="200"></line>
+<circle cx="36" cy="88" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="92">亲历 AI 失效的演习(非口头告知)</text><circle cx="36" cy="118" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="122">对总体结果的个人问责</text><circle cx="36" cy="148" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="152">决策时点的行为 nudge</text><circle cx="36" cy="178" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="182">把核验成本降到一眼可核对</text><circle cx="36" cy="208" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="212">定期手动剂量(需核查落地)</text><circle cx="36" cy="238" fill="#52b788" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="50" y="242">认知强制:子任务层有效,感知更复杂</text><circle cx="420" cy="88" fill="#e85a4f" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="434" y="92">叮嘱「请核对 AI 建议」</text><circle cx="420" cy="118" fill="#e85a4f" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="434" y="122">说教式培训 / 20 小时通识课</text><circle cx="420" cy="148" fill="#e85a4f" r="4"></circle><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="434" y="152">单纯增加透明度</text>
+<text fill="#f0b429" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="408" y="214">缺最后一公里</text>
+<circle cx="420" cy="238" fill="#f0b429" r="4"></circle>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="434" y="242">适应性自动化(动态轮换控制权):</text>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="11.5" x="434" y="260">模拟环境有效 30 年,无运营部署评估</text>
 </svg>
 <figcaption>示意:每条的效应量、边界条件与代价见正文第 8 章;「有效」不等于普适,多数效应依设计而定</figcaption>
 </figure>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="3c8192d0bd913025">这篇文章的判断,怎么检验</h2>
 <p>深入版结尾有十一条可检验主张,按证据强弱排序,这里用大白话重写:</p>
 <ol><li><strong>AI 给错建议会把人带偏,这是板上钉钉</strong>(随机试验+多个独立团队,医生掉 14 到 69 个百分点不等);资历深只能少掉点,免疫不了。</li><li><strong>"用的时候更强"和"撤走后更差"是两本账</strong>:前者证据很硬(几十个随机试验),后者目前只有一项观察性研究。上 AI 之前,两本都得记。</li><li><strong>几乎从不出错的自动化最危险</strong>——33% 对 82% 那个实验;太烂的别依赖,太好的防自满。</li><li><strong>技能停用就生锈,脑子锈得比手快</strong>;保鲜靠"最近练过",不靠"当年练得多"。</li><li><strong>1983 年的预言,成绩单大体是"应验"</strong>:技能退化、警觉上限、"最需要人时人最不在状态"都有了实证;只有"人没法实时核查比自己强的系统"还停在推理层。</li><li><strong>40 年没长出"预言错了"的学派</strong>,只长出了"怎么缓解"的文献——40 周年纪念特刊的判词是:对 AI 更适用。</li><li><strong>通识型培训单独没用,有用的是:亲历失效、结果问责、决策时的小提醒、把核对做便宜</strong>——每招都有实测效果,也都有价格或边界。</li><li><strong>人"无视警报"多数时候是对的</strong>(95.6% 被专家认同)——先修系统,再怪人。</li><li><strong>"流程里塞个人"不等于安全</strong>:没设计过的人审是合规安慰剂;人的角色要先设计、再检验。</li><li><strong>"AI 让人变笨"的爆款研究大多不合格,但最扎实的几个新证据确实都指向坏方向</strong>——别信恐慌,信警报。</li><li><strong>程序员这行至今没人测过</strong>:没有任何已发表研究对职业开发者做过"用 AI 前后"的技能对照——这是眼下最该做的实验。</li></ol>
 <p><strong>值得盯什么:</strong>那项内镜研究有没有人做前瞻复测、方向保不保得住;谁第一个测职业开发者的技能存量;"AI 坏得显眼"这类失效可见性设计,什么时候有第一批实测数据。</p>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="a053bac40951dc29">最要紧的几件事</h2>
 <ul><li>评估 AI 部署,从今天起记两本账:<strong>AI 在场时的联合表现</strong>,和 <strong>AI 不在场时人还剩多少</strong>。第二本账 2025 年之前没人记过,而它决定了宕机日、超范围任务和下一次迁移时你手里还有什么。</li><li>别给团队排"全职盯着 AI"的岗——那是在跟 40 年的警觉研究对赌。改成抽检、自动兜底、外加定期"不带 AI 上手"的保鲜剂量,并且<strong>核查剂量真的发生了</strong>。</li><li>培训预算别花在"AI 可能出错"的课件上,花在<strong>让人真的被坑一次</strong>的演习上;再省一点,花在决策时点的一句提醒上——都比课便宜,都比课有效。</li><li>把每条送到"拍板人"面前的 AI 产出,配一条<strong>比重做便宜得多的核对路径</strong>;做不到,就说明这个席位是摆设。</li><li>最后记住这句:<strong>自动化在总量上救人,同时把风险集中到交还给人的那一刻。</strong>两句都对,缺一句都是谎言。</li></ul>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

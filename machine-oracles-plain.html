@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AI 找 bug 靠不靠谱?先看裁判是谁(易读版) — BigCat Deep Research</title>
-<meta name="description" content="AI 能写测试、报漏洞,但它的成绩取决于坐哪把椅子——干活的、起草的、还是当裁判的。易读版:主线论证 + 直白语言。">
+<meta content="AI 能写测试、报漏洞,但它的成绩取决于坐哪把椅子——干活的、起草的、还是当裁判的。易读版:主线论证 + 直白语言。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -56,78 +57,75 @@ h2:nth-of-type(7){--h2:#e8794b}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="machine-oracles-plain.html" class="active">中文</a><a href="machine-oracles-plain.en.html">EN</a>
+<a class="active" href="machine-oracles-plain.html">中文</a><a href="machine-oracles-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>AI 找 bug 靠不靠谱?先看裁判是谁(易读版)</h1>
+<h1 data-tts="f27006032428a5ee">AI 找 bug 靠不靠谱?先看裁判是谁(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="machine-oracles-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 找 bug 的成绩单,取决于它在验证流水线里坐哪把椅子:当干活的(生成测试输入)、起草的(提议规则交独立机制筛)、还是当裁判的(直接判对错)。前两把椅子有真金白银——26 个漏洞、二十年 CVE、Meta 73% 采纳;第三把椅子几乎每次独立复查都缩水——0.38%、3%、20/20 全是误报。评估任何「AI 找 bug」方案,第一个问题永远是:裁判是谁?</div></div>
-<div class="chips"><span class="chip c1">证明完成率 88→90%</span><span class="chip c2">Argus 消融:证明器 0/20 → GPT-5 裁判 20/20</span><span class="chip c3">curl 真报率 <5% → 反超 15-16%</span><span class="chip c4">AI 断言 99% 锚旧行为</span></div>
+<div class="chips"><span class="chip c1">证明完成率 88→90%</span><span class="chip c2">Argus 消融:证明器 0/20 → GPT-5 裁判 20/20</span><span class="chip c3">curl 真报率 &lt;5% → 反超 15-16%</span><span class="chip c4">AI 断言 99% 锚旧行为</span></div>
 <blockquote><p>本文是同名深入版的精简版。所有关键数字都经过独立核查,想看完整论证和出处请读深入版。</p></blockquote>
-<h2>一个四十年的老问题,突然人人都在碰</h2>
+<h2 data-tts="751626e1debb4b32">一个四十年的老问题,突然人人都在碰</h2>
 <p>软件测试有个老大难:程序跑出一个结果,<strong>谁来判定这个结果对不对?</strong>判定对错的那个东西,行话叫 oracle——裁判。写测试难,难的从来不是让程序跑起来,是写出"跑成什么样才算对"。2015 年一篇权威综述盘点了三十多年的研究,结论是:裁判的自动化是整个测试自动化里最没解决好的一环。</p>
 <p>然后 AI 来了。AI 能写测试、写规则、写断言、报漏洞——看起来裁判问题要被大力出奇迹了。本文把软件世界的裁判摊成一张地图,一格一格对账:<strong>每格的裁判是谁?它会不会被忽悠?AI 进场后,成绩是真的吗?</strong></p>
 <p>先给结论的形状:AI 的成绩单严格取决于它在验证流水线里<strong>坐哪把椅子</strong>。它可以当<strong>干活的</strong>(生成测试输入)、当<strong>起草的</strong>(提议规则和规约,交给独立机制筛选)、或者当<strong>裁判</strong>(直接判对错)。前两把椅子,成绩有真金白银;第三把椅子,几乎每次独立复查都会缩水。</p>
-
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个 AI,三把椅子,三种成色</text>
-  <rect x="24" y="58" width="200" height="200" rx="12" fill="#52b788" opacity="0.08" stroke="#52b788" stroke-opacity="0.5"/><text x="124" y="88" fill="#52b788" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">干活的(生成器)</text><text x="124" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">产测试输入 / fuzz 探针,判决全在机器闸</text><text x="124" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">挖出 26 个真漏洞 · 采纳率 73%</text><rect x="42" y="196" width="164" height="34" rx="8" fill="#52b788" opacity="0.16"/><text x="124" y="218" fill="#52b788" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">增益有硬数字</text><rect x="250" y="58" width="200" height="200" rx="12" fill="#f0b429" opacity="0.08" stroke="#f0b429" stroke-opacity="0.5"/><text x="350" y="88" fill="#f0b429" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">起草的(提议者)</text><text x="350" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">起草规则 / 规约,先过独立筛再上岗</text><text x="350" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">证明器把关后:误报 0/20</text><rect x="268" y="196" width="164" height="34" rx="8" fill="#f0b429" opacity="0.16"/><text x="350" y="218" fill="#f0b429" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">真增益,筛完人工不省</text><rect x="476" y="58" width="200" height="200" rx="12" fill="#ff6ec4" opacity="0.08" stroke="#ff6ec4" stroke-opacity="0.5"/><text x="576" y="88" fill="#ff6ec4" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">当裁判的</text><text x="576" y="118" fill="#a8b0c0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">直接判对错 / 分诊 / 打分</text><text x="576" y="164" fill="#dde1ea" font-size="10.5" text-anchor="middle" font-family="Menlo,monospace">独立复测:精度 0.38% · F1 3%</text><rect x="494" y="196" width="164" height="34" rx="8" fill="#ff6ec4" opacity="0.16"/><text x="576" y="218" fill="#ff6ec4" font-size="11.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">复测后系统性缩水</text>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="34">同一个 AI,三把椅子,三种成色</text>
+<rect fill="#52b788" height="200" opacity="0.08" rx="12" stroke="#52b788" stroke-opacity="0.5" width="200" x="24" y="58"></rect><text fill="#52b788" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="124" y="88">干活的(生成器)</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="124" y="118">产测试输入 / fuzz 探针,判决全在机器闸</text><text fill="#dde1ea" font-family="Menlo,monospace" font-size="10.5" text-anchor="middle" x="124" y="164">挖出 26 个真漏洞 · 采纳率 73%</text><rect fill="#52b788" height="34" opacity="0.16" rx="8" width="164" x="42" y="196"></rect><text fill="#52b788" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="124" y="218">增益有硬数字</text><rect fill="#f0b429" height="200" opacity="0.08" rx="12" stroke="#f0b429" stroke-opacity="0.5" width="200" x="250" y="58"></rect><text fill="#f0b429" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="350" y="88">起草的(提议者)</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="350" y="118">起草规则 / 规约,先过独立筛再上岗</text><text fill="#dde1ea" font-family="Menlo,monospace" font-size="10.5" text-anchor="middle" x="350" y="164">证明器把关后:误报 0/20</text><rect fill="#f0b429" height="34" opacity="0.16" rx="8" width="164" x="268" y="196"></rect><text fill="#f0b429" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="350" y="218">真增益,筛完人工不省</text><rect fill="#ff6ec4" height="200" opacity="0.08" rx="12" stroke="#ff6ec4" stroke-opacity="0.5" width="200" x="476" y="58"></rect><text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="576" y="88">当裁判的</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="576" y="118">直接判对错 / 分诊 / 打分</text><text fill="#dde1ea" font-family="Menlo,monospace" font-size="10.5" text-anchor="middle" x="576" y="164">独立复测:精度 0.38% · F1 3%</text><rect fill="#ff6ec4" height="34" opacity="0.16" rx="8" width="164" x="494" y="196"></rect><text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" x="576" y="218">复测后系统性缩水</text>
 </svg>
 <figcaption>示意:判据不是「用没用 AI」,是裁决权在谁手里——判决全在独立机制(左)到判决就是 AI 本身(右);数字详见正文</figcaption>
 </figure>
-<h2>裁判最铁面的地方,AI 成绩最硬</h2>
+<h2 data-tts="92aac30283bf957c">裁判最铁面的地方,AI 成绩最硬</h2>
 <p><strong>数学证明。</strong>证明检查器不会被说服,错就是错。AI 证明器的成绩一年内冲到 88-90%(每道题允许多次尝试的口径),而且有个漂亮的细节:让它看着检查器的报错自己改,成绩从 88.1% 涨到 90.4%——<strong>裁判越铁面,AI 越能放开了试错。</strong></p>
 <p><strong>崩溃探测。</strong>Google 让 AI 给开源项目写模糊测试的"探针",判定权完全在崩溃检测器手里:272 个项目覆盖率自动提升,并在被测了几十万小时的老项目里发现 26 个新漏洞——其中 OpenSSL 的一个漏洞按 Google 的判断可能已经藏了二十年,人写的探针就是够不着它。</p>
 <p><strong>大厂的测试工厂。</strong>Meta 让 AI 批量生成单元测试,但设了一路机器闸门:编译不过的扔掉、跑五次不稳定的扔掉、不增加覆盖的扔掉,最后 73% 的改进建议被工程师采纳进生产。后来更狠:先让 AI 往代码里注入人造 bug,再让 AI 写能抓住这些 bug 的测试——用"能不能杀死人造 bug"给试卷打分,这个闸门也是机器。</p>
 <p>注意共同点:<strong>这些战绩里,AI 全程没当过裁判。</strong>判决来自证明检查器、崩溃、编译器、执行结果。AI 只是产能。</p>
-<h2>AI 一坐上裁判席,数字就开始缩水</h2>
+<h2 data-tts="c751cb53a2ba1a31">AI 一坐上裁判席,数字就开始缩水</h2>
 <p>反面同样清楚,而且不止一例:</p>
 <ul><li>一个著名的"AI 写测试断言"工具,原论文声称独家找到 30 个 bug;两组人马独立复查后发现:断言近半是误报,修正评测漏洞后,真实精度只剩 <strong>0.38%</strong>。</li><li>AI 直接判代码有没有漏洞:在宽松的旧考卷上 F1 高达 68%;换成去污染、严格切分的新考卷,<strong>只剩 3%</strong>,GPT-4 在最严格的对照题上"和瞎猜差不多"。改个变量名,它就有 17% 的概率翻案。</li><li>厂商宣传"AI 分诊告警与安全研究员 96% 一致",小字是:在最需要它的误报判断上,一致率只有 41%;独立基准上最好的 AI 分诊,精确率 16.9%。</li><li>最干净的一组对照实验:让 AI 提议数据库测试规则,先用<strong>数学证明器</strong>把关再上岗,20 个 bug 报告 0 个误报;同一套系统,把证明器换成 GPT-5 当裁判——20 个报告<strong>全是误报</strong>。原因很朴素:AI 裁判单次判断错误率其实只有约 5%,但成熟数据库里真 bug 极少,少量的错判足以淹没极少的真报——<strong>裁判可以只错一点点,报告可以全是错的。</strong></li></ul>
 <p>还有一个机制性的坏消息:AI 写测试断言时,对齐的往往不是你眼前这份代码,而是它训练时见过的"这类代码通常怎么写"。一项研究改了代码再让 AI 现场生成测试,失败的测试里 99% 其实在验证旧行为。所以 AI 测试适合当<strong>回归闸</strong>(锁住现状别被改坏),不适合当<strong>正确性裁判</strong>(判断现状本来对不对)。</p>
-
 <figure>
-<svg viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">LLM 坐裁判席:声称 vs 独立复测</text>
-  <rect x="24" y="48" width="12" height="12" rx="3" fill="#4cc9f0" opacity="0.75"/>
-  <text x="42" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">声称 / 旧口径</text>
-  <rect x="220" y="48" width="12" height="12" rx="3" fill="#ff6ec4" opacity="0.9"/>
-  <text x="238" y="58" fill="#7c8593" font-size="11" font-family="Menlo,monospace">独立复测</text>
-  <text x="24" y="84" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">漏洞检测 F1:旧基准 BigVul → 去污染 PrimeVul</text><rect x="24" y="94" width="273" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="305" y="105" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">68.26%</text><rect x="24" y="114" width="13" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="45" y="125" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">3.09%</text><text x="24" y="166" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">Semgrep 分诊一致率:头条 → 误报侧</text><rect x="24" y="176" width="384" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="416" y="187" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">96%</text><rect x="24" y="196" width="164" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="196" y="207" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">41%</text><text x="24" y="248" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">LLM 测试覆盖率:旧基准 → 未污染 ULT</text><rect x="24" y="258" width="369" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="401" y="269" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">92.18%</text><rect x="24" y="278" width="180" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="212" y="289" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">45.10%</text><text x="24" y="330" fill="#a8b0c0" font-size="11.5" font-family="-apple-system,sans-serif">AI 断言工具 TOGA:原评测 → 修正评测漏洞后的精度</text><rect x="24" y="340" width="240" height="14" rx="4" fill="#4cc9f0" opacity="0.75"/><text x="272" y="351" fill="#4cc9f0" font-size="11" font-weight="700" font-family="Menlo,monospace">声称 30 个独家 bug</text><rect x="24" y="360" width="8" height="14" rx="4" fill="#ff6ec4" opacity="0.9"/><text x="40" y="371" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">0.38%</text>
+<svg role="img" viewbox="0 0 700 440" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="34">LLM 坐裁判席:声称 vs 独立复测</text>
+<rect fill="#4cc9f0" height="12" opacity="0.75" rx="3" width="12" x="24" y="48"></rect>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="11" x="42" y="58">声称 / 旧口径</text>
+<rect fill="#ff6ec4" height="12" opacity="0.9" rx="3" width="12" x="220" y="48"></rect>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="11" x="238" y="58">独立复测</text>
+<text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="11.5" x="24" y="84">漏洞检测 F1:旧基准 BigVul → 去污染 PrimeVul</text><rect fill="#4cc9f0" height="14" opacity="0.75" rx="4" width="273" x="24" y="94"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11" font-weight="700" x="305" y="105">68.26%</text><rect fill="#ff6ec4" height="14" opacity="0.9" rx="4" width="13" x="24" y="114"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11" font-weight="700" x="45" y="125">3.09%</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="11.5" x="24" y="166">Semgrep 分诊一致率:头条 → 误报侧</text><rect fill="#4cc9f0" height="14" opacity="0.75" rx="4" width="384" x="24" y="176"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11" font-weight="700" x="416" y="187">96%</text><rect fill="#ff6ec4" height="14" opacity="0.9" rx="4" width="164" x="24" y="196"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11" font-weight="700" x="196" y="207">41%</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="11.5" x="24" y="248">LLM 测试覆盖率:旧基准 → 未污染 ULT</text><rect fill="#4cc9f0" height="14" opacity="0.75" rx="4" width="369" x="24" y="258"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11" font-weight="700" x="401" y="269">92.18%</text><rect fill="#ff6ec4" height="14" opacity="0.9" rx="4" width="180" x="24" y="278"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11" font-weight="700" x="212" y="289">45.10%</text><text fill="#a8b0c0" font-family="-apple-system,sans-serif" font-size="11.5" x="24" y="330">AI 断言工具 TOGA:原评测 → 修正评测漏洞后的精度</text><rect fill="#4cc9f0" height="14" opacity="0.75" rx="4" width="240" x="24" y="340"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11" font-weight="700" x="272" y="351">声称 30 个独家 bug</text><rect fill="#ff6ec4" height="14" opacity="0.9" rx="4" width="8" x="24" y="360"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11" font-weight="700" x="40" y="371">0.38%</text>
 </svg>
 <figcaption>示意:四组各自口径不同、不可互比,只看各组内的缩水方向(条长为示意;PrimeVul/ULT/TOGA 为独立学术复测,Semgrep 为同一博客的头条 vs 细则)</figcaption>
 </figure>
-<h2>同一种 AI 产出,两种裁判,两种下场</h2>
+<h2 data-tts="90ffaeff149d84a3">同一种 AI 产出,两种裁判,两种下场</h2>
 <p>2024-2026 年开源安全圈上演了一场天然对照实验。</p>
 <p>同样是"AI 找到的安全问题":接到<strong>崩溃检测器</strong>上,产出是 26 个真漏洞和一个藏了二十年的 CVE;直接扔给<strong>人类维护者</strong>分诊,产出是灾难——curl 项目 2025 年收到的安全报告约 20% 是 AI 垃圾,真漏洞不到 5%,每份报告消耗七人团队里三四个人各半小时到三小时,2026 年初干脆关掉了运行七年的漏洞赏金。Linux 内核安全列表同期从每周两三份涨到每周十份,增量"全是 AI 垃圾"。</p>
 <p><strong>但故事有第二幕。</strong>2026 年,curl 恢复接收报告后确认率不降反升,回到并反超历史水平(15-16%),而且几乎每份报告都用了 AI;内核报告涨到每天 5-10 份、大多数是对的,新问题变成了海量重复,逼得 Torvalds 改了规矩:AI 发现的 bug 一律按公开处理,必须附上<strong>能跑的复现用例</strong>,最好带补丁——把举证责任推回提交方,要求交出机器能验证的东西。</p>
 <p>这两幕合起来是全文的缩影:<strong>裁判是否铁面,决定同一种 AI 产出是资产还是负担;而人类裁判被淹不淹,取决于激励怎么设、工具哪一代。</strong></p>
-
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">curl 安全报告确认率:人类裁判格的两幕剧</text>
-  <line x1="372" y1="58" x2="372" y2="270" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="360" y="85" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2019-2024 · 赏金时代</text><rect x="372" y="70" width="170" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="552" y="85" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">>15%</text><text x="360" y="137" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2025 · AI slop 洪水(约 20% 是 slop)</text><rect x="372" y="122" width="48" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="430" y="137" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace"><5%</text><text x="360" y="189" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2026-01 · 关闭七年赏金</text><rect x="372" y="174" width="4" height="20" rx="5" fill="#5a6378" opacity="0.85"/><text x="386" y="189" fill="#5a6378" font-size="13" font-weight="700" font-family="Menlo,monospace">—</text><text x="360" y="241" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">2026-04 · 重返后反超(几乎全用 AI)</text><rect x="372" y="226" width="178" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="560" y="241" fill="#52b788" font-size="13" font-weight="700" font-family="Menlo,monospace">15-16%</text>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="34">curl 安全报告确认率:人类裁判格的两幕剧</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1.5" x1="372" x2="372" y1="58" y2="270"></line>
+<text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="360" y="85">2019-2024 · 赏金时代</text><rect fill="#4cc9f0" height="20" opacity="0.85" rx="5" width="170" x="372" y="70"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="13" font-weight="700" x="552" y="85">&gt;15%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="360" y="137">2025 · AI slop 洪水(约 20% 是 slop)</text><rect fill="#ff6ec4" height="20" opacity="0.85" rx="5" width="48" x="372" y="122"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" x="430" y="137">&lt;5%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="360" y="189">2026-01 · 关闭七年赏金</text><rect fill="#5a6378" height="20" opacity="0.85" rx="5" width="4" x="372" y="174"></rect><text fill="#5a6378" font-family="Menlo,monospace" font-size="13" font-weight="700" x="386" y="189">—</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="end" x="360" y="241">2026-04 · 重返后反超(几乎全用 AI)</text><rect fill="#52b788" height="20" opacity="0.85" rx="5" width="178" x="372" y="226"></rect><text fill="#52b788" font-family="Menlo,monospace" font-size="13" font-weight="700" x="560" y="241">15-16%</text>
 </svg>
 <figcaption>示意:同一项目、同一人类裁判、同一确认率口径(真漏洞/全部安全提交,Stenberg 一手时间序列)——洪水受赏金激励与工具代际调制,不是恒久定律</figcaption>
 </figure>
-<h2>也别把"铁面裁判"神化</h2>
+<h2 data-tts="a4c675c6e7c42a71">也别把"铁面裁判"神化</h2>
 <p>三个诚实的限定,防止把结论用过头:</p>
 <p><strong>第一,裁判铁面,考题可以是错的。</strong>证明检查器只保证"证明推得出题目",不保证"题目写的是你想要的"。最流行的形式数学考卷被查出超过一半的题目题面和原意对不上;人类专家手写的形式规约也有 16-38% 含语义错误;让 LLM 把自然语言需求翻译成规约语言 TLA+,语义正确率只有 8.6%。还有模型学会在规约里塞一句"假设假为真",让任何实现都能通过验证——<strong>AI 时代的验证风险,正从"证明写错"上移到"题目出错"。</strong></p>
 <p><strong>第二,AI 的增益要和强基线比,不能和空白比。</strong>一个不用 AI 的傻瓜变异工具,同台复测时反超了明星 AI 模糊测试工具;一个不用 AI 的数据库测试框架,自己就找了 196 个 bug。好几项已发表的"AI 增益",输给了"对照组太弱"。</p>
 <p><strong>第三,机器闸门是必要条件,不是充分条件。</strong>Uber 用 AI 修数据竞争,过了"重跑一千次不复现"闸门的修复,仍有一部分被人审拦下来判定不对。层层机器闸之上,人的终审暂时省不掉。</p>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="815e04080ba28834">这篇文章的判断,怎么检验</h2>
 <p>十一个可检验主张,按证据从硬到软:</p>
 <ol><li><strong>裁判铁面的格子,AI 增益有硬数字</strong>——26 个漏洞、二十年 CVE、证明完成率 88→90、Meta 73% 采纳,这些判决全部来自机器或维护者,不是 AI 自评。</li><li><strong>AI 坐裁判席,数字在独立复查中缩水</strong>——0.38%、3%、16.9%、20/20 误报,五组独立证据同一个方向。</li><li><strong>风险上移到"出题层"</strong>:验证器保证不了题目本身对——形式考卷半数错位、人写规约也错 16-38%、AI 写 TLA+ 语义只对 8.6%。</li><li><strong>AI 增益必须和强的非 AI 基线比</strong>——傻瓜工具反超明星 AI 工具的事已经发生。</li><li><strong>"多个 AI 互相检查"的独立性前提被实验拒绝</strong>(共同犯错是独立假设的 3.7 倍)——但三版本投票仍能把失效降到约三分之一,衰减不是归零。</li><li><strong>"杀人造 bug"闸门便宜好用且已工业化,但它的分数也会被数据污染抬高</strong>(约 10 个百分点),只是不像覆盖率那么容易刷满。</li><li><strong>AI 断言 99% 锚定的是训练里的旧行为</strong>;主动抓未知 bug 的成功率上限目前只有 16-30%。</li><li><strong>AI 当"起草者"增益真实,但筛完剩下的人工负担不消失</strong>——起草变便宜了,裁决一分没省。</li><li><strong>人类裁判被 AI 报告淹没是真的,但不均匀、可逆转</strong>——curl 关赏金后又反超,内核从"全是垃圾"到"大多正确但重复"。</li><li><strong>并发 bug 这一格 AI 至今缺席</strong>,原因是结构性的:最大的 AI 模糊测试管线压根没接上竞争检测器。</li><li><strong>"AI 代码搞坏生产环境"两个方向的说法都还没过独立复查</strong>——负面叙事(代码翻炒率上升)同样被复测撞了。</li></ol>
 <p>值得盯什么:AI 模糊测试管线接上并发检测器后能不能复制战绩;内核"必须附补丁"新规能不能驯服重复洪水;下一个宣称"AI 当裁判"的产品,敢不敢公布误报侧的独立复测数字。</p>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="61274175a8a26306">最要紧的几件事</h2>
 <ol><li><strong>评估任何"AI 找 bug/AI 审核"方案,第一个问题永远是:裁判是谁?</strong>判决来自编译器、测试执行、崩溃、证明器,数字可信;判决来自 AI 自己或它的近亲,先打两折再看。</li><li><strong>给 AI 产能配独立闸门,而不是配另一个 AI。</strong>编译、执行、覆盖、杀人造 bug、重跑一千次——这些闸门便宜、机械、不可说服,是 AI 时代真正的杠杆。</li><li><strong>AI 写的测试当回归保险用,别当正确性证书用。</strong>它锁得住现状,判不了现状对不对。</li><li><strong>警惕拿"覆盖率"和"一致率"当卖点的评测</strong>:覆盖率易刷满,一致率的大头可能来自容易的那一半任务。要看误报侧、看杀伤力、看独立复测。</li><li><strong>如果你在被 AI 报告淹没的那一侧</strong>(维护者、评审、安全团队),学内核的解法:把举证责任推回去,要求机器可验证的产物——能跑的复现、能过测试的补丁。</li><li><strong>软件是幸运的:它有一整柜不可说服的机械裁判。</strong>把 AI 的产能接到它们身上,而不是让 AI 顶替它们。</li></ol>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

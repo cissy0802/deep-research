@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AI code review:验证瓶颈的解药,还是套娃?(深入版) — BigCat Deep Research</title>
-<meta name="description" content="基准混战解剖、大厂生产漏斗、'AI 验证 AI'的四个脚注与 1983 年的人因剧本;15 条承重论断 × 3 票对抗验证。">
+<meta content="基准混战解剖、大厂生产漏斗、'AI 验证 AI'的四个脚注与 1983 年的人因剧本;15 条承重论断 × 3 票对抗验证。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -60,151 +61,143 @@ h2:nth-of-type(11){--h2:#ff6ec4}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="ai-code-review-deep.html" class="active">中文</a><a href="ai-code-review-deep.en.html">EN</a>
+<a class="active" href="ai-code-review-deep.html">中文</a><a href="ai-code-review-deep.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 深入版</div>
-<h1>AI code review:验证瓶颈的解药,还是套娃?(深入版)</h1>
+<h1 data-tts="e8eeae330d551270">AI code review:验证瓶颈的解药,还是套娃?(深入版)</h1>
 <div class="version-note">本文是<strong>深入版</strong> · <a href="ai-code-review-plain.html">查看易读版(精简直白)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">验证瓶颈真实且在恶化(评审中位时长 +441.5%、零审查合并 +31.3%),但供给侧的证明材料已经失效:6 家自办基准发布者全部第一,同一工具跨基准分数差 3.7 倍;第一方生产漏斗显示离线分数与生产价值隔一个数量级(Meta 67.96%→19.75%);错误趋同正在瓦解'AI 验证 AI'的独立性前提。裁决是条件句:独立 oracle + 控误报 + 人握裁决 = 解药,否则是套娃。全文以八个可检验主张收尾。</div></div>
 <div class="chips"><span class="chip c1">7 条线索 · 15 条承重论断</span><span class="chip c2">45 票对抗验证</span><span class="chip c3">9 过 · 6 修正 · 0 推翻</span><span class="chip c4">8 个可检验主张</span></div>
 <blockquote><p>本文数据截至 2026 年 7 月。写进正文的 15 条承重论断(基准数字、生产漏斗、翻转性结论)各经 3 名独立验证者对抗核查(下载一手原文逐字核对数字与口径、检索反证与后续修订):9 条原样通过、6 条按验证意见修正(主要是口径细化,如 CriticGPT 人机团队的真实增益、pr-review-bench 作者的利益关联)、0 条被推翻。另有 6 组数字(METR、Sonar、Google 迁移、DORA、Faros 2025、Anthropic 会话)继承自本站<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">《当代码变得便宜》</a>的对抗验证,沿用其已锁定的口径。厂商与利益相关方的数字一律注明口径。</p></blockquote>
-<h2>0. 从上一个结论出发</h2>
+<h2 data-tts="f5824c7ae3d4c0fa">0. 从上一个结论出发</h2>
 <p>本站<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">《当代码变得便宜》</a>研究的核心结论是:AI 把软件生产中"写"的成本压向零,把"确认写得对"的成本推向组织瓶颈的位置。那篇文章发表后,行业给出了一个几乎太顺理成章的答案:<strong>验证太慢?再买一个 AI 来做验证。</strong>2026 年年中,这个答案已经是一门生意——GitHub 平台上每 5 次 code review 就有 1 次由 Copilot 完成(累计 6,000 万次,平台自报);写代码的公司 Cursor 溢价收购了审代码的公司 Graphite,CEO Michael Truell 的理由原话是"随着 AI 在工程团队里铺开,团队评审代码的方式正日益成为他们进一步提速的瓶颈";独立与非独立的基准、融资公告和"#1"宣称在六个月里密集到互相踩脚。</p>
 <p>但这个答案里有一个没被正面回答的问题。code review 之所以成为瓶颈,是因为 LLM 的产出不可靠、需要一道独立的检查;而现在被雇来做这道检查的,是另一个 LLM——<strong>一个同样会幻觉、同样没有正确性保证的生成模型</strong>。瓶颈是被解决了,还是被套了一层娃:AI 写代码,AI 审代码,人审 AI 的审查,然后呢?</p>
 <p>这不是修辞问题,是可以拿证据裁决的实证问题。本文的做法:先确认需求侧(验证瓶颈)是不是真的;再解剖供给侧的证明材料(厂商基准);然后看三类更硬的证据——大厂第一方生产数据、独立学术研究、"LLM 能否当验证者"的基础文献;最后给出裁决:AI code review 在什么条件下是解药,在什么条件下是套娃。</p>
-<h2>1. 需求侧:瓶颈是真的,而且在恶化</h2>
+<h2 data-tts="fbbb0d3ef65f8a53">1. 需求侧:瓶颈是真的,而且在恶化</h2>
 <p>先排除一种可能:如果"验证瓶颈"本身是厂商营销发明的伪问题,那么"解药还是套娃"就不用讨论了。证据不支持这种可能。</p>
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">AI 高采用期 vs 低采用期(Faros 遥测,22,000 名开发者)</text>
-  <line x1="230" y1="52" x2="230" y2="252" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="218" y="79" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">任务完成 / 人</text><rect x="230" y="64" width="34" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="274" y="79" fill="#52b788" font-size="13" font-weight="700" font-family="Menlo,monospace">+33.7%</text><text x="218" y="131" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">PR 审查中位时长</text><rect x="230" y="116" width="400" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="640" y="131" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">+441.5%</text><text x="218" y="183" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">事故 / PR</text><rect x="230" y="168" width="220" height="20" rx="5" fill="#e8794b" opacity="0.85"/><text x="460" y="183" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">+242.7%</text><text x="218" y="235" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">零审查直接合并的 PR</text><rect x="230" y="220" width="30" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="270" y="235" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">+31.3%</text>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="34">AI 高采用期 vs 低采用期(Faros 遥测,22,000 名开发者)</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1.5" x1="230" x2="230" y1="52" y2="252"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="79">任务完成 / 人</text><rect fill="#52b788" height="20" opacity="0.85" rx="5" width="34" x="230" y="64"></rect><text fill="#52b788" font-family="Menlo,monospace" font-size="13" font-weight="700" x="274" y="79">+33.7%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="131">PR 审查中位时长</text><rect fill="#ff6ec4" height="20" opacity="0.85" rx="5" width="400" x="230" y="116"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" x="640" y="131">+441.5%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="183">事故 / PR</text><rect fill="#e8794b" height="20" opacity="0.85" rx="5" width="220" x="230" y="168"></rect><text fill="#e8794b" font-family="Menlo,monospace" font-size="13" font-weight="700" x="460" y="183">+242.7%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="235">零审查直接合并的 PR</text><rect fill="#7b61ff" height="20" opacity="0.85" rx="5" width="30" x="230" y="220"></rect><text fill="#7b61ff" font-family="Menlo,monospace" font-size="13" font-weight="700" x="270" y="235">+31.3%</text>
 </svg>
 <figcaption>示意:同一批组织,产出小幅上升,代价堆在评审环节——评审变慢、事故变多、越来越多 PR 无人审(厂商遥测,前后对比口径,条长为示意)</figcaption>
 </figure>
-
 <p><strong>微观时间账。</strong>METR 的随机对照实验(16 名资深开源维护者、246 个真实任务,2025 年 7 月):允许使用 AI 使任务耗时平均 +19%(图示 95% CI 约 +2% 至 +40%),而开发者事前预测快 24%、事后仍自认为快了约 20%;屏幕录像标注显示约 9% 的工作时间花在审查与清理 AI 输出上(74 个录像、84 小时,约占总工时 29% 的子集)。必须捆绑交代:METR 2026 年 2 月更新中,原批次复测点估计约 18% 提速但 CI(−38%, +9%)跨零,新招募的 47 人批次约无效应(−4%,CI −15% 至 +9%,样本偏绿地小库),METR 自称新数据"是不可靠信号"、正在修改研究设计。19% 这个点估计已经不再耐久;<strong>耐久的是感知与实测约 40 个百分点的错位,以及时间结构性地从"写"转移到"审"</strong>。</p>
 <p><strong>组织遥测。</strong>Faros 2025 年数据(10,000+ 开发者,厂商遥测):AI 高采用团队合并 PR +98%、PR 体积 +154%、评审时间 +91%,cycle time 与 AI 采用无相关——产量的增益在评审环节排队。2026 年 4 月的续作《The Acceleration Whiplash》(22,000 开发者、4,000+ 团队,组织内 AI 采用最低期 vs 最高期的前后对比,同为厂商遥测、非对照实验):任务完成/人 +33.7%,但 <strong>PR 审查中位时长 +441.5%,事故/PR +242.7%,完全未经任何审查(人或 agent)即合并的 PR +31.3%</strong>。报告自己的解读是"更可能的解释是,评审者跟不上涌来的 AI 生成代码的量"。LinearB 的 810 万 PR 遥测(2026):AI 辅助的 PR 等待首次评审的时间长 4.6 倍,合并率不足人写代码的一半。三家遥测口径差异巨大,但方向一致。</p>
 <p><strong>供给洪峰。</strong>GitHub Octoverse 2025(平台遥测):月均合并 PR 4,320 万个,同比 +23%;Copilot coding agent 上线 5 个月即产出 100 万+ PR。Anthropic 自报:截至 2026 年 5 月,合入其代码库的代码 80% 以上由 Claude 撰写(厂商口径,含人工监督下的 agent 产出)。分母在膨胀,分子(人类评审注意力)不变——这就是剪刀差。</p>
 <p><strong>组织级实锤。</strong>Google 的内部迁移论文(ICSE-SEIP 2025,第一方):JUnit3→JUnit4 迁移中约 87% 的 AI 生成代码未经修改直接提交,而"过程中的瓶颈是工程师评审变更的速度。我们刻意限制了每周生成的变更数量,以免压垮评审者"。生成端产能过剩、验证端限流——<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">上一篇</a>的判断在本篇不需要重新论证,需要回答的是新问题:<strong>把验证也交给 AI,行不行?</strong></p>
-<h2>2. 供给侧的证明材料:基准混战解剖</h2>
+<h2 data-tts="8414374a49a163b2">2. 供给侧的证明材料:基准混战解剖</h2>
 <p>行业用什么证明 AI review 有效?主要是基准分数。把 2025-2026 年公开的基准并排放好,会看到一个结构性事实。</p>
 <figure>
-<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个工具,四张考卷(Greptile,2025-07 至 2026-05)</text>
-  <text x="24" y="76" fill="#7c8593" font-size="12" font-family="Menlo,monospace">自家基准 · 捕获率</text><rect x="24" y="86" width="410" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="444" y="101" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">82%</text><text x="24" y="138" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Augment 重测 · F 分</text><rect x="24" y="148" width="225" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="259" y="163" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">45%</text><text x="24" y="200" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Tenki · 召回</text><rect x="24" y="210" width="181" height="20" rx="5" fill="#f0b429" opacity="0.85"/><text x="215" y="225" fill="#f0b429" font-size="13" font-weight="700" font-family="Menlo,monospace">36.1%</text><text x="24" y="262" fill="#7c8593" font-size="12" font-family="Menlo,monospace">竞品 Tenki · 精确率</text><rect x="24" y="272" width="80" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="114" y="287" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">15.9%</text>
-  <rect x="24" y="326" width="500" height="30" rx="8" fill="#e85a4f" opacity="0.12" stroke="#e85a4f" stroke-opacity="0.5"/>
-  <text x="38" y="346" fill="#ff8a80" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">6 家自办基准,发布者 6 次全部第一</text>
+<svg role="img" viewbox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="34">同一个工具,四张考卷(Greptile,2025-07 至 2026-05)</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="24" y="76">自家基准 · 捕获率</text><rect fill="#4cc9f0" height="20" opacity="0.85" rx="5" width="410" x="24" y="86"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="13" font-weight="700" x="444" y="101">82%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="24" y="138">竞品 Augment 重测 · F 分</text><rect fill="#7b61ff" height="20" opacity="0.85" rx="5" width="225" x="24" y="148"></rect><text fill="#7b61ff" font-family="Menlo,monospace" font-size="13" font-weight="700" x="259" y="163">45%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="24" y="200">竞品 Tenki · 召回</text><rect fill="#f0b429" height="20" opacity="0.85" rx="5" width="181" x="24" y="210"></rect><text fill="#f0b429" font-family="Menlo,monospace" font-size="13" font-weight="700" x="215" y="225">36.1%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="24" y="262">竞品 Tenki · 精确率</text><rect fill="#ff6ec4" height="20" opacity="0.85" rx="5" width="80" x="24" y="272"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" x="114" y="287">15.9%</text>
+<rect fill="#e85a4f" height="30" opacity="0.12" rx="8" stroke="#e85a4f" stroke-opacity="0.5" width="500" x="24" y="326"></rect>
+<text fill="#ff8a80" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" x="38" y="346">6 家自办基准,发布者 6 次全部第一</text>
 </svg>
 <figcaption>示意:分数取决于谁出题、量哪根轴——只报捕获率不报误报率,是信号检测论 1966 年就判过的度量错误(各基准指标不同,不可直接比大小)</figcaption>
 </figure>
-
-<h3>2.1 发布者总是第一名</h3>
+<h3 data-tts="ee2f3b68d7258d83">2.1 发布者总是第一名</h3>
 <p>截至 2026 年 2 月,至少 6 家厂商发布过自办的 AI code review 基准,<strong>发布者本人在自家基准上全部排名第一</strong>:Greptile(82% bug 捕获率)、Augment(59% F1)、Tenki(41.7 F1)、Entelligence(47.2% F1)、Qodo 自建基准(60.1% F1)、DeepSource 安全基准(100% precision)。把这个现象钉在墙上的文章,标题就叫《Every AI code review vendor benchmarks itself, and wins》——作者是 DeepSource,它自己也是参赛选手之一,对游戏的批评同时也是游戏里的一步棋。</p>
 <p>同一个工具在不同基准上的分数可以差出 3.7 倍。Greptile 在自家基准上捕获 82% 的 bug(2025 年 7 月,50 个真实 bug-fix PR、5 个开源大库);Augment 在同样 5 个仓库上用自家扩充修订过的数据集重测,Greptile 得 45%(F-score);Tenki 的基准(2026 年 5 月,122 个真实生产 bug)里,Greptile 召回 36.1%、精确率 15.9%。三组数字用的指标各不相同,这本身就是问题的一部分:<strong>没有两个厂商的头条数字是同一个量纲的。</strong></p>
-<h3>2.2 连独立基准也被收割了</h3>
+<h3 data-tts="a88c37df5d7dd843">2.2 连独立基准也被收割了</h3>
 <p>Martian(旧金山研究机构,成员来自 DeepMind/Anthropic/Meta)运营的 Code Review Bench 是目前最接近独立的榜单:跟踪 20-30 万真实 PR、测"开发者是否真的按评论行动"、每日更新。结果 2026 年 3 月约四周之内,三家厂商各自发布了"我们第一"的博客:CodeRabbit 宣称 #1 F1(51.2%,3 月 3 日);Qodo 宣称 #1 overall(64.3% F1——但那是名为 Qodo Extended 的 research preview 配置,其在售产品在同一榜单排第 4,F1 47.9%;3 月 15 日);Baz 宣称 #1 precision(F0.5 口径,基于 2026-02-26 的榜单快照;3 月 29 日)。一个多指标、每日变动的榜单,给每家厂商都留了一个"在某时刻某指标上为真"的第一名。CodeRabbit 自己在博客里写下了本节最诚实的一句话:"AI code review 基准大多由其他 code review 厂商发布(这些工具在自家基准里似乎总是名列前茅)。"</p>
-<h3>2.3 1966 年就判过的度量学错误</h3>
+<h3 data-tts="dfb17e02098869b7">2.3 1966 年就判过的度量学错误</h3>
 <p>这场混战不需要逐一裁判,因为它整体上重演了一个信号检测论(Green &amp; Swets,1966)在六十年前就解决过的错误。SDT 的核心贡献是把<strong>敏感度</strong>(区分信号与噪声的能力)和<strong>响应偏置</strong>(报警阈值的松紧)分开:命中率、误报率必须成对报告,单独一个命中率"无法区分两个条件的差异来自敏感度、响应偏置,还是两者兼有"(Stanislaw &amp; Todorov 1999 的教科书表述)。把阈值调松,任何检测器的"捕获率"都能上去——代价是误报暴涨,而误报正是 code review 场景里最贵的东西(它消耗的是本已稀缺的人类注意力)。</p>
 <p>对照这把尺子:Greptile 的基准页只公布捕获率(召回),不公布精确率或误报率——而在 Tenki 的口径下它的精确率是 15.9%,即约 6 条评论里 5 条不指向真 bug。Graphite 则是镜像:在 Greptile 基准上捕获率仅 6%(垫底),在 Entelligence 基准上精确率 66.7%(全场最高)——<strong>哪个工具"赢",完全取决于基准的主办方把哪根轴当卖点</strong>。所有这些基准还共享一组方法学弱点:50-122 个 bug 的小样本(SWR-Bench 实测多次运行聚合可把 F1 提升多达 43.67%,说明单次运行的方差足以重排整个榜单)、合成注入的 bug(Qodo 往真实 PR 里注入 580 个缺陷,ground truth 由 LLM 生成)、以及几乎全体使用 LLM 当裁判——AI 给"AI 审 AI 代码"的比赛打分,套娃在评测层先套了一圈。</p>
 <p>学术侧的判断更直接:2026 年 2 月一篇覆盖 99 篇论文的基准综述的结论是,现有 code review 数据集"分散、设计差异巨大、且对究竟在评估什么评审能力提供的洞见有限"。<strong>测量 AI review 好坏的尺子本身,还没有通过测量学的及格线。</strong></p>
-<h2>3. 大厂一手数据:漏斗的真相</h2>
+<h2 data-tts="aa396e1b36f8f86a">3. 大厂一手数据:漏斗的真相</h2>
 <p>厂商基准之外,有三家公司公布了规模化生产部署的第一方数据。它们的价值不在于数字更好看,而在于诚实地暴露了同一个形状:<strong>离线评测与生产现实之间隔着一个数量级的漏斗。</strong></p>
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="170" y="58" fill="#e4e6eb" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Meta(2507.13499)</text><rect x="20.0" y="78" width="300" height="34" rx="6" fill="#4cc9f0" opacity="0.9"/><text x="170" y="100" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">67.96%</text><text x="170" y="128" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">离线 exact-match</text><rect x="75.0" y="144" width="190" height="34" rx="6" fill="#4cc9f0" opacity="0.68"/><text x="170" y="166" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">≈28.7%</text><text x="170" y="194" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">展示后被采纳</text><rect x="115.0" y="210" width="110" height="34" rx="6" fill="#4cc9f0" opacity="0.46"/><text x="170" y="232" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">19.75%</text><text x="170" y="260" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">生产 Actionable→Applied</text>
-  <text x="520" y="58" fill="#e4e6eb" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">Google(ICSE-SEIP 2024)</text><rect x="370.0" y="78" width="300" height="34" rx="6" fill="#7b61ff" opacity="0.9"/><text x="520" y="100" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">49%</text><text x="520" y="128" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">模型高置信预测</text><rect x="425.0" y="144" width="190" height="34" rx="6" fill="#7b61ff" opacity="0.68"/><text x="520" y="166" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">10.7%</text><text x="520" y="194" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">被作者预览</text><rect x="465.0" y="210" width="110" height="34" rx="6" fill="#7b61ff" opacity="0.46"/><text x="520" y="232" fill="#0a0e1a" font-size="12.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">7.5%</text><text x="520" y="260" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">被采纳入库</text>
-  <line x1="350" y1="52" x2="350" y2="280" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,5"/>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="170" y="58">Meta(2507.13499)</text><rect fill="#4cc9f0" height="34" opacity="0.9" rx="6" width="300" x="20.0" y="78"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="170" y="100">67.96%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="170" y="128">离线 exact-match</text><rect fill="#4cc9f0" height="34" opacity="0.68" rx="6" width="190" x="75.0" y="144"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="170" y="166">≈28.7%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="170" y="194">展示后被采纳</text><rect fill="#4cc9f0" height="34" opacity="0.46" rx="6" width="110" x="115.0" y="210"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="170" y="232">19.75%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="170" y="260">生产 Actionable→Applied</text>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="520" y="58">Google(ICSE-SEIP 2024)</text><rect fill="#7b61ff" height="34" opacity="0.9" rx="6" width="300" x="370.0" y="78"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="520" y="100">49%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="520" y="128">模型高置信预测</text><rect fill="#7b61ff" height="34" opacity="0.68" rx="6" width="190" x="425.0" y="144"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="520" y="166">10.7%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="520" y="194">被作者预览</text><rect fill="#7b61ff" height="34" opacity="0.46" rx="6" width="110" x="465.0" y="210"></rect><text fill="#0a0e1a" font-family="Menlo,monospace" font-size="12.5" font-weight="700" text-anchor="middle" x="520" y="232">7.5%</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="middle" x="520" y="260">被采纳入库</text>
+<line stroke="#5a6378" stroke-dasharray="2,5" stroke-width="1" x1="350" x2="350" y1="52" y2="280"></line>
 </svg>
 <figcaption>示意:两家第一方漏斗——离线分数是自家精选考卷上的成绩,生产采纳率才是市场价(两家分母口径不同,不可互比,只看各自衰减)</figcaption>
 </figure>
-
-<h3>3.1 Google:7.5%,以及"这些指标只是代理"</h3>
+<h3 data-tts="c23c4d97a80b3050">3.1 Google:7.5%,以及"这些指标只是代理"</h3>
 <p>Google 的 ICSE-SEIP 2024 论文(同行评审 + 第一方)报告:生产部署中,代码作者通过采纳 ML 建议编辑解决了全部人工 reviewer 评论的 <strong>7.5%</strong>(V1 版本为 4.9%)。漏斗全景:100% 的评论进来,49% 有模型的高置信预测,10.7% 被作者预览,7.5% 被实际采纳入库。常被误读的"50%"是模型置信度阈值校准的<strong>目标精确率</strong>(即调阈值使建议编辑约一半是对的,后来放宽到 40% 反而整体更好),不是"解决一半评论"的覆盖率。</p>
 <p>这篇论文最值得引用的不是 7.5%,是作者自己的方法论自白:所有这些评测手段"是开发者生产力这一目标的<strong>更易测量的代理</strong>(easier-to-measure proxies)"。全文没有测量"抓住了多少真 bug"——不是疏忽,是这个量在生产环境里本来就极难测。<strong>规模最大、最严肃的部署方,公开承认自己在用代理指标导航。</strong></p>
-<h3>3.2 Meta:离线 68% vs 生产 19.75%,以及给 reviewer 看 AI 补丁反而更慢</h3>
+<h3 data-tts="7584587afd67733c">3.2 Meta:离线 68% vs 生产 19.75%,以及给 reviewer 看 AI 补丁反而更慢</h3>
 <p>Meta 的 MetaMateCR 论文(arXiv 2507.13499,第一方)提供了本文最锋利的一对数字:微调后的 LargeLSFT 模型在离线评测上 exact-match <strong>67.96%</strong>(GPT-4o 为 59.22%);上到生产,ActionableToApplied 率(被判可操作的评论中,AI 补丁被作者采纳入库的比例)是 <strong>19.75%</strong>。必须交代两个分母完全不同:离线是 206 个人工精选的高质量评测点,生产是先过 LLM 可操作性分类器(GPT-4o)、再过 UX 展示、最后由真人决定的全量评论流。正因为隔着三层漏斗,这对数字才有信息量——<strong>离线分数是在自家精选考卷上的成绩,生产采纳率才是市场价</strong>。中间指标同样冷峻:真正展示给作者的 AI 补丁中,被采纳的不到三成(ShownToApplied ≈ 28.74%),而且换更强的模型这个数字没有统计显著变化——瓶颈不在模型质量,在漏斗后段的人类判断。</p>
 <p>同一篇论文还埋着一个 A/B 实验,它可能是"套娃"担忧最直接的第一方证据:Meta 起初把 AI 生成的补丁同时展示给作者和 reviewer,结果 diff 处于评审状态的时长和 reviewer 查看 diff 的时长<strong>双双出现统计显著回归(各 +5.5%,p=.029)</strong>——AI 的产出本身成了评审者的新增验证负担。解决方案不是改进模型,是改产品:reviewer 查看 diff 时默认折叠 AI 补丁(作者仍可见),之后回归消失(p=.86/.67/.67)。<strong>Meta 用实验测出了"AI 辅助会拖慢评审",然后用"把 AI 藏起来"修复了它。</strong></p>
-<h3>3.3 平行数据点:字节、亚马逊,和一个工业界反例</h3>
+<h3 data-tts="3d7c21907f6b1e59">3.3 平行数据点:字节、亚马逊,和一个工业界反例</h3>
 <p>ByteDance 的 BitsAI-CR(第一方,arXiv):架构上先由 RuleChecker 按规则生成候选问题、再过一层 ReviewFilter 二次验证降误报——<strong>厂商用架构投票承认:裸 LLM review 的输出必须先降噪才能给人看</strong>。自评 precision 75%,并发明了 Outdated Rate(26.7%,Go 语言:评论发出后对应代码行被后续修改的比例)来代理"评论真的有用"——发明新指标这个行为本身,就是对"acceptance 类指标不可靠"的第一方承认。亚马逊 CodeGuru 的 ECOOP 2022 数据提供了前 LLM 时代的对照极:8 条窄而准的静态规则,接受率 83%——<strong>规则越窄、精度越高,接受率越高;LLM review 走的恰是相反的宽覆盖路线。</strong></p>
 <p>独立工业研究补上反例:ICSE 2025 SEIP 的一项部署研究(3 个商业项目、4,335 个 PR)发现,73.8% 的自动评论被标记 resolve——但 PR 平均关闭时长从 5 小时 52 分<strong>升至</strong> 8 小时 20 分,并伴随"错误评审、不必要的修正与无关评论"。"评论被解决"与"交付更快"可以直接背离:前者是活动,后者才是结果。</p>
-<h2>4. 独立证据:AI 评论有人听吗,AI 审查有人看吗</h2>
+<h2 data-tts="2359383173d67556">4. 独立证据:AI 评论有人听吗,AI 审查有人看吗</h2>
 <p>跳出厂商与大厂的自报,独立研究画出的图景更冷。</p>
 <p><strong>采纳率:一个数量级的差距。</strong>对 16 个开源 GitHub Actions 型 AI review 工具的研究(178 个仓库、22,000+ 评论,2026 年修订版):在被判定有效的评论中,AI 评论导致代码修改的比例按工具为 <strong>0.9%–19.2%</strong>(file 级工具 0.9%–4.2%,hunk 级 6.5%–19.2%),同口径的人类评论约 <strong>60%</strong>;87.0% 的 file 级 AI 评论之后没有任何代码修改(人类评论只有 8.2%)。口径必须带上:研究对象是开源免费 Action,不含 Copilot、CodeRabbit SaaS 版等商业主力——但一个数量级的差距不太可能全部由产品档次解释。</p>
 <p><strong>无人监督的 CRA:合并率低 23 个百分点。</strong>基于 AIDev 数据集(3,109 个 PR)的研究直接检验了行业"code review agent 可无人处理 80% 的开源 PR"的宣称:仅由 CRA 审查的 PR 合并率 45.20%,比仅人审的 68.37% 低 23.17 个百分点,废弃率显著更高;13 个被测 CRA 中 12 个的平均信噪比低于 60%。同一数据集上的另一项研究给出更结构性的画面:<strong>大多数 AI 生成的 PR 根本没有人类评审;有评审时,占主导的也是 agent 而非人</strong>。AI 写、AI 审、人缺席——套娃不是思想实验,是 AIDev 数据集里的观察事实(观察性研究、agent 生成 PR 的选择偏差已由作者声明)。</p>
 <p><strong>工具之间连彼此都不同意。</strong>一项实测(2026 年 5 月,146 个真实已合并 PR 上并行运行 CodeRabbit、Greptile、Sentry Seer、Cursor BugBot 三周半,数据开源;作者披露任职于 Sentry,利益关联注明):679 条发现按问题去重后,<strong>93.4% 只被恰好一个工具抓到,零条被四个工具同时抓到</strong>。四个"验证者"对"什么是问题"几乎没有交集——这既说明单一工具的召回上限很低,也说明这些工具输出的更像抽样意见而非检验结论。</p>
 <p><strong>证据空白,如实记录。</strong>截至 2026 年 7 月,针对 AI code review 工具的随机对照试验或随机化现场实验:一篇也没有。行业每月产生数十亿条 AI 评论,效果证据的最高档位停留在观察性遥测与前后对比。另一个空白同样值得记录:检索不到任何具名公司发布"我们关掉了 AI 审查器,因为——"的一手工程博客;关停证据目前只有厂商转述与匿名论坛经验。缺席本身是信息:<strong>这个市场目前既没有严格的有效性证明,也没有严格的失败复盘。</strong></p>
-<h2>5. 根本问题:生成模型能当验证者吗</h2>
+<h2 data-tts="2eff7e5baf85504c">5. 根本问题:生成模型能当验证者吗</h2>
 <p>以上是"AI review 现状如何";更深一层的问题是"它原则上行不行"。scalable oversight 路线的奠基假设(Leike et al. 2018 的 reward modeling 论文,及 Leike 本人 2023 年访谈里以"验证一个 bug 比找出所有 bug 容易"举例)认为:<strong>验证比生成容易,所以可以用较弱的验证撬动较强的生成</strong>。2024-2026 年的文献给这个假设加了四个脚注。</p>
 <figure>
-<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
-  <defs><marker id="arrowt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"/></marker></defs>
-  <rect x="60" y="60" width="250" height="48" rx="10" fill="#4cc9f0" opacity="0.18" stroke="#4cc9f0" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="89" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">AI 写代码</text><text x="336" y="89" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">产出不可靠 → 需要检查</text><path d="M 185 108 L 185 150" stroke="#5a6378" stroke-width="1.5" marker-end="url(#arrowt)"/><rect x="60" y="150" width="250" height="48" rx="10" fill="#7b61ff" opacity="0.18" stroke="#7b61ff" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="179" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">AI 审代码</text><text x="336" y="179" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">幻觉 bug · 与生成器错误趋同</text><path d="M 185 198 L 185 240" stroke="#5a6378" stroke-width="1.5" marker-end="url(#arrowt)"/><rect x="60" y="240" width="250" height="48" rx="10" fill="#ff6ec4" opacity="0.18" stroke="#ff6ec4" stroke-opacity="0.7" stroke-width="1.5"/><text x="185" y="269" fill="#e4e6eb" font-size="14" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">人审 AI 的审查</text><text x="336" y="269" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">自动化自满:「训练无法预防」</text>
-  <path d="M 185 288 L 185 326" stroke="#f0b429" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowt)"/>
-  <text x="185" y="352" fill="#f0b429" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">谁来验证验证者?</text>
+<svg role="img" viewbox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="arrowt" markerheight="7" markerwidth="7" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6378"></path></marker></defs>
+<rect fill="#4cc9f0" height="48" opacity="0.18" rx="10" stroke="#4cc9f0" stroke-opacity="0.7" stroke-width="1.5" width="250" x="60" y="60"></rect><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="185" y="89">AI 写代码</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" x="336" y="89">产出不可靠 → 需要检查</text><path d="M 185 108 L 185 150" marker-end="url(#arrowt)" stroke="#5a6378" stroke-width="1.5"></path><rect fill="#7b61ff" height="48" opacity="0.18" rx="10" stroke="#7b61ff" stroke-opacity="0.7" stroke-width="1.5" width="250" x="60" y="150"></rect><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="185" y="179">AI 审代码</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" x="336" y="179">幻觉 bug · 与生成器错误趋同</text><path d="M 185 198 L 185 240" marker-end="url(#arrowt)" stroke="#5a6378" stroke-width="1.5"></path><rect fill="#ff6ec4" height="48" opacity="0.18" rx="10" stroke="#ff6ec4" stroke-opacity="0.7" stroke-width="1.5" width="250" x="60" y="240"></rect><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="185" y="269">人审 AI 的审查</text><text fill="#7c8593" font-family="-apple-system,sans-serif" font-size="11.5" x="336" y="269">自动化自满:「训练无法预防」</text>
+<path d="M 185 288 L 185 326" marker-end="url(#arrowt)" stroke="#f0b429" stroke-dasharray="4,4" stroke-width="1.5"></path>
+<text fill="#f0b429" font-family="Menlo,monospace" font-size="14" font-weight="700" text-anchor="middle" x="185" y="352">谁来验证验证者?</text>
 </svg>
 <figcaption>示意:每一层验证自身引入新的错误源;当验证层与生成层盲区相关,叠层降低的是体感风险而非真实风险</figcaption>
 </figure>
-
 <p><strong>脚注一:机器验证器本身大量放行错误。</strong>"Rethinking Verification for LLM Code Generation"(arXiv 2507.06920)的口径要摆精确:它测的是<strong>合成测试套件</strong>做验证器的可靠性,Verifier Accuracy 定义为"测试套件拒绝该题全部已知错误解"的比例——最好的方法 SAGA 也只有 32.58%,基线方法 16.72%,而人工维护的主流基准 LiveCodeBench-v6 在共享子集上只有 19.61%。这个数字<strong>不能</strong>读成"LLM review 准确率 32.58%";它说的是一件更基础的事:<strong>连"跑测试"这种最硬的验证形式,现有最好的自动化构造也只能在约 1/3 的题目上完全兜底</strong>——那么比它软得多的"LLM 读 diff 给意见"更不该被默认为可靠验证层。</p>
 <p><strong>脚注二:生成与验证在同一个模型里就不一致。</strong>GV-consistency 研究(ICLR 2024):GPT-4 对自己刚生成的内容,生成口径与验证口径只有 76% 的时间一致。Stechly、Valmeekam 与 Kambhampati 的系列实验:GPT-4 在推理与规划任务上自我批评导致"显著的性能崩塌",换成可靠的外部验证器则显著增益——作者直接点名"验证比生成容易"这一复杂度直觉对 LLM 不成立,因为 LLM 做的是近似检索而非形式推理。</p>
 <p><strong>脚注三:CriticGPT——最诚实的样本,两面都要引。</strong>OpenAI 的 CriticGPT(arXiv 2407.00215)是"AI 审 AI"路线最认真的一手研究,正面结果是实的:在自然发生的 LLM 代码错误上,模型 critique 在 63% 的对比中被人类标注员偏好于人类合同工的 critique;Human+CriticGPT 团队写出的 critique 比人类单干"substantially more comprehensive",且幻觉与 nitpick 率显著低于模型单干——人机团队越过了纯模型的 Pareto 前沿。但按验证意见修正后的完整读法还有另外三句:团队的全面性<strong>没有超过 CriticGPT 单干</strong>(人的边际贡献是降幻觉,不是多抓 bug);对照组是按时薪雇的合同工,不是熟悉代码库的资深工程师;以及论文摘要主动承认——critic 的幻觉 bug"<strong>可能误导人类,使其犯下本可避免的错误</strong>"。AI 验证者不是中性的过滤器,它向流程注入新的错误信号,而这正是 Leike 那个"验证一个 bug 很容易"的例子没有算到的项:当"bug"本身可能是幻觉时,验证它是不是真 bug 一点也不容易。</p>
 <p><strong>脚注四:错误正在趋同,"独立复核"的前提在瓦解。</strong>直觉上,即使单个验证者不可靠,多个独立验证者投票也能兜底——前提是"独立"。ICML 2025 的"Great Models Think Alike and this Undermines AI Oversight"给出两个实测:LLM-as-judge 系统性偏向与 judge 相似的模型(自我偏好推广为"相似性偏好");<strong>且随能力提升,不同模型的错误正变得更相似</strong>。公允地说,狭义的自我偏好在软件工程域的受控审计里效应弱且方向不定,不是主导偏差——真正的威胁是错误相关性:当生成器与验证器共享盲区,串联再多层验证也降不下联合错误率,这是"套娃"一词在概率上的精确含义。域内证据同向:对 8 个 LLM 判 2,686 个代码样本的研究,"即使表现最好的 LLM 也频繁误判代码正确性";另一项研究发现 LLM 评审存在系统性<strong>过度纠正</strong>——频繁把正确代码判为有缺陷,而且要求解释和给修复建议的更详细 prompt 反而<strong>提高</strong>误判率(与 CriticGPT 的 nitpick 同构:逼评审者"必须说点什么"会制造假缺陷)。</p>
-<h2>6. 人这一环:1983 年就写好的剧本</h2>
+<h2 data-tts="78f000738148e495">6. 人这一环:1983 年就写好的剧本</h2>
 <p>即便 AI 验证者不可靠,只要人类把关有效,套娃就塌不下来。问题是,"人类把关自动化"恰好是人因工程学研究了四十年、结论最悲观的领域。</p>
 <p>Bainbridge 1983 年《自动化的反讽》里那段"不可能的任务",逐字搬到 2026 年不用改一个名词以外的字:"人类操作员无法实时核查计算机是否正确遵循其规则,只能在某个元层面上监控计算机的决策——判断它'是否可接受'。而如果当初引入计算机做决策,正是因为人类的判断与直觉推理在此场景下不够用,那么该采信谁的决策?<strong>人类监控者被指派了一个不可能的任务。</strong>"把 operator 换成 developer、把 automatic control system 换成 AI reviewer,就是"人审 AI 的审查"的现状。Parasuraman 与 Manzey(2010)补上更硬的一句:自动化自满与自动化偏置发生在新手与专家身上、个体与团队里,<strong>"无法通过训练或指令来预防"</strong>——"加强人工把关"作为治理方案,与四十年的人因证据正面相撞。Parasuraman &amp; Riley(1997)的 misuse/disuse 框架则精确预言了 AI review 的两个失败模式:误报太多,开发者学会无视一切 AI 评论(disuse,连真阳性一起丢掉——Greptile CEO 自己描述的"80% 的关键 bug 被埋在 20 条投机性猜测里"正是这个机制);体验太顺,开发者把批准变成盖章(misuse)。</p>
 <p>2026 年的实证给这个剧本添了三条脚注。眼动实验(Wizard-of-Oz 设计):被标注为"LLM 生成"的代码获得<strong>更多注视时间,但评审彻底程度没有变化</strong>——标签改变的是注意力的姿态,不是把关的质量。对 17 名资深开发者的访谈记录了一个危险启发式:<strong>拿"测试通过"当正确性担保</strong>——把验证再外包给另一层自动化,套娃又添一环。Cloudflare 的生产数据(第一方,2026 年 4 月)则提供了一个可以两读的数字:自建多 agent 审查系统一个月完成 131,246 次审查(48,095 个 MR,平均 $1.19/次),工程师仅在 0.6% 的 MR 上覆盖系统裁决。乐观读法:系统好到几乎不用纠正;悲观读法:0.6% 恰好是 misuse 剧本里"盖章率"该有的样子。<strong>同一个数字无法区分这两种世界——这正是代理指标的病。</strong>至于人类会不会盲信"AI 已批准"的代码,专门的受控实验截至本文数据截止日仍未检索到,证据空白如实记录。</p>
-<h2>7. 裁决:解药的条件,套娃的条件</h2>
+<h2 data-tts="281f9c720e5c2c45">7. 裁决:解药的条件,套娃的条件</h2>
 <p>把五节证据放在一起,答案不是二选一,而是条件句。</p>
 <figure>
-<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
-  <line x1="70" y1="340" x2="650" y2="340" stroke="#5a6378" stroke-width="1.5"/>
-  <line x1="70" y1="340" x2="70" y2="40" stroke="#5a6378" stroke-width="1.5"/>
-  <text x="360" y="376" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace">独立于 LLM 的 oracle(测试/编译器/类型)→</text>
-  <text x="34" y="190" fill="#7c8593" font-size="12.5" text-anchor="middle" font-family="Menlo,monospace" transform="rotate(-90 34 190)">人保留裁决权 →</text>
-
-  <rect x="366" y="52" width="272" height="128" rx="10" fill="#52b788" opacity="0.12" stroke="#52b788" stroke-opacity="0.5"/>
-  <text x="502" y="94" fill="#52b788" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">解药区</text>
-  <text x="502" y="118" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">Google 迁移 · Cloudflare 全量部署</text>
-  <text x="502" y="138" fill="#8fbfa8" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">窄场景 · 控误报 · 廉价额外一层</text>
-
-  <rect x="82" y="200" width="272" height="128" rx="10" fill="#e85a4f" opacity="0.14" stroke="#e85a4f" stroke-opacity="0.6"/>
-  <text x="218" y="242" fill="#ff8a80" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">套娃区</text>
-  <text x="218" y="266" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">无测试兜底的业务逻辑 · AI 写 AI 审</text>
-  <text x="218" y="286" fill="#d9a09a" font-size="11" text-anchor="middle" font-family="-apple-system,sans-serif">零审查合并 +31.3% 的漂移方向</text>
-
-  <circle cx="560" cy="90" r="7" fill="#52b788"/>
-  <circle cx="150" cy="300" r="6" fill="#e85a4f"/>
-  <path d="M 535 105 Q 360 200 175 292" stroke="#7c8593" stroke-width="1.5" fill="none" stroke-dasharray="3,5"/>
+<svg role="img" viewbox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#5a6378" stroke-width="1.5" x1="70" x2="650" y1="340" y2="340"></line>
+<line stroke="#5a6378" stroke-width="1.5" x1="70" x2="70" y1="340" y2="40"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12.5" text-anchor="middle" x="360" y="376">独立于 LLM 的 oracle(测试/编译器/类型)→</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12.5" text-anchor="middle" transform="rotate(-90 34 190)" x="34" y="190">人保留裁决权 →</text>
+<rect fill="#52b788" height="128" opacity="0.12" rx="10" stroke="#52b788" stroke-opacity="0.5" width="272" x="366" y="52"></rect>
+<text fill="#52b788" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="502" y="94">解药区</text>
+<text fill="#8fbfa8" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="502" y="118">Google 迁移 · Cloudflare 全量部署</text>
+<text fill="#8fbfa8" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="502" y="138">窄场景 · 控误报 · 廉价额外一层</text>
+<rect fill="#e85a4f" height="128" opacity="0.14" rx="10" stroke="#e85a4f" stroke-opacity="0.6" width="272" x="82" y="200"></rect>
+<text fill="#ff8a80" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="218" y="242">套娃区</text>
+<text fill="#d9a09a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="218" y="266">无测试兜底的业务逻辑 · AI 写 AI 审</text>
+<text fill="#d9a09a" font-family="-apple-system,sans-serif" font-size="11" text-anchor="middle" x="218" y="286">零审查合并 +31.3% 的漂移方向</text>
+<circle cx="560" cy="90" fill="#52b788" r="7"></circle>
+<circle cx="150" cy="300" fill="#e85a4f" r="6"></circle>
+<path d="M 535 105 Q 360 200 175 292" fill="none" stroke="#7c8593" stroke-dasharray="3,5" stroke-width="1.5"></path>
 </svg>
 <figcaption>示意:同一类工具,落在哪个象限由使用结构决定——oracle 密度与人的位置,比模型分数更能预测结果</figcaption>
 </figure>
-
-<h3>7.1 它在什么条件下接近解药</h3>
+<h3 data-tts="25ab8bed559270fb">7.1 它在什么条件下接近解药</h3>
 <p><strong>条件一:存在独立于 LLM 的正确性 oracle。</strong>Google 迁移模式是样板:确定性 AST/静态分析定位、LLM 生成、单元测试自动验证循环、全部走与人写代码相同的评审流程——AI 的产出被压在一个非 LLM 的验证结构里,LLM 只是流水线的一段,不是裁判。约 87% 未改提交、评审是唯一瓶颈,发生在这个结构里。变更同质、oracle 现成(编译器、测试、类型系统)的场景——迁移、依赖升级、lint 级修复——是 AI review 证据最扎实的用武之地。</p>
 <p><strong>条件二:误报被当成一等公民测量和控制。</strong>ByteDance 加 ReviewFilter 降噪层、ICML 2025 那篇部署研究把"降误报"列为四大挑战之首并内置 nitpick 过滤器、GitHub 从"评论更多"转向"71% 的审查给出可操作反馈、29% 干脆闭嘴"(自报口径)——活下来的生产系统全都在信号检测论的正确一侧工作:先控误报率,再谈捕获率。反过来,只公布召回的工具,应当默认其精确率经不起公布。</p>
 <p><strong>条件三:人保留裁决权,且成本结构说得通。</strong>Cloudflare 模式($1.19/次、全量覆盖、人可 override)与 Anthropic 的反事实测算(自动审查本可提前抓住 claude.ai 历史事故背后约三分之一的 bug,厂商自报口径)代表的是"AI 审查作为廉价的额外一层,而非替代层"。一层每次一美元、召回不完美但边际成本趋零的检查,叠加在人审之上,期望值几乎必然为正——<strong>只要它不挤掉、不麻痹原有的人审</strong>。这个"只要"正是 Meta 的 5.5% 回归实验与自动化自满文献要求认真对待的部分。</p>
-<h3>7.2 它在什么条件下就是套娃</h3>
+<h3 data-tts="ed335f1b179f4065">7.2 它在什么条件下就是套娃</h3>
 <p><strong>开放式正确性判断 + 无外部 oracle。</strong>当问题是"这段业务逻辑对不对"而非"这个 API 迁移对不对",没有测试或类型系统兜底,LLM 验证 LLM 就直接暴露在第 5 节的四个脚注之下:验证器不可靠、自我批评崩塌、幻觉注入、错误趋同。此时叠加更多 AI 验证层降低的是体感风险,不是真实风险——体感与真实的缺口,恰好是 METR 测出的那 40 个百分点感知错位的组织版。</p>
 <p><strong>AI 写 + AI 审 + 人退出回路。</strong>AIDev 数据集的现状(多数 AI PR 无人审,有审也是 agent 审 agent)加上 Faros 的 +31.3% 零审查合并,说明这不是假想的滑坡,是已经在发生的均衡漂移。最激进的公开实验是 StrongDM 的"Software Factory"章程——"代码不得由人写,代码不得由人审",以代码库之外的场景验证取代评审;宣言发布后,其开源代码随即被 Hacker News 读者挑出疑似 bug 与宽松错误处理。样本量为一,不构成裁决,但它演示了套娃论的核心机制:<strong>当验证层与生成层同源,系统的错误率由它们的相关性决定,而相关性正随模型能力上升。</strong></p>
 <p><strong>用活动指标当效果指标。</strong>"评论被 resolve 73.8%"与"PR 变慢 42%"同时为真;"7.5% 评论被 ML 解决"与"没人知道抓了多少真 bug"同时为真;"0.6% override"与"无法区分是信任还是盖章"同时为真。Google 论文里那句"更易测量的代理"应当印在每一份 AI review 采购评估的首页。</p>
-<h3>7.3 市场自己的投票</h3>
+<h3 data-tts="173165ec7d8caa3d">7.3 市场自己的投票</h3>
 <p>供给侧的行为透露了从业者的真实信念。Cursor 溢价收购 Graphite——写代码的公司认为审代码是下一个瓶颈,值得买。GitHub 把 Copilot code review 转为按量计费(2026 年 6 月)——用量大到平台补贴不起,这是采用的硬证据。Google 关停 Gemini Code Assist 消费者版(2026 年 7 月 17 日生效)——第一个退出信号。而 Greptile CEO Daksh Gupta 在融资 3,000 万美元后发表《There is an AI code review bubble》,承认信噪比是行业的根本问题。<strong>卖铲子的人里,已经有人开始说矿脉的实话。</strong></p>
-<h2>8. 当事人指南</h2>
-<h3>8.1 如果你决定要不要上 AI code review</h3>
+<h2 data-tts="5f0959743f135c4b">8. 当事人指南</h2>
+<h3 data-tts="c9f6fd360f744997">8.1 如果你决定要不要上 AI code review</h3>
 <ul><li><strong>按 oracle 密度选场景,别按演示选工具。</strong>测试覆盖高、类型强、变更同质的仓库(迁移、升级、基础设施配置)先上;测试稀薄的核心业务逻辑最后上——那里恰是 LLM 验证 LLM 最不可靠的地方。(踩在 Google 迁移模式与第 5 节验证不对称证据上)</li><li><strong>采购评估只认成对指标。</strong>要求厂商提供你的代码库上的精确率+召回(或误报率+捕获率)成对数字;只给单边数字的,参照第 2 节——发布者永远第一,同一工具跨基准可差 3.7 倍。试点期自己测:抽样 AI 评论人工判真伪,统计"评论→真实代码修改"的转化率,与 0.9%–19.2%(开源工具)、约 30%(Meta 展示后采纳)这些已发表锚点对照。</li><li><strong>预算里算上注意力税。</strong>Meta 的实验证明 AI 补丁展示给 reviewer 会拖慢评审(+5.5%),修复靠交互设计而非模型。评估 AI review 的净值时,把"处理误报的时间"与"评审变慢"计入成本侧,不要只记"抓到的问题数"。</li></ul>
-<h3>8.2 如果你是被 AI 评论淹没的开发者</h3>
+<h3 data-tts="7176c306a023090f">8.2 如果你是被 AI 评论淹没的开发者</h3>
 <ul><li><strong>给 AI 评论建立分诊纪律,而不是二选一。</strong>全信与全弃都是 Parasuraman 框架里的失败模式(misuse/disuse)。可行的中间态:按工具的实测精确率给评论分层——高精度类别(编译错误、明确的 API 误用)默认处理,投机性类别(风格、"可能的" race condition)批量降级,并定期抽查降级桶的漏报。</li><li><strong>别拿"测试通过"当正确性担保。</strong>这是访谈研究里点名的危险启发式:它把验证外包给另一层自动化。测试是 oracle 的一部分,不是 oracle 的全部——尤其当测试本身也是 AI 写的时候。</li><li><strong>保护自己的评审肌肉。</strong>Bainbridge 的技能退化反讽有直接的职业含义:长期只看 AI 摘要不读 diff 的评审者,在最需要人类兜底的罕见硬 bug 上恰恰最无力。<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">上一篇</a>的结论在此兑现:验证能力是 AI 时代升值最快的技能,而它只能靠亲手验证维持。</li></ul>
-<h3>8.3 如果你在造这些工具</h3>
+<h3 data-tts="dce4a8f04351c2d0">8.3 如果你在造这些工具</h3>
 <ul><li><strong>公布成对指标,主动披露 COI。</strong>行业信誉正在被 6/6 的"自办自赢"消耗;第一个在自家基准页公布精确率、注明"本基准由参赛者运营"的厂商,能白捡稀缺的信任。</li><li><strong>降噪层是产品,不是补丁。</strong>从 ByteDance 的 ReviewFilter 到 GitHub 的"29% 闭嘴",活下来的系统都把"少说话"当核心能力。误报率每降一个点,misuse/disuse 两个失败模式的门槛同时抬高。</li><li><strong>测量"评论→修改→事故率"的全链条,而不是停在 acceptance。</strong>ByteDance 的 Outdated Rate 是个开端;真正缺的是把 review 质量接到变更失败率上的纵向数据——谁先发布,谁定义下一轮竞争的记分牌。</li></ul>
-<h2>9. 结语:八个可检验主张</h2>
+<h2 data-tts="08b2be3d2ffddb06">9. 结语:八个可检验主张</h2>
 <p>全文归结为八个主张,按证据强度排序:</p>
 <ol><li><strong>验证瓶颈真实存在且在恶化。</strong>三家独立遥测(Faros、LinearB、GitHub 平台数据)方向一致:AI 代码洪峰撞上不变的人类评审带宽;Google 第一方承认为此刻意限流。(强:多源遥测 + 第一方生产记录,口径均非实验)</li><li><strong>厂商基准作为证据体系已经失效。</strong>至少 6 家自办基准发布者全部第一;同一工具跨基准分数差 3.7 倍;连独立榜单也在四周内被三家收割出三个"第一"。这是 1966 年信号检测论已判的度量学错误的复播。(强:全部一手页面核实)</li><li><strong>离线分数与生产价值之间隔一个数量级。</strong>Meta 68%→19.75%,Google 漏斗 49%→7.5%,开源工具采纳率 0.9%–19.2% vs 人类 60%。任何只报离线分数的效果宣称都应默认打折。(强:两家第一方 + 独立研究同向)</li><li><strong>AI 产出会给评审者增加新的验证负担。</strong>Meta A/B 实验:+5.5% 显著回归,p=.029;修复靠隐藏 AI 产出。CriticGPT 作者自认幻觉 bug 可能误导人类。(强:随机化实验 + 作者自白)</li><li><strong>"AI 验证 AI"的独立性前提正在瓦解。</strong>模型能力越强、错误越相似(ICML 2025);同模型生成-验证一致率仅 76%;自我批评导致性能崩塌。串联同源验证层降低体感风险而非真实风险。(中强:同行评审文献,外推到生产 review 是推论)</li><li><strong>人类把关不是可靠的兜底层。</strong>四十年人因文献:自动化自满"无法通过训练预防";眼动实验:标签只改变注视不改变彻底性;AIDev 现状:多数 AI PR 已无人审。(中强:经典文献扎实,AI review 场景的直接实验仍缺)</li><li><strong>在有独立 oracle、控误报、人保留裁决的窄场景里,AI review 的期望值为正。</strong>Google 迁移、Cloudflare 全量部署、CriticGPT 人机团队越过纯模型 Pareto 前沿,证据一致。(中:第一方与厂商口径为主,缺独立复现)</li><li><strong>整个行业还没有做过一次 RCT。</strong>AI code review 的效果证据最高档停在观察性遥测;也没有一篇具名的失败复盘。在这两个空白被填上之前,所有"解药"与"套娃"的判断——包括本文的——都应保持可修订状态。(强:空白本身经多轮检索确认)</li></ol>
 <p>到 2027 年值得盯的判据:第一篇 AI review 工具 RCT 的方向与效应量;Faros 的零审查合并占比是继续上行还是被治理拉回;Martian 类独立榜单能否建立厂商无法收割的评测协议;以及有没有任何组织开始发布"AI 评论→代码修改→变更失败率"的全链条数据。验证瓶颈<a href="https://cissy0802.github.io/deep-research/ai-native-deep.html">上一篇</a>就说过不会消失——它只会转移。这一篇的结论是:它转移到了验证者身上。<strong>下一个瓶颈,是验证验证者。</strong></p>
-<hr>
-<h2>附:主要来源</h2>
+<hr/>
+<h2 data-tts="ce868f0fc04ab55b">附:主要来源</h2>
 <p><strong>大厂第一方</strong>:Frömmgen et al., "Resolving Code Review Comments with Machine Learning" (ICSE-SEIP 2024) · Maddila et al., "AI-Assisted Fixes to Code Review Comments at Scale" (arXiv:2507.13499) · Nikolov et al., "How is Google using AI for internal code migrations?" (arXiv:2501.06972, ICSE-SEIP 2025) · Ziftci et al. (FSE 2025, arXiv:2504.09691) · BitsAI-CR (arXiv:2501.15134) · Mukherjee et al., CodeGuru (ECOOP 2022) · Cloudflare, "How we built our AI code review system" (blog.cloudflare.com/ai-code-review/, 2026-04) · GitHub "60 million Copilot code reviews" (2026-03) · Anthropic recursive-self-improvement (2026-05, 厂商口径)</p>
 <p><strong>独立学术</strong>:Chowdhury et al. (arXiv:2604.03196) · Sun et al., "Does AI Code Review Lead to Code Changes?" (arXiv:2508.18771) · Duma et al. (arXiv:2605.02273) · Khojah et al., 眼动 (arXiv:2606.26505) · Khan et al., 基准综述 (arXiv:2602.13377) · SWR-Bench (FSE 2026, arXiv:2509.01494) · Cihan et al., "Automated Code Review In Practice" (ICSE 2025 SEIP, arXiv:2412.18531) · Lu et al. (ICML 2025 Spotlight, arXiv:2505.17928) · Dhanorkar et al., 监督访谈 (arXiv:2606.05391) · Monperrus, "The End of Code Review" (position, arXiv:2606.13175)</p>
 <p><strong>验证者可靠性</strong>:McAleese et al., CriticGPT (arXiv:2407.00215) · Ma et al., SAGA (arXiv:2507.06920) · Li et al., GV-consistency (ICLR 2024) · Stechly et al. (arXiv:2402.08115) · Goel et al., "Great Models Think Alike" (ICML 2025, arXiv:2502.04313) · Crupi et al. (arXiv:2507.16587) · Jin &amp; Chen, 过度纠正 (arXiv:2603.00539) · Zhao et al., judge 审计 (arXiv:2604.16790) · Panickssery et al. (NeurIPS 2024) · Song et al., GV-Gap (ICLR 2025) · Leike et al. (arXiv:1811.07871)</p>
@@ -213,8 +206,8 @@ h2:nth-of-type(11){--h2:#ff6ec4}
 <p><strong>遥测与调查</strong>:Faros "The Acceleration Whiplash" (2026-04, 厂商遥测) · Faros 2025 · LinearB 2026 Benchmarks · GitHub Octoverse 2025 · DORA 2024/2025 · JetBrains 生态调查 2025 · Stack Overflow 2025 · METR (arXiv:2507.09089 + 2026-02 更新)</p>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

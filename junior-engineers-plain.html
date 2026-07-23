@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>「初级工程师正在消失」是真的吗?(易读版) — BigCat Deep Research</title>
-<meta name="description" content="总就业创新高,22-25 岁一档却跌了近 20%——职业没消失,入口在收窄。易读版:主线论证 + 直白语言。">
+<meta content="总就业创新高,22-25 岁一档却跌了近 20%——职业没消失,入口在收窄。易读版:主线论证 + 直白语言。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -58,110 +59,107 @@ h2:nth-of-type(9){--h2:#4cc9f0}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="junior-engineers-plain.html" class="active">中文</a><a href="junior-engineers-plain.en.html">EN</a>
+<a class="active" href="junior-engineers-plain.html">中文</a><a href="junior-engineers-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>「初级工程师正在消失」是真的吗?(易读版)</h1>
+<h1 data-tts="bc857737deeb6656">「初级工程师正在消失」是真的吗?(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="junior-engineers-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">美国软件开发者总就业创历史新高,但 22-25 岁一档从 2022 年底跌了近 20%:职业没消失,给新人开的门在收窄。实验反复证明 AI 最帮新手——这与新手岗位收缩不矛盾:帮新手最多的技术,恰恰让「不雇新手」变得可行。宏观因素解释了塌方,解释不了塌方只砸最年轻的人。</div></div>
 <div class="chips"><span class="chip c1">总就业创新高</span><span class="chip c2">22-25 岁 ≈ −20%</span><span class="chip c3">大厂新人 3 成 → 1 成</span><span class="chip c4">RCT:新手受益最大</span></div>
 <blockquote><p>本文是同名深入版的精简版。深入版有完整的论证链、全部数据出处和证据分级;这一版只保留主线,用直白的话讲清楚。关键数字都经过独立核查(数据截至 2026 年 6 月)。</p></blockquote>
-<h2>一句话先回答</h2>
+<h2 data-tts="c835c955792511f3">一句话先回答</h2>
 <p><strong>职业没有在消失,入口在收窄。</strong>美国软件开发者的总就业人数在 2025 年创了历史新高;但 22-25 岁这一档的在册就业,从 2022 年底到现在跌了近 20%,而且还在跌。"初级工程师消失"这句话,一半是真的——真的那一半,比传言的版本更具体,也更值得认真对待。</p>
-<h2>先看四个仪表盘</h2>
+<h2 data-tts="24c8e0e8b110fa68">先看四个仪表盘</h2>
 <p>关于这个话题的争吵,一大半是因为大家看的表不一样。同一个就业市场,有四个仪表盘,读数方向不同,但每个都是真的:</p>
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="32" fill="#e4e6eb" font-size="15" font-weight="700" font-family="-apple-system,sans-serif">同一个市场,四个仪表盘</text>
-  <line x1="230" y1="52" x2="230" y2="252" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="218" y="79" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">存量就业 (BLS)</text><rect x="230" y="64" width="14" height="20" rx="5" fill="#52b788" opacity="0.85"/><text x="252" y="79" fill="#52b788" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">历史新高</text><text x="218" y="131" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">招聘广告 (Indeed)</text><rect x="230" y="116" width="110" height="20" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="348" y="131" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">−27.5% vs 2020</text><text x="218" y="183" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">大厂新人占比 (SignalFire)</text><rect x="230" y="168" width="250" height="20" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="488" y="183" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">≈ −65% vs 2019</text><text x="218" y="235" fill="#7c8593" font-size="12" text-anchor="end" font-family="Menlo,monospace">22–25 岁在册 (ADP)</text><rect x="230" y="220" width="82" height="20" rx="5" fill="#7b61ff" opacity="0.85"/><text x="320" y="235" fill="#7b61ff" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">≈ −20% vs 2022 峰值</text>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" x="24" y="32">同一个市场,四个仪表盘</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1.5" x1="230" x2="230" y1="52" y2="252"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="79">存量就业 (BLS)</text><rect fill="#52b788" height="20" opacity="0.85" rx="5" width="14" x="230" y="64"></rect><text fill="#52b788" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="252" y="79">历史新高</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="131">招聘广告 (Indeed)</text><rect fill="#4cc9f0" height="20" opacity="0.85" rx="5" width="110" x="230" y="116"></rect><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="348" y="131">−27.5% vs 2020</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="183">大厂新人占比 (SignalFire)</text><rect fill="#ff6ec4" height="20" opacity="0.85" rx="5" width="250" x="230" y="168"></rect><text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="488" y="183">≈ −65% vs 2019</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="end" x="218" y="235">22–25 岁在册 (ADP)</text><rect fill="#7b61ff" height="20" opacity="0.85" rx="5" width="82" x="230" y="220"></rect><text fill="#7b61ff" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" x="320" y="235">≈ −20% vs 2022 峰值</text>
 </svg>
 <figcaption>示意:四个口径量的不是同一个东西——存量创新高,入口端崩塌(条长为示意,各口径基线不同)</figcaption>
 </figure>
-
 <ul><li><strong>有多少人在岗?</strong>历史最高。美国官方统计(BLS):软件开发者总就业约 169 万人(2025 年),比两年前还多。中间只在 2024 年微降过 0.15%,在统计误差以内。</li><li><strong>公司想招多少人?</strong>深坑后回升。Indeed 上的软件开发招聘广告,2022 年初是疫情前的 2.3 倍,2025 年 5 月跌到只剩疫情前的六成,现在回升到七成多——还在坑里,但方向朝上。</li><li><strong>应届生拿到多少 offer?</strong>崩得最狠的一档。风投 SignalFire 的数据:应届生占大厂招聘的比例,从疫情前跌掉了一半以上,2026 年的报告说比 2019 年低了约 65%(注意:这是一家 VC 自建的数据,量级偏软,但方向被多家来源印证)。业内数据也一致:大公司工程招聘里,应届生从 2023 年的约 3 成跌到 2025 年的约 1 成。</li><li><strong>在岗的人里,谁在减少?</strong>只有最年轻的。这是最关键的一块拼图,来自工资单数据(斯坦福团队用 ADP 数据做的研究,ADP 是美国最大的代发工资公司):22-25 岁的软件开发者在册人数从 2022 年底的峰值跌了近 20%,而 26 岁以上每一档都还在涨。</li></ul>
 <p>四个仪表盘拼在一起,就是开头那句话:<strong>职业活得好好的,门变窄了。</strong>尤其是给最年轻的人开的那扇门。</p>
 <p>还有个细节很说明问题:计算机专业应届生的失业率是 7.0%,在所有专业里排第二到第四高——但在<strong>找到工作</strong>的 CS 毕业生里,做专业对口工作的比例几乎是所有专业里最高的(只有 19% 的人在做不需要学位的工作,其他专业平均约四成)。门难进,但门后面的房间没有变差。</p>
-<h2>可是,AI 明明最帮新手</h2>
+<h2 data-tts="a7c0d2c924948d47">可是,AI 明明最帮新手</h2>
 <p>这是全文最有意思的地方。你可能以为"AI 取代初级"的证据是:AI 干初级的活干得比初级好。实验数据说的恰恰相反。</p>
 <figure>
-<svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="165" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">实验室(RCT):个体产出增益</text>
-  <text x="535" y="34" fill="#e4e6eb" font-size="13.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">劳动市场(2023–26):就业结果</text>
-  <line x1="50" y1="220" x2="280" y2="220" stroke="#5a6378" stroke-width="1.5"/>
-  <rect x="80" y="90" width="60" height="130" rx="6" fill="#4cc9f0" opacity="0.85"/>
-  <rect x="180" y="175" width="60" height="45" rx="6" fill="#4cc9f0" opacity="0.45"/>
-  <text x="110" y="82" fill="#4cc9f0" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">+27–39%</text>
-  <text x="210" y="167" fill="#7c8593" font-size="12" text-anchor="middle" font-family="Menlo,monospace">+8–13%</text>
-  <text x="110" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">新手</text>
-  <text x="210" y="242" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">老手</text>
-  <line x1="420" y1="140" x2="650" y2="140" stroke="#5a6378" stroke-width="1.5"/>
-  <rect x="450" y="140" width="60" height="75" rx="6" fill="#ff6ec4" opacity="0.85"/>
-  <rect x="550" y="95" width="60" height="45" rx="6" fill="#52b788" opacity="0.7"/>
-  <text x="480" y="234" fill="#ff6ec4" font-size="13" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">≈ −20%</text>
-  <text x="580" y="87" fill="#52b788" font-size="12" text-anchor="middle" font-family="Menlo,monospace">增长</text>
-  <text x="480" y="256" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">新手</text>
-  <text x="580" y="156" fill="#a8b4d0" font-size="12.5" text-anchor="middle" font-family="-apple-system,sans-serif">老手</text>
-  <path d="M 300 150 Q 350 130 400 150" stroke="#f0b429" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#arrowp)"/>
-  <defs><marker id="arrowp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"/></marker></defs>
-  <text x="350" y="115" fill="#f0b429" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">组织的成本响应</text>
+<svg role="img" viewbox="0 0 700 310" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" x="165" y="34">实验室(RCT):个体产出增益</text>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="13.5" font-weight="700" text-anchor="middle" x="535" y="34">劳动市场(2023–26):就业结果</text>
+<line stroke="#5a6378" stroke-width="1.5" x1="50" x2="280" y1="220" y2="220"></line>
+<rect fill="#4cc9f0" height="130" opacity="0.85" rx="6" width="60" x="80" y="90"></rect>
+<rect fill="#4cc9f0" height="45" opacity="0.45" rx="6" width="60" x="180" y="175"></rect>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="13" font-weight="700" text-anchor="middle" x="110" y="82">+27–39%</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" text-anchor="middle" x="210" y="167">+8–13%</text>
+<text fill="#a8b4d0" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="110" y="242">新手</text>
+<text fill="#a8b4d0" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="210" y="242">老手</text>
+<line stroke="#5a6378" stroke-width="1.5" x1="420" x2="650" y1="140" y2="140"></line>
+<rect fill="#ff6ec4" height="75" opacity="0.85" rx="6" width="60" x="450" y="140"></rect>
+<rect fill="#52b788" height="45" opacity="0.7" rx="6" width="60" x="550" y="95"></rect>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" text-anchor="middle" x="480" y="234">≈ −20%</text>
+<text fill="#52b788" font-family="Menlo,monospace" font-size="12" text-anchor="middle" x="580" y="87">增长</text>
+<text fill="#a8b4d0" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="480" y="256">新手</text>
+<text fill="#a8b4d0" font-family="-apple-system,sans-serif" font-size="12.5" text-anchor="middle" x="580" y="156">老手</text>
+<path d="M 300 150 Q 350 130 400 150" fill="none" marker-end="url(#arrowp)" stroke="#f0b429" stroke-dasharray="5,4" stroke-width="2"></path>
+<defs><marker id="arrowp" markerheight="7" markerwidth="7" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f0b429"></path></marker></defs>
+<text fill="#f0b429" font-family="Menlo,monospace" font-size="11.5" text-anchor="middle" x="350" y="115">组织的成本响应</text>
 </svg>
 <figcaption>示意:同一项技术,个体层面最帮新手(左,Copilot 三场 RCT),市场层面新手岗位收缩最狠(右,ADP)——分岔发生在企业的雇佣决策,不在技术里</figcaption>
 </figure>
-
 <p>微软、埃森哲等三家公司做过目前最大的编程 AI 随机实验(4,867 名工程师,随机一半给 AI 一半不给——就是医药界验证新药的那种方法):拿到 AI 的人平均多完成 26% 的任务,而且<strong>工龄短的人收益最大</strong>,短工龄组提升 27%-39%,老手只有 8%-13%。客服行业一个同样严格的研究:AI 让最没经验的客服效率提升约 30%,一年以上的老手几乎没变化。</p>
 <p>那问题来了:<strong>AI 最帮新手,为什么最先收缩的是新手的岗位?</strong></p>
 <p>答案不在技术里,在公司的账本里。实验测的是"一个已经被雇的人,用 AI 之后干活快多少";公司决定的是"要不要再雇一个人"。AI 把新手的产出下限抬高了,但同时也把"不雇新手"的成本降低了——反正资深加上 AI,能把原来给新手练手的活顺手干掉。<strong>帮新手最多的技术,恰恰让"不雇新手"变得可行。</strong>这两句话不矛盾,它们是同一句话的两面。</p>
 <p>做客服研究的经济学家自己在论文结尾把话挑明了:面对新手生产率的提升,公司可以选择"多雇新手",也可以选择"干脆开发更强的 AI 把这块劳动整个替换掉"。实验回答不了公司会选哪边——而 2023 年以来的招聘数据显示,美国软件行业暂时选了后一边。</p>
-<h2>那到底是不是 AI 干的?</h2>
+<h2 data-tts="2cc741bfefc23c80">那到底是不是 AI 干的?</h2>
 <p>诚实的回答:<strong>AI 顶多是共犯之一,而且到现在还没被完全定罪。</strong></p>
 <figure>
-<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
-  <line x1="60" y1="270" x2="660" y2="270" stroke="#5a6378" stroke-width="1.5"/>
-  <line x1="60" y1="270" x2="60" y2="40" stroke="#5a6378" stroke-width="1.5"/>
-  <text x="70" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2021</text>
-  <text x="255" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2022</text>
-  <text x="420" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2024</text>
-  <text x="610" y="292" fill="#7c8593" font-size="12" font-family="Menlo,monospace">2026</text>
-  <line x1="300" y1="58" x2="300" y2="270" stroke="#f0b429" stroke-width="1.2" stroke-dasharray="4,5" opacity="0.7"/>
-  <text x="308" y="70" fill="#f0b429" font-size="11" font-family="Menlo,monospace">ChatGPT 发布</text>
-  <path d="M 70 190 C 160 160, 240 148, 300 145 C 400 141, 520 128, 645 112" stroke="#4cc9f0" stroke-width="3" fill="none"/>
-  <path d="M 70 196 C 160 168, 240 152, 300 150 C 380 152, 440 175, 500 200 C 560 224, 610 238, 645 246" stroke="#ff6ec4" stroke-width="3" fill="none"/>
-  <circle cx="300" cy="145" r="4" fill="#4cc9f0"/>
-  <circle cx="300" cy="150" r="4" fill="#ff6ec4"/>
-  <text x="640" y="100" fill="#4cc9f0" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">26 岁以上:继续增长</text>
-  <text x="640" y="240" fill="#ff6ec4" font-size="12.5" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">22–25 岁:峰值以来 ≈ −20%</text>
+<svg role="img" viewbox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#5a6378" stroke-width="1.5" x1="60" x2="660" y1="270" y2="270"></line>
+<line stroke="#5a6378" stroke-width="1.5" x1="60" x2="60" y1="270" y2="40"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="70" y="292">2021</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="255" y="292">2022</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="420" y="292">2024</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="12" x="610" y="292">2026</text>
+<line opacity="0.7" stroke="#f0b429" stroke-dasharray="4,5" stroke-width="1.2" x1="300" x2="300" y1="58" y2="270"></line>
+<text fill="#f0b429" font-family="Menlo,monospace" font-size="11" x="308" y="70">ChatGPT 发布</text>
+<path d="M 70 190 C 160 160, 240 148, 300 145 C 400 141, 520 128, 645 112" fill="none" stroke="#4cc9f0" stroke-width="3"></path>
+<path d="M 70 196 C 160 168, 240 152, 300 150 C 380 152, 440 175, 500 200 C 560 224, 610 238, 645 246" fill="none" stroke="#ff6ec4" stroke-width="3"></path>
+<circle cx="300" cy="145" fill="#4cc9f0" r="4"></circle>
+<circle cx="300" cy="150" fill="#ff6ec4" r="4"></circle>
+<text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="end" x="640" y="100">26 岁以上:继续增长</text>
+<text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="700" text-anchor="end" x="640" y="240">22–25 岁:峰值以来 ≈ −20%</text>
 </svg>
 <figcaption>示意:ADP 工资单口径(Canaries,2025-11 版)——同为软件开发者,分化只出现在最年轻一档;作者 2026-02 承认最宽控制下 2024 年后才显著</figcaption>
 </figure>
-
 <p>反方的证据很硬:科技招聘的崩塌有一半发生在 ChatGPT 发布<strong>之前</strong>——罪魁是 2022 年的加息、疫情期间的过度招聘回吐,外加一条美国特有的税法(Section 174,强制软件研发工资分五年抵税,等于变相加税,估算干掉了约 2 万个岗位)。耶鲁大学预算实验室反复检验后的结论是:整体劳动市场"没有可辨别的 AI 扰动"。还有一个最少被讨论、但最难反驳的因素:<strong>外包</strong>。美国初级招聘冻结的同时,印度的外包中心正在以每年 18% 的速度扩招 0-3 年经验的年轻人——初级工作没消失,一部分搬家了。</p>
 <p>但正方手里有一张反方接不住的牌:<strong>上面这些因素都不挑年龄。</strong>加息、税改、裁员潮打击的是整家公司,可数据里跌的偏偏只有"最年轻×最容易被 AI 替代的岗位"这一格——同一家公司内部,年长的工程师就业还在涨。2025 年 7 月那条税法被废除后,招聘总量确实回来了,初级岗位的占比却继续往下掉。宏观因素解释得了水位下降,解释不了水往哪边歪。</p>
 <p>所以目前最公道的裁决是:<strong>宏观鸡尾酒造成了塌方,AI 决定了塌方砸中谁。</strong>AI 具体占多大责任,学界还在吵——这个领域最好的研究者自己说,这场研究"还在第一局"。</p>
-<h2>公司们已经开始后悔了</h2>
+<h2 data-tts="bcf498b75581f42c">公司们已经开始后悔了</h2>
 <p>2025 年上半年是宣言期:Anthropic 的 CEO 警告 AI 可能在几年内消灭一半入门级白领岗位;Meta 说年内 AI 能顶中级工程师;Salesforce 宣布当年不再招工程师。</p>
 <p>2026 年是回摆期,而且回摆得相当狼狈:32% 因为 AI 裁掉岗位的招聘经理后来又把同类岗位招了回来(Robert Half 调查);55% 做过 AI 裁员的高管承认裁错了(Orgvue 调查);IBM 干脆宣布把入门级招聘扩大两倍,它的人力主管把道理说得很白:现在不招新人的公司,三五年后只能高价去挖别人家的中级员工。亚马逊云的 CEO 说得最直接:用 AI 替代初级员工"是我听过最蠢的想法之一"——初级员工最便宜,还是把 AI 用得最溜的一批人;亚马逊 2026 年照样招 1.1 万名实习生和应届生。</p>
 <p>有一个历史先例值得每个下判断的人先读一遍。2016 年,深度学习教父 Hinton 说"现在就该停止培养放射科医生",因为 AI 五年内会全面超过他们。十年过去,2026 年放射科住院医师的招录岗位数创了历史纪录,平均年薪 57 万美元,Hinton 本人承认自己说错了。但这个故事有个黑暗的尾巴:虽然预测没兑现,申请放射科的医学生还是从峰值跌了 14%——<strong>吓人的预测不需要成真,就足以吓走一代人。</strong>现在计算机专业的新生人数已经开始下降(2025 年 -13%),同一个剧本可能正在重演。</p>
-<h2>真正值得担心的事</h2>
+<h2 data-tts="f603432cfd1dafc4">真正值得担心的事</h2>
 <p>比"初级会不会被取代"更值得担心的,是一个没人在测量的东西:<strong>如果新手不做活,新手怎么变成老手?</strong></p>
 <p>工程师的成长机制是"干中学"——这不是鸡汤,是拿过诺贝尔奖的经济学理论(Arrow,1962):技能只在解决真实问题的过程中形成。现在有两条路都在切断它:公司不雇新手,新手没活干;或者雇了新手,但练手的活全让 AI 干了。教育领域已经有了第一个严格实验的警报:让高中生无限制地用 GPT-4 做数学,练习时成绩涨 48%,可一旦收走 AI,他们比从没用过的学生还差 17%——不过,同一批研究里,设计了"护栏"的 AI 导师版本几乎消除了这个伤害。<strong>AI 之于成长是毒药还是补品,取决于怎么用,而不是用不用。</strong></p>
 <p>最讽刺的是:整个行业都在激烈争论"职业阶梯断没断",却没有任何一家公司在发布"初级晋升到资深的时间是变长了还是变短了"。谁先开始认真测量这件事,谁的话才最值得听。</p>
-<h2>那,该怎么办?</h2>
+<h2 data-tts="419f93b404104452">那,该怎么办?</h2>
 <p><strong>在校学生(或犹豫要不要学 CS 的人):</strong>别按新闻标题做人生决定——放射科的预言十年没兑现,先跑掉的申请人白白让出了位置;而 CS 新生已经在减少,等你毕业时竞争反而可能更松。真正该做的是按新门槛准备:入门岗位现在要的是"小号资深"——真实项目、实习、能看懂别人代码并挑出毛病的能力。还有一条来自严格实验的忠告:用 AI 学习要给自己立规矩:碰到新东西,先自己想出答案(哪怕只是猜一下 AI 会怎么写)、再让它揭晓对照,而不是张口就要完整答案;直接抄答案的人,收走 AI 后比没用过的人还差。</p>
 <p><strong>正在找工作的应届生:</strong>先把心态摆正——你撞上的是"史上最多毕业生 × 入口最窄"的坏时点,不是你不行,而且风向在回暖(招聘广告在回升、裁错人的公司在回购岗位)。策略上:别只盯大厂,大厂恰恰是新人占比崩得最狠的地方;入门机会大量藏在校招、实习转正、内推和非科技行业的软件岗里,公开广告里带"junior"的只占约 2%。面试时,演示"你会指挥 AI 干活、还能抓住它的错"——这比手写算法更接近雇主现在真正缺的东西。</p>
 <p><strong>招人的公司:</strong>不招初级,单看今年是省钱的,拉长三五年是透支——到时候要么高价挖别家的中级,要么没得挖;已经有三分之一因 AI 裁岗的经理在往回招人。更聪明的做法不是删掉入门岗,是重新设计它:让新人做 AI 产出的第一道把关人,配上导师和评审门禁——实验证明这样带出来的新手,两个月能顶过去六个月,而且学到的是真本事。最后,开始测量你的职业阶梯(新人多久能独立负责?),现在全行业没人测——先测的公司,决策会比所有人的口号都准。</p>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="82c80f5794cc8c2c">这篇文章的判断,怎么检验</h2>
 <p>全文归结为七个可检验的主张,按证据从硬到软排序:</p>
 <ol><li><strong>"消失"是入口在收窄,不是存量在蒸发</strong>——总就业创新高与 22-25 岁跌近两成同时为真,不矛盾。</li><li><strong>在个人层面,AI 最帮新手</strong>——两组严格实验方向一致(但都做于 agent 时代之前)。</li><li><strong>最年轻一档受冲击最深,且 2024 年后在加深</strong>;调整发生在"少招",不是"裁掉"。</li><li><strong>利率和税改能解释招聘总量的下跌,解释不了"专门少招年轻人"</strong>——能同样解释构成变化的竞争假说只有离岸。</li><li><strong>"最帮新手"与"新手岗位最先收缩"不矛盾</strong>:实验测的是个人产出,招聘是公司对成本结构的反应。</li><li><strong>职业阶梯断裂的代价是真的,但没有任何公司在测量它</strong>——这个测量空白本身就是信号。</li><li><strong>"程序员要消失"式的极端预言历史上从未兑现</strong>,但预言本身会吓跑申请者、造成真实伤害。</li></ol>
 <p>到 2027 年值得盯:26-30 岁档是否开始出现同样的下跌;招聘广告里初级/资深是否分叉;IBM 式的"招回初级"回摆是主流化还是个案;有没有公司开始公布"初级到资深要几年"。</p>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="c1c588d4054a8e0d">最要紧的几件事</h2>
 <ol><li><strong>职业没消失,入口在收窄。</strong>总就业创新高,但 22-25 岁一档跌了近 20%——收缩的是给新人开的门,不是软件工程这个行当。</li><li><strong>AI 最帮新手,和新手岗位最先收缩,是同一枚硬币的两面。</strong>实验测的是个人效率,招聘是公司的成本决策——别拿前者反驳后者。</li><li><strong>如果你是管理者:阶梯断裂的账记在你名下,但没人在记账。</strong>今天不招的初级,就是五年后招不到的资深;而"初级到资深要几年"这个数,全行业没有一家公司在测。先开始测——第一个把职业阶梯当资产来测量的公司,比所有 AI 宣言都更有信息量。</li><li><strong>极端预测的历史战绩很差,但预测本身就有杀伤力。</strong>放射科医生没被取代,申请人先跑了 14%;公司们已经开始为 AI 裁员后悔。如果你在犹豫要不要入行:门确实窄了,但门后的房间还在变大——挤进去的人,依然压倒性地拿到了对口的好工作。</li></ol>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>

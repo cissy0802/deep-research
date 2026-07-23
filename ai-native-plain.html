@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>当写代码变得便宜:软件组织怎么转向 AI-native(易读版) — BigCat Deep Research</title>
-<meta name="description" content="为什么每个人都觉得 AI 让自己更快,组织却没变快?易读版:主线论证 + 直白语言。">
+<meta content="为什么每个人都觉得 AI 让自己更快,组织却没变快?易读版:主线论证 + 直白语言。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -57,80 +58,73 @@ h2:nth-of-type(8){--h2:#a29bfe}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="ai-native-plain.html" class="active">中文</a><a href="ai-native-plain.en.html">EN</a>
+<a class="active" href="ai-native-plain.html">中文</a><a href="ai-native-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>当写代码变得便宜:软件组织怎么转向 AI-native(易读版)</h1>
+<h1 data-tts="73bf176c3910d167">当写代码变得便宜:软件组织怎么转向 AI-native(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="ai-native-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 把「写代码」变便宜,把瓶颈推到「确认代码是对的」。个人变快 ≠ 组织变快;评估 AI 靠交付数据、不靠体感;维护高可靠老系统的组织,从迁移类任务切入、护栏先于规模。</div></div>
 <div class="chips"><span class="chip c1">90% 在用 AI</span><span class="chip c2">实测 −19% vs 自感 +20%</span><span class="chip c3">稳定性连续两年负相关</span><span class="chip c4">迁移:1.5 人年 → 6 周</span></div>
 <blockquote><p>本文是同名深入版的精简版。深入版有完整的理论推导、全部数据出处和证据分级;这一版只保留主线,用直白的话讲清楚。所有数字都经过独立核查,想看出处请移步深入版。</p></blockquote>
-<h2>一个怪现象</h2>
+<h2 data-tts="f0c2668231955a8b">一个怪现象</h2>
 <p>先看两组都是真的、但互相打架的数据。</p>
 <p>2025 年 DORA(Google 旗下、做了十几年软件工程效能研究的团队)调查了近五千名工程师:90% 的人在用 AI,超过 80% 的人觉得自己变快了。但同一份研究连续两年发现:<strong>AI 用得越多的组织,软件交付反而越不稳定</strong>——除非它有扎实的自动化测试、版本控制和快速反馈机制。</p>
 <p>更扎心的是一个随机对照实验(就是医药界验证新药的那种方法)。研究机构 METR 找来 16 位资深开源维护者,在他们自己维护了多年的大型代码库上随机分配任务:一半允许用 AI,一半不允许。结果:<strong>用 AI 的任务平均慢了 19%</strong>。而这些开发者事前预测 AI 会让自己快 24%——做完之后、在实际被拖慢的情况下,他们仍然觉得自己快了 20%。</p>
 <p>感觉快了,实际慢了,而且本人完全察觉不到。</p>
 <p>这就是本文要回答的问题:<strong>为什么每个人都觉得 AI 让自己更快了,但组织整体却没有变快,甚至变得更不稳定?</strong>答案不复杂,但它会改变你对"AI 转型"该怎么做的全部判断。</p>
-<h2>成本没有消失,它搬家了</h2>
+<h2 data-tts="9d5bd41dcdbeb371">成本没有消失,它搬家了</h2>
 <p>软件开发的总成本,粗略分两块:<strong>把代码写出来</strong>的成本,和<strong>确认代码是对的</strong>的成本(读代码、评审、测试、集成、出了问题排查)。</p>
 <figure>
-<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="52" fill="#7c8593" font-size="13" font-family="Menlo,monospace">传统开发</text>
-  <rect x="24" y="64" width="380" height="40" rx="6" fill="#4cc9f0" opacity="0.75"/>
-  <rect x="408" y="64" width="150" height="40" rx="6" fill="#7b61ff" opacity="0.6"/>
-  <text x="214" y="89" fill="#0a0e1a" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">写代码</text>
-  <text x="483" y="89" fill="#e4e6eb" font-size="12" text-anchor="middle" font-family="-apple-system,sans-serif">验证与整合</text>
-
-  <path d="M 350 118 Q 380 138 410 158" stroke="#ff6ec4" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6ec4"/></marker></defs>
-
-  <text x="24" y="166" fill="#7c8593" font-size="13" font-family="Menlo,monospace">人 + AI agent</text>
-  <rect x="24" y="178" width="64" height="40" rx="6" fill="#4cc9f0" opacity="0.75"/>
-  <rect x="92" y="178" width="466" height="40" rx="6" fill="#7b61ff" opacity="0.85" stroke="#ff6ec4" stroke-width="2"/>
-  <text x="325" y="203" fill="#fff" font-size="13" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">验证与整合 ← 新瓶颈</text>
+<svg role="img" viewbox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="13" x="24" y="52">传统开发</text>
+<rect fill="#4cc9f0" height="40" opacity="0.75" rx="6" width="380" x="24" y="64"></rect>
+<rect fill="#7b61ff" height="40" opacity="0.6" rx="6" width="150" x="408" y="64"></rect>
+<text fill="#0a0e1a" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="214" y="89">写代码</text>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="12" text-anchor="middle" x="483" y="89">验证与整合</text>
+<path d="M 350 118 Q 380 138 410 158" fill="none" marker-end="url(#arrow)" stroke="#ff6ec4" stroke-dasharray="5,4" stroke-width="2"></path>
+<defs><marker id="arrow" markerheight="7" markerwidth="7" orient="auto" refx="8" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6ec4"></path></marker></defs>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="13" x="24" y="166">人 + AI agent</text>
+<rect fill="#4cc9f0" height="40" opacity="0.75" rx="6" width="64" x="24" y="178"></rect>
+<rect fill="#7b61ff" height="40" opacity="0.85" rx="6" stroke="#ff6ec4" stroke-width="2" width="466" x="92" y="178"></rect>
+<text fill="#fff" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="325" y="203">验证与整合 ← 新瓶颈</text>
 </svg>
 <figcaption>示意图:生成成本趋零后,成本与瓶颈移向验证/整合环节(比例为示意,非实测)</figcaption>
 </figure>
-
 <p>过去几十年,"写出来"很贵,所以整个行业的组织方式——团队规模、招聘标准、流程设计——都是围绕"写"来优化的。AI 把"写"的成本压到接近零,很多人以为总成本也跟着降了。</p>
 <p>没有。<strong>成本只是从"写"搬到了"确认写得对"。</strong></p>
 <ul><li>那 16 位资深开发者为什么变慢?屏幕录像显示,他们的时间从写代码转移到了给 AI 写提示、等待生成、然后逐行审查 AI 的产出。在他们熟悉的复杂代码库里,写本来就不是瓶颈,审查才是——AI 让不是瓶颈的环节更快,让是瓶颈的环节更堵。</li><li>一家做工程效能遥测的公司(Faros)分析了一万多名开发者的真实数据:重度使用 AI 的人,合并的代码提交量几乎翻倍——但每个提交变大了 1.5 倍,评审时间涨了 91%,而<strong>整个团队从需求到上线的周期没有任何变化</strong>。个人的产出堆到了评审环节,在那里排队。</li><li>为什么组织会不稳定?变更量放大了,但测试、灰度发布、回滚这些"确认"机制没有跟着加强,错误就会漏过去。DORA 给这个现象的总结很精辟:<strong>AI 不会修复一个团队,它放大这个团队本来的样子。</strong>强的更强,乱的更乱。</li></ul>
 <p>这一条,是全文所有结论的根:<strong>AI 时代的组织设计,本质是围绕"验证"这个新瓶颈的重新布局。</strong>谁先想明白这一点,谁的转型就不会跑偏。</p>
-<h2>那人该干什么</h2>
+<h2 data-tts="c1732584c5ee3633">那人该干什么</h2>
 <p>经济学家给了一个好用的框架(Agrawal、Gans、Goldfarb 三人,研究 AI 经济学的权威):把 AI 理解为"预测成本的下降"。写代码、补全、执行,本质都是预测类工作,AI 越来越便宜;而<strong>判断</strong>——定目标、定标准、决定"什么算好"、验收——AI 便宜不了,反而因为预测变便宜而更值钱。</p>
 <p>真实数据和这个框架对得上。Anthropic 分析了几十万个 AI 编程会话:人类保留了约 70% 的"规划类决策",而把约 80% 的"执行类决策"交给了 AI。更有意思的是:懂不懂编程,对用 AI 写代码的成功率影响不大(会编程 34%,不会 29%)——<strong>真正拉开差距的是领域知识</strong>:懂业务的专家一句话能让 AI 干对一大串活,不懂的人指挥不动它。</p>
 <p>一个极端案例把这件事演到了头。巴西 Itaú 银行(受严格监管的老系统环境)让一位 8 年经验的工程师带着一组 AI 工具单干,3 个迭代干完了原本 4 人团队 6 个迭代的项目,质量不打折(集成测试全过、上线零缺陷)。注意这只是一个案例、当事人自己写的论文,不能推广——但它的复盘结论很有价值:提速的关键不是这个人代码写得快,而是<strong>原来需要产品、架构、安全、测试好几拨人开会往返好几天的事,现在一个人指挥 AI 几分钟打一个来回</strong>。而项目里所有的返工,都来自模糊的需求和没写成文档的旧系统"潜规则"。</p>
 <p>所以 AI 时代最稀缺的人,不是"会用 AI 的程序员",而是<strong>能把业务知识讲清楚、写成明确规格、并且有能力判断"这个产出行不行"的人</strong>。如果你的招聘和晋升还在按"代码写得多快"给人定价,你在给一项正在贬值的资产定价。</p>
-<h2>公司会变小吗?</h2>
+<h2 data-tts="6fd202011ef820fd">公司会变小吗?</h2>
 <p>"AI 让十个人干一百个人的活,公司会碎成一堆小团队"——这是最流行的说法。诚实的回答是:<strong>没人知道,而且目前的证据反而偏向相反方向。</strong></p>
 <p>鼓吹"公司变小"的代表性论文,经不起核查:没有同行评审、没有任何实证数据,而且两位作者是卖 agent 基础设施的创业公司创始人——"公司会碎片化"正好是他们的产品卖点。而经过同行评审的实证研究(发表在金融学顶刊)发现:AI 投资集中在<strong>大公司</strong>,推动大公司更大、行业更集中。</p>
 <p>对读者有用的不是站队,而是两个可以自己盯的指标:你的组织里,<strong>每次变更的验证成本</strong>是随着变更量线性涨还是更快地涨?如果验证越来越便宜,小团队化有戏;如果验证还是最贵的环节,大组织的优势会继续。谁现在就断言方向,谁就是在卖超出证据的确定性。</p>
-<h2>如果你维护的是"不能出事"的老系统</h2>
+<h2 data-tts="d54f7269f13cd14d">如果你维护的是"不能出事"的老系统</h2>
 <p>BigQuery、支付系统、核心银行系统——代码库几千万行、历史十几年、每秒扛海量请求、出事就上新闻。这类组织读到的 AI 转型文章几乎都是初创公司写的,而<strong>初创的玩法对你不但没用,而且危险</strong>。</p>
 <figure>
-<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img">
-  <line x1="70" y1="340" x2="650" y2="340" stroke="#5a6378" stroke-width="1.5"/>
-  <line x1="70" y1="340" x2="70" y2="40" stroke="#5a6378" stroke-width="1.5"/>
-  <text x="360" y="376" fill="#7c8593" font-size="13" text-anchor="middle" font-family="Menlo,monospace">交互复杂性 →</text>
-  <text x="34" y="190" fill="#7c8593" font-size="13" text-anchor="middle" font-family="Menlo,monospace" transform="rotate(-90 34 190)">耦合度 →</text>
-
-  <rect x="82" y="200" width="272" height="128" rx="10" fill="#52b788" opacity="0.12" stroke="#52b788" stroke-opacity="0.5"/>
-  <text x="218" y="252" fill="#52b788" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">初创绿地</text>
-  <text x="218" y="276" fill="#8fbfa8" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">错误预算宽裕 · 爆炸半径小</text>
-
-  <rect x="366" y="52" width="272" height="128" rx="10" fill="#e85a4f" opacity="0.14" stroke="#e85a4f" stroke-opacity="0.6"/>
-  <text x="502" y="104" fill="#ff8a80" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">高危象限</text>
-  <text x="502" y="128" fill="#d9a09a" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">BigQuery / 支付 / 交易系统</text>
-
-  <circle cx="150" cy="300" r="6" fill="#52b788"/>
-  <circle cx="560" cy="90" r="7" fill="#e85a4f"/>
-  <path d="M 175 292 Q 360 220 535 105" stroke="#7c8593" stroke-width="1.5" fill="none" stroke-dasharray="3,5"/>
+<svg role="img" viewbox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#5a6378" stroke-width="1.5" x1="70" x2="650" y1="340" y2="340"></line>
+<line stroke="#5a6378" stroke-width="1.5" x1="70" x2="70" y1="340" y2="40"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="13" text-anchor="middle" x="360" y="376">交互复杂性 →</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="13" text-anchor="middle" transform="rotate(-90 34 190)" x="34" y="190">耦合度 →</text>
+<rect fill="#52b788" height="128" opacity="0.12" rx="10" stroke="#52b788" stroke-opacity="0.5" width="272" x="82" y="200"></rect>
+<text fill="#52b788" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="218" y="252">初创绿地</text>
+<text fill="#8fbfa8" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="218" y="276">错误预算宽裕 · 爆炸半径小</text>
+<rect fill="#e85a4f" height="128" opacity="0.14" rx="10" stroke="#e85a4f" stroke-opacity="0.6" width="272" x="366" y="52"></rect>
+<text fill="#ff8a80" font-family="-apple-system,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="502" y="104">高危象限</text>
+<text fill="#d9a09a" font-family="-apple-system,sans-serif" font-size="11.5" text-anchor="middle" x="502" y="128">BigQuery / 支付 / 交易系统</text>
+<circle cx="150" cy="300" fill="#52b788" r="6"></circle>
+<circle cx="560" cy="90" fill="#e85a4f" r="7"></circle>
+<path d="M 175 292 Q 360 220 535 105" fill="none" stroke="#7c8593" stroke-dasharray="3,5" stroke-width="1.5"></path>
 </svg>
 <figcaption>Perrow 风险透镜(示意):同一个 AI 工具,在两个象限积分出完全不同的风险;高危象限还叠加短时延——系统滑向灾难快于人类认知</figcaption>
 </figure>
-
 <p><strong>为什么危险,一个真实故事就够了。</strong>2012 年 8 月 1 日,做美股做市的骑士资本(Knight Capital)上线新代码,8 台服务器只更新了 7 台。没更新的那台,激活了一段停用八年但一直没删的旧代码。45 分钟,亏损超过 4.6 亿美元,公司一年内被收购。注意细节:系统开盘前其实发过 97 封报错邮件,但那些邮件"不是被设计成告警的",没人看。——现在想象 AI 以十倍速度生成代码,而你的组织连死代码都没人清理、告警没人管。老系统 + 高速变更 + 弱验证,这是灾难配方,AI 是加速剂。</p>
 <p><strong>为什么不划算,前面那个实验就是证据。</strong>METR 那个"用 AI 反而慢 19%"的实验,情境恰好是:资深工程师 + 百万行级成熟代码库 + 严格的质量门槛——<strong>这不是什么特殊实验室条件,这就是你们组织的日常</strong>。原因也直白:老系统里最难的东西是"潜规则"——历史上踩过的坑、没写文档的行为依赖、组织约定——这些恰恰是用公开代码训练出来的 AI 最不懂的。指望"把整个代码库塞进 AI 的上下文窗口"也不行,实测显示输入越长、模型表现越差,海量相似代码反而是干扰。</p>
 <p><strong>那从哪里开始?有一类任务,AI 在巨型老代码库上有多家公司验证过的成功记录:大规模迁移和升级。</strong>老写法换新写法、测试框架更换、语言版本升级——这类活有三个共同点:繁重、没人愿意干、<strong>机器能自动判断做没做对</strong>(编译过不过、测试过不过)。几个真实数字:Google 用 AI 做代码迁移,四分之三的修改由 AI 生成,项目时间省一半,搁置多年没人碰的迁移被重新启动;Airbnb 把 3,500 个测试文件迁到新框架,原本估 1.5 人年,实际 6 周。</p>
@@ -138,19 +132,19 @@ h2:nth-of-type(8){--h2:#a29bfe}
 <ol><li><strong>AI 只负责中间一段</strong>:用确定性工具找到该改哪儿,AI 生成修改,再用编译和测试自动裁决——AI 永远没有"合入代码"的决定权;</li><li><strong>AI 的代码和人的代码走同一套评审、同一道测试门禁</strong>,不开绿色通道;</li><li><strong>按评审能力限速</strong>:Google 明确记录过,他们刻意压低 AI 的生成速度,因为瓶颈是人审得过来审不过来——生成能力过剩,验证能力才是闸门。</li></ol>
 <p>反面教材同样真实:英国 TSB 银行 2018 年把 500 万客户一次性切到新系统,结果网银瘫痪、钓鱼诈骗暴增 70 倍、总成本超过 3 亿英镑、监管罚款近 5 千万英镑。<strong>大爆炸式的一次性重写,在 AI 时代依然是死路</strong>——AI 没有改变"小步渐进、每步可验证、随时可回退"这个老原则,它只是把渐进路线上最累的体力活变便宜了十倍。</p>
 <p>三步走,给这类组织:<strong>先用迁移类任务练手</strong>(顺便建立自己组织的 AI 数据基线)→ <strong>护栏建好再放量</strong>(测试、灰度、回滚、评审工具,这些"确认"基础设施先行)→ <strong>把验证能力当成一等资产来投资和考核</strong>,并且立一条规矩:评估 AI 的收益只看交付数据,不听体感——记住那 40 个百分点的感知错位。</p>
-<h2>怎么推动转型</h2>
+<h2 data-tts="dc4824aebf070aba">怎么推动转型</h2>
 <p>最后是组织层面的四条,每条背后都有几十年的管理学研究撑着:</p>
 <ol><li><strong>难转不是因为人蠢,是因为组织理性。</strong>成熟组织拿到 AI,会本能地用它"把原来的事做得更快",而不是重新设计做事的方式——这在创新研究里是被反复验证的模式,后果是只拿到边际收益,把真正的机会留给别人。</li><li><strong>给转型单独开一块试验田。</strong>让同一个团队"既保住交付又搞转型"注定失败;正确做法是分出一个独立小单元,给它不同的目标、激励和流程,让它按 AI 的新成本结构重新设计工作方式,跑通了再推广。</li><li><strong>顺序不能反:先修地基,再上 AI。</strong>AI 放大组织本来的样子——测试和发布流程不牢的团队,先上 AI 只会收获更多的不稳定,然后在信任崩塌中失去第二次机会。基本功扎实的团队,AI 的红利是复利。</li><li><strong>真正的瓶颈在管理层。</strong>工程师用不用工具从来不是问题(有个实验发现,免费送、领导推,还是有三四成工程师碰都不碰——但这能靠时间解决)。真正难的是管理层的决策:把投资从"生成能力"移到"验证基础设施",把人才定价从"执行"移到"判断",这些只有管理层能拍板。</li></ol>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="d9cc19d373042a54">这篇文章的判断,怎么检验</h2>
 <p>全文归结为六个可检验的主张,按证据从硬到软排序——未来的数据可以证明它们对,也可以证明它们错:</p>
 <ol><li><strong>个人用 AI 变快,不会自动让组织交付变快</strong>——瓶颈转移到了测试、评审这些下游环节。</li><li><strong>越资深的工程师、越成熟的代码库,AI 的收益越小,甚至为负</strong>;而且当事人的自我感觉不可靠。</li><li><strong>统一的机制:成本没有消失,从"写代码"搬到了"确认代码是对的"。</strong></li><li><strong>人的价值向"判断"集中</strong>——能把要什么讲清楚、能验收好坏的人在升值。</li><li><strong>高可靠老系统组织的最优路径:迁移类任务切入 → 护栏先于规模 → 把验证能力当一等资产。</strong></li><li><strong>公司会变大还是变小,现在没人知道</strong>——能盯的是你自己的验证成本随变更量怎么涨。</li></ol>
 <p>如果两年后"AI 用得越多、交付越不稳"的统计消失了,或者严格实验在成熟代码库上测出了稳定提速——这篇文章就该被修订。</p>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="260960fe095f25a9">最要紧的几件事</h2>
 <ol><li><strong>个人变快 ≠ 组织变快。</strong>成本从"写代码"搬到了"确认代码是对的",不升级验证能力,AI 只会让你更快地生产问题。</li><li><strong>别信体感,信数据。</strong>被 AI 拖慢的资深工程师坚信自己变快了。评估 AI,用交付周期、变更失败率、评审时长这些硬指标。</li><li><strong>重新给人才定价。</strong>最稀缺的不是"会用 AI 的程序员",而是能把业务讲清楚、写成明确要求、并有能力判断"产出行不行"的人。招聘和晋升还按写代码速度定价,就是在给一项贬值资产定价。</li><li><strong>老系统组织,从迁移任务切入,护栏先于规模。</strong>这是唯一有多家大厂真实成功记录的路径;大爆炸式重写在 AI 时代依然是死路。</li><li><strong>别为"公司会变小"的叙事下注。</strong>方向没人知道,目前经过同行评审的证据反而指向大公司更大。能盯的是你自己的数字:每次变更的验证成本随变更量怎么涨。</li></ol>
 <footer>BigCat Deep Research · 2026-07 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
