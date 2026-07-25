@@ -2357,6 +2357,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("choosing-a-major-deep", "zh", "deep",
+     "未来十年选什么专业?给准大学生的就业证据体检(深入版)",
+     "官方十年预测在粗分层面可信、在细分职业层面几乎只比「假设什么都不变」好一点点——而选专业恰恰发生在细分层面。把「岗位缺口」、分专业失业率、AI 暴露度三个最常被搬进志愿指导的数字逐个拆开口径;60 组承重论断 × 3 票对抗验证 + 12 项单源实证双席审计。",
+     "2026-07"),
+    ("choosing-a-major-deep", "en", "deep",
+     "What Should You Major In? An Evidence Check for Students Choosing a Degree (Deep Dive)",
+     "Official ten-year projections carry real information at the broad level and barely beat \"assume nothing changes\" at the detailed-occupation level - which is exactly where choosing a major happens. The three figures most often imported into admissions advice - \"job openings,\" unemployment by major, AI exposure - taken apart one caliber at a time; 60 load-bearing claim groups x 3 adversarial votes plus dual-seat audits on 12 single-source empirics.",
+     "2026-07"),
+    ("choosing-a-major-plain", "zh", "plain",
+     "未来十年该选什么专业?一份给准大学生的证据体检(易读版)",
+     "「这个职业十年缺口 XX 万」里 97% 是有人离开,而离开的人过半是转行走了。判断一个专业会不会过热,看学校能不能轻易多开一个专业点,不看这行要不要执照。易读版:主线结论 + 十条你自己查得到的检验信号。",
+     "2026-07"),
+    ("choosing-a-major-plain", "en", "plain",
+     "What Should You Major In? An Evidence Check for Students Choosing a Degree (Plain Version)",
+     "In \"this occupation will have X hundred thousand openings,\" 97% is people leaving - and more than half of those leave for a different occupation entirely. To judge whether a field will overheat, look at how easily a school can stand up one more program, not at whether the work requires a license. Plain edition: the main findings plus ten signals you can check yourself.",
+     "2026-07"),
     ("ai-hardware-power-deep", "zh", "deep",
      "AI 带来的硬件短缺与电力短缺:是真的吗,还要多久?(深入版)",
      "把两场短缺拆开体检:硬件是涨价型(2026 产能售罄、价格翻倍传导到消费端),电力是排队型(PJM 三连触顶、ERCOT 队列 5 倍于峰值);预测有两次高估前科但约束已在实测兑现;供给交付时间表逐条摆开;12 组承重论断 × 3 票对抗验证 + 单源双席审计。",
@@ -2559,6 +2575,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("choosing-a-major-deep", "zh"):
+        "全篇的地基是一条「聚合层级梯度」:BLS 自己发布的评估序列显示,官方十年预测在粗分层面确有信息(2012–22 在 432/748 个细分职业上优于「份额不变」的朴素模型、2006–16 正确判断某职业增减方向的比例 78%),但正确判断某职业是否快于经济整体平均只有 57%(二元问题、基线 50%);五分位转移表是最好的翻译——预测最快五分位的 67 个职业里 32 个实际落在最快五分位(随机为 20%),13 个掉进实际最慢的两档。而选专业发生在细分层面,所以本文不给排名。三个最常被搬进志愿指导的数字逐个拆开:年均 1,886 万个「岗位缺口」里 97.2% 来自有人离开、其中过半是转去别的职业,前 15 名里 13 个中位年薪低于全职业中位数、6 个其实在萎缩;分专业失业率的单年置信区间宽到不足以支撑专业间排序,引爆舆论的那张图用的是被下一年数据自我推翻的版本;AI 暴露度的三项研究不是互相印证而是共用同一套构念前提。判据修正:抑制过热的是培养端产能(临床席位、带教老师),不是执业端执照——法学与药学都是执照齐全却过剩的教科书案例。回报的三层拆解:专业间差距在分布上尾最大、中位数附近很小,院校效应控制自选择后基本归零(上尾除外),同一专业内部离散度不低于专业之间。中美的真正差异是可复现性:中国有分专业数据并用于行政处置,公开的是名单不是数字;美国的分专业数据任何人可下载重算。十条可检验主张收尾,另附一节「看起来像信号、但不是信号的指标」。",
+    ("choosing-a-major-deep", "en"):
+        "The foundation is an aggregation-level gradient: BLS's own published evaluation series shows official ten-year projections carry real information at the broad level (in 2012-22 they beat a constant-share naive model in 432 of 748 detailed occupations; in 2006-16 they called the direction of an occupation's change correctly 78% of the time) but call whether an occupation beats the economy-wide average only 57% of the time - a binary question with a 50% baseline. The quintile transition table translates it best: of the 67 occupations BLS projected into the fastest quintile, 32 actually landed there (random would be 20%) and 13 fell into the two slowest quintiles. Choosing a major happens at the detailed level, so this article gives no rankings. The three figures most often imported into admissions advice come apart one at a time: of the 18.86 million average annual openings, 97.2% come from people leaving and over half of those leave for a different occupation entirely, while 13 of the top 15 pay below the all-occupation median and 6 are actually shrinking; single-year confidence intervals on unemployment by major are too wide to rank fields against each other, and the chart that went viral used a vintage the following year's data overturned; the three AI-exposure studies do not corroborate each other - they share one set of constructs. A corrected criterion: what suppresses overshoot is training-side capacity (clinical placements, faculty), not practice-side licensure - law and pharmacy are textbook cases of fully licensed fields in oversupply. Returns decompose in three layers: gaps between majors are largest in the upper tail and small near the median, institution effects go to roughly zero once self-selection is controlled (upper tail excepted), and dispersion within a major is no smaller than dispersion between majors. The real US-China difference is reproducibility: China has field-level employment data and uses it for administrative action, publishing name lists rather than numbers; America's field-level microdata can be downloaded and recomputed by anyone. Ten testable claims close the essay, plus a section on indicators that look like signals but aren't.",
+    ("choosing-a-major-plain", "zh"):
+        "官方十年预测在大方向上可信、在细分职业排名上不可信,而选专业恰恰发生在细分层面——所以这篇文章不给排名。「这个职业十年缺口 XX 万」是最容易骗到人的数字:97% 来自有人离开,离开的人里过半是转行走了,缺口大几乎从不意味着机会多,主要意味着人走得快。AI 这件事已知的是招聘转冷,未知的是为什么、跌多少、还要多久——任何给出精确百分比的说法都超出了证据能支撑的范围。判断一个专业会不会过热,看学校能不能轻易多开一个专业点,不看这行要不要执照:执照卡在毕业之后(律师、药师)对招生端毫无约束,法学和药学都是过剩的教科书案例。同一专业内部的收入差距通常不小于专业之间,所以「选对专业」的重要性被排行榜系统性夸大了。中美真正的差异是可复现性不是数字高低。最实用的一条:多数你需要的信号,你在报考季自己就查得到——本省分专业招生计划人数、目标专业录取位次逐年变化、省级专业预警清单、目标院校就业质量报告的同校横向比较。",
+    ("choosing-a-major-plain", "en"):
+        "Official ten-year projections are trustworthy about broad direction and untrustworthy about detailed-occupation rankings - and choosing a major happens at the detailed level, so this article gives no rankings. \"This occupation will have X hundred thousand openings\" is the figure most likely to fool you: 97% of it is people leaving, and more than half of those leave for a different occupation entirely. A big opening count almost never means abundant opportunity; it mostly means people churn out fast. On AI, what is known is that hiring has cooled; what is unknown is why, by how much, and for how long - any claim carrying a precise percentage has outrun the evidence. To judge whether a field will overheat, look at how easily a school can stand up one more program, not at whether the work requires a license: licensure that binds after graduation (lawyers, pharmacists) puts no brake on admissions, and law and pharmacy are textbook oversupply cases. Dispersion within a single major is typically no smaller than dispersion between majors, so rankings systematically overstate how much picking the right major matters. The real US-China difference is reproducibility, not which numbers are higher. The most useful point: most of the signals you need, you can look up yourself during application season.",
     ("ai-hardware-power-deep", "zh"):
         "两场短缺拆开看:硬件短缺是涨价型——SK Hynix 全线/Micron 与 Samsung 的 HBM 2026 产能年初售罄,常规 DRAM 合约价 1Q26 +90-95%、2Q26 +58-63%(合约实录,非现货炒作),传导到消费端(内存+存储占 PC 成本升至约 1/3、PC 集体涨价 15-20%);绑定约束已从晶圆迁到先进封装与内存,扩产周期 2-3 年,紧到 2027 是共识、2028 看 AI 需求(降速则按内存超级周期老剧本转过剩)。电力短缺是排队型且美国特有——PJM 容量拍卖连续第三次触及监管上限($325/MW-day)仍缺 6,831 MW,数据中心贡献近三次拍卖成本的 45%($21.3B,大量来自未建成项目),已传导到普通电费(各辖区 +$14-27/月,OPC/IEEFA 测算);但 ERCOT 队列 438 GW 是系统峰值 5 倍(71.5% 连互联研究都未提交),官方预测(945 TWh/12%/166 GW)全带 2 倍区间且有 1999/2007 两次高估前科。关键分辨:「预测不可信」推不出「短缺不真实」——约束已以拍卖价格、账单、订单簿形式兑现。供给时间表:燃机排到 2030(lead time 最长 8 年)、核电全在 2030s、能快速上量的只有光储和自建电源——需求以月签约、供给以 5-8 年交付,美国电力紧张结构性持续到 2030 前后。效率(Google 单位能耗一年改善 33×)改变斜率不解除约束:同一家 Google 总用电翻倍,Jevons 已是实测。十个可检验主张收尾。",
     ("ai-hardware-power-deep", "en"):
@@ -2658,6 +2682,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("choosing-a-major-deep", "zh"): [
+        ("c1", "180 票对抗验证 · 24 席双席审计"), ("c2", "细分职业:57% vs 基线 50%"), ("c3", "岗位缺口 97.2% 是有人离开"), ("c4", "10 个可检验主张"),
+    ],
+    ("choosing-a-major-deep", "en"): [
+        ("c1", "180 votes · 24 audit seats"), ("c2", "detailed level: 57% vs 50% baseline"), ("c3", "97.2% of openings are exits"), ("c4", "10 testable claims"),
+    ],
+    ("choosing-a-major-plain", "zh"): [
+        ("c1", "缺口大 = 人走得快"), ("c2", "看能不能多开专业,不看执照"), ("c3", "专业内差距 ≥ 专业间"), ("c4", "10 个你自己查得到的信号"),
+    ],
+    ("choosing-a-major-plain", "en"): [
+        ("c1", "big openings = fast churn"), ("c2", "watch program capacity, not licensure"), ("c3", "within-major gap >= between-major"), ("c4", "10 signals you can check"),
+    ],
     ("ai-hardware-power-deep", "zh"): [
         ("c1", "36 票对抗验证 · 12/12 挺过"), ("c2", "PJM 三连触顶 · 缺 6,831 MW"), ("c3", "ERCOT 队列 = 峰值 5 倍"), ("c4", "10 个可检验主张"),
     ],
@@ -3048,6 +3084,15 @@ INDEX_ENTRIES = [
      "36 adversarial votes + dual-seat audit · 10 testable claims",
      [("t1", "AI 基建", "AI infrastructure"), ("t2", "电网约束", "Grid constraints"), ("t3", "内存超级周期", "Memory supercycle"),
       ("t4", "幽灵需求", "Phantom demand"), ("t5", "Jevons 悖论", "Jevons paradox")]),
+    ("choosing-a-major", "2026-07",
+     "未来十年选什么专业?给准大学生的就业证据体检",
+     "What Should You Major In? An Evidence Check for Students Choosing a Degree",
+     "官方的十年职业预测在大方向上可信,在细分职业排名上几乎只比「假设什么都不变」好一点点——而选专业恰恰发生在细分层面。把最常被搬进志愿指导的几个数字逐个拆开口径,再给一份按判据分栏、每格挂着证据分级的清单。",
+     "Official ten-year occupational projections are trustworthy about broad direction and barely beat \"assume nothing changes\" at the detailed-occupation level - which is exactly where choosing a major happens. The figures most often imported into admissions advice, taken apart one caliber at a time, then a field list organized by criteria with an evidence grade in every cell.",
+     "180 票对抗验证 + 24 席双席审计 · 10 个可检验主张",
+     "180 adversarial votes + 24 audit seats · 10 testable claims",
+     [("t1", "选专业", "Choosing a major"), ("t2", "就业数据", "Employment data"), ("t3", "口径陷阱", "Caliber traps"),
+      ("t4", "AI 与入门岗", "AI and entry-level"), ("t5", "中美对比", "US-China")]),
 ]
 
 
