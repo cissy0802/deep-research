@@ -22,12 +22,53 @@ def inline(s: str) -> str:
 
 
 def md_to_html(md: str) -> str:
-    out, para, ul, ol, quote = [], [], [], [], []
+    out, para, ul, ol, quote, tbl = [], [], [], [], [], []
 
     def flush_para():
         if para:
             out.append(f"<p>{inline(' '.join(para))}</p>")
             para.clear()
+
+    def _cells(row):
+        row = row.strip()
+        if row.startswith("|"):
+            row = row[1:]
+        if row.endswith("|"):
+            row = row[:-1]
+        return [c.strip() for c in row.split("|")]
+
+    def flush_table():
+        if not tbl:
+            return
+        rows = list(tbl)
+        tbl.clear()
+        sep = re.compile(r"^:?-{2,}:?$")
+        if len(rows) < 2 or not all(sep.match(c) for c in _cells(rows[1]) if c):
+            # Not a real table: emit verbatim so nothing is silently swallowed.
+            for r in rows:
+                out.append(f"<p>{inline(r)}</p>")
+            return
+        align = []
+        for c in _cells(rows[1]):
+            if c.startswith(":") and c.endswith(":"):
+                align.append(" style=\"text-align:center\"")
+            elif c.endswith(":"):
+                align.append(" style=\"text-align:right\"")
+            else:
+                align.append("")
+        head = _cells(rows[0])
+        body = [_cells(r) for r in rows[2:]]
+        parts = ["<div class=\"tw\"><table><thead><tr>"]
+        for i, c in enumerate(head):
+            parts.append(f"<th{align[i] if i < len(align) else ''}>{inline(c)}</th>")
+        parts.append("</tr></thead><tbody>")
+        for r in body:
+            parts.append("<tr>")
+            for i, c in enumerate(r):
+                parts.append(f"<td{align[i] if i < len(align) else ''}>{inline(c)}</td>")
+            parts.append("</tr>")
+        parts.append("</tbody></table></div>")
+        out.append("".join(parts))
 
     def flush_lists():
         if ul:
@@ -43,7 +84,7 @@ def md_to_html(md: str) -> str:
             quote.clear()
 
     def flush_all():
-        flush_para(); flush_lists(); flush_quote()
+        flush_para(); flush_lists(); flush_quote(); flush_table()
 
     for raw in md.splitlines():
         line = raw.rstrip()
@@ -61,9 +102,15 @@ def md_to_html(md: str) -> str:
             out.append("<hr>")
             continue
         if line.startswith(">"):
-            flush_para(); flush_lists()
+            flush_para(); flush_lists(); flush_table()
             quote.append(inline(line.lstrip("> ").strip()))
             continue
+        if line.lstrip().startswith("|"):
+            flush_para(); flush_lists(); flush_quote()
+            tbl.append(line.strip())
+            continue
+        if tbl:
+            flush_table()
         m = re.match(r"^\s*-\s+(.*)$", line)
         if m:
             flush_para(); flush_quote()
@@ -2294,6 +2341,15 @@ blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);paddin
 blockquote p{margin-bottom:8px}
 blockquote p:last-child{margin-bottom:0}
 hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
 figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
 figure svg{width:100%;height:auto;display:block}
 figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}

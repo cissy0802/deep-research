@@ -23,6 +23,15 @@ blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);paddin
 blockquote p{margin-bottom:8px}
 blockquote p:last-child{margin-bottom:0}
 hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
 figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
 figure svg{width:100%;height:auto;display:block}
 figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
@@ -236,7 +245,7 @@ h2:nth-of-type(11){--h2:#ff6ec4}
 </figure>
 <h2>8. 裁决:企业 AI 落地的真实基率</h2>
 <p>回到题目。"转型难度的基率到底是多少?"诚实的答案是分层的:</p>
-<p>| 你想测什么 | 最好的现有测量 | 数字 | |---|---|---| | 高管感知正回报 | Wharton n≈800(2025) | ~74%(VP+ 81%,中层 69%) | | 组织自报某目标有正面影响 | S&amp;P VotE(2025-10) | 70-76%,逐年下滑 | | 项目达成自家预期 ROI | IBM 2,000 CEO(2025) | 25% | | 过去 12 个月实测增收+降本 | PwC 4,454 CEO(2026) | 12% | | 企业级 EBIT 归因 ≥5% 且显著价值 | McKinsey n≈2,000(2025) | ~6% | | 规模化产生价值 | BCG n=1,250(2025) | 5% | | 定制工具试点→显著 P&amp;L(6 个月窗) | NANDA n=52+153(2025) | 5%(方法最弱) | | 公司弃置大多数 AI 计划 | S&amp;P n=1,006(2025) | 42%(上年 17%) | | 历史 IT 项目彻底放弃基率 | 学术直测 28 项调查 | 7-31% |</p>
+<div class="tw"><table><thead><tr><th>你想测什么</th><th>最好的现有测量</th><th>数字</th></tr></thead><tbody><tr><td>高管感知正回报</td><td>Wharton n≈800(2025)</td><td>~74%(VP+ 81%,中层 69%)</td></tr><tr><td>组织自报某目标有正面影响</td><td>S&amp;P VotE(2025-10)</td><td>70-76%,逐年下滑</td></tr><tr><td>项目达成自家预期 ROI</td><td>IBM 2,000 CEO(2025)</td><td>25%</td></tr><tr><td>过去 12 个月实测增收+降本</td><td>PwC 4,454 CEO(2026)</td><td>12%</td></tr><tr><td>企业级 EBIT 归因 ≥5% 且显著价值</td><td>McKinsey n≈2,000(2025)</td><td>~6%</td></tr><tr><td>规模化产生价值</td><td>BCG n=1,250(2025)</td><td>5%</td></tr><tr><td>定制工具试点→显著 P&amp;L(6 个月窗)</td><td>NANDA n=52+153(2025)</td><td>5%(方法最弱)</td></tr><tr><td>公司弃置大多数 AI 计划</td><td>S&amp;P n=1,006(2025)</td><td>42%(上年 17%)</td></tr><tr><td>历史 IT 项目彻底放弃基率</td><td>学术直测 28 项调查</td><td>7-31%</td></tr></tbody></table></div>
 <p>三个可以负责任写下的判断:</p>
 <p>其一,<strong>"95% of organizations are getting zero return" 这句话本身不成立</strong>——报告自己的成功定义(未达"显著且持续"≠零回报)、自己的影子 AI 数据(90% 公司的员工在用且"often delivers better ROI")、自己的通用工具漏斗(约 83% 试点转化)都不支持它;它是把一个窄口径漏斗数字重新包装成的总判词。</p>
 <p>其二,<strong>作为严口径漏斗数字的 5% 是可信方向</strong>——它与 McKinsey 6%、BCG 5%、PwC 12% 在阶梯末端收敛,与 VC/药物/新品/IoT 的试点存活形态一致。企业 AI 的真实图景不是"全面失败",是<strong>头部集中</strong>:少数组织在严标准下真金白银地赢,多数组织广而浅地用,官方统计的效果信号被影子使用和时滞双重稀释。</p>

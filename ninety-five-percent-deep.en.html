@@ -23,6 +23,15 @@ blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);paddin
 blockquote p{margin-bottom:8px}
 blockquote p:last-child{margin-bottom:0}
 hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
 figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
 figure svg{width:100%;height:auto;display:block}
 figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
@@ -236,7 +245,7 @@ h2:nth-of-type(11){--h2:#ff6ec4}
 </figure>
 <h2>8. Verdict: the real base rate of enterprise AI</h2>
 <p>Back to the question this essay owes an answer: what is the base rate of transformation difficulty? The honest answer is layered:</p>
-<p>| What you want to measure | Best available measurement | Number | |---|---|---| | Executives perceiving positive ROI | Wharton n≈800 (2025) | ~74% (VP+ 81%, mid-managers 69%) | | Organizations self-reporting positive impact on some objective | S&amp;P VotE (Oct 2025) | 70–76%, declining year over year | | Initiatives meeting own expected ROI | IBM, 2,000 CEOs (2025) | 25% | | Measured revenue gains + cost cuts, trailing 12 months | PwC, 4,454 CEOs (2026) | 12% | | ≥5% enterprise EBIT attributed to AI, with significant value | McKinsey n≈2,000 (2025) | ~6% | | Achieving AI value at scale | BCG n=1,250 (2025) | 5% | | Custom-tool pilot → marked P&amp;L (6-month window) | NANDA n=52+153 (2025) | 5% (weakest method) | | Companies abandoning most AI initiatives | S&amp;P n=1,006 (2025) | 42% (17% a year earlier) | | Historical outright IT-project abandonment | 28 academic surveys | 7–31% |</p>
+<div class="tw"><table><thead><tr><th>What you want to measure</th><th>Best available measurement</th><th>Number</th></tr></thead><tbody><tr><td>Executives perceiving positive ROI</td><td>Wharton n≈800 (2025)</td><td>~74% (VP+ 81%, mid-managers 69%)</td></tr><tr><td>Organizations self-reporting positive impact on some objective</td><td>S&amp;P VotE (Oct 2025)</td><td>70–76%, declining year over year</td></tr><tr><td>Initiatives meeting own expected ROI</td><td>IBM, 2,000 CEOs (2025)</td><td>25%</td></tr><tr><td>Measured revenue gains + cost cuts, trailing 12 months</td><td>PwC, 4,454 CEOs (2026)</td><td>12%</td></tr><tr><td>≥5% enterprise EBIT attributed to AI, with significant value</td><td>McKinsey n≈2,000 (2025)</td><td>~6%</td></tr><tr><td>Achieving AI value at scale</td><td>BCG n=1,250 (2025)</td><td>5%</td></tr><tr><td>Custom-tool pilot → marked P&amp;L (6-month window)</td><td>NANDA n=52+153 (2025)</td><td>5% (weakest method)</td></tr><tr><td>Companies abandoning most AI initiatives</td><td>S&amp;P n=1,006 (2025)</td><td>42% (17% a year earlier)</td></tr><tr><td>Historical outright IT-project abandonment</td><td>28 academic surveys</td><td>7–31%</td></tr></tbody></table></div>
 <p>Three judgments this essay is prepared to sign:</p>
 <p>First, <strong>the sentence "95% of organizations are getting zero return" does not hold</strong> — the report's own success definition (short of "marked and sustained" ≠ zero), its own shadow-AI data (workers at 90% of companies using AI, which "often delivers better ROI"), and its own general-purpose funnel (~83% pilot-to-implementation) all refuse it. It is a narrow funnel statistic repackaged as a general verdict.</p>
 <p>Second, <strong>as a strict-yardstick funnel number, the 5% is directionally credible</strong> — it converges with McKinsey's 6%, BCG's 5%, and PwC's 12% at the ladder's end, and matches the pilot-survival shape of VC, drugs, new products, and IoT. The true picture of enterprise AI is not "mass failure" but <strong>concentration at the head</strong>: a few organizations winning by hard standards, most using AI broadly and shallowly, and the outcome signal in official statistics doubly diluted by shadow use and lag.</p>
