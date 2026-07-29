@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """Render sources/*.md into styled HTML pages for the Deep Research site.
 
 Run from repo root:  python3 build.py
@@ -2069,7 +2070,242 @@ def fig_ac_scorecard(lang: str) -> str:
 </figure>"""
 
 
+def fig_st_ladder(lang: str) -> str:
+    """Two construct ladders: exposure (wide->narrow) and outcome (soft->hard)."""
+    t = {
+        "zh": dict(title="两把梯子:引用任何数字前,先问它站在哪一格",
+                   lh="暴露之梯(宽 → 窄)", rh="结局之梯(软 → 硬)",
+                   left=["屏幕时间(含看视频/游戏)", "数字技术使用", "社交媒体(总体)", "单一平台(FB / IG / TikTok)", "智能手机可及性(有无)"],
+                   right=["学校孤独感(PISA 六题)", "自报症状(YRBS / MTF,匿名)", "就诊与诊断(受筛查/编码影响)", "自伤急诊 / 住院(行政记录)", "自杀死亡(最硬,有枪支等混杂)"],
+                   cap="示意:争论双方的「同一个话题」横跨两把梯子——0.4% 方差(宽暴露×软结局)与自杀率三倍(无暴露测量×最硬结局)不在同一格,不能互相反驳"),
+        "en": dict(title="Two ladders: before trusting any number, ask which rung it stands on",
+                   lh="Exposure ladder (wide → narrow)", rh="Outcome ladder (soft → hard)",
+                   left=["Screen time (incl. video / games)", "Digital technology use", "Social media (overall)", "Single platform (FB / IG / TikTok)", "Smartphone access (yes / no)"],
+                   right=["School loneliness (PISA, 6 items)", "Self-reported symptoms (anonymous)", "Clinical visits (screening / coding)", "Self-harm ED / hospitalization", "Suicide deaths (hardest; confounded)"],
+                   cap="Schematic: the two camps' \"same topic\" spans two ladders — 0.4% of variance (wide exposure × soft outcome) and a tripled suicide rate (no exposure measure × hardest outcome) sit on different rungs and cannot rebut each other"),
+    }[lang]
+    rows = []
+    y = 84
+    for i in range(5):
+        rows.append(f'<rect x="30" y="{y}" width="300" height="30" rx="6" fill="#4cc9f0" opacity="{0.30 - i * 0.04}"/>')
+        rows.append(f'<text x="180" y="{y + 19}" fill="#cfd6e4" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">{t["left"][i]}</text>')
+        rows.append(f'<rect x="370" y="{y}" width="300" height="30" rx="6" fill="#ff6ec4" opacity="{0.14 + i * 0.05}"/>')
+        rows.append(f'<text x="520" y="{y + 19}" fill="#cfd6e4" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">{t["right"][i]}</text>')
+        y += 40
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="180" y="66" fill="#4cc9f0" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t['lh']}</text>
+  <text x="520" y="66" fill="#ff6ec4" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t['rh']}</text>
+  {''.join(rows)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_st_twoledgers(lang: str) -> str:
+    """National 2006-2021: ideation visits vs self-harm ED vs suicide deaths."""
+    t = {
+        "zh": dict(title="全国急诊与死亡数据,2006–2021(Currie 团队全国续作,10–19 岁)",
+                   r1="「自杀意念」就诊", v1="+459%", n1="2016-10 编码新规后单年跳 43%",
+                   r2="自伤急诊(含未遂)", v2="+77%", n2="不依赖意念编码",
+                   r3="自杀死亡", v3="+66%", n3="最硬结局",
+                   cap="示意:把意念+自伤+未遂合并的惊悚曲线主要被编码规则抬高;但自伤(+77%)与死亡(+66%)的真实上升同向——伪影与真恶化同时存在(条长为示意)"),
+        "en": dict(title="US national ED & mortality data, 2006–2021 (Currie team's national sequel, ages 10–19)",
+                   r1="\"Suicidal ideation\" visits", v1="+459%", n1="jumped 43% in one year after the 2016-10 coding rule",
+                   r2="Self-harm ED visits (incl. attempts)", v2="+77%", n2="independent of ideation coding",
+                   r3="Suicide deaths", v3="+66%", n3="hardest outcome",
+                   cap="Schematic: composite \"suicide-related\" curves are inflated mainly by a coding rule; but self-harm (+77%) and deaths (+66%) rose together — artifact and real deterioration coexist (bar lengths illustrative)"),
+    }[lang]
+    rows = [
+        (t['r1'], t['v1'], 380, "#ff6ec4", t['n1']),
+        (t['r2'], t['v2'], 90, "#f0b429", t['n2']),
+        (t['r3'], t['v3'], 78, "#4cc9f0", t['n3']),
+    ]
+    bars = []
+    y = 70
+    for label, val, w, color, note in rows:
+        bars.append(f'<text x="248" y="{y + 14}" fill="#7c8593" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        bars.append(f'<rect x="260" y="{y}" width="{w}" height="19" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{260 + w + 10}" y="{y + 14}" fill="{color}" font-size="13" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        bars.append(f'<text x="260" y="{y + 36}" fill="#5a6378" font-size="10" font-family="Menlo,monospace">{note}</text>')
+        y += 58
+    return f"""<figure>
+<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="260" y1="58" x2="260" y2="238" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_st_band(lang: str) -> str:
+    """Causal effect sizes vs the 0.37 SD crisis magnitude."""
+    t = {
+        "zh": dict(title="因果证据的账本:已确证效应 vs 危机量级(单位:标准差)",
+                   rows=[("FB 校园引入 2004-06(大学生)", 0.085, 0.06, 0.16, "#4cc9f0", "0.085"),
+                         ("停用 FB 四周 2018(成人)", 0.09, None, None, "#4cc9f0", "0.09"),
+                         ("停用 FB 六周 2020(成人)", 0.060, None, None, "#4cc9f0", "0.060"),
+                         ("停用 IG 六周 2020(未过校正门槛)", 0.041, None, None, "#7b61ff", "0.041"),
+                         ("宽带满剂量(意大利,住院诊断)", 0.08, None, None, "#4cc9f0", "0.08"),
+                         ("减用 RCT meta(仅抑郁,成人)", 0.25, 0.10, 0.41, "#5eead4", "0.25")],
+                   refline="0.37 = 美国年轻人情绪状态 2008-2022 的恶化总量",
+                   cap="示意:各类因果设计的效应收敛在约 0.04–0.11 SD(meta 的抑郁结局稍高);与危机总量 0.37 SD 之间的缺口,没有任何设计填上——「效应存在」与「主因未证」同时成立(横线为报告的区间)"),
+        "en": dict(title="The causal ledger: confirmed effects vs the crisis magnitude (standard deviations)",
+                   rows=[("FB campus rollout 2004-06 (college)", 0.085, 0.06, 0.16, "#4cc9f0", "0.085"),
+                         ("Quit FB 4 weeks, 2018 (adults)", 0.09, None, None, "#4cc9f0", "0.09"),
+                         ("Quit FB 6 weeks, 2020 (adults)", 0.060, None, None, "#4cc9f0", "0.060"),
+                         ("Quit IG 6 weeks (fails corrected test)", 0.041, None, None, "#7b61ff", "0.041"),
+                         ("Broadband full dose (Italy, hospital dx)", 0.08, None, None, "#4cc9f0", "0.08"),
+                         ("Reduction RCT meta (depression, adults)", 0.25, 0.10, 0.41, "#5eead4", "0.25")],
+                   refline="0.37 = total worsening of US young adults' emotional state, 2008-2022",
+                   cap="Schematic: causal designs converge around 0.04–0.11 SD (the meta's depression outcome runs higher); the gap to the 0.37 SD crisis magnitude has been filled by no design — \"an effect exists\" and \"largest cause unproven\" are both true (whiskers are reported ranges)"),
+    }[lang]
+    x0, xmax, wpx = 300, 0.45, 360
+    def X(v):
+        return x0 + v / xmax * wpx
+    bars = []
+    y = 66
+    for label, pt, lo, hi, color, vtxt in t['rows']:
+        bars.append(f'<text x="{x0 - 12}" y="{y + 12}" fill="#7c8593" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        if lo is not None:
+            bars.append(f'<line x1="{X(lo):.0f}" y1="{y + 8}" x2="{X(hi):.0f}" y2="{y + 8}" stroke="{color}" stroke-width="2" opacity="0.5"/>')
+        bars.append(f'<circle cx="{X(pt):.0f}" cy="{y + 8}" r="5.5" fill="{color}"/>')
+        bars.append(f'<text x="{X(hi if hi else pt) + 10:.0f}" y="{y + 12}" fill="{color}" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{vtxt}</text>')
+        y += 38
+    return f"""<figure>
+<svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="54" x2="{x0}" y2="{y}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <line x1="{X(0.37):.0f}" y1="54" x2="{X(0.37):.0f}" y2="{y}" stroke="#ff6ec4" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.8"/>
+  <text x="{X(0.37):.0f}" y="{y + 22}" fill="#ff6ec4" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{t['refline']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>""".replace('</svg>', ''.join(bars) + '\n</svg>')
+
+
+def fig_st_corrwar(lang: str) -> str:
+    """Girls x social media: the two camps' non-converging estimates."""
+    t = {
+        "zh": dict(title="「女孩 × 社交媒体」的关联到底多大:两阵营的估计(|β| 或 |r|)",
+                   rows=[("全样本·宽构念(O&amp;P 中位规格)", 0.03, 0.05, "#4cc9f0", "0.03–0.05", 1),
+                         ("O&amp;P 2020 Reply:女生×社媒", 0.069, None, "#4cc9f0", "0.069", 1),
+                         ("Twenge 等 2022:女生×社媒(中位 β)", 0.11, 0.24, "#ff6ec4", "0.11–0.24", 1),
+                         ("Haidt 证词宣称 r=.15–.22", 0.15, 0.22, "#f0b429", ".15–.22", 0)],
+                   cap="示意:同一个「女孩×社交媒体」构念,批评方与支持方的估计至今差 2–3 倍;虚线项在任何一手文献中都不存在——这场仗缺的不是数据,是一次双方共同预注册的对抗性合作"),
+        "en": dict(title="How big is the girls × social media link? The camps' estimates (|β| or |r|)",
+                   rows=[("Full sample, wide construct (O&amp;P median)", 0.03, 0.05, "#4cc9f0", "0.03–0.05", 1),
+                         ("O&amp;P 2020 Reply: girls × social media", 0.069, None, "#4cc9f0", "0.069", 1),
+                         ("Twenge et al. 2022: girls (median β)", 0.11, 0.24, "#ff6ec4", "0.11–0.24", 1),
+                         ("Haidt testimony claim r=.15–.22", 0.15, 0.22, "#f0b429", ".15–.22", 0)],
+                   cap="Schematic: for the same girls × social media construct, the camps' estimates still differ by 2–3×; the dashed entry appears in no primary source — what this war lacks is not data but one jointly preregistered adversarial collaboration"),
+    }[lang]
+    x0, xmax, wpx = 300, 0.30, 350
+    def X(v):
+        return x0 + v / xmax * wpx
+    bars = []
+    y = 66
+    for label, lo, hi, color, vtxt, solid in t['rows']:
+        bars.append(f'<text x="{x0 - 12}" y="{y + 12}" fill="#7c8593" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        dash = '' if solid else ' stroke-dasharray="4,4"'
+        if hi is not None:
+            if solid:
+                bars.append(f'<rect x="{X(lo):.0f}" y="{y + 1}" width="{X(hi) - X(lo):.0f}" height="14" rx="4" fill="{color}" opacity="0.55"/>')
+            else:
+                bars.append(f'<rect x="{X(lo):.0f}" y="{y + 1}" width="{X(hi) - X(lo):.0f}" height="14" rx="4" fill="none" stroke="{color}" stroke-width="1.6"{dash}/>')
+            xr = X(hi)
+        else:
+            bars.append(f'<circle cx="{X(lo):.0f}" cy="{y + 8}" r="5.5" fill="{color}"/>')
+            xr = X(lo)
+        bars.append(f'<text x="{xr + 10:.0f}" y="{y + 13}" fill="{color}" font-size="11" font-weight="700" font-family="Menlo,monospace">{vtxt}</text>')
+        y += 40
+    note = "该区间在任何一手文献中不存在" if lang == "zh" else "this range appears in no primary source"
+    bars.append(f'<text x="690" y="{y - 14}" fill="#f0b429" font-size="10" opacity="0.8" text-anchor="end" font-family="Menlo,monospace">{note}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="54" x2="{x0}" y2="{y}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_st_bans(lang: str) -> str:
+    """School phone ban report card: mental health zeros vs small academic effects."""
+    t = {
+        "zh": dict(title="禁手机的成绩单:心理健康 vs 学业(单位:标准差)",
+                   g1="心理健康(全样本)", g2="学业成绩",
+                   rows1=[("挪威 JHR 2026(全国就诊记录)", 0.0, "0"),
+                          ("英格兰 SMART 2025(幸福感/焦虑/抑郁)", 0.0, "≈0(p=0.62)"),
+                          ("美国州级禁令(NSCH 2016-24)", 0.0, "0")],
+                   rows2=[("巴西里约禁令(考试成绩)", 0.06, "+0.06"),
+                          ("美国全国锁袋(约 4,600 校)", 0.01, "≈0(高中小正)"),
+                          ("挪威严格校·数学(女孩亚组)", 0.22, "+0.22 亚组")],
+                   cap="示意:三项独立设计在心理健康上全样本效应为零;学业侧有小幅正效应且越严越可能有——「禁手机改善心理健康」目前无严格研究支持(0.22 为亚组、非全样本)"),
+        "en": dict(title="The phone-ban report card: mental health vs academics (standard deviations)",
+                   g1="Mental health (full sample)", g2="Academic outcomes",
+                   rows1=[("Norway JHR 2026 (national registries)", 0.0, "0"),
+                          ("England SMART 2025 (well-being/GAD/PHQ)", 0.0, "≈0 (p=0.62)"),
+                          ("US state bans (NSCH 2016-24)", 0.0, "0")],
+                   rows2=[("Rio de Janeiro ban (test scores)", 0.06, "+0.06"),
+                          ("US national pouches (~4,600 schools)", 0.01, "≈0 (HS slightly +)"),
+                          ("Norway strict schools, math (girls subgroup)", 0.22, "+0.22 subgroup")],
+                   cap="Schematic: three independent designs find zero full-sample mental-health effects; academics show small positives that grow with strictness — \"bans improve mental health\" is currently supported by no rigorous study (0.22 is a subgroup, not full-sample)"),
+    }[lang]
+    x0, xmax, wpx = 310, 0.30, 340
+    def X(v):
+        return x0 + v / xmax * wpx
+    parts = []
+    y = 64
+    for header, rows, hcolor in ((t['g1'], t['rows1'], "#4cc9f0"), (t['g2'], t['rows2'], "#5eead4")):
+        parts.append(f'<text x="{x0 - 12}" y="{y + 10}" fill="{hcolor}" font-size="12" font-weight="700" text-anchor="end" font-family="Menlo,monospace">{header}</text>')
+        y += 26
+        for label, v, vtxt in rows:
+            parts.append(f'<text x="{x0 - 12}" y="{y + 12}" fill="#7c8593" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+            if abs(v) < 0.02:
+                parts.append(f'<circle cx="{X(0):.0f}" cy="{y + 8}" r="5" fill="none" stroke="{hcolor}" stroke-width="2"/>')
+                xr = X(0)
+            else:
+                parts.append(f'<rect x="{X(0):.0f}" y="{y + 1}" width="{X(v) - X(0):.0f}" height="14" rx="4" fill="{hcolor}" opacity="0.7"/>')
+                xr = X(v)
+            parts.append(f'<text x="{xr + 10:.0f}" y="{y + 13}" fill="{hcolor}" font-size="11" font-weight="700" font-family="Menlo,monospace">{vtxt}</text>')
+            y += 32
+        y += 14
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 10}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="52" x2="{x0}" y2="{y - 8}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "screen-time-teens-deep": [
+        ("zh", "0. ", fig_st_ladder, "end"),
+        ("en", "0. ", fig_st_ladder, "end"),
+        ("zh", "2.3", fig_st_twoledgers, "end"),
+        ("en", "2.3", fig_st_twoledgers, "end"),
+        ("zh", "3.4", fig_st_corrwar, "end"),
+        ("en", "3.4", fig_st_corrwar, "end"),
+        ("zh", "4.6", fig_st_band, "end"),
+        ("en", "4.6", fig_st_band, "end"),
+        ("zh", "5.2", fig_st_bans, "end"),
+        ("en", "5.2", fig_st_bans, "end"),
+    ],
+    "screen-time-teens-plain": [
+        ("zh", "先把一个问题拆成三个", fig_st_ladder, "end"),
+        ("en", "First, split one question into three", fig_st_ladder, "end"),
+        ("zh", "问题一", fig_st_twoledgers, "end"),
+        ("en", "Question one", fig_st_twoledgers, "end"),
+        ("zh", "问题二", fig_st_band, "end"),
+        ("en", "Question two", fig_st_band, "end"),
+        ("zh", "问题三", fig_st_bans, "end"),
+        ("en", "Question three", fig_st_bans, "end"),
+    ],
     "ninety-five-percent-deep": [
         ("zh", "1.1", fig_nf_constructs, "end"),
         ("en", "1.1", fig_nf_constructs, "end"),
@@ -2413,6 +2649,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("screen-time-teens-deep", "zh", "deep",
+     "屏幕时间与青少年心理健康:《焦虑的一代》对不对?(深入版)",
+     "危机是否真实、社交媒体是否因果、禁令是否有效——三个问题拆开分别审;双方的招牌数字逐条回源,修正大致对半落在两边;已确证因果效应带与危机量级之间的缺口是全文的脊柱。24 组承重论断 × 3 票对抗验证 + 5 项单源实证双席审计。",
+     "2026-07"),
+    ("screen-time-teens-deep", "en", "deep",
+     "Screens, Teens, and Mental Health: Is Haidt Right? (Deep Dive)",
+     "Is the crisis real, did social media cause it, do bans work — three questions audited separately; both camps' signature numbers traced to primary sources, with corrections landing on both sides in roughly equal measure; the gap between the confirmed causal band and the crisis magnitude is the essay's spine. 24 load-bearing claim groups × 3 adversarial votes plus dual-seat audits on 5 single-source empirics.",
+     "2026-07"),
+    ("screen-time-teens-plain", "zh", "plain",
+     "手机和社交媒体,真的把这一代孩子变焦虑了吗?(易读版)",
+     "危机是真的(英语圈、尤其女孩);手机的坏影响是真的但很小;「最大原因」没有证据;校园禁手机对心理健康的实测效果目前是零。易读版:三个问题分开答 + 十二条你能自己盯的检验信号。",
+     "2026-07"),
+    ("screen-time-teens-plain", "en", "plain",
+     "Did Phones and Social Media Really Make This Generation Anxious? (Plain Version)",
+     "The crisis is real (Anglosphere, especially girls); the harm from phones is real but small; 'the largest single reason' has no evidence; school phone bans measurably do nothing for mental health so far. Plain edition: three questions answered separately, plus twelve signals you can watch yourself.",
+     "2026-07"),
     ("choosing-a-major-deep", "zh", "deep",
      "未来十年选什么专业?给准大学生的就业证据体检(深入版)",
      "官方十年预测在粗分层面可信、在细分职业层面几乎只比「假设什么都不变」好一点点——而选专业恰恰发生在细分层面。把「岗位缺口」、分专业失业率、AI 暴露度三个最常被搬进志愿指导的数字逐个拆开口径;60 组承重论断 × 3 票对抗验证 + 12 项单源实证双席审计。",
@@ -2631,6 +2883,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("screen-time-teens-deep", "zh"):
+        "把七年吵不出结果的争论拆成三个独立问题分开审。危机真实性:恶化在英语圈(尤其女孩自报)与美国硬结局上是真的——措辞 28 年恒定的 MTF 调查在 2012 年反转、挪威 Ungdata 通过测量不变性检验、10-14 岁自杀率 2007-2018 翻三倍(其中约 1.9 倍在 2012 后);但「就诊暴涨」大半是伪影(全国自杀意念就诊 +459% vs 自杀死亡 +66%,跳点对应 2016-10 编码新规),而自伤急诊的真实上升(+77%)比死亡还快——伪影与真恶化同时成立。「全球同步」超出证据:德国家长报告的下降只在男孩成立,北欧「自杀平稳」的剪刀差被瑞典(<18 岁年增 2.2%)与芬兰(15-19 岁女性约翻倍)推翻——修正对 Haidt 有利,但他的国际主张同样被自己修订过。因果:停用实验(0.09/0.060 SD)、校园引入(0.085,显著性对扩张组敏感)、宽带自然实验(0.08,住院口径)、within-person 纵向(功效充足者 2/3 为正、反向路径为零)四类设计收敛在 0.04-0.11 SD——「零效应」被证伪,但与危机量级 0.37 SD 之间的缺口无人填上,「最大单一原因」至今无承重证据。政策:挪威(JHR 2026)、英格兰 SMART、美国州级与全国锁袋四项独立设计,心理健康全样本效应全部为零(挪威 477 所「禁手机」学校里真正让手机不可取用的只有 4 所);学业有小幅正效应且随严格度增强;澳大利亚禁令前三个月未检出使用断点(功效不足)。双方招牌数字被验证修正的数量大致相当:Haidt 的「50-150%」被 YRBS 系整体压线以下、「女孩 r=.15-.22」查无一手、铅暴露基准归属错误、Kelly 图「including controls」图注证误;批评方的「土豆比较」含近零分母伪影、「自伤平」被作者自己的全国续作收回、「德国在好转」只对男孩家长报告成立。十二个可检验主张收尾。",
+    ("screen-time-teens-deep", "en"):
+        "A seven-year stalemate taken apart as three independent questions. Crisis reality: the deterioration is real in the Anglosphere (girls' self-report especially) and in US hard outcomes — the constant-wording MTF survey reverses in 2012, Norway's Ungdata passes measurement-invariance testing, and the 10-14 suicide rate tripled over 2007-2018 (about 1.9× of it after 2012); but most of the clinical-visit explosion is artifact (national ideation visits +459% vs suicide deaths +66%, the jump tracking an October 2016 coding rule), while real self-harm ED visits (+77%) rose even faster than deaths — artifact and real deterioration coexist. \"Globally synchronized\" outruns the evidence: Germany's parent-reported decline holds only for boys, and the Nordic \"flat suicide\" scissors is overturned by Sweden (+2.2%/year under 18) and Finland (females 15-19 roughly doubled) — a correction favoring Haidt, whose own international claim he had also revised. Causality: deactivation experiments (0.09/0.060 SD), the campus rollout (0.085, significance sensitive to expansion groups), broadband natural experiments (0.08, hospitalization caliber), and within-person longitudinal work (2 of 3 adequately powered studies positive, reverse paths null) converge on 0.04-0.11 SD — \"zero effect\" is falsified, but the gap to the 0.37 SD crisis magnitude remains unfilled: \"single largest reason\" has no load-bearing support. Policy: Norway (JHR 2026), England's SMART Schools, US state bans and national pouches — four independent designs, all zero full-sample mental-health effects (of Norway's 477 \"phone-ban\" schools, exactly 4 made phones inaccessible); academics gain slightly, more with strictness; Australia's ban showed no usage discontinuity in an underpowered first evaluation. And the corrections split evenly: Haidt's \"50-150%\" runs below its floor on YRBS, \"girls r=.15-.22\" traces to no source, the lead benchmark is misattributed, the Kelly chart's \"including controls\" caption is wrong; the critics' potato comparison carries a near-zero-denominator artifact, \"flat self-harm\" was retracted nationally by its own authors, and \"Germany improving\" holds only for parent-reported boys. Twelve testable claims close the essay.",
+    ("screen-time-teens-plain", "zh"):
+        "把一个问题拆成三个。孩子们真的更糟了吗——是的:三套匿名调查同向,自杀率也涨了;但「看病暴涨」里大量是记账方式变化(意念就诊 +459% vs 自杀死亡 +66%),而且美国指标 2021 年后在好转。是手机造成的吗——坏影响是真的但很小(停用实验、自然实验、追踪研究收敛在 0.04-0.11 个标准差,大多测的是成年人),先多用后变糟的方向成立;「最大单一原因」没有任何研究支撑,已证效应加起来离危机量级差得远。禁手机有用吗——对心理健康,目前所有严格评估都是零(挪威研究摘要第一句就是「平均无效应」,477 所「禁手机」学校里真正够不着手机的只有 4 所);对成绩有一点点用,越严越可能有。双方的招牌数字都被核查修正过——比选边站更有用的是问:这个数字在哪层口径?",
+    ("screen-time-teens-plain", "en"):
+        "One question split into three. Are the kids really worse off — yes: three anonymous surveys agree and suicide rates rose; but the care-seeking explosion is largely bookkeeping (ideation visits +459% vs suicide deaths +66%), and US indicators have improved since 2021. Did phones cause it — the harm is real but small (deactivation experiments, natural experiments, and tracking studies converge on 0.04-0.11 standard deviations, mostly measured on adults), and the use-first-mood-later direction holds; \"the largest single reason\" is supported by no study, and everything proven falls far short of the crisis magnitude. Do bans work — for mental health, every rigorous evaluation so far says zero (the Norwegian study's abstract opens with \"no average effect\"; of 477 \"phone-ban\" schools, 4 made phones genuinely unreachable); grades gain a little, more with strictness. Both camps' signature numbers took corrections — more useful than picking a side is asking: which yardstick is this number on?",
     ("choosing-a-major-deep", "zh"):
         "全篇的地基是一条「聚合层级梯度」:BLS 自己发布的评估序列显示,官方十年预测在粗分层面确有信息(2012–22 在 432/748 个细分职业上优于「份额不变」的朴素模型、2006–16 正确判断某职业增减方向的比例 78%),但正确判断某职业是否快于经济整体平均只有 57%(二元问题、基线 50%);五分位转移表是最好的翻译——预测最快五分位的 67 个职业里 32 个实际落在最快五分位(随机为 20%),13 个掉进实际最慢的两档。而选专业发生在细分层面,所以本文不给排名。三个最常被搬进志愿指导的数字逐个拆开:年均 1,886 万个「岗位缺口」里 97.2% 来自有人离开、其中过半是转去别的职业,前 15 名里 13 个中位年薪低于全职业中位数、6 个其实在萎缩;分专业失业率的单年置信区间宽到不足以支撑专业间排序,引爆舆论的那张图用的是被下一年数据自我推翻的版本;AI 暴露度的三项研究不是互相印证而是共用同一套构念前提。判据修正:抑制过热的是培养端产能(临床席位、带教老师),不是执业端执照——法学与药学都是执照齐全却过剩的教科书案例。回报的三层拆解:专业间差距在分布上尾最大、中位数附近很小,院校效应控制自选择后基本归零(上尾除外),同一专业内部离散度不低于专业之间。中美的真正差异是可复现性:中国有分专业数据并用于行政处置,公开的是名单不是数字;美国的分专业数据任何人可下载重算。十条可检验主张收尾,另附一节「看起来像信号、但不是信号的指标」。",
     ("choosing-a-major-deep", "en"):
@@ -2738,6 +2998,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("screen-time-teens-deep", "zh"): [
+        ("c1", "72 票对抗验证 + 10 席双席审计"), ("c2", "23/24 组含修正 · 0 推翻"), ("c3", "因果带 0.04-0.11 vs 危机 0.37 SD"), ("c4", "12 个可检验主张"),
+    ],
+    ("screen-time-teens-deep", "en"): [
+        ("c1", "72 votes + 10 audit seats"), ("c2", "23/24 corrected · 0 overturned"), ("c3", "causal band 0.04-0.11 vs crisis 0.37 SD"), ("c4", "12 testable claims"),
+    ],
+    ("screen-time-teens-plain", "zh"): [
+        ("c1", "女生持续悲伤 36%→57%→53%"), ("c2", "意念就诊 +459% vs 死亡 +66%"), ("c3", "禁手机:心理健康全样本零效应"), ("c4", "双方招牌数字都被修正"),
+    ],
+    ("screen-time-teens-plain", "en"): [
+        ("c1", "girls' sadness 36%→57%→53%"), ("c2", "ideation visits +459% vs deaths +66%"), ("c3", "phone bans: zero mental-health effect"), ("c4", "both camps' numbers corrected"),
+    ],
     ("choosing-a-major-deep", "zh"): [
         ("c1", "180 票对抗验证 · 24 席双席审计"), ("c2", "细分职业:57% vs 基线 50%"), ("c3", "岗位缺口 97.2% 是有人离开"), ("c4", "10 个可检验主张"),
     ],
@@ -3149,6 +3421,15 @@ INDEX_ENTRIES = [
      "180 adversarial votes + 24 audit seats · 10 testable claims",
      [("t1", "选专业", "Choosing a major"), ("t2", "就业数据", "Employment data"), ("t3", "口径陷阱", "Caliber traps"),
       ("t4", "AI 与入门岗", "AI and entry-level"), ("t5", "中美对比", "US-China")]),
+    ("screen-time-teens", "2026-07",
+     "屏幕时间与青少年心理健康:Haidt 对不对?",
+     "Screens, Teens, and Mental Health: Is Haidt Right?",
+     "《焦虑的一代》推动了半个西方世界的禁手机立法,Nature 的书评却判它「不被科学支持」——七年吵不出结果的争论,毛病出在哪?把危机真实性、因果证据、政策实测拆成三个问题分开审,并把双方的招牌数字逐条送回一手来源。",
+     "The Anxious Generation propelled phone bans across half the Western world, while Nature's review ruled it 'not supported by science' — why has seven years of fighting settled nothing? The crisis, the causality, and the policies audited as three separate questions, with both camps' signature numbers sent back to their primary sources.",
+     "72 票对抗验证 + 10 席双席审计 · 12 个可检验主张",
+     "72 adversarial votes + 10 audit seats · 12 testable claims",
+     [("t1", "青少年心理健康", "Teen mental health"), ("t2", "因果推断", "Causal inference"), ("t3", "口径陷阱", "Caliber traps"),
+      ("t4", "禁手机政策", "Phone bans"), ("t5", "僵尸统计", "Zombie statistics")]),
 ]
 
 

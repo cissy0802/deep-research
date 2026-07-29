@@ -1,0 +1,88 @@
+[
+ {
+  "claim_id": "orben-dienlin-przybylski-2019-pnas",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "(a) 样本量口径【最重要】:修正前「n=12,672」被当作研究样本量 → 修正后「12,672 是参与过调查的 10–15 岁青少年总数,不是任何一个分析的样本量;论文原文紧接着写明『the precise number of participants for any analysis varied by age and whether full or imputed data were used (range, n = 539 to 5,492; median, n = 1,699)』。即分析样本中位数仅 1,699,最大 5,492」。证据:PNAS 116(21):10226–10228 正文第四段(Europe PMC 全文 XML,PMC6534991)。以 12,672 描述该研究的统计效力会夸大约 7 倍。",
+   "(c) 统计量口径:修正前「两个纵向效应 β = −0.05 / −0.02」读作模型点估计 → 修正后「这两个是 2,268 个不同分析设定构成的规范曲线(specification curve)的**中位数**,不是单一或首选模型的估计值」。论文原文:『We report standardized coefficients for all 2,268 distinct analysis options considered.』以及 Fig.1 图注说明每个 x 轴点是一种分析决策组合(含 gender、波数、估计量、插补、协变量)。同一段落还给出对应的组间中位相关 ψ = −0.13,引用 β 时若略去 ψ 会遗漏『组间小负相关 vs 组内几乎为零』这一核心对比。",
+   "(a) 波数口径:修正前「八波」易被读作每个模型都用了八波 → 修正后「『eight-wave』描述的是数据集本身;波数是规范曲线中的一个分析维度,而论文的 best-practice 聚焦模型明确只用『data from participants who completed four waves』」。",
+   "(a) 年份口径(轻微,方向仍成立):正文写 2009–2016,与论断一致;但同文的数据引用(ref 6)写的是『Understanding Society: Waves 1-8, 2009–2017 and Harmonised BHPS: Waves 1-18, 1991–2009』(UKDS doi.org/10.5255/UKDA-SN-6614-12)。论文内部存在 2016 / 2017 的不一致,引用时以正文『2009–2016』为准即可,但不宜声称这是数据集的权威年份窗。",
+   "(b) 引语完整性(极轻微):修正前引语以『social media effects are nuanced...』起头 → 论文原句以『Instead,』引导:『Instead, social media effects are nuanced, small at best, reciprocal over time, gender specific, and contingent on analytic methods.』所引片段本身逐字无误,属完整句的子串,建议保留 Instead 或用省略号标示。"
+  ],
+  "evidence_notes": [
+   "一手来源:Europe PMC 全文 XML(https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6534991/fullTextXML),对应 PMC6534991 / PMID 31061122 / DOI 10.1073/pnas.1902058116,PNAS 2019;116(21):10226–10228,CC BY 开放获取。pnas.org 原文对 WebFetch 返回 403,故以 Europe PMC 官方全文 XML 作为一手替代(非二手转述,是出版商存缴的全文)。",
+   "(b) 摘要逐字比对通过。原文全句:『In this study, we used large-scale representative panel data to disentangle the between-person and within-person relations linking adolescent social media use and well-being. We found that social media use is not, in and of itself, a strong predictor of life satisfaction across the adolescent population. Instead, social media effects are nuanced, small at best, reciprocal over time, gender specific, and contingent on analytic methods.』待验片段与之逐字一致(含连字符、逗号序列)。",
+   "(c) β 句逐字比对通过,一字不差:『Both median longitudinal effects were trivial in size (social media predicting life satisfaction, β = −0.05; life satisfaction predicting social media use, β = −0.02).』负号为 U+2212,与论断一致。",
+   "(a) 数据集描述逐字:『we analyzed an eight-wave, large-scale, and nationally representative panel dataset (Understanding Society, the UK Household Longitudinal Study, 2009–2016) using random-intercept cross-lagged panel models』。『eight-wave』『2009–2016』『10- to 15-y-olds』三项均命中。",
+   "构念口径提示:社交媒体使用是**单题自报**,原文题干逐字:『How many hours do you spend chatting or interacting with friends through a social website like [Bebo, Facebook, Myspace] on a normal school day?』(5 点量表);生活满意度为 6 个领域陈述(7 点视觉模拟量表);另含 7 个儿童/照料者/家庭层面控制变量。引用『社交媒体使用』时应注意它测的是『与朋友聊天/互动』时长,不是总体社媒使用。",
+   "论文自身的限定语(不应在转述中丢失):『Most effects are tiny—arguably trivial; where best statistical practices are followed, they are not statistically significant in more than half of models.』以及性别方向性发现『Only 16% of significant models arose from male data』,并伴随作者自己的告诫『When comparing both genders, the effects' confidence intervals overlap, and the lower incidence of significant effects in males alone is not evidence that the effects are therefore substantial in females』。",
+   "反证检索结果:PubMed(efetch, PMID 31061122)显示该文**无勘误(Erratum)、无撤稿(Retraction)、无 Correction 记录**;CommentsCorrections 仅有两条,即 Foster & Jackson 的 letter(PNAS 116(31):15333, doi 10.1073/pnas.1908385116, PMID 31315985)与作者 Reply(PNAS 116(31):15334-15335, doi 10.1073/pnas.1909553116, PMID 31315984)。",
+   "Foster & Jackson 的 letter 属**测量效度**批评而非数字推翻:主张单题、且限定为『chatting or interacting with friends』会把重度但非社交型使用者误记为『never』,并称其在测外向性/社交网络规模;认为测量问题『profound and render the results of the study highly confounded』。该批评不改变本论断组待验的三项(样本描述、摘要措辞、β 中位数),但削弱其外推到『社媒使用总量』的解释力。作者 Reply 未修改任何报告数值。",
+   "利益相关审查:未发现利益冲突问题。论文脚注逐字『The authors declare no conflict of interest.』;资助方为 Barnardo's UK(儿童慈善机构,A.O. 与 A.K.P.)、Volkswagen Foundation(T.D.)、Understanding Society Policy Fellowship Grant ES/K005146/1(A.K.P.)——均非科技/社媒产业资金,且资助方立场(儿童权益慈善)若有偏倚也应偏向『发现危害』,而结论方向相反,故资助偏倚不构成对结论的威胁。数据与代码公开(UKDS doi 10.5255/UKDA-SN-6614-12;OSF doi 10.17605/OSF.IO/4XP3V)。",
+   "文章类型为 PNAS『Brief Report』(全文仅 3 页,10226–10228),无独立 Materials and Methods 章节,方法细节散见正文——引用其方法学细节时需以 OSF 代码与 GitHub 仓库(github.com/OrbenAmy/PNAS_2019)为补充。"
+  ],
+  "unresolved": [
+   "pnas.org 官方页面(https://www.pnas.org/doi/10.1073/pnas.1902058116)与 teachertoolkit 的 PDF 镜像均返回 HTTP 403,未能直接读取出版商排版页;但已用 Europe PMC 官方存缴全文 XML(PMC6534991)完成逐字比对,该来源为出版商存缴的一手全文,故三条待验要点均不属未解决。",
+   "未能核到 Foster & Jackson letter 与作者 Reply 的**全文逐字**(Europe PMC 对 PMC6681716 未返回 abstract,pnas.org 403);其论点系经检索摘要与二手描述归纳。若需在正文中直接引用这两封信的原话,需另行取得 PMC6681716 / PNAS 116(31):15333–15335 全文再逐字核对。",
+   "未独立复核 β = −0.05 / −0.02 这两个中位数能否由 OSF(doi 10.17605/OSF.IO/4XP3V)公开代码在 UKDS 数据上重算复现——UKDS 数据需注册申请,本次未执行重算。因此这两个数值属『与论文所报一致』,而非『经独立复算验证』。",
+   "未系统检索 2019 年后是否有独立团队用同一 Understanding Society 数据做过直接复制/再分析并得出不同的中位效应量。检索中出现的 arXiv 2201.05381(规范曲线统计效度批评+贝叶斯替代方案)其针对对象为 Orben & Przybylski 2019 Nature Human Behaviour 那篇,而非本 PNAS 文,故未采信为对本论断的反证。"
+  ]
+ },
+ {
+  "claim_id": "orben-dienlin-przybylski-2019-pnas",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "(a) 样本量口径:修正前「n=12,672」被当作分析样本量 → 修正后:12,672 是「参与过」青少年自填问卷的总人数,不是任何一个模型的分析 n。论文原文逐字:\"While 12,672 10- to 15-y-olds took part, the precise number of participants for any analysis varied by age and whether full or imputed data were used (range, n = 539 to 5,492; median, n = 1,699).\" 即单个模型的分析 n 在 539–5,492 之间,中位数 1,699。引用时应写「12,672 名 10–15 岁青少年参与,单个模型分析 n 中位数 1,699(539–5,492)」。",
+   "(c) β 的统计量口径:修正前读起来像两个主模型点估计 → 修正后:这两个 β 是对全部 2,268 种分析设定(specification curve / multiverse)所得系数的**中位数**,不是单一模型结果。论文逐字:\"We report standardized coefficients for all 2,268 distinct analysis options considered.\" 设定维度包含生活满意度分项、性别、波数、估计器、缺失值插补、控制变量。模型族是 random-intercept cross-lagged panel models(RI-CLPM),β 为组内(within-person)标准化效应。",
+   "(c) 效应对称性口径补充:−0.05/−0.02 是合并两性后的中位数,论文同时报告效应主要来自女生。逐字:\"Only 16% of significant models arose from male data.\";男生 \"b = −0.08 to −0.04 or β = −0.07 to −0.05\",女生 \"b = −0.13 to −0.05 or β = −0.09 to −0.04\"(除外貌满意度外全部分项)。只引 −0.05 而不提性别差异,会丢掉摘要里 \"gender specific\" 这个限定语的实证基础。",
+   "(a) 年份口径提示:「2009–2016」是论文自身表述(逐字 \"Understanding Society, the UK Household Longitudinal Study, 2009–2016\"),但论文正文未点明所用的具体 wave 编号;UKHLS 第 8 波实地调查跨到 2016 年之后。引用时照抄论文年份可以,但不宜进一步推论为「数据截至 2016 年底」。"
+  ],
+  "evidence_notes": [
+   "一手全文(出版方 XML,Europe PMC REST 镜像 PNAS 原始 JATS):https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6534991/fullTextXML —— pnas.org 直连返回 HTTP 403,故用出版方 XML + PMC HTML + PubMed 三处交叉核对。",
+   "(b) 摘要末句逐字比对通过,三处独立呈现(Europe PMC 全文 XML / PMC HTML / PubMed 记录)完全一致:\"Instead, social media effects are nuanced, small at best, reciprocal over time, gender specific, and contingent on analytic methods.\" 注意 \"gender specific\" 未加连字符,待验论断的引语与原文逐字相符,无删改。",
+   "(c) 逐字比对通过:\"Both median longitudinal effects were trivial in size (social media predicting life satisfaction, β = −0.05; life satisfaction predicting social media use, β = −0.02).\" 符号(均为负)、希腊字母 β、数值均与原文一致。",
+   "(a) 「八波 / Understanding Society / 2009–2016」逐字比对通过:\"To disentangle between-person associations from within-person effects, we analyzed an eight-wave, large-scale, and nationally representative panel dataset (Understanding Society, the UK Household Longitudinal Study, 2009–2016) using random-intercept cross-lagged panel models.\" 年龄段 10–15 岁亦逐字见于 12,672 那句。",
+   "构念口径(核对以防过度外推):社交媒体使用是单题自评 —— \"How many hours do you spend chatting or interacting with friends through a social website like [Bebo, Facebook, Myspace] on a normal school day?\"(5 点量表);生活满意度为六个分项陈述(7 点视觉模拟量表)。论文自陈局限:\"Self-report measures only partially reflect the objective time adolescents spend engaging with social media...\"",
+   "横断面对照数值(常被与纵向 β 混用):\"Across all operationalizations, the median cross-sectional correlation was negative (ψ = −0.13), an effect judged as small by behavioral scientists.\" ψ=−0.13 是组间相关,不可与 β=−0.05 互换引用。",
+   "勘误核查:PubMed 记录(https://pubmed.ncbi.nlm.nih.gov/31061122/,PNAS 2019 May 21;116(21):10226-10228)**未列出任何 Erratum in / Retraction in**,仅列 Comment in 与 Reply。某次网络检索摘要曾声称存在「2019 correction notice」,回溯发现该说法来自一篇无关的 PNAS 更正报道(raphazlab 博客,另一篇论文),对本文不成立 —— 不予采信。",
+   "同行反证已检索并核对:Foster & Jackson, \"Measurement confounds in study on social media usage and adolescent life satisfaction\", PNAS 2019 Jul 30;116(31):15333(PMID 31315985 / PMC6681716)。批评点为测量效度:单题只问「上学日」漏掉周末,且限定于「与朋友聊天/互动」,可能混入外向性与社交网络规模。作者回应:\"Reply to Foster and Jackson: Open scientific practices are the way forward for social media effects research\"(PMID 31315984)。**该批评针对测量效度,不推翻本组三条描述性论断的任何数字或措辞。**",
+   "利益相关核查:论文声明 \"The authors declare no conflict of interest.\" 资助为 Barnardo's UK(儿童慈善机构,A.O./A.K.P.)、Volkswagen Foundation(T.D.)、Understanding Society Policy Fellowship Grant ES/K005146/1(A.K.P.);数据来自 ESRC 资助的 Understanding Society。**无科技/社交媒体产业资助**。此点常被误传,核实为否。",
+   "邻近争论辨析(防串台):Twenge 的 \"Underestimating digital media harm\"(Nature Human Behaviour 2020)针对的是 Orben & Przybylski 2019 **Nature Human Behaviour** 那篇 specification-curve 论文,不是本 PNAS 论文;其「六项分析选择系统性压低效应量」的批评不可直接挂到本文的 β=−0.05 上。",
+   "代码/数据可核性:作者公开代码 https://github.com/OrbenAmy/PNAS_2019(数据经 UK Data Service 申请获取),符合论文正文 \"data is available on the UK data service; code is available on the Open Science Framework\" 的表述。"
+  ],
+  "unresolved": [
+   "pnas.org 官方页面(原文 HTML/PDF)本环境持续 403,无法直接读取排版版原文;结论依赖 Europe PMC 出版方全文 XML + PMC HTML + PubMed 三处互证。三者对关键句完全一致,但均源自 PNAS 同一份 JATS 供稿,严格意义上不算三条完全独立的一手链路。",
+   "Foster & Jackson 批评信与作者 Reply 的**逐字全文**未取到(PNAS 403;PMC 抓取工具以版权为由只返回摘要式转述)。其批评要点已核到,但未做逐字比对。",
+   "论文未点明所用的具体 UKHLS wave 编号(仅写 eight-wave, 2009–2016),因此无法从一手确认「八波」对应 Wave 1–8 还是含 BHPS 样本的其他组合;需查 OSF 代码或 UK Data Service 数据字典才能定论。",
+   "2,268 种设定如何分解(各维度取值个数的乘积)未在正文给出,未核到 SI 层面的设定枚举表;因此「中位数跨哪些具体设定」只核到定性描述,未核到完整设定矩阵。"
+  ]
+ },
+ {
+  "claim_id": "orben-dienlin-przybylski-2019-pnas",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "(a) n 的口径:修正前「n=12,672」被当作分析样本量;修正后=「12,672 名 10–15 岁青少年参与了该面板」,但这不是任何一个模型的分析 n。原文紧接着写明:『While 12,672 10- to 15-y-olds took part, the precise number of participants for any analysis varied by age and whether full or imputed data were used (range, n = 539 to 5,492; median, n = 1,699).』即单次分析的中位 n 仅 1,699,比 12,672 小一个数量级。引用时若只写 n=12,672 会显著夸大每个 β 背后的样本基数。",
+   "(c) β 的统计量口径:修正前读作「两个纵向效应的 β」;修正后=这两个数是**规范曲线(specification curve)上 2,268 个分析选项的中位数**,且是 RI-CLPM 的**组内(within-person)交叉滞后标准化系数**,不是某一个模型的点估计。原文:『We report standardized coefficients for all 2,268 distinct analysis options considered.』以及『Both median longitudinal effects were trivial in size...』。原文未在该句给出置信区间。",
+   "(c) 效应方向的表述:修正前易被读成「社媒使用降低生活满意度、生活满意度降低社媒使用」;修正后=两个 β 均为负,含义是「高于个人均值的社媒使用 → 随后生活满意度略降」与「低于个人均值的生活满意度 → 随后社媒使用略升」(负号在第二条上意味着反向:满意度越低、后续使用越多)。原文自评为 trivial in size。",
+   "(b) 引语完整性:修正前作为独立句引用;修正后应注明它是句子的后半段,完整句为『Instead, social media effects are nuanced, small at best, reciprocal over time, gender specific, and contingent on analytic methods.』注意原文是 gender specific(无连字符),非 gender-specific。",
+   "(a) 年份窗的一处原文内部不一致:论文正文写 2009–2016,但作者在给 Foster & Jackson 的回复中所引 UK Data Service 数据存档为『Understanding Society: Waves 1-8, 2009–2017』。按论文正文口径写 2009–2016 是对的,但这是论文自述而非数据存档标称年份。"
+  ],
+  "evidence_notes": [
+   "一手全文经两条独立渠道取得并互相印证:PMC 全文 https://pmc.ncbi.nlm.nih.gov/articles/PMC6534991/ 与 Europe PMC 全文 XML https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6534991/fullTextXML(PNAS 官网 https://www.pnas.org/doi/10.1073/pnas.1902058116 返回 403,不可直取)。",
+   "(b) 摘要逐字核对通过。PubMed https://pubmed.ncbi.nlm.nih.gov/31061122/ 与 Europe PMC REST 两处独立渲染的摘要文本完全一致,均含:『Instead, social media effects are nuanced, small at best, reciprocal over time, gender specific, and contingent on analytic methods.』待验引语与之逐字相符。",
+   "(a) 数据集句逐字核对通过:『To disentangle between-person associations from within-person effects, we analyzed an eight-wave, large-scale, and nationally representative panel dataset (Understanding Society, the UK Household Longitudinal Study, 2009–2016)』——八波、Understanding Society、2009–2016 三项均成立。年龄段原文表述为『10- to 15-y-olds』,与「10-15 岁」相符。",
+   "(c) 逐字核对通过:『Both median longitudinal effects were trivial in size (social media predicting life satisfaction, β = −0.05; life satisfaction predicting social media use, β = −0.02).』两渠道返回文本完全一致,含负号与数值。",
+   "书目信息核实:Proc Natl Acad Sci USA, 2019 May 21; 116(21):10226–10228;PMID 31061122;PMCID PMC6534991;DOI 10.1073/pnas.1902058116。",
+   "模型与测量(支撑口径修正):RI-CLPM;社媒题项为周中单题『How many hours do you spend chatting or interacting with friends through a social website like [Bebo, Facebook, Myspace] on a normal school day?』5 点量表;生活满意度为六个生活领域陈述、7 点视觉模拟量表。横断面中位相关 ψ = −0.13。",
+   "未检索到该文的更正(correction)或勘误(erratum),亦无撤稿。检索到的是常规学术往来两篇:Foster & Jackson, 『Measurement confounds in study on social media usage and adolescent life satisfaction』PNAS 116(31):15333, DOI 10.1073/pnas.1908385116(PMC6681716);作者回复 Orben, Dienlin & Przybylski, 『Reply to Foster and Jackson』PNAS 116(31):15334–15335, DOI 10.1073/pnas.1909553116。两者均不改动本组待验的任何数字或措辞。",
+   "利益相关审查:资金方为 Economic and Social Research Council(经 Institute for Social and Economic Research, University of Essex 主导 Understanding Society),非社交平台产业资助;作者在回复中主动强调开放数据/代码,分析代码公开于 https://github.com/OrbenAmy/PNAS_2019。未发现平台方利益相关。",
+   "批评意见(不改数字,但影响论断可用范围):Foster & Jackson 指出社媒测量仅问『normal school day』(漏周末)且限定为『chatting or interacting with friends』,认为会把外向性/社交网络规模混入构念,结论是『profound and render the results of the study highly confounded』。作者回复反驳:用量与 Ofcom(2017)年度报告一致,且周中与周末使用高度相关(引 Trepte & Masur 2015, r = .72),但未提供新分析。",
+   "对『规范曲线中位数』这一统计量本身的方法学批评存在:Semken & Rossell, arXiv:2201.05381,论证 SCA 的中位数检验因对所有控制变量组合等权、且跨处理-结果组合平均而可能统计上失效。**但须注意其批评对象是姊妹文 Orben & Przybylski (2019, Nature Human Behaviour, YRBS 数据、TV/电子设备使用与自杀相关结局)**,不是本 PNAS 文。其论点在原理上可迁移到本文的 2,268 规范中位数,但不构成对本文数字的一手反证,不应误植。"
+  ],
+  "unresolved": [
+   "PNAS 官网 HTML/PDF 因 403 未能直接读取原始排版页;teachertoolkit.co.uk 上的 full PDF 镜像同样 403。已用 PMC 全文 + Europe PMC 全文 XML 两条独立渠道替代,两者文本一致,故三项待验要点本身不存在未决部分。但若需核对图 1 中各年龄段/性别的具体 β 分布与置信区间(正文只给了 males β = −0.07 至 −0.05、females β = −0.09 至 −0.04 与 −0.11 至 −0.07 等区间),需另取原始 SI 附录,本次未取到。",
+   "未能取到论文的 Supplementary Information,故『2,268 个分析选项』如何拆分(横断面 / 社媒→满意度 / 满意度→社媒 各占多少条规范)未从一手核实;正文只给出总数与三条中位数。因此无法确认 β = −0.05 与 −0.02 各自是在多少条规范上取的中位数。",
+   "『八波』与社媒题项的实际覆盖波次是否完全重合未从一手确认——论文正文称八波面板,但未逐波列出社媒题项的可得性;一次网络检索摘要曾把同数据集描述为『7 annual waves』(疑为混淆了 Orben et al. 2022 Nature Communications 对同数据集的描述),未能回溯到一手,故不据此修正。按论文正文口径,『eight-wave』成立。"
+  ]
+ }
+]

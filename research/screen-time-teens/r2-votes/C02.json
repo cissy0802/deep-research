@@ -1,0 +1,100 @@
+[
+ {
+  "claim_id": "haidt-testimony-crisis-four-features-1.1-1.4",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "页码:pp.2-4 → pp.2-3。核对 pdftotext 分页:1.1 与 1.2 在 p.2;1.3 与 1.4 在 p.3。四条中没有任何一条落在 p.4(p.4 只有 Figure 2 与 1.6 国际部分)。引用写 pp.2-4 是把范围放大了。",
+   "1.2 构念单位:Haidt 正文写 \"hospital admissions for self-harm\"(住院收治),但同一文件 p.3 他自己的 Figure 1 图注写的是 \"Emergency room visits for self harm\",底层数据(Mercado et al. 2017, JAMA,10–24 岁,2001–2015)统计的也是急诊科就诊 (ED visits) 而非住院收治。转述 1.2 时应写\"自伤急诊就诊\",不要沿用\"住院\"。",
+   "1.3 句内事实错误需随引语标注:原文为 \"the Millennial generation (born 1982 through 2016)\"。千禧一代通行定义为 1981–1996(Pew),1997 起为 Gen Z。若整句引用 1.3 会把这个笔误一并传播;且早 2010s 的青少年样本本身属 Gen Z 而非千禧一代。",
+   "1.4 数值带宽是窗口特定值,不是恒定常数:Haidt 本人后续著作《The Anxious Generation》改用 2010→2021 窗口,报告男孩重性抑郁 +161%,已超出证词里 150% 的上限。引用 \"50%–150%\" 必须绑定 2009→2019 这个窗口,不可当作通用结论。",
+   "1.3 \"early 2010s 之前长期平坦\"的表述对\"自杀既遂\"这一支撑证据不成立(而 1.2 正是拿既遂自杀做佐证):NCHS Data Brief 352 一手数据显示 10–24 岁自杀率 2000–2007 平稳、拐点在 2007(6.8/10万)→2017(10.6),+56%;15–19 岁同样 2000–2007 平稳、2007(6.7)→2017(11.8) +76%。只有 10–14 岁 NCHS 明说 \"began increasing in 2010\"。即拐点对年长青少年比证词所述早约 3 年。",
+   "来源性质需标注:该 PDF 是参议院司法委员会听证的倡导性证词(Part 3 直接为 PATA、COPPA 修订、AADC/AB 2273、CAMRA 四项立法背书),证据底座是作者自建的两份 Google Docs 协作综述,非同行评议文献。引用时应标为\"证词\",不宜当作独立学术来源。"
+  ],
+  "evidence_notes": [
+   "一手 PDF:https://www.judiciary.senate.gov/imo/media/doc/Haidt%20Testimony.pdf —《Teen Mental Health Is Plummeting, and Social Media is a Major Contributing Cause》,Testimony of Jonathan Haidt, Before the Senate Judiciary Committee, Subcommittee on Technology, Privacy, and the Law, May 4, 2022,共 13 页。",
+   "1.1 逐字(p.2)成立:\"1.1. The crisis is specific to mood disorders – those related to depression and anxiety. It is not a general across-the-board increase in other illnesses.\"(破折号为 en-dash)",
+   "1.2 逐字(p.2)成立:\"1.2. The crisis is not a result of changes in the willingness of young people to self-diagnose, nor in the willingness of clinicians to expand terms or over-diagnose. We know this because the same trends occurred, at the same time, and in roughly the same magnitudes, in behavioral manifestations of depression and anxiety, including hospital admissions for self-harm, and completed suicides.\" 三个关键词 behavioral manifestations / hospital admissions / completed suicides 全部逐字命中。",
+   "1.3 逐字(p.3)成立:\"They are more like “hockey sticks,” with a long relatively flat period before the early 2010s, and then a sharp upturn or elbow.\" 小节标题为 \"1.3 The crisis came on suddenly, in the early 2010s.\"(注:1.3/1.4/1.6 编号后无句点,1.1/1.2/1.5 有,系原文排版不一致)",
+   "1.4 逐字(p.3)成立:\"When you compare rates in 2009 –before most teens were daily users of social media––to 2019––the last full year before Covid made things even worse––the increases are generally between 50% and 150%, depending on the disorder, gender, and subgroup.\" 年份自述理由完全对应:2009 = \"before most teens were daily users of social media\";2019 = \"the last full year before Covid made things even worse\"。注意原文破折号使用不一致(单 en-dash 与双 en-dash 混用)。",
+   "版本溯源:Wayback CDX 显示 2022-05-04 至 2022-08-23 所有快照 digest 恒为 CWFX5PHCXWTMI7TGCUKAE5PXBVWLMZ4Q,无改版。下载 2022-05-04 18:38:38 快照(https://web.archive.org/web/20220504183838if_/...)提取文本与 2026-07-27 现网版本逐字符相等(比对结果 True),页码归属一致。未见任何勘误/更正版。",
+   "1.4 数值经独立一手复核成立:Daly M. (2022) \"Prevalence of Depression Among Adolescents in the U.S. From 2009 to 2019\", J Adolesc Health, PMID 34663534,NSDUH 12–17 岁 N=167,783,窗口与 Haidt 完全相同:重性抑郁发作 8.1%→15.8%(+95%),女孩 11.4%→23.4%(+105%),均落在 50%–150% 带内。",
+   "反证一手:NCHS Data Brief No. 352 (Curtin & Heron), Death Rates Due to Suicide and Homicide Among Persons Aged 10–24: United States, 2000–2017(经 Wayback 取得 db352-h.pdf 全文)。原文:\"After a stable period from 2000 to 2007, suicide rates for persons aged 10–24 increased from 2007 to 2017\";\"increased 56% between 2007 (6.8 per 100,000) and 2017 (10.6)\";15–19 岁 \"stable from 2000 to 2007, and then increased 76% from 2007 (6.7) to 2017 (11.8)\";讨论部分:\"For persons aged 10–14, suicide rates began increasing in 2010\"。",
+   "1.2 底层数据构念:Mercado et al. (2017) JAMA, \"Trends in Emergency Department Visits for Nonfatal Self-inflicted Injuries Among Youth Aged 10 to 24 Years in the United States, 2001-2015\", PMID 29164246 —— 统计口径明确为急诊科就诊,非住院收治;男性 10–24 岁 2001–2015 保持平稳,增幅集中于 10–14 岁女孩。",
+   "流传中的 \"50%–200%\" 版本不属于书面证词:核 Psychology Today 2022-05 该场听证报道原文,全文无任何百分比区间,亦无 \"hockey stick\" 字样,仅有定性表述。书面证词的正确数字是 50%–150%。",
+   "千禧一代年份基准:Pew Research Center 定义 1981–1996 为 Millennials,1997 起为 Gen Z —— 与证词 p.3 \"born 1982 through 2016\" 冲突。"
+  ],
+  "unresolved": [
+   "未取得 2022-05-04 听证会的口头陈述逐字稿/录像,因此无法确认 Haidt 口头是否用了与书面 50%–150% 不同的区间(网络流传的 \"50–200%\" 来源未能回溯到任何一手口头记录)。",
+   "CGO/Benchmark 反方文章《The Problems of Teen Suicide and Self-Harm Predate Social Media》全文被 Cloudflare 拦截,未能直接读取;其核心时间点主张改由 NCHS Data Brief 352 一手数据独立验证(结论方向一致)。",
+   "证词 p.2 称 Figure 1 取自 \"a New York Times article (April 23, 2020)\";未直接核到该篇 NYT 原文,因此\"该图底层即 Mercado et al. (2017)\"系依据构念与年份匹配推断,非直接确认。",
+   "1.1 \"specific to mood disorders\"(即其他类别精神疾病未同步上升)这一排他性主张,未逐一核对同期进食障碍、ADHD、品行障碍等类别的一手趋势数据,故该条的实质正确性(而非逐字正确性)未做独立验证。"
+  ]
+ },
+ {
+  "claim_id": "haidt-testimony-crisis-features-1.1-1.4",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "页码:『同一 PDF pp.2-4』→『pp.2-3』。核实后 1.1 与 1.2 在 p.2,1.3 与 1.4 在 p.3;p.4 只有 Figure 2(major depression 图)与 1.6(国际性)。1.1–1.4 没有任何一条落在 p.4。PDF 印刷页码与物理页码一致(共 12 页)。",
+   "框架:『危机四特征 = 1.1–1.4』→ 该 PDF 的 PART 1 实际列了六条(1.1–1.6),Haidt 口头陈述亦自称『I'll just make these six points』。文件标题里的四个形容词是 SPECIFIC, GIGANTIC, SUDDEN, AND INTERNATIONAL,对应的是 1.1 / 1.4 / 1.3 / 1.6——不含 1.2、且必须含 1.6。1.2 是对『测量假象假说』的反驳,不是危机的一个『特征』。把 1.1–1.4 打包称『四特征』属于自造归并。",
+   "1.2 构念范围:『自我诊断意愿反驳句』→ 原文是双靶反驳,同时否掉两件事:『changes in the willingness of young people to self-diagnose, nor in the willingness of clinicians to expand terms or over-diagnose』。只写『自我诊断意愿』漏掉了『临床医生扩大术语/过度诊断』这一半。",
+   "1.4 中 2009 的自述理由:『before daily use』→ 原文为『before most teens were daily users of social media』。限定词是 most(多数青少年),不是笼统的『在日常使用之前』;丢掉 most 会把一个人群比例陈述变成绝对时间点陈述。",
+   "1.3 引语定位:『hockey sticks 句』不是 1.3 的开头句。1.3 的开头是小标题句『The crisis came on suddenly, in the early 2010s.』,hockey sticks 出现在第三句:『They are more like “hockey sticks,” with a long relatively flat period before the early 2010s, and then a sharp upturn or elbow.』引用时须用弯引号且注意 hockey sticks 是复数、带引号。",
+   "原文自带错误须标注:1.3 同一段内『the Millennial generation (born 1982 through 2016)』系原件笔误(千禧世代不可能生到 2016;Haidt 他处用 1981–1995)。整段引用时必须加 [sic] 或在该括号前截断,不得静默修补。该错误自 2022-05-04 首版至今未被更正。",
+   "出处标注:必须写明为 2022 年 5 月 4 日、参议院司法委员会 Technology, Privacy, and the Law 小组委员会听证(听证名 “Platform Transparency: Understanding the Impact of Social Media”,GPO CHRG-117shrg56698),不是 2023 年。文件标题为《Teen Mental Health Is Plummeting, and Social Media is a Major Contributing Cause》。",
+   "编号排版细节:原件为『1.1.』『1.2.』(带尾点)与『1.3』『1.4』(无尾点),逐字转录时不要统一化。1.1 用 en dash『–』,1.4 用『2009 –before ... media––to 2019––the ...』(一个 en dash + 两处双连字符),不是统一破折号。"
+  ],
+  "evidence_notes": [
+   "一手件:https://www.judiciary.senate.gov/imo/media/doc/Haidt%20Testimony.pdf(12 页,PDF 1.6)。用 pdftotext -layout 与 pypdf 两种方式抽取,字符级一致。",
+   "1.1 逐字(p.2):『1.1. The crisis is specific to mood disorders – those related to depression and anxiety. It is not a general across-the-board increase in other illnesses.』——与待验论断完全吻合。",
+   "1.2 逐字(p.2):『1.2. The crisis is not a result of changes in the willingness of young people to self-diagnose, nor in the willingness of clinicians to expand terms or over-diagnose. We know this because the same trends occurred, at the same time, and in roughly the same magnitudes, in behavioral manifestations of depression and anxiety, including hospital admissions for self-harm, and completed suicides.』——behavioral manifestations / hospital admissions for self-harm / completed suicides 三个关键词均在,且顺序如待验论断所述。",
+   "1.3 逐字(p.3):『They are more like “hockey sticks,” with a long relatively flat period before the early 2010s, and then a sharp upturn or elbow. This is rare in mental health data. It suggests that something changed in the lives of American teens around 2010.』",
+   "1.4 逐字(p.3):『When you compare rates in 2009 –before most teens were daily users of social media––to 2019––the last full year before Covid made things even worse––the increases are generally between 50% and 150%, depending on the disorder, gender, and subgroup.』——两处自述理由(2009=多数青少年尚非社媒日活;2019=Covid 前最后一个完整年)均一字不差存在于原文。",
+   "版本稳定性(反查有无事后改稿/勘误):Wayback CDX 对该 URL 共 186 条快照,从 20220504183838 到 20260723052942,全部共享同一 content digest CWFX5PHCXWTMI7TGCUKAE5PXBVWLMZ4Q → 文件自听证当日起从未被修订,亦无勘误页。另下载 20220504183838id_ 快照与现行版逐页比对,13 段切分全部 IDENTICAL。",
+   "第三方独立镜像/佐证(GPO 官方听证记录 CHRG-117shrg56698):Haidt 口头陈述与书面 1.1–1.6 同构,且直接佐证 2019 截点的自述理由——『I deliberately focused my analysis up to 2019, before COVID because I didn't want to be confused with what COVID has done.』;数量级亦对得上——『We're not talking 10 or 20 percent. Depending on what you look at, it's anything from 50 to 150 percent. Self-harm for young teen girls in particular is up more than 150 percent, in fact, 180 in the last data that I saw.』注意口头版把自残女孩单列为『超过 150%』,书面版则把 50–150% 说成通例区间。",
+   "50–150% 区间的外部可核性(方向支持):Daly (2022), J Adolesc Health, NSDUH 12–17 岁 N=167,783 — 过去一年 MDE 2009→2019 由 8.1% 升至 15.8%(约 +95%);女孩 11.4%→23.4%(约 +105%)。落在 Haidt 所述 50%–150% 带内。https://pubmed.ncbi.nlm.nih.gov/34663534/",
+   "利益相关/证据链提示:该证词 PART 1 的支撑并非同行评审文献,而是 Haidt 与 Twenge 自行策划的 Google Doc 协作综述(《Adolescent mood disorders, self-harm, and suicide rates: A collaborative review》),文中明写『See the adolescent mood disorders Google Doc for supporting evidence』。证词性质为国会倡议陈述,Haidt 本人是该议题的公开倡议者(后出版 The Anxious Generation)。引用 1.4 的 50–150% 时应说明其原始出处是自策综述而非独立同行评审来源。",
+   "反证方向(不推翻措辞,但影响解读):批评者指 2009 属历史低位基线,以其为分母会放大百分比增幅;另有对自报式 MDE / YRBS『persistent sadness』构念效度的质疑(如 shoresofacademia 对 NSDUH 指标是否等同 DSM-IV MDE 的质疑)。这些针对的是论断的实质强度,不影响 1.1–1.4 的逐字准确性。"
+  ],
+  "unresolved": [
+   "『before most teens were daily users of social media』这一 2009 定性本身在证词内无脚注引证;本轮未回溯到 2009 年美国青少年『每日』社媒使用率的一手统计(Pew 2009 只给出使用过 SNS 的比例,非日活),故无法判定该自述理由是否有一手数据支撑。",
+   "GPO 印刷版听证记录(CHRG-117shrg56698)只收录了口头陈述,未见完整复制书面证词的 1.1–1.6 编号大纲,因此 pp.2-3 的页码只能锚定在 judiciary.senate.gov 独立 PDF 这一排版上;若下游引用的是其他排版(如 Haidt 个人站转载或书面证词的其他 PDF),页码需另行核对。",
+   "judiciary.senate.gov 的备用下载链接(/download/jon-haidt-5422-testimony?download=1)返回 HTML 跳转页而非 PDF,未能作为第二份官方二进制副本比对;第二份副本改用 Wayback 2022-05-04 快照替代。"
+  ]
+ },
+ {
+  "claim_id": "C02",
+  "verdict": "CORRECTED",
+  "corrections": [
+   "页码:承重论断组写「同一 PDF pp.2-4」→ 应为 pp.2-3。一手核定:1.1 与 1.2 在 p.2;1.3、1.4(以及 1.5)在 p.3;p.4 是 Figure 2 与 1.6(国际)。line1 底稿写的 pp.2-3 是对的,是论断组表头写错。若要覆盖到 p.4,须说明是含 1.6 的整个 Part 1。",
+   "1.2 省略号删掉了承重半句(必须补回):底稿作「...to self-diagnose... We know this because...」;原文是「The crisis is not a result of changes in the willingness of young people to self-diagnose, **nor in the willingness of clinicians to expand terms or over-diagnose.** We know this because...」。被省略的正是 clinician 端(诊断扩张/过度诊断),而这恰是测量伪影派(ICD-10 2015-10 编码切换、Corredor-Waldron & Currie)攻击的靶心。省略后读者会以为 Haidt 只反驳「青少年自我诊断意愿」,实际他同时反驳了「临床医生诊断口径」——引用强度被无意削弱,且掩盖了最可争议的一半。",
+   "1.2 的粗体断点说明:原文 1.2 的粗体小标题正好止于「to self-diagnose」,后面「nor in the willingness of clinicians...」是非粗体续句。底稿的省略号恰好切在粗体末尾——这解释了误引来源,也意味着任何只抄粗体的二手转述都会犯同一错。",
+   "1.3 省略号内藏一处原文事实错误,引用须处理:被省略的中间句为「The curves you can see in the Adolescent Mood Disorders Google Doc are not just the continuation of trends already in evidence for the Millennial generation (born 1982 through 2016).」——「1982 through 2016」与 Haidt/Twenge 自己的世代定义冲突(其体系里 Millennials 约 1982-1995、Gen Z 生于 1995/1996 之后;《The Anxious Generation》核心表述为「children born after 1995」)。这是证词原文的笔误(疑应为 1995),judiciary.senate.gov 现行文件与 2022-06-01 Wayback 快照 MD5 完全一致(2741376fa785e393c61b7c515d09ef5b),未见任何勘误。若全句引用 1.3,必须带 [sic] 或避开该括号。",
+   "1.3 引用还漏了结尾句:原文该段以「It suggests that something changed in the lives of American teens around 2010.」收尾,底稿引到「This is rare in mental health data.」为止。这句是 1.3 从「描述形状」跨到「因果暗示」的接口句,论证上不可省。",
+   "1.3 是「粗体小标题 + 正文」的拼接:小标题为「1.3 The crisis came on suddenly, in the early 2010s.」,底稿用省略号把标题和正文缝在一起,行文上应标明这是标题+正文拼接,而非一句连续原文。",
+   "1.1 破折号口径:原文用短破折号「mood disorders – those related」,底稿用长破折号「—」。1.1 其余逐字完全一致(粗体止于「mood disorders」)。逐字引用时应统一说明破折号已规范化。",
+   "1.4「50%-150%」的证据地位需降级:该句在证词内**没有任何数字、序列清单或计算过程**,只指向一份滚动更新、无版本锁的 Google Doc(Adolescent Mood Disorders: A Collaborative Review)。它是一个口头概括,不是可复算的统计量。文章若把「50%-150%」当事实陈述(而非 Haidt 的原话)使用,必须补口径:该区间高度依赖数据源选择。",
+   "1.4 区间被一手数据部分证伪(下限):在 Haidt 自己指定的 2009→2019 窗口内,CDC YRBS《Data Summary & Trends Report: 2009-2019》p.58 官方表格的五项心理健康/自杀相关指标涨幅**全部低于 50%**:持续悲伤/无望 26.1%→36.7%(+40.6%);认真考虑自杀 13.8%→18.8%(+36.2%);制定自杀计划 10.9%→15.7%(+44.0%);自杀未遂 6.3%→8.9%(+41.3%);未遂需就医 1.9%→2.5%(+31.6%)。因此「generally between 50% and 150%」在全美最大规模匿名青少年调查上不成立;要落进该区间必须依赖 NSDUH 自报 + 急诊/自伤行政序列。",
+   "1.4 区间在另一源上成立(上半段):NSDUH 12-17 岁过去一年 MDE,2009 8.1%→2019 15.8%(+95%);女孩 11.4%→23.4%(+105%)——落在区间内。故准确表述应为:该区间是**源依赖**的,NSDUH 系约 +95%~+105%,YRBS 系约 +32%~+44%,两者跨在 50% 门槛两侧。",
+   "2009 起点的基线敏感性(需注明,但不构成「刻意挑谷底」指控):在 NSDUH 上 2009(8.1%)低于 2004(9.0%),改用 2004 起点则增幅由 +95% 降至 +74%。不过 2009 起点本身并非 Haidt 独创——CDC 官方十年趋势报告用的就是 2009-2019(YRBS 双年制,2009 是调查年),所以「挑基线」这条攻击对**年份选择本身**不成立,只对**幅度对基线的敏感度**成立。"
+  ],
+  "evidence_notes": [
+   "一手 PDF 已下载并双源验证同一性:https://www.judiciary.senate.gov/imo/media/doc/Haidt%20Testimony.pdf 与 Wayback 快照 http://web.archive.org/web/20220601214206/https://www.judiciary.senate.gov/imo/media/doc/Haidt%20Testimony.pdf 的 MD5 均为 2741376fa785e393c61b7c515d09ef5b。PDF 元数据:Author=Stanislawski, Aaron (Judiciary-Dem),CreationDate 2022-05-03,12 页,Acrobat PDFMaker 22 for Word。证明现行文件自 2022 年起未被替换、无勘误版本。",
+   "1.1 逐字(p.2,粗体止于 mood disorders):「1.1. The crisis is specific to mood disorders – those related to depression and anxiety. It is not a general across-the-board increase in other illnesses.」——与底稿一致(仅破折号 – vs —)。",
+   "1.2 完整逐字(p.2):「1.2. The crisis is not a result of changes in the willingness of young people to self-diagnose, nor in the willingness of clinicians to expand terms or over-diagnose. We know this because the same trends occurred, at the same time, and in roughly the same magnitudes, in behavioral manifestations of depression and anxiety, including hospital admissions for self-harm, and completed suicides. Figure 1, below, from a New York Times article (April 23, 2020), shows just how sharp and sudden the increase has been for hospital admissions for teen girls who had intentionally harmed themselves, mostly by cutting themselves.」",
+   "1.3 完整逐字(p.3):「1.3 The crisis came on suddenly, in the early 2010s.\\nThe curves you can see in the Adolescent Mood Disorders Google Doc are not just the continuation of trends already in evidence for the Millennial generation (born 1982 through 2016). They are more like \"hockey sticks,\" with a long relatively flat period before the early 2010s, and then a sharp upturn or elbow. This is rare in mental health data. It suggests that something changed in the lives of American teens around 2010.」——「1982 through 2016」经 pdftotext 与 130dpi 页面图像双重目视确认,确为原文所印。",
+   "1.4 完整逐字(p.3,小标题为「1.4 The increases in mental illness are very large.」):「When you compare rates in 2009 –before most teens were daily users of social media—to 2019—the last full year before Covid made things even worse—the increases are generally between 50% and 150%, depending on the disorder, gender, and subgroup.」——**措辞逐字完全吻合底稿**,包括「2009 –before」那个前有空格、后无空格的异常短破折号。2009/2019 两处自述理由(before most teens were daily users of social media / the last full year before Covid made things even worse)逐字成立,HOLDS。",
+   "Part 1 标题逐字(p.2):「PART 1: THE SPECIFIC, GIGANTIC, SUDDEN, AND INTERNATIONAL MENTAL HEALTH CRISIS」,其下注「(See the adolescent mood disorders Google Doc for supporting evidence)」——即 1.1-1.6 的全部证据支撑指向一份自策展 Google Doc。",
+   "CDC 一手表格(YRBS Data Summary & Trends Report: 2009-2019,Focus Area: Mental Health and Suicide 进度表,报告 p.58):2009/2011/2013/2015/2017/2019 六列。持续悲伤或无望 26.1/28.5/29.9/29.9/31.5/36.7;认真考虑自杀 13.8/15.8/17.0/17.7/17.2/18.8;制定自杀计划 10.9/12.8/13.6/14.6/13.6/15.7;自杀未遂 6.3/7.8/8.0/8.6/7.4/8.9;未遂需医护处理 1.9/2.4/2.7/2.8/2.4/2.5。PDF: https://www.cdc.gov/healthyyouth/data/yrbs/pdf/YRBSDataSummaryTrendsReport2019-508.pdf(经 Wayback 2022id_ 取得,CDC 直连 403)。注意:CDC 该旗舰趋势报告本身采用的窗口就是 2009-2019。",
+   "NSDUH 同窗口同行评审证据:Daly M., \"Prevalence of Depression Among Adolescents in the U.S. From 2009 to 2019: Analysis of Trends by Sex, Race/Ethnicity, and Income\", J Adolesc Health(N=167,783,12-17 岁)。摘要逐字:MDE「from 8.1% to 15.8% between 2009 and 2019」;女孩「increased by 12 percentage points from 11.4% to 23.4% among girls」;性别差「increased from 6.4% to 14.8%」。https://pubmed.ncbi.nlm.nih.gov/34663534/",
+   "SAMHSA 2019 NSDUH 全国报告逐字:「Among adolescents aged 12 to 17, the percentage who had a past year major depressive episode (MDE) increased from 9.0 percent (or 2.2 million people) in 2004 to 15.7 percent (or 3.8 million people) in 2019.」→ 2004 起点得 +74%,2009 起点得 +95%,基线敏感度约 21 个百分点的相对涨幅。https://www.samhsa.gov/data/sites/default/files/reports/rpt29393/2019NSDUHFFRPDFWHTML/2019NSDUHFFR090120.htm",
+   "窗口内无 NSDUH 断点(此点对 Haidt 有利,应如实写):2014/2015 NSDUH 部分改版影响的是处方精神药物、阿片、甲基苯丙胺模块,MDE 模块未列入;2019 年 NSDUH 报告的 MDE 章节亦无跨年可比性警示。真正的 MDE 断点在 2020(疫情期改网络作答),不落在 2009-2019 窗内。",
+   "利益相关性:该证词是 Haidt 本人的倡导文件(非同行评审),其全部证据支撑指向两份由他与 Twenge/Rausch 自行策展、可滚动改写且无版本锁的 Google Docs;《The Anxious Generation》于 2024-03 出版,证词时点其商业与倡导立场已确立。引用时应标注为「Haidt 的主张」而非独立证据。",
+   "1.2 实质内容(非引用准确性)存在独立反证,与 C15/C16 交叉:2015-10 ICD-9→ICD-10 切换引入更易识别的故意自伤编码;新泽西研究显示自伤相关就诊的报告涨幅可能大于底层行为涨幅;男孩非致死性自伤在美国未见显著上升。这些不推翻「Haidt 说过这句话」,但推翻「behavioral manifestations 与自报趋势 roughly the same magnitudes」这一实质断言的强度——文章若把 1.2 当作已证结论而非 Haidt 立场,会塌。"
+  ],
+  "unresolved": [
+   "「50%-150%」的原始计算来源无法回溯:证词只指向 tinyurl.com/TeenMentalHealthReview(Adolescent Mood Disorders: A Collaborative Review)。该 Google Doc 为滚动文档,无法取得 2022-05-04 时点的冻结版本(Wayback 对 Google Docs 的抓取不可用),因此无从核对 Haidt 当时依据哪些序列、哪个性别/年龄子群算出 50% 下限与 150% 上限。结论:此区间在一手层面不可复算,只能作为引语呈现。",
+   "YRBS 分性别的 2009 与 2019 数值未能从 CDC 一手表格中直接取出(该报告的分性别趋势为图像,pdftotext 取不到数字)。2019 年女生 46.6%、男生 26.8% 有多方二手一致转述,但 2009 年女生值(常被引为 33.9%)未取得 CDC 一手确认。若文章要用「女生 2009→2019」的具体增幅,须回 CDC YRBS Explorer 或 MMWR 增补卷再核。",
+   "未检索到任何针对该证词 1.1-1.4 的公开更正、勘误或 Haidt 本人事后修订(含「born 1982 through 2016」笔误);无法排除他在别处口头更正过,但一手文件层面确认无变更。"
+  ]
+ }
+]
