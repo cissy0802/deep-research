@@ -32,4 +32,9 @@
 
 ## 下一步(断点恢复用)
 
-等 Round 2 workflow(wf_b68deb94-356)完成;若中断,用 resumeFromRunId 恢复,已完成票走缓存。判决落盘到 03-verification-round2.md 后挑单源实证进 Round 3。
+已完成并发布(2026-07-28)。TTS bake workflow 在 push 后自动运行,新页面的 data-tts 由 bot 注入——本地不要手动重跑 build.py 覆盖(会剥掉全站已烘焙的 data-tts;本期已踩过一次,靠 git checkout 还原)。
+
+发布物:
+- 页面 https://hub.cissychen.com/deep-research/screen-time-teens-{plain,deep}{,.en}.html(均 200)
+- 研究材料已归档进仓库 research/screen-time-teens/(含 72 张分票 JSON)
+- 钩子:候选池 2 条 + meta-knowledge Day 72 + leadership Day 72(均已单独 commit push)
