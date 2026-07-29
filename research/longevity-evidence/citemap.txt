@@ -1,0 +1,191 @@
+L1-01	Nadon NL, Strong R, Miller RA, Nelson J, Javors M, Sharp ZD, Peralba JM, Harrison DE. Design of aging interven	https://pmc.ncbi.nlm.nih.gov/articles/PMC2585647/
+L1-02	Nadon NL et al. Design of aging intervention studies: the NIA interventions testing program. Age (Dordr). 2008	https://pmc.ncbi.nlm.nih.gov/articles/PMC2585647/
+L1-03	Nadon NL et al. Age (Dordr). 2008;30(4):187-199; and Nadon NL, Strong R, Miller RA, Harrison DE. NIA Intervent	https://pmc.ncbi.nlm.nih.gov/articles/PMC5514387/
+L1-04	Cheng CJ, Gelfond JAL, Strong R, Nelson JF. Genetically heterogeneous mice exhibit a female survival advantage	https://pmc.ncbi.nlm.nih.gov/articles/PMC6516160/
+L1-05	Harrison DE, Strong R, Sharp ZD, Nelson JF, Astle CM, Flurkey K, et al. Rapamycin fed late in life extends lif	https://pubmed.ncbi.nlm.nih.gov/19587680/
+L1-06	Harrison DE et al. Nature. 2009;460(7253):392-395	https://pmc.ncbi.nlm.nih.gov/articles/PMC2786175/
+L1-07	Miller RA, Harrison DE, Astle CM, Fernandez E, Flurkey K, Han M, et al. Rapamycin-mediated lifespan increase i	https://pmc.ncbi.nlm.nih.gov/articles/PMC4032600/
+L1-08	Miller RA, Harrison DE, Astle CM, Baur JA, Boyd AR, de Cabo R, et al. Rapamycin, but not resveratrol or simvas	https://pubmed.ncbi.nlm.nih.gov/20974732/
+L1-09	Strong R, Miller RA, Bogue M, Astle CM, Chang J, Christy ER, et al. Rapamycin-mediated mouse lifespan extensio	https://pmc.ncbi.nlm.nih.gov/articles/PMC7681050/
+L1-10	Strong R, Miller RA, Antebi A, Astle CM, Bogue M, Denzel MS, et al. Longer lifespan in male mice treated with 	https://pmc.ncbi.nlm.nih.gov/articles/PMC5013015/
+L1-11	Strong R et al. Aging Cell. 2016;15(5):872-884	https://pmc.ncbi.nlm.nih.gov/articles/PMC5013015/
+L1-12	Jiang N, Gelfond J, Liu Q, Strong R, Nelson JF. The Gehan test identifies life-extending compounds overlooked 	https://pmc.ncbi.nlm.nih.gov/articles/PMC11335987/
+L1-13	Harrison DE, Strong R, Alavez S, Astle CM, DiGiovanni J, Fernandez E, et al. Acarbose improves health and life	https://pubmed.ncbi.nlm.nih.gov/30688027/
+L1-14	Harrison DE, Strong R, Allison DB, Ames BN, Astle CM, Atamna H, et al. Acarbose, 17-alpha-estradiol, and nordi	https://pmc.ncbi.nlm.nih.gov/articles/PMC3954939/
+L1-15	Strong R, Miller RA, Cheng CJ, Nelson JF, Gelfond J, Allani SK, et al. Lifespan benefits for the combination o	https://pmc.ncbi.nlm.nih.gov/articles/PMC9741502/
+L1-16	Harrison DE, Strong R, Reifsnyder P, Kumar N, Fernandez E, Flurkey K, et al. 17-a-estradiol late in life exten	https://pmc.ncbi.nlm.nih.gov/articles/PMC8135004/
+L1-17	Harrison DE, Strong R, Reifsnyder P, Rosenthal N, Korstanje R, Fernandez E, et al. Astaxanthin and meclizine e	https://pmc.ncbi.nlm.nih.gov/articles/PMC10828146/
+L1-18	Korstanje R, Strong R, Salmon AB, Bogue MA, Curran SP, Diaz V, Fernandez E, Ginsburg B, Han M, Harrison DE, Ka	https://pubmed.ncbi.nlm.nih.gov/41843349/
+L1-19	Miller RA, Harrison DE, et al. Lifespan effects in male UM-HET3 mice treated with sodium thiosulfate, 16-hydro	https://pubmed.ncbi.nlm.nih.gov/38753230/
+L1-20	Snyder JM, et al. End-of-life pathology in UM-HET3 mice treated with 16 alpha-hydroxyestradiol or late-start c	https://pmc.ncbi.nlm.nih.gov/articles/PMC12972294/
+L1-21	Miller RA, Harrison DE, Allison DB, Bogue M, Debarba L, Diaz V, et al. Canagliflozin extends life span in gene	https://pmc.ncbi.nlm.nih.gov/articles/PMC7710304
+L1-22	Miller RA, Harrison DE, Astle CM, Bogue MA, Brind J, Fernandez E, et al. Glycine supplementation extends lifes	https://pmc.ncbi.nlm.nih.gov/articles/PMC6516426/
+L1-23	Interventions Testing Program. Extension of lifespan by epicatechin, halofuginone and mitoglitazone in male bu	https://link.springer.com/article/10.1007/s11357-025-01881-6
+L1-24	Garratt M, Bower B, Garcia GG, Miller RA. Sex differences in lifespan extension with acarbose and 17-alpha est	https://pmc.ncbi.nlm.nih.gov/articles/PMC5676051/
+L1-25	Pabis K, Barardo D, Gruber J, Sirbu O, Malavolta M, Selvarajoo K, Kaeberlein M, Kennedy BK. The impact of shor	https://pubmed.ncbi.nlm.nih.gov/39332712/
+L1-26	Nadon NL, Strong R, Miller RA, Harrison DE. NIA Interventions Testing Program: Investigating Putative Aging In	https://pmc.ncbi.nlm.nih.gov/articles/PMC5514387/
+L1-27	Jiang N, Gelfond J, Liu Q, Strong R, Nelson JF. GeroScience. 2024;46(5):4533-4541; and Nadon NL et al. 'The NI	https://pmc.ncbi.nlm.nih.gov/articles/PMC11335987/
+L1-28	Harrison DE et al. Acarbose improves health and lifespan in aging HET3 mice. Aging Cell. 2019;18(2):e12898	https://pubmed.ncbi.nlm.nih.gov/30688027/
+L1-29	Mouse Phenome Database (The Jackson Laboratory), ITP data portal, project ITP1. Accessed 2026-07-28	https://phenome.jax.org/projects/ITP1
+L2-01	Heitman J, Movva NR, Hall MN. Targets for cell cycle arrest by the immunosuppressant rapamycin in yeast. Scien	https://www.science.org/doi/10.1126/science.1715094
+L2-02	Moel M, Harinath G, Lee V, Nyquist A, Morgan SL, Isman A, Zalzala S. Influence of rapamycin on safety and heal	https://pmc.ncbi.nlm.nih.gov/articles/PMC12074816/
+L2-03	Moel M, et al. Aging (Albany NY). 2025;17(4):908-936. doi:10.18632/aging.206235.	https://pmc.ncbi.nlm.nih.gov/articles/PMC12074816/
+L2-04	Harinath G, Lee V, Nyquist A, et al. The bioavailability and blood levels of low-dose rapamycin for longevity 	https://pmc.ncbi.nlm.nih.gov/articles/PMC12397450/
+L2-05	ClinicalTrials.gov, NCT04488601, Participatory Evaluation (of) Aging (With) Rapamycin (for) Longevity Study; s	https://clinicaltrials.gov/study/NCT04488601
+L2-06	Mannick JB, Del Giudice G, Lattanzi M, Valiante NM, Praestgaard J, Huang B, Lonetto MA, Maecker HT, Kovarik J,	https://health.uconn.edu/aging/wp-content/uploads/sites/6/2016/04/mTOR-inhibition-improves-immune-function-in-the-elderly.pdf
+L2-07	Mannick JB, et al. Sci Transl Med. 2014;6(268):268ra179.	https://health.uconn.edu/aging/wp-content/uploads/sites/6/2016/04/mTOR-inhibition-improves-immune-function-in-the-elderly.pdf
+L2-08	Mannick JB, et al. Sci Transl Med. 2014;6(268):268ra179, Tables 2 and 3.	https://health.uconn.edu/aging/wp-content/uploads/sites/6/2016/04/mTOR-inhibition-improves-immune-function-in-the-elderly.pdf
+L2-09	Mannick JB, et al. Sci Transl Med. 2014;6(268):268ra179, Table 1.	https://health.uconn.edu/aging/wp-content/uploads/sites/6/2016/04/mTOR-inhibition-improves-immune-function-in-the-elderly.pdf
+L2-10	Mannick JB, Teo G, Bernardo P, et al. Targeting the biology of ageing with mTOR inhibitors to improve immune f	https://pubmed.ncbi.nlm.nih.gov/33977284/
+L2-11	Mannick JB, Teo G, Bernardo P, et al. Lancet Healthy Longev. 2021;2(5):e250-e262. PMID 33977284.	https://pubmed.ncbi.nlm.nih.gov/33977284/
+L2-12	Dzankic PJ, Partridge L. Clinical trials of mTOR inhibitors to boost immunity to viral infection in older adul	https://pmc.ncbi.nlm.nih.gov/articles/PMC8102037/
+L2-13	resTORbio, Inc. press release, GlobeNewswire, 2019-11-15; resTORbio, Inc. Form 8-K, SEC filing, 2020-04-28 (CI	https://www.globenewswire.com/news-release/2019/11/15/1947932/0/en/resTORbio-Announces-That-the-Phase-3-PROTECTOR-1-Trial-of-RTB101-in-Clinically-Symptomatic-Respiratory-Illness-Did-Not-Meet-the-Primary-Endpoint.html
+L2-14	Altos Labs press release, 'Altos Labs appoints Joan Mannick, M.D., as Chief Medical Officer and Head of Produc	https://www.altoslabs.com/featured/press-releases/altos-labs-appoints-joan-mannick-m-d-as-chief-medical-officer-and-head-of-product-development
+L2-15	Urfer SR, Kaeberlein TL, Mailheau S, Bergman PJ, Creevy KE, Promislow DEL, Kaeberlein M. A randomized controll	https://pmc.ncbi.nlm.nih.gov/articles/PMC5411365/
+L2-16	Coleman LA, Creevy KE, et al. Test of Rapamycin in Aging Dogs (TRIAD): study design and rationale for a prospe	https://link.springer.com/article/10.1007/s11357-024-01484-7
+L2-17	STAT News, 'As NIH grant runs out, Dog Aging Project founders look to raise up to $50 million', 2024-01-24; Te	https://www.statnews.com/2024/01/24/dog-aging-project-founders-on-losing-nih-funding/
+L2-18	Kaeberlein TL, Green AS, Haddad G, et al. Evaluation of off-label rapamycin use to promote healthspan in 333 a	https://pmc.ncbi.nlm.nih.gov/articles/PMC10187519/
+L2-19	Kaeberlein TL, et al. GeroScience. 2023;45(5):2757-2768. doi:10.1007/s11357-023-00818-1.	https://pmc.ncbi.nlm.nih.gov/articles/PMC10187519/
+L2-20	Stanfield B, Kaeberlein M, Leroux B, et al. Exercise and Weekly Sirolimus (Rapamycin) in Older Adults: RAPA-EX	https://onlinelibrary.wiley.com/doi/10.1002/jcsm.70274
+L2-21	Stanfield B, Kaeberlein M, Leroux B, et al. J Cachexia Sarcopenia Muscle. 2026. doi:10.1002/jcsm.70274. And: K	https://peterattiamd.com/rapamycin-plus-exercise-trial/
+L2-22	Lee DJW, Hodzic Kuerec A, Maier AB. Targeting ageing with rapamycin and its derivatives in humans: a systemati	https://pubmed.ncbi.nlm.nih.gov/38310895/
+L2-23	Hands JM, Lustgarten MS, Frame LA, Rosen B. What is the clinical evidence to support off-label rapamycin thera	https://pmc.ncbi.nlm.nih.gov/articles/PMC12422820/
+L2-24	AgelessRx, 'Results of the PEARL Trial: An Expert Analysis', agelessrx.com (accessed 2026-07-28).	https://agelessrx.com/results-of-the-pearl-trial/
+L2-25	UT Health San Antonio, 'Large rapamycin clinical trial launches at UT Health San Antonio', news.uthscsa.edu, p	https://news.uthscsa.edu/large-rapamycin-clinical-trial-launches-at-ut-health-san-antonio/
+L2-26	US Food and Drug Administration, RAPAMUNE (sirolimus) Oral Solution and Tablets, prescribing information, acce	https://www.accessdata.fda.gov/drugsatfda_docs/label/2013/021083s053,021110s067lbl.pdf
+L3-01	Bannister CA, Holden SE, Jenkins-Jones S, Morgan CLl, Halcox JP, Schernthaner G, Mukherjee J, Currie CJ. 'Can 	https://gwern.net/doc/longevity/metformin/2014-bannister.pdf
+L3-02	Bannister CA et al., Diabetes Obes Metab 2014, Methods and Table 1	https://gwern.net/doc/longevity/metformin/2014-bannister.pdf
+L3-03	Bannister CA et al., Diabetes Obes Metab 2014, Study Endpoint and Statistical Methods sections	https://gwern.net/doc/longevity/metformin/2014-bannister.pdf
+L3-04	Bannister CA et al., Diabetes Obes Metab 2014, Study Limitations section	https://gwern.net/doc/longevity/metformin/2014-bannister.pdf
+L3-05	Keys MT, Thinggaard M, Larsen LA, Pedersen DA, Hallas J, Christensen K. 'Reassessing the evidence of a surviva	https://doi.org/10.1093/ije/dyac200
+L3-06	Keys MT et al., Int J Epidemiol 2022;51(6):1886-1898, Discussion	https://doi.org/10.1093/ije/dyac200
+L3-07	Stevenson-Hoare J, Leonenko G, Escott-Price V. 'Comparison of long-term effects of metformin on longevity betw	https://pubmed.ncbi.nlm.nih.gov/37131166/
+L3-08	Khouri C, Dell'Aniello S, Yin H, Azoulay L, Suissa S. 'Metformin to treat breast cancer: an application of the	https://pubmed.ncbi.nlm.nih.gov/40578405/
+L3-09	Suissa S, Azoulay L. 'Metformin and the risk of cancer: time-related biases in observational studies.' Diabete	https://pubmed.ncbi.nlm.nih.gov/23173135/
+L3-10	Simpson SH, Eurich DT, Majumdar SR, Padwal RS, Tsuyuki RT, Varney J, Johnson JA. 'A meta-analysis of the assoc	https://pubmed.ncbi.nlm.nih.gov/16790458/
+L3-11	ClinicalTrials.gov API v2, three queries executed 2026-07-28, all returning no TAME study; and American Federa	https://clinicaltrials.gov/api/v2/studies?query.titles=Targeting%20Aging%20with%20Metformin
+L3-12	STAT News, 'As billionaires race to fund anti-aging projects, a much-discussed trial goes overlooked', 9 Augus	https://www.statnews.com/2022/08/09/anti-aging-projects-funding-much-discussed-trial-overlooked/
+L3-13	Arkadi Mazin, 'Nir Barzilai: "Positive Evidence for Metformin is Mounting"', Lifespan.io, 12 August 2025 (inte	https://lifespan.io/news/nir-barzilai-positive-evidence-for-metformin-is-mounting/
+L3-14	Goldberg RB, et al. 'Effects of Long-term Metformin and Lifestyle Interventions on Cardiovascular Events in th	https://pmc.ncbi.nlm.nih.gov/articles/PMC9179081/
+L3-15	Diabetes Prevention Program Research Group. 'Effect of Metformin and Lifestyle Interventions on Mortality in t	https://pubmed.ncbi.nlm.nih.gov/34697033/
+L3-16	ClinicalTrials.gov, NCT02915198, VA-IMPACT, record queried via API v2 on 2026-07-28	https://clinicaltrials.gov/study/NCT02915198
+L3-17	Marcelo-Calvo C, Esteban-Cantos A, Jurado F, et al. 'Metformin and epigenetic age in non-diabetic older people	https://pubmed.ncbi.nlm.nih.gov/42023167/
+L3-18	Kulkarni AS, Brutsaert EF, Anghel V, et al. 'Metformin regulates metabolic and nonmetabolic pathways in skelet	https://pubmed.ncbi.nlm.nih.gov/29383869/
+L3-19	Konopka AR, Laurin JL, Schoenberg HM, et al. 'Metformin inhibits mitochondrial adaptations to aerobic exercise	https://pmc.ncbi.nlm.nih.gov/articles/PMC6351883
+L3-20	Walton RG, Dungan CM, Long DE, et al. 'Metformin blunts muscle hypertrophy in response to progressive resistan	https://pmc.ncbi.nlm.nih.gov/articles/PMC6826125/
+L3-21	Arkadi Mazin, 'Nir Barzilai: "Positive Evidence for Metformin is Mounting"', Lifespan.io, 12 August 2025	https://lifespan.io/news/nir-barzilai-positive-evidence-for-metformin-is-mounting/
+L3-22	Strong R, Miller RA, Antebi A, et al. (NIA Interventions Testing Program). 'Longer lifespan in male mice treat	https://pmc.ncbi.nlm.nih.gov/articles/PMC5013015/
+L3-23	Yang Y, Lu X, Liu N, Ma S, Zhang H, Zhang Z, et al.; Qu J, Zhang W, Liu G-H (corresponding). 'Metformin decele	https://gwern.net/doc/longevity/metformin/2024-yang.pdf
+L3-24	Yang Y et al., Cell 2024;187:6358-6378.e29, 'Limitations of the study'	https://gwern.net/doc/longevity/metformin/2024-yang.pdf
+L3-25	Shadyab AH, Espeland MA, Odegaard AO, Manson JE, Johnson KC, Chen Z, Zhu B, Howard B, LaCroix AZ. 'Comparative	https://academic.oup.com/biomedgerontology/article/80/7/glaf095/8137954
+L3-26	Keys MT, Hallas J, Miller RA, Suissa S, Christensen K. 'Emerging uncertainty on the anti-aging potential of me	https://pmc.ncbi.nlm.nih.gov/articles/PMC13329735/
+L3-27	iMedic Medical Editorial Team, 'Metformin Anti-Aging: TAME Trial Results 2026', imedic.health, 2 March 2026 — 	https://imedic.health/en/health/news/metformin-anti-aging-tame-trial-results-2026
+L4-01	Massudi H, Grant R, Braidy N, Guest J, Farnsworth B, Guillemin GJ (2012). Age-Associated Changes In Oxidative 	https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042357
+L4-02	Zhu X-H, Lu M, Lee B-Y, Ugurbil K, Chen W (2015). In vivo NAD assay reveals the intracellular NAD contents and	https://pubmed.ncbi.nlm.nih.gov/25730862/
+L4-03	Trętowicz MM, Scantlebery AML, Schomakers BV, Eroglu KD, … Houtkooper RH (2026). Human whole-blood NAD+ levels	https://www.nature.com/articles/s42255-026-01537-5
+L4-04	Vinten KT, Trętowicz MM, Coskun E, van Weeghel M, Cantó C, Zapata-Pérez R, Janssens GE, Houtkooper RH (2025). 	https://www.nature.com/articles/s42255-025-01387-7
+L4-05	Harrison DE, Strong R, Reifsnyder P, et al. (2021). 17-a-estradiol late in life extends lifespan in aging UM-H	https://pmc.ncbi.nlm.nih.gov/articles/PMC8135004/
+L4-06	Trammell SAJ, Schmidt MS, Weidemann BJ, et al., Brenner C (2016). Nicotinamide riboside is uniquely and orally	https://pmc.ncbi.nlm.nih.gov/articles/PMC5062546/
+L4-07	Conze D, Brenner C, Kruger CL (2019). Safety and Metabolism of Long-term Administration of NIAGEN (Nicotinamid	https://pmc.ncbi.nlm.nih.gov/articles/PMC6611812/
+L4-08	Elhassan YS, Kluckova K, Fletcher RS, et al., Lavery GG (2019). Nicotinamide Riboside Augments the Aged Human 	https://pmc.ncbi.nlm.nih.gov/articles/PMC6702140/
+L4-09	Elhassan YS et al. (2019), Cell Reports 28(7):1717–1728	https://pmc.ncbi.nlm.nih.gov/articles/PMC6702140/
+L4-10	Dollerup OL, Christensen B, Svart M, et al., Jessen N, Treebak JT (2018). A randomized placebo-controlled clin	https://pubmed.ncbi.nlm.nih.gov/29992272/
+L4-11	Remie CME, Roumans KHM, Moonen MPB, et al., Schrauwen P (2020). Nicotinamide riboside supplementation alters b	https://pubmed.ncbi.nlm.nih.gov/32320006/
+L4-12	Martens CR, Denman BA, Mazzo MR, et al., Seals DR (2018). Chronic nicotinamide riboside supplementation is wel	https://pmc.ncbi.nlm.nih.gov/articles/PMC5876407/
+L4-13	Yoshino M, Yoshino J, Kayser BD, et al., Klein S (2021). Nicotinamide mononucleotide increases muscle insulin 	https://pubmed.ncbi.nlm.nih.gov/33888596/
+L4-14	Brenner C (2021). Comment on 'Nicotinamide mononucleotide increases muscle insulin sensitivity in prediabetic 	https://www.science.org/doi/10.1126/science.abj1696
+L4-15	Prokopidis K, et al. (2025). The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass an	https://pmc.ncbi.nlm.nih.gov/articles/PMC12022230/
+L4-16	Effects of Nicotinamide Mononucleotide on Glucose and Lipid Metabolism in Adults: A Systematic Review and Meta	https://pmc.ncbi.nlm.nih.gov/articles/PMC11557618/
+L4-17	Damgaard MV, Treebak JT (2023). What is really known about the effects of nicotinamide riboside supplementatio	https://pubmed.ncbi.nlm.nih.gov/37478182/
+L4-18	NCT03568968, A Randomized Controlled Trial of Nicotinamide Riboside Supplementation in Early Parkinson's Disea	https://clinicaltrials.gov/study/NCT03568968
+L4-19	Brakedal B, Dölle C, Riemer F, et al., Tzoulis C (2022). The NADPARK study: A randomized phase I trial of nico	https://pubmed.ncbi.nlm.nih.gov/35235774/
+L4-20	Brakedal B, et al., Tzoulis C (2023). NR-SAFE: a randomized, double-blind safety trial of high dose nicotinami	https://pmc.ncbi.nlm.nih.gov/articles/PMC10684646/
+L4-21	Veenhuis SJG, et al. (2021). Nicotinamide Riboside Improves Ataxia Scores and Immunoglobulin Levels in Ataxia 	https://pubmed.ncbi.nlm.nih.gov/34515380/
+L4-22	NCT03743636, Nicotinamide Riboside With and Without Resveratrol to Improve Functioning in Peripheral Artery Di	https://clinicaltrials.gov/study/NCT03743636
+L4-23	Effects of nicotinamide riboside on NAD+ levels, cognition, and symptom recovery in long-COVID: a randomized c	https://pmc.ncbi.nlm.nih.gov/articles/PMC12675013/
+L4-24	Lundgren/Pietiläinen group (2023). Nicotinamide riboside improves muscle mitochondrial biogenesis, satellite c	https://pmc.ncbi.nlm.nih.gov/articles/PMC9839336/
+L4-25	Christen S, et al. (2026). The differential impact of three different NAD+ boosters on circulatory NAD and mic	https://www.nature.com/articles/s42255-025-01421-8
+L4-26	Ma X, et al., Goun EA (2023). A bioluminescent-based probe for in vivo non-invasive monitoring of nicotinamide	https://pubmed.ncbi.nlm.nih.gov/36371959/
+L4-27	Igarashi M, et al. (2022). npj Aging 8:5, PMID 35927255. Katayoshi T, et al. (2023). Nicotinamide adenine dinu	https://pmc.ncbi.nlm.nih.gov/articles/PMC9935856/
+L4-28	Composite of funding and competing-interest statements in Trammell 2016 Nat Commun 7:12948; Martens 2018 Nat C	https://pmc.ncbi.nlm.nih.gov/articles/PMC6611812/
+L5-01	ClinicalTrials.gov, NCT00427193, 'Comprehensive Assessment of Long-Term Effects of Reducing Intake of Energy (	https://clinicaltrials.gov/study/NCT00427193
+L5-02	Ravussin E, Redman LM, Rochon J, et al. 'A 2-Year Randomized Controlled Trial of Human Caloric Restriction: Fe	https://pubmed.ncbi.nlm.nih.gov/26187233/
+L5-03	Kraus WE, Bhapkar M, Huffman KM, et al. '2 years of calorie restriction and cardiometabolic risk (CALERIE): ex	https://pubmed.ncbi.nlm.nih.gov/31303390/
+L5-04	Kraus WE, et al. Lancet Diabetes Endocrinol. 2019;7(9):673-683. PMID 31303390	https://www.thelancet.com/journals/landia/article/PIIS2213-8587(19)30151-2/abstract
+L5-05	Waziry R, Ryan CP, Corcoran DL, et al. 'Effect of long-term caloric restriction on DNA methylation measures of	https://pmc.ncbi.nlm.nih.gov/articles/PMC10148951/
+L5-06	Waziry R, et al. Nature Aging. 2023;3:248-257. PMC10148951	https://pmc.ncbi.nlm.nih.gov/articles/PMC10148951/
+L5-07	Author Correction: 'Effect of long-term caloric restriction on DNA methylation measures of biological aging in	https://pmc.ncbi.nlm.nih.gov/articles/PMC10275750/
+L5-08	Villareal DT, Fontana L, Das SK, et al. 'Effect of Two-Year Caloric Restriction on Bone Metabolism and Bone Mi	https://pubmed.ncbi.nlm.nih.gov/26332798/
+L5-09	Kraus WE, et al. Lancet Diabetes Endocrinol. 2019;7(9):673-683; and CALERIE MRI ancillary, 'Effect of 2-year c	https://pubmed.ncbi.nlm.nih.gov/34159359/
+L5-10	ClinicalTrials.gov, NCT05651620, 'Legacy Effects of CALERIE(TM), a 2-year Calorie Restriction Intervention, on	https://clinicaltrials.gov/study/NCT05651620
+L5-11	Colman RJ, Anderson RM, Johnson SC, et al. 'Caloric restriction delays disease onset and mortality in rhesus m	https://pmc.ncbi.nlm.nih.gov/articles/PMC2812811/
+L5-12	Colman RJ, Beasley TM, Kemnitz JW, Johnson SC, Weindruch R, Anderson RM. 'Caloric restriction reduces age-rela	https://pubmed.ncbi.nlm.nih.gov/24691430/
+L5-13	Mattison JA, Roth GS, Beasley TM, et al. 'Impact of caloric restriction on health and survival in rhesus monke	https://pubmed.ncbi.nlm.nih.gov/22932268/
+L5-14	Mattison JA, Colman RJ, Beasley TM, et al. 'Caloric restriction improves health and survival of rhesus monkeys	https://pmc.ncbi.nlm.nih.gov/articles/PMC5247583/
+L5-15	Mattison JA, et al. Nat Commun. 2017;8:14063, PMC5247583; corroborated by Colman RJ, et al. Nat Commun. 2014;5	https://pmc.ncbi.nlm.nih.gov/articles/PMC5247583/
+L5-16	Mattison JA, et al. 'Caloric restriction improves health and survival of rhesus monkeys.' Nat Commun. 2017;8:1	https://pmc.ncbi.nlm.nih.gov/articles/PMC5247583/
+L5-17	Lowe DA, Wu N, Rohdin-Bibby L, et al. 'Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Pa	https://pmc.ncbi.nlm.nih.gov/articles/PMC7522780/
+L5-18	Lowe DA, et al. JAMA Intern Med. 2020;180(11):1491-1499; critique: Tinsley GM, Peterson CM, Horne BD. 'Caution	https://pubmed.ncbi.nlm.nih.gov/33616609/
+L5-19	Liu D, Huang Y, Huang C, et al. 'Calorie Restriction with or without Time-Restricted Eating in Weight Loss.' N	https://pubmed.ncbi.nlm.nih.gov/35443107/
+L5-20	Maruthur NM, Pilla SJ, White K, et al. 'Effect of Isocaloric, Time-Restricted Eating on Body Weight in Adults 	https://www.acpjournals.org/doi/10.7326/M23-3132
+L5-21	Peters B, Schwarz A, et al. 'Intended isocaloric time-restricted eating shifts circadian clocks but does not i	https://www.science.org/doi/10.1126/scitranslmed.adv6787
+L5-22	Semnani-Azad Z, et al. 'Intermittent fasting strategies and their effects on body weight and other cardiometab	https://pmc.ncbi.nlm.nih.gov/articles/PMC12175170/
+L5-23	American Heart Association newsroom release, '8-hour time-restricted eating linked to a 91% higher risk of car	https://newsroom.heart.org/news/8-hour-time-restricted-eating-linked-to-a-91-higher-risk-of-cardiovascular-death
+L5-24	Science Media Centre, 'Expert reaction to conference abstract about time-restricted eating and cardiovascular 	https://www.sciencemediacentre.org/expert-reaction-to-conference-abstract-about-time-restricted-eating-and-cardiovascular-death/
+L5-25	Chen M, Xu L, Van Horn L, Manson JE, Tucker KL, Du X, Feng N, Rong S, Zhong VW. 'Association of eating duratio	https://doi.org/10.1016/j.dsx.2025.103278
+L5-26	Chen M, et al. Diabetes Metab Syndr. 2025. doi:10.1016/j.dsx.2025.103278	https://doi.org/10.1016/j.dsx.2025.103278
+L5-27	Wei M, Brandhorst S, Shelehchi M, et al. 'Fasting-mimicking diet and markers/risk factors for aging, diabetes,	https://pubmed.ncbi.nlm.nih.gov/28202779/
+L5-28	Brandhorst S, Levine ME, Wei M, et al. 'Fasting-mimicking diet causes hepatic and blood markers changes indica	https://pmc.ncbi.nlm.nih.gov/articles/PMC10879164/
+L5-29	Brandhorst S, et al. Nat Commun. 2024;15:1309. PMC10879164	https://pmc.ncbi.nlm.nih.gov/articles/PMC10879164/
+L5-30	Newsweek, 'Research Suggests Diet Plan May Reduce Biological Age by 11 Years', 2024	https://www.newsweek.com/research-suggests-diet-plan-may-reduce-biological-age-11-years-1875245
+L5-31	ClinicalTrials.gov API v2 systematic scan of 1,472 registered CR/fasting/TRE studies, executed 2026-07-28; ful	https://clinicaltrials.gov/api/v2/studies
+L5-32	Ganson KT, Cuccolo K, Hallward L, Nagata JM. 'Intermittent fasting: Describing engagement and associations wit	https://www.sciencedirect.com/science/article/abs/pii/S1471015322000873
+L6-01	Muscedere J, Shorey CL, Duque G, Kim P, Lorbergs AL, McGlory C, Merchant RA, Newman JC, Rolland Y, Vellas B. A	https://pmc.ncbi.nlm.nih.gov/articles/PMC12310402/
+L6-02	ClinicalTrials.gov API v2, query.term="Targeting Aging with Metformin", countTotal=true, run 2026-07-28.	https://clinicaltrials.gov/api/v2/studies?query.term=%22Targeting%20Aging%20with%20Metformin%22&countTotal=true&pageSize=10&fields=NCTId%7CBriefTitle%7COverallStatus%7CEnrollmentCount%7CStartDate%7CLeadSponsorName
+L6-03	American Federation for Aging Research (AFAR), TAME Trial page, afar.org, accessed 2026-07-28.	https://www.afar.org/tame-trial
+L6-04	Barzilai N, Crandall JP, Kritchevsky SB, Espeland MA. Metformin as a tool to target aging. Cell Metab. 2016;23	https://pubmed.ncbi.nlm.nih.gov/27304507/
+L6-05	Rolland Y, Sierra F, Ferrucci L, et al. Challenges in developing Geroscience trials. Nat Commun. 2023;14:5038.	https://www.nature.com/articles/s41467-023-39786-7
+L6-06	Loyal. 'Not just for big dogs! Our senior dog program receives preliminary FDA efficacy acceptance (RXE).' loy	https://loyal.com/posts/loy-002-receives-rxe-from-the-fda
+L6-07	Higgins-Chen AT, Thrush KL, Wang Y, et al. (Levine ME, senior author). A computational solution for bolstering	https://pubmed.ncbi.nlm.nih.gov/36277076/
+L6-08	Higgins-Chen AT, et al. Nature Aging. 2022;2:644-661 — Competing interests statement.	https://www.nature.com/articles/s43587-022-00248-2
+L6-09	Belsky DW, Caspi A, Corcoran DL, et al. DunedinPACE, a DNA methylation biomarker of the pace of aging. eLife. 	https://elifesciences.org/articles/73420
+L6-10	Apsley AT, Ye Q, Caspi A, Chiaro C, Etzel L, Hastings WJ, Heim CM, Kozlosky J, Noll JG, Schreier HMC, Shenk CE	https://pmc.ncbi.nlm.nih.gov/articles/PMC11984668/
+L6-11	Cummings SR, Kritchevsky SB. Endpoints for geroscience clinical trials: health outcomes, biomarkers, and biolo	https://pubmed.ncbi.nlm.nih.gov/36260264/
+L6-12	Rolland Y, Sierra F, Ferrucci L, et al. Challenges in developing Geroscience trials. Nat Commun. 2023;14:5038.	https://www.nature.com/articles/s41467-023-39786-7
+L6-13	Moqri M, Herzog C, Poganik JR, Ying K, Justice JN, Belsky DW, ... Ferrucci L. Validation of biomarkers of agin	https://pubmed.ncbi.nlm.nih.gov/38355974/
+L6-14	Biomarkers of Aging Consortium; Herzog CMS, Goeminne LJE, Poganik JR, Barzilai N, Belsky DW, ... Moqri M, Glad	https://www.agingconsortium.org/s/Challenges-and-recommendations-for-the-translation-of-biomarkers-of-aging.pdf
+L6-15	Biomarkers of Aging Consortium; Herzog CMS, et al. Challenges and recommendations for the translation of bioma	https://www.agingconsortium.org/s/Challenges-and-recommendations-for-the-translation-of-biomarkers-of-aging.pdf
+L6-16	Ying K, Paulson S, Eames A, Tyshkovskiy A, ... Poganik JR, Moqri M, Gladyshev VN. A unified framework for syst	https://www.nature.com/articles/s43587-025-00987-y
+L6-17	Cipriano A, Justice J, Poganik JR, Moqri M, Abudayyeh OO, Gootenberg J, ... Furman D, Herzog CMS. Immune aging	https://www.nature.com/articles/s41591-026-04493-5
+L6-18	ClinicalTrials.gov API v2 aggregate counts, query.cond=Aging with filter.advanced on StudyType, EnrollmentCoun	https://clinicaltrials.gov/api/v2/studies?query.cond=Aging&filter.advanced=AREA%5BStudyType%5DINTERVENTIONAL&countTotal=true&pageSize=1&fields=NCTId
+L6-19	Rolland Y, Sierra F, Ferrucci L, et al. Challenges in developing Geroscience trials. Nat Commun. 2023;14:5038.	https://www.nature.com/articles/s41467-023-39786-7
+L6-20	Gems D, de Magalhães JP. The hoverfly and the wasp: A critique of the hallmarks of aging as a paradigm. Ageing	https://pmc.ncbi.nlm.nih.gov/articles/PMC7611451/
+L6-21	López-Otín C, Blasco MA, Partridge L, Serrano M, Kroemer G. The Hallmarks of Aging. Cell. 2013;153(6):1194-121	https://www.cell.com/cell/fulltext/S0092-8674(22)01377-0
+L6-22	Bell CG, Lowe R, Adams PD, et al. DNA methylation aging clocks: challenges and recommendations. Genome Biology	https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1824-y
+L6-23	Sholl J. et al. (comment). How 'old age' was withdrawn as a diagnosis from ICD-11. The Lancet Healthy Longevit	https://www.thelancet.com/journals/lanhl/article/PIIS2666-7568(22)00102-7/fulltext
+L7-01	Venable LLP, 'FDA Declares Nicotinamide Mononucleotide Is a Dietary Supplement', October 2025 insights publica	https://www.venable.com/insights/publications/2025/10/fda-declares-nicotinamide-mononucleotide-is
+L7-02	Natural Products Association press release, 'FDA Reinstates NMN As Dietary Supplement After NPA Lawsuit', 10 D	https://www.npanational.org/news/fda-reinstates-nmn-as-dietary-supplement-after-npa-lawsuit/
+L7-03	SupplySide SJ (Josh Long), 'ChromaDex sides with FDA, pharma in NMN supplements debate'; ChromaDex Businesswir	https://www.supplysidesj.com/healthy-aging/chromadex-agrees-with-fda-on-nmn-decision
+L7-04	Council for Responsible Nutrition, 'CRN Dismayed by FDA's Response to its Citizen Petition on Drug Preclusion'	https://www.crnusa.org/newsroom/crn-dismayed-fdas-response-its-citizen-petition-drug-preclusion
+L7-05	SupplySide SJ and NutraIngredients coverage, 2024–2025; NutraIngredients 'NMN back on Amazon but FDA's citizen	https://www.nutraingredients.com/Article/2025/10/08/nmn-back-on-amazon-but-fdas-citizen-petition-response-seen-as-a-mixed-bag-for-supplements/
+L7-06	Future Market Insights, 'NAD Precursor Supplements Market'; Global Market Insights Inc., 'Nicotinamide Adenine	https://www.futuremarketinsights.com/reports/nad-precursor-supplements-market
+L7-07	The Business Research Company, 'Longevity Clinic Market Report 2026' (via Research and Markets); trendxinsight	https://www.researchandmarkets.com/reports/6225936/longevity-clinic-market-report
+L7-08	MIT Technology Review, 'Longevity clinics around the world are selling unproven treatments', 18 April 2025, re	https://www.technologyreview.com/2025/04/18/1115372/longevity-clinics-selling-unproven-treatments/
+L7-09	Demaria M. Longevity clinics: between promise and peril. Aging (Albany NY). 13 October 2025. PMC12606959	https://pmc.ncbi.nlm.nih.gov/articles/PMC12606959/
+L7-10	blueprint.bryanjohnson.com homepage, fetched 28 July 2026 (disclaimer text); statutory framework per FD&C Act 	https://blueprint.bryanjohnson.com/
+L7-11	US FDA warning/advisory letters: Aardsma Research & Publishing (July 2025); Bonagens 609905 (17 Nov 2020); Sov	https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/aardsma-research-publishing-online-advisory-letter
+L7-12	FDA recall classification reporting via HMP Global Learning Network, 'FDA Issues Class I Recall for NAD+ Injec	https://www.hmpgloballearningnetwork.com/site/pln/news/fda-issues-class-i-recall-nad-injection-due-elevated-endotoxin-levels
+L7-13	BBB National Programs, National Advertising Review Board, Niagen Bioscience Inc., Case #7487-346, decision 21 	https://bbbprograms.org/media/newsroom/decisions/niagen-bioscience
+L7-14	FTC, 'FTC Approves Final Consent Order in Telomerase Activation Sciences Deceptive Advertising Case', 19 April	https://www.ftc.gov/news-events/news/press-releases/2018/04/ftc-approves-final-consent-order-telomerase-activation-sciences-deceptive-advertising-case
+L7-15	ClassAction.org, 'Tru Niagen's Advertised Health Benefits Are Not "Clinically Proven," Class Action Lawsuit Al	https://www.classaction.org/news/tru-niagens-advertised-health-benefits-are-not-clinically-proven-class-action-lawsuit-alleges
+L7-16	Loyal (Cellular Longevity, Inc.), 'FDA Center for Veterinary Medicine agrees Loyal's data supports reasonable 	https://loyal.com/posts/loyal-announces-historic-fda-milestone-for-large-dog-lifespan-extension-drug
+L7-17	Loyal, 'Not just for big dogs! Our senior dog program receives preliminary FDA efficacy acceptance (RXE)', 26 	https://loyal.com/posts/loy-002-tas
+L7-18	Loyal company posts, 26 February 2025 and 13 January 2026; Longevity.Technology, 'FDA clears safety step for L	https://longevity.technology/news/fda-clears-safety-step-for-loyals-senior-dog-longevity-drug/
+L7-19	Kaeberlein M et al. Evaluation of off-label rapamycin use to promote healthspan in 333 adults. GeroScience. 20	https://link.springer.com/article/10.1007/s11357-023-00818-1
+L7-20	AgelessRx rapamycin product page, agelessrx.com/rapamycin/, fetched 28 July 2026	https://agelessrx.com/rapamycin/
+L7-21	fountainlife.com homepage, fetched 28 July 2026; Biograph pricing via secondary reporting (nmn.com / longevity	https://fountainlife.com/
+L7-22	WIRED profile by Katie Drummond, published 21 July 2025, reproduced on Blueprint's own site; Fortune, 24 July 	https://blueprint.bryanjohnson.com/blogs/news/wired-profile-bryan-johnson
+L7-23	blueprint.bryanjohnson.com homepage, fetched 28 July 2026	https://blueprint.bryanjohnson.com/
+L7-24	MIT Technology Review, 9 June 2026; nmn.com news, 'Dr. David Sinclair Steps Down from Prominent Aging Research	https://www.technologyreview.com/2026/06/09/1138545/david-sinclair-plans-to-test-whole-body-rejuvenation-drugs-in-the-xprize-competition/
+L7-25	SkeptVet, 'Evidence Update: Leap Years Supplement', June 2024, analysing the peer-reviewed publication versus 	https://skeptvet.com/2024/06/evidence-update-leap-years-supplement/
+L7-26	Dyke SOM et al. Researcher perspectives on ethics considerations in epigenetics: an international survey. Clin	https://pmc.ncbi.nlm.nih.gov/articles/PMC9440515/
