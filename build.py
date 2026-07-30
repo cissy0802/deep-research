@@ -3038,7 +3038,7 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">{tldr}</div></div>
 <div class="chips">{chips}</div>
 {body}
-<footer>BigCat Deep Research · {date} · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+<footer>BigCat Deep Research · {date} · <a href="https://hub.cissychen.com/">Learning Hub</a></footer>
 </div>
 {scripts}
 </body></html>
@@ -3710,7 +3710,7 @@ INDEX_TMPL = """<!DOCTYPE html>
   <div class="method">{method}</div>
 </header>
 {entries}
-<footer>BigCat Deep Research · <a href="https://cissy0802.github.io/">Learning Hub</a> · <a href="https://github.com/cissy0802/deep-research">GitHub</a></footer>
+<footer>BigCat Deep Research · <a href="https://hub.cissychen.com/">Learning Hub</a> · <a href="https://github.com/cissy0802/deep-research">GitHub</a></footer>
 </div>
 {scripts}
 </body></html>
