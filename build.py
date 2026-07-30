@@ -2283,7 +2283,404 @@ def fig_st_bans(lang: str) -> str:
 </figure>"""
 
 
+def fig_lg_tiers(lang: str) -> str:
+    """Three evidence tiers x four interventions: what each actually has."""
+    t = {
+        "zh": dict(title="三层证据阶梯上,四个干预实际占住了什么(截至 2026-07)",
+                   c1="① 动物寿命", c2="② 人体替代终点", c3="③ 人体临床结局",
+                   r1="雷帕霉素", r2="二甲双胍", r3="NAD+ 前体", r4="禁食/热量限制",
+                   a1="过:+23% 雄(42ppm)", a2="19 项人体研究", a3="空;狗试验尚未读出",
+                   b1="未过:雄 +7% p=0.35", b2="n=14,6 周 mRNA", b3="21 年 HR 0.99",
+                   c_1="未过:雄 p=0.25", c_2="血中升,肌肉不升", c_3="空",
+                   d1="猴:被对照饲料混淆", d2="速度指标动,水平不动", d3="只有多成分生活方式试验",
+                   lg1="有证据", lg2="有但薄或存争", lg3="空或判否",
+                   cap="示意:横轴是证据层级,不是时间。绝大多数误导来自把 ① 的数字当 ③ 用。「过/未过」指 NIA 三站点小鼠寿命程序(ITP)的预设检验;NAD+ 一行指烟酰胺核苷"),
+        "en": dict(title="What each intervention actually occupies on the three evidence tiers (as of 2026-07)",
+                   c1="1 Animal lifespan", c2="2 Human surrogate", c3="3 Human outcomes",
+                   r1="Rapamycin", r2="Metformin", r3="NAD+ precursors", r4="Fasting / CR",
+                   a1="passed: +23% male (42ppm)", a2="19 human studies", a3="empty; dog trial unreported",
+                   b1="failed: male +7% p=0.35", b2="n=14, 6 wks, mRNA", b3="21 yrs, HR 0.99",
+                   c_1="failed: male p=0.25", c_2="blood rises, muscle doesn't", c_3="empty",
+                   d1="monkeys: control-diet confound", d2="pace moved, levels didn't", d3="multi-component lifestyle only",
+                   lg1="evidence exists", lg2="thin or contested", lg3="empty or failed",
+                   cap="Schematic: the horizontal axis is evidence tier, not time. Most misleading claims take a tier-1 number and use it as a tier-3 number. Pass/fail refers to the pre-specified test in the NIA three-site mouse lifespan program (ITP); the NAD+ row is nicotinamide riboside"),
+    }[lang]
+    CY, AM, PK = "#4cc9f0", "#f0b429", "#ff6ec4"
+    rows = [
+        (t['r1'], [(t['a1'], CY), (t['a2'], AM), (t['a3'], PK)]),
+        (t['r2'], [(t['b1'], PK), (t['b2'], AM), (t['b3'], PK)]),
+        (t['r3'], [(t['c_1'], PK), (t['c_2'], AM), (t['c_3'], PK)]),
+        (t['r4'], [(t['d1'], AM), (t['d2'], AM), (t['d3'], AM)]),
+    ]
+    cols = [176, 350, 524]
+    parts = []
+    for cx, ct in zip(cols, [t['c1'], t['c2'], t['c3']]):
+        parts.append(f'<text x="{cx + 82}" y="66" fill="#7c8593" font-size="11" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{ct}</text>')
+    y = 80
+    for name, cells in rows:
+        parts.append(f'<text x="164" y="{y + 22}" fill="#e4e6eb" font-size="12" font-weight="700" '
+                     f'text-anchor="end" font-family="-apple-system,sans-serif">{name}</text>')
+        for cx, (label, color) in zip(cols, cells):
+            parts.append(f'<rect x="{cx}" y="{y}" width="164" height="34" rx="6" fill="{color}" opacity="0.16" '
+                         f'stroke="{color}" stroke-width="1"/>')
+            parts.append(f'<text x="{cx + 82}" y="{y + 22}" fill="{color}" font-size="9.5" '
+                         f'text-anchor="middle" font-family="Menlo,monospace">{label}</text>')
+        y += 44
+    lg = []
+    lx = 176
+    for txt, color in [(t['lg1'], CY), (t['lg2'], AM), (t['lg3'], PK)]:
+        lg.append(f'<rect x="{lx}" y="{y + 4}" width="11" height="11" rx="3" fill="{color}" opacity="0.85"/>')
+        lg.append(f'<text x="{lx + 17}" y="{y + 13}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{txt}</text>')
+        lx += 170
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 30}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}{''.join(lg)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_itp(lang: str) -> str:
+    """The ITP ledger: median lifespan effects, passed vs failed, on one axis."""
+    t = {
+        "zh": dict(title="NIA 三站点小鼠寿命程序(ITP)台账:中位寿命增幅与判决",
+                   ns="不显著", prog="在测,未报告(2025 cohort)",
+                   lg1="通过预设检验", lg2="未通过", lg3="结果待出",
+                   cap="示意:同一根轴上放通过与未通过的化合物,可见「通过」与「未通过」的距离常常很小——二甲双胍的 +7% 是正的,只是不显著。ITP 设计上只有约 80% 功效检出 10% 的平均寿命变化,所以 8-12% 这一档本身就坐在下限上。剂量与起始年龄见正文"),
+        "en": dict(title="The NIA three-site mouse lifespan ledger (ITP): median change and verdict",
+                   ns="not significant", prog="in testing, unreported (2025 cohort)",
+                   lg1="passed pre-specified test", lg2="did not pass", lg3="result pending",
+                   cap="Schematic (NR = nicotinamide riboside): putting passes and failures on one axis shows how small the gap often is — metformin's +7% is positive, just not significant. The ITP is powered at roughly 80% to detect a 10% change in mean lifespan, so the 8-12% band sits on its own floor. Doses and start ages are in the body text"),
+    }[lang]
+    CY, PK, GR = "#4cc9f0", "#ff6ec4", "#5a6378"
+    rows = [
+        ("雷帕霉素 42ppm(雄)" if lang == "zh" else "Rapamycin 42ppm (male)", 23, CY, ""),
+        ("阿卡波糖 1000ppm(雄)" if lang == "zh" else "Acarbose 1000ppm (male)", 22, CY, ""),
+        ("雷帕霉素 42ppm(雌)" if lang == "zh" else "Rapamycin 42ppm (female)", 26, CY, ""),
+        ("卡格列净 180ppm(雄)" if lang == "zh" else "Canagliflozin 180ppm (M)", 14, CY, ""),
+        ("甘氨酸 8%(两性)" if lang == "zh" else "Glycine 8% (both sexes)", 5, CY, ""),
+        ("二甲双胍 1000ppm(雄)" if lang == "zh" else "Metformin 1000ppm (male)", 7, PK, f"{t['ns']} p=0.35"),
+        ("烟酰胺核苷 1000ppm(雄)" if lang == "zh" else "NR 1000ppm (male)", -3, PK, f"{t['ns']} p=0.25"),
+        ("非瑟酮 600ppm" if lang == "zh" else "Fisetin 600ppm", 0, PK, t['ns']),
+        ("尿石素 A / 牛磺酸" if lang == "zh" else "Urolithin A / taurine", None, GR, t['prog']),
+    ]
+    x0 = 316
+
+    def X(v):
+        return x0 + v * 8.6
+    parts = []
+    y = 74
+    for label, val, color, note in rows:
+        parts.append(f'<text x="{x0 - 148}" y="{y + 13}" fill="#7c8593" font-size="10.5" '
+                     f'text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        if val is None:
+            parts.append(f'<text x="{x0 + 12}" y="{y + 13}" fill="{color}" font-size="10" '
+                         f'font-family="Menlo,monospace">{note}</text>')
+        else:
+            lo, hi = (min(0, val), max(0, val))
+            parts.append(f'<rect x="{X(lo):.0f}" y="{y + 1}" width="{max(2, X(hi) - X(lo)):.0f}" height="15" rx="4" '
+                         f'fill="{color}" opacity="0.8"/>')
+            vt = f"{val:+d}%"
+            parts.append(f'<text x="{X(hi) + 9:.0f}" y="{y + 13}" fill="{color}" font-size="11" font-weight="700" '
+                         f'font-family="Menlo,monospace">{vt}</text>')
+            if note:
+                parts.append(f'<text x="{X(hi) + 52:.0f}" y="{y + 13}" fill="#5a6378" font-size="9.5" '
+                             f'font-family="Menlo,monospace">{note}</text>')
+        y += 27
+    lg = []
+    lx = x0 - 148
+    for txt, color in [(t['lg1'], CY), (t['lg2'], PK), (t['lg3'], GR)]:
+        lg.append(f'<rect x="{lx}" y="{y + 6}" width="11" height="11" rx="3" fill="{color}" opacity="0.85"/>')
+        lg.append(f'<text x="{lx + 17}" y="{y + 15}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{txt}</text>')
+        lx += 182
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 34}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="62" x2="{x0}" y2="{y - 4}" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="{x0}" y="56" fill="#5a6378" font-size="9" text-anchor="middle" font-family="Menlo,monospace">0%</text>
+  {''.join(parts)}{''.join(lg)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_slippage(lang: str) -> str:
+    """The four caliber slippages, each with a named example."""
+    t = {
+        "zh": dict(title="四种口径滑坡:每一种都有一个具名的招牌数字",
+                   h1="原始口径", h2="被引用成", h3="出处",
+                   a1="90% 死亡年龄 +14%", a2="「延长寿命 14%」", a3="Harrison 2009,600 日龄起始",
+                   b1="主终点内脏脂肪未达成", b2="「雷帕霉素改善瘦体重」", b3="PEARL,阳性结果压在 8 名女性",
+                   c1="处方 25%,实际 11.9%", c2="「25% 热量限制的效果」", c3="CALERIE-2,前 6 月 19.5%/后 9.1%",
+                   d1="预设单侧 p<0.10 判阳性", d2="「NR 改善步行能力」", d3="NICE 试验,+17.6 米",
+                   n1="① 层级/终点:最大寿命当中位寿命", n2="② 终点:主终点没达就报亚组",
+                   n3="③ 剂量:处方剂量当实际剂量", n4="④ 判据:放宽的阈值当常规阈值",
+                   cap="示意:四种滑坡都不是造假,而是把一个数字从它成立的口径搬到不成立的口径。同一机制也会反向使用——RAPA-EX-01 的协议预设 α=0.10,论文按 95% 区间报告,让一个偏负的结果显得更温和"),
+        "en": dict(title="Four caliber slippages, each with a named signature number",
+                   h1="original caliber", h2="cited as", h3="source",
+                   a1="age at 90% mortality +14%", a2="\"extends lifespan 14%\"", a3="Harrison 2009, dosing from day 600",
+                   b1="primary endpoint (visceral fat) missed", b2="\"rapamycin improves lean mass\"", b3="PEARL, positive result rests on 8 women",
+                   c1="25% prescribed, 11.9% achieved", c2="\"the effect of 25% CR\"", c3="CALERIE-2, 19.5% then 9.1%",
+                   d1="positive on pre-set one-sided p<0.10", d2="\"NR improves walking\"", d3="NICE trial, +17.6 metres",
+                   n1="1 Tier/endpoint: max lifespan read as median", n2="2 Endpoint: missed primary, subgroup reported",
+                   n3="3 Dose: prescribed read as achieved", n4="4 Criterion: loosened threshold read as standard",
+                   cap="Schematic: none of these is fabrication. Each moves a number from the caliber where it holds to one where it does not. The same mechanism runs in reverse too — RAPA-EX-01's protocol pre-specified alpha 0.10 while the paper reports 95% intervals, making a negative result look gentler"),
+    }[lang]
+    CY, PK, AM, PU = "#4cc9f0", "#ff6ec4", "#f0b429", "#7b61ff"
+    rows = [
+        (t['n1'], t['a1'], t['a2'], t['a3'], CY),
+        (t['n2'], t['b1'], t['b2'], t['b3'], AM),
+        (t['n3'], t['c1'], t['c2'], t['c3'], PU),
+        (t['n4'], t['d1'], t['d2'], t['d3'], PK),
+    ]
+    parts = [
+        f'<text x="212" y="62" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">{t["h1"]}</text>',
+        f'<text x="452" y="62" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">{t["h2"]}</text>',
+    ]
+    y = 72
+    for note, orig, cited, src, color in rows:
+        parts.append(f'<text x="26" y="{y + 12}" fill="{color}" font-size="10.5" font-weight="700" '
+                     f'font-family="Menlo,monospace">{note}</text>')
+        parts.append(f'<rect x="26" y="{y + 20}" width="372" height="26" rx="6" fill="#5a6378" opacity="0.16"/>')
+        parts.append(f'<text x="212" y="{y + 37}" fill="#c8cdd6" font-size="10" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{orig}</text>')
+        parts.append(f'<path d="M 404 {y + 33} L 424 {y + 33}" stroke="{color}" stroke-width="1.6"/>')
+        parts.append(f'<path d="M 424 {y + 28} L 434 {y + 33} L 424 {y + 38} Z" fill="{color}"/>')
+        parts.append(f'<rect x="440" y="{y + 20}" width="234" height="26" rx="6" fill="{color}" opacity="0.18" '
+                     f'stroke="{color}" stroke-width="1"/>')
+        parts.append(f'<text x="557" y="{y + 37}" fill="{color}" font-size="10" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{cited}</text>')
+        parts.append(f'<text x="26" y="{y + 60}" fill="#5a6378" font-size="9" font-family="Menlo,monospace">{src}</text>')
+        y += 76
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 14}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_metformin(lang: str) -> str:
+    """Bannister (UK) vs Keys (Denmark) crude mortality: three cells agree, one diverges."""
+    t = {
+        "zh": dict(title="英国与丹麦的粗死亡率并排:四格里三格重合(每千人年)",
+                   r1="二甲双胍匹配的非糖尿病对照", r2="磺脲匹配的非糖尿病对照",
+                   r3="磺脲治疗组", r4="二甲双胍治疗组 ← 分歧就在这一格",
+                   lg1="英国 CPRD(Bannister 2014)", lg2="丹麦全国注册(Keys 2022)",
+                   cap="示意:两国医疗体系、注册系统与人口结构都不同,但三个格子几乎重合——这排除了「两国本来就不一样」的解释,把分歧压缩到二甲双胍治疗组这一格。威尔士 SAIL 数据(2023)进一步显示,该优势在头三年存在、五年后反转"),
+        "en": dict(title="UK vs Danish crude mortality: three of four cells agree (per 1,000 py)",
+                   r1="Non-diabetic controls matched to metformin", r2="Non-diabetic controls matched to sulfonylurea",
+                   r3="Sulfonylurea-treated", r4="Metformin-treated  <-- the divergence is here",
+                   lg1="UK CPRD (Bannister 2014)", lg2="Danish national registers (Keys 2022)",
+                   cap="Schematic: two countries with different health systems, registries and demographics agree in three cells, which rules out 'the countries are simply different' and compresses the disagreement into the metformin-treated cell. Welsh SAIL data (2023) then showed the advantage exists for three years and reverses after five"),
+    }[lang]
+    UK, DK, HL = "#4cc9f0", "#7b61ff", "#ff6ec4"
+    rows = [(t['r1'], 15.2, 16.9, False), (t['r2'], 28.7, 28.4, False),
+            (t['r3'], 50.9, 49.0, False), (t['r4'], 14.4, 24.9, True)]
+    x0, x1 = 320, 660
+
+    def X(v):
+        return x0 + (v - 12) * (x1 - x0) / 42.0
+    parts = []
+    for gv in (20, 30, 40, 50):
+        parts.append(f'<line x1="{X(gv):.0f}" y1="66" x2="{X(gv):.0f}" y2="{66 + 4 * 46}" stroke="#5a6378" '
+                     f'stroke-width="0.8" stroke-dasharray="2,5" opacity="0.5"/>')
+        parts.append(f'<text x="{X(gv):.0f}" y="60" fill="#5a6378" font-size="9" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{gv}</text>')
+    y = 66
+    for label, uk, dk, hot in rows:
+        col = HL if hot else "#7c8593"
+        parts.append(f'<text x="{x0 - 14}" y="{y + 26}" fill="{col}" font-size="10" text-anchor="end" '
+                     f'font-family="Menlo,monospace">{label}</text>')
+        dash = "" if hot else ' stroke-dasharray="2,3"'
+        lcol = HL if hot else "#5a6378"
+        parts.append(f'<line x1="{X(min(uk, dk)):.0f}" y1="{y + 22}" x2="{X(max(uk, dk)):.0f}" y2="{y + 22}" '
+                     f'stroke="{lcol}" stroke-width="{2.4 if hot else 1.2}"{dash}/>')
+        parts.append(f'<circle cx="{X(uk):.0f}" cy="{y + 22}" r="5.5" fill="{UK}"/>')
+        parts.append(f'<circle cx="{X(dk):.0f}" cy="{y + 22}" r="5.5" fill="{DK}"/>')
+        if hot:
+            parts.append(f'<text x="{X((uk + dk) / 2):.0f}" y="{y + 12}" fill="{HL}" font-size="10" '
+                         f'font-weight="700" text-anchor="middle" font-family="Menlo,monospace">14.4 vs 24.9</text>')
+        y += 46
+    lg = (f'<circle cx="{x0 - 140}" cy="{y + 10}" r="5" fill="{UK}"/>'
+          f'<text x="{x0 - 128}" y="{y + 14}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{t["lg1"]}</text>'
+          f'<circle cx="{x0 + 130}" cy="{y + 10}" r="5" fill="{DK}"/>'
+          f'<text x="{x0 + 142}" y="{y + 14}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{t["lg2"]}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 32}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}{lg}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_calerie(lang: str) -> str:
+    """CALERIE-2: prescribed vs achieved caloric restriction."""
+    t = {
+        "zh": dict(title="CALERIE-2:处方的热量限制与实际做到的(健康非肥胖成人,两年)",
+                   r1="试验处方(设计目标)", r2="实际达成:前 6 个月", r3="实际达成:其后 18 个月",
+                   r4="两年平均(2016 年勘误后)",
+                   cap="示意:所有「人体 25% 热量限制产生了 X」的说法,描述的其实是两年平均约 12% 的剂量。这不是研究者的过失,而是人类依从性的上限——真正的 25% 限制至今没有任何人体数据"),
+        "en": dict(title="CALERIE-2: caloric restriction prescribed vs achieved (2 years)",
+                   r1="Trial prescription (design target)", r2="Achieved: first 6 months", r3="Achieved: remaining 18 months",
+                   r4="Two-year average (post-2016 erratum)",
+                   cap="Schematic: every claim of the form '25% caloric restriction in humans produced X' actually describes a two-year average of about 12%. This is not researcher failure but the ceiling of human adherence — there is still no human data on a true 25% restriction"),
+    }[lang]
+    PK, AM, CY = "#ff6ec4", "#f0b429", "#4cc9f0"
+    rows = [(t['r1'], 25.0, "25%", PK), (t['r2'], 19.5, "19.5%", AM),
+            (t['r3'], 9.1, "9.1%", CY), (t['r4'], 11.9, "11.9%", CY)]
+    x0 = 300
+    parts = []
+    y = 68
+    for label, val, vtxt, color in rows:
+        w = val * 13.2
+        parts.append(f'<text x="{x0 - 12}" y="{y + 15}" fill="#7c8593" font-size="10.5" text-anchor="end" '
+                     f'font-family="Menlo,monospace">{label}</text>')
+        parts.append(f'<rect x="{x0}" y="{y + 1}" width="{w:.0f}" height="19" rx="5" fill="{color}" opacity="0.82"/>')
+        parts.append(f'<text x="{x0 + w + 10:.0f}" y="{y + 15}" fill="{color}" font-size="12" font-weight="700" '
+                     f'font-family="Menlo,monospace">{vtxt}</text>')
+        y += 38
+    parts.append(f'<line x1="{x0 + 25 * 13.2:.0f}" y1="62" x2="{x0 + 25 * 13.2:.0f}" y2="{y - 8}" '
+                 f'stroke="{PK}" stroke-width="1" stroke-dasharray="3,4" opacity="0.6"/>')
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 12}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="58" x2="{x0}" y2="{y - 8}" stroke="#5a6378" stroke-width="1.5"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_clock(lang: str) -> str:
+    """Epigenetic clocks across tissues: oral-vs-blood large, blood-vs-blood flat."""
+    t = {
+        "zh": dict(title="同一个人、同一时刻,换组织采样得到的「生物年龄」差多少(年)",
+                   r1="颊拭子 vs 干血斑(GrimAge2)", r2="唾液 vs 白膜层(PhenoAge)",
+                   r3="唾液 vs 白膜层(PCGrimAge)", r4="干血斑 vs PBMC(GrimAge2)",
+                   r5="干血斑 vs 白膜层(七个时钟全部)",
+                   s1="Apsley 2025,83 人", s2="Bruellman 2026,独立队列 91 人",
+                   s3="Bruellman 2026", s4="Apsley 2025", s5="Apsley 2025,均不显著",
+                   lg1="口腔 vs 血液", lg2="血液 vs 血液",
+                   cap="示意:差异集中在「口腔对血液」,而血液内部几乎为零(七个时钟全部不显著)。所以这是把血液训练的尺子拿去量口腔造成的系统性偏倚——可以校准,不是随机噪声。两个独立队列同向,量级 9-20 年;36 年是单篇论文里最极端的一格"),
+        "en": dict(title="Same person, same moment: how far apart 'biological age' lands by tissue (years)",
+                   r1="Buccal vs dried blood spot (GrimAge2)", r2="Saliva vs buffy coat (PhenoAge)",
+                   r3="Saliva vs buffy coat (PCGrimAge)", r4="Dried blood spot vs PBMC (GrimAge2)",
+                   r5="Dried blood spot vs buffy coat (7 clocks)",
+                   s1="Apsley 2025, 83 people", s2="Bruellman 2026, independent cohort n=91",
+                   s3="Bruellman 2026", s4="Apsley 2025", s5="Apsley 2025, all non-significant",
+                   lg1="oral vs blood", lg2="blood vs blood",
+                   cap="Schematic: the gap is concentrated in oral-versus-blood, while within blood it is essentially zero (all seven clocks non-significant). So this is the systematic bias of reading a blood-trained ruler on oral tissue — calibratable, not random noise. Two independent cohorts agree at 9-20 years; the 36-year figure is the most extreme single cell in one paper"),
+    }[lang]
+    PK, CY = "#ff6ec4", "#4cc9f0"
+    rows = [(t['r1'], 36.0, "~36", PK, t['s1']), (t['r2'], 19.7, "+19.7", PK, t['s2']),
+            (t['r3'], 9.1, "+9.1", PK, t['s3']), (t['r4'], 5.2, "+5.2", CY, t['s4']),
+            (t['r5'], -1.1, "-1.1", CY, t['s5'])]
+    x0 = 296
+    parts = []
+    y = 70
+    for label, val, vtxt, color, src in rows:
+        w = abs(val) * 8.6
+        bx = x0 if val >= 0 else x0 - w
+        parts.append(f'<text x="{x0 - 12}" y="{y + 14}" fill="#7c8593" font-size="10" text-anchor="end" '
+                     f'font-family="Menlo,monospace">{label}</text>')
+        parts.append(f'<rect x="{bx:.0f}" y="{y}" width="{max(3, w):.0f}" height="18" rx="5" fill="{color}" opacity="0.82"/>')
+        parts.append(f'<text x="{x0 + w + 10:.0f}" y="{y + 14}" fill="{color}" font-size="11.5" font-weight="700" '
+                     f'font-family="Menlo,monospace">{vtxt}</text>')
+        parts.append(f'<text x="{x0 - 12}" y="{y + 29}" fill="#5a6378" font-size="8.5" text-anchor="end" '
+                     f'font-family="Menlo,monospace">{src}</text>')
+        y += 40
+    lg = (f'<rect x="{x0 - 168}" y="{y + 4}" width="11" height="11" rx="3" fill="{PK}" opacity="0.85"/>'
+          f'<text x="{x0 - 151}" y="{y + 13}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{t["lg1"]}</text>'
+          f'<rect x="{x0 + 20}" y="{y + 4}" width="11" height="11" rx="3" fill="{CY}" opacity="0.85"/>'
+          f'<text x="{x0 + 37}" y="{y + 13}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{t["lg2"]}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 30}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="62" x2="{x0}" y2="{y - 6}" stroke="#5a6378" stroke-width="1.5"/>
+  {''.join(parts)}{lg}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_lg_market(lang: str) -> str:
+    """The inversion: mouse-lifespan evidence versus consumer market."""
+    t = {
+        "zh": dict(title="倒挂:小鼠寿命证据最强的那个,零售市场几乎不存在",
+                   h1="← ITP 小鼠寿命判决", h2="消费者零售市场 →",
+                   r1="雷帕霉素", r2="烟酰胺核苷(NR)",
+                   e1="通过:雄 +23% / 雌 +26%", e2="未通过:雄 p=0.25、雌 p=0.61",
+                   m1="几乎无零售;处方药,带黑框警告", m2="数亿美元量级,数百个品牌",
+                   cap="示意:条长为示意,不是同一量纲。结构性解释不神秘——能大规模零售的必须是补剂,补剂在法律上不能是药,而在动物寿命层真正有效的往往是药。所以决定市场规模的是监管类别,不是效应量"),
+        "en": dict(title="The inversion: best mouse-lifespan evidence, almost no retail market",
+                   h1="<- ITP mouse lifespan verdict", h2="consumer retail market ->",
+                   r1="Rapamycin", r2="Nicotinamide riboside (NR)",
+                   e1="passed: male +23% / female +26%", e2="failed: male p=0.25, female p=0.61",
+                   m1="almost no retail; prescription drug, boxed warning", m2="hundreds of millions of dollars, hundreds of brands",
+                   cap="Schematic: bar lengths are illustrative and not on a common scale. The structural explanation is unmysterious — what can be retailed at scale must be a supplement, a supplement legally cannot be a drug, and what works at the animal lifespan tier is usually a drug. Market size is set by regulatory category, not effect size"),
+    }[lang]
+    CY, PK = "#4cc9f0", "#ff6ec4"
+    mid = 350
+    rows = [(t['r1'], 210, 26, t['e1'], t['m1'], CY), (t['r2'], 34, 250, t['e2'], t['m2'], PK)]
+    parts = [
+        f'<text x="{mid - 16}" y="60" fill="#5a6378" font-size="10" text-anchor="end" font-family="Menlo,monospace">{t["h1"]}</text>',
+        f'<text x="{mid + 16}" y="60" fill="#5a6378" font-size="10" font-family="Menlo,monospace">{t["h2"]}</text>',
+    ]
+    y = 74
+    for name, wl, wr, enote, mnote, color in rows:
+        parts.append(f'<text x="{mid}" y="{y + 16}" fill="#e4e6eb" font-size="12" font-weight="700" '
+                     f'text-anchor="middle" font-family="-apple-system,sans-serif">{name}</text>')
+        parts.append(f'<rect x="{mid - 8 - wl}" y="{y + 26}" width="{wl}" height="20" rx="5" fill="{color}" opacity="0.8"/>')
+        parts.append(f'<rect x="{mid + 8}" y="{y + 26}" width="{wr}" height="20" rx="5" fill="{color}" opacity="0.35"/>')
+        parts.append(f'<text x="{mid - 8}" y="{y + 62}" fill="{color}" font-size="9.5" text-anchor="end" '
+                     f'font-family="Menlo,monospace">{enote}</text>')
+        parts.append(f'<text x="{mid + 8}" y="{y + 62}" fill="{color}" font-size="9.5" '
+                     f'font-family="Menlo,monospace">{mnote}</text>')
+        y += 88
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 14}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="34" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{mid}" y1="66" x2="{mid}" y2="{y - 10}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "longevity-evidence-deep": [
+        ("zh", "0. ", fig_lg_tiers, "end"),
+        ("en", "0. ", fig_lg_tiers, "end"),
+        ("zh", "0. ", fig_lg_slippage, "end"),
+        ("en", "0. ", fig_lg_slippage, "end"),
+        ("zh", "1.2", fig_lg_itp, "end"),
+        ("en", "1.2", fig_lg_itp, "end"),
+        ("zh", "3.2", fig_lg_metformin, "end"),
+        ("en", "3.2", fig_lg_metformin, "end"),
+        ("zh", "5.1", fig_lg_calerie, "end"),
+        ("en", "5.1", fig_lg_calerie, "end"),
+        ("zh", "6.2", fig_lg_clock, "end"),
+        ("en", "6.2", fig_lg_clock, "end"),
+        ("zh", "8. ", fig_lg_market, "end"),
+        ("en", "8. ", fig_lg_market, "end"),
+    ],
+    "longevity-evidence-plain": [
+        ("zh", "先说结论", fig_lg_tiers, "end"),
+        ("en", "The short version", fig_lg_tiers, "end"),
+        ("zh", "二甲双胍:一个数字的完整生命史", fig_lg_metformin, "end"),
+        ("en", "Metformin: the complete life history of one number", fig_lg_metformin, "end"),
+        ("zh", "禁食与热量限制", fig_lg_calerie, "end"),
+        ("en", "Fasting and caloric restriction", fig_lg_calerie, "end"),
+        ("zh", "为什么这个领域注定要用替代指标", fig_lg_clock, "end"),
+        ("en", "Why this field is stuck with substitute measures", fig_lg_clock, "end"),
+        ("zh", "一个不是巧合的倒挂", fig_lg_market, "end"),
+        ("en", "An inversion that isn't a coincidence", fig_lg_market, "end"),
+    ],
     "screen-time-teens-deep": [
         ("zh", "0. ", fig_st_ladder, "end"),
         ("en", "0. ", fig_st_ladder, "end"),
@@ -2873,6 +3270,22 @@ ARTICLES = [
      "\"95% of AI Pilots Fail\"? The Number Can't Even Stand On Its Own Report (Plain-Language Edition)",
      "The market-spooking 95% is three mismatched statements in one report, with success defined as \"someone said nice things\"; the real picture is fast, shallow, and hidden adoption. Plain edition: the main findings plus three questions that dismantle any failure rate.",
      "2026-07"),
+    ("longevity-evidence-deep", "zh", "deep",
+     "长寿干预的证据分级:雷帕霉素、二甲双胍、NAD+、禁食(深入版)",
+     "三层证据阶梯与四种口径滑坡;NIA 三站点小鼠寿命台账的逐条判决、二甲双胍流行病学假象的完整生命史、NAD+ 大前提的人体体检、CALERIE 的处方与实际剂量,以及为什么这个领域注定要靠没有被验证过的替代终点。34 组承重论断 × 3 票对抗验证 + 6 项单源实证双席审计。",
+     "2026-07"),
+    ("longevity-evidence-deep", "en", "deep",
+     "Grading the Evidence on Longevity Interventions: Rapamycin, Metformin, NAD+, Fasting (Deep Dive)",
+     "Three evidence tiers and four caliber slippages; the NIA three-site mouse lifespan ledger verdict by verdict, the complete life history of metformin's epidemiological artifact, a physical on the NAD+ major premise, CALERIE's prescribed versus achieved dose, and why this field is condemned to unvalidated surrogate endpoints. 34 load-bearing claim groups × 3 adversarial votes plus dual-seat audits on 6 single-source empirics.",
+     "2026-07"),
+    ("longevity-evidence-plain", "zh", "plain",
+     "雷帕霉素、二甲双胍、NAD+、禁食:四个长寿明星,四个站不住的招牌数字(易读版)",
+     "四个招牌数字全部经不起原样引用,而且都是同一类小动作的产物:换层、换终点、换剂量、换判据。易读版:一把三层的尺子 + 四个案例 + 十一条可检验的判断。",
+     "2026-07"),
+    ("longevity-evidence-plain", "en", "plain",
+     "Rapamycin, Metformin, NAD+, Fasting: Four Longevity Stars, Four Signature Numbers That Don't Hold Up (Plain-Language Edition)",
+     "All four signature numbers fail if quoted as they usually are, and all four are products of the same class of move: change the tier, change the endpoint, change the dose, change the criterion. Plain edition: a three-tier ruler, four cases, and eleven testable judgments.",
+     "2026-07"),
 ]
 
 KICKERS = {
@@ -2883,6 +3296,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("longevity-evidence-deep", "zh"):
+        "把四个长寿明星放到同一把尺子上:动物寿命 / 人体替代终点 / 人体临床结局。结论是四个招牌数字全部经不起原样引用,而且都是同一类口径滑坡的产物。雷帕霉素在动物层最强(ITP 42ppm 雄 +23%、雌 +26%),但流传的「延长寿命 14%」是 90% 死亡年龄口径、600 日龄起始;人体侧只有 19 项研究和一次 1024 人的三期失败,PEARL 主终点未达且阳性结果压在 8 名女性身上,2026 年 RAPA-EX-01 首次正面检验每周给药假说未获支持(−2.13 次,p=0.089,而协议预设 α=0.10)并伴随未校正的 HbA1c 上升。二甲双胍走完了假象的全程:Bannister 2014 的「糖尿病人比健康人活得久」是 2.4 年中位随访的模型外推,原始粗死亡率 14.4 vs 15.2、p=0.054;丹麦全国数据反向(IRR 1.52),而四格粗死亡率里三格跨国重合,分歧只落在二甲双胍治疗组;威尔士 13 万人数据不只反驳还复现了这个假象——头三年存在、五年后反转;DPPOS 随机 21 年全因死亡 HR 0.99;TAME 宣布十一年、无注册号、零入组。NAD+ 的问题更靠前:「NAD+ 随年龄下降」的人体证据是 49 人皮肤与 17 人脑波谱,而两个独立团队(2026 年七队列、2022 年 1,518 人)都没在全血里找到下降;补剂能升血中不能升肌肉(三份独立数据同向);NR 在 ITP 明确未过;NMN 招牌结果 13 对 12,同课题组更大剂量的重复未复现。禁食侧最诚实:CALERIE 处方 25% 实际 11.9%,唯一动了的 DunedinPACE 是真效应且扛过 Bonferroni,但它到死亡风险的换算被挪威 HUNT 的零结果拆掉;限时进食的好处等热量一控就消失,而隔日禁食保留一个小优势;「8 小时进食窗高 91%」出自新闻稿,发表版反而是 +135%。结构性发现:证据强度与零售市场规模大致相反,因为能零售的必须是补剂、补剂不能是药、而有效的往往是药。十一个可检验主张收尾,并列出本文自身被验证推翻的十处。",
+    ("longevity-evidence-deep", "en"):
+        "Four longevity stars measured against one ruler: animal lifespan, human surrogate endpoints, human clinical outcomes. All four signature numbers fail if quoted as they usually are, and all four are products of the same caliber slippage. Rapamycin is strongest at the animal tier (ITP 42ppm, +23% male and +26% female median) but the circulating \"extends lifespan 14%\" is an age-at-90%-mortality figure with dosing from day 600; the human side is 19 studies and one failed phase 3 in 1,024 people, PEARL missed its primary endpoint with its positive finding resting on eight women, and in 2026 RAPA-EX-01 tested the weekly-dosing hypothesis head-on without support (−2.13 repetitions, p=0.089 against a protocol-specified alpha of 0.10) alongside an uncorrected HbA1c rise. Metformin went the full distance of an artifact: Bannister 2014's \"diabetics outlive non-diabetics\" is a model extrapolation over 2.4 years of median follow-up whose raw crude rates were 14.4 versus 15.2 at p=0.054; Danish national data reversed it (IRR 1.52), with three of four crude-mortality cells matching across countries so the disagreement sits in the metformin-treated cell alone; Welsh data on 130,000 patients not only contradicted it but reproduced the artifact, present for three years and reversing after five; DPPOS randomized 21-year all-cause mortality is HR 0.99; and TAME, announced eleven years ago, has no registration and zero enrollment. NAD+ fails further upstream: the human evidence for an age-related decline is 49 skin biopsies and a 17-person spectroscopy study, while two independent teams (seven cohorts in 2026, n=1,518 in 2022) find no decline in whole blood; supplements raise blood NAD+ but not muscle NAD+ across three independent datasets; NR failed the ITP outright; and NMN's signature 13-versus-12 result did not replicate in the same lab's larger, higher-dose repetition. Fasting is the most honest: CALERIE prescribed 25% and delivered 11.9%, the lone moving measure (DunedinPACE) is a real effect surviving Bonferroni, but its conversion into mortality risk is dismantled by Norway's HUNT null; time-restricted eating's benefit vanishes once calories are held fixed, while alternate-day fasting keeps a small edge; and the \"91% higher cardiovascular death\" came from a press release, with the published figure larger at +135%. The structural finding: evidence strength runs roughly opposite to retail market size, because what can be retailed must be a supplement, a supplement cannot be a drug, and what works is usually a drug. Eleven testable claims close the essay, alongside ten of this article's own claims that verification overturned.",
+    ("longevity-evidence-plain", "zh"):
+        "四个长寿明星的招牌数字全部经不起原样引用,而且错法一样:把数字从它成立的口径搬到不成立的口径。雷帕霉素动物证据最硬(那个「14%」其实是最大寿命口径、从暮年开始给药),人体只有 19 项研究加一次千人级失败;针对健康人的试验主要目标没达到,阳性结果压在 8 个人身上;「每周一次既有效又安全」在人身上从来没有证据。二甲双胍那个「糖尿病人比健康人活得久」是随访太短造成的假象——两个国家的数据反向,而威尔士团队还原了它:头三年存在、五年后反转;随机试验随访 21 年,死亡率什么也没动;那项被期待十一年的大试验一名受试者都没入组。NAD+ 连大前提都没站住:「NAD+ 随年龄下降」的人体证据薄到 17 人,两个独立团队都没在血里找到下降;补剂能升血中的、升不了肌肉里的;它在小鼠寿命程序里明确没通过,而最著名的临床结果 13 对 12、同一课题组自己重做没能复现。禁食这条线最诚实也最有用:处方 25% 实际只做到 11.9%,「衰老变慢」是真的但换算成死亡风险不成立,限时进食把热量固定住之后好处就没了,而那个吓人的「91%」出自新闻稿、发表版反而更大。最后一个不是巧合的倒挂:证据最强的那个几乎没有零售市场,被判否的那个市场最大——因为能零售的必须是补剂,补剂不能是药,而有效的往往是药。",
+    ("longevity-evidence-plain", "en"):
+        "All four longevity stars' signature numbers fail if quoted as they usually are, and they fail the same way: a number is moved from the caliber where it holds to one where it does not. Rapamycin has the hardest animal evidence (that \"14%\" is a maximum-lifespan figure with dosing begun in late life) and only 19 human studies plus one thousand-person failure; the trial in healthy people missed its main goal and its positive result rests on eight people; and \"once a week is both effective and safe\" has never had human evidence. Metformin's \"diabetics outlive healthy people\" is an artifact of too-short follow-up — two countries' data reverse it, and the Welsh team reconstructed it as present for three years and reversed after five; a randomized trial followed people for 21 years and mortality did not move; and the big trial awaited for eleven years has never enrolled anyone. NAD+ fails at the premise: the human evidence for an age-related decline gets as thin as 17 people, two independent teams find no decline in blood, supplements raise blood levels but not muscle levels, it clearly failed the mouse lifespan program, and its most famous clinical result had 13 versus 12 participants and did not replicate in the same lab. Fasting is the most honest and most useful line: 25% was prescribed and 11.9% delivered, the \"slower aging\" result is real but does not convert into mortality risk, time-restricted eating's benefit disappears once calories are fixed, and the alarming \"91%\" came from a press release while the published figure was larger. Finally an inversion that is not a coincidence: the best-evidenced compound has almost no retail market and the one that failed has the biggest — because what can be retailed must be a supplement, a supplement cannot be a drug, and what works is usually a drug.",
     ("screen-time-teens-deep", "zh"):
         "把七年吵不出结果的争论拆成三个独立问题分开审。危机真实性:恶化在英语圈(尤其女孩自报)与美国硬结局上是真的——措辞 28 年恒定的 MTF 调查在 2012 年反转、挪威 Ungdata 通过测量不变性检验、10-14 岁自杀率 2007-2018 翻三倍(其中约 1.9 倍在 2012 后);但「就诊暴涨」大半是伪影(全国自杀意念就诊 +459% vs 自杀死亡 +66%,跳点对应 2016-10 编码新规),而自伤急诊的真实上升(+77%)比死亡还快——伪影与真恶化同时成立。「全球同步」超出证据:德国家长报告的下降只在男孩成立,北欧「自杀平稳」的剪刀差被瑞典(<18 岁年增 2.2%)与芬兰(15-19 岁女性约翻倍)推翻——修正对 Haidt 有利,但他的国际主张同样被自己修订过。因果:停用实验(0.09/0.060 SD)、校园引入(0.085,显著性对扩张组敏感)、宽带自然实验(0.08,住院口径)、within-person 纵向(功效充足者 2/3 为正、反向路径为零)四类设计收敛在 0.04-0.11 SD——「零效应」被证伪,但与危机量级 0.37 SD 之间的缺口无人填上,「最大单一原因」至今无承重证据。政策:挪威(JHR 2026)、英格兰 SMART、美国州级与全国锁袋四项独立设计,心理健康全样本效应全部为零(挪威 477 所「禁手机」学校里真正让手机不可取用的只有 4 所);学业有小幅正效应且随严格度增强;澳大利亚禁令前三个月未检出使用断点(功效不足)。双方招牌数字被验证修正的数量大致相当:Haidt 的「50-150%」被 YRBS 系整体压线以下、「女孩 r=.15-.22」查无一手、铅暴露基准归属错误、Kelly 图「including controls」图注证误;批评方的「土豆比较」含近零分母伪影、「自伤平」被作者自己的全国续作收回、「德国在好转」只对男孩家长报告成立。十二个可检验主张收尾。",
     ("screen-time-teens-deep", "en"):
@@ -2998,6 +3419,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("longevity-evidence-deep", "zh"): [
+        ("c1", "102 票对抗验证 · 12 席双席审计"), ("c2", "33/34 组含修正 · 1 组推翻"), ("c3", "四个招牌数字全部口径滑坡"), ("c4", "11 个可检验主张"),
+    ],
+    ("longevity-evidence-deep", "en"): [
+        ("c1", "102 votes · 12 audit seats"), ("c2", "33/34 corrected · 1 overturned"), ("c3", "all four signature numbers slipped"), ("c4", "11 testable claims"),
+    ],
+    ("longevity-evidence-plain", "zh"): [
+        ("c1", "处方 25% vs 实际 11.9%"), ("c2", "二甲双胍与 NR 都没通过小鼠台账"), ("c3", "TAME:十一年,零入组"), ("c4", "先问这个数字在哪一层"),
+    ],
+    ("longevity-evidence-plain", "en"): [
+        ("c1", "25% prescribed vs 11.9% achieved"), ("c2", "metformin and NR both failed the ledger"), ("c3", "TAME: eleven years, zero enrolled"), ("c4", "ask which tier the number is on"),
+    ],
     ("screen-time-teens-deep", "zh"): [
         ("c1", "72 票对抗验证 + 10 席双席审计"), ("c2", "23/24 组含修正 · 0 推翻"), ("c3", "因果带 0.04-0.11 vs 危机 0.37 SD"), ("c4", "12 个可检验主张"),
     ],
@@ -3430,6 +3863,15 @@ INDEX_ENTRIES = [
      "72 adversarial votes + 10 audit seats · 12 testable claims",
      [("t1", "青少年心理健康", "Teen mental health"), ("t2", "因果推断", "Causal inference"), ("t3", "口径陷阱", "Caliber traps"),
       ("t4", "禁手机政策", "Phone bans"), ("t5", "僵尸统计", "Zombie statistics")]),
+    ("longevity-evidence", "2026-07",
+     "长寿干预的证据分级:雷帕霉素、二甲双胍、NAD+、禁食",
+     "Grading the Evidence on Longevity Interventions: Rapamycin, Metformin, NAD+, Fasting",
+     "证据最强的那个几乎没有零售市场,被判否的那个市场最大——这不是巧合。四个长寿明星的招牌数字逐个送回一手文件核对,覆盖三站点小鼠寿命台账、二甲双胍流行病学的反转与复现、NAD+ 大前提的人体体检、热量限制与限时进食的随机证据,以及支撑全部主张的替代终点本身有多松。",
+     "The best-evidenced compound has almost no retail market while the one that failed has the biggest — and that is not a coincidence. Four longevity stars' signature numbers sent back to their primary documents, covering the three-site mouse lifespan ledger, the reversal and reproduction of metformin's epidemiology, a physical on the NAD+ major premise, the randomized evidence on caloric restriction and time-restricted eating, and how loose the surrogate endpoints under every claim really are.",
+     "102 票对抗验证 · 11 个可检验主张",
+     "102 adversarial votes · 11 testable claims",
+     [("t1", "循证医学", "Evidence-based med"), ("t2", "老年医学", "Geroscience"), ("t3", "临床试验方法学", "Trial methods"),
+      ("t4", "补剂产业", "Supplement industry"), ("t5", "监管与市场", "Regulation & markets")]),
 ]
 
 
