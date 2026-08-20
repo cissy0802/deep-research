@@ -2652,7 +2652,293 @@ def fig_lg_market(lang: str) -> str:
 </figure>"""
 
 
+def fig_ie_rulers(lang: str) -> str:
+    """Three rulers for one 'passive share' — the article's foundation."""
+    t = {
+        "zh": dict(title="同一个「被动占比」,三把尺子,差 40 倍",
+                   r1="基金资产", d1="美国长线基金(共同基金+ETF)", v1="53–55%",
+                   r2="股票市值", d2="被动基金持有的美股市值占比", v2="14–23%",
+                   r3="影子口径", d3="含机构内部指数化(独立测量跨度)", v3="17.5–41%",
+                   r4="成交量", d4="从「基金自身调仓」到「含被动做市」", v4="1.2–64%",
+                   half="50% 线", cap="示意:横轴为百分比;实心段画到该口径的下限,虚线段覆盖到上限。只有基金资产这把尺子越过 50%;「被动持有半个市场」在市值口径上从未成立。成交量那条不是一个量的估计区间,而是四个不同对象(最大成分「被动做市」36% 无一手来源)"),
+        "en": dict(title="One 'passive share', three rulers, a 40-fold spread",
+                   r1="Fund assets", d1="US long-term funds (mutual funds + ETFs)", v1="53–55%",
+                   r2="Market cap", d2="US market value held by passive funds", v2="14–23%",
+                   r3="Shadow measures", d3="incl. internal indexing (est. range)", v3="17.5–41%",
+                   r4="Trading volume", d4="funds' own trades ... to market making", v4="1.2–64%",
+                   half="50% line", cap="Schematic: horizontal axis is percent; the solid segment runs to each ruler's low reading and the dashed segment covers its range. Only the fund-asset ruler crosses 50% — 'passive owns half the market' has never held on the market-cap ruler. The trading bar is not a range for one quantity but four different objects (its largest component, 36% 'passive market making', has no primary source)"),
+    }[lang]
+    X0, W = 250, 400  # axis start, width for 0-100%
+    rows = [
+        (t['r1'], t['d1'], 53, 55, t['v1'], "#ff6ec4"),
+        (t['r2'], t['d2'], 14, 23, t['v2'], "#4cc9f0"),
+        (t['r3'], t['d3'], 17.5, 41, t['v3'], "#7b61ff"),
+        (t['r4'], t['d4'], 1.2, 64, t['v4'], "#e8794b"),
+    ]
+    parts = []
+    y = 78
+    for name, desc, lo, hi, val, color in rows:
+        x1 = X0 + W * lo / 100.0
+        x2 = X0 + W * hi / 100.0
+        parts.append(f'<text x="{X0 - 14}" y="{y + 8}" fill="#e4e6eb" font-size="12" font-weight="700" '
+                     f'text-anchor="end" font-family="-apple-system,sans-serif">{name}</text>')
+        parts.append(f'<text x="{X0 - 14}" y="{y + 24}" fill="#7c8593" font-size="9" '
+                     f'text-anchor="end" font-family="Menlo,monospace">{desc}</text>')
+        # solid bar from zero to the low end, then a lighter segment spanning the range
+        parts.append(f'<rect x="{X0}" y="{y - 4}" width="{x1 - X0:.0f}" height="18" rx="4" '
+                     f'fill="{color}" opacity="0.85"/>')
+        parts.append(f'<rect x="{x1:.0f}" y="{y - 4}" width="{max(x2 - x1, 3):.0f}" height="18" rx="3" '
+                     f'fill="{color}" opacity="0.32" stroke="{color}" stroke-width="1" stroke-dasharray="3,2"/>')
+        parts.append(f'<text x="{x2 + 10:.0f}" y="{y + 10}" fill="{color}" font-size="11.5" font-weight="700" '
+                     f'font-family="Menlo,monospace">{val}</text>')
+        y += 54
+    axis_y = y - 24
+    ticks = []
+    for pct in (0, 25, 50, 75, 100):
+        tx = X0 + W * pct / 100.0
+        ticks.append(f'<text x="{tx:.0f}" y="{axis_y + 20}" fill="#5a6378" font-size="9.5" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{pct}%</text>')
+    x50 = X0 + W * 0.5
+    return f"""<figure>
+<svg viewBox="0 0 700 {axis_y + 34}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="36" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x50}" y1="58" x2="{x50}" y2="{axis_y + 2}" stroke="#ff6ec4" stroke-width="1.2" stroke-dasharray="3,4" opacity="0.55"/>
+  <text x="{x50 + 6}" y="{68}" fill="#ff6ec4" font-size="9.5" opacity="0.8" font-family="Menlo,monospace">{t['half']}</text>
+  <line x1="{X0}" y1="{axis_y + 2}" x2="{X0 + W}" y2="{axis_y + 2}" stroke="#5a6378" stroke-width="1"/>
+  {''.join(parts)}{''.join(ticks)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ie_indexeffect(lang: str) -> str:
+    """The disappearing index effect, and its 2025 revival."""
+    t = {
+        "zh": dict(title="纳入标普 500 的股价效应:随被动增长而消失,2025 年三例复活",
+                   sub="柱 = 纳入的累计异常收益(发表版 Table 1);右侧三例为样本外单次事件",
+                   d1="1980 年代", d2="1990 年代", d3="2000 年代", d4="2010–2020",
+                   ns="(不显著)", oos="样本外(无同行评审重估)",
+                   note="同期跟踪标普 500 的基金:约 0 → 美股市值约 7%",
+                   cap="示意:柱高按数值比例,右侧三例为 2025 年直接纳入的单日反应(COIN 为公告次日)。需求冲击在这段时间翻了一倍多,而平均价格反应收敛到统计不显著——接货的不是主动共同基金(其净需求约为零),而是对冲基金、养老金与捐赠基金"),
+        "en": dict(title="The S&P 500 inclusion effect: it vanished as passive grew, then three 2025 revivals",
+                   sub="Bars = cumulative abnormal return on addition (published Table 1); right-hand three are out-of-sample single events",
+                   d1="1980s", d2="1990s", d3="2000s", d4="2010–2020",
+                   ns="(not significant)", oos="out of sample (no peer-reviewed re-estimation)",
+                   note="Tracker assets meanwhile: ~0 → ~7% of US market cap",
+                   cap="Schematic: bar heights are proportional; the right-hand three are single-day reactions to 2025 direct additions (Coinbase on the session after the announcement). The mechanical demand shock more than doubled over this period while the average price response converged to statistical insignificance — and the shares came not from active mutual funds (whose net demand is about zero) but from hedge funds, pensions and endowments"),
+    }[lang]
+    CY, PK, VI = "#4cc9f0", "#ff6ec4", "#7b61ff"
+    base = 250
+    scale = 6.4  # px per percentage point
+    hist = [(t['d1'], 3.42, CY), (t['d2'], 7.39, CY), (t['d3'], 5.16, CY), (t['d4'], 0.83, "#5a6378")]
+    oos = [("Coinbase", 24.0, PK), ("Robinhood", 15.8, PK), ("AppLovin", 11.6, PK)]
+    parts = []
+    x = 70
+    for label, val, color in hist:
+        h = val * scale
+        parts.append(f'<rect x="{x}" y="{base - h:.0f}" width="52" height="{h:.0f}" rx="4" fill="{color}" opacity="0.85"/>')
+        parts.append(f'<text x="{x + 26}" y="{base - h - 8:.0f}" fill="{color}" font-size="12" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{val}%</text>')
+        parts.append(f'<text x="{x + 26}" y="{base + 18}" fill="#7c8593" font-size="10" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{label}</text>')
+        x += 72
+    parts.append(f'<text x="{70 + 3 * 72 + 26}" y="{base + 32}" fill="#5a6378" font-size="9" text-anchor="middle" '
+                 f'font-family="Menlo,monospace">{t["ns"]}</text>')
+    x = 420
+    for label, val, color in oos:
+        h = val * scale
+        parts.append(f'<rect x="{x}" y="{base - h:.0f}" width="52" height="{h:.0f}" rx="4" fill="{color}" opacity="0.5" '
+                     f'stroke="{color}" stroke-width="1.2" stroke-dasharray="3,3"/>')
+        parts.append(f'<text x="{x + 26}" y="{base - h - 8:.0f}" fill="{color}" font-size="12" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{val}%</text>')
+        parts.append(f'<text x="{x + 26}" y="{base + 18}" fill="#7c8593" font-size="10" text-anchor="middle" '
+                     f'font-family="Menlo,monospace">{label}</text>')
+        x += 72
+    parts.append(f'<text x="{420 + 3 * 72 / 2}" y="{base + 34}" fill="{PK}" font-size="9" text-anchor="middle" '
+                 f'opacity="0.85" font-family="Menlo,monospace">{t["oos"]}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="28" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="46" fill="#7c8593" font-size="9.5" font-family="Menlo,monospace">{t['sub']}</text>
+  <line x1="60" y1="{base}" x2="660" y2="{base}" stroke="#5a6378" stroke-width="1"/>
+  <line x1="396" y1="60" x2="396" y2="{base}" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,5" opacity="0.6"/>
+  {''.join(parts)}
+  <text x="60" y="112" fill="{VI}" font-size="10" font-family="Menlo,monospace">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ie_audit(lang: str) -> str:
+    """The dual-seat audit scoreboard for four single-source empirics."""
+    t = {
+        "zh": dict(title="四项单源承重实证的双席审计结果",
+                   h1="反证搜索席", h2="方法学审计席(有否决权)",
+                   n1="影子被动份额 33.5%", n2="被动使需求弹性降 11%",
+                   n3="财报前信息量下降约 1/4", n4="被动推高巨头 25 年 +29%",
+                   s1a="方向升级多源", s1b="限制使用", s2a="方向存争", s2b="限制使用",
+                   s3a="方向存争", s3b="否决", s4a="限制使用", s4b="限制使用",
+                   cap="示意:两席各自独立作业,审计席有否决权。四项无一可按被引用的强度承重。深色=更严厉的判决。同时出现的结构性事实是:被升级为多源的全部在机制层(「方向」),被限制或否决的全部在幅度层(「多大」)"),
+        "en": dict(title="Dual-seat audit results for four single-source load-bearing empirics",
+                   h1="Contradiction-search seat", h2="Methods-audit seat (veto power)",
+                   n1="Shadow passive share 33.5%", n2="Passive cut demand elasticity 11%",
+                   n3="Pre-announcement info down ~1/4", n4="Passive lifted megacaps +29% over 25y",
+                   s1a="upgraded: multi-source", s1b="restricted use", s2a="direction contested", s2b="restricted use",
+                   s3a="direction contested", s3b="VETOED", s4a="restricted use", s4b="restricted use",
+                   cap="Schematic: the two seats work independently; the methods seat holds veto power. Not one of the four can bear the weight at which it is cited. Darker = harsher verdict. The structural fact that emerges: everything upgraded to multi-source sits at the mechanism layer ('which direction'), everything restricted or vetoed sits at the magnitude layer ('how much')"),
+    }[lang]
+    CY, PK, VI, GY = "#4cc9f0", "#ff6ec4", "#7b61ff", "#5a6378"
+    rows = [
+        (t['n1'], t['s1a'], CY, t['s1b'], VI),
+        (t['n2'], t['s2a'], VI, t['s2b'], VI),
+        (t['n3'], t['s3a'], VI, t['s3b'], PK),
+        (t['n4'], t['s4a'], VI, t['s4b'], VI),
+    ]
+    C1, C2, CW = 300, 480, 170
+    parts = [
+        f'<text x="{C1 + CW / 2}" y="62" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t["h1"]}</text>',
+        f'<text x="{C2 + CW / 2}" y="62" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t["h2"]}</text>',
+    ]
+    y = 78
+    for name, v1, c1, v2, c2 in rows:
+        parts.append(f'<text x="{C1 - 18}" y="{y + 20}" fill="#e4e6eb" font-size="11.5" text-anchor="end" '
+                     f'font-family="-apple-system,sans-serif">{name}</text>')
+        parts.append(f'<rect x="{C1}" y="{y}" width="{CW}" height="30" rx="5" fill="{c1}" opacity="0.28" stroke="{c1}" stroke-width="1"/>')
+        parts.append(f'<text x="{C1 + CW / 2}" y="{y + 20}" fill="{c1}" font-size="10.5" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{v1}</text>')
+        op = "0.55" if v2 in ("否决", "VETOED") else "0.28"
+        parts.append(f'<rect x="{C2}" y="{y}" width="{CW}" height="30" rx="5" fill="{c2}" opacity="{op}" stroke="{c2}" stroke-width="1"/>')
+        parts.append(f'<text x="{C2 + CW / 2}" y="{y + 20}" fill="{c2}" font-size="10.5" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{v2}</text>')
+        y += 42
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 16}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="36" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ie_scoreboard(lang: str) -> str:
+    """SPIVA's 15-year underperformance rate decomposed."""
+    t = {
+        "zh": dict(title="「15 年 88% 的主动基金跑输」拆开来是什么",
+                   sub="大盘主动基金,截至 2025 年 6 月;起点 1,033 只",
+                   a="没活到最后(规则计为跑输)", b="活着但跑输", c="活着且跑赢",
+                   note1="存活下来的基金里,只有 23.4% 跑赢指数",
+                   note2="按钱算(资产加权)20 年年化差距 −1.25 个百分点,按基金只数算是 −1.96",
+                   cap="示意:横条按百分点比例。争议点正在最左边那一段——基金清盘或合并即被计为跑输,而它们生前是否真的跑输,恰恰是主动管理业与指数编制商在打的那场官司"),
+        "en": dict(title="What '88% of active funds lagged over 15 years' actually decomposes into",
+                   sub="Large-cap active funds, as of June 2025; 1,033 funds at the start",
+                   a="did not survive (scored as underperforming)", b="survived and lagged", c="survived and beat",
+                   note1="Among funds that did survive, only 23.4% beat the index",
+                   note2="Measured in money (asset-weighted), the 20-year annualized gap is −1.25 points, versus −1.96 by fund count",
+                   cap="Schematic: bar segments are proportional. The disputed piece is the leftmost one — a fund that closes or merges is scored as underperforming, and whether those funds were actually lagging while alive is exactly what the active industry and the index provider are fighting about"),
+    }[lang]
+    X0, W = 60, 580
+    segs = [(50.05, "#ff6ec4", t['a']), (38.24, "#7b61ff", t['b']), (11.71, "#4cc9f0", t['c'])]
+    parts = []
+    x = X0
+    legend_y = 214
+    lx = X0
+    for pct, color, label in segs:
+        w = W * pct / 100.0
+        parts.append(f'<rect x="{x:.0f}" y="96" width="{w:.0f}" height="46" rx="5" fill="{color}" opacity="0.82"/>')
+        parts.append(f'<text x="{x + w / 2:.0f}" y="125" fill="#12141a" font-size="14" font-weight="700" '
+                     f'text-anchor="middle" font-family="Menlo,monospace">{pct}</text>')
+        parts.append(f'<rect x="{lx}" y="{legend_y - 9}" width="11" height="11" rx="2" fill="{color}" opacity="0.82"/>')
+        parts.append(f'<text x="{lx + 17}" y="{legend_y}" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{label}</text>')
+        lx += 200
+        x += w
+    return f"""<figure>
+<svg viewBox="0 0 700 292" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="36" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="56" fill="#7c8593" font-size="9.5" font-family="Menlo,monospace">{t['sub']}</text>
+  <text x="{X0}" y="86" fill="#5a6378" font-size="10" font-family="Menlo,monospace">0</text>
+  <text x="{X0 + W}" y="86" fill="#5a6378" font-size="10" text-anchor="end" font-family="Menlo,monospace">100</text>
+  {''.join(parts)}
+  <text x="{X0}" y="252" fill="#4cc9f0" font-size="11" font-family="Menlo,monospace">{t['note1']}</text>
+  <text x="{X0}" y="274" fill="#7c8593" font-size="10" font-family="Menlo,monospace">{t['note2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_ie_layers(lang: str) -> str:
+    """Mechanism layer survives, magnitude layer does not."""
+    t = {
+        "zh": dict(title="经得起独立检验的发现全在机制层,没有一条在幅度层",
+                   h1="机制层:方向站得住【多源】", h2="幅度层:量级站不住【限用/否决】",
+                   a1=("公司特有信息成分随被动持股下降", "(3 个独立团队,3 种度量)"),
+                   a2=("价格不敏感的指数买盘持久推高价格", "(日本央行 ETF 计划的自然实验)"),
+                   a3=("影子被动远大于基金口径", "(交易层数据里直接观察到)"),
+                   b1=("「财报前信息量降 1/4」被否决", "(换个分母就变成 1/6)"),
+                   b2=("「被动推高巨头 29%」不可承重", "(是作者自家校准的 7 倍)"),
+                   b3=("「需求弹性降 11%」靠一个工具撑着", "(去掉模型自造的工具即归零)"),
+                   foot="泡沫论的全部力量来自幅度",
+                   cap="示意:左右两栏是同一批文献的两个层面。这不是说这些研究不好——多数方法透明、数据公开、作者自陈局限;失效发生在传播层:代理族里最宽松的那个成了标题,模型内部的斜率成了「价格反应变了」的证据"),
+        "en": dict(title="What survives scrutiny is all mechanism, none of it magnitude",
+                   h1="Mechanism: direction holds [multi-source]", h2="Magnitude: size does not hold [restricted/vetoed]",
+                   a1=("Firm-specific information falls with passive ownership", "(3 independent teams, 3 measures)"),
+                   a2=("Price-insensitive index buying raises prices persistently", "(the Bank of Japan natural experiment)"),
+                   a3=("Shadow passive far exceeds the fund-based count", "(observed directly in transaction data)"),
+                   b1=("'Pre-announcement info fell a quarter' — vetoed", "(a sixth under a different denominator)"),
+                   b2=("'Passive lifted megacaps 29%' — not load-bearing", "(7x the authors' own calibration)"),
+                   b3=("'Demand elasticity fell 11%' rests on one instrument", "(remove it and the finding goes to zero)"),
+                   foot="The bubble thesis draws all its force from magnitude",
+                   cap="Schematic: the two columns are two layers of the same literature. This is not to say the research is bad — most of it is methodologically transparent, publishes its data, and states its own limits. The failure is at the transmission layer: the loosest member of a proxy family became the headline, and a model-internal slope became evidence that 'price response changed'"),
+    }[lang]
+    CY, PK = "#4cc9f0", "#ff6ec4"
+    L, R, CW = 30, 360, 310
+    parts = [
+        f'<rect x="{L}" y="58" width="{CW}" height="30" rx="6" fill="{CY}" opacity="0.22" stroke="{CY}" stroke-width="1"/>',
+        f'<text x="{L + CW / 2}" y="78" fill="{CY}" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t["h1"]}</text>',
+        f'<rect x="{R}" y="58" width="{CW}" height="30" rx="6" fill="{PK}" opacity="0.22" stroke="{PK}" stroke-width="1"/>',
+        f'<text x="{R + CW / 2}" y="78" fill="{PK}" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{t["h2"]}</text>',
+    ]
+    y = 106
+    for a, b in ((t['a1'], t['b1']), (t['a2'], t['b2']), (t['a3'], t['b3'])):
+        parts.append(f'<rect x="{L}" y="{y}" width="{CW}" height="46" rx="5" fill="{CY}" opacity="0.10"/>')
+        parts.append(f'<text x="{L + 12}" y="{y + 19}" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">{a[0]}</text>')
+        parts.append(f'<text x="{L + 12}" y="{y + 35}" fill="#7c8593" font-size="9" font-family="Menlo,monospace">{a[1]}</text>')
+        parts.append(f'<rect x="{R}" y="{y}" width="{CW}" height="46" rx="5" fill="{PK}" opacity="0.10"/>')
+        parts.append(f'<text x="{R + 12}" y="{y + 19}" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">{b[0]}</text>')
+        parts.append(f'<text x="{R + 12}" y="{y + 35}" fill="#7c8593" font-size="9" font-family="Menlo,monospace">{b[1]}</text>')
+        y += 54
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 40}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="36" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(parts)}
+  <text x="{R + CW / 2}" y="{y + 22}" fill="{PK}" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="Menlo,monospace">{t['foot']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "indexing-endgame-deep": [
+        ("zh", "0. ", fig_ie_rulers, "end"),
+        ("en", "0. ", fig_ie_rulers, "end"),
+        ("zh", "4.1", fig_ie_indexeffect, "end"),
+        ("en", "4.1", fig_ie_indexeffect, "end"),
+        ("zh", "6. ", fig_ie_scoreboard, "end"),
+        ("en", "6. ", fig_ie_scoreboard, "end"),
+        ("zh", "8. ", fig_ie_audit, "end"),
+        ("en", "8. ", fig_ie_audit, "end"),
+        ("zh", "8. ", fig_ie_layers, "end"),
+        ("en", "8. ", fig_ie_layers, "end"),
+    ],
+    "indexing-endgame-plain": [
+        ("zh", "三把不同的尺子", fig_ie_rulers, "end"),
+        ("en", "Three Different Rulers", fig_ie_rulers, "end"),
+        ("zh", "一个反直觉的关键事实", fig_ie_indexeffect, "end"),
+        ("en", "One Counterintuitive Fact", fig_ie_indexeffect, "end"),
+        ("zh", "那为什么主动基金还是跑不赢", fig_ie_scoreboard, "end"),
+        ("en", "Then Why Do Active Funds Still Lose", fig_ie_scoreboard, "end"),
+        ("zh", "最要紧的几件事", fig_ie_layers, "end"),
+        ("en", "The Things That Matter Most", fig_ie_layers, "end"),
+    ],
     "longevity-evidence-deep": [
         ("zh", "0. ", fig_lg_tiers, "end"),
         ("en", "0. ", fig_lg_tiers, "end"),
@@ -3282,6 +3568,22 @@ ARTICLES = [
      "雷帕霉素、二甲双胍、NAD+、禁食:四个长寿明星,四个站不住的招牌数字(易读版)",
      "四个招牌数字全部经不起原样引用,而且都是同一类小动作的产物:换层、换终点、换剂量、换判据。易读版:一把三层的尺子 + 四个案例 + 十一条可检验的判断。",
      "2026-07"),
+    ("indexing-endgame-deep", "zh", "deep",
+     "指数化的终局:被动投资会破坏市场吗?(深入版)",
+     "三把尺子量出差 40 倍的「被动占比」;起诉方每一位证人的原话与下场;价格发现的六种量法各给不同答案;指数效应在被动翻倍时消失又在 2025 年复活;以及一个不讨好任何一方的判决——四个最被倚重的单源实证,没有一个能按它被引用的强度承重。32 组承重论断 × 3 票对抗验证 + 4 项单源实证双席审计。",
+     "2026-08"),
+    ("indexing-endgame-deep", "en", "deep",
+     "The Endgame of Indexation: Is Passive Investing Breaking Markets? (Deep Dive)",
+     "Three rulers that put a 40-fold spread on one 'passive share'; every prosecution witness returned to their primary source; six incompatible ways to measure price discovery; an index effect that vanished as passive doubled and revived in 2025; and a verdict that flatters nobody — of the four single-source empirics this debate leans on hardest, not one can bear the weight at which it is cited. 32 load-bearing claim groups × 3 adversarial votes plus dual-seat audits on 4 single-source empirics.",
+     "2026-08"),
+    ("indexing-endgame-plain", "zh", "plain",
+     "被动投资会破坏市场吗?一场双方招牌数字都站不住的争论(易读版)",
+     "「被动过半」只在一把尺子上成立;警告方最可检验的断点与他自己的论文差 18 个百分点;而辩护方最常引的口径错误源自作者自己的摘要。易读版:三把尺子、五个证人、一个反直觉的关键事实,以及十四条可检验的判断。",
+     "2026-08"),
+    ("indexing-endgame-plain", "en", "plain",
+     "Is Passive Investing Breaking Markets? A Fight Where Both Sides' Signature Numbers Fall Apart (Plain-Language Edition)",
+     "'Passive passed half' holds on exactly one ruler; the warning side's most testable threshold is 18 points off its own paper; and the defense's most-cited caliber error originated in the authors' own abstract. Plain edition: three rulers, five witnesses, one counterintuitive fact, and fourteen testable judgments.",
+     "2026-08"),
     ("longevity-evidence-plain", "en", "plain",
      "Rapamycin, Metformin, NAD+, Fasting: Four Longevity Stars, Four Signature Numbers That Don't Hold Up (Plain-Language Edition)",
      "All four signature numbers fail if quoted as they usually are, and all four are products of the same class of move: change the tier, change the endpoint, change the dose, change the criterion. Plain edition: a three-tier ruler, four cases, and eleven testable judgments.",
@@ -3296,6 +3598,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("indexing-endgame-deep", "zh"):
+        "「被动已过半、价格发现被破坏」——前半句只在一把尺子上成立，后半句至今既无证据支持也无证据推翻。同一个「被动占比」在基金资产口径是 53-55%、市值口径 19-23%、成交量口径 1.2% 到 64%（最大成分「被动做市」36% 无一手来源）；真实份额高于基金口径这个方向有四个独立团队佐证（哥伦比亚交易所的逐笔数据直接看到「名义主动实则盯指数」的机构调仓量是显性指数基金的 1.7 倍），但独立测量跨度 17.5%-41%，没有哪个水平被第二个团队锁定。起诉方逐位体检：Burry 的名言之后指数七年涨 165%，他本人已注销基金并转向 AI 泡沫论；Einhorn 在同一场采访里既说市场「从根本上坏掉」又说「机会好于以往」；Green 的 83% 断点不在他自己的预印本里（那里写的是 65%/90%），五年到不了 83%（需 7.25 年），示范算术把 0.167%/日年化成 23%（实为约 42%），而苹果实际只涨 8.6%；Bogle 被引用最多的警告其实是治理集中论，且他明确为指数基金辩护——那个「75% 也不危险」的出处是 Asness 追问后的一句「我瞎编的」。实证侧：罗素断点实验给出精确估计的零，而同一篇论文的波动率、联动、beta、换手全部显著为正；标普 500 纳入效应从 1990 年代 7.4% 收敛到 2010-2020 的 0.83%（不显著）——需求冲击翻倍而价格反应消失，接货的是对冲基金养老金而非主动共同基金——但 2025 年三例直接纳入两位数复活（COIN +24%）。本期最重的产出是双席审计：四项单源承重实证无一可按被引用的强度承重——Sammon 的财报前信息量被否决（「四分之一」是四个共线比值的等权平均、换分母变六分之一、2012 年后不显著、机制章节发表前被删），JVZ 的 29% 是作者自家校准 0-4% 的七倍且样本止于 2020 年（Mag 7 全在样本外），HHL 的 11% 完全靠一个模型自造的工具变量撑着（去掉它战略反应归零）且「被动越多越不弹性」的符号是定义使然，而 Greenwood-Sammon 直接测出指数交易推动价格的能力从 6.75 垮到 0.37。结构性发现：经得起独立检验的发现全在机制层，没有一条在幅度层——而泡沫论的全部力量来自幅度。十四个可检验主张收尾，并列出本文自身被验证反转的八处。",
+    ("indexing-endgame-deep", "en"):
+        "\"Passive passed half and price discovery is broken\" — the first half holds on exactly one ruler, and the second is to date neither supported nor refuted. The same \"passive share\" is 53-55% of fund assets, 19-23% of market cap, and anywhere from 1.2% to 64% of trading (its largest component, 36% \"passive market making\", has no primary source). The direction that true passive exceeds the fund-based count has four independent teams behind it — transaction-level data from the Colombian exchange shows nominally-active benchmarked institutions generating rebalancing purchases 1.7x those of declared index funds — but independent estimates span 17.5% to 41% with no level pinned by a second team. The prosecution, witness by witness: seven years after Burry's famous line the index is up 165% and he has deregistered his fund and pivoted to an AI-bubble thesis; Einhorn called markets \"fundamentally broken\" and, in the same interview, said the opportunity is \"as good or better than it's ever been\"; Green's 83% threshold is absent from his own preprint (which says 65% and 90%), five years does not reach it (7.25 does), and his demonstration annualizes 0.167%/day to 23% when it is about 42% — against Apple's actual 8.6%; and Bogle, the most-cited authority, was warning about governance concentration while explicitly defending index funds, his \"75% is safe\" number sourced by Asness to the words \"I made it up.\" On the empirics: the Russell-threshold experiment returns precisely estimated zeros on price efficiency while the same paper finds volatility, comovement, beta and turnover all significantly up; the S&P 500 inclusion effect converged from 7.4% in the 1990s to an insignificant 0.83% in 2010-2020 — the demand shock more than doubled while the price response vanished, with hedge funds and pensions rather than active mutual funds supplying the shares — before three 2025 additions revived it in double digits. The heaviest output of this run is the dual-seat audit: not one of four single-source empirics can bear the weight at which it is cited. Sammon's pre-announcement informativeness was vetoed (the \"one quarter\" is an equal-weighted average of four collinear ratios, a sixth under another denominator, insignificant after 2012, with its mechanism section deleted before publication); JVZ's 29% is seven times the authors' own 0-4% calibration on a sample ending in 2020, entirely before the Magnificent Seven; HHL's 11% rests entirely on a model-generated instrument (remove it and the strategic response goes to zero) with the sign following from the model's own definition — while Greenwood and Sammon measure the ability of index trading to move prices collapsing from 6.75 to 0.37. The structural finding: everything that survives independent scrutiny sits at the mechanism layer and nothing at the magnitude layer — and magnitude is where the bubble thesis draws all its force. Fourteen testable claims close the essay, alongside eight of its own statements that verification reversed.",
+    ("indexing-endgame-plain", "zh"):
+        "「被动过半」只在基金资产那把尺子上成立：换成股票市值是 19%，换成成交量是 1.2% 或 64%（取决于谁在数）。而这场争论最值得记下的不是谁赢，是双方的招牌数字几乎都经不起送回原文核对。警告方：Green 的 83% 断点不在他自己的论文里（那里写 65%/90%），他的示范算术错了近一倍，连苹果实际涨幅都比他的模型预测低 14 个百分点；Burry 那句名言之后指数七年涨了 165%，他本人已转向 AI 泡沫论；而被引用最多的 Bogle 警告的其实是另一件事、还明确为指数基金辩护。辩护方也不干净：最常引的「ETF 提高波动率 16%」口径错误源自作者自己的摘要。实证上，最干净的因果实验给出精确的零，而最有分量的「损害」证据被审计席否决——那个「四分之一」换个分母就变成「六分之一」，而且在被动占比最高的近十年里根本不显著。一个反直觉的关键事实：被动买盘翻倍的同时，纳入标普 500 的股价效应从 7.4% 收敛到近乎零（2025 年三例又两位数复活）。真正有分量的担忧不在价格上，在权力上：三家公司编制全球三分之二的指数、抽走 ETF 费率的三分之一、拥有巨大裁量权、不受投资顾问法约束，而监管机构在 2025 年 4 月把这个议题正式撤下了。",
+    ("indexing-endgame-plain", "en"):
+        "\"Passive passed half\" holds on the fund-asset ruler only: switch to stock market value and it is 19%, switch to trading and it is either 1.2% or 64% depending on who is counting. What is most worth recording is not who won but that almost every signature number on both sides falls apart when taken back to the original document. The warning side: Green's 83% threshold is not in his own paper (which says 65% and 90%), his demonstration arithmetic is off by nearly half, and Apple's actual return came in 14 points below his model's prediction; seven years after Burry's famous line the index is up 165% and he has moved on to an AI-bubble thesis; and Bogle, the most-cited authority, was warning about something else entirely while explicitly defending index funds. The defense is no cleaner: the widely quoted \"ETFs raise volatility 16%\" caliber error originated in the authors' own abstract. On the evidence, the cleanest causal experiment returns precise zeros, and the weightiest \"damage\" finding was vetoed by the audit seat — that \"one quarter\" becomes \"one sixth\" under a different denominator, and it is not significant at all in the recent decade when passive ownership was highest. One counterintuitive fact anchors the piece: as passive buying more than doubled, the S&P 500 inclusion effect converged from 7.4% to nearly zero (before three 2025 additions revived it in double digits). And the concern with real weight is not about prices but about power: three firms build two-thirds of the world's indices, take a third of ETF fees, exercise enormous discretion, sit outside investment-adviser regulation — and the regulator formally dropped the question in April 2025.",
     ("longevity-evidence-deep", "zh"):
         "把四个长寿明星放到同一把尺子上:动物寿命 / 人体替代终点 / 人体临床结局。结论是四个招牌数字全部经不起原样引用,而且都是同一类口径滑坡的产物。雷帕霉素在动物层最强(ITP 42ppm 雄 +23%、雌 +26%),但流传的「延长寿命 14%」是 90% 死亡年龄口径、600 日龄起始;人体侧只有 19 项研究和一次 1024 人的三期失败,PEARL 主终点未达且阳性结果压在 8 名女性身上,2026 年 RAPA-EX-01 首次正面检验每周给药假说未获支持(−2.13 次,p=0.089,而协议预设 α=0.10)并伴随未校正的 HbA1c 上升。二甲双胍走完了假象的全程:Bannister 2014 的「糖尿病人比健康人活得久」是 2.4 年中位随访的模型外推,原始粗死亡率 14.4 vs 15.2、p=0.054;丹麦全国数据反向(IRR 1.52),而四格粗死亡率里三格跨国重合,分歧只落在二甲双胍治疗组;威尔士 13 万人数据不只反驳还复现了这个假象——头三年存在、五年后反转;DPPOS 随机 21 年全因死亡 HR 0.99;TAME 宣布十一年、无注册号、零入组。NAD+ 的问题更靠前:「NAD+ 随年龄下降」的人体证据是 49 人皮肤与 17 人脑波谱,而两个独立团队(2026 年七队列、2022 年 1,518 人)都没在全血里找到下降;补剂能升血中不能升肌肉(三份独立数据同向);NR 在 ITP 明确未过;NMN 招牌结果 13 对 12,同课题组更大剂量的重复未复现。禁食侧最诚实:CALERIE 处方 25% 实际 11.9%,唯一动了的 DunedinPACE 是真效应且扛过 Bonferroni,但它到死亡风险的换算被挪威 HUNT 的零结果拆掉;限时进食的好处等热量一控就消失,而隔日禁食保留一个小优势;「8 小时进食窗高 91%」出自新闻稿,发表版反而是 +135%。结构性发现:证据强度与零售市场规模大致相反,因为能零售的必须是补剂、补剂不能是药、而有效的往往是药。十一个可检验主张收尾,并列出本文自身被验证推翻的十处。",
     ("longevity-evidence-deep", "en"):
@@ -3419,6 +3729,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("indexing-endgame-deep", "zh"): [
+        ("c1", "96 票对抗验证 · 8 席双席审计"), ("c2", "4 项单源实证：1 否决 3 限用"), ("c3", "同一占比三把尺子差 40 倍"), ("c4", "14 个可检验主张"),
+    ],
+    ("indexing-endgame-deep", "en"): [
+        ("c1", "96 adversarial votes · 8 audit seats"), ("c2", "4 empirics: 1 vetoed, 3 restricted"), ("c3", "one share, three rulers, 40x apart"), ("c4", "14 testable claims"),
+    ],
+    ("indexing-endgame-plain", "zh"): [
+        ("c1", "基金资产 55% vs 市值 19%"), ("c2", "83% 的断点不在他自己的论文里"), ("c3", "需求冲击翻倍，价格效应消失"), ("c4", "先问这是哪把尺子"),
+    ],
+    ("indexing-endgame-plain", "en"): [
+        ("c1", "55% of fund assets vs 19% of market cap"), ("c2", "the 83% threshold isn't in his own paper"), ("c3", "demand doubled, price effect vanished"), ("c4", "ask which ruler first"),
+    ],
     ("longevity-evidence-deep", "zh"): [
         ("c1", "102 票对抗验证 · 12 席双席审计"), ("c2", "33/34 组含修正 · 1 组推翻"), ("c3", "四个招牌数字全部口径滑坡"), ("c4", "11 个可检验主张"),
     ],
@@ -3872,6 +4194,15 @@ INDEX_ENTRIES = [
      "102 adversarial votes · 11 testable claims",
      [("t1", "循证医学", "Evidence-based med"), ("t2", "老年医学", "Geroscience"), ("t3", "临床试验方法学", "Trial methods"),
       ("t4", "补剂产业", "Supplement industry"), ("t5", "监管与市场", "Regulation & markets")]),
+    ("indexing-endgame", "2026-08",
+     "指数化的终局：被动投资会破坏市场吗？",
+     "The Endgame of Indexation: Is Passive Investing Breaking Markets?",
+     "同一个「被动占比」，换一把尺子就差 40 倍，而争论双方都只报对自己有利的那把。把这场争论的全部证据送回一手来源，覆盖占比的三种量法、警告者的原话与下场、价格发现的六种度量、指数纳入效应的消失与复活、主动跑输的记分牌，以及所有权与指数编制商这两层真正扎实的集中度。",
+     "The same \"passive share\" differs 40-fold depending on which ruler you pick, and each camp reports only the ruler that flatters it. Every piece of evidence in this debate returned to its primary source, covering the three ways to measure the share, the warners' own words and what became of them, the six incompatible measures of price discovery, the index effect's disappearance and revival, the active-underperformance scoreboard, and the two layers where concentration is genuinely well evidenced.",
+     "96 票对抗验证 · 14 个可检验主张",
+     "96 adversarial votes · 14 testable claims",
+     [("t1", "指数基金", "Index funds"), ("t2", "市场微观结构", "Market microstructure"), ("t3", "口径陷阱", "Caliber traps"),
+      ("t4", "公司治理", "Corporate governance"), ("t5", "金融监管", "Financial regulation")]),
 ]
 
 
