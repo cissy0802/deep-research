@@ -125,7 +125,9 @@
 - Figure 5:被动指数**基金**持股占市值 2%→11%,VR 1.16→1.10。
 - **版本反转**:2017-10 稿结论相反(「index investing introduces noise」、VR 恶化约 30%)——发表版是修订后结果;引用一律标 2022。
 - LATE 声明须带作者的反向限定(「model's predictions hold for any feasible level」)。
-- 首阶段幅度多口径:1.5pp(均值)/1.81/-1.16(分带)/HLS 帖 2%。
+- 首阶段幅度多口径:1.5pp(结果节均值;分带 +1.81/-1.16)/导言写「约 2%」——引 1.5pp 归结果节。
+- 优先引 Table IV 的 log-point 数(-24.8/-10.8;+20.3/+14.3),导言的百分数不稳定;-10.8 是分析师报告降幅,+14.3 是反向面板的升幅(没有 -14.3)。
+- 补强:Ringgenberg 2026-06-25 国会证词重申结论未撤回;其个人页预告《A note on Russell-based methodologies》(未验证)——若发布可能影响整个 Russell 设计文献。
 
 ## V16 Sammon
 - 「CHR 显示信息 2 天内完全入价、无 drift」**错**:CHR 发现样本平均存在显著 PEAD(BetaPEAD 4.3%,SE 0.6%),零的是指数化的**处理效应**。
@@ -215,4 +217,71 @@
 
 ---
 
-## 待补:V15 第 3 票、V24 ×2、V25 ×1、V26 ×2、V27–V32 ×3(补跑中)
+## V24 Persistence(×3 CORRECTED)
+- 0.39% 基线是本文自算(S&P 只印 6.25%);Poisson(2) 下 P(0)=13.5%——「zero」在随机零假设内毫不异常;top-half 存活调整后 null≈5.7%。
+- 死亡不对称:Report 5(国内股票,2014-19 排名→2019-24 观察,n=470/quartile):Q4 24.89% vs Q1 6.81%;各类别不一;风格漂移近对称(25.11 vs 28.72)且体量更大;Report 11 是固收(30.00 vs 10.00)。**同时**:CFR 指出 Report 5 是对同行排名非对基准,死亡≠输给基准。
+- **0.46%(YE2025)判死不得刊出**:一手不可达、唯一二手是疑似机器生成 FAQ、另一二手读同表得 0.00%、且 0.46% 出现在我们喂给搜索的查询里(回声污染)。YE2025 只可写「据二手读表:除小盘外全部类别归零」并标二手。
+- 反向证据必须收录:YE2024 Report 5 显示 5 年期 top-quartile 留存 54.76%(vs 随机 25%)——长窗口的「无持续性」不适用于五年期同行排名;小盘 2022-12 仍 0.79%。
+- Report 2 是等权基金计数;分母是 2020-12 cohort(512/1021 等)。
+
+## V25 IAA/Ptak(×3 CORRECTED)
+- 「1/5 是复现误差」限于 investment-grade intermediate(61.33→54.34→23.91);固收类整体 71.34→37.09(34.25pp),且 71.34 是**作者复现值**(SPIVA 自印 76.00——复现在固收整体差 4.66pp,Ptak 的批评适用于整条固收线)。
+- 口径阶梯:92.04/92.66/55.31 = 12 类等权平均;All Domestic 20 年 = 94.11→77.56;摘要 79%→56% = All Domestic 1 年(2024,56.49)。三层不可互串;55% 是论文自己印的两个数字里更有利的那个。
+- 「supported by」IAA Active Managers Council(IAA=注册投顾总会,AMC 是其主动管理倡导部门);Cremers「independent」保留;SPIVA 奖=2014 年第三届二等奖 $15,000,获奖论文结论是「显性指数化改善行业竞争」(**亲指数化**——讽刺点是 S&P 奖励过他,不是奖励反指数化)。
+- Ptak:**承认第三项调整**(基准改投资净费被动基金——Barometer 已做 2/3 项:基准+资产加权);他守的是死亡=失败与等权两项;41% 的死亡 HY 基金生前跑赢(部分支持 CFR);2,844/4,518 是总月数(headcount 效应,每只 88.9 vs 98.2,1.10×);其文正文 2004 vs 图注 2014(以正文为准);8.3 年 vs 加总隐含 7.9 年不调和。
+- S&P 的正面回应存在(WealthManagement 引):SPIVA 测「基金比例 vs 市场基准」因为检验的主张是 beat the market——范围之争非方法让步。CFR 未发表。
+
+## V26 G-S 收益率检验(×3 CORRECTED)
+- BvB $3.2m/年 = **按存续期数加权**(时间加权)非 AUM 加权;无权重均值 $0.14m/月;median -$20k/月、57.01% 为负✓;作者自注 t 值高估(跨基金相关+超峰);BvB 的 VW gross alpha ≈+80bp/年(对 Vanguard 基金基准)与 FF +13bp(对因子)**不同基准不可并列**;FF 净 VW -0.81~-1.00(t -2.5~-3.0)才是「alpha=-fees」的支撑。
+- PST:论文框架是 Berk-Green 规模递减,不引 G-S——「G-S 检验」的联结是本文的,须标注;IndustrySize=主动美股共同基金 AUM/CRSP 总市值(排除对冲基金/主动 ETF/专户);40bp=主样本(1993-2011)FE 谱(t=-3.60),无 FE 约一半且勉强显著;扩样本加时间趋势后 t=-1.72 不稳健;样本止 2011-12,post-2010 推断是本文外推且需另证主动份额确实下降;**CFR 交锋必须披露**(AHM 2022 vs PSTZ 2022 robust 确认)。
+- CFMS:Panel B(country of sale)才显著;净四因子 alpha;2002-2010(同样早于被动主升);在样本均值 Active Share 0.705 处组合边际效应≈0——「指数化多→alpha 高」只对贴基准基金成立;机制是竞争纪律(费用/努力)非错价机会。
+- Unterberg:一切数字归 Swedroe/Morningstar(2026-08)转述;作者摘要只可证「四因子 alpha 降约 1pp + Active Share 关系反转」;「行业层符号翻转」只在 Morningstar 转述第 6 条——归转述或删;奖项两说(WFA 程序册 Two Sigma / 本人页 Brattle)——写「WFA 2026 获奖论文」即可;机制自述为需求/价格压力**否认技能衰退**,不是 G-S 信息效率证据;Reuter-Zitzewitz(RoF 2021)RD 发现基金层规模效应≈0,若涉基金层须一并注。
+
+## V27 费用(2 HOLDS + 1 修)
+- 全部数字✓(1996 起点是图标签口径,如引注明)。
+- 「无累计节费一手来源」**被推翻**:Vanguard《50 years, 50 facts》给出 25 年累计省费约 **$570bn**(厂商反事实口径:假设指数投资者原本付主动费率)——存在但是[厂商口径],引用须带构造。
+
+## V28 Bebchuk-Hirst(×3 CORRECTED)
+- 投票份额:25.4% mean 系 **2017** 年会(不是 2018);median 24.2%;R3000 mean 22.0%;wedge 解释用 2017 年非三巨头投票率 68%(73% 是 2008-17 均值、只用于投影假设)。
+- 投影:**复合**(几何)外推 0.84%/年(非线性);34.3%(2028)/40.8%(2038)=投票;27.6/33.4=**所有权**投影且同出 2019 论文——「2022 下修」不存在,2022 原样重印并辩护。34.3 是三个基期口径里最高(5 年基期 28.4、20 年基期 27.2)。
+- 2022 内部矛盾是三重:24.9%(1552/1569 页,fn118 却引 Table 2)vs Table 2 的 27.5(sum of rounded medians)vs 正文 27.6;21.9% 是**三个中位数之和**;别把 20.5%(2017 mean)与 21.9%(2021 sum-of-medians)接成增长序列——一致口径中位序列 19.5%(2017)→21.9%(2021)。
+- **平台化**:2022 Table 1 中位合计 21.5(2019)/21.1(2020)/21.9(2021)——投影要求 2028 达 27.6,增长停滞未被作者处理;引投影必须并呈平台化。
+- Figure 1 标题「index funds」但底层是 13F 全持仓(含主动;index 占比 BLK 66%/V 74%/SSGA 79%)。
+- 「<4 person-days/$1bn」是 BlackRock 专属(SSGA/Vanguard <2);2022 版重述漏了分母,别引那句。
+- Kahan-Rock 重写:比较基准是基金**自身的经济所有者**(基金投资者),称 B&H 的假想集中股东基准为「category mistake」;他们并不否认 45/21/12 数字且承认 B&H 在自身条件下的点。
+- S&C 18.7% = 「collectively owned 18.7% of all shares」(aggregate,非 value-weighted 修饰);88% 亦见 CamberView 2017/K&E 2019——行业通说,更支持「rank stat 非控制」的警告。
+- 最新一手:BIS Annual Report 2025(日历年,12-31 数据):Voting Choice 合格 $3.76T/总指数股票 $7.7T、enrolled ~$885bn;BAIS 13 人→BlackRock stewardship 合计 ~73+;与年中 Spotlight($3.3T/$784bn/$6.9T,6-30)是不同报告期,不可混用。
+
+## V29 Common ownership(×3 CORRECTED)
+- **「Azar & Vives 反方综述」不存在**——镜像 COI 综述= Schmalz, ARFE 10 (2018) 413-448 及 ASt 自己的 Antitrust Bulletin 66(1) 2021 方法学辩护。Azar & Vives ECGI 827/2022 是实证论文,且其发现是**三巨头共同持股与更低机票价相关**(非三巨头股东才与高价相关)——放进正文反而是妙料。
+- GLS 已发表:Annual Review of Financial Economics 16 (2024) 89-114(怀疑方已过审;Atlanta Fed URL 死链);引语必须带范围限定(「Across the newest papers employing the most credible identification techniques…However, further research is necessary」)。
+- ASt 数字锚定 2017 IESE WP/发表版:3-7% 面板、10-12% BGI-IV(pooled;分期系数多不显著;ASt 自称「may be 10-12%」)、~0.5% 直接效应;JF 摘要唯一数字是浓度「10 倍于门槛」;ASt 在 Refutation 中自认面板估计**不主张因果**。
+- DGS:敏感于 investor control 度量+破产假设;三个 placebo;发表版用 HHI∆ 记号。
+- 更多批评线:Egland et al.(SSRN 3463231,Analysis Group,COI 在怀疑侧)、Kennedy-O'Brien-Song-Waehrer 2017(结构模型)。BCS tunneling 归谬自带「对 control weights 敏感」警告(反而强化归谬用途)。
+- 交锋 Refutation(亦 CESifo 9937/ECGI 837)与 Surrebuttal 均未过审✓。
+
+## V30 2025-26 治理事件(×3 CORRECTED)
+- Texas v. BlackRock:2025-08-01 是**部分准许部分驳回**(Counts I-XVII、XXI 存活;XVIII-XX 驳回;消费者保护限四州);「a close call」专指circumstantial conspiracy pleading;operative 是 2025-01-16 修正诉状(13 州);Vanguard 和解 = 2026-02-25/26、11 州、$29.5m;§4.1 是**总量 50% 门槛**(非「任一基金过半美股」);承诺至 2032-06。
+- **删「listen-only」**(仅 summarizer 出现);BlackRock 于 2025-02-20/21(Reuters)恢复,写「一周内、2 月下旬」;其自述是「highlighting our role as a passive investor at the start of each engagement」。
+- 拆分:每家**两队**(BIS/BAIS——BAIS 2025-01-01 已存在,早于 2026 叙事;Vanguard VCM/VPM;SSGA AST+可选 SSS);「<5%」是 Innisfree 的概率式措辞非设计上限——EDGAR 实测:Vanguard 是(Macy's 4.96/4.94)、BlackRock 否(NETSTREIT 13.9%);拆分高度不对称(BIS≈90% AUM、VCM≈75%);**Innisfree 实测「两队常平行投票」**(推翻「尚无证据」);Cooley:VCM/VPM 美国政策除覆盖基金外「identical」。「统一票仓失效」降级为「法律形式分拆、行为尚未分化」。
+- Engagement:同类比 1,950 公司/12,700+ 公司 ≈15%;但同报告另一口径「~70% of the value of clients' equity assets engaged」——两个都给;BIS 数字仅覆盖 Benchmark Policies(约 3/4 AUM)。
+- Vanguard 参与率:82,000 人是 8 基金/$264bn 期的数;~10M 合格是 2025-05 扩容后的前瞻数——0.8% 混期;Vanguard 自家口径:直接经纪客户参与率≈10%、资产口径 $9bn/$264bn=3.4%。写明分母。
+- FTC/DOJ SoI:明确不就 acquisition-only 理论表态——双向都不许过度解读✓。
+
+## V31 指数编制商(×3 CORRECTED)
+- IA-6050:**2025-04-21 正式从 Unified Agenda 撤下**(RIN 3235-AM95,「Completed Actions」)——写「问了、然后正式撤回」,别写「不了了之」;2025-06 的 14 项撤回是另一批(它未到 proposal 阶段);2026 议程(2026-07-03/07)无此项。
+- $5.0bn = **全行业** 2021 指数收入(SEC 脚注引 FT/Burton-Taylor),前三家 >2/3 ≈ $3.4bn;3.05M 指数 = IIA 2020 survey;fn44 自引 Kasch-Sarkar 反方——RFC 本身不是 SEC 对指数效应的背书。
+- An-Benetton-Song(JFE 149(3) 2023, 407-433):发表措辞「over one-third of ETF **expense ratios**」(31.4%→35.7%,2010→2019);「improving competition…reduces expense ratios by **up to** 30%」= 完全竞争基准(9.3→6.5bp,作者自称 unlikely);**进入反事实显示新低价编制商几乎不动费率**(市场自愈失败,引 Morningstar Open Indexes 佐证);现实情形约 6%/13%;估计基于 ~10% 自愿披露子样本(选择偏差自认);HHI 3,294 = 2010-2019 月度均值、美股 ETF 市场。
+- Molk-Robertson:1.7-7.5% 是 **round-trip**(单边 0.85-3.75%),mean 2.9%/median 1.8%,仅五只 >$100bn 基金;$61.5bn = $30.7bn 单边×2,其中五大基金占 ~$52bn;删「≈0.5%」(对 S&P 500 基金资产是 ~2-3%;0.5% 用错分母);98.9% 基金季 <20% active share——**不支持**「巨型基金暗地主动」强读法;flow 检验作者自称仅 smell test。
+- RA Tesla:$94bn 与 $78bn 矛盾在**同一句**($4.6T×1.69%=$77.7bn,$94bn 无支撑);$147bn(endnote 算术对)vs $154bn(正文);$4.6T 是 **YE2019** 基数套 2020-12 事件;41bp=假设组合六个月收益差(RA 自称 cost——纠正其标签);RA 无 COI 披露段(写「未披露的商业利益」);PDF 已迁 rafi.com;两次再生成 PDF 未改错。
+
+## V32 BoJ/监管注意力/FCA(2 HOLDS + 1 修)
+- **「¥110 万亿 unsourced」被推翻**:Nikkei 2026-06-07 报道 BOJ ETF 市值超 ¥110tn、超 TSE Prime 8%(AI/半导体行情推高);序列 ~¥70-80tn(2025-09)→¥95tn(Nikkei Asia 2026-02-10)→>¥110tn(2026-06)是市值升值的一致轨迹。写「Nikkei 报道口径」。
+- Fed 2026-05 FSR 零提及✓;FCA/Bristol 判词逐字✓;BoJ 声明逐字✓、~330bn/年账面、Ueda「more than 100 years」✓。
+
+---
+
+## Round 2 总盘点(96 票)
+- 组级:V10 全票 HOLDS;V11/V27/V32 多数 HOLDS(含小修);其余 28 组 CORRECTED;0 组整体推翻。
+- 子项级判死/不得刊出:0.46% persistence(YE2025)、「45% 反转→55% 永久」(BDFM WP 旧数)、「listen-only mode」、「Azar & Vives 综述」、「40%→80% migrations」、「~50pp 死于跑输」读法、JVZ 非 top-50 vol 主效应、my「Morningstar 修正后更狠」、「M≈5-7→长期 2」映射、「0.5% of index assets」。
+- 本文自身论证被验证反转的(写进正文):①「-14.1% 是引用者误引」→实为 CHR 论文内部矛盾;②「Morningstar 修正 costless benchmark 反而更狠」→同类对比 SPIVA 更狠、投资净费基准更宽松;③「主动共同基金提供纳入流动性」→其净需求≈0,提供者是对冲基金/养老金/捐赠基金;④「migrations 从 40% 升到 80%」→additions 份额平稳,暴涨的是 deletions;⑤「BoJ ¥110tn 无来源」→Nikkei 有报道;⑥「三巨头拆分后无投票行为证据」→Innisfree 实测平行投票;⑦「无累计节费一手来源」→Vanguard $570bn 存在(厂商口径);⑧「2022 下修投影」→不存在。
