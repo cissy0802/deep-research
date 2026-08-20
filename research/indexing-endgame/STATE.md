@@ -24,11 +24,11 @@
 ## 运行日志
 
 - [x] Round 1:7 线并行调研 → raw/ 全部落盘(L4/L5/L6 另有独立重跑版 -alt.md 可交叉);脚本存 research-round1.workflow.js
-- [~] Round 2:32 组承重论断 × 3 票对抗验证进行中(runId wf_d935de5b-80e;29 组 Opus + 3 组 Sonnet;脚本存 verify-round2.workflow.js)。分组清单见脚本 GROUPS;调研 agent 留下的一手提取文本在 session scratchpad(217 文件),验证 agent 复用
-- [ ] Round 3:单源承重实证双席审计(反证搜索席 + 有否决权的方法学审计席)
-- [ ] 成文四版 + 一致性回查
-- [ ] 注册渲染 + 发布 + 钩子收割
+- [x] Round 2:32 组承重论断 × 3 票对抗验证进行中(runId wf_d935de5b-80e;29 组 Opus + 3 组 Sonnet;脚本存 verify-round2.workflow.js)。分组清单见脚本 GROUPS;调研 agent 留下的一手提取文本在 session scratchpad(217 文件),验证 agent 复用
+- [x] Round 3:单源承重实证双席审计(反证搜索席 + 有否决权的方法学审计席)
+- [x] 成文四版 + 一致性回查
+- [x] 注册渲染 + 发布 + 钩子收割
 
 ## 下一步恢复点
 
-Round 1 进行中(2026-08-14)。若中断:检查 research/indexing-endgame/raw/ 下已有哪些线的产出,补跑缺失线。
+已完成发布(2026-08-20)。四版页面在线,钩子已分流(meta-knowledge Day 73 + 候选池 2 条)。
