@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>被动投资会破坏市场吗?一场双方招牌数字都站不住的争论(易读版) — BigCat Deep Research</title>
-<meta name="description" content="「被动过半」只在一把尺子上成立;警告方最可检验的断点与他自己的论文差 18 个百分点;而辩护方最常引的口径错误源自作者自己的摘要。易读版:三把尺子、五个证人、一个反直觉的关键事实,以及十四条可检验的判断。">
+<meta content="「被动过半」只在一把尺子上成立;警告方最可检验的断点与他自己的论文差 18 个百分点;而辩护方最常引的口径错误源自作者自己的摘要。易读版:三把尺子、五个证人、一个反直觉的关键事实,以及十四条可检验的判断。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -70,61 +71,60 @@ h2:nth-of-type(12){--h2:#5eead4}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="indexing-endgame-plain.html" class="active">中文</a><a href="indexing-endgame-plain.en.html">EN</a>
+<a class="active" href="indexing-endgame-plain.html">中文</a><a href="indexing-endgame-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>被动投资会破坏市场吗?一场双方招牌数字都站不住的争论(易读版)</h1>
+<h1 data-tts="2a3465ea3ba8ffad">被动投资会破坏市场吗?一场双方招牌数字都站不住的争论(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="indexing-endgame-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">「被动过半」只在基金资产那把尺子上成立：换成股票市值是 19%，换成成交量是 1.2% 或 64%（取决于谁在数）。而这场争论最值得记下的不是谁赢，是双方的招牌数字几乎都经不起送回原文核对。警告方：Green 的 83% 断点不在他自己的论文里（那里写 65%/90%），他的示范算术错了近一倍，连苹果实际涨幅都比他的模型预测低 14 个百分点；Burry 那句名言之后指数七年涨了 165%，他本人已转向 AI 泡沫论；而被引用最多的 Bogle 警告的其实是另一件事、还明确为指数基金辩护。辩护方也不干净：最常引的「ETF 提高波动率 16%」口径错误源自作者自己的摘要。实证上，最干净的因果实验给出精确的零，而最有分量的「损害」证据被审计席否决——那个「四分之一」换个分母就变成「六分之一」，而且在被动占比最高的近十年里根本不显著。一个反直觉的关键事实：被动买盘翻倍的同时，纳入标普 500 的股价效应从 7.4% 收敛到近乎零（2025 年三例又两位数复活）。真正有分量的担忧不在价格上，在权力上：三家公司编制全球三分之二的指数、抽走 ETF 费率的三分之一、拥有巨大裁量权、不受投资顾问法约束，而监管机构在 2025 年 4 月把这个议题正式撤下了。</div></div>
 <div class="chips"><span class="chip c1">基金资产 55% vs 市值 19%</span><span class="chip c2">83% 的断点不在他自己的论文里</span><span class="chip c3">需求冲击翻倍，价格效应消失</span><span class="chip c4">先问这是哪把尺子</span></div>
 <blockquote><p>这是易读版。完整的证据链、每个数字的口径与全部验证判决,见<a href="https://hub.cissychen.com/deep-research/indexing-endgame-deep.html">深入版</a>。<strong>本文是证据综述,不构成投资建议。</strong></p></blockquote>
-<h2>先说结论</h2>
+<h2 data-tts="23ac88284888ac7e">先说结论</h2>
 <p>「被动投资已经超过一半,市场的价格发现被破坏了」——这句话由两部分组成,前半句只在一把特定的尺子上成立,后半句到今天为止<strong>没有被证据支持,也没有被证据推翻</strong>。</p>
 <p>而这场争论最值得记下的,不是谁赢了,是<strong>双方最常引用的招牌数字几乎全都经不起送回原文核对</strong>。我们把 32 组关键论断各派三个独立的人去反驳,又对四个最关键的数字各加派了两个人——一个专门找反证,一个有权直接否决。结果:被否决一个,限制使用三个,零个可以按它被引用的强度使用。</p>
-<h2>三把不同的尺子,量出三个差 40 倍的答案</h2>
+<h2 data-tts="7a481c3d6d0cdc73">三把不同的尺子,量出三个差 40 倍的答案</h2>
 <p>先解决那个最简单也最被滥用的问题:被动到底占多少?</p>
 <p><strong>如果量的是基金里的钱</strong>:美国的长线基金里,被动确实在 2023 年底超过了主动——13.29 万亿对 13.23 万亿,差距只有 600 亿,占总盘子的 0.2%,基本在分类误差以内。换基金业协会自己的定义,过半是 2024 年的事。到 2025 年底大约 53% 到 55%。这把尺子上,「被动过半」是真的。</p>
 <p><strong>如果量的是股票市值</strong>:被动基金持有美股总市值的比例,基金业协会算是 <strong>19%</strong>,先锋集团用更宽的算法是 23%,美联储研究员 2020 年的估计是 14%。这三个数字都自称是低估,但没有一个接近一半。</p>
 <p><strong>如果量的是成交量</strong>:先锋说指数基金的调仓只占美股成交额的 <strong>1.2%</strong>;而 Michael Green 的估计加起来大约 <strong>64%</strong>。同一篇报道里印着这两个数字。它们不是一个测量分歧,是在数完全不同的东西——先锋只数基金自己的买卖,Green 把「因为被动而产生的做市商交易」也算进来(这一块占 36%,而且找不到任何原始出处)。泡沫论需要大数字,辩护方需要小数字,两边都不报对方的口径。</p>
 <p>真实的被动份额是不是比基金口径高?<strong>是的,这个方向有四个独立团队佐证。</strong>最有说服力的一个绕开了所有推算:研究者拿到哥伦比亚交易所带投资者身份的<strong>逐笔交易</strong>记录,直接看指数调整那天是谁在买卖,发现「名义上主动、实际上盯着指数」的机构,产生的调仓买入是显性指数基金的 <strong>1.7 倍</strong>。连贝莱德 2017 年那份<strong>专门论证「指数化其实规模不大」</strong>的白皮书,自己拆出来的账也是:全球指数化 17.5%,其中机构内部做的指数化占了 10 个百分点——基金口径只看到 7.4%。一个立场偏向小数字的机构,自己算出了两倍多。</p>
 <p>但<strong>高多少</strong>,没人锁得住:独立测量给出的范围是 17.5% 到 41%。最常被引用的「33.5%」出自一篇论文,而那篇论文自己的表格里同时列着五个数,从 13.31% 到 33.5%——最保守的那个,作者明说与基金口径的 16% 在统计上分不开。</p>
-
 <figure>
-<svg viewBox="0 0 700 304" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="36" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个「被动占比」,三把尺子,差 40 倍</text>
-  <line x1="450.0" y1="58" x2="450.0" y2="272" stroke="#ff6ec4" stroke-width="1.2" stroke-dasharray="3,4" opacity="0.55"/>
-  <text x="456.0" y="68" fill="#ff6ec4" font-size="9.5" opacity="0.8" font-family="Menlo,monospace">50% 线</text>
-  <line x1="250" y1="272" x2="650" y2="272" stroke="#5a6378" stroke-width="1"/>
-  <text x="236" y="86" fill="#e4e6eb" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">基金资产</text><text x="236" y="102" fill="#7c8593" font-size="9" text-anchor="end" font-family="Menlo,monospace">美国长线基金(共同基金+ETF)</text><rect x="250" y="74" width="212" height="18" rx="4" fill="#ff6ec4" opacity="0.85"/><rect x="462" y="74" width="8" height="18" rx="3" fill="#ff6ec4" opacity="0.32" stroke="#ff6ec4" stroke-width="1" stroke-dasharray="3,2"/><text x="480" y="88" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="Menlo,monospace">53–55%</text><text x="236" y="140" fill="#e4e6eb" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">股票市值</text><text x="236" y="156" fill="#7c8593" font-size="9" text-anchor="end" font-family="Menlo,monospace">被动基金持有的美股市值占比</text><rect x="250" y="128" width="56" height="18" rx="4" fill="#4cc9f0" opacity="0.85"/><rect x="306" y="128" width="36" height="18" rx="3" fill="#4cc9f0" opacity="0.32" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="3,2"/><text x="352" y="142" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">14–23%</text><text x="236" y="194" fill="#e4e6eb" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">影子口径</text><text x="236" y="210" fill="#7c8593" font-size="9" text-anchor="end" font-family="Menlo,monospace">含机构内部指数化(独立测量跨度)</text><rect x="250" y="182" width="70" height="18" rx="4" fill="#7b61ff" opacity="0.85"/><rect x="320" y="182" width="94" height="18" rx="3" fill="#7b61ff" opacity="0.32" stroke="#7b61ff" stroke-width="1" stroke-dasharray="3,2"/><text x="424" y="196" fill="#7b61ff" font-size="11.5" font-weight="700" font-family="Menlo,monospace">17.5–41%</text><text x="236" y="248" fill="#e4e6eb" font-size="12" font-weight="700" text-anchor="end" font-family="-apple-system,sans-serif">成交量</text><text x="236" y="264" fill="#7c8593" font-size="9" text-anchor="end" font-family="Menlo,monospace">从「基金自身调仓」到「含被动做市」</text><rect x="250" y="236" width="5" height="18" rx="4" fill="#e8794b" opacity="0.85"/><rect x="255" y="236" width="251" height="18" rx="3" fill="#e8794b" opacity="0.32" stroke="#e8794b" stroke-width="1" stroke-dasharray="3,2"/><text x="516" y="250" fill="#e8794b" font-size="11.5" font-weight="700" font-family="Menlo,monospace">1.2–64%</text><text x="250" y="290" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">0%</text><text x="350" y="290" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">25%</text><text x="450" y="290" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">50%</text><text x="550" y="290" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">75%</text><text x="650" y="290" fill="#5a6378" font-size="9.5" text-anchor="middle" font-family="Menlo,monospace">100%</text>
+<svg role="img" viewbox="0 0 700 304" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="36">同一个「被动占比」,三把尺子,差 40 倍</text>
+<line opacity="0.55" stroke="#ff6ec4" stroke-dasharray="3,4" stroke-width="1.2" x1="450.0" x2="450.0" y1="58" y2="272"></line>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="9.5" opacity="0.8" x="456.0" y="68">50% 线</text>
+<line stroke="#5a6378" stroke-width="1" x1="250" x2="650" y1="272" y2="272"></line>
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" text-anchor="end" x="236" y="86">基金资产</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" text-anchor="end" x="236" y="102">美国长线基金(共同基金+ETF)</text><rect fill="#ff6ec4" height="18" opacity="0.85" rx="4" width="212" x="250" y="74"></rect><rect fill="#ff6ec4" height="18" opacity="0.32" rx="3" stroke="#ff6ec4" stroke-dasharray="3,2" stroke-width="1" width="8" x="462" y="74"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="480" y="88">53–55%</text><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" text-anchor="end" x="236" y="140">股票市值</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" text-anchor="end" x="236" y="156">被动基金持有的美股市值占比</text><rect fill="#4cc9f0" height="18" opacity="0.85" rx="4" width="56" x="250" y="128"></rect><rect fill="#4cc9f0" height="18" opacity="0.32" rx="3" stroke="#4cc9f0" stroke-dasharray="3,2" stroke-width="1" width="36" x="306" y="128"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="352" y="142">14–23%</text><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" text-anchor="end" x="236" y="194">影子口径</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" text-anchor="end" x="236" y="210">含机构内部指数化(独立测量跨度)</text><rect fill="#7b61ff" height="18" opacity="0.85" rx="4" width="70" x="250" y="182"></rect><rect fill="#7b61ff" height="18" opacity="0.32" rx="3" stroke="#7b61ff" stroke-dasharray="3,2" stroke-width="1" width="94" x="320" y="182"></rect><text fill="#7b61ff" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="424" y="196">17.5–41%</text><text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" text-anchor="end" x="236" y="248">成交量</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" text-anchor="end" x="236" y="264">从「基金自身调仓」到「含被动做市」</text><rect fill="#e8794b" height="18" opacity="0.85" rx="4" width="5" x="250" y="236"></rect><rect fill="#e8794b" height="18" opacity="0.32" rx="3" stroke="#e8794b" stroke-dasharray="3,2" stroke-width="1" width="251" x="255" y="236"></rect><text fill="#e8794b" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="516" y="250">1.2–64%</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9.5" text-anchor="middle" x="250" y="290">0%</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9.5" text-anchor="middle" x="350" y="290">25%</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9.5" text-anchor="middle" x="450" y="290">50%</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9.5" text-anchor="middle" x="550" y="290">75%</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9.5" text-anchor="middle" x="650" y="290">100%</text>
 </svg>
 <figcaption>示意:横轴为百分比;实心段画到该口径的下限,虚线段覆盖到上限。只有基金资产这把尺子越过 50%;「被动持有半个市场」在市值口径上从未成立。成交量那条不是一个量的估计区间,而是四个不同对象(最大成分「被动做市」36% 无一手来源)</figcaption>
 </figure>
-<h2>起诉方:每一位证人,和他们证词的下场</h2>
-<h3>那句最有名的话,和后来发生的事</h3>
+<h2 data-tts="dd65e264bba19781">起诉方:每一位证人,和他们证词的下场</h2>
+<h3 data-tts="37f89bbab3f4c796">那句最有名的话,和后来发生的事</h3>
 <p>2019 年,Michael Burry 对彭博说:被动投资「已经把价格发现从股票市场中移除了」,并把它比作金融危机前的合成 CDO。他给的具体证据是流动性:那天罗素 2000 里有 1,049 只股票成交额不到 500 万美元,而「剧场越来越挤,出口还是原来那个出口」。他自己也写了一句:「不过我不知道时间表会是什么。」</p>
 <p>后来的事:标普 500 从那天的 2,937 点涨到 2026 年 8 月的 7,798 点,<strong>七年涨了 165%</strong>,还不含股息。他警告的踩踏在 2020 年 3 月、2024 年 8 月、2025 年 4 月三次压力测试里都没出现。他管理的基金从 3.4 亿缩到 1.55 亿,2025 年 11 月注销了注册;现在他在自己的付费专栏里主打的是 <strong>AI 泡沫</strong>——超大规模云厂商的折旧会计,不是指数基金。他公开发表的 79 篇文章里,没有一篇重提 2019 年那个论点。</p>
-<h3>控诉与招供出现在同一场采访里</h3>
+<h3 data-tts="3e19501f1e2fa0e2">控诉与招供出现在同一场采访里</h3>
 <p>2024 年 2 月,David Einhorn 说了这场争论最锋利的一句:「我认为市场从根本上坏掉了……你的股票要涨,最好的办法几乎是从被高估开始。」</p>
 <p>同一场采访的另一段:「现在其实更让人兴奋……竞争者基本上离场了……机会大概和以往任何时候一样好,甚至更好。」所以他改成买四五倍市盈率、给 15% 到 20% 现金回报的公司。</p>
 <p>这两句话不矛盾,而且恰好是经济学里那个经典模型的预测:知情的人少了,留下的人赚得多。到当年 11 月,他的措辞已经软化成「有点坏掉的市场」。</p>
-<h3>最可检验的警告,和它对不上的账</h3>
+<h3 data-tts="aac5e7f12d052d88">最可检验的警告,和它对不上的账</h3>
 <p>Michael Green 是这套理论的主理论家,也是唯一给出时间表的人。2026 年 1 月他在播客里说:被动占到大约 <strong>83%</strong> 时市场会失灵,而「我们现在大约 54%、去年涨了 4 个点」,所以「大约五年后世界终结」。</p>
 <p>我们逐条核对的结果:</p>
 <ul><li><strong>83% 不在他自己的论文里。</strong> 他与两位合作者的正式预印本写的是 <strong>65%</strong> 时波动率「可能急升」、<strong>90%</strong> 时急升「几乎不可避免」。</li><li><strong>五年到不了 83%。</strong> 54% 加每年 4 个点,五年是 74%;到 83% 要 7 年多。</li><li><strong>他的示范算术错了近一倍。</strong> 他说每天的被动买盘让苹果每日膨胀 0.167%、「年化约 23%」——0.167% 乘 252 个交易日是 42%。而苹果 2025 年实际涨了 8.6%,比他模型的预测低了 14 个百分点。他当场用「苹果基本面不行了」解释这个差距——但如果高估算基本面、低估算资金流,这个模型就永远不会错,也就永远不能被检验。</li><li><strong>输入数据也不对。</strong> 他说先锋去年流入约 3,500 亿;实际是 2,400 亿。</li><li><strong>他引用的学术底座被他复述错了。</strong> 他说那篇著名论文估计「1 美元推动 5 到 8 美元」;原文写的是「约 5 美元(我们的估计在 3 到 8 之间)」。而那篇论文首发五年至今<strong>没有通过同行评审</strong>,更关键的是——<strong>它根本不是研究被动投资的</strong>,123 页里对指数基金只有一处顺带提及。</li></ul>
 <p>需要同样公平地记下的是:Green 的方向性判断一直是对的。他不是崩盘预言家,他说的是「在这停止之前,你跑不赢指数,市场会继续涨」——过去七年正是如此。这让他的论点很难被证伪,也意味着市场上涨本身不算对他的反驳。2026 年 8 月,他离开原公司创立了一家新的资产管理公司,策略正是交易被动资金流的价格压力——警告者把论点做成了产品。</p>
-<h3>代价最高的那位</h3>
+<h3 data-tts="53a9ecc7f8270b16">代价最高的那位</h3>
 <p>英国基金经理 Terry Smith 在 2026 年 7 月的半年报里写:市场「被所谓被动或指数基金与 AI 热潮共同主导,变成一个由动量而非基本面驱动的市场」,「结局会很糟」。代价是实打实的:他的基金上半年跌 2.9%,而参照指数涨 11.2%,落后 14.1 个百分点;他把半年换手率提到 51.8%(前一年全年只有 3.2%),并明确把动量纳入了自己的流程。</p>
 <p>但他信里的数字同样有问题:被动占比在八个月里从「超过 50%」变成「超过 60%」,两个都没给出处;有一句「2007 到 08 年标普五个月跌 57%」——实际是 17 个月;而他自己列出的五大亏损来源,全是个股选择。</p>
-<h3>被误征的证人</h3>
+<h3 data-tts="46c4b465257116ab">被误征的证人</h3>
 <p>被警告方引用最多的权威,其实站在对面。Jack Bogle 2018 年那篇文章警告的是<strong>所有权集中</strong>——少数几家机构会掌握几乎所有大公司的投票权——全文没有一句关于价格发现或泡沫,结尾还引别人的话为指数基金辩护:「『禁止指数化显然不是好主意。』我只能说:阿门。」</p>
 <p>他 2017 年那句「如果所有人都指数化,唯一能用的词是混乱、灾难」总是被单独引用。紧接着的下一句是:「那么所有人都指数化的概率是多少?是零。」同一段稍后:「所以,我不担心这件事。」</p>
 <p>他还说过指数化「可以超过市场的 75% 而不变得危险」。这个 75% 从哪来?Asness 后来在论文脚注里写下了答案:他当面追问 Bogle,得到的回答是「<strong>我瞎编的</strong>」。</p>
-<h2>辩护方也不干净</h2>
+<h2 data-tts="5803ae414d8c131d">辩护方也不干净</h2>
 <p>先锋的 1.2% 来自最大的受益方;那份人人引用的主动跑输记分牌,出版方是卖指数的公司;「债券 ETF 在危机中提供了价格发现」这个说法的招牌材料,是贝莱德的会议 PPT——因为挂在美国证监会网站上,经常被当成监管机构的结论。</p>
 <p>真正有分量的是三个不按阵营剧本说话的声音:AQR 的 Asness 承认「市场确实变得更低效了」,但判断指数化「只是相对小的一部分原因」,社交媒体和游戏化交易嫌疑更大;Acadian 的 Lamont 是<strong>主动管理者</strong>——本该欢迎泡沫叙事——却写下最锋利的反驳:「被动投资者基本不交易,所以基本不影响价格……没有交易,就没有罪案」;而以看空著称的 GMO 判断被动的影响「被夸大但非零」,且因为养老金制度转型接近尾声,未来只会更小。</p>
-<h2>那么,价格发现到底坏了没有?</h2>
+<h2 data-tts="a5a62efe6eb217a3">那么,价格发现到底坏了没有?</h2>
 <p>这是全文最需要耐心的部分,因为「价格发现」在研究里至少有六种量法,每一种给的答案都不同。</p>
 <p><strong>最干净的实验说:没坏。</strong> 有一组研究者利用罗素指数每年重新排名造成的「意外」——同一只股票因为排名擦边而被动持股突然变化——来做因果检验。结果是精确估计的零:股价偏离随机游走的程度、异象错价的程度、财报后的漂移,三族指标全都没动。同期(2007 到 2016 年)指数基金持股从 2% 涨到 11%,而价格效率指标反而略有改善。</p>
 <p><strong>但同一篇论文的另一半说:有东西变了。</strong> 信息生产确实下降了——被纳入小盘指数后,公司文件的下载量、分析师报告数都在减少。波动率、与指数的联动、市场 beta、换手率、卖空比例则全部显著上升。引用这篇论文说「被动无害」的人,通常略过了后半部分。</p>
@@ -132,55 +132,53 @@ h2:nth-of-type(12){--h2:#5eead4}
 <ul><li>那个「四分之一」不是一个估计值,是把四个比值取等权平均算出来的;换一种归一化方式,同样的数据给出的是「六分之一」;四个比值本身相差 3.3 倍。</li><li>四个指标里有三个是同一个数字换分母,不是四次独立验证。</li><li>效应在近期数据里<strong>消失了</strong>:2012 到 2019 年这段——恰恰是被动占比最高的时期——主要指标完全不显著。样本延长到 2022 年,所有系数砍掉三分之一到一半。</li><li>论文自己的附录里有一张表显示:被动持股高的公司,<strong>盈利意外本身就更大</strong>。也就是说,「财报日跳得更凶」可能只是因为公司现在把更多信息留到财报当天一起发布——会计学界的研究正是这么发现的。</li></ul>
 <p><strong>不过机制层站得住,而且是多源的。</strong> 抛开那个被否决的数字,「被动持股上升、价格里的公司特有信息成分下降」这个方向,有三个独立团队用三种完全不同的方法测出同向结果,其中一种根本不看财报窗口。</p>
 <p><strong>但同一批事实还有一个相反的读法。</strong> 另一位研究者独立记录了同样的现象——财报前的价格漂移在减弱——然后得出相反结论:市场变得<strong>更</strong>有效了。因为财报日的价格现在几乎是「一步到位」,财报后的漂移(过去几十年最著名的市场异象之一)在 2006 年之后基本消失了。同一组事实,两种符号相反的解读,而现有的度量分不开它们。</p>
-<h2>一个反直觉的关键事实</h2>
+<h2 data-tts="f199f4f9de48aab7">一个反直觉的关键事实</h2>
 <p>被动买盘对股价的机械冲击,理应随着被动规模变大而变大。实际发生的是相反的事。</p>
 <p>一只股票被纳入标普 500,过去会立刻上涨:1990 年代平均 <strong>7.4%</strong>。到 2010 到 2020 年,这个效应收敛到 <strong>0.83%,统计上不显著</strong>——而同期跟踪标普 500 的基金从几乎为零涨到了美股市值的约 7%。<strong>需求冲击变大了一倍多,价格反应反而消失了。</strong></p>
 <p>谁在对面接货?研究者查过:不是主动共同基金(它们的净买卖接近零),而是对冲基金、养老金、捐赠基金这类机构。市场自己长出了吸收这种可预测冲击的能力。</p>
 <p>不过 2025 年出现了三声回响:Coinbase 在纳入公告次日涨了 <strong>24%</strong>,Robinhood 涨 15.8%,AppLovin 涨 11.6%。这三例都在那篇论文的样本之外,也都还没有同行评审的重新估计。它们不推翻「效应曾经消失」,但给这个结论画上了界碑。</p>
-
 <figure>
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="28" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">纳入标普 500 的股价效应:随被动增长而消失,2025 年三例复活</text>
-  <text x="24" y="46" fill="#7c8593" font-size="9.5" font-family="Menlo,monospace">柱 = 纳入的累计异常收益(发表版 Table 1);右侧三例为样本外单次事件</text>
-  <line x1="60" y1="250" x2="660" y2="250" stroke="#5a6378" stroke-width="1"/>
-  <line x1="396" y1="60" x2="396" y2="250" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,5" opacity="0.6"/>
-  <rect x="70" y="228" width="52" height="22" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="96" y="220" fill="#4cc9f0" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">3.42%</text><text x="96" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">1980 年代</text><rect x="142" y="203" width="52" height="47" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="168" y="195" fill="#4cc9f0" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">7.39%</text><text x="168" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">1990 年代</text><rect x="214" y="217" width="52" height="33" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="240" y="209" fill="#4cc9f0" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">5.16%</text><text x="240" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2000 年代</text><rect x="286" y="245" width="52" height="5" rx="4" fill="#5a6378" opacity="0.85"/><text x="312" y="237" fill="#5a6378" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">0.83%</text><text x="312" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2010–2020</text><text x="312" y="282" fill="#5a6378" font-size="9" text-anchor="middle" font-family="Menlo,monospace">(不显著)</text><rect x="420" y="96" width="52" height="154" rx="4" fill="#ff6ec4" opacity="0.5" stroke="#ff6ec4" stroke-width="1.2" stroke-dasharray="3,3"/><text x="446" y="88" fill="#ff6ec4" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">24.0%</text><text x="446" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Coinbase</text><rect x="492" y="149" width="52" height="101" rx="4" fill="#ff6ec4" opacity="0.5" stroke="#ff6ec4" stroke-width="1.2" stroke-dasharray="3,3"/><text x="518" y="141" fill="#ff6ec4" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">15.8%</text><text x="518" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Robinhood</text><rect x="564" y="176" width="52" height="74" rx="4" fill="#ff6ec4" opacity="0.5" stroke="#ff6ec4" stroke-width="1.2" stroke-dasharray="3,3"/><text x="590" y="168" fill="#ff6ec4" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">11.6%</text><text x="590" y="268" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">AppLovin</text><text x="528.0" y="284" fill="#ff6ec4" font-size="9" text-anchor="middle" opacity="0.85" font-family="Menlo,monospace">样本外(无同行评审重估)</text>
-  <text x="60" y="112" fill="#7b61ff" font-size="10" font-family="Menlo,monospace">同期跟踪标普 500 的基金:约 0 → 美股市值约 7%</text>
+<svg role="img" viewbox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" x="24" y="28">纳入标普 500 的股价效应:随被动增长而消失,2025 年三例复活</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="9.5" x="24" y="46">柱 = 纳入的累计异常收益(发表版 Table 1);右侧三例为样本外单次事件</text>
+<line stroke="#5a6378" stroke-width="1" x1="60" x2="660" y1="250" y2="250"></line>
+<line opacity="0.6" stroke="#5a6378" stroke-dasharray="2,5" stroke-width="1" x1="396" x2="396" y1="60" y2="250"></line>
+<rect fill="#4cc9f0" height="22" opacity="0.85" rx="4" width="52" x="70" y="228"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="96" y="220">3.42%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="96" y="268">1980 年代</text><rect fill="#4cc9f0" height="47" opacity="0.85" rx="4" width="52" x="142" y="203"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="168" y="195">7.39%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="168" y="268">1990 年代</text><rect fill="#4cc9f0" height="33" opacity="0.85" rx="4" width="52" x="214" y="217"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="240" y="209">5.16%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="240" y="268">2000 年代</text><rect fill="#5a6378" height="5" opacity="0.85" rx="4" width="52" x="286" y="245"></rect><text fill="#5a6378" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="312" y="237">0.83%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="312" y="268">2010–2020</text><text fill="#5a6378" font-family="Menlo,monospace" font-size="9" text-anchor="middle" x="312" y="282">(不显著)</text><rect fill="#ff6ec4" height="154" opacity="0.5" rx="4" stroke="#ff6ec4" stroke-dasharray="3,3" stroke-width="1.2" width="52" x="420" y="96"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="446" y="88">24.0%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="446" y="268">Coinbase</text><rect fill="#ff6ec4" height="101" opacity="0.5" rx="4" stroke="#ff6ec4" stroke-dasharray="3,3" stroke-width="1.2" width="52" x="492" y="149"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="518" y="141">15.8%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="518" y="268">Robinhood</text><rect fill="#ff6ec4" height="74" opacity="0.5" rx="4" stroke="#ff6ec4" stroke-dasharray="3,3" stroke-width="1.2" width="52" x="564" y="176"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="12" font-weight="700" text-anchor="middle" x="590" y="168">11.6%</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="590" y="268">AppLovin</text><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="9" opacity="0.85" text-anchor="middle" x="528.0" y="284">样本外(无同行评审重估)</text>
+<text fill="#7b61ff" font-family="Menlo,monospace" font-size="10" x="60" y="112">同期跟踪标普 500 的基金:约 0 → 美股市值约 7%</text>
 </svg>
 <figcaption>示意:柱高按数值比例,右侧三例为 2025 年直接纳入的单日反应(COIN 为公告次日)。需求冲击在这段时间翻了一倍多,而平均价格反应收敛到统计不显著——接货的不是主动共同基金(其净需求约为零),而是对冲基金、养老金与捐赠基金</figcaption>
 </figure>
-<h2>「被动在给巨头抬轿」这件事</h2>
+<h2 data-tts="621f52e03e600959">「被动在给巨头抬轿」这件事</h2>
 <p>这是当下最流行的版本:被动资金按市值比例买入,所以钱不成比例地流向最大的公司,把 Mag 7 越吹越大。</p>
 <p>最有分量的支持证据来自一篇 2025 年的论文:指数基金流入越多的季度,最大的那些公司相对指数跑赢越多,而且沿规模单调排列。但它被限制使用,原因很硬:</p>
 <ul><li>那个广为流传的「25 年推高前 50 大公司 29%」,是作者自己把同期系数线性累加出来的,而<strong>他们自己的模型只给出 0 到 4%</strong>——作者原话承认外推值「大于校准」。</li><li><strong>样本是 1996 到 2020 年,整个 Mag 7 时代都在样本之外。</strong></li><li><strong>有两次样本外的方向失败</strong>:2022 年 ETF 流入超过 6,000 亿美元,而巨头股均值回归、等权指数在回撤中跑赢约 34%;2026 年至今流入 1.2 万亿(比 2025 年的纪录还快 40%),而等权指数在过去 12 个月里有 7 个月跑赢,科技是最差板块。</li><li><strong>「被动买走了更多巨头」这个说法本身是错的。</strong> 市值加权指数按定义是按比例买入;先锋用交易所数据显示,指数基金的按比例持股其实在<strong>中小盘最高</strong>,前 200 大公司反而低于多数中盘股。</li></ul>
 <p>机制层倒是有独立支持——包括一个真实世界的自然实验:日本央行多年来大规模购买股票 ETF,是一个不看价格、按指数买入的巨型买家,研究确认它推高了成分股价格且短期没有回吐,同时降低了价格信息量和流动性。<strong>但日本的实验证明的是「价格不敏感的巨量买盘会推动价格」,不是「效应对最大的公司更强」</strong>——它的截面差异来自买入强度,不是公司规模。</p>
-<h2>五次「被动引发崩盘」,官方尸检怎么说</h2>
+<h2 data-tts="5f607ca587ae5554">五次「被动引发崩盘」,官方尸检怎么说</h2>
 <ul><li><strong>2010 年闪崩</strong>:破单的证券里三分之二是 ETF。但报告里就有反证——不投资美国股票的 ETF <strong>没有</strong>受到不成比例的冲击,所以问题不在 ETF 结构本身,而在做市商暂停报价。</li><li><strong>2015 年 8 月 24 日</strong>:1,278 次熔断里 1,058 次发生在 ETF 上。但 <strong>80% 的 ETF 一次都没熔断</strong>,63% 的跌幅与大盘一致。真正失真的是<strong>指数本身</strong>:标普 500 用主市场最新成交价计算,开盘时满是隔夜旧价,显示只跌 5.2%,而实际交易的 ETF 一度跌 7.8%——正因为这个失真的指数没跌到 7%,全市场熔断没有触发。</li><li><strong>2018 年 2 月 XIV</strong>:国际清算银行认定的关键因素是做空波动率的 ETP 每日再平衡,涉事产品总规模约 <strong>40 亿美元</strong>——报告明说这类产品「无论规模还是复杂策略都不能代表更广泛的 ETP 市场」。用 40 亿美元的衍生品指控数万亿的指数基金,是这个档案里最常见的偷换。</li><li><strong>2020 年 3 月债券 ETF</strong>:折价确实说明套利机制受阻,但同一份报告也说折价「可以说」起到了阻遏赎回挤兑的作用。美联储的判断是:被动投资者对业绩不敏感,这个转变「可能有助于减少<strong>因业绩不佳引发的</strong>大额赎回」。</li><li><strong>2025 年 4 月关税回撤</strong>:国际清算银行说买入反弹的是<strong>散户</strong>而非机构——「散户」和「被动」之间的等号是叙事者自己画的。</li></ul>
 <p>一个收尾事实:当年发表过被动风险经典论文的美联储,其 <strong>2026 年 5 月的金融稳定报告里,一次都没有提到</strong>「被动」「指数基金」或「ETF」。</p>
-<h2>那为什么主动基金还是跑不赢?</h2>
+<h2 data-tts="6966c148116559b9">那为什么主动基金还是跑不赢?</h2>
 <p>如果被动真的制造了大量错价,留下的主动管理者应该更好赚才对。数据说不是。</p>
 <p>20 年跑输率是 91% 到 94%(按基金只数算)。2001 到 2024 年里,多数大盘基金跑赢指数的年份只有三个:2005、2007、2009——<strong>2010 年以后一个都没有</strong>。而且看不出与被动占比上升有任何对应关系:走势基本是平的。</p>
 <p>这里有两个必须一起说的口径修正。第一,那个 88% 的 15 年跑输率里,有<strong>一半是「没活到最后」</strong>——基金清盘或合并就被算作跑输,而它们生前是不是真的跑输,恰恰是争议所在。第二,按<strong>钱</strong>而不是按基金只数算,20 年的年化差距从 1.96 个百分点缩到 1.25 个百分点。主动管理业在 2026 年 5 月发布了一篇由行业协会资助的论文,做完三项调整后,20 年跑输率从 92% 降到 55%。反驳也很快到了:改善幅度里有近五分之一其实是<strong>复现误差</strong>。</p>
 <p>这场仗没有裁判。但它改变的是幅度,不是方向:<strong>没有任何一方的数字显示主动跑赢是常态。</strong></p>
-
 <figure>
-<svg viewBox="0 0 700 292" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="36" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">「15 年 88% 的主动基金跑输」拆开来是什么</text>
-  <text x="24" y="56" fill="#7c8593" font-size="9.5" font-family="Menlo,monospace">大盘主动基金,截至 2025 年 6 月;起点 1,033 只</text>
-  <text x="60" y="86" fill="#5a6378" font-size="10" font-family="Menlo,monospace">0</text>
-  <text x="640" y="86" fill="#5a6378" font-size="10" text-anchor="end" font-family="Menlo,monospace">100</text>
-  <rect x="60" y="96" width="290" height="46" rx="5" fill="#ff6ec4" opacity="0.82"/><text x="205" y="125" fill="#12141a" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">50.05</text><rect x="60" y="205" width="11" height="11" rx="2" fill="#ff6ec4" opacity="0.82"/><text x="77" y="214" fill="#7c8593" font-size="10" font-family="Menlo,monospace">没活到最后(规则计为跑输)</text><rect x="350" y="96" width="222" height="46" rx="5" fill="#7b61ff" opacity="0.82"/><text x="461" y="125" fill="#12141a" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">38.24</text><rect x="260" y="205" width="11" height="11" rx="2" fill="#7b61ff" opacity="0.82"/><text x="277" y="214" fill="#7c8593" font-size="10" font-family="Menlo,monospace">活着但跑输</text><rect x="572" y="96" width="68" height="46" rx="5" fill="#4cc9f0" opacity="0.82"/><text x="606" y="125" fill="#12141a" font-size="14" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">11.71</text><rect x="460" y="205" width="11" height="11" rx="2" fill="#4cc9f0" opacity="0.82"/><text x="477" y="214" fill="#7c8593" font-size="10" font-family="Menlo,monospace">活着且跑赢</text>
-  <text x="60" y="252" fill="#4cc9f0" font-size="11" font-family="Menlo,monospace">存活下来的基金里,只有 23.4% 跑赢指数</text>
-  <text x="60" y="274" fill="#7c8593" font-size="10" font-family="Menlo,monospace">按钱算(资产加权)20 年年化差距 −1.25 个百分点,按基金只数算是 −1.96</text>
+<svg role="img" viewbox="0 0 700 292" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="36">「15 年 88% 的主动基金跑输」拆开来是什么</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="9.5" x="24" y="56">大盘主动基金,截至 2025 年 6 月;起点 1,033 只</text>
+<text fill="#5a6378" font-family="Menlo,monospace" font-size="10" x="60" y="86">0</text>
+<text fill="#5a6378" font-family="Menlo,monospace" font-size="10" text-anchor="end" x="640" y="86">100</text>
+<rect fill="#ff6ec4" height="46" opacity="0.82" rx="5" width="290" x="60" y="96"></rect><text fill="#12141a" font-family="Menlo,monospace" font-size="14" font-weight="700" text-anchor="middle" x="205" y="125">50.05</text><rect fill="#ff6ec4" height="11" opacity="0.82" rx="2" width="11" x="60" y="205"></rect><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" x="77" y="214">没活到最后(规则计为跑输)</text><rect fill="#7b61ff" height="46" opacity="0.82" rx="5" width="222" x="350" y="96"></rect><text fill="#12141a" font-family="Menlo,monospace" font-size="14" font-weight="700" text-anchor="middle" x="461" y="125">38.24</text><rect fill="#7b61ff" height="11" opacity="0.82" rx="2" width="11" x="260" y="205"></rect><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" x="277" y="214">活着但跑输</text><rect fill="#4cc9f0" height="46" opacity="0.82" rx="5" width="68" x="572" y="96"></rect><text fill="#12141a" font-family="Menlo,monospace" font-size="14" font-weight="700" text-anchor="middle" x="606" y="125">11.71</text><rect fill="#4cc9f0" height="11" opacity="0.82" rx="2" width="11" x="460" y="205"></rect><text fill="#7c8593" font-family="Menlo,monospace" font-size="10" x="477" y="214">活着且跑赢</text>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11" x="60" y="252">存活下来的基金里,只有 23.4% 跑赢指数</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" x="60" y="274">按钱算(资产加权)20 年年化差距 −1.25 个百分点,按基金只数算是 −1.96</text>
 </svg>
 <figcaption>示意:横条按百分点比例。争议点正在最左边那一段——基金清盘或合并即被计为跑输,而它们生前是否真的跑输,恰恰是主动管理业与指数编制商在打的那场官司</figcaption>
 </figure>
-<h2>真正有分量的担忧,不在价格上</h2>
+<h2 data-tts="efb2c3013b85b4d6">真正有分量的担忧,不在价格上</h2>
 <p>如果说这场争论里有哪个部分的证据最扎实,那不是价格发现,是<strong>权力集中</strong>。而最集中的一层还不是基金,是<strong>编制指数的公司</strong>。</p>
 <p>美国证监会自己在 2022 年写过:三家公司占据了指数市场的三分之二以上;编指数「留有巨大的自由裁量空间」,有时「无需公开披露方法」。学术研究发现,ETF 费率的<strong>三分之一以上</strong>是作为授权费付给指数编制商的。更值得注意的是:同一项研究发现这个市场<strong>无法自我修复</strong>——新的低价编制商进入,几乎不能改变均衡费率。</p>
 <p>而监管的结局是:那份征求意见稿从未变成规则,<strong>2025 年 4 月被正式从议程上撤下</strong>。美国的指数编制商至今不受投资顾问法约束,而欧盟和英国的同行是要注册的。</p>
 <p>三巨头(贝莱德、先锋、道富)在标普 500 公司的平均合计持股约 20%,投出的票约占 25%。常被引用的预测是十年后投 34%——但那是按每年固定比例外推的,而它们自己的数据显示 2019 到 2021 年这个比例已经<strong>平了</strong>(21.5%、21.1%、21.9%)。2026 年三家各自把管家团队拆成两个独立团队,有人认为这是为了让单个团队不超过 5% 的申报线;但实测下来,<strong>两个团队常常投一样的票</strong>——法律形式拆了,投票行为还没分化。</p>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="a9f7bd0672adf412">这篇文章的判断,怎么检验</h2>
 <p>按把握从大到小排,每条都给检验方式。</p>
 <p><strong>1. 「被动过半」只在基金资产这把尺子上成立,市值口径是 19% 到 23%。</strong> 真实份额高于基金口径这个<strong>方向</strong>有四个独立团队佐证(测量跨度 17.5% 到 41%),但没有哪个具体数字被第二个团队锁定。检验:看基金业协会和晨星的年度更新;看有没有人独立复现那个用调仓成交量反推的方法(至今没有)。</p>
 <p><strong>2. 主动大盘基金长期跑输(20 年:按只数 91-94%,按钱 55-78%),2010 年后没有随被动扩张而好转。</strong> 检验:两家记分牌的年度序列;那篇行业资助的论文能否通过同行评审。</p>
@@ -196,27 +194,26 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>12. 三巨头的集中度数字是真的,但已经平台化;2026 年的拆分目前只是法律形式。</strong> 检验:两个团队投票分歧率的首批数据。</p>
 <p><strong>13. 指数编制商是全场集中度最实的一层,而监管已在 2025 年 4 月正式撤回。</strong> 检验:证监会是否重启。</p>
 <p><strong>14. 警告方最可检验的那个断点,与他自己的论文对不上(83% 对 65%/90%),示范算术与自己的输入差近一倍。</strong> 检验:那篇论文通过评审后的正式门槛。</p>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="3f81ed07544c8622">最要紧的几件事</h2>
 <p><strong>先问是哪把尺子。</strong> 同一个「被动占比」,在基金资产上是 55%,在股票市值上是 19%,在成交量上是 1.2% 或 64%。任何一句「既然被动已经过半,所以……」的话,几乎都在这三把尺子之间偷偷换了一把。</p>
 <p><strong>双方的招牌数字损伤程度相当。</strong> 警告方:最可检验的断点与自己论文差 18 个百分点,示范算术错了近一倍,最有名的证人(Bogle)警告的其实是另一件事、且明确为指数基金辩护。辩护方:最常引用的「ETF 提高波动率 16%」这个口径错误<strong>源自作者自己的摘要</strong>,几篇关键论文的正文与自己的表格对不上,而「主动跑输」的幅度按钱算要缩水三分之一。</p>
 <p><strong>几乎所有站得住的发现都在机制层,不在幅度层。</strong> 价格里的公司特有信息确实随被动持股下降;价格不敏感的巨量买盘确实能推高价格;影子被动确实远大于基金口径。但<strong>没有一条独立证据能回答「这已经造成了多大的失真」</strong>——而泡沫论的全部力量恰恰来自量级。</p>
 <p><strong>这个领域的时钟停在了 2010 年代。</strong> 所有实证研究的自变量都在市值口径 16% 以下的世界里,而今天已经接近 20%。「无害」的结论在为一个不再存在的被动水平作证,「有害」的预言还没等到它的样本。</p>
 <p><strong>真正扎实的问题不在价格上,在权力上。</strong> 三家公司编制着全球三分之二的指数,抽走 ETF 费率的三分之一,拥有巨大的自由裁量权,不受投资顾问法约束,而监管机构在 2025 年 4 月把这个议题正式撤下了。这件事没有争议、有一手文件、而且几乎没人在吵。</p>
-<hr>
+<hr/>
 <p><strong>站内相关研究</strong>:同一种「一个百分比在三个分母上差 40 倍」的口径体检,见<a href="https://hub.cissychen.com/deep-research/ninety-five-percent-plain.html">「95% 试点失败」体检</a>;关于资本市场叙事与一手数字的落差,见<a href="https://hub.cissychen.com/deep-research/ai-capex-1999-plain.html">这轮 AI 资本开支是不是 1999?</a>;关于「争论双方的招牌数字同等受损」这个结构,见<a href="https://hub.cissychen.com/deep-research/screen-time-teens-plain.html">屏幕时间与青少年心理健康</a>。</p>
 <figure>
-<svg viewBox="0 0 700 308" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="36" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">经得起独立检验的发现全在机制层,没有一条在幅度层</text>
-  <rect x="30" y="58" width="310" height="30" rx="6" fill="#4cc9f0" opacity="0.22" stroke="#4cc9f0" stroke-width="1"/><text x="185.0" y="78" fill="#4cc9f0" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">机制层:方向站得住【多源】</text><rect x="360" y="58" width="310" height="30" rx="6" fill="#ff6ec4" opacity="0.22" stroke="#ff6ec4" stroke-width="1"/><text x="515.0" y="78" fill="#ff6ec4" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">幅度层:量级站不住【限用/否决】</text><rect x="30" y="106" width="310" height="46" rx="5" fill="#4cc9f0" opacity="0.10"/><text x="42" y="125" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">公司特有信息成分随被动持股下降</text><text x="42" y="141" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(3 个独立团队,3 种度量)</text><rect x="360" y="106" width="310" height="46" rx="5" fill="#ff6ec4" opacity="0.10"/><text x="372" y="125" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">「财报前信息量降 1/4」被否决</text><text x="372" y="141" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(换个分母就变成 1/6)</text><rect x="30" y="160" width="310" height="46" rx="5" fill="#4cc9f0" opacity="0.10"/><text x="42" y="179" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">价格不敏感的指数买盘持久推高价格</text><text x="42" y="195" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(日本央行 ETF 计划的自然实验)</text><rect x="360" y="160" width="310" height="46" rx="5" fill="#ff6ec4" opacity="0.10"/><text x="372" y="179" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">「被动推高巨头 29%」不可承重</text><text x="372" y="195" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(是作者自家校准的 7 倍)</text><rect x="30" y="214" width="310" height="46" rx="5" fill="#4cc9f0" opacity="0.10"/><text x="42" y="233" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">影子被动远大于基金口径</text><text x="42" y="249" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(交易层数据里直接观察到)</text><rect x="360" y="214" width="310" height="46" rx="5" fill="#ff6ec4" opacity="0.10"/><text x="372" y="233" fill="#e4e6eb" font-size="10" font-family="Menlo,monospace">「需求弹性降 11%」靠一个工具撑着</text><text x="372" y="249" fill="#7c8593" font-size="9" font-family="Menlo,monospace">(去掉模型自造的工具即归零)</text>
-  <text x="515.0" y="290" fill="#ff6ec4" font-size="10.5" text-anchor="middle" opacity="0.9" font-family="Menlo,monospace">泡沫论的全部力量来自幅度</text>
+<svg role="img" viewbox="0 0 700 308" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" x="24" y="36">经得起独立检验的发现全在机制层,没有一条在幅度层</text>
+<rect fill="#4cc9f0" height="30" opacity="0.22" rx="6" stroke="#4cc9f0" stroke-width="1" width="310" x="30" y="58"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11.5" font-weight="700" text-anchor="middle" x="185.0" y="78">机制层:方向站得住【多源】</text><rect fill="#ff6ec4" height="30" opacity="0.22" rx="6" stroke="#ff6ec4" stroke-width="1" width="310" x="360" y="58"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11.5" font-weight="700" text-anchor="middle" x="515.0" y="78">幅度层:量级站不住【限用/否决】</text><rect fill="#4cc9f0" height="46" opacity="0.10" rx="5" width="310" x="30" y="106"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="42" y="125">公司特有信息成分随被动持股下降</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="42" y="141">(3 个独立团队,3 种度量)</text><rect fill="#ff6ec4" height="46" opacity="0.10" rx="5" width="310" x="360" y="106"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="372" y="125">「财报前信息量降 1/4」被否决</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="372" y="141">(换个分母就变成 1/6)</text><rect fill="#4cc9f0" height="46" opacity="0.10" rx="5" width="310" x="30" y="160"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="42" y="179">价格不敏感的指数买盘持久推高价格</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="42" y="195">(日本央行 ETF 计划的自然实验)</text><rect fill="#ff6ec4" height="46" opacity="0.10" rx="5" width="310" x="360" y="160"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="372" y="179">「被动推高巨头 29%」不可承重</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="372" y="195">(是作者自家校准的 7 倍)</text><rect fill="#4cc9f0" height="46" opacity="0.10" rx="5" width="310" x="30" y="214"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="42" y="233">影子被动远大于基金口径</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="42" y="249">(交易层数据里直接观察到)</text><rect fill="#ff6ec4" height="46" opacity="0.10" rx="5" width="310" x="360" y="214"></rect><text fill="#e4e6eb" font-family="Menlo,monospace" font-size="10" x="372" y="233">「需求弹性降 11%」靠一个工具撑着</text><text fill="#7c8593" font-family="Menlo,monospace" font-size="9" x="372" y="249">(去掉模型自造的工具即归零)</text>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="10.5" opacity="0.9" text-anchor="middle" x="515.0" y="290">泡沫论的全部力量来自幅度</text>
 </svg>
 <figcaption>示意:左右两栏是同一批文献的两个层面。这不是说这些研究不好——多数方法透明、数据公开、作者自陈局限;失效发生在传播层:代理族里最宽松的那个成了标题,模型内部的斜率成了「价格反应变了」的证据</figcaption>
 </figure>
-
 <footer>BigCat Deep Research · 2026-08 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
