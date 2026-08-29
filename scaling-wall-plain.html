@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>「AI 撞墙了吗」:一场吵了两年、双方都没拿出测量的争论(易读版) — BigCat Deep Research</title>
-<meta name="description" content="说有墙的拿不出实测,说没墙的拿出自家没刻度的图。四堵不一样的墙被塞进同一个词,而流传最广的那些数字,送回原文之后大多要弱一截。易读版:两种可检验的墙、四堵墙的分类、六处脱落的限定语,以及十三条可检验的判断。">
+<meta content="说有墙的拿不出实测,说没墙的拿出自家没刻度的图。四堵不一样的墙被塞进同一个词,而流传最广的那些数字,送回原文之后大多要弱一截。易读版:两种可检验的墙、四堵墙的分类、六处脱落的限定语,以及十三条可检验的判断。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -70,17 +71,17 @@ h2:nth-of-type(12){--h2:#5eead4}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="scaling-wall-plain.html" class="active">中文</a><a href="scaling-wall-plain.en.html">EN</a>
+<a class="active" href="scaling-wall-plain.html">中文</a><a href="scaling-wall-plain.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 易读版</div>
-<h1>「AI 撞墙了吗」:一场吵了两年、双方都没拿出测量的争论(易读版)</h1>
+<h1 data-tts="67967263d637fc7d">「AI 撞墙了吗」:一场吵了两年、双方都没拿出测量的争论(易读版)</h1>
 <div class="version-note">本文是<strong>易读版</strong> · <a href="scaling-wall-deep.html">查看深入版(完整论证与出处)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">「AI 撞墙了吗」吵了两年,双方都没拿出测量。先说一件被忽略的事:投入翻倍、回报变少,不是 2024 年的新发现,而是缩放定律公式本身的意思——2020 年那篇论文就写了参数翻倍、损失只降 5%。真正可检验的墙只有两种:定律失效,或者付不起。第一种截至 2026 年 8 月查无证据,而且根本查不了:前沿模型的参数量、数据量、核心指标全不公开,而厂商拿出的正面证据是自家没有刻度的图。撞墙论最常被引的那句「Ilya 说预训练进入平台期」,逐字核对后发现是记者写的转述——他真正打引号的原话之一反而是支持继续 scaling 的。四堵不一样的墙被塞进同一个词:数据墙(Ilya 明说算力仍在增长)、架构墙(LeCun,与前者不兼容)、效果递减(那两篇匿名报道)、算力增速放缓(Epoch,机制是数据中心和电厂盖不过来)。能力确实在涨,但同一个模型换一套外围工具能差 22 个百分点,发布会的 87.5% 和你能买到的 41% 不是同一个模型,厂商自报 96% 而独立复测最高只有 83.5%。而且流传最广的那些说法——「Orion 只比 GPT-4 好 20%」「首个突破 80%」「98% 都是合成数据」「《自然》说可能崩坏」——送回原文之后全都要改。最后一件事:真正卡住的约束已经从收益换到了供给——电力第一、芯片第二、数据第三,微软 CEO 的说法是芯片躺在库房里插不上电。</div></div>
 <div class="chips"><span class="chip c1">最常引的那句是记者写的</span><span class="chip c2">同一模型换装置差 22 个百分点</span><span class="chip c3">电力第一,数据第三</span><span class="chip c4">先问这是谁测的</span></div>
 <blockquote><p>本文承重论断经 44 组 × 3 票对抗验证,验证员被要求「尽力反驳」。其中一条本文原定的核心结论被判死,已替换——附在文末。所有数字截至 2026 年 8 月。</p></blockquote>
-<h2>先问一句:「墙」到底指什么</h2>
+<h2 data-tts="922773a1448d51e1">先问一句:「墙」到底指什么</h2>
 <p>2024 年 11 月起,「AI 撞墙了」成了这个行业最热的争论。两年过去,双方都还在原地。</p>
 <p>本文最想说的第一件事是:这场争论从头到尾没给「墙」下过一个能验证的定义。而一旦你试着补上,会发现双方拿出来的东西,没有一样是冲着它去的。</p>
 <p>先把一个最大的误会挪开。</p>
@@ -90,38 +91,37 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>一是定律失效了</strong>——投入照加,但效果不再落在公式预测的位置上。</p>
 <p><strong>二是定律还灵,但价钱付不起了</strong>——每再往下压一点点,要烧的电和钱已经超出任何人愿意支付的范围。</p>
 <p>这两件事需要完全不同的证据。而本文的结论是:<strong>第一种既没有证据,也没办法验证;第二种正在发生,但卡住它的不是收益变少,是电和混凝土。</strong></p>
-
 <figure>
-<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">「撞墙」若要可检验,只剩两种形态</text>
-  <rect x="24" y="46" width="322" height="196" rx="10" fill="#ff6ec4" opacity="0.06"/>
-  <text x="40" y="70" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">形态 A:定律失效</text>
-  <line x1="52" y1="90" x2="52" y2="206" stroke="#5a6378" stroke-width="1.2"/>
-  <line x1="52" y1="206" x2="330" y2="206" stroke="#5a6378" stroke-width="1.2"/>
-  <path d="M 62 104 C 130 150, 200 176, 322 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
-  <path d="M 62 104 C 130 150, 178 168, 206 166 L 322 164" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="5,4"/>
-  <circle cx="240" cy="165" r="3.5" fill="#ff6ec4"/><circle cx="280" cy="164.5" r="3.5" fill="#ff6ec4"/><circle cx="316" cy="164" r="3.5" fill="#ff6ec4"/>
-  <text x="200" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">幂律拟合线</text>
-  <text x="216" y="152" fill="#ff6ec4" font-size="10.5" font-family="Menlo,monospace">实测(假想)</text>
-  <text x="40" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">实测点系统性掉到拟合线下方</text>
-  <rect x="354" y="46" width="322" height="196" rx="10" fill="#7b61ff" opacity="0.07"/>
-  <text x="370" y="70" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">形态 B:付不起</text>
-  <line x1="382" y1="90" x2="382" y2="206" stroke="#5a6378" stroke-width="1.2"/>
-  <line x1="382" y1="206" x2="660" y2="206" stroke="#5a6378" stroke-width="1.2"/>
-  <path d="M 392 104 C 460 150, 530 176, 652 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
-  <text x="530" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">实测=拟合</text>
-  <rect x="470" y="112" width="16" height="28" rx="3" fill="#7b61ff" opacity="0.8"/>
-  <rect x="510" y="98" width="16" height="42" rx="3" fill="#7b61ff" opacity="0.85"/>
-  <rect x="550" y="80" width="16" height="60" rx="3" fill="#7b61ff" opacity="0.9"/>
-  <rect x="590" y="60" width="16" height="80" rx="3" fill="#ff6ec4" opacity="0.95"/>
-  <text x="470" y="54" fill="#9aa3b2" font-size="10.5" font-family="Menlo,monospace">$ / step</text>
-  <text x="370" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">曲线照旧,但每一步的电与钱付不起</text>
-  <text x="40" y="266" fill="#ff6ec4" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">现状:查无此证据,且公开信息下无法检验</text>
-  <text x="40" y="290" fill="#7b61ff" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">现状:正在逼近,但卡在电力与交付</text>
+<svg role="img" viewbox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="30">「撞墙」若要可检验,只剩两种形态</text>
+<rect fill="#ff6ec4" height="196" opacity="0.06" rx="10" width="322" x="24" y="46"></rect>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="12.5" font-weight="700" x="40" y="70">形态 A:定律失效</text>
+<line stroke="#5a6378" stroke-width="1.2" x1="52" x2="52" y1="90" y2="206"></line>
+<line stroke="#5a6378" stroke-width="1.2" x1="52" x2="330" y1="206" y2="206"></line>
+<path d="M 62 104 C 130 150, 200 176, 322 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"></path>
+<path d="M 62 104 C 130 150, 178 168, 206 166 L 322 164" fill="none" stroke="#ff6ec4" stroke-dasharray="5,4" stroke-width="2.2"></path>
+<circle cx="240" cy="165" fill="#ff6ec4" r="3.5"></circle><circle cx="280" cy="164.5" fill="#ff6ec4" r="3.5"></circle><circle cx="316" cy="164" fill="#ff6ec4" r="3.5"></circle>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="10.5" x="200" y="204">幂律拟合线</text>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="10.5" x="216" y="152">实测(假想)</text>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="40" y="228">实测点系统性掉到拟合线下方</text>
+<rect fill="#7b61ff" height="196" opacity="0.07" rx="10" width="322" x="354" y="46"></rect>
+<text fill="#7b61ff" font-family="Menlo,monospace" font-size="12.5" font-weight="700" x="370" y="70">形态 B:付不起</text>
+<line stroke="#5a6378" stroke-width="1.2" x1="382" x2="382" y1="90" y2="206"></line>
+<line stroke="#5a6378" stroke-width="1.2" x1="382" x2="660" y1="206" y2="206"></line>
+<path d="M 392 104 C 460 150, 530 176, 652 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"></path>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="10.5" x="530" y="204">实测=拟合</text>
+<rect fill="#7b61ff" height="28" opacity="0.8" rx="3" width="16" x="470" y="112"></rect>
+<rect fill="#7b61ff" height="42" opacity="0.85" rx="3" width="16" x="510" y="98"></rect>
+<rect fill="#7b61ff" height="60" opacity="0.9" rx="3" width="16" x="550" y="80"></rect>
+<rect fill="#ff6ec4" height="80" opacity="0.95" rx="3" width="16" x="590" y="60"></rect>
+<text fill="#9aa3b2" font-family="Menlo,monospace" font-size="10.5" x="470" y="54">$ / step</text>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="370" y="228">曲线照旧,但每一步的电与钱付不起</text>
+<text fill="#ff6ec4" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" x="40" y="266">现状:查无此证据,且公开信息下无法检验</text>
+<text fill="#7b61ff" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" x="40" y="290">现状:正在逼近,但卡在电力与交付</text>
 </svg>
 <figcaption>示意:幂律本身内生递减(2020 年原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙。可检验的墙只有这两种,而争论双方引用的证据没有一条针对它们</figcaption>
 </figure>
-<h2>第一种墙:没证据,而且查不了</h2>
+<h2 data-tts="18acf26c4ea11e8f">第一种墙:没证据,而且查不了</h2>
 <p>先说结论:<strong>截至 2026 年 8 月,找不到任何一份公开研究,能显示前沿模型的实测效果偏离了公式预测的那条线。</strong></p>
 <p>这是专门去找过的——查了各种角度,包括 2025 到 2026 年所有声称缩放定律出问题的论文。唯一相关的新研究结论还是反的:它发现在参数调好的情况下,不同规模的曲线反而重合得更整齐。</p>
 <p>但比「找不到」更要紧的是第二层:<strong>这件事根本没法查。</strong></p>
@@ -131,7 +131,7 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p>第三,现有的正面证据——也就是「公式还灵」——全部是厂商自己说的,而且是在自家私有指标上说的。OpenAI 说它用少了一万倍算力的小模型准确预测了 GPT-4 的表现,但那个指标测在「我们的内部代码库」上,配图连刻度都没有。Meta 关于 Llama 3 的说法也是自述。</p>
 <p>所以第一种墙现在的处境是:<strong>说有墙的人拿不出实测,说没墙的人拿出的是自家没刻度的图。这不是证据不够,是证据被扣住了。</strong></p>
 <p>要说清楚的是,这不等于「墙不存在」。它等于:在现在这个披露习惯下,这个问题没法公开回答。谁往任何一个方向下断言,都是在超出证据说话。</p>
-<h2>那两周里,双方到底拿出了什么</h2>
+<h2 data-tts="704d7e6a2c1fea42">那两周里,双方到底拿出了什么</h2>
 <p>既然实测这条路走不通,双方实际引用的是什么?把撞墙论的起点一条条送回原文,结果值得记下来。</p>
 <p><strong>起点一:两篇匿名信源的报道。</strong> 2024 年 11 月 9 日,The Information 援引测试过 OpenAI 新模型 Orion 的内部员工称,这个模型的表现<strong>确实超过了前代</strong>,但提升幅度远小于 GPT-3 到 GPT-4 那一跃。前半句那个让步经常在转述里消失,删掉它就读成了「没进步」。四天后 Bloomberg 报道三家公司同时遇阻。</p>
 <p>这里有一个容易被忽略的点:<strong>Bloomberg 的核心论证其实是算账,不是说做不到</strong>——原文写的是,即便有温和的提升,也可能不足以证明其巨额成本的合理性。那是第二种墙,不是第一种。</p>
@@ -146,19 +146,18 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p>顺手清理两条流传了两年的说法:</p>
 <p>「Orion 只比 GPT-4 好 20%」——<strong>原报道里没有这句话。</strong> 可查到的版本是:Orion 在完成约 20% 训练时就达到了 GPT-4 的水平。那是训练进度,不是提升幅度,而且它原本是用来说明「收益来得早、后面追不上」的,方向正好相反。</p>
 <p>「巨型模型的时代结束了」——不是 Altman 的原话,也不是 2024 年说的。一手是 2023 年 4 月他在 MIT 的发言,而那句流传的短语是杂志的标题。时间早了一年半。</p>
-
 <figure>
-<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">限定语在传播中脱落,而且方向高度一致</text>
-  <text x="24" y="58" fill="#e8794b" font-size="11.5" font-weight="700" font-family="Menlo,monospace">流传版本</text>
-  <text x="330" y="58" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">送回一手来源之后</text>
-  <line x1="24" y1="66" x2="676" y2="66" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
-  <text x="24" y="84" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Kaplan:幂律跨七个数量级</text><path d="M 296 80 L 318 80" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 76 L 319 80 L 313 84" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="84" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">「部分趋势」跨七个;数据维只验证了两个</text><text x="24" y="118" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Ilya:预训练已进入平台期</text><path d="M 296 114 L 318 114" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 110 L 319 114 L 313 118" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="118" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">记者的间接转述;他的原话是「把对的东西 scale 更重要」</text><text x="24" y="152" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 在 FrontierMath 拿 25%</text><path d="M 296 148 L 318 148" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 144 L 319 148 L 313 152" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="152" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">「内部、激进 test-time 配置下」,非发布版成绩</text><text x="24" y="186" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 在 ARC 拿 87.5%</text><path d="M 296 182 L 318 182" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 178 L 319 182 L 313 186" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="186" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">172 倍算力档,且用了公开训练集的 75% 训练</text><text x="24" y="220" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Nemotron:98% 是合成数据</text><path d="M 296 216 L 318 216" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 212 L 319 216 L 313 220" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="220" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">98% 指对齐阶段;预训练侧合成占比从未披露</text><text x="24" y="254" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">《自然》:不加区分训练「可能」崩坏</text><path d="M 296 250 L 318 250" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 246 L 319 250 L 313 254" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="254" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">那句对冲是编辑导语;作者摘要写的是「导致」「不可逆」</text>
-  <text x="24" y="308" fill="#c8cdd6" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">每一处修正,都是把一个更强的断言还原成一个更弱的事实</text>
+<svg role="img" viewbox="0 0 700 330" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="30">限定语在传播中脱落,而且方向高度一致</text>
+<text fill="#e8794b" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="24" y="58">流传版本</text>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="11.5" font-weight="700" x="330" y="58">送回一手来源之后</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1" x1="24" x2="676" y1="66" y2="66"></line>
+<text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="84">Kaplan:幂律跨七个数量级</text><path d="M 296 80 L 318 80" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 76 L 319 80 L 313 84" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="84">「部分趋势」跨七个;数据维只验证了两个</text><text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="118">Ilya:预训练已进入平台期</text><path d="M 296 114 L 318 114" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 110 L 319 114 L 313 118" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="118">记者的间接转述;他的原话是「把对的东西 scale 更重要」</text><text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="152">o3 在 FrontierMath 拿 25%</text><path d="M 296 148 L 318 148" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 144 L 319 148 L 313 152" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="152">「内部、激进 test-time 配置下」,非发布版成绩</text><text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="186">o3 在 ARC 拿 87.5%</text><path d="M 296 182 L 318 182" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 178 L 319 182 L 313 186" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="186">172 倍算力档,且用了公开训练集的 75% 训练</text><text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="220">Nemotron:98% 是合成数据</text><path d="M 296 216 L 318 216" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 212 L 319 216 L 313 220" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="220">98% 指对齐阶段;预训练侧合成占比从未披露</text><text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="254">《自然》:不加区分训练「可能」崩坏</text><path d="M 296 250 L 318 250" stroke="#5a6378" stroke-width="1.4"></path><path d="M 313 246 L 319 250 L 313 254" fill="none" stroke="#5a6378" stroke-width="1.4"></path><text fill="#4cc9f0" font-family="-apple-system,sans-serif" font-size="10.5" x="330" y="254">那句对冲是编辑导语;作者摘要写的是「导致」「不可逆」</text>
+<text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" x="24" y="308">每一处修正,都是把一个更强的断言还原成一个更弱的事实</text>
 </svg>
 <figcaption>示意:双方都在这么做——这不是某一方的毛病,是这场争论的传播机制</figcaption>
 </figure>
-<h2>四堵不一样的墙,被塞进了同一个词</h2>
+<h2 data-tts="390a3389e97d7155">四堵不一样的墙,被塞进了同一个词</h2>
 <p>把各方口中的「墙」摊开,会发现它们说的根本不是一件事,有几堵之间还互相矛盾。</p>
 <p><strong>第一堵,数据墙。</strong> 这是 Ilya 的墙。2024 年 12 月他在一场颁奖演讲上说「我们所知的预训练必将终结」,但理由必须一起听:「算力还在通过更好的硬件、更好的算法、更大的集群持续增长,而数据没有在增长,因为我们只有一个互联网。」他还说数据是 AI 的化石燃料,已经到达峰值。</p>
 <p>他的幻灯片把这个论证画得清清楚楚:左边一栏「算力在增长」,右边一栏「数据没有在增长」。<strong>他说的是一味原料用完了,不是配方算错了</strong>——他在同一张片子上明说算力仍在增长。同场他还给了三条出路:智能体、合成数据、推理时算力。</p>
@@ -168,17 +167,16 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>第四堵,算力增速放缓。</strong> 这堵最容易被引错,因为它来自一家明确不站撞墙论的研究机构。Epoch AI 确实预测算力扩张会放缓——但机制是<strong>东西造不出来那么快</strong>:租 GPU 几乎不用等,买 GPU 约半年,建数据中心一到两年,建超大数据中心或配套电厂两到三年,从零建一座先进芯片厂四到五年。他们的结论是,算力规模每再往上翻十倍,交付周期就要多加大约一年。</p>
 <p>这篇报告全文没有任何一处说「同样的算力买到的能力变少了」。<strong>拿它去支持「收益递减」,恰好读反了。</strong></p>
 <p>四堵墙被同一个词收进去之后,这场争论就不可能吵出结果:每一方都在回应对方没说过的话。</p>
-
 <figure>
-<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">四堵互不兼容的墙,被压进同一个词</text>
-  <rect x="24" y="52" width="320" height="118" rx="10" fill="#4cc9f0" opacity="0.08"/><rect x="24" y="52" width="4" height="118" rx="2" fill="#4cc9f0"/><text x="42" y="80" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">数据墙</text><text x="42" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Ilya Sutskever(2024-12 NeurIPS)</text><text x="42" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">「只有一个互联网」</text><text x="42" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——他在同一张幻灯片上明说算力仍在增长</text><rect x="356" y="52" width="320" height="118" rx="10" fill="#ff6ec4" opacity="0.08"/><rect x="356" y="52" width="4" height="118" rx="2" fill="#ff6ec4"/><text x="374" y="80" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">架构墙</text><text x="374" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Yann LeCun(2025-11 起)</text><text x="374" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">LLM 这条路本身走不到</text><text x="374" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——若路线错,数据够不够就不是问题</text><rect x="24" y="186" width="320" height="118" rx="10" fill="#e8794b" opacity="0.08"/><rect x="24" y="186" width="4" height="118" rx="2" fill="#e8794b"/><text x="42" y="214" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">效果递减</text><text x="42" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">The Information / Bloomberg(2024-11)</text><text x="42" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">同等投入换来的提升变小</text><text x="42" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——支撑它的是匿名内测评价,不是曲线</text><rect x="356" y="186" width="320" height="118" rx="10" fill="#7b61ff" opacity="0.08"/><rect x="356" y="186" width="4" height="118" rx="2" fill="#7b61ff"/><text x="374" y="214" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">算力增速放缓</text><text x="374" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Epoch AI(2025-09)</text><text x="374" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">机制是数据中心与电厂交付周期,</text><text x="374" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">全文没说同等算力买到的能力变少</text>
-  <text x="24" y="330" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">1 与 2 互不兼容</text>
-  <text x="356" y="330" fill="#7b61ff" font-size="11" font-weight="700" font-family="Menlo,monospace">4 常被错引为 3</text>
+<svg role="img" viewbox="0 0 700 356" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="32">四堵互不兼容的墙,被压进同一个词</text>
+<rect fill="#4cc9f0" height="118" opacity="0.08" rx="10" width="320" x="24" y="52"></rect><rect fill="#4cc9f0" height="118" rx="2" width="4" x="24" y="52"></rect><text fill="#4cc9f0" font-family="Menlo,monospace" font-size="13" font-weight="700" x="42" y="80">数据墙</text><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="102">Ilya Sutskever(2024-12 NeurIPS)</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="128">「只有一个互联网」</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="146">——他在同一张幻灯片上明说算力仍在增长</text><rect fill="#ff6ec4" height="118" opacity="0.08" rx="10" width="320" x="356" y="52"></rect><rect fill="#ff6ec4" height="118" rx="2" width="4" x="356" y="52"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" x="374" y="80">架构墙</text><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="102">Yann LeCun(2025-11 起)</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="128">LLM 这条路本身走不到</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="146">——若路线错,数据够不够就不是问题</text><rect fill="#e8794b" height="118" opacity="0.08" rx="10" width="320" x="24" y="186"></rect><rect fill="#e8794b" height="118" rx="2" width="4" x="24" y="186"></rect><text fill="#e8794b" font-family="Menlo,monospace" font-size="13" font-weight="700" x="42" y="214">效果递减</text><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="236">The Information / Bloomberg(2024-11)</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="262">同等投入换来的提升变小</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="280">——支撑它的是匿名内测评价,不是曲线</text><rect fill="#7b61ff" height="118" opacity="0.08" rx="10" width="320" x="356" y="186"></rect><rect fill="#7b61ff" height="118" rx="2" width="4" x="356" y="186"></rect><text fill="#7b61ff" font-family="Menlo,monospace" font-size="13" font-weight="700" x="374" y="214">算力增速放缓</text><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="236">Epoch AI(2025-09)</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="262">机制是数据中心与电厂交付周期,</text><text fill="#c8cdd6" font-family="-apple-system,sans-serif" font-size="10.5" x="374" y="280">全文没说同等算力买到的能力变少</text>
+<text fill="#ff6ec4" font-family="Menlo,monospace" font-size="11" font-weight="700" x="24" y="330">1 与 2 互不兼容</text>
+<text fill="#7b61ff" font-family="Menlo,monospace" font-size="11" font-weight="700" x="356" y="330">4 常被错引为 3</text>
 </svg>
 <figcaption>示意:四堵墙需要完全不同的证据,却被同一个词收纳——所以每一方都在回应另一方没有主张的东西</figcaption>
 </figure>
-<h2>这两年,能力到底涨没涨</h2>
+<h2 data-tts="516b009c63db0531">这两年,能力到底涨没涨</h2>
 <p>涨了。但读这条曲线要格外小心,因为几乎每一格都是厂商自己报的。</p>
 <p>拿业内最常引的编程基准 SWE-bench 来说:2024 年底一线卡在 49% 左右,2025 年 2 月到 62%,8 月到 75%,11 月到 81%(不开思考、五次取平均的配置),到 2026 年厂商自报已经到 96%。</p>
 <p>三个问题必须说:</p>
@@ -190,34 +188,33 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>这里有一条比「撞墙」更精确的反向证据。</strong> 另一套号称「人类最后的考试」的题库,论文里预测模型在 2025 年底前有可能超过 50 分。到 2026 年 8 月,不带工具的最高分仍然是 46.44——<strong>跨过 50 分这件事,比出题人自己的预期晚了半年多。</strong> 这是全文最接近「进度不及预期」的硬证据,而且它来自看多那一方自己的预测。</p>
 <p><strong>唯一一把不由厂商掌握的尺子</strong>是 METR 的「时间视界」:同一个任务,人做要多久,而 AI 能以一半的概率做完。它测出的进步是指数级的,倍增期约七个月。2026 年 1 月换了新版尺子后,2023 年以来的倍增期从 165 天缩到 131 天,METR 说这意味着「进步比原先估计的快 20%」。</p>
 <p>但这个「快 20%」只属于 2023 年之后那一段。<strong>把全部数据放在一起,新旧两版算出来的倍增期一模一样,都是 196 天。</strong></p>
-
 <figure>
-<svg viewBox="0 0 700 358" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="30" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">撞墙叙事之后的二十一个月:三条基准轨迹(全部为厂商自报或官方榜)</text>
-  <line x1="70" y1="76" x2="70" y2="250" stroke="#5a6378" stroke-width="1.2"/>
-  <line x1="70" y1="250" x2="656" y2="250" stroke="#5a6378" stroke-width="1.2"/>
-  <text x="60" y="80" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">100%</text>
-  <text x="60" y="167" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">50%</text>
-  <text x="60" y="254" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">0%</text>
-  <line x1="70" y1="163" x2="656" y2="163" stroke="#5a6378" stroke-width="0.8" stroke-dasharray="2,5" opacity="0.5"/>
-  <text x="70" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2024-11</text>
-  <text x="260" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2025-06</text>
-  <text x="450" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2026-01</text>
-  <text x="640" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2026-08</text>
-  <path d="M 70.0 164.7 L 151.4 141.6 L 314.3 119.7 L 395.7 109.2 L 585.7 83.0" fill="none" stroke="#4cc9f0" stroke-width="2.2"/><circle cx="70.0" cy="164.7" r="3.6" fill="#4cc9f0"/><circle cx="151.4" cy="141.6" r="3.6" fill="#4cc9f0"/><circle cx="314.3" cy="119.7" r="3.6" fill="#4cc9f0"/><circle cx="395.7" cy="109.2" r="3.6" fill="#4cc9f0"/><circle cx="585.7" cy="83.0" r="3.6" fill="#4cc9f0"/>
-  <path d="M 178.6 243.0 L 395.7 195.9 L 422.9 158.0 L 640.0 89.1" fill="none" stroke="#ff6ec4" stroke-width="2.2"/><circle cx="178.6" cy="243.0" r="3.6" fill="#ff6ec4"/><circle cx="395.7" cy="195.9" r="3.6" fill="#ff6ec4"/><circle cx="422.9" cy="158.0" r="3.6" fill="#ff6ec4"/><circle cx="640.0" cy="89.1" r="3.6" fill="#ff6ec4"/>
-  <path d="M 124.3 234.2 L 314.3 206.0 L 395.7 184.8 L 640.0 169.3" fill="none" stroke="#7b61ff" stroke-width="2.2"/><circle cx="124.3" cy="234.2" r="3.6" fill="#7b61ff"/><circle cx="314.3" cy="206.0" r="3.6" fill="#7b61ff"/><circle cx="395.7" cy="184.8" r="3.6" fill="#7b61ff"/><circle cx="640.0" cy="169.3" r="3.6" fill="#7b61ff"/>
-  <rect x="24" y="288" width="11" height="4" rx="2" fill="#4cc9f0"/>
-  <text x="42" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">SWE-bench Verified(编程)</text>
-  <rect x="24" y="308" width="11" height="4" rx="2" fill="#ff6ec4"/>
-  <text x="42" y="314" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-2(抗饱和设计)</text>
-  <rect x="368" y="288" width="11" height="4" rx="2" fill="#7b61ff"/>
-  <text x="386" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">人类最后的考试(无工具)</text>
-  <text x="24" y="338" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-3(2026-03)发布日把全部前沿模型打回 0.51%</text>
+<svg role="img" viewbox="0 0 700 358" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" x="24" y="30">撞墙叙事之后的二十一个月:三条基准轨迹(全部为厂商自报或官方榜)</text>
+<line stroke="#5a6378" stroke-width="1.2" x1="70" x2="70" y1="76" y2="250"></line>
+<line stroke="#5a6378" stroke-width="1.2" x1="70" x2="656" y1="250" y2="250"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="end" x="60" y="80">100%</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="end" x="60" y="167">50%</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="end" x="60" y="254">0%</text>
+<line opacity="0.5" stroke="#5a6378" stroke-dasharray="2,5" stroke-width="0.8" x1="70" x2="656" y1="163" y2="163"></line>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="70" y="270">2024-11</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="260" y="270">2025-06</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="450" y="270">2026-01</text>
+<text fill="#7c8593" font-family="Menlo,monospace" font-size="10" text-anchor="middle" x="640" y="270">2026-08</text>
+<path d="M 70.0 164.7 L 151.4 141.6 L 314.3 119.7 L 395.7 109.2 L 585.7 83.0" fill="none" stroke="#4cc9f0" stroke-width="2.2"></path><circle cx="70.0" cy="164.7" fill="#4cc9f0" r="3.6"></circle><circle cx="151.4" cy="141.6" fill="#4cc9f0" r="3.6"></circle><circle cx="314.3" cy="119.7" fill="#4cc9f0" r="3.6"></circle><circle cx="395.7" cy="109.2" fill="#4cc9f0" r="3.6"></circle><circle cx="585.7" cy="83.0" fill="#4cc9f0" r="3.6"></circle>
+<path d="M 178.6 243.0 L 395.7 195.9 L 422.9 158.0 L 640.0 89.1" fill="none" stroke="#ff6ec4" stroke-width="2.2"></path><circle cx="178.6" cy="243.0" fill="#ff6ec4" r="3.6"></circle><circle cx="395.7" cy="195.9" fill="#ff6ec4" r="3.6"></circle><circle cx="422.9" cy="158.0" fill="#ff6ec4" r="3.6"></circle><circle cx="640.0" cy="89.1" fill="#ff6ec4" r="3.6"></circle>
+<path d="M 124.3 234.2 L 314.3 206.0 L 395.7 184.8 L 640.0 169.3" fill="none" stroke="#7b61ff" stroke-width="2.2"></path><circle cx="124.3" cy="234.2" fill="#7b61ff" r="3.6"></circle><circle cx="314.3" cy="206.0" fill="#7b61ff" r="3.6"></circle><circle cx="395.7" cy="184.8" fill="#7b61ff" r="3.6"></circle><circle cx="640.0" cy="169.3" fill="#7b61ff" r="3.6"></circle>
+<rect fill="#4cc9f0" height="4" rx="2" width="11" x="24" y="288"></rect>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="294">SWE-bench Verified(编程)</text>
+<rect fill="#ff6ec4" height="4" rx="2" width="11" x="24" y="308"></rect>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="42" y="314">ARC-AGI-2(抗饱和设计)</text>
+<rect fill="#7b61ff" height="4" rx="2" width="11" x="368" y="288"></rect>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="386" y="294">人类最后的考试(无工具)</text>
+<text fill="#e8794b" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="338">ARC-AGI-3(2026-03)发布日把全部前沿模型打回 0.51%</text>
 </svg>
 <figcaption>示意:纵轴为各基准自身的百分制得分,三条轨道刻度不可互比。SWE-bench 的独立复测(Epoch,统一 scaffold)历史最高仅 83.5%,低于厂商自报的 96%</figcaption>
 </figure>
-<h2>尺子本身正在坏掉</h2>
+<h2 data-tts="97f87f3b5b09ba7a">尺子本身正在坏掉</h2>
 <p>上一节每一条曲线都建在基准题上。而这两年里,基准作为测量工具的可靠性,掉得比能力涨得还快。</p>
 <p><strong>同一个名字,可能是两个东西。</strong> 2024 年 12 月,ARC Prize 公布 o3 在其题库上拿到 75.7%,把算力放大约 172 倍后拿到 87.5%。OpenAI 同时告知,他们测的这个 o3 用了该题库公开训练集的 75% 训练过。</p>
 <p>2025 年 4 月,同一家机构复测正式发布的 o3:41% 到 53%。OpenAI 确认,<strong>发布版和当初测的那个不是同一个模型</strong>,而且当初那个算力档在产品里根本用不到。</p>
@@ -228,7 +225,7 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>真正的教训不是「厂商谎报」,而是:出资方拥有题目、评测口径可变、怎么问决定分数——三件事叠在一起,单个基准数字几乎不具备独立仲裁的能力。</strong></p>
 <p><strong>基准有寿命。</strong> 2026 年一项系统研究考察了 60 个基准,发现将近一半已经饱和到分不出模型高下。而被证伪的那个直觉更有意思:<strong>把题目藏起来并不管用</strong>——私有题库并不比公开题库更抗饱和。</p>
 <p><strong>最后一个信号来自厂商自己。</strong> 到 2026 年,Anthropic 的两次旗舰发布已经完全不把那个编程基准放在头条位置了,换成了别的题;而且它自己披露,内部的记忆筛查会标出该基准里的一部分题目。<strong>当被考的人开始换自己的考卷,那条从 49% 到 96% 的曲线就更需要小心地读。</strong></p>
-<h2>数据墙:被一路赎买、不断后移</h2>
+<h2 data-tts="64971f04aa4cb8ba">数据墙:被一路赎买、不断后移</h2>
 <p>Ilya 那堵墙是四堵里最具体的,也是唯一有定量研究的。它现在的状态是:<strong>没撞上,也没消失,而是被一系列办法推后了,每种办法都有自己的边界。</strong></p>
 <p><strong>存量还剩多少?</strong> 一项被广泛引用的研究在 2022 年预测高质量语言数据「很可能在 2026 年前」用完,2024 年的修订版改成了:按当前趋势,模型会在 <strong>2026 到 2032 年间</strong>训练到与公开人类文本总量相当的规模。</p>
 <p>配套估算给的量级是约 300 万亿个词元——但必须带上原文的区间:<strong>100 万亿到 1000 万亿,整整差一个数量级。</strong></p>
@@ -248,7 +245,7 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p>第二,那句被引用最多的「世界上可能没有足够的数据让它变得足够聪明」,是<strong>报纸自己的副标题</strong>,是记者的归因;OpenAI 从未确认。</p>
 <p>第三,最要命的:报道里那个模型最后是在 2025 年 2 月以 <strong>GPT-4.5</strong> 的名义发布的;2025 年 8 月的 GPT-5 完全是另一个东西。<strong>这则报道能支撑的是「GPT-4.5 那条纯堆规模的路撞了墙」,不能写成「GPT-5 撞了墙」。</strong></p>
 <p><strong>顺便说一件反直觉的事:公开的训练数据规模,并不是一条能往上外推的线。</strong> 数字本身没错,15 万亿、36 万亿、40 万亿一路在涨。但它们的尺子不一样(有的纯文本、有的含图像视频),而且有一部分「增长」本身就是模型自己造出来的数据。最能说明问题的是同一代内部:<strong>Llama 4 的 Maverick 比 Scout 更强,却只用了 22 万亿,比 Scout 的 40 万亿少了近一半。</strong></p>
-<h2>换了一根轴,不等于没有轴了</h2>
+<h2 data-tts="ebcd45cbfa4c258d">换了一根轴,不等于没有轴了</h2>
 <p>2024 年 9 月之后,「scaling」开始指两件不同的事,而双方经常各说一件。</p>
 <p>OpenAI 关于 o1 的原始说法是:性能随着更多强化学习和更多思考时间持续提升,并且——这半句常被略掉——<strong>「这条路线的约束与预训练有实质不同,我们还在研究它们」</strong>。厂商自己承认新范式的边界还没摸清。</p>
 <p>那两幅著名的曲线图,横轴只写了「算力(对数)」,<strong>连一个数字刻度都没有</strong>。它是一张示意图,读不出倍数,也读不出绝对量级。</p>
@@ -258,7 +255,7 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p>但那个「反驳」不干净:NVIDIA 那篇论文自己就写明,在基础模型本来就擅长的任务上,强化学习带来的是「微弱甚至负面的收益」;而且<strong>它的起点根本不是原始基础模型,而是一个已经被蒸馏过的推理模型</strong>——而蒸馏恰恰是对方承认能带来新模式的那条路。两篇论文并没有正面对撞。</p>
 <p><strong>推理的价钱,同时在变便宜和变贵。</strong> 达到同一水平的价格每年下降 9 到 900 倍不等(数据截至 2025 年 2 月,而且最快的降幅集中在那之前的一年)。但反方向上,推理模型为了拿高分会生成大量你看不见的思考内容,而这些一样计费。</p>
 <p>价格本身也值得一说:OpenAI 的官方 changelog 记载,2025 年 6 月 10 日随 o3-pro 发布同时下调了 o3 的价格。但常被一并引用的另外三项——降幅「80%」、那句「同一个模型,只是更便宜」、以及「独立复测确认性能没变」——本次核查都没能找到一手出处,所以本文不拿它们下结论。</p>
-<h2>真正卡住的地方,在供给侧</h2>
+<h2 data-tts="1baad10ab9deb5c2">真正卡住的地方,在供给侧</h2>
 <p>如果第一种墙查不出来,那第二种——付不起钱的那种——现在到哪一步了?</p>
 <p>答案是:它正在逼近,但<strong>卡住的位置不在收益,而在电力、混凝土和交付周期。</strong></p>
 <p>Epoch AI 2024 年那份报告把四个约束排了序,结论是到 2030 年,把模型再往上推一大截(幅度相当于 GPT-4 超过 GPT-2 那一截)<strong>很可能做得到</strong>。而挡路的顺序是:<strong>电力 &gt; 芯片产能 &gt; 数据 &gt; 延迟。数据排第三。</strong></p>
@@ -268,33 +265,32 @@ h2:nth-of-type(12){--h2:#5eead4}
 <ul><li>前沿模型的训练算力过去十几年每年增长约 5 倍,但只算 2018 年之后的近期前沿模型,是<strong>每年 4.2 倍</strong>,低于那个常被引用的头条数;而且这套数据止于 2024 年 5 月。</li><li>单次最大训练的成本每年涨约 2.4 倍,从 2016 年的约 20 万美元到 2025 年的约 4.9 亿美元。注意口径是<strong>摊销后的硬件加电费</strong>,不是建整个集群的全部投入,两者能差一个量级。</li><li>算法效率也在提升:达到同样效果所需的算力约每 8 个月减半。但这条数据止于 2023 年,<strong>整个推理模型时代都不在里面</strong>。</li><li>一个反例:Epoch 估计 GPT-5 的总训练算力<strong>低于</strong> GPT-4.5,这是 GPT 系列里第一次出现后一代用更少算力。Epoch 的归因不是撞墙:他们认为 OpenAI 把资源押在了扩展后训练上,而当时的新技术还不够成熟、用不到 GPT-4.5 那个量级上。他们预测下一代会回升,但同一篇也自己打了折——回归增长「也许持续不了太久」,并点名高质量预训练数据可能是更难的瓶颈。(顺带一提:坊间把这段概括成「暂停,不是停止」的那句话,出自一家科技媒体,不是 Epoch 的定性。)</li></ul>
 <p><strong>而需求侧没有退坡的迹象。</strong> Epoch 2026 年 5 月的测算是:按当前价格,token 需求每年约涨 10 倍,而全球推理供给能力每年约涨 3.4 倍,长上下文和智能体类的活最先撞上缺口。(这项测算同样没有进入本期验证流程,需求侧的数字本身也是拼接出来的估算。)</p>
 <p>顺带看清一件事:空头那套广为流传的论证,核心是折旧会计和循环融资,<strong>不是模型能力撞墙</strong>。两者常被打包混用,但它们需要完全不同的证据。</p>
-
 <figure>
-<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
-  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">真正在咬合的约束(Epoch AI 排序),以及交付前置期阶梯</text>
-  <rect x="24" y="52" width="146" height="46" rx="8" fill="#ff6ec4" opacity="0.22"/><rect x="24" y="52" width="146" height="3" rx="1.5" fill="#ff6ec4" opacity="1.00"/><text x="40" y="82" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">1. 电力</text><rect x="182" y="52" width="146" height="46" rx="8" fill="#e8794b" opacity="0.17"/><rect x="182" y="52" width="146" height="3" rx="1.5" fill="#e8794b" opacity="0.78"/><text x="198" y="82" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">2. 芯片产能</text><rect x="340" y="52" width="146" height="46" rx="8" fill="#7b61ff" opacity="0.12"/><rect x="340" y="52" width="146" height="3" rx="1.5" fill="#7b61ff" opacity="0.56"/><text x="356" y="82" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">3. 数据</text><rect x="498" y="52" width="146" height="46" rx="8" fill="#7c8593" opacity="0.07"/><rect x="498" y="52" width="146" height="3" rx="1.5" fill="#7c8593" opacity="0.34"/><text x="514" y="82" fill="#7c8593" font-size="13" font-weight="700" font-family="Menlo,monospace">4. 延迟</text>
-  <text x="24" y="118" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Nadella:芯片躺在库房里,插不上电</text>
-  <text x="340" y="118" fill="#7b61ff" font-size="10.5" font-family="-apple-system,sans-serif">Ilya 那堵墙排在第三位</text>
-  <text x="24" y="156" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">每再扩 10 倍算力,交付前置期约加一年</text>
-  <line x1="298" y1="168" x2="298" y2="300" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
-  <text x="286" y="189" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">租 GPU:≈0</text><rect x="298" y="176" width="26" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="215" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">买 GPU:约半年</text><rect x="298" y="202" width="74" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="241" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">建数据中心:1–2 年</text><rect x="298" y="228" width="150" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="267" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">超大数据中心 / 电厂:2–3 年</text><rect x="298" y="254" width="226" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="293" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">从零建先进晶圆厂:4–5 年</text><rect x="298" y="280" width="340" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/>
+<svg role="img" viewbox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+<text fill="#e4e6eb" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" x="24" y="32">真正在咬合的约束(Epoch AI 排序),以及交付前置期阶梯</text>
+<rect fill="#ff6ec4" height="46" opacity="0.22" rx="8" width="146" x="24" y="52"></rect><rect fill="#ff6ec4" height="3" opacity="1.00" rx="1.5" width="146" x="24" y="52"></rect><text fill="#ff6ec4" font-family="Menlo,monospace" font-size="13" font-weight="700" x="40" y="82">1. 电力</text><rect fill="#e8794b" height="46" opacity="0.17" rx="8" width="146" x="182" y="52"></rect><rect fill="#e8794b" height="3" opacity="0.78" rx="1.5" width="146" x="182" y="52"></rect><text fill="#e8794b" font-family="Menlo,monospace" font-size="13" font-weight="700" x="198" y="82">2. 芯片产能</text><rect fill="#7b61ff" height="46" opacity="0.12" rx="8" width="146" x="340" y="52"></rect><rect fill="#7b61ff" height="3" opacity="0.56" rx="1.5" width="146" x="340" y="52"></rect><text fill="#7b61ff" font-family="Menlo,monospace" font-size="13" font-weight="700" x="356" y="82">3. 数据</text><rect fill="#7c8593" height="46" opacity="0.07" rx="8" width="146" x="498" y="52"></rect><rect fill="#7c8593" height="3" opacity="0.34" rx="1.5" width="146" x="498" y="52"></rect><text fill="#7c8593" font-family="Menlo,monospace" font-size="13" font-weight="700" x="514" y="82">4. 延迟</text>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" x="24" y="118">Nadella:芯片躺在库房里,插不上电</text>
+<text fill="#7b61ff" font-family="-apple-system,sans-serif" font-size="10.5" x="340" y="118">Ilya 那堵墙排在第三位</text>
+<text fill="#4cc9f0" font-family="Menlo,monospace" font-size="12" font-weight="700" x="24" y="156">每再扩 10 倍算力,交付前置期约加一年</text>
+<line stroke="#5a6378" stroke-dasharray="2,4" stroke-width="1.5" x1="298" x2="298" y1="168" y2="300"></line>
+<text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="286" y="189">租 GPU:≈0</text><rect fill="#4cc9f0" height="18" opacity="0.8" rx="5" width="26" x="298" y="176"></rect><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="286" y="215">买 GPU:约半年</text><rect fill="#4cc9f0" height="18" opacity="0.8" rx="5" width="74" x="298" y="202"></rect><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="286" y="241">建数据中心:1–2 年</text><rect fill="#4cc9f0" height="18" opacity="0.8" rx="5" width="150" x="298" y="228"></rect><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="286" y="267">超大数据中心 / 电厂:2–3 年</text><rect fill="#4cc9f0" height="18" opacity="0.8" rx="5" width="226" x="298" y="254"></rect><text fill="#9aa3b2" font-family="-apple-system,sans-serif" font-size="10.5" text-anchor="end" x="286" y="293">从零建先进晶圆厂:4–5 年</text><rect fill="#4cc9f0" height="18" opacity="0.8" rx="5" width="340" x="298" y="280"></rect>
 </svg>
 <figcaption>示意:约束顺序取自 Epoch AI《Can AI scaling continue through 2030?》(2024-08);前置期阶梯取自其 2025-09 报告(该文自估中心值可低至 4–8 个月)。放缓的机制是供给侧交付,不是收益递减</figcaption>
 </figure>
-<h2>最要紧的几件事</h2>
+<h2 data-tts="1243c32355961b31">最要紧的几件事</h2>
 <p><strong>这个问题目前没法回答,而且不是因为证据还没到。</strong> 前沿模型的参数量、数据量、可比的核心指标全都不公开。说有墙的拿不出实测,说没墙的拿出自家没刻度的图。任何人往任何方向下断言,都是在超出证据说话。</p>
 <p><strong>流传最广的证据,大多在传播中丢了限定语,而且丢的方向高度一致——总是朝着让论断更强的那一边。</strong> Kaplan 摘要里的「部分」、Ilya 那句记者转述、o3 的「内部激进配置」、「98% 合成数据」其实是对齐阶段、《自然》那句对冲其实是编辑写的——每一处修正都是把一个更强的断言还原成一个更弱的事实。这不是某一方的毛病,双方都在这么干。</p>
 <p><strong>四堵不一样的墙被塞进了同一个词,所以吵不出结果。</strong> 数据墙、架构墙、效果递减、交付周期——每一方都在回应对方没说过的话。</p>
 <p><strong>能力还在涨,但真正逼近的约束换了位置:从收益侧换到了供给侧。</strong> 电力第一,芯片第二,数据第三。</p>
 <p><strong>遇到任何一个「AI 撞墙/没撞墙」的数字,先问四句话:</strong> 这是厂商自己报的还是独立测的?用的是哪一套外围工具?发布会上那个和我能买到的是同一个模型吗?这个数字后来被改过吗?</p>
-<h2>这篇文章的判断,怎么检验</h2>
+<h2 data-tts="12f67f3db177b4fd">这篇文章的判断,怎么检验</h2>
 <p>按把握从大到小排:</p>
 <ol><li><strong>截至 2026 年 8 月,没有公开研究显示前沿模型的实测效果偏离了公式预测的线。</strong> 怎么推翻:任何一方拿出同一套口径下的参数量、数据量和核心指标就行。</li><li><strong>回报递减是公式本身的性质,不是 2024 年的新发现。</strong> 参数翻倍、效果只提升 5%,写在 2020 年的原始论文里。</li><li><strong>Ilya 那句「预训练已经进入平台期」是记者写的,不是他说的</strong>;他真正打引号的原话里有一句是支持继续 scaling 的。</li><li><strong>Ilya 说的是数据墙,不是算力墙,也不是公式失灵。</strong> 他在同一张幻灯片上明说算力仍在增长。</li><li><strong>Epoch 预测的算力放缓,机制是数据中心和电厂盖不过来,不是收益变少。</strong> 他们的约束排序是电力、芯片、数据、延迟。</li><li><strong>同一个模型换一套外围工具,编程基准成绩能差 22 个百分点</strong>(OpenAI 自家数据)。所以榜单上一到三个百分点的差距没有意义。</li><li><strong>发布会上的成绩和你能买到的产品,能差 30 个百分点以上。</strong> o3 演示版在某题库上 87.5%,发布版 41% 到 53%,而 OpenAI 确认这不是同一个模型。</li><li><strong>同一批数据重复训练最多 4 遍,效果几乎不打折;再往后,继续加算力的价值最终归零。</strong>(注意:不打折的是训练指标,不是下游能力。)</li><li><strong>「数据用完」的意思是训练用量追上存量,不是数据被物理耗尽</strong>;时间窗是 2026 到 2032 年,而存量估计本身横跨一个数量级。</li><li><strong>截至 2026 年 8 月,没有一例经证实的、在真实生产训练中观测到模型崩坏的公开报告。</strong>(这是缺席证据,厂商没有披露义务。)</li><li><strong>能力测量和预训练收益是两笔账,现有的独立指数只能测前者。</strong> 那些指数把推理、强化学习、后训练全烘在一起,没有预训练这一维可以拆出来。</li><li><strong>公开的训练数据规模不是一条能外推的上升线。</strong> 同一代里,Llama 4 的 Maverick 用 22 万亿就比用 40 万亿的 Scout 更强。</li><li><strong>「推理训练的高速增长是一次性红利」这个预测,至今无法结算。</strong> 它的依据是一张坐标没标注的直播截图,而前沿实验室此后没再披露可比数字。</li></ol>
 <p><strong>值得盯什么。</strong> 有三件事一旦发生,这篇文章的判断就该改:</p>
 <p>一是<strong>有任何一家公开同口径的参数量、数据量与核心指标</strong>——那样第一种墙才第一次变得可以检验,而这也是最不可能发生的一件。</p>
 <p>二是<strong>METR 那把尺子的斜率出现拐点</strong>。它是唯一一把不由厂商掌握、刻度又有物理含义的尺子;它拐了,才是真的信号,而不是又一个基准饱和了。</p>
 <p>三是<strong>电力这一格松动或锁死</strong>。既然约束已经排到电力第一,那么接下来两年真正决定节奏的,是并网速度和机房交付,不是论文。</p>
-<h2>附:这篇文章自己被推翻的地方</h2>
+<h2 data-tts="77c7fe05f46a34d0">附:这篇文章自己被推翻的地方</h2>
 <p>对抗验证杀掉了本文原定的一条核心结论,以及若干处表述。挑最重要的说:</p>
 <p><strong>原本准备写的是:喊「scaling 时代结束」的 Ilya,转头拿了 NVIDIA 的 50 亿美元把算力扩大十倍。</strong> 两票判定这是删掉限定语后制造的伪矛盾——他给下一阶段下的定义原话就是「回到研究的时代,只不过带着大计算机」,他否认的是「把现有配方放大一百倍就能变革一切」,同时明确承认放大规模「确实会带来不同」。</p>
 <p><strong>站得住的批评是另一个,而且更有意思:刻度漂移。</strong> 他在同一场访谈里说过,你确实需要一定量的算力,但研究是否需要有史以来最大的算力远非显然,还举了 AlexNet 只用 2 块 GPU、Transformer 论文实验不超过 64 块的例子。不到一年之后,他口中「够用的算力」被抬高了一个数量级。再加一条:一家到 2026 年 8 月仍未公开任何论文或产品的公司拿到了数量级的算力提升,它的研究主张无从被外部检验。</p>
@@ -302,8 +298,8 @@ h2:nth-of-type(12){--h2:#5eead4}
 <p><strong>这恰好是全文的缩影:在这场争论里,几乎每一个足够锋利的说法,送回原文之后都会钝一些;而剩下的那部分,通常比原来的版本更值得记住。</strong></p>
 <footer>BigCat Deep Research · 2026-08 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
