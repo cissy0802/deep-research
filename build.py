@@ -2916,7 +2916,326 @@ def fig_ie_layers(lang: str) -> str:
 </figure>"""
 
 
+def fig_sw_twowalls(lang: str) -> str:
+    """The two testable forms a 'wall' could take."""
+    t = {
+        "zh": dict(title="「撞墙」若要可检验,只剩两种形态",
+                   pa="形态 A:定律失效", pb="形态 B:付不起",
+                   pad="实测点系统性掉到拟合线下方", pbd="曲线照旧,但每一步的电与钱付不起",
+                   fit="幂律拟合线", dev="实测(假想)", ok="实测=拟合",
+                   sa="现状:查无此证据,且公开信息下无法检验", sb="现状:正在逼近,但卡在电力与交付",
+                   cap="示意:幂律本身内生递减(2020 年原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙。可检验的墙只有这两种,而争论双方引用的证据没有一条针对它们"),
+        "en": dict(title="For 'the wall' to be testable, only two forms remain",
+                   pa="Form A: the law fails", pb="Form B: unaffordable",
+                   pad="Measured points fall systematically below the fit", pbd="Curve holds, but each step's power and dollars cannot be paid",
+                   fit="Power-law fit", dev="Measured (hypothetical)", ok="Measured = fit",
+                   sa="Status: no such evidence found, and untestable on public information", sb="Status: approaching, but binding on power and delivery",
+                   cap="Schematic: a power law diminishes by construction (2020 paper: double the parameters, loss falls 5%), so 'smaller returns' is not a wall. Only these two forms are testable — and neither side's cited evidence addresses them"),
+    }[lang]
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="24" y="46" width="322" height="196" rx="10" fill="#ff6ec4" opacity="0.06"/>
+  <text x="40" y="70" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{t['pa']}</text>
+  <line x1="52" y1="90" x2="52" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="52" y1="206" x2="330" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 62 104 C 130 150, 200 176, 322 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <path d="M 62 104 C 130 150, 178 168, 206 166 L 322 164" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="5,4"/>
+  <circle cx="240" cy="165" r="3.5" fill="#ff6ec4"/><circle cx="280" cy="164.5" r="3.5" fill="#ff6ec4"/><circle cx="316" cy="164" r="3.5" fill="#ff6ec4"/>
+  <text x="200" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">{t['fit']}</text>
+  <text x="216" y="152" fill="#ff6ec4" font-size="10.5" font-family="Menlo,monospace">{t['dev']}</text>
+  <text x="40" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['pad']}</text>
+  <rect x="354" y="46" width="322" height="196" rx="10" fill="#7b61ff" opacity="0.07"/>
+  <text x="370" y="70" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{t['pb']}</text>
+  <line x1="382" y1="90" x2="382" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="382" y1="206" x2="660" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 392 104 C 460 150, 530 176, 652 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <text x="530" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">{t['ok']}</text>
+  <rect x="470" y="112" width="16" height="28" rx="3" fill="#7b61ff" opacity="0.8"/>
+  <rect x="510" y="98" width="16" height="42" rx="3" fill="#7b61ff" opacity="0.85"/>
+  <rect x="550" y="80" width="16" height="60" rx="3" fill="#7b61ff" opacity="0.9"/>
+  <rect x="590" y="60" width="16" height="80" rx="3" fill="#ff6ec4" opacity="0.95"/>
+  <text x="470" y="54" fill="#9aa3b2" font-size="10.5" font-family="Menlo,monospace">$ / step</text>
+  <text x="370" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['pbd']}</text>
+  <text x="40" y="266" fill="#ff6ec4" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['sa']}</text>
+  <text x="40" y="290" fill="#7b61ff" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['sb']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sw_fourwalls(lang: str) -> str:
+    """Four incompatible walls compressed into one word."""
+    t = {
+        "zh": dict(title="四堵互不兼容的墙,被压进同一个词",
+                   w1t="数据墙", w1w="Ilya Sutskever(2024-12 NeurIPS)", w1c="「只有一个互联网」——他在同一张幻灯片上明说算力仍在增长",
+                   w2t="架构墙", w2w="Yann LeCun(2025-11 起)", w2c="LLM 这条路本身走不到——若路线错,数据够不够就不是问题",
+                   w3t="效果递减", w3w="The Information / Bloomberg(2024-11)", w3c="同等投入换来的提升变小——支撑它的是匿名内测评价,不是曲线",
+                   w4t="算力增速放缓", w4w="Epoch AI(2025-09)", w4c="机制是数据中心与电厂交付周期,全文没说同等算力买到的能力变少",
+                   inc="1 与 2 互不兼容", note="4 常被错引为 3",
+                   cap="示意:四堵墙需要完全不同的证据,却被同一个词收纳——所以每一方都在回应另一方没有主张的东西"),
+        "en": dict(title="Four incompatible walls, compressed into one word",
+                   w1t="Data wall", w1w="Ilya Sutskever (NeurIPS, Dec 2024)", w1c="\"We have but one internet\" — his own slide says compute is still growing",
+                   w2t="Architecture wall", w2w="Yann LeCun (from Nov 2025)", w2c="LLMs cannot get there at all — if the route is wrong, data sufficiency is moot",
+                   w3t="Diminishing effect", w3w="The Information / Bloomberg (Nov 2024)", w3c="Same inputs, smaller gains — supported by anonymous internal testing, not a curve",
+                   w4t="Slowing compute growth", w4w="Epoch AI (Sep 2025)", w4c="Mechanism is data-center and power-plant lead times; it never says compute buys less",
+                   inc="1 and 2 are mutually incompatible", note="4 is routinely miscited as 3",
+                   cap="Schematic: four walls requiring entirely different evidence, collected under one word — which is why each side answers something the other never claimed"),
+    }[lang]
+    cells = [
+        (24, 52, "#4cc9f0", t['w1t'], t['w1w'], t['w1c']),
+        (356, 52, "#ff6ec4", t['w2t'], t['w2w'], t['w2c']),
+        (24, 186, "#e8794b", t['w3t'], t['w3w'], t['w3c']),
+        (356, 186, "#7b61ff", t['w4t'], t['w4w'], t['w4c']),
+    ]
+    out = []
+    for x, y, c, title, who, cap in cells:
+        out.append(f'<rect x="{x}" y="{y}" width="320" height="118" rx="10" fill="{c}" opacity="0.08"/>')
+        out.append(f'<rect x="{x}" y="{y}" width="4" height="118" rx="2" fill="{c}"/>')
+        out.append(f'<text x="{x + 18}" y="{y + 28}" fill="{c}" font-size="13" font-weight="700" font-family="Menlo,monospace">{title}</text>')
+        out.append(f'<text x="{x + 18}" y="{y + 50}" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{who}</text>')
+        words = cap.split(' ') if lang == 'en' else None
+        if words:
+            line1, line2, cur = [], [], 0
+            for w in words:
+                if cur + len(w) < 46:
+                    line1.append(w); cur += len(w) + 1
+                else:
+                    line2.append(w)
+            out.append(f'<text x="{x + 18}" y="{y + 76}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{" ".join(line1)}</text>')
+            out.append(f'<text x="{x + 18}" y="{y + 94}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{" ".join(line2)}</text>')
+        else:
+            half = len(cap) // 2
+            cut = cap.find('——')
+            if cut < 6 or cut > len(cap) - 6:
+                cut = half
+                out.append(f'<text x="{x + 18}" y="{y + 76}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{cap[:cut]}</text>')
+                out.append(f'<text x="{x + 18}" y="{y + 94}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{cap[cut:]}</text>')
+            else:
+                out.append(f'<text x="{x + 18}" y="{y + 76}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{cap[:cut]}</text>')
+                out.append(f'<text x="{x + 18}" y="{y + 94}" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">{cap[cut:]}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(out)}
+  <text x="24" y="330" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">{t['inc']}</text>
+  <text x="356" y="330" fill="#7b61ff" font-size="11" font-weight="700" font-family="Menlo,monospace">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sw_qualifiers(lang: str) -> str:
+    """Qualifiers shed in transit — circulating version vs primary source."""
+    t = {
+        "zh": dict(title="限定语在传播中脱落,而且方向高度一致",
+                   h1="流传版本", h2="送回一手来源之后",
+                   r1a="Kaplan:幂律跨七个数量级", r1b="「部分趋势」跨七个;数据维只验证了两个",
+                   r2a="Ilya:预训练已进入平台期", r2b="记者的间接转述;他的原话是「把对的东西 scale 更重要」",
+                   r3a="o3 在 FrontierMath 拿 25%", r3b="「内部、激进 test-time 配置下」,非发布版成绩",
+                   r4a="o3 在 ARC 拿 87.5%", r4b="172 倍算力档,且用了公开训练集的 75% 训练",
+                   r5a="Nemotron:98% 是合成数据", r5b="98% 指对齐阶段;预训练侧合成占比从未披露",
+                   r6a="《自然》:不加区分训练「可能」崩坏", r6b="那句对冲是编辑导语;作者摘要写的是「导致」「不可逆」",
+                   dir="每一处修正,都是把一个更强的断言还原成一个更弱的事实",
+                   cap="示意:双方都在这么做——这不是某一方的毛病,是这场争论的传播机制"),
+        "en": dict(title="Qualifiers shed in transit — always in the same direction",
+                   h1="Circulating version", h2="Returned to the primary source",
+                   r1a="Kaplan: power laws span 7 orders of magnitude", r1b="\"SOME trends\" span 7; the data axis was verified across barely 2",
+                   r2a="Ilya: pretraining has plateaued", r2b="A reporter's paraphrase; his quote is \"scaling the right thing matters more\"",
+                   r3a="o3 scored 25% on FrontierMath", r3b="\"Internally, in aggressive test-time compute settings\" — not the shipped model",
+                   r4a="o3 scored 87.5% on ARC", r4b="At 172x compute, and trained on 75% of the public training set",
+                   r5a="Nemotron: 98% synthetic data", r5b="98% refers to alignment; the pretraining share was never disclosed",
+                   r6a="Nature: indiscriminate training \"can lead to\" collapse", r6b="That hedge is the editor's standfirst; the abstract says \"causes\", \"irreversible\"",
+                   dir="Every correction restores a weaker fact from a stronger assertion",
+                   cap="Schematic: both camps do this — it is not one side's failing but the transmission mechanism of the whole argument"),
+    }[lang]
+    rows = [(t['r1a'], t['r1b']), (t['r2a'], t['r2b']), (t['r3a'], t['r3b']),
+            (t['r4a'], t['r4b']), (t['r5a'], t['r5b']), (t['r6a'], t['r6b'])]
+    out, y = [], 84
+    for a, b in rows:
+        out.append(f'<text x="24" y="{y}" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">{a}</text>')
+        out.append(f'<path d="M 296 {y - 4} L 318 {y - 4}" stroke="#5a6378" stroke-width="1.4"/>')
+        out.append(f'<path d="M 313 {y - 8} L 319 {y - 4} L 313 {y}" fill="none" stroke="#5a6378" stroke-width="1.4"/>')
+        out.append(f'<text x="330" y="{y}" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">{b}</text>')
+        y += 34
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="58" fill="#e8794b" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{t['h1']}</text>
+  <text x="330" y="58" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{t['h2']}</text>
+  <line x1="24" y1="66" x2="676" y2="66" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  {''.join(out)}
+  <text x="24" y="308" fill="#c8cdd6" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">{t['dir']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sw_benchtime(lang: str) -> str:
+    """Three benchmark tracks, Nov 2024 to Aug 2026."""
+    t = {
+        "zh": dict(title="撞墙叙事之后的二十一个月:三条基准轨迹(全部为厂商自报或官方榜)",
+                   l1="SWE-bench Verified(编程)", l2="ARC-AGI-2(抗饱和设计)", l3="人类最后的考试(无工具)",
+                   x1="2024-11", x2="2025-06", x3="2026-01", x4="2026-08",
+                   note="ARC-AGI-3(2026-03)发布日把全部前沿模型打回 0.51%",
+                   cap="示意:纵轴为各基准自身的百分制得分,三条轨道刻度不可互比。SWE-bench 的独立复测(Epoch,统一 scaffold)历史最高仅 83.5%,低于厂商自报的 96%"),
+        "en": dict(title="The 21 months after the wall narrative: three benchmark tracks (all vendor-reported or official boards)",
+                   l1="SWE-bench Verified (coding)", l2="ARC-AGI-2 (built to resist saturation)", l3="Humanity's Last Exam (no tools)",
+                   x1="Nov 2024", x2="Jun 2025", x3="Jan 2026", x4="Aug 2026",
+                   note="ARC-AGI-3 (Mar 2026) reset every frontier model to 0.51% on launch day",
+                   cap="Schematic: the y-axis is each benchmark's own percentage score; the three tracks are not comparable to one another. Independent replication of SWE-bench (Epoch, uniform scaffold) tops out at 83.5%, below the 96% vendors report"),
+    }[lang]
+    # x: 2024-11 -> 70, 2026-08 -> 640 ; y: 0% -> 250, 100% -> 76
+    def px(m):  # months since 2024-11
+        return 70 + (640 - 70) * m / 21.0
+    def py(v):
+        return 250 - (250 - 76) * v / 100.0
+    swe = [(0, 49), (3, 62.3), (9, 74.9), (12, 80.9), (19, 96.0)]
+    arc = [(4, 4), (12, 31.1), (13, 52.9), (21, 92.5)]
+    hle = [(2, 9.1), (9, 25.3), (12, 37.5), (21, 46.4)]
+    def path(pts):
+        return "M " + " L ".join(f"{px(m):.1f} {py(v):.1f}" for m, v in pts)
+    def dots(pts, c):
+        return "".join(f'<circle cx="{px(m):.1f}" cy="{py(v):.1f}" r="3.6" fill="{c}"/>' for m, v in pts)
+    return f"""<figure>
+<svg viewBox="0 0 700 358" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="70" y1="76" x2="70" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="70" y1="250" x2="656" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <text x="60" y="80" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">100%</text>
+  <text x="60" y="167" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">50%</text>
+  <text x="60" y="254" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">0%</text>
+  <line x1="70" y1="163" x2="656" y2="163" stroke="#5a6378" stroke-width="0.8" stroke-dasharray="2,5" opacity="0.5"/>
+  <text x="70" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t['x1']}</text>
+  <text x="{px(7):.0f}" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t['x2']}</text>
+  <text x="{px(14):.0f}" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t['x3']}</text>
+  <text x="640" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{t['x4']}</text>
+  <path d="{path(swe)}" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>{dots(swe, "#4cc9f0")}
+  <path d="{path(arc)}" fill="none" stroke="#ff6ec4" stroke-width="2.2"/>{dots(arc, "#ff6ec4")}
+  <path d="{path(hle)}" fill="none" stroke="#7b61ff" stroke-width="2.2"/>{dots(hle, "#7b61ff")}
+  <rect x="24" y="288" width="11" height="4" rx="2" fill="#4cc9f0"/>
+  <text x="42" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['l1']}</text>
+  <rect x="24" y="308" width="11" height="4" rx="2" fill="#ff6ec4"/>
+  <text x="42" y="314" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['l2']}</text>
+  <rect x="368" y="288" width="11" height="4" rx="2" fill="#7b61ff"/>
+  <text x="386" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['l3']}</text>
+  <text x="24" y="338" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sw_scaffold(lang: str) -> str:
+    """Same model, different apparatus — three ways one number moves."""
+    t = {
+        "zh": dict(title="同一个模型,换一套装置,分数就变",
+                   r1="o3-mini,开源 Agentless 装置(OpenAI 自家系统卡)", r2="o3-mini,内部工具装置(同日、同基准)",
+                   r3="o3-preview 演示版,ARC-AGI-1,172 倍算力档", r4="发布版 o3(medium),同一题库,同一机构复测",
+                   r5="厂商自报最高:Claude Opus 5,SWE-bench(2026)", r6="独立复测最高:Epoch 统一 scaffold(2026)",
+                   g1="同模型差 22 个百分点", g2="同名不同模,差 34.5 个百分点", g3="自报与独立复测差 12.5 个百分点",
+                   cap="示意:条长按分数等比。三组对照分别来自 OpenAI 系统卡、ARC Prize 复测与 Epoch 独立评测——每一组的两端都常被当作「同一个数字」引用"),
+        "en": dict(title="Same model, different apparatus, different score",
+                   r1="o3-mini, open-source Agentless harness (OpenAI's own system card)", r2="o3-mini, internal tools harness (same day, same benchmark)",
+                   r3="o3-preview demo, ARC-AGI-1, at 172x compute", r4="Released o3 (medium), same problem set, same evaluator",
+                   r5="Highest vendor self-report: Claude Opus 5, SWE-bench (2026)", r6="Highest independent replication: Epoch, uniform scaffold (2026)",
+                   g1="22 points apart, one model", g2="34.5 points apart, same name, different model", g3="12.5 points between self-report and replication",
+                   cap="Schematic: bar length is proportional to score. The three pairs come from OpenAI's system card, ARC Prize's retest and Epoch's independent evaluation — and in each pair, both ends get cited as though they were the same number"),
+    }[lang]
+    rows = [
+        (t['r1'], "39%", 39, "#7c8593"), (t['r2'], "61%", 61, "#4cc9f0"),
+        (t['r3'], "87.5%", 87.5, "#7c8593"), (t['r4'], "53%", 53, "#ff6ec4"),
+        (t['r5'], "96.0%", 96, "#7c8593"), (t['r6'], "83.5%", 83.5, "#e8794b"),
+    ]
+    bars, y = [], 68
+    for i, (label, val, w, color) in enumerate(rows):
+        bars.append(f'<text x="392" y="{y + 14}" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        bars.append(f'<rect x="404" y="{y}" width="{w * 2.1:.0f}" height="19" rx="5" fill="{color}" opacity="0.85"/>')
+        bars.append(f'<text x="{404 + w * 2.1 + 9:.0f}" y="{y + 14}" fill="{color}" font-size="12" font-weight="700" font-family="Menlo,monospace">{val}</text>')
+        y += 27 if i % 2 == 0 else 46
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="404" y1="56" x2="404" y2="266" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(bars)}
+  <text x="24" y="130" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">{t['g1']}</text>
+  <text x="24" y="203" fill="#ff6ec4" font-size="10.5" font-weight="700" font-family="Menlo,monospace">{t['g2']}</text>
+  <text x="24" y="276" fill="#e8794b" font-size="10.5" font-weight="700" font-family="Menlo,monospace">{t['g3']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_sw_constraints(lang: str) -> str:
+    """What actually binds: Epoch's constraint ordering plus the lead-time ladder."""
+    t = {
+        "zh": dict(title="真正在咬合的约束(Epoch AI 排序),以及交付前置期阶梯",
+                   c1="1. 电力", c2="2. 芯片产能", c3="3. 数据", c4="4. 延迟",
+                   cn1="Nadella:芯片躺在库房里,插不上电", cn3="Ilya 那堵墙排在第三位",
+                   lt="每再扩 10 倍算力,交付前置期约加一年",
+                   s1="租 GPU:≈0", s2="买 GPU:约半年", s3="建数据中心:1–2 年", s4="超大数据中心 / 电厂:2–3 年", s5="从零建先进晶圆厂:4–5 年",
+                   cap="示意:约束顺序取自 Epoch AI《Can AI scaling continue through 2030?》(2024-08);前置期阶梯取自其 2025-09 报告(该文自估中心值可低至 4–8 个月)。放缓的机制是供给侧交付,不是收益递减"),
+        "en": dict(title="What actually binds (Epoch AI's ordering), and the lead-time ladder",
+                   c1="1. Power", c2="2. Chip capacity", c3="3. Data", c4="4. Latency",
+                   cn1="Nadella: chips sitting in inventory that can't be plugged in", cn3="Ilya's wall ranks third",
+                   lt="Every additional 10x of compute adds about a year of lead time",
+                   s1="Renting GPUs: ~0", s2="Buying GPUs: ~6 months", s3="Building a data center: 1–2 yrs", s4="Very large DC / power plant: 2–3 yrs", s5="New cutting-edge fab: 4–5 yrs",
+                   cap="Schematic: the constraint ordering is from Epoch AI's \"Can AI scaling continue through 2030?\" (Aug 2024); the lead-time ladder from its Sep 2025 report (whose own central estimate may be as low as 4–8 months). The mechanism of the slowdown is supply-side delivery, not diminishing returns"),
+    }[lang]
+    cons = [(t['c1'], "#ff6ec4", 1.0), (t['c2'], "#e8794b", 0.78), (t['c3'], "#7b61ff", 0.56), (t['c4'], "#7c8593", 0.34)]
+    out, x = [], 24
+    for name, c, op in cons:
+        out.append(f'<rect x="{x}" y="52" width="146" height="46" rx="8" fill="{c}" opacity="{op * 0.22:.2f}"/>')
+        out.append(f'<rect x="{x}" y="52" width="146" height="3" rx="1.5" fill="{c}" opacity="{op:.2f}"/>')
+        out.append(f'<text x="{x + 16}" y="82" fill="{c}" font-size="13" font-weight="700" font-family="Menlo,monospace">{name}</text>')
+        x += 158
+    steps = [(t['s1'], 26), (t['s2'], 74), (t['s3'], 150), (t['s4'], 226), (t['s5'], 340)]
+    sb, y = [], 176
+    for label, w in steps:
+        sb.append(f'<text x="286" y="{y + 13}" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        sb.append(f'<rect x="298" y="{y}" width="{w}" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/>')
+        y += 26
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(out)}
+  <text x="24" y="118" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{t['cn1']}</text>
+  <text x="340" y="118" fill="#7b61ff" font-size="10.5" font-family="-apple-system,sans-serif">{t['cn3']}</text>
+  <text x="24" y="156" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">{t['lt']}</text>
+  <line x1="298" y1="168" x2="298" y2="300" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(sb)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "scaling-wall-deep": [
+        ("zh", "0. ", fig_sw_twowalls, "end"),
+        ("en", "0. ", fig_sw_twowalls, "end"),
+        ("zh", "3. ", fig_sw_qualifiers, "end"),
+        ("en", "3. ", fig_sw_qualifiers, "end"),
+        ("zh", "4. ", fig_sw_fourwalls, "end"),
+        ("en", "4. ", fig_sw_fourwalls, "end"),
+        ("zh", "5. ", fig_sw_benchtime, "end"),
+        ("en", "5. ", fig_sw_benchtime, "end"),
+        ("zh", "6. ", fig_sw_scaffold, "end"),
+        ("en", "6. ", fig_sw_scaffold, "end"),
+        ("zh", "9. ", fig_sw_constraints, "end"),
+        ("en", "9. ", fig_sw_constraints, "end"),
+    ],
+    "scaling-wall-plain": [
+        ("zh", "先问一句", fig_sw_twowalls, "end"),
+        ("en", "First, a question", fig_sw_twowalls, "end"),
+        ("zh", "那两周里", fig_sw_qualifiers, "end"),
+        ("en", "What each side actually produced", fig_sw_qualifiers, "end"),
+        ("zh", "四堵不一样的墙", fig_sw_fourwalls, "end"),
+        ("en", "Four different walls", fig_sw_fourwalls, "end"),
+        ("zh", "这两年,能力到底涨没涨", fig_sw_benchtime, "end"),
+        ("en", "Did capability actually rise", fig_sw_benchtime, "end"),
+        ("zh", "真正卡住的地方", fig_sw_constraints, "end"),
+        ("en", "What is actually jamming", fig_sw_constraints, "end"),
+    ],
+
     "indexing-endgame-deep": [
         ("zh", "0. ", fig_ie_rulers, "end"),
         ("en", "0. ", fig_ie_rulers, "end"),
@@ -3332,6 +3651,23 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("scaling-wall-deep", "zh", "deep",
+     "Scaling laws 撞墙了吗?一场没有定义的争论(深入版)",
+     "把「墙」补上一个可检验的定义,会发现双方公开引用的证据没有一条针对它。第一种墙查无实证、且在公开信息下结构性不可检验;而流传最广的证据在传播中系统性丢掉限定语——最高频引用的那句「撞墙实证」是记者的转述。44 组承重论断 × 3 票对抗验证,含本文自身被判死的一条结构性发现。",
+     "2026-08"),
+    ("scaling-wall-deep", "en", "deep",
+     "Have Scaling Laws Hit a Wall? An Argument Without a Definition (Deep Dive)",
+     "Supply the missing testable definition of \"the wall\" and neither side's cited evidence turns out to address it. The first form has no empirical support and is structurally untestable on public information; the most widely circulated evidence sheds its qualifiers in transit — the single most-cited piece of \"wall evidence\" is a reporter's paraphrase. 44 load-bearing claim groups × 3 adversarial votes, including one of this article's own findings that was killed.",
+     "2026-08"),
+    ("scaling-wall-plain", "zh", "plain",
+     "「AI 撞墙了吗」:一场吵了两年、双方都没拿出测量的争论(易读版)",
+     "说有墙的拿不出实测,说没墙的拿出自家没刻度的图。四堵不一样的墙被塞进同一个词,而流传最广的那些数字,送回原文之后大多要弱一截。易读版:两种可检验的墙、四堵墙的分类、六处脱落的限定语,以及十三条可检验的判断。",
+     "2026-08"),
+    ("scaling-wall-plain", "en", "plain",
+     "\"Has AI Hit a Wall?\" — Two Years of Arguing, and Neither Side Produced a Measurement (Plain-Language Edition)",
+     "Those claiming a wall cannot produce a measurement; those denying it produce their own charts without scales. Four different walls got stuffed into one word, and most of the widely circulated numbers come back weaker once returned to their sources. Plain edition: two testable forms of wall, four walls classified, six shed qualifiers, and thirteen testable judgments.",
+     "2026-08"),
+
     ("screen-time-teens-deep", "zh", "deep",
      "屏幕时间与青少年心理健康:《焦虑的一代》对不对?(深入版)",
      "危机是否真实、社交媒体是否因果、禁令是否有效——三个问题拆开分别审;双方的招牌数字逐条回源,修正大致对半落在两边;已确证因果效应带与危机量级之间的缺口是全文的脊柱。24 组承重论断 × 3 票对抗验证 + 5 项单源实证双席审计。",
@@ -3598,6 +3934,15 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("scaling-wall-deep", "zh"):
+        "「scaling laws 撞墙了吗」这个问题,在当前的公开披露条件下无法回答——而且不是因为证据还没到,是因为回答它所需的数据被结构性地扣住了。先补定义:边际收益递减是幂律的内生性质(Kaplan 2020 原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙;可检验的墙只剩两种——实测点系统性偏离幂律线,或幂律照旧但边际算力经济上不可行。就第一种,截至 2026 年 8 月未检索到任何公开实证,而且它结构性不可检验:前沿闭源模型的参数量、token 数与同口径 loss 全部不公开(GPT-4 报告立下的规矩),而 loss 跨语料、跨分词器本就不可比;现有的正面证据只有厂商在自家私有指标上的自述(GPT-4 那张图连刻度都没有)。叙事侧的体检更彻底:撞墙论的两个起点是匿名内测口径的媒体报道,反驳方是四个词的推文;而被引用最多的「Ilya 说预训练已进入平台期」经三票核定是路透记者的间接转述,他打引号的原话之一「Scaling the right thing matters more now than ever」方向恰恰相反。四堵互不兼容的墙被压进同一个词:Ilya 的数据墙(他在同一张幻灯片上明说算力仍在增长)、LeCun 的架构墙(与前者不兼容)、报道里的效果递减、以及 Epoch 预测的算力放缓——后者机制是数据中心与电厂交付周期,全文没有一处主张同等算力买到的能力变少,拿它支持「收益递减」恰好读反。能力侧确实在涨(SWE-bench 49→96、ARC-AGI-2 十七个月从个位数到 92.5%、HLE 从 3% 到 46.44%),但每一格都是厂商自报:同一模型换 scaffold 差 22 个百分点,发布会上的 87.5% 与用户可用的 41% 不是同一个模型,厂商自报的 96% 对独立复测的 83.5%;而 HLE 跨过 50% 比出题人自己的预期晚了逾半年。数据墙没撞上也没消失,而是被重复训练(4 epoch 内几乎无损)、合成数据(分母陷阱:Nemotron 的 98% 是对齐阶段)与采购授权一路赎买后移;model collapse 至今没有一例真实生产管线的公开个案。真正在咬合的约束已经换位:Epoch 的排序是电力 > 芯片产能 > 数据 > 延迟,而 Nadella 的说法是芯片躺在库房里插不上电。十三个可检验主张收尾,并列出本文自身被验证推翻的十二处——包括原定的一条结构性发现。",
+    ("scaling-wall-deep", "en"):
+        "Whether scaling laws have hit a wall cannot be answered under current disclosure — and not because the evidence has yet to arrive, but because the data required is structurally withheld. First the missing definition: diminishing marginal returns are intrinsic to a power law (Kaplan 2020: double the parameters, loss falls 5%), so \"smaller returns\" is not a wall. Only two testable forms remain — measured points departing systematically from the fit, or the law holding while marginal compute becomes economically impossible. On the first, no public empirical demonstration was found as of August 2026, and it is structurally untestable: frontier models' parameter counts, token counts and comparable loss are all unpublished (the norm the GPT-4 report established), and loss is not comparable across corpora or tokenizers; the affirmative evidence is entirely vendors self-reporting on private metrics, on charts without scales. The narrative audit goes further: the wall thesis rests on two reports sourced to anonymous internal testing, answered by a four-word tweet; and the most-cited piece of evidence — Ilya Sutskever saying pretraining had \"plateaued\" — is confirmed on three votes to be Reuters' indirect rendering, while one of his actual quotes, \"Scaling the right thing matters more now than ever,\" points the opposite way. Four incompatible walls sit inside one word: Ilya's data wall (his own slide says compute is still growing), LeCun's architecture wall (incompatible with the first), the reports' diminishing effect, and Epoch's forecast slowdown — whose mechanism is data-center and power-plant lead times, never a claim that compute buys less, so citing it for diminishing returns reads it backwards. Capability genuinely rose (SWE-bench 49 to 96, ARC-AGI-2 from single digits to 92.5% in seventeen months, HLE from 3% to 46.44%), but every point is vendor-reported: the same model differs by 22 points across scaffolds, the 87.5% from a launch and the 41% users could buy are different models, and 96% self-reported meets 83.5% independently replicated — while HLE crossed 50% more than half a year later than its own authors predicted. The data wall was neither hit nor dissolved but bought off — by repetition (near-lossless to 4 epochs), synthetic data (denominator traps: Nemotron's 98% is the alignment stage), and licensing; model collapse still has no confirmed case in a real production pipeline. And the binding constraint has moved: Epoch's ordering is power > chip capacity > data > latency, while Nadella's version is chips in inventory that cannot be plugged in. Thirteen testable claims close the piece, alongside twelve of this article's own statements that verification overturned — including one planned structural finding.",
+    ("scaling-wall-plain", "zh"):
+        "「AI 撞墙了吗」吵了两年,双方都没拿出测量。先说一件被忽略的事:投入翻倍、回报变少,不是 2024 年的新发现,而是缩放定律公式本身的意思——2020 年那篇论文就写了参数翻倍、损失只降 5%。真正可检验的墙只有两种:定律失效,或者付不起。第一种截至 2026 年 8 月查无证据,而且根本查不了:前沿模型的参数量、数据量、核心指标全不公开,而厂商拿出的正面证据是自家没有刻度的图。撞墙论最常被引的那句「Ilya 说预训练进入平台期」,逐字核对后发现是记者写的转述——他真正打引号的原话之一反而是支持继续 scaling 的。四堵不一样的墙被塞进同一个词:数据墙(Ilya 明说算力仍在增长)、架构墙(LeCun,与前者不兼容)、效果递减(那两篇匿名报道)、算力增速放缓(Epoch,机制是数据中心和电厂盖不过来)。能力确实在涨,但同一个模型换一套外围工具能差 22 个百分点,发布会的 87.5% 和你能买到的 41% 不是同一个模型,厂商自报 96% 而独立复测最高只有 83.5%。而且流传最广的那些说法——「Orion 只比 GPT-4 好 20%」「首个突破 80%」「98% 都是合成数据」「《自然》说可能崩坏」——送回原文之后全都要改。最后一件事:真正卡住的约束已经从收益换到了供给——电力第一、芯片第二、数据第三,微软 CEO 的说法是芯片躺在库房里插不上电。",
+    ("scaling-wall-plain", "en"):
+        "Two years of arguing about whether AI has hit a wall, and neither side produced a measurement. Start with what gets overlooked: \"double the input, get less back\" is not a 2024 discovery — it is what the scaling-law formula means, and the 2020 paper spelled it out as double the parameters, lose 5% of loss. Only two forms of wall are actually testable: the law failing, or nobody being able to afford it. The first has no evidence as of August 2026 and cannot be checked at all: frontier models' parameter counts, data volumes and core metrics are unpublished, and the affirmative evidence vendors offer is their own charts without scales. The most-cited line in the whole argument — Ilya saying pretraining had plateaued — turns out on a word-by-word check to be the reporter's paraphrase, while one of his actual quotes supports continued scaling. Four different walls sit inside one word: data (Ilya says compute is still growing), architecture (LeCun, incompatible with the first), diminishing effect (those two anonymous reports), and slowing compute growth (Epoch, whose mechanism is that data centers and power plants cannot be built fast enough). Capability did rise, but the same model can score 22 points apart across toolchains, the 87.5% from a launch and the 41% you can buy are different models, and 96% self-reported meets 83.5% independently replicated. And the most widely circulated claims — \"Orion is only 20% better,\" \"first past 80%,\" \"98% synthetic data,\" \"Nature says it may collapse\" — all need revising once returned to their sources. One last thing: the binding constraint has moved from returns to supply — power first, chips second, data third, or in Microsoft's CEO's version, chips sitting in inventory that cannot be plugged in.",
+
     ("indexing-endgame-deep", "zh"):
         "「被动已过半、价格发现被破坏」——前半句只在一把尺子上成立，后半句至今既无证据支持也无证据推翻。同一个「被动占比」在基金资产口径是 53-55%、市值口径 19-23%、成交量口径 1.2% 到 64%（最大成分「被动做市」36% 无一手来源）；真实份额高于基金口径这个方向有四个独立团队佐证（哥伦比亚交易所的逐笔数据直接看到「名义主动实则盯指数」的机构调仓量是显性指数基金的 1.7 倍），但独立测量跨度 17.5%-41%，没有哪个水平被第二个团队锁定。起诉方逐位体检：Burry 的名言之后指数七年涨 165%，他本人已注销基金并转向 AI 泡沫论；Einhorn 在同一场采访里既说市场「从根本上坏掉」又说「机会好于以往」；Green 的 83% 断点不在他自己的预印本里（那里写的是 65%/90%），五年到不了 83%（需 7.25 年），示范算术把 0.167%/日年化成 23%（实为约 42%），而苹果实际只涨 8.6%；Bogle 被引用最多的警告其实是治理集中论，且他明确为指数基金辩护——那个「75% 也不危险」的出处是 Asness 追问后的一句「我瞎编的」。实证侧：罗素断点实验给出精确估计的零，而同一篇论文的波动率、联动、beta、换手全部显著为正；标普 500 纳入效应从 1990 年代 7.4% 收敛到 2010-2020 的 0.83%（不显著）——需求冲击翻倍而价格反应消失，接货的是对冲基金养老金而非主动共同基金——但 2025 年三例直接纳入两位数复活（COIN +24%）。本期最重的产出是双席审计：四项单源承重实证无一可按被引用的强度承重——Sammon 的财报前信息量被否决（「四分之一」是四个共线比值的等权平均、换分母变六分之一、2012 年后不显著、机制章节发表前被删），JVZ 的 29% 是作者自家校准 0-4% 的七倍且样本止于 2020 年（Mag 7 全在样本外），HHL 的 11% 完全靠一个模型自造的工具变量撑着（去掉它战略反应归零）且「被动越多越不弹性」的符号是定义使然，而 Greenwood-Sammon 直接测出指数交易推动价格的能力从 6.75 垮到 0.37。结构性发现：经得起独立检验的发现全在机制层，没有一条在幅度层——而泡沫论的全部力量来自幅度。十四个可检验主张收尾，并列出本文自身被验证反转的八处。",
     ("indexing-endgame-deep", "en"):
@@ -3729,6 +4074,19 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("scaling-wall-deep", "zh"): [
+        ("c1", "132 票对抗验证 · 18 条判死"), ("c2", "第一种墙:查无证据,且不可检验"), ("c3", "四堵不兼容的墙,一个词"), ("c4", "13 个可检验主张"),
+    ],
+    ("scaling-wall-deep", "en"): [
+        ("c1", "132 adversarial votes · 18 killed"), ("c2", "wall #1: no evidence, and untestable"), ("c3", "four incompatible walls, one word"), ("c4", "13 testable claims"),
+    ],
+    ("scaling-wall-plain", "zh"): [
+        ("c1", "最常引的那句是记者写的"), ("c2", "同一模型换装置差 22 个百分点"), ("c3", "电力第一,数据第三"), ("c4", "先问这是谁测的"),
+    ],
+    ("scaling-wall-plain", "en"): [
+        ("c1", "the most-cited line was written by a reporter"), ("c2", "22 points apart, same model"), ("c3", "power first, data third"), ("c4", "ask who measured it"),
+    ],
+
     ("indexing-endgame-deep", "zh"): [
         ("c1", "96 票对抗验证 · 8 席双席审计"), ("c2", "4 项单源实证：1 否决 3 限用"), ("c3", "同一占比三把尺子差 40 倍"), ("c4", "14 个可检验主张"),
     ],
@@ -4059,6 +4417,16 @@ INDEX_I18N = {
 
 # slug, date, title_zh, title_en, desc_zh, desc_en, stats_zh, stats_en, tags[(cls, zh, en)]
 INDEX_ENTRIES = [
+    ("scaling-wall", "2026-08",
+     "Scaling laws 撞墙了吗?",
+     "Have Scaling Laws Hit a Wall?",
+     "如果没人给「墙」下过可检验的定义,那两年来吵的到底是什么?从幂律原文的逐字体检,到撞墙叙事的一手溯源、旗舰基准的口径解体、数据墙的历次赎买,再到真正在咬合的供给侧约束。",
+     "If nobody ever gave \"the wall\" a testable definition, what exactly has been argued about for two years? From a word-by-word audit of the founding papers to the primary sources behind the wall narrative, the disintegrating calibers of flagship benchmarks, the successive buy-offs of the data wall, and the supply-side constraint actually binding.",
+     "132 票对抗验证 · 13 个可检验主张",
+     "132 adversarial votes · 13 testable claims",
+     [("t1", "缩放律", "Scaling laws"), ("t2", "基准口径", "Benchmark calibers"), ("t3", "数据墙", "The data wall"),
+      ("t4", "推理时算力", "Test-time compute"), ("t5", "算力经济", "Compute economics")]),
+
     ("ai-native", "2026-07",
      "传统软件组织的 AI-native 转型",
      "The AI-Native Transformation of Software Organizations",

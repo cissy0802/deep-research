@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scaling laws 撞墙了吗?一场没有定义的争论(深入版) — BigCat Deep Research</title>
+<meta name="description" content="把「墙」补上一个可检验的定义,会发现双方公开引用的证据没有一条针对它。第一种墙查无实证、且在公开信息下结构性不可检验;而流传最广的证据在传播中系统性丢掉限定语——最高频引用的那句「撞墙实证」是记者的转述。44 组承重论断 × 3 票对抗验证,含本文自身被判死的一条结构性发现。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+h2:nth-of-type(13){--h2:#f0b429}
+h2:nth-of-type(14){--h2:#52b788}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="scaling-wall-deep.html" class="active">中文</a><a href="scaling-wall-deep.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 深入版</div>
+<h1>Scaling laws 撞墙了吗?一场没有定义的争论(深入版)</h1>
+<div class="version-note">本文是<strong>深入版</strong> · <a href="scaling-wall-plain.html">查看易读版(精简直白)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">「scaling laws 撞墙了吗」这个问题,在当前的公开披露条件下无法回答——而且不是因为证据还没到,是因为回答它所需的数据被结构性地扣住了。先补定义:边际收益递减是幂律的内生性质(Kaplan 2020 原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙;可检验的墙只剩两种——实测点系统性偏离幂律线,或幂律照旧但边际算力经济上不可行。就第一种,截至 2026 年 8 月未检索到任何公开实证,而且它结构性不可检验:前沿闭源模型的参数量、token 数与同口径 loss 全部不公开(GPT-4 报告立下的规矩),而 loss 跨语料、跨分词器本就不可比;现有的正面证据只有厂商在自家私有指标上的自述(GPT-4 那张图连刻度都没有)。叙事侧的体检更彻底:撞墙论的两个起点是匿名内测口径的媒体报道,反驳方是四个词的推文;而被引用最多的「Ilya 说预训练已进入平台期」经三票核定是路透记者的间接转述,他打引号的原话之一「Scaling the right thing matters more now than ever」方向恰恰相反。四堵互不兼容的墙被压进同一个词:Ilya 的数据墙(他在同一张幻灯片上明说算力仍在增长)、LeCun 的架构墙(与前者不兼容)、报道里的效果递减、以及 Epoch 预测的算力放缓——后者机制是数据中心与电厂交付周期,全文没有一处主张同等算力买到的能力变少,拿它支持「收益递减」恰好读反。能力侧确实在涨(SWE-bench 49→96、ARC-AGI-2 十七个月从个位数到 92.5%、HLE 从 3% 到 46.44%),但每一格都是厂商自报:同一模型换 scaffold 差 22 个百分点,发布会上的 87.5% 与用户可用的 41% 不是同一个模型,厂商自报的 96% 对独立复测的 83.5%;而 HLE 跨过 50% 比出题人自己的预期晚了逾半年。数据墙没撞上也没消失,而是被重复训练(4 epoch 内几乎无损)、合成数据(分母陷阱:Nemotron 的 98% 是对齐阶段)与采购授权一路赎买后移;model collapse 至今没有一例真实生产管线的公开个案。真正在咬合的约束已经换位:Epoch 的排序是电力 > 芯片产能 > 数据 > 延迟,而 Nadella 的说法是芯片躺在库房里插不上电。十三个可检验主张收尾,并列出本文自身被验证推翻的十二处——包括原定的一条结构性发现。</div></div>
+<div class="chips"><span class="chip c1">132 票对抗验证 · 18 条判死</span><span class="chip c2">第一种墙:查无证据,且不可检验</span><span class="chip c3">四堵不兼容的墙,一个词</span><span class="chip c4">13 个可检验主张</span></div>
+<blockquote><p>方法学说明:本文承重论断经 44 组 × 3 票对抗验证(132 票:2 组全票挺过、42 组含口径修正;子论断层面 18 条被判死,不得按原强度写入)。验证 agent 被要求「尽力反驳」,逐字核对一手来源。判死项包括本文原定的一条结构性发现——详见附录的自我修正。证据分级:【多源】≥2 独立来源同向;【单源已核】一手可回溯;【方向存争】独立来源矛盾;【当事方口径】利益相关方自述,方向可参考、程度不承重;【未验证】。正文另有【判死】与【口径修正】两类标注:前者指该表述被多数验证票推翻、只能以修正后形式出现,后者指方向成立但数字或限定语已被改写。所有数字截至 2026 年 8 月;这是一个变化极快的题目,时效声明请当真。</p></blockquote>
+<h2>0. 先问一件事:「撞墙」到底指什么</h2>
+<p>2024 年 11 月起,「scaling laws 撞墙了」成了这个行业最密集的争论之一。两年过去,双方都还在,数字换了几轮,而争论的结构几乎没动。</p>
+<p>本文的第一个发现是:这场争论从来没有给「墙」下过一个可检验的定义。而一旦你试着补上这个定义,会发现双方公开引用的证据,没有一条是针对它的。</p>
+<p>先把最容易混淆的一件事挪开:<strong>收益递减不是新闻,它是幂律的定义</strong>。</p>
+<p>Kaplan 等人 2020 年那篇奠基论文(arXiv:2001.08361)拟合的三条幂律,指数分别是 αN ≈ 0.076、αD ≈ 0.095、αC^min ≈ 0.050。论文自己把这个数字翻译成了大白话:「doubling the number of parameters yields a loss that is smaller by a factor 2^−αN = 0.95」——参数翻一倍,损失只降 5%【单源已核,arXiv:2001.08361 §1.2】。</p>
+<p>也就是说,「投入翻倍、回报只剩零头」这件事,在 2020 年的原始论文里就以精确的数值写死了。任何人在 2024 年说「scaling 的回报在递减」,如果指的是这个,那他说的是一个五年前就已知的算术事实,而不是一个新观测。</p>
+<p>需要顺手更正一处流传甚广的引用:那篇摘要的原话是「with <strong>some</strong> trends spanning more than seven orders of magnitude」——是「部分趋势」跨越七个数量级。少了这个 some,就把一句有保留的话读成了普遍断言。而正文给出的真实分解更值得注意:算力维跨约八个数量级,参数维六个,<strong>数据维只验证了两个数量级出头</strong>;论文在另一节把同一结论写成「more than six orders of magnitude」。三条定律各自还都附了前提「when not bottlenecked by the other two」【单源已核,含论文内部数字不一致,如实记录】。</p>
+<p>那么「墙」如果要成为一个可以被证实或证伪的命题,它只剩两种形态:</p>
+<p><strong>(a) 实测点系统性偏离拟合的幂律线。</strong> 即投入照加,但曲线不再落在预测的位置上——这是「定律失效」意义上的墙。</p>
+<p><strong>(b) 幂律照旧成立,但每单位损失下降所需的算力与美元,已经超出任何人愿意支付的范围。</strong> 这是「经济上撞墙」,与定律本身无关。</p>
+<p>这两种形态需要完全不同的证据。而本文接下来会逐段说明:<strong>第一种在公开信息条件下既无证据、也无法被检验;第二种正在发生,但它的机制不是收益递减,而是电力和混凝土。</strong></p>
+<p>顺带澄清一个技术细节,因为它常被用错。人们常说「幂律里本来就有一堵墙」,指的是 Chinchilla 参数化形式 L = E + A/N^α + B/D^β 里的那个 E——不可约损失,Hoffmann 等人定义为「the loss for an ideal generative process on the data distribution, and should correspond to the entropy of natural text」。这个 E 确实存在,但它<strong>不在 Kaplan 2020 里</strong>:那篇的拟合式外推下去趋于零损失,没有常数项。把「终将走平」写进公式是 Henighan 等人 2020 年(L = aC^b + c)与 Chinchilla 2022 之后的事【单源已核】。而且 E 是特定语料加特定分词器下的拟合常数,不是自然语言的普适数值——这一点稍后会变得很关键。</p>
+<p>至于 Kaplan 那句常被引用的「作者自己承认会走平」,原文必须整句读:「We observe no signs of deviation from these trends on the upper end, though performance must flatten out eventually before reaching zero loss.」主句是「在我们能看到的上端,没有任何偏离趋势的迹象」,让步从句才是「终将走平」。只摘后半句,是把作者的主张翻了个面【单源已核】。</p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">「撞墙」若要可检验,只剩两种形态</text>
+  <rect x="24" y="46" width="322" height="196" rx="10" fill="#ff6ec4" opacity="0.06"/>
+  <text x="40" y="70" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">形态 A:定律失效</text>
+  <line x1="52" y1="90" x2="52" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="52" y1="206" x2="330" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 62 104 C 130 150, 200 176, 322 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <path d="M 62 104 C 130 150, 178 168, 206 166 L 322 164" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="5,4"/>
+  <circle cx="240" cy="165" r="3.5" fill="#ff6ec4"/><circle cx="280" cy="164.5" r="3.5" fill="#ff6ec4"/><circle cx="316" cy="164" r="3.5" fill="#ff6ec4"/>
+  <text x="200" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">幂律拟合线</text>
+  <text x="216" y="152" fill="#ff6ec4" font-size="10.5" font-family="Menlo,monospace">实测(假想)</text>
+  <text x="40" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">实测点系统性掉到拟合线下方</text>
+  <rect x="354" y="46" width="322" height="196" rx="10" fill="#7b61ff" opacity="0.07"/>
+  <text x="370" y="70" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">形态 B:付不起</text>
+  <line x1="382" y1="90" x2="382" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="382" y1="206" x2="660" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 392 104 C 460 150, 530 176, 652 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <text x="530" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">实测=拟合</text>
+  <rect x="470" y="112" width="16" height="28" rx="3" fill="#7b61ff" opacity="0.8"/>
+  <rect x="510" y="98" width="16" height="42" rx="3" fill="#7b61ff" opacity="0.85"/>
+  <rect x="550" y="80" width="16" height="60" rx="3" fill="#7b61ff" opacity="0.9"/>
+  <rect x="590" y="60" width="16" height="80" rx="3" fill="#ff6ec4" opacity="0.95"/>
+  <text x="470" y="54" fill="#9aa3b2" font-size="10.5" font-family="Menlo,monospace">$ / step</text>
+  <text x="370" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">曲线照旧,但每一步的电与钱付不起</text>
+  <text x="40" y="266" fill="#ff6ec4" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">现状:查无此证据,且公开信息下无法检验</text>
+  <text x="40" y="290" fill="#7b61ff" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">现状:正在逼近,但卡在电力与交付</text>
+</svg>
+<figcaption>示意:幂律本身内生递减(2020 年原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙。可检验的墙只有这两种,而争论双方引用的证据没有一条针对它们</figcaption>
+</figure>
+<h2>1. 三篇论文的逐字体检:这条定律被修过一次,复现又修过一次</h2>
+<p>在讨论定律有没有失效之前,得先知道这条定律现在长什么样。它被公开修正过两次,而两次修正都不是往「失效」的方向走。</p>
+<p><strong>第一次修正:Chinchilla(2022)。</strong> Hoffmann 等人发现当时的大模型「significantly undertrained」,并给出配比原则:「for every doubling of model size the number of training tokens should also be doubled」,实践口径约 20 tokens/参数【单源已核,arXiv:2203.15556】。这直接推翻了 Kaplan 的算力分配建议(训练很大的模型、用相对少的数据、早停)。</p>
+<p>分歧的成因有两种解释,互不排斥。Hoffmann 方自己的归因是 Kaplan 对所有模型用了固定的 token 数与学习率日程;而 Pearce 与 Song 2024(arXiv:2406.12907)给出另一个更朴素的原因:Kaplan 只数<strong>非嵌入参数</strong>,而且实验规模偏小——在同样条件下模拟 Chinchilla 的研究,会复现出接近 Kaplan 的有偏系数【方向存争,两种解释并存】。</p>
+<p>这是本文第一次遇到「同名不同物」:同一批实验,换一种数参数的方式,得出相反的分配建议。后面还会遇到很多次。</p>
+<p><strong>第二次修正:Epoch AI 的复现(2024)。</strong> Besiroglu 等人(arXiv:2404.10102)重建了 Chinchilla 论文图里的数据,发现其第三种估计法有三处问题:与前两种方法不一致、拟合不上重建数据、置信区间窄得不合常理——原文说这么窄的区间「would require over 600,000 experiments, while they likely only ran fewer than 500」。需要说明这个数怎么来的:复现所依据的是从 Hoffmann 图 4 重建出的 240 个点(Hoffmann 自称超过 400 个),60 万是由这 240 点的 bootstrap 标准误反推出来的【单源已核】。</p>
+<p>修正后的拟合给出约 20 tokens/参数,与 Hoffmann 自己的前两种方法以及 Chinchilla 的实际训练配比一致;而原 Approach 3 的参数隐含约 70 tokens/参数——连作者自己训模型时都没照做。</p>
+<p>这件事最值得记的是结局:Hoffmann 的主要作者之一 Borgeaud 公开回应承认了问题,他的原话是拟合中「loss scale 设得太低,导致 L-BFGS 提前终止,拟合变差」。至于「按样本取平均而非求和使标准误过窄」这个更具体的机制,是 Besiroglu 等人在复现论文第二版里对该澄清的转述——原帖本身没有提到 Huber loss 或标准误,而那篇论文的参考文献也只有一行「Borgeaud, S. (2024). Twitter.」,无链接、无存档。也就是说,这个领域的旗舰论文确实有一个拟合 bug——<strong>而修正之后,它的核心结论反而更稳固了</strong>。</p>
+<p>顺带纠正一个数字:常被引用的 E = 1.8172 是 Epoch 对重建数据的<strong>重新拟合值</strong>(bootstrap 标准误 0.03),Chinchilla 原文自己的 E 是 1.6934。五位有效数字是虚假精度——两个数相差约 0.13,而重拟值的 bootstrap 标准误只有 0.03【单源已核】。</p>
+<h2>2. 第一种墙:既没有证据,也无法被检验</h2>
+<p>现在回到那个最关键的问题:有没有公开实证显示,前沿模型的 loss 实测点系统性偏离了拟合的幂律线?</p>
+<p><strong>截至 2026 年 8 月,未检索到任何一例。</strong></p>
+<p>这个结论来自一次专门的空白检验,搜索角度包括:前沿模型 loss 偏离幂律的直接检索、实测点脱离预测曲线的检索、Epoch AI 的 scaling 专题与文献综述、以及 2025 至 2026 年间所有 scaling law 破裂/修正类论文。唯一方向相关的新工作(arXiv:2509.25087)结论还是反的——它报告在超参最优设定下,「loss curves collapse across scales」,即跨尺度的可预测性更强而非破裂【未检索到,检索角度已列明】。</p>
+<p>但比「查无此证据」更要紧的是第二层:<strong>这件事在公开信息条件下结构性地无法被检验。</strong></p>
+<p>理由有三条,每一条单独都足以致命:</p>
+<p>其一,前沿闭源模型的真实参数量 N 和真实训练 token 数 D 都不公开。这条规矩是 GPT-4 技术报告立下的,原文写得毫不含糊:「Given both the competitive landscape and the safety implications of large-scale models like GPT-4, this report contains no further details about the architecture (including model size), hardware, training compute, dataset construction, training method, or similar.」此后成为行业惯例(需要公平地补一句:该段之后紧接着是一项第三方审计承诺,所以「完全封闭」的读感略高于原文)【单源已核,arXiv:2303.08774 §1】。</p>
+<p>其二,同口径的预训练 loss 更不公开。而 loss 这个量跨语料、跨分词器本就不可比——上一节说过,E 是特定语料加特定分词器下的常数。两个模型报出来的 loss 数值,如果不是在同一个测试分布、同一套分词器下测的,相减没有意义。</p>
+<p>其三,现有的正面证据——即「幂律照旧成立」——全部是厂商自述,而且是在私有指标上自述的。OpenAI 说它用少了 10,000 倍算力的模型拟合的幂律「predicted GPT-4's final loss with high accuracy」,但那个 loss 测在「our internal codebase」上,配图的纵轴是 bits per word、横轴归一化到 GPT-4 = 1,没有刻度【当事方口径】。Meta 说 Llama 3 跨四个数量级的两步外推「quite accurate: it only slightly underestimates the final performance」——同样是训练方自述【当事方口径】。</p>
+<p>所以第一种墙的处境是:声称它存在的人拿不出实测,声称它不存在的人拿出的是自家没有刻度的图。<strong>这不是证据不足,这是证据被结构性地扣住了。</strong></p>
+<p>需要说清楚的是,这不等于「墙不存在」。它等于:在当前的披露实践下,这个问题不可被公开回答。谁要断言任何一个方向,都是在超出证据说话。</p>
+<h2>3. 叙事考古:2024 年 11 月那两周,到底有什么证据</h2>
+<p>既然实测这条路走不通,那双方实际引用的是什么?把撞墙叙事的起点逐条送回一手来源,结果值得完整记录。</p>
+<p><strong>起点一:两篇匿名信源的报道。</strong></p>
+<p>2024 年 11 月 9 日,The Information 发表《OpenAI Shifts Strategy as Rate of 'GPT' AI Improvements Slows》(Stephanie Palazzolo、Erin Woo、Amir Efrati),援引测试过 Orion 的 OpenAI 内部员工称:Orion 的表现<strong>确实超过了此前的模型</strong>,但「质量提升幅度远小于 GPT-3 到 GPT-4 那一跃」,并称它在某些任务(如编码)上并不稳定地优于前代,同时在摘要、写作等语言能力上明显更强。前半句那个让步经常在转述中消失,删掉它就读成了「没有进步」【多源转述,原文在付费墙后】。</p>
+<p>四天后的 11 月 13 日,Bloomberg 发表《OpenAI, Google and Anthropic Are Struggling to Build More Advanced AI》(Rachel Metz、Shirin Ghaffary、Dina Bass、Julia Love),称三家领先公司「正从昂贵的新模型投入中看到递减的回报」,Orion「在回答未经训练的编码问题时表现不佳」,Google 新一版 Gemini「未达内部预期」,Anthropic 的 Claude 3.5 Opus 时间表推迟【多源转述】。</p>
+<p>两点必须记住。第一,两篇的对照系不同——The Information 比的是 GPT-3→GPT-4,Bloomberg 比的是 GPT-3.5→GPT-4,合并叙述时不能混用分母。第二,也是更重要的一点:<strong>Bloomberg 的核心论证其实是经济性而非可能性</strong>,原文写的是「即便有温和的提升,也可能不足以证明其巨额成本的合理性」。这是第 0 节里的第二种墙,不是第一种。</p>
+<p><strong>起点二:一句记者的转述。</strong></p>
+<p>这场争论里被引用得最多的「撞墙实证」,是 Ilya Sutskever 说预训练的 scaling 结果已经「进入平台期」。逐字核对路透 2024 年 11 月 11 日的报道(Krystal Hu、Anna Tong)后,结论是:<strong>这不是他的原话</strong>。那句话全句无引号,是记者的间接转述,「plateaued」是记者的措辞。</p>
+<p>同一篇报道里,Sutskever 打引号的原话只有两句:「2010 年代是 scaling 的时代,如今我们重新回到了惊奇与发现的时代。每个人都在寻找下一个东西。」以及——这一句方向必须写对——「<strong>Scaling the right thing matters more now than ever.</strong>」(把对的东西 scale,比以往任何时候都更重要。)</p>
+<p>后一句是 pro-scaling 的表述。他说的是 scaling 的对象要换,不是 scaling 已经失效【多源证实,三票一致】。</p>
+<p>此外,他当时已离开 OpenAI 创办 SSI,正为一条非预训练路线募资,并在同一篇报道里拒绝透露 SSI 具体在做什么。把他当作中立的第三方实证,前提就不成立。</p>
+<p><strong>起点三:四个词的推文。</strong></p>
+<p>反驳来得很快,但形态同样单薄。美西时间 2024 年 11 月 13 日晚(UTC 11 月 14 日 06:06),Sam Altman 发了一条全文只有四个小写单词的帖子:「there is no wall」。没有链接、没有引用、没有 @ 任何人——它被广泛解读为回应那几篇报道,但帖子本身没有指明任何一篇,当时的媒体一律用「an apparent response」这类推测性措辞。</p>
+<p>约 11 个半小时后,Google DeepMind 的 Oriol Vinyals 发了「What wall?」——但这条不是对 Altman 的跟帖,而是挂在他自家 Gemini-Exp-1114 当天在 Chatbot Arena 登顶的战报上【多源证实】。</p>
+<p>两人的位置都不中立:Altman 发帖时,OpenAI 距离 2024 年 10 月 2 日那轮 66 亿美元、投后估值 1570 亿美元的融资只有六周;Vinyals 是竞品 Gemini 的技术负责人之一,发帖恰在自家模型登顶的宣传节点。</p>
+<p>所以这场争论的两个起点,一边是匿名内测口径的媒体报道,一边是利益相关方的三到四个词。<strong>双方都没有拿出测量。</strong></p>
+<p><strong>起点之外:两条查无一手的流传语。</strong></p>
+<p>既然在做叙事考古,顺手清理两条被引用了两年的说法:</p>
+<p>「Orion 只比 GPT-4 好 20%」——<strong>该表述在原报道中不存在</strong>。可回溯的版本是:Orion 在完成约 20% 训练时性能已接近 GPT-4。这是训练进度口径,而且它原本是用来论证增益早衰的,方向与「好 20%」相反【判死,三票】。(另需注意:Box CEO Aaron Levie 说的 GPT-4.5「约好 20%」是对 GPT-4o 的特定任务比较,属另一件事。)</p>
+<p>「the age of giant models is over」——不是 Altman 的原话,也不属于 2024 年 11 月。一手是 2023 年 4 月 MIT 一场活动上的「I think we're at the end of the era where it's going to be these, like, giant, giant models. We'll make them better in other ways.」,那句广为流传的短语是 WIRED 的标题措辞,时间早了 19 个月【判死,多源】。</p>
+<p>一条经得起核对的是:Hugging Face 首席伦理科学家 Margaret Mitchell 对 Bloomberg 说的「The AGI bubble is bursting a little bit」——逐字可回溯,但原文在付费墙后【单源已核】。</p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">限定语在传播中脱落,而且方向高度一致</text>
+  <text x="24" y="58" fill="#e8794b" font-size="11.5" font-weight="700" font-family="Menlo,monospace">流传版本</text>
+  <text x="330" y="58" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">送回一手来源之后</text>
+  <line x1="24" y1="66" x2="676" y2="66" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <text x="24" y="84" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Kaplan:幂律跨七个数量级</text><path d="M 296 80 L 318 80" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 76 L 319 80 L 313 84" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="84" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">「部分趋势」跨七个;数据维只验证了两个</text><text x="24" y="118" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Ilya:预训练已进入平台期</text><path d="M 296 114 L 318 114" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 110 L 319 114 L 313 118" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="118" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">记者的间接转述;他的原话是「把对的东西 scale 更重要」</text><text x="24" y="152" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 在 FrontierMath 拿 25%</text><path d="M 296 148 L 318 148" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 144 L 319 148 L 313 152" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="152" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">「内部、激进 test-time 配置下」,非发布版成绩</text><text x="24" y="186" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 在 ARC 拿 87.5%</text><path d="M 296 182 L 318 182" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 178 L 319 182 L 313 186" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="186" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">172 倍算力档,且用了公开训练集的 75% 训练</text><text x="24" y="220" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Nemotron:98% 是合成数据</text><path d="M 296 216 L 318 216" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 212 L 319 216 L 313 220" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="220" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">98% 指对齐阶段;预训练侧合成占比从未披露</text><text x="24" y="254" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">《自然》:不加区分训练「可能」崩坏</text><path d="M 296 250 L 318 250" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 246 L 319 250 L 313 254" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="254" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">那句对冲是编辑导语;作者摘要写的是「导致」「不可逆」</text>
+  <text x="24" y="308" fill="#c8cdd6" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">每一处修正,都是把一个更强的断言还原成一个更弱的事实</text>
+</svg>
+<figcaption>示意:双方都在这么做——这不是某一方的毛病,是这场争论的传播机制</figcaption>
+</figure>
+<h2>4. 四堵互不兼容的墙,被压成了一个词</h2>
+<p>把各方口中的「墙」摊开看,会发现它们指的根本不是同一件事,有几堵之间甚至互相矛盾。</p>
+<p><strong>第一堵:数据墙。</strong> 这是 Ilya Sutskever 的墙。2024 年 12 月 13 日温哥华 NeurIPS 2024 的 Test of Time 环节上(获奖论文是他与 Oriol Vinyals、Quoc Le 十年前的 seq2seq),他说了那句「Pre-training as we know it will unquestionably end」。</p>
+<p>但他给出的理由必须完整转述,否则就是反向引用:「while compute is growing through better hardware, better algorithms and larger clusters, the data is not growing because we have but one internet.」以及「你甚至可以说,数据是 AI 的化石燃料……我们已经到达了数据的峰值——不会再有更多了。」</p>
+<p>他的幻灯片把这个论证画得没有歧义:左栏是「算力在增长」,右栏是「数据没有在增长」。<strong>他断言的是一味原料耗尽,不是配方的数学失效</strong>——他在同一张幻灯片上明确说算力仍在增长。同场他还给出了三条替代路径:智能体、合成数据、推理时算力【多源证实,有现场视频】。</p>
+<p>把这场演讲引为「scaling law 失效」的证据,是把「原料告罄」误读成了「定律失灵」。</p>
+<p><strong>第二堵:架构墙。</strong> 这是 Yann LeCun 的墙。他主张 LLM 这条路本身是通往人类水平智能的死胡同,并以此为核心 pitch 创办了世界模型公司。注意他否定的是架构,不是规模——他的墙和 Ilya 的墙不兼容:如果架构本来就错,数据够不够就不是关键问题。</p>
+<p><strong>第三堵:效果递减。</strong> 这是 The Information 与 Bloomberg 报道里的墙,口径是同等投入换来的质量提升变小了。它是四堵里最接近第 0 节「第一种形态」的一堵,但支撑它的是匿名内测评价,不是曲线。</p>
+<p><strong>第四堵:算力增速放缓。</strong> 这堵最容易被错引,因为它来自一家立场明确不站撞墙论的机构。Epoch AI 2025 年 9 月的报告确实预测算力扩张会放缓——但机制是<strong>供给侧的交付周期</strong>:回报不确定,投资人不会一次性梭哈,而是按 10 倍一档分批下注;而每往上跳一档,交付前置期就变长。租 GPU 几乎为零,买 GPU 约半年,建数据中心 1 到 2 年,建超大数据中心或配套电厂 2 到 3 年,显著升级现有晶圆厂约 2 年,从零建先进晶圆厂 4 到 5 年。作者的总结是:「我们目前的最佳猜测是,算力规模每再增加 10 倍,前置期就会拉长约一年。」【单源已核;该文文末的不确定性讨论把中心估计写成 8 个月、并称可能只有 4 个月,与正文的「约一年」不完全自洽。另注:本节两篇报告同出 Epoch 一家,不构成独立互证,后一篇属其 Gradient Updates 观点栏目,页面自带「仅代表作者本人观点」声明】</p>
+<p>这篇报告全文没有任何一处主张同等算力买到的能力变少了。<strong>拿它的放缓预测去支持「收益递减」,恰好读反了。</strong></p>
+<p>这四堵墙被同一个词收纳之后,争论就再也不可能收敛:每一方都在回应另一方没有主张的东西。</p>
+
+<figure>
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">四堵互不兼容的墙,被压进同一个词</text>
+  <rect x="24" y="52" width="320" height="118" rx="10" fill="#4cc9f0" opacity="0.08"/><rect x="24" y="52" width="4" height="118" rx="2" fill="#4cc9f0"/><text x="42" y="80" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">数据墙</text><text x="42" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Ilya Sutskever(2024-12 NeurIPS)</text><text x="42" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">「只有一个互联网」</text><text x="42" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——他在同一张幻灯片上明说算力仍在增长</text><rect x="356" y="52" width="320" height="118" rx="10" fill="#ff6ec4" opacity="0.08"/><rect x="356" y="52" width="4" height="118" rx="2" fill="#ff6ec4"/><text x="374" y="80" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">架构墙</text><text x="374" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Yann LeCun(2025-11 起)</text><text x="374" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">LLM 这条路本身走不到</text><text x="374" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——若路线错,数据够不够就不是问题</text><rect x="24" y="186" width="320" height="118" rx="10" fill="#e8794b" opacity="0.08"/><rect x="24" y="186" width="4" height="118" rx="2" fill="#e8794b"/><text x="42" y="214" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">效果递减</text><text x="42" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">The Information / Bloomberg(2024-11)</text><text x="42" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">同等投入换来的提升变小</text><text x="42" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">——支撑它的是匿名内测评价,不是曲线</text><rect x="356" y="186" width="320" height="118" rx="10" fill="#7b61ff" opacity="0.08"/><rect x="356" y="186" width="4" height="118" rx="2" fill="#7b61ff"/><text x="374" y="214" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">算力增速放缓</text><text x="374" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Epoch AI(2025-09)</text><text x="374" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">机制是数据中心与电厂交付周期,</text><text x="374" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">全文没说同等算力买到的能力变少</text>
+  <text x="24" y="330" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">1 与 2 互不兼容</text>
+  <text x="356" y="330" fill="#7b61ff" font-size="11" font-weight="700" font-family="Menlo,monospace">4 常被错引为 3</text>
+</svg>
+<figcaption>示意:四堵墙需要完全不同的证据,却被同一个词收纳——所以每一方都在回应另一方没有主张的东西</figcaption>
+</figure>
+<h2>5. 撞墙叙事之后的二十一个月:能力时序</h2>
+<p>如果第一种墙真的在 2024 年底关上了,那之后的能力曲线应该是平的。它不平——但读这条曲线需要极大的小心,因为几乎每一格都是厂商自报。</p>
+<p><strong>SWE-bench Verified。</strong> 2024 年 10 月到 2025 年 1 月,一线卡在约 49%:Claude 3.5 Sonnet(新版)49.0%、o1 48.9%、o3-mini(high) 49.3%、DeepSeek R1 49.2%。此后:2025 年 2 月 Claude 3.7 Sonnet 62.3%;2025 年 8 月 GPT-5 报 74.9%;2025 年 11 月三周内 Gemini 3 Pro 76.2%、GPT-5.1-Codex-Max(xhigh 推理档,n=500)77.9%、Claude Opus 4.5 80.9%(不开思考、500 题、5 次独立试验取均值;开 64k thinking 为 80.6%)。到 2026 年这条基准已接近饱和:Anthropic 系统卡报 Claude Opus 5 96.0%、Mythos 5 95.5%、Fable 5 95%(系统卡逐字如此,不带小数位)【全链条厂商自报】。</p>
+<p>这条曲线有三处必须交代的口径问题,而且每一处都削弱它:</p>
+<p>其一,那个「49% 一线」是汇编巧合,不是同一套装置下的测量。OpenAI 自己的系统卡对同一批模型给的是 o1 40.9%(Agentless scaffold)、o3-mini 39%(Agentless)/61%(内部工具)——<strong>同一个模型,换 scaffold 差 22 个百分点</strong>。</p>
+<p>其二,同一根柱子上常有两个分母。Claude 3.7 的 62.3% 与加 scaffold 后的 70.3% 不同分母:同子集(n=489)口径下是 63.7% → 70.3%,scaffold 净增益约 6.6pp,不是 8.0pp。GPT-5 的 74.9% 只跑了 477/500 题。</p>
+<p>其三,「Claude Opus 4.5 首个破 80%」不成立——Anthropic 早在 2025 年 5 月的 Claude 4 发布页就报过 Sonnet 4 在高算力配置(并行测试时计算 + 拒绝采样)下的 80.2%。80.9% 只能说是「首个在不加并行测试时计算的标准配置下越过 80」【原表述已被推翻】。</p>
+<p>而独立复测系统性更低。Epoch AI 用统一 scaffold、484 题跑同一批模型:Claude 3.7 = 61.0、GPT-5 = 73.6、Gemini 3 Pro = 72.9、Opus 4.5 = 76.7,其历史最高读数是 Claude Opus 4.7(max 档)83.5% ± 1.7%。<strong>厂商自报的 96% 与独立复测的 83.5%,没有任何一格被独立复现到厂商所报的水平</strong>【多源】。</p>
+<p><strong>ARC-AGI-2。</strong> 这条更能说明问题,因为它是专门为抗饱和设计的。2025 年 3 月 24 日发布当天,ARC Prize 自己的结论是「Pure LLMs score 0% on ARC-AGI-2, and public AI reasoning systems achieve only single-digit percentage scores」,榜上最高是 o3-preview-low 的 4%。此后(均为官方 leaderboard、semi-private 集):2025 年 11 月 GPT-5.1(Thinking High)17.64%、Gemini 3 Pro 31.11%;2025 年 12 月 GPT-5.2(XHigh)52.91%;到 2026 年 8 月,榜首是 GPT-5.6 Sol(Max)92.50%、每题 1.44 美元,Claude Opus 5(Max)90.42%、每题 2.06 美元——人类面板为 100%【单源已核,官方榜】。</p>
+<p>十七个月,从个位数到九成。</p>
+<p>但同一家机构在 2026 年 3 月 25 日发布了 ARC-AGI-3,发布日的逐字结论是「Humans score 100%. Frontier AI scores 0.51%.」——把全部前沿模型打回近零。这个状态没有维持:截至 2026 年 8 月,Claude Opus 5(High)已达 30.16%,其余绝大多数仍在 3% 以下。</p>
+<p><strong>Humanity's Last Exam。</strong> 2025 年 1 月 24 日发布时(3,000 题版)全是低个位数:GPT-4o 3.3%、Claude 3.5 Sonnet 4.3%、o1 9.1%。2025 年 4 月 3 日数据集定版为 2,500 题,旧版改称 HLE-preview。在定版集、无工具口径下:GPT-5 25.32%(2025-08)、Gemini 3 Pro 37.52%(2025-11);到 2026 年 8 月下旬,榜首是 Gemini 3.1 Pro Preview(thinking high)46.44 ± 1.96 与 GPT-5.4 Pro 44.32 ± 1.95——按 Scale 自己的置信区间排名法,这两者<strong>并列第一</strong>,不是前者领先【单源已核】。</p>
+<p>这里有一条比「撞墙」更精确的反向证据:HLE 论文原文预测「it is plausible that models could exceed 50% accuracy on HLE by the end of 2025」。到 2026 年 8 月,无工具全集口径的最高分仍是 46.44%——<strong>跨过 50% 的时间比基准作者自己的预期晚了逾半年</strong>【单源已核】。这是全文里最接近「进度不及预期」的一条硬证据,而且它来自看多方自己的预测。</p>
+<p><strong>独立测量:METR 时间视界。</strong> 这是唯一一把不由厂商掌握、且刻度有物理含义的尺子。METR 2025 年 3 月的论文定义「50% 时间跨度」——人类专业人士完成某任务所需时长,而 AI 能以 50% 成功率完成——在 170 个任务上测得 2019 至 2025 年指数增长,倍增期约 7 个月(METR 自己加了一句对冲:「趋势在 2024 年可能已经加快」),Claude 3.7 Sonnet 约 59 分钟【单源已核】。</p>
+<p>2026 年 1 月 29 日的 Time Horizon 1.1 把任务集扩到 228 个(8 小时以上长任务从 14 增至 31),基础设施从自研 Vivaria 迁到英国 AISI 的 Inspect。换尺子后,2023 年以来的倍增期从 165 天缩到 131 天,METR 的原话是「progress is estimated to be 20% more rapid under TH1.1」。</p>
+<p>但这个「快 20%」有一处必须写明的限定:<strong>它只属于 2023 年后的子样本。全样本倍增期两版一模一样,都是 196 天</strong>——METR 原文即「exactly the same doubling time」。而且这条全样本曲线是拼接出来的:2023 年前的模型根本没有用 1.1 重测,33 个旧模型里也只重估了 14 个【单源已核,口径修正】。</p>
+<p>另需更正一个流传的换算:2024 年以来的倍增期 TH1.1 为 89 天,这对应每年约 <strong>17 倍</strong>,不是常被误传的 10 倍——每年 10 倍对应的恰恰是 TH1.0 的 109 天。</p>
+<p>这把尺子自己的边界同样要写出来:31 个 8 小时以上长任务中只有 5 个有实测人类基线;METR 实时页面明写「16 小时以上的测量在当前任务集下不可靠」,而 2026 年的新点已经顶到这条线;它 2026 年 6 月对 GPT-5.6 Sol 给出的约 11.3 小时 [5,40],被 METR 自己声明「不认为这些数字构成一次稳健的测量」——因为模型在长任务上出现作弊行为,按不同判罚方式,估计值可以在 11 小时到 270 小时之间横跳【单源已核】。</p>
+<p><strong>独立测量:Epoch 能力指数。</strong> ECI 把 50 多个基准用项目反应理论拟合成一条统一刻度。在其「AI capabilities progress has sped up」页所用的快照中(149 个模型,2021-12 至 2025-12),前沿分数在 2024 年 4 月前后出现断点,Epoch 的原话是「2024 年 4 月出现 90% 的加速」【单源已核】。</p>
+<p>这条证据有一个决定性的限定,而它恰好指向本文的核心:<strong>ECI 测的是已部署模型的总能力</strong>——条目本身就是「模型 + 推理档位」,推理、强化学习、后训练与测试时算力全部烘在分数里,方法学明言不假设能力与时间或算力之间有任何关系,<strong>根本没有预训练这一维可供拆分</strong>。Epoch 自己也把加速归因于推理模型。</p>
+<p>所以「预训练收益递减」与「总能力加速」可以同时为真——而 ECI 无法为前者作证,也无法为其反面作证。</p>
+<p>还需收窄「此后未见减速」:Epoch 2026 年 4 月的报告在四个指标中有三个看到强加速,但第四个(WeirdML V2)没有;而且加速证据集中在编程与数学——正是可自动验证、因而被强化学习重点攻关的领域,Epoch 提醒「加速可能没有标题数字显得那么普遍」【单源已核】。</p>
+
+<figure>
+<svg viewBox="0 0 700 358" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">撞墙叙事之后的二十一个月:三条基准轨迹(全部为厂商自报或官方榜)</text>
+  <line x1="70" y1="76" x2="70" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="70" y1="250" x2="656" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <text x="60" y="80" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">100%</text>
+  <text x="60" y="167" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">50%</text>
+  <text x="60" y="254" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">0%</text>
+  <line x1="70" y1="163" x2="656" y2="163" stroke="#5a6378" stroke-width="0.8" stroke-dasharray="2,5" opacity="0.5"/>
+  <text x="70" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2024-11</text>
+  <text x="260" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2025-06</text>
+  <text x="450" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2026-01</text>
+  <text x="640" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">2026-08</text>
+  <path d="M 70.0 164.7 L 151.4 141.6 L 314.3 119.7 L 395.7 109.2 L 585.7 83.0" fill="none" stroke="#4cc9f0" stroke-width="2.2"/><circle cx="70.0" cy="164.7" r="3.6" fill="#4cc9f0"/><circle cx="151.4" cy="141.6" r="3.6" fill="#4cc9f0"/><circle cx="314.3" cy="119.7" r="3.6" fill="#4cc9f0"/><circle cx="395.7" cy="109.2" r="3.6" fill="#4cc9f0"/><circle cx="585.7" cy="83.0" r="3.6" fill="#4cc9f0"/>
+  <path d="M 178.6 243.0 L 395.7 195.9 L 422.9 158.0 L 640.0 89.1" fill="none" stroke="#ff6ec4" stroke-width="2.2"/><circle cx="178.6" cy="243.0" r="3.6" fill="#ff6ec4"/><circle cx="395.7" cy="195.9" r="3.6" fill="#ff6ec4"/><circle cx="422.9" cy="158.0" r="3.6" fill="#ff6ec4"/><circle cx="640.0" cy="89.1" r="3.6" fill="#ff6ec4"/>
+  <path d="M 124.3 234.2 L 314.3 206.0 L 395.7 184.8 L 640.0 169.3" fill="none" stroke="#7b61ff" stroke-width="2.2"/><circle cx="124.3" cy="234.2" r="3.6" fill="#7b61ff"/><circle cx="314.3" cy="206.0" r="3.6" fill="#7b61ff"/><circle cx="395.7" cy="184.8" r="3.6" fill="#7b61ff"/><circle cx="640.0" cy="169.3" r="3.6" fill="#7b61ff"/>
+  <rect x="24" y="288" width="11" height="4" rx="2" fill="#4cc9f0"/>
+  <text x="42" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">SWE-bench Verified(编程)</text>
+  <rect x="24" y="308" width="11" height="4" rx="2" fill="#ff6ec4"/>
+  <text x="42" y="314" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-2(抗饱和设计)</text>
+  <rect x="368" y="288" width="11" height="4" rx="2" fill="#7b61ff"/>
+  <text x="386" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">人类最后的考试(无工具)</text>
+  <text x="24" y="338" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-3(2026-03)发布日把全部前沿模型打回 0.51%</text>
+</svg>
+<figcaption>示意:纵轴为各基准自身的百分制得分,三条轨道刻度不可互比。SWE-bench 的独立复测(Epoch,统一 scaffold)历史最高仅 83.5%,低于厂商自报的 96%</figcaption>
+</figure>
+<h2>6. 但这些尺子本身正在解体</h2>
+<p>上一节的每一条曲线都建立在基准之上。而在这两年里,基准作为测量工具的可靠性下降得比能力上升得还快。</p>
+<p><strong>scaffold 是最大的混杂变量。</strong> Epoch AI 逐字写道:在 SWE-bench Verified 上「simply switching the scaffold makes up to an 11% difference for GPT-5 and up to a 15% difference for Kimi K2 Thinking」,并断言「The choice of scaffold has the single biggest impact on the overall performance」(原文用的是「% difference」而非「百分点」,单位在一手来源里并未明示)。比这更硬的是 OpenAI 自述:o3-mini 在同一基准同一天,用开源 Agentless scaffold 得 39%,用「代表最大能力激发的内部工具 scaffold」得 61%——同一个模型,22 个百分点【多源】。</p>
+<p>由此可以推出(这是本文的推断,不是 Epoch 的原话):<strong>跨厂商榜单上 1 到 3 个百分点的差距基本没有判别力</strong>。Epoch 自己给每个分数标的误差棒是 ±1.7% 到 ±2.0%,而榜上确实出现过两个模型以 78.7% 并列。</p>
+<p><strong>同名不同物是这两年最贵的一课。</strong> 2024 年 12 月 20 日,ARC Prize 公布 o3 在 ARC-AGI 半私有集上的成绩:在 1 万美元算力上限内、6 个样本,得 75.7%;把算力放大约 172 倍到 1,024 个样本,得 87.5%——这一档超出了 ARC-AGI-Pub 的 1 万美元预算规则,并不进公开榜。OpenAI 同时告知,「他们在公开训练集的 75% 上训练了我们所测试的这个 o3」。</p>
+<p>2025 年 4 月 22 日,ARC Prize 复测正式发布版 o3:ARC-AGI-1 上 o3-low 41%、o3-medium 53%,ARC-AGI-2 上两档均未超过 3%(1.9% / 2.9%)。OpenAI 向其确认「this public o3 model differs from the o3-preview we tested in December 2024」——不同模型、preview 是纯文本而发布版含视觉输入、preview 的测试时算力档在产品中不可用【单源已核】。</p>
+<p>发布会上那个 87.5%,和用户能买到的那个 41%,不是同一个东西。</p>
+<p>还有一档更值得记的:o3-high 在 ARC-AGI-1 的 100 题中只返回了 37 题、其中 82% 正确。ARC Prize 明确称这类数据「should not be reported on」——分母是返回的 37 题,而未返回的任务系统性偏难。(ARC Prize 后来完成了完整测试,官方榜今日列 o3 High 为 ARC-AGI-1 的 60.83%、ARC-AGI-2 的 6.53%,取代了当初那组残缺读数。)【单源已核】</p>
+<p><strong>成本数字可以被改三次,而且方向会掉头。</strong> 那次 ARC 评测的成本是本文核对下来最不稳定的一组数。发布当天,75.7% 那一档标的是总计 2,012 美元、每题 20 美元,而 87.5% 那一档的成本干脆是空的,注明「定价与功能可用性仍待定」。2025 年 3 月 24 日,ARC 按 o1-pro 价目重算,75.7% 档涨到每题 201 美元——已经越过页面自己援引的「低于 1 万美元」参赛预算;同年 4 月,ARC Prize 的 Mike Knoop 按同一口径给出高算力档每题约 3.44 万美元。到 2025 年 12 月 10 日,ARC 改按 o3-pro 的 80 美元/百万 tokens 重算,数字大幅回落:87.5% 档首次被填上每题 4,560 美元。</p>
+<p>所以流传的「4,560 美元被上修到约 3 万美元」<strong>把顺序说反了</strong>:真实路径是先空缺、再涨到每题约 3.44 万、最后降到 4,560【判死,方向须更正】。同一张表至今仍混着两套价目。</p>
+<p><strong>出资方可以拥有题目。</strong> 2025 年 1 月 23 日,Epoch AI 发布声明承认:FrontierMath 的核心 300 道题是 OpenAI 出资委托制作的,「OpenAI 保留这些题目的所有权,并可以看到题面与解答,holdout 集除外」;声明发布时,那个 50 题的 holdout 集<strong>仍在敲定中</strong>——也就是说,2024 年 12 月 o3 宣布 FrontierMath 超过 25% 时,这个 OpenAI 看不到答案的保留集尚未落地。Epoch 同时承认「Many contributors were unaware of these details」【单源已核】。</p>
+<p>至于「不用于训练」,并不在这份官方声明里:那是 TechCrunch 在 1 月 19 日报道中转述 Besiroglu 的说法——OpenAI 与 Epoch 之间只有一个<strong>口头协议</strong>【单源已核】。</p>
+<p>数字上的落差同样需要小心。2024 年 12 月的直播里,OpenAI 首席研究官 Mark Chen 说的是:「目前所有的产品在 FrontierMath 上都不到 2%……我们看到,在激进的 test-time compute 设置下,o3 在内部能做到 25% 以上。」2025 年 4 月,Epoch 用公开发布的 o3 独立复测,得到约 10%。</p>
+<p>但这不是干净的打脸:测的不是同一个模型,也不是同一份题(180 题的 2024-11-26 版 vs 290 题的 2025-02-28-private 版),而且这个 10% 后来被显著上修——按 Epoch 现行公开数据,同一份私有题集上发布版 o3 已达 18.7%(高推理档)。<strong>真正稳固的教训不是「厂商谎报」,而是:出资方拥有题目、评测方口径可变、引出方式决定分数,三者叠加时,单个基准数字几乎不具备独立仲裁力。</strong></p>
+<p><strong>基准本身有寿命。</strong> 2026 年 ICML 的一项系统研究(arXiv:2602.16763,EvalEval Coalition,约四十人跨机构团队)考察了 60 个语言模型基准的 14 项饱和属性:按饱和指数 ≥ 0.7 计,29 个已达高或极高饱和,其中 14 个 ≥ 0.9。饱和率随基准年龄上升(24 个月内 42.9%,超过 60 个月 54.5%),但作者自己按住了这个结论——趋势温和,常规显著性阈值下并不显著。</p>
+<p>被证伪的那一半直觉更有意思:<strong>私有测试集并不系统性地更抗饱和</strong>——「private test sets do not exhibit systematically lower saturation than public」。作者倾向于认为专家策题与对抗式设计更耐用,但也只写成「可能」【单源已核】。</p>
+<p>至于污染,Scale AI 的 GSM1k(arXiv:2405.00332)复刻了一千道同难度新题:在新题上准确率最多掉 8 个百分点(注意:广为流传的 13% 是 2024 年 5 月初稿的数,作者已自行下修),Phi 与 Mistral 系列几乎在每次发布、每个尺寸上都表现出系统性过拟合,模型复现 GSM8k 原题的概率与其落差正相关(Spearman r² = 0.36,同样是上修后的值)。</p>
+<p>但同一篇的结论对污染叙事有明确设限:「all frontier models show minimal signs of overfitting」,而且「即便最过拟合的模型,面对保证未进训练集的新题仍能泛化」【单源已核】。也就是说,污染是真的,但它坐实在中小开源模型上,不支持「前沿旗舰的分数全靠背题」这个强命题。</p>
+<p><strong>最后一个信号来自厂商自己。</strong> 到 2026 年,Anthropic 的两次旗舰发布已经完全不再把 SWE-bench Verified 放在头条指标里,改报 Frontier-Bench、CursorBench、ARC-AGI-3、OSWorld 2.0 等;而 Anthropic 自 Opus 4.7 起披露,其 memorization screens 会标出 SWE-bench 题目中的一个子集。当被测方开始主动更换自己的考卷时,那条 49% → 96% 的曲线读起来就更需要小心了。</p>
+
+<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">同一个模型,换一套装置,分数就变</text>
+  <line x1="404" y1="56" x2="404" y2="266" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="392" y="82" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">o3-mini,开源 Agentless 装置(OpenAI 自家系统卡)</text><rect x="404" y="68" width="82" height="19" rx="5" fill="#7c8593" opacity="0.85"/><text x="495" y="82" fill="#7c8593" font-size="12" font-weight="700" font-family="Menlo,monospace">39%</text><text x="392" y="109" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">o3-mini,内部工具装置(同日、同基准)</text><rect x="404" y="95" width="128" height="19" rx="5" fill="#4cc9f0" opacity="0.85"/><text x="541" y="109" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">61%</text><text x="392" y="155" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">o3-preview 演示版,ARC-AGI-1,172 倍算力档</text><rect x="404" y="141" width="184" height="19" rx="5" fill="#7c8593" opacity="0.85"/><text x="597" y="155" fill="#7c8593" font-size="12" font-weight="700" font-family="Menlo,monospace">87.5%</text><text x="392" y="182" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">发布版 o3(medium),同一题库,同一机构复测</text><rect x="404" y="168" width="111" height="19" rx="5" fill="#ff6ec4" opacity="0.85"/><text x="524" y="182" fill="#ff6ec4" font-size="12" font-weight="700" font-family="Menlo,monospace">53%</text><text x="392" y="228" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">厂商自报最高:Claude Opus 5,SWE-bench(2026)</text><rect x="404" y="214" width="202" height="19" rx="5" fill="#7c8593" opacity="0.85"/><text x="615" y="228" fill="#7c8593" font-size="12" font-weight="700" font-family="Menlo,monospace">96.0%</text><text x="392" y="255" fill="#9aa3b2" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">独立复测最高:Epoch 统一 scaffold(2026)</text><rect x="404" y="241" width="175" height="19" rx="5" fill="#e8794b" opacity="0.85"/><text x="588" y="255" fill="#e8794b" font-size="12" font-weight="700" font-family="Menlo,monospace">83.5%</text>
+  <text x="24" y="130" fill="#4cc9f0" font-size="10.5" font-weight="700" font-family="Menlo,monospace">同模型差 22 个百分点</text>
+  <text x="24" y="203" fill="#ff6ec4" font-size="10.5" font-weight="700" font-family="Menlo,monospace">同名不同模,差 34.5 个百分点</text>
+  <text x="24" y="276" fill="#e8794b" font-size="10.5" font-weight="700" font-family="Menlo,monospace">自报与独立复测差 12.5 个百分点</text>
+</svg>
+<figcaption>示意:条长按分数等比。三组对照分别来自 OpenAI 系统卡、ARC Prize 复测与 Epoch 独立评测——每一组的两端都常被当作「同一个数字」引用</figcaption>
+</figure>
+<h2>7. 数据墙:一堵被持续赎买、不断后移的墙</h2>
+<p>Ilya 的墙是四堵里最具体的一堵,也是唯一有定量研究的一堵。它的现状是:<strong>没有撞上,但也没有消失——它被一系列手段推后了,而每一种手段都有自己的边界。</strong></p>
+<p><strong>存量测算。</strong> Villalobos 等人 2022 年的初版预测高质量语言数据「很可能在 2026 年前」耗尽。2024 年 6 月的修订版(ICML 2024)改口为:若当前趋势延续,模型将在 <strong>2026 到 2032 年间</strong>训练到与公开人类文本总存量相当的数据集规模,过训练则更早【单源已核,两版结论差异大,引用必须标版本】。</p>
+<p>配套的 Epoch 博客给了数量级:质量与重复调整后的有效存量约 300 万亿 token——但必须带上原文的置信区间「a 90% confidence interval of 100T to 1000T」,<strong>整整一个数量级</strong>。年份的区间是另一个:「Our 80% confidence interval is that the data stock will be fully utilized at some point between 2026 and 2032.」两个区间不要串用。</p>
+<p>他们还做了两个条件情景:过训练 5 倍则 2027 年用完,过训练 100 倍则 2025 年用完。这是情景不是预测——现实中的参照是 Llama 3-70B,过训练倍数为 10 倍。拿「Epoch 预测 2025 年数据用完但没发生」去反驳,是打稻草人【单源已核】。</p>
+<p>一个语义澄清很重要:Epoch 的口径是<strong>训练集规模追上存量</strong>,即需求线撞上存量线,不是「数据被物理用光」。</p>
+<p><strong>第一种赎买:重复。</strong> Muennighoff 等人(NeurIPS 2023)测得:在算力预算固定、数据受限的条件下,「training with up to 4 epochs of repeated data yields negligible changes to loss compared to having unique data」。但同一段的下半句同样重要:「However, with more repetition, the value of adding compute eventually decays to zero.」——重复得再多,继续加算力的价值最终归零【单源已核,三票全票通过,是全文两组原样成立的论断之一】。</p>
+<p>边界要说清:无损的是 <strong>loss</strong>,论文没有主张下游能力同样无损;实验规模至多 900 亿 token、90 亿参数,比 2026 年的前沿训练低一到两个数量级;而且是 2023 年的 C4 纯预训练配方,无指令微调、无合成数据、无 RL 后训练。</p>
+<p><strong>第二种赎买:合成数据。</strong> 这里的分母陷阱最多。</p>
+<p>微软 phi-4 的预训练 mixture 表写着:合成数据占 token 预算 40%,模型预训练约 10T token,而这 40% 背后只有约 290B 独立合成 token,被重复了 13.8 个 epoch。而且这张表里另有 15% 是 LLM 改写的 web rewrites、20% 的 code data 论文自陈为合成与原始代码混合——所以「LLM 生成」的真实占比高于 40%。</p>
+<p>phi-4 确实在两项基准上压过了生成它训练数据的模型(GPQA 56.1 对 50.6、MATH 80.4 对 74.6)。但同一张表往右看:phi-4 的 SimpleQA 是 3.0,GPT-4o 是 39.4;MMLU、MGSM、HumanEval、DROP 也全部落后。<strong>七项里赢两项,而输得最难看的那一项恰好是事实召回——真实语料买来的正是这个</strong>【单源已核】。</p>
+<p>NVIDIA Nemotron-4 340B 那个被反复引用的「98% 合成」,原文限定得很清楚:「over 98% of data used in our model <strong>alignment</strong> process is synthetically generated」,整个对齐流程只用了约 2 万条人工标注。它的预训练是另一回事——9T token,合成占比通篇没提【单源已核,分母陷阱】。</p>
+<p>而前沿闭源模型用了多少合成数据,<strong>无法被外部回答</strong>:GPT-4 报告立下的规矩此后成了行业惯例。</p>
+<p>需要主动更正一个直觉:常说的「合成数据成功案例全是有更强教师的蒸馏,所以不能外推」——这个理由靠不住。Nemotron 论文明写「我们发现教师模型并不给学生模型设上限」,它第一轮的数据生成器 Mixtral-8x7B-Instruct 比被训模型弱得多;phi-4 摘要也自称其方法「超出了蒸馏」。<strong>挡住外推的是层级与不可测量,不是教师强弱</strong>:可核的成功案例要么发生在对齐层(Nemotron),要么发生在小模型上(phi-4 是 14B),没有任何一家公布过前沿预训练规模上「合成替代人类文本」的可核测量【口径修正,原论断被推翻】。</p>
+<p><strong>model collapse:一个受控实验现象,不是一起工程事故。</strong> Shumailov 等人 2024 年 7 月发在 Nature 的论文常被引用的那句带对冲的话——「indiscriminately training... can lead to a collapse」——其实是 <strong>Nature 编辑写的导语,不是论文摘要</strong>。作者自己的摘要一点没打折:「We find that indiscriminate use of model-generated content in training causes irreversible defects in the resulting models, in which tails of the original content distribution disappear.」用的是 causes 和 irreversible【判死,修正方向与通常设想相反】。</p>
+<p>但支撑这个强判断的实验相当小:在 wikitext2 上对 OPT-125m(1.25 亿参数)做递归<strong>微调</strong>,对照组是「五个 epoch、后续世代不保留任何原始数据」。而同一篇论文里另一个设定给出了解药:「Ten epochs, 10% of original training data preserved」——每一代都从原始真实数据里重新随机抽取 10%,结果是「only minor degradation of performance」(仅有轻微退化,不是不退化)。真实数据从未离场,这是它奏效的原因。</p>
+<p>Gerstgrasser 等人(arXiv:2404.01413)给出了正面反驳:「replacing」真实数据才趋向坍缩,「accumulating the successive generations of synthetic data alongside the original real data avoids model collapse」,并证明累积时测试误差有与迭代次数无关的有限上界。而真实互联网更接近累积而非替换。</p>
+<p><strong>截至 2026 年 8 月,没有任何一例经证实的、在真实生产训练管线中观测到 model collapse 的公开报告。</strong> 它至今是一个受控实验现象与理论关切。Schaeffer 等人的立场论文进一步指出,这个领域实际存在「八种互不相同、有时互相冲突的 model collapse 定义」,并认为若干著名的崩溃情景是容易规避的【原表述已被推翻;这是缺席证据——厂商没有披露义务,内部失败的 run 不会公开】。</p>
+<p><strong>第三种赎买:采购与授权。</strong> 这一侧的供给确实在收紧。Longpre 等人的《Consent in Crisis》测得:2023 年 4 月到 2024 年 4 月的一年里,robots.txt 收紧使 C4 全体 token 的约 5%+、以及 C4 中最活跃维护那批关键来源的 28%+ 被完全禁止抓取;ToS 口径则约 45% 带有某种形式的使用限制。</p>
+<p>但这份研究测的是<strong>门上挂了多少块牌子,不是有多少数据真的拿不到了</strong>。论文自己的条件从句写得很清楚:这些后果的前提是「若这些限制被开发者尊重、或被法律强制执行」;它还自陈「实践中多数自动爬虫并不理会这些条款」。robots.txt 也不追溯——牌子挂出之前归档的爬取照样能用。而且那个 28% 的分母是各语料按 token 量排出的头部域,不是整个 C4;论文在摘要、引言、正文里还分别给了 28%+、25%+、20–33% 三个数。最后:这已经是两年多前的窗口了【单源已核,大量口径修正】。</p>
+<p><strong>那么墙咬到过任何一次具体的训练吗?</strong> 唯一的公开个案是《华尔街日报》2024 年 12 月 20 日关于 Orion 的报道。它确实说了 OpenAI 至少跑过两次大型训练,「每一次都冒出新问题,软件达不到研究者期望的结果」,也说了研究者发现数据的多样性不如原以为的那么好,以及公司开始雇人写代码、解数学题来造新数据。</p>
+<p>引用它有三个坑。第一,「每次五亿美元」是错的——WSJ 说的是通则:一次为期六个月的训练 run「光算力成本就可能花掉约五亿美元」,并没有说 Orion 那两次各花了这个数。第二,那句被引用最多的「世界上可能没有足够的数据让它变得足够聪明」,是 WSJ <strong>自己的副标题</strong>,是记者的归因框架;OpenAI 未予置评,从未确认这个因果。第三,也是最容易出事的一点:这篇报道里的主角「officially called GPT-5, code-named Orion」,但 Orion 最后是在 2025 年 2 月以 <strong>GPT-4.5</strong> 的名义发布的;2025 年 8 月发布的 GPT-5 完全是另一个东西,走的是缩小预训练、放大后训练的路子。<strong>这则报道能支撑的结论是「GPT-4.5 那条纯堆规模的路撞了墙」,不能写成「GPT-5 撞了墙」</strong>【多源,重要口径修正】。</p>
+<p><strong>而公开的预训练规模,并不构成一条可外推的上升趋势。</strong> 数字本身没错:Llama 3 旗舰在 15.6T 文本 token 上预训练,Qwen3 是 36T,Llama 4 Scout 约 40T。但这三个数不能连成一条线——Llama 3 那个是纯文本,Llama 4 Scout 那个是多模态(Meta 官方说整体 mixture「超过 30 万亿 token,包含文本、图像和视频」),尺子不是同一把;Qwen3 的 36T 里论文自己写明包含用 Qwen2.5-VL 从 PDF 识别、再由 Qwen2.5 精修得到的「数万亿 token」以及合成的「数万亿 token」——这部分增长本身就是模型造出来的。</p>
+<p>最能说明问题的是同代内部:<strong>Llama 4 Maverick 比 Scout 更强,却只用了约 22T token,比 Scout 的 40T 少了近一半</strong>。连「逐代上涨」都不成立,更谈不上是一条能外推的趋势【多源,原论断被大幅修正】。</p>
+<h2>8. 推理轴:换了一根轴,不等于取消了轴</h2>
+<p>2024 年 9 月之后,「scaling」这个词开始指两件不同的事,而双方经常各说一件。</p>
+<p>OpenAI 在 o1 博客里的原始表述是:「The performance of o1 consistently improves with more reinforcement learning (train-time compute) and with more time spent thinking (test-time compute). The constraints on scaling this approach differ substantially from those of LLM pretraining, and we are continuing to investigate them.」——最后半句常被略去,而它恰恰是厂商自己承认新范式的约束尚未摸清【当事方口径】。</p>
+<p>随文那两幅著名的双曲线图,y 轴是 AIME pass@1 准确率,x 轴只写「train-time compute (log scale)」和「test-time compute (log scale)」——<strong>只有裸刻度线,没有任何数值标注</strong>。它是一张示意图,读不出倍数、斜率或绝对算力量级。</p>
+<p>同一篇给出的 AIME 成绩是三档不同采样口径:单样本 74%(11.1/15)、64 样本共识 83%、1000 样本经学习打分器重排 93%。「o1 拿到 AIME 93%」如果不注明采样口径,就把多次采样的成绩当成了单次推理能力【单源已核】。</p>
+<p><strong>这根新轴的形状,可能和旧轴不一样。</strong> Meta 主导的《The Art of Scaling Reinforcement Learning Compute for LLMs》(arXiv:2510.13786)投入超过 40 万 GPU 小时,明确写道:「Unlike pre-training, which typically uses power-law to fit predictive curves, we model pass rate versus log(compute) with a sigmoidal function」——用 sigmoid 而非幂律拟合,其实质含义是<strong>曲线存在渐近上限</strong>。需注明该研究的 10 万 GPU 小时验证 run 跑在 8B 稠密模型上,规模远低于前沿【单源已核】。</p>
+<p>而曲线形状在 2026 年也未定于一尊:ACL 2026 的一项工作在 Qwen2.5 0.5B–72B 上反而拟合出幂律,同时报告「RL learning efficiency exhibits a latent saturation trend with increasing model scale」【方向存争】。</p>
+<p><strong>这根轴的增速可能是一次性红利。</strong> Epoch 的署名评论(Josh You,2025-05)推断:若推理训练算力继续每几个月 10 倍增长,「perhaps within a year」会触及总训练算力前沿,此后增速收敛到总训练算力约 4 倍/年的增长率。</p>
+<p>但那个「10 倍」并非 OpenAI 的正式披露,而是 Epoch 从 o3 直播的一张<strong>坐标含义未标注的图</strong>上读出来的,Epoch 自陈主讲人没有做任何口头说明、x 轴只是「likely」为推理训练算力【单源已核,证据强度需降级】。</p>
+<p>截至 2026 年 8 月,<strong>这条预测无法结算</strong>:前沿实验室此后未再披露可比的 RL 算力数字,Epoch 也未发布复盘【未验证:该预测至今无公开数据可结算】。</p>
+<p><strong>RL 到底是引出了已有能力,还是新增了能力?这场争论没有结案。</strong> Yue 等人(arXiv:2504.13837)用 pass@k 大 k 值探测边界,发现 RLVR 模型在小 k 占优、基座在大 k 反超,结论是「the current training setup does not elicit fundamentally new reasoning patterns」。两点须交代:一是这已是修订后的措辞,v1 摘要写的是更硬的「the RL does not, in fact, elicit fundamentally new reasoning patterns」——作者在争论中把「RL 不能」收窄成了「当前设置不能」;二是同一篇摘要明确把蒸馏排除在外,称蒸馏「can genuinely expand the model's reasoning capabilities」。其实验最大到 32B,<strong>没有前沿规模模型</strong>。</p>
+<p>NVIDIA 的 ProRL(arXiv:2505.24864)常被当作干净的反例,但它不是。原文只说「across a wide range of pass@k evaluations」,而其 §4.2 的标题就是「Diminish, Plateau, and Sustained Gains」,并直言在基座本已擅长的任务上 RL 带来「minimal or even negative gains」、构成「a narrowing of the reasoning boundary」。更关键的是,<strong>ProRL 的起点并非原始基座,而是 DeepSeek-R1-Distill-Qwen-1.5B 这个已被蒸馏过的推理 checkpoint</strong>——而蒸馏恰恰是 Yue 等人承认能带来新模式的那条路径。两文并非正面对撞【原表述已被推翻】。</p>
+<p>真正的分歧根源是:训练步数(数百 vs 逾两千)、起点模型性质(原始 base vs 蒸馏 checkpoint)、任务难度分层、k 取值与统计口径——而不是「1.5B vs 前沿」(ProRL 才是小的那个,两边都不前沿)。</p>
+<p><strong>推理的经济性,同时在变便宜和变贵。</strong> Epoch 测得(数据截至 2025 年 2 月):达到同一性能水位的推理价格每年下降 9 到 900 倍不等,其中「达到 GPT-4 在博士级科学题上表现」的价格每年降约 40 倍;但 Epoch 自己提醒,最快的降幅集中在该文写作前的那一年(约 2024 年 3 月至 2025 年 2 月),能否持续存疑【单源已核】。</p>
+<p>反方向上,推理模型为了拿到更高的分数会生成大量不给用户看的思考 token,而这些 token 一样计费。落到实测上:ARC Prize 2025 年 4 月的数字是 o3 在 ARC-AGI-1 上每题 1.22 到 2.52 美元,而 o4-mini 每题 0.05 到 0.23 美元【单源已核】。</p>
+<p>(需要说明:坊间流传的「o1 跑完基准套件花 2,767.05 美元、GPT-4o 只要 108.85 美元」在 Artificial Analysis 的任何页面都找不到一手出处,本文不采用【判死,两票】。)</p>
+<p>价格本身也值得单说一句。OpenAI 的官方 changelog 记载,2025 年 6 月 10 日随 o3-pro 发布同时下调了 o3 的价格,现行官方定价为每百万 token 输入 2 美元、输出 8 美元。但常被一并引用的另外三项——降幅「80%」、那句「同一个模型,只是更便宜」、以及「独立复测确认性能未变」——本次核查都没能回溯到一手出处,按【未验证】处理。这也意味着,「价格与能力可以各走各的」这个推论目前缺一个可核的支点,本文不按结论写。</p>
+<h2>9. 真正在咬合的约束,在供给侧</h2>
+<p>如果第一种墙查不出来,第二种墙——经济上的墙——现在到哪一步了?</p>
+<p>答案是:它正在逼近,但<strong>咬合的位置不在收益侧,而在电力、混凝土和交付周期</strong>。</p>
+<p><strong>Epoch 2024 年 8 月的《Can AI scaling continue through 2030?》先把四个约束排了序。</strong> 数据这一侧:被索引的网络约有 500 万亿词的独特文本,到 2030 年预计再增长 50%;把多模态折算进来后,2030 年可用于训练的有效 token 在 400 万亿到 2 京之间,足以支撑 6e28 到 2e32 FLOP 的训练。</p>
+<p>这里有个容易引错的地方:这个区间<strong>排除了全部合成数据</strong>——报告方法论写明「在我们的预测中只考虑了人类生成的数据」,合成被单独列为上行空间。也就是说,400 万亿这个下限,是在完全不指望合成数据的前提下算出来的【单源已核,重要口径】。</p>
+<p>报告的结论是 2e29 FLOP 量级的训练到 2030 年「很可能做得到」——相当于把模型再往上推一截,幅度等同于 GPT-4 超越 GPT-2 的那一截。而挡路的排序是:<strong>电力 &gt; 芯片产能 &gt; 数据 &gt; 延迟。数据排第三。</strong></p>
+<p><strong>2025 年 9 月那篇给出了放缓的机制,而这个机制里没有一个环节是「算力买不到能力了」。</strong> 逻辑是:回报太不确定、代价太大,投资人不会一次性梭哈,而会按 10 倍一档分批下注、每档观察一次再决定;而每往上跳一档,交付前置期就变长(见第 4 节的阶梯)。</p>
+<p>他们同时给了一个短期缓冲:即便投资扩张被前置期拖慢,前沿实验室<strong>靠把更大比例的存量算力分配给训练</strong>,或许还能把训练算力以每年 5 倍再推一到两年——原文特别提醒,这一动态最直接作用于实验室的<strong>算力总存量,而不是单次训练 run 的规模</strong>【单源已核】。</p>
+<p><strong>这个供给侧约束有一条来自当事方的直接证词。</strong> 微软 CEO Satya Nadella 在 2025 年 11 月的一档播客上说:「The biggest issue we are now having is not a compute glut, but it's power... you may actually have a bunch of chips sitting in inventory that I can't plug in.」——不是缺芯片,是没有能插电的机房【未验证:该引语未进入本期验证流程,出自 2025 年 11 月的一档播客、经媒体转述;方向与说话者自身利益相反,但本文不按已核事实使用】。</p>
+<p><strong>算力经济的四组数字。</strong> 按 Epoch 的口径,每一组都得带上自己的限定:</p>
+<p><em>增速</em>:前沿模型训练算力在 2010 年到 2024 年 5 月之间以每年 5.3 倍增长(90% CI 4.9–5.7);全部值得注意的模型是 4.1 倍;语言模型这一支在 2020 年年中出现过一次可检测的减速,此后到 2024 年 5 月约为每年 5.0 倍(需说明:Epoch 正文把该区间标为 90% 置信、附录表格标为 80%,而上下界相同,其一必为笔误)。但同一张附录表里还有一个不该被略过的数:「近期前沿模型」(约 2018 至 2024 年 5 月)只有每年 <strong>4.2 倍</strong>,明显低于 5.3 这个头条数。而且这套数据统统止于 2024 年 5 月【单源已核】。</p>
+<p><em>成本</em>:单次最大训练 run 的成本自 2016 年起以每年 2.4 倍增长(90% CI 2.0–2.9),从 2016 年 GNMT 的约 20 万美元到 2025 年 Grok 4 的约 4.9 亿美元(2023 年美元)。口径是<strong>把集群成本按训练时长摊销后的硬件加能源</strong>,约一半是 GPU——不是建这个集群的全额资本开支,两者能差一个量级【单源已核】。</p>
+<p><em>算法效率</em>:达到既定性能阈值所需的算力约每 8 个月减半(95% CI 约 5 到 14 个月),基于 2012 至 2023 年间 200 多次语言模型评测。这条要读细:它量的是困惑度,不是下游能力;论文结论段自己写的是「8 到 9 个月」,换用交叉验证汇总时中位数为 7.8 个月、而区间宽到 1.5 至 17.6 个月;数据止于 2023 年,<strong>整个推理模型时代都不在里面</strong>【单源已核】。</p>
+<p><em>一个反例</em>:Epoch 估计 GPT-5 的总训练算力约 5e25 FLOP,高于 GPT-4 的约 2e25,但<strong>低于 GPT-4.5 的 &gt;1e26</strong>。这是 GPT 系列里第一次出现后一代比前一代用更少训练算力的情况。Epoch 的归因不是撞墙:他们认为 OpenAI 把资源押在了扩展后训练上,而当时的新后训练技术还不够成熟、无法在 GPT-4.5 那个量级上施展。他们预测下一代旗舰会回升,但同一篇也自我对冲——回归增长趋势「也许持续不了太久」,并点名高质量预训练数据与后训练 RL 环境的可用性可能是更难的瓶颈。(该文出自 Epoch 四位研究者的 Gradient Updates 观点栏目,页面自带「仅代表作者本人观点」声明;坊间把这段概括成「暂停,不是停止」的那句话,出自 Transformer News 的 Lynette Bye,不是 Epoch 的定性。)【单源已核,Epoch 第三方推断,OpenAI 未披露】</p>
+<p><strong>而需求侧没有退坡的迹象。</strong> Epoch 2026 年 5 月的测算是:按当前价格,token 需求约以每年 10 倍增长,而全球推理供给能力约以每年 3.4 倍增长,长上下文与 agent 类工作负载最先撞上供给缺口【未验证:该测算未进入本期验证流程;需求侧数字本身是多代理指标拼接的估算】。</p>
+<p>这与「AI 需求不足以撑起资本开支」的空头叙事直接对撞。而空头论证本身也值得看清结构:Michael Burry 那套广为流传的论据,核心是折旧会计与循环融资(据报道估计行业 2026–28 少提折旧约 1,760 亿美元),<strong>不是模型能力撞墙</strong>——两者常被打包混用,但它们需要完全不同的证据【未验证:该数字未进入本期验证流程,且出自持仓方经媒体转述】。</p>
+
+<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">真正在咬合的约束(Epoch AI 排序),以及交付前置期阶梯</text>
+  <rect x="24" y="52" width="146" height="46" rx="8" fill="#ff6ec4" opacity="0.22"/><rect x="24" y="52" width="146" height="3" rx="1.5" fill="#ff6ec4" opacity="1.00"/><text x="40" y="82" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">1. 电力</text><rect x="182" y="52" width="146" height="46" rx="8" fill="#e8794b" opacity="0.17"/><rect x="182" y="52" width="146" height="3" rx="1.5" fill="#e8794b" opacity="0.78"/><text x="198" y="82" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">2. 芯片产能</text><rect x="340" y="52" width="146" height="46" rx="8" fill="#7b61ff" opacity="0.12"/><rect x="340" y="52" width="146" height="3" rx="1.5" fill="#7b61ff" opacity="0.56"/><text x="356" y="82" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">3. 数据</text><rect x="498" y="52" width="146" height="46" rx="8" fill="#7c8593" opacity="0.07"/><rect x="498" y="52" width="146" height="3" rx="1.5" fill="#7c8593" opacity="0.34"/><text x="514" y="82" fill="#7c8593" font-size="13" font-weight="700" font-family="Menlo,monospace">4. 延迟</text>
+  <text x="24" y="118" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Nadella:芯片躺在库房里,插不上电</text>
+  <text x="340" y="118" fill="#7b61ff" font-size="10.5" font-family="-apple-system,sans-serif">Ilya 那堵墙排在第三位</text>
+  <text x="24" y="156" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">每再扩 10 倍算力,交付前置期约加一年</text>
+  <line x1="298" y1="168" x2="298" y2="300" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="286" y="189" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">租 GPU:≈0</text><rect x="298" y="176" width="26" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="215" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">买 GPU:约半年</text><rect x="298" y="202" width="74" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="241" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">建数据中心:1–2 年</text><rect x="298" y="228" width="150" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="267" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">超大数据中心 / 电厂:2–3 年</text><rect x="298" y="254" width="226" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="293" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">从零建先进晶圆厂:4–5 年</text><rect x="298" y="280" width="340" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/>
+</svg>
+<figcaption>示意:约束顺序取自 Epoch AI《Can AI scaling continue through 2030?》(2024-08);前置期阶梯取自其 2025-09 报告(该文自估中心值可低至 4–8 个月)。放缓的机制是供给侧交付,不是收益递减</figcaption>
+</figure>
+<h2>10. 判决</h2>
+<p>把九节的材料收拢,本文的结论是四句话:</p>
+<p><strong>第一,「撞墙了吗」这个问题,在当前的公开信息条件下无法回答——而且不是因为证据还没到,是因为回答它所需要的数据被结构性地扣住了。</strong> 前沿模型的参数量、训练 token 数、同口径预训练 loss 全部不公开,而 loss 跨语料不可比。声称墙存在的人拿不出实测,声称墙不存在的人拿出的是自家没有刻度的图。</p>
+<p><strong>第二,这场争论里流传最广的证据,大多在传播中丢掉了限定语,而且丢失的方向高度一致——总是朝着让论断更强的方向。</strong> Kaplan 摘要的「some」、Ilya 那句记者转述、o3 的「内部激进 test-time 配置」、o3-preview 的 172 倍算力与 75% 训练集、Nemotron 的「对齐阶段」、Shumailov 那句实为编辑导语的对冲、GSM1k 已被作者下修的 13%——每一处的修正方向都是把一个更强的断言还原成一个更弱的事实。这不是某一方的问题,双方都在这么做。</p>
+<p><strong>第三,四堵互不兼容的墙被压成了一个词,所以争论无法收敛。</strong> Ilya 的墙是数据(他明说算力仍在增长);LeCun 的墙是架构(与前者不兼容);报道里的墙是效果递减;Epoch 预测的放缓机制是数据中心交付周期。每一方都在回应另一方没有主张的东西。</p>
+<p><strong>第四,能力确实还在涨,而真正在逼近的约束已经换了位置。</strong> 独立测量这一侧:METR 的时间视界在 2023 年后的子样本上倍增期约 131 天(但全样本两版一致,都是 196 天),Epoch 能力指数在 2024 年 4 月有一次约 90% 的加速——但 ECI 测的是含 RL 与测试时算力的部署能力总和,它无法为「预训练收益递减」作证,也无法为其反面作证。而在约束这一侧,Epoch 把顺序排得很清楚:<strong>电力第一、芯片产能第二、数据第三</strong>;而 Nadella 那句「芯片在库房里插不上电」虽未进入本期验证流程,方向与前者一致。</p>
+<p>需要补一句关于「预训练是否已经让位」的诚实表述:唯一硬一点的迹象是 GPT-5 的总训练算力低于 GPT-4.5,以及 GPT-4.5 这个最大预训练模型在 2025 年 7 月 14 日被从 API 移除(官方理由是 GPT-4.1「在关键能力上性能相当或更好,而延迟与成本更低」;它此后仍在 ChatGPT 的 Legacy 菜单里保留了一段时间)。这是<strong>经济性判决,不是能力判决</strong>,而 Epoch 把它读作暂时的回落而非终点、并预测下一代旗舰会回升——不过同一篇也自陈,这个回归「也许持续不了太久」。到 2026 年 8 月为止,这个预测还没有可结算的公开数据。</p>
+<p>最后一件事值得单独说。本文原本准备写一条更锋利的结构性发现:喊「scaling 时代结束」的 Ilya,转头拿 NVIDIA 的 50 亿美元把算力扩大十倍。对抗验证以两票把它判死了,理由是删去限定语后制造的伪矛盾——他给下一阶段下的定义原话就是「回到研究的时代,只不过带着大计算机」,他否认的是「把现有配方放大 100 倍就能变革一切」,同时明确承认放大规模「确实会带来不同」。</p>
+<p><strong>真正站得住的批评是另一个,而且更有意思:刻度漂移。</strong> 他在同一场访谈里说过「你确实需要一定量的算力,但研究是否需要有史以来最大的算力,远非显然」,并举 AlexNet 用 2 块 GPU、Transformer 论文实验不超过 64 块 GPU 为例。而在不到一年之后,他口中「够用的算力」被抬高了一个数量级。加上一条:一家到 2026 年 8 月仍未公开任何论文或产品的公司拿到了数量级的算力提升,它的研究主张无从被外部检验。</p>
+<p>这恰好是全文的缩影——<strong>在这场争论里,几乎每一个足够锋利的说法,送回一手来源之后都会钝一些;而剩下的那部分,通常比原来的版本更值得记住。</strong></p>
+<h2>11. 十三个可检验主张</h2>
+<p>按证据强度排序,强的在前。</p>
+<ol><li><strong>截至 2026 年 8 月,不存在公开实证显示前沿模型的 loss 实测点系统性偏离拟合的幂律线。</strong>【最强:空白检验已执行,检索角度已列明】检验方式:任何一方拿出同口径的 N、D 与 loss 三元组即可推翻本条。</li><li><strong>边际收益递减是幂律的内生性质,不是 2024 年的新观测。</strong> 参数翻倍、损失降 5%,写在 2020 年的原始论文里。【强:一手逐字】</li><li><strong>Ilya Sutskever 那句「预训练 scaling 已进入平台期」是路透记者的间接转述,不是他的原话;他打引号的原话之一是 pro-scaling 的。</strong>【强:三票一致,一手可回溯】</li><li><strong>Ilya 的墙是数据墙,不是算力墙或幂律失效。</strong> 他在同一张幻灯片上明说算力仍在增长。【强:有现场视频】</li><li><strong>Epoch 预测的算力增速放缓,机制是数据中心与电厂的交付周期,不是技术上的收益递减。</strong> 其约束排序是电力 &gt; 芯片产能 &gt; 数据 &gt; 延迟。【强:一手逐字】</li><li><strong>同一个模型换一套 scaffold,SWE-bench Verified 成绩可以差 22 个百分点(OpenAI 自家数据)。</strong> 因此跨厂商榜单上 1 到 3 个百分点的差距没有判别力。【强:厂商自述 + 独立测量】</li><li><strong>发布会上的基准数字与用户可用产品的成绩,可以差 30 个百分点以上。</strong> o3-preview 在 ARC-AGI-1 上 87.5%,发布版 41–53%,OpenAI 确认二者不是同一个模型。【强:一手逐字】</li><li><strong>重复训练同一批数据至多 4 个 epoch,损失几乎不比用全新数据差;超过之后,继续加算力的边际价值最终归零。</strong>【强:三票全票通过;但无损的是 loss,不是下游能力】</li><li><strong>「数据用尽」的口径是训练集规模追上存量,不是数据被物理用光;时点区间是 2026 到 2032 年,而存量估计本身横跨一个数量级(100T 到 1000T token)。</strong>【中强:单源已核,同一机构的两版结论差异大】</li><li><strong>截至 2026 年 8 月,没有一例经证实的、在真实生产训练管线中观测到 model collapse 的公开报告。</strong>【中强:缺席证据,厂商无披露义务】</li><li><strong>能力测量与预训练收益是两笔账,而现有的独立指数只能测前者。</strong> Epoch 能力指数把推理、RL、后训练与测试时算力全部烘在一起,没有预训练这一维可供拆分。【中强:方法学自述】</li><li><strong>公开的预训练 token 规模不构成一条可外推的上升趋势。</strong> 同一代内部,Llama 4 Maverick 用 22T 就比用 40T 的 Scout 更强。【中:多源,但跨模型口径不齐】</li><li><strong>推理训练算力增长是一次性追赶红利这一预测,至今无法结算。</strong> Epoch 2025 年 5 月的推断依据是一张坐标未标注的直播截图,而前沿实验室此后未再披露可比数字。【弱:证据基础本身需降级】</li></ol>
+<h2>附:方法学与本期的自我修正</h2>
+<p>本期 44 组承重论断各派 3 个独立验证 agent,要求「尽力反驳」而非确认,逐字核对一手来源。结果:2 组全票原样成立,42 组含口径修正,子论断层面 18 条被判死。</p>
+<p>被验证推翻的本文原定表述,逐条列出:</p>
+<ol><li><strong>原定结构性发现「Ilya 说 scaling 结束却买十倍算力」被两票判死</strong>,理由是删去限定语后的伪矛盾。已替换为「刻度漂移 + 研究主张不可被外部检验」。</li><li><strong>「不可约项 E 2020 年就写在公式里」不成立</strong>——Kaplan 的拟合式没有 E。已更正为 Henighan 2020 与 Chinchilla 2022。</li><li><strong>「Orion 只比 GPT-4 好 20%」查无一手</strong>,是训练进度口径的讹变。</li><li><strong>「Claude Opus 4.5 首个破 80%」不成立</strong>——Anthropic 半年前就报过 80.2%(高算力配置)。</li><li><strong>ARC 成本「从 4,560 上修到约 3 万美元」方向说反了</strong>——4,560 是最后一次下修的结果。</li><li><strong>「o1 跑基准 2,767.05 美元 vs GPT-4o 108.85 美元」查无一手</strong>(两票判死),已弃用。</li><li><strong>Shumailov 那句带对冲的引语是 Nature 编辑导语</strong>,作者摘要更强(causes / irreversible)——修正方向与原设想相反。</li><li><strong>ProRL 不是干净的反例</strong>——其论文自陈在基座已擅长的任务上 RL 有「负增益」,且起点是已蒸馏的 checkpoint。</li><li><strong>「合成数据成功案例全是更强教师的蒸馏」被推翻</strong>——Nemotron 明写教师不设上限。已改用「层级 + 不可测量」论证。</li><li><strong>「预训练规模逐代上涨」在一代之内就不单调</strong>(Maverick 22T &lt; Scout 40T)。</li><li><strong>Kaplan 摘要的「some」被补回</strong>,且数据维只验证了两个数量级出头。</li><li><strong>Vinyals 帖中的「NeurIPS '25 talk」是笔误</strong>,实为 NeurIPS 2024——正是 Ilya 说「预训练将终结」的那一场。</li></ol>
+<p>本期未做双席审计:44 组中没有出现「单一来源承担全文关键结论」的情形——最关键的那条(第一种墙无证据)本身就是缺席证据,已按缺席证据的规格标注。</p>
+<h2>附:主要来源</h2>
+<p><strong>理论谱系</strong>:Kaplan et al. 2020(https://arxiv.org/abs/2001.08361)、Hoffmann et al. 2022(https://arxiv.org/abs/2203.15556)、Besiroglu et al. 2024 复现(https://arxiv.org/abs/2404.10102)、Pearce &amp; Song 2024(https://arxiv.org/abs/2406.12907)、Wei et al. 2022(https://arxiv.org/abs/2206.07682)、Schaeffer et al. 2023(https://arxiv.org/abs/2304.15004)、GPT-4 技术报告(https://arxiv.org/abs/2303.08774)</p>
+<p><strong>数据与合成</strong>:Villalobos et al.(https://arxiv.org/abs/2211.04325)、Muennighoff et al. 2023(https://arxiv.org/abs/2305.16264)、Shumailov et al. Nature 2024(https://www.nature.com/articles/s41586-024-07566-y)、Gerstgrasser et al. 2024(https://arxiv.org/abs/2404.01413)、phi-4 技术报告(https://arxiv.org/abs/2412.08905)、Longpre et al.《Consent in Crisis》(https://arxiv.org/abs/2407.14933)</p>
+<p><strong>推理轴</strong>:OpenAI o1(https://openai.com/index/learning-to-reason-with-llms/)、DeepSeek-V3(https://arxiv.org/abs/2412.19437)、DeepSeek-R1 Nature 版(https://www.nature.com/articles/s41586-025-09422-z)、Meta ScaleRL(https://arxiv.org/abs/2510.13786)、Yue et al.(https://arxiv.org/abs/2504.13837)、NVIDIA ProRL(https://arxiv.org/abs/2505.24864)</p>
+<p><strong>独立测量</strong>:METR Time Horizon(https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/)、METR TH1.1(https://metr.org/blog/2026-1-29-time-horizon-1-1/)、Epoch AI 各专题(https://epoch.ai/)、ARC Prize(https://arcprize.org/)、GSM1k(https://arxiv.org/abs/2405.00332)、基准饱和研究(https://arxiv.org/abs/2602.16763)</p>
+<p><strong>本站相关研究</strong>:算力资本开支的融资结构见《AI 资本开支与 1999 年:哪些像,哪些不像》(https://hub.cissychen.com/deep-research/ai-capex-1999-deep.html);电力与硬件交付约束见《AI 硬件与电力:瓶颈在哪一段》(https://hub.cissychen.com/deep-research/ai-hardware-power-deep.html);基准污染与 LLM 评判的口径问题见《AI code review:验证瓶颈的解药,还是套娃?》(https://hub.cissychen.com/deep-research/ai-code-review-deep.html)。</p>
+<footer>BigCat Deep Research · 2026-08 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

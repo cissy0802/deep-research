@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"Has AI Hit a Wall?" — Two Years of Arguing, and Neither Side Produced a Measurement (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="Those claiming a wall cannot produce a measurement; those denying it produce their own charts without scales. Four different walls got stuffed into one word, and most of the widely circulated numbers come back weaker once returned to their sources. Plain edition: two testable forms of wall, four walls classified, six shed qualifiers, and thirteen testable judgments.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="scaling-wall-plain.html">中文</a><a href="scaling-wall-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>"Has AI Hit a Wall?" — Two Years of Arguing, and Neither Side Produced a Measurement (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="scaling-wall-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">Two years of arguing about whether AI has hit a wall, and neither side produced a measurement. Start with what gets overlooked: "double the input, get less back" is not a 2024 discovery — it is what the scaling-law formula means, and the 2020 paper spelled it out as double the parameters, lose 5% of loss. Only two forms of wall are actually testable: the law failing, or nobody being able to afford it. The first has no evidence as of August 2026 and cannot be checked at all: frontier models' parameter counts, data volumes and core metrics are unpublished, and the affirmative evidence vendors offer is their own charts without scales. The most-cited line in the whole argument — Ilya saying pretraining had plateaued — turns out on a word-by-word check to be the reporter's paraphrase, while one of his actual quotes supports continued scaling. Four different walls sit inside one word: data (Ilya says compute is still growing), architecture (LeCun, incompatible with the first), diminishing effect (those two anonymous reports), and slowing compute growth (Epoch, whose mechanism is that data centers and power plants cannot be built fast enough). Capability did rise, but the same model can score 22 points apart across toolchains, the 87.5% from a launch and the 41% you can buy are different models, and 96% self-reported meets 83.5% independently replicated. And the most widely circulated claims — "Orion is only 20% better," "first past 80%," "98% synthetic data," "Nature says it may collapse" — all need revising once returned to their sources. One last thing: the binding constraint has moved from returns to supply — power first, chips second, data third, or in Microsoft's CEO's version, chips sitting in inventory that cannot be plugged in.</div></div>
+<div class="chips"><span class="chip c1">the most-cited line was written by a reporter</span><span class="chip c2">22 points apart, same model</span><span class="chip c3">power first, data third</span><span class="chip c4">ask who measured it</span></div>
+<blockquote><p>The load-bearing claims here went through 44 groups × 3 adversarial votes, with verifiers instructed to <em>refute</em>. One of this article's own planned conclusions was killed and replaced — see the note at the end. All figures as of August 2026.</p></blockquote>
+<h2>First, a question: what does "the wall" mean?</h2>
+<p>Since November 2024, "AI has hit a wall" has been the hottest argument in this industry. Two years on, both sides are exactly where they started.</p>
+<p>The first thing worth saying is that this argument never produced a testable definition of "the wall." And once you try to supply one, you find that nothing either side offers is aimed at it.</p>
+<p>Start by clearing away the biggest misunderstanding.</p>
+<p>"Double the input, get less back" is not a discovery from 2024. It is what the scaling-law formula means. The founding 2020 paper spelled it out in plain arithmetic: <strong>double the parameters, and loss falls by 5%.</strong></p>
+<p>So anyone saying in 2024 that "the returns to scaling are diminishing," if that is what they mean, is reporting arithmetic that has been printed in a paper for five years — not a new observation.</p>
+<p>If "the wall" is going to be a claim that can be confirmed or refuted, only two possibilities remain:</p>
+<p><strong>One: the law has failed</strong> — inputs keep going in, but results no longer land where the formula predicts.</p>
+<p><strong>Two: the law still works, but nobody can afford it</strong> — each additional increment costs more electricity and money than anyone is willing to pay.</p>
+<p>These require entirely different evidence. And the conclusion here is: <strong>the first has neither evidence nor any way to be checked; the second is arriving, but what is jamming it is electricity and concrete, not shrinking returns.</strong></p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">For 'the wall' to be testable, only two forms remain</text>
+  <rect x="24" y="46" width="322" height="196" rx="10" fill="#ff6ec4" opacity="0.06"/>
+  <text x="40" y="70" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">Form A: the law fails</text>
+  <line x1="52" y1="90" x2="52" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="52" y1="206" x2="330" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 62 104 C 130 150, 200 176, 322 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <path d="M 62 104 C 130 150, 178 168, 206 166 L 322 164" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="5,4"/>
+  <circle cx="240" cy="165" r="3.5" fill="#ff6ec4"/><circle cx="280" cy="164.5" r="3.5" fill="#ff6ec4"/><circle cx="316" cy="164" r="3.5" fill="#ff6ec4"/>
+  <text x="200" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">Power-law fit</text>
+  <text x="216" y="152" fill="#ff6ec4" font-size="10.5" font-family="Menlo,monospace">Measured (hypothetical)</text>
+  <text x="40" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Measured points fall systematically below the fit</text>
+  <rect x="354" y="46" width="322" height="196" rx="10" fill="#7b61ff" opacity="0.07"/>
+  <text x="370" y="70" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">Form B: unaffordable</text>
+  <line x1="382" y1="90" x2="382" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="382" y1="206" x2="660" y2="206" stroke="#5a6378" stroke-width="1.2"/>
+  <path d="M 392 104 C 460 150, 530 176, 652 192" fill="none" stroke="#4cc9f0" stroke-width="2.2"/>
+  <text x="530" y="204" fill="#4cc9f0" font-size="10.5" font-family="Menlo,monospace">Measured = fit</text>
+  <rect x="470" y="112" width="16" height="28" rx="3" fill="#7b61ff" opacity="0.8"/>
+  <rect x="510" y="98" width="16" height="42" rx="3" fill="#7b61ff" opacity="0.85"/>
+  <rect x="550" y="80" width="16" height="60" rx="3" fill="#7b61ff" opacity="0.9"/>
+  <rect x="590" y="60" width="16" height="80" rx="3" fill="#ff6ec4" opacity="0.95"/>
+  <text x="470" y="54" fill="#9aa3b2" font-size="10.5" font-family="Menlo,monospace">$ / step</text>
+  <text x="370" y="228" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Curve holds, but each step's power and dollars cannot be paid</text>
+  <text x="40" y="266" fill="#ff6ec4" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">Status: no such evidence found, and untestable on public information</text>
+  <text x="40" y="290" fill="#7b61ff" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">Status: approaching, but binding on power and delivery</text>
+</svg>
+<figcaption>Schematic: a power law diminishes by construction (2020 paper: double the parameters, loss falls 5%), so 'smaller returns' is not a wall. Only these two forms are testable — and neither side's cited evidence addresses them</figcaption>
+</figure>
+<h2>The first wall: no evidence, and no way to look</h2>
+<p>The finding first: <strong>as of August 2026, no public study can be found showing that frontier models' measured results have departed from the line the formula predicts.</strong></p>
+<p>This was searched for deliberately — from several angles, including every 2025–2026 paper claiming problems with scaling laws. The one relevant new study points the other way: it finds that with well-tuned settings, curves at different scales line up <em>more</em> neatly, not less.</p>
+<p>But the second layer matters more than the absence: <strong>this cannot be checked at all.</strong></p>
+<p>Three reasons, each fatal on its own.</p>
+<p>First, how many parameters frontier models have and how much data they used are not published. The GPT-4 technical report set this norm, stating that given the competitive landscape and safety implications, it contains no further details about architecture (including model size), hardware, training compute, dataset construction, or training method. It became industry practice.</p>
+<p>Second, the core metric you would need for comparison is published even less. And that metric is not directly comparable across different corpora or different ways of splitting text — two models' reported numbers, if not measured under identical conditions, cannot meaningfully be subtracted.</p>
+<p>Third, the affirmative evidence — that the formula still works — is entirely vendor self-reported, and reported on private metrics. OpenAI says it accurately predicted GPT-4's performance from models using 10,000× less compute, but that metric was measured on "our internal codebase," and the accompanying chart has no scale at all. Meta's claim about Llama 3 is likewise its own account.</p>
+<p>So the first wall sits here: <strong>those saying there is a wall cannot produce a measurement, and those saying there isn't produce their own charts without scales. This is not insufficient evidence; this is evidence withheld.</strong></p>
+<p>To be clear, this does not mean the wall is absent. It means that under current disclosure habits, the question cannot be publicly answered. Anyone asserting either direction is speaking past their evidence.</p>
+<h2>What each side actually produced in those two weeks</h2>
+<p>If measurement is closed off, what are they citing? Taking the origins of the wall thesis back to the originals is worth recording.</p>
+<p><strong>Origin one: two reports from anonymous sources.</strong> On 9 November 2024, The Information cited OpenAI employees who had tested a new model codenamed Orion: it <strong>did outperform its predecessors</strong>, but by far less than the jump from GPT-3 to GPT-4. That first concession routinely disappears in retelling, and without it the passage reads as "no progress." Four days later Bloomberg reported three companies struggling at once.</p>
+<p>One point gets missed: <strong>Bloomberg's core argument is about arithmetic, not impossibility</strong> — it wrote that even modest improvements might not justify the enormous costs. That is the second kind of wall, not the first.</p>
+<p><strong>Origin two: a sentence written by a reporter.</strong> The most-cited "wall evidence" in this whole argument is Ilya Sutskever saying pretraining results had "plateaued."</p>
+<p>Checked word by word against the Reuters original: <strong>he did not say it.</strong> The sentence carries no quotation marks; it is the reporter's paraphrase, and "plateaued" is the reporter's word.</p>
+<p>In that same piece, only two sentences are actually in quotation marks. One: "The 2010s were the age of scaling, now we're back in the age of wonder and discovery once again." The other — note the direction — "<strong>Scaling the right thing matters more now than ever.</strong>"</p>
+<p>That second one is pro-scaling. He is saying the <em>target</em> of scaling should change, not that scaling has stopped working.</p>
+<p>He had also left OpenAI to found a new company, was raising money for a route that does not rely on pretraining, and declined in that same piece to say what he was working on.</p>
+<p><strong>Origin three: a four-word tweet.</strong> The rebuttal came fast and was equally thin. In mid-November 2024, Sam Altman posted four words: "there is no wall." No link, no target, no argument. He posted six weeks after OpenAI closed a $6.6 billion round at a $157 billion valuation.</p>
+<p>Eleven and a half hours later, Google DeepMind's Oriol Vinyals posted "What wall?" — but not as a reply to Altman; it was attached to his own model topping a leaderboard that day.</p>
+<p><strong>So the two origins of this argument are anonymous internal testing on one side and three or four words from interested parties on the other. Neither produced a measurement.</strong></p>
+<p>Two claims that have circulated for two years, cleared up in passing:</p>
+<p>"Orion is only 20% better than GPT-4" — <strong>that sentence is not in the original reporting.</strong> The retrievable version is that Orion reached GPT-4's level about 20% of the way through training. That is training progress, not improvement, and it was originally used to argue that gains arrive early and the rest won't catch up — the opposite direction.</p>
+<p>"The age of giant models is over" — not Altman's words, and not from 2024. The primary source is an April 2023 remark at MIT, and the circulating phrase is a magazine headline. The date is off by a year and a half.</p>
+
+<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Qualifiers shed in transit — always in the same direction</text>
+  <text x="24" y="58" fill="#e8794b" font-size="11.5" font-weight="700" font-family="Menlo,monospace">Circulating version</text>
+  <text x="330" y="58" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">Returned to the primary source</text>
+  <line x1="24" y1="66" x2="676" y2="66" stroke="#5a6378" stroke-width="1" stroke-dasharray="2,4"/>
+  <text x="24" y="84" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Kaplan: power laws span 7 orders of magnitude</text><path d="M 296 80 L 318 80" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 76 L 319 80 L 313 84" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="84" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">"SOME trends" span 7; the data axis was verified across barely 2</text><text x="24" y="118" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Ilya: pretraining has plateaued</text><path d="M 296 114 L 318 114" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 110 L 319 114 L 313 118" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="118" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">A reporter's paraphrase; his quote is "scaling the right thing matters more"</text><text x="24" y="152" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 scored 25% on FrontierMath</text><path d="M 296 148 L 318 148" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 144 L 319 148 L 313 152" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="152" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">"Internally, in aggressive test-time compute settings" — not the shipped model</text><text x="24" y="186" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">o3 scored 87.5% on ARC</text><path d="M 296 182 L 318 182" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 178 L 319 182 L 313 186" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="186" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">At 172x compute, and trained on 75% of the public training set</text><text x="24" y="220" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Nemotron: 98% synthetic data</text><path d="M 296 216 L 318 216" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 212 L 319 216 L 313 220" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="220" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">98% refers to alignment; the pretraining share was never disclosed</text><text x="24" y="254" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">Nature: indiscriminate training "can lead to" collapse</text><path d="M 296 250 L 318 250" stroke="#5a6378" stroke-width="1.4"/><path d="M 313 246 L 319 250 L 313 254" fill="none" stroke="#5a6378" stroke-width="1.4"/><text x="330" y="254" fill="#4cc9f0" font-size="10.5" font-family="-apple-system,sans-serif">That hedge is the editor's standfirst; the abstract says "causes", "irreversible"</text>
+  <text x="24" y="308" fill="#c8cdd6" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">Every correction restores a weaker fact from a stronger assertion</text>
+</svg>
+<figcaption>Schematic: both camps do this — it is not one side's failing but the transmission mechanism of the whole argument</figcaption>
+</figure>
+<h2>Four different walls, stuffed into one word</h2>
+<p>Lay out what each party means by "the wall" and they are not the same thing — several are mutually contradictory.</p>
+<p><strong>Wall one: data.</strong> This is Ilya's. In December 2024 he said at an award talk that "pre-training as we know it will unquestionably end," but the reason has to come along: compute keeps growing through better hardware, better algorithms and larger clusters, while data does not, "because we have but one internet." He called data the fossil fuel of AI, already at peak.</p>
+<p>His slide made it unmistakable: compute growing in the left column, data not growing in the right. <strong>He is saying one ingredient has run out, not that the recipe's math is wrong</strong> — he says on that same slide that compute is still growing. In the same talk he named three ways forward: agents, synthetic data, and inference-time compute.</p>
+<p>Citing that talk as proof that "scaling laws failed" reads <em>out of fuel</em> as <em>engine broken</em>.</p>
+<p><strong>Wall two: architecture.</strong> This is Yann LeCun's — that large language models cannot reach human-level intelligence at all, which is also the founding pitch of his new company. He rejects the route, not the scale — and <strong>this wall is incompatible with Ilya's</strong>: if the route is wrong to begin with, data sufficiency is not the question.</p>
+<p><strong>Wall three: diminishing effect.</strong> This is the wall in those two reports. It is the closest to the first kind above, but what supports it is anonymous internal assessment, not a curve.</p>
+<p><strong>Wall four: slowing compute growth.</strong> This one is misattributed most often, because it comes from a research group that explicitly does not endorse the wall thesis. Epoch AI does forecast a slowdown in compute expansion — but the mechanism is <strong>that things cannot be built fast enough</strong>: renting GPUs takes almost no time, buying them about half a year, building a data center one to two years, a very large data center or power plant two to three, and a cutting-edge chip fab from scratch four to five. Their conclusion: every additional 10× in compute scale adds roughly a year of lead time.</p>
+<p>Nowhere does that report say the same compute buys less capability. <strong>Using it to support "diminishing returns" reads it exactly backwards.</strong></p>
+<p>Once four walls go into one word, the argument cannot produce a result: each side is answering something the other never said.</p>
+
+<figure>
+<svg viewBox="0 0 700 356" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Four incompatible walls, compressed into one word</text>
+  <rect x="24" y="52" width="320" height="118" rx="10" fill="#4cc9f0" opacity="0.08"/><rect x="24" y="52" width="4" height="118" rx="2" fill="#4cc9f0"/><text x="42" y="80" fill="#4cc9f0" font-size="13" font-weight="700" font-family="Menlo,monospace">Data wall</text><text x="42" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Ilya Sutskever (NeurIPS, Dec 2024)</text><text x="42" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">"We have but one internet" — his own slide is</text><text x="42" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">says compute still growing</text><rect x="356" y="52" width="320" height="118" rx="10" fill="#ff6ec4" opacity="0.08"/><rect x="356" y="52" width="4" height="118" rx="2" fill="#ff6ec4"/><text x="374" y="80" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">Architecture wall</text><text x="374" y="102" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Yann LeCun (from Nov 2025)</text><text x="374" y="128" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">LLMs cannot get there at all — if the route</text><text x="374" y="146" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">is wrong, data sufficiency is moot</text><rect x="24" y="186" width="320" height="118" rx="10" fill="#e8794b" opacity="0.08"/><rect x="24" y="186" width="4" height="118" rx="2" fill="#e8794b"/><text x="42" y="214" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">Diminishing effect</text><text x="42" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">The Information / Bloomberg (Nov 2024)</text><text x="42" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">Same inputs, smaller gains — supported by not</text><text x="42" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">anonymous internal testing, a curve</text><rect x="356" y="186" width="320" height="118" rx="10" fill="#7b61ff" opacity="0.08"/><rect x="356" y="186" width="4" height="118" rx="2" fill="#7b61ff"/><text x="374" y="214" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">Slowing compute growth</text><text x="374" y="236" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Epoch AI (Sep 2025)</text><text x="374" y="262" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">Mechanism is data-center and power-plant lead</text><text x="374" y="280" fill="#c8cdd6" font-size="10.5" font-family="-apple-system,sans-serif">times; it never says compute buys less</text>
+  <text x="24" y="330" fill="#ff6ec4" font-size="11" font-weight="700" font-family="Menlo,monospace">1 and 2 are mutually incompatible</text>
+  <text x="356" y="330" fill="#7b61ff" font-size="11" font-weight="700" font-family="Menlo,monospace">4 is routinely miscited as 3</text>
+</svg>
+<figcaption>Schematic: four walls requiring entirely different evidence, collected under one word — which is why each side answers something the other never claimed</figcaption>
+</figure>
+<h2>Did capability actually rise these two years?</h2>
+<p>Yes. But read the curve carefully, because nearly every point is vendor-reported.</p>
+<p>Take the coding benchmark the industry cites most, SWE-bench: the frontier sat around 49% in late 2024, reached 62% in February 2025, 75% in August, 81% in November (in a configuration with no extended thinking, averaged over five runs), and by 2026 vendors report 96%.</p>
+<p>Three problems must be stated:</p>
+<p>First, that "49% line" is a coincidence of different vendors' numbers plotted on one chart, not a measurement under one apparatus. <strong>The same model with a different set of surrounding tools can score 22 percentage points apart</strong> — that is from OpenAI's own system card.</p>
+<p>Second, "first past 80%" does not hold: Anthropic reported 80.2% half a year earlier, just with a more compute-hungry configuration.</p>
+<p>Third, and most importantly: <strong>independent replication comes in systematically lower.</strong> Epoch AI, using a uniform toolchain on the same problems, measures an all-time high of 83.5% where vendors report 96%. Not one point on that curve has been independently reproduced at the level claimed.</p>
+<p><strong>Even problem sets built specifically to resist saturation are being solved fast.</strong> ARC-AGI-2, released in March 2025, had pure language models at zero and the strongest reasoning systems in single digits. By August 2026 the leader is at 92.5% — humans are at 100%. Seventeen months, from single digits to ninety percent.</p>
+<p>But the same organization released a new generation in March 2026, whose launch-day verdict was: "Humans score 100%. Frontier AI scores 0.51%." Everything knocked back to near zero. That did not hold either — by August one model reached 30%.</p>
+<p><strong>Here is a piece of counter-evidence sharper than "the wall."</strong> Another problem set, billed as humanity's last exam, came with a paper predicting models might exceed 50% by the end of 2025. As of August 2026, the best no-tools score is still 46.44 — <strong>crossing 50 is running more than half a year behind the question-setters' own expectation.</strong> This is the hardest "behind schedule" evidence here, and it comes from the optimistic side's own forecast.</p>
+<p><strong>The one ruler not held by vendors</strong> is METR's "time horizon": how long a task takes a human, where the AI can finish it half the time. Its measured progress is exponential, doubling roughly every seven months. After a revised version in January 2026, the doubling time since 2023 fell from 165 days to 131, which METR describes as progress being 20% faster than previously estimated.</p>
+<p>But that "20% faster" applies only to the stretch after 2023. <strong>Across the full dataset, the old and new versions give exactly the same doubling time: 196 days.</strong></p>
+
+<figure>
+<svg viewBox="0 0 700 358" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">The 21 months after the wall narrative: three benchmark tracks (all vendor-reported or official boards)</text>
+  <line x1="70" y1="76" x2="70" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <line x1="70" y1="250" x2="656" y2="250" stroke="#5a6378" stroke-width="1.2"/>
+  <text x="60" y="80" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">100%</text>
+  <text x="60" y="167" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">50%</text>
+  <text x="60" y="254" fill="#7c8593" font-size="10" text-anchor="end" font-family="Menlo,monospace">0%</text>
+  <line x1="70" y1="163" x2="656" y2="163" stroke="#5a6378" stroke-width="0.8" stroke-dasharray="2,5" opacity="0.5"/>
+  <text x="70" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Nov 2024</text>
+  <text x="260" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Jun 2025</text>
+  <text x="450" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Jan 2026</text>
+  <text x="640" y="270" fill="#7c8593" font-size="10" text-anchor="middle" font-family="Menlo,monospace">Aug 2026</text>
+  <path d="M 70.0 164.7 L 151.4 141.6 L 314.3 119.7 L 395.7 109.2 L 585.7 83.0" fill="none" stroke="#4cc9f0" stroke-width="2.2"/><circle cx="70.0" cy="164.7" r="3.6" fill="#4cc9f0"/><circle cx="151.4" cy="141.6" r="3.6" fill="#4cc9f0"/><circle cx="314.3" cy="119.7" r="3.6" fill="#4cc9f0"/><circle cx="395.7" cy="109.2" r="3.6" fill="#4cc9f0"/><circle cx="585.7" cy="83.0" r="3.6" fill="#4cc9f0"/>
+  <path d="M 178.6 243.0 L 395.7 195.9 L 422.9 158.0 L 640.0 89.1" fill="none" stroke="#ff6ec4" stroke-width="2.2"/><circle cx="178.6" cy="243.0" r="3.6" fill="#ff6ec4"/><circle cx="395.7" cy="195.9" r="3.6" fill="#ff6ec4"/><circle cx="422.9" cy="158.0" r="3.6" fill="#ff6ec4"/><circle cx="640.0" cy="89.1" r="3.6" fill="#ff6ec4"/>
+  <path d="M 124.3 234.2 L 314.3 206.0 L 395.7 184.8 L 640.0 169.3" fill="none" stroke="#7b61ff" stroke-width="2.2"/><circle cx="124.3" cy="234.2" r="3.6" fill="#7b61ff"/><circle cx="314.3" cy="206.0" r="3.6" fill="#7b61ff"/><circle cx="395.7" cy="184.8" r="3.6" fill="#7b61ff"/><circle cx="640.0" cy="169.3" r="3.6" fill="#7b61ff"/>
+  <rect x="24" y="288" width="11" height="4" rx="2" fill="#4cc9f0"/>
+  <text x="42" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">SWE-bench Verified (coding)</text>
+  <rect x="24" y="308" width="11" height="4" rx="2" fill="#ff6ec4"/>
+  <text x="42" y="314" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-2 (built to resist saturation)</text>
+  <rect x="368" y="288" width="11" height="4" rx="2" fill="#7b61ff"/>
+  <text x="386" y="294" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Humanity's Last Exam (no tools)</text>
+  <text x="24" y="338" fill="#e8794b" font-size="10.5" font-family="-apple-system,sans-serif">ARC-AGI-3 (Mar 2026) reset every frontier model to 0.51% on launch day</text>
+</svg>
+<figcaption>Schematic: the y-axis is each benchmark's own percentage score; the three tracks are not comparable to one another. Independent replication of SWE-bench (Epoch, uniform scaffold) tops out at 83.5%, below the 96% vendors report</figcaption>
+</figure>
+<h2>The rulers themselves are breaking</h2>
+<p>Every curve above rests on benchmarks. And over these two years, benchmarks have lost reliability as instruments faster than capability has risen.</p>
+<p><strong>The same name can be two different things.</strong> In December 2024, ARC Prize reported that o3 scored 75.7% on its problem set, and 87.5% with roughly 172× the compute. OpenAI simultaneously disclosed that the o3 tested had been trained on 75% of that benchmark's public training set.</p>
+<p>In April 2025, the same organization retested the released o3: 41% to 53%. OpenAI confirmed that <strong>the shipping version is not the same model as the one tested</strong>, and that the compute tier used back then is not available in the product.</p>
+<p>The 87.5% from the launch and the 41% you can buy are not the same thing.</p>
+<p><strong>Cost figures can be revised three times, and reverse direction.</strong> For that evaluation, the high-compute tier had no cost listed at all on launch day, marked "pricing TBD." In spring 2025 ARC recalculated under one price list, and the high-compute tier was at one point estimated at roughly $34,400 per task (a figure from ARC Prize's Mike Knoop, via media retelling). A December 2025 recalculation under another brought it down to $4,560. So the circulating claim that "$4,560 was revised up to $30,000" <strong>has the order backwards</strong> — $4,560 is the result of the final downward revision.</p>
+<p><strong>The funder can own the questions.</strong> For one hard mathematics benchmark, its maintainer acknowledged in January 2025 that the core 300 problems were commissioned and funded by OpenAI, that OpenAI owns them and can see both problems and solutions (a holdout set excepted) — and that as of the statement, <strong>the holdout set was still being finalized.</strong> Which means that when OpenAI announced weeks earlier that its model scored over 25% on this set, the portion whose answers it could not see did not yet exist. As for "not used for training," that was a verbal agreement.</p>
+<p>An independent retest of the released model later gave about 10%. But that is not a clean contradiction: it was not the same model, nor the same problem set, and the 10% was later revised up to 18.7%.</p>
+<p><strong>The real lesson is not "the vendor lied," but this: when the funder owns the questions, the evaluator's caliber shifts, and how you ask determines the score, a single benchmark number carries almost no independent arbitrating power.</strong></p>
+<p><strong>Benchmarks have a lifespan.</strong> A 2026 systematic study of 60 benchmarks found nearly half saturated to the point of no longer separating models. And the intuition it falsified is more interesting: <strong>hiding the questions does not help</strong> — private test sets are not more resistant to saturation than public ones.</p>
+<p><strong>A final signal comes from the vendors.</strong> By 2026, Anthropic's two flagship launches no longer lead with that coding benchmark at all, using others instead; and it discloses that its internal memorization screens flag a subset of that benchmark's problems. <strong>When the party being examined starts changing its own exam, that 49%-to-96% curve needs reading with more care.</strong></p>
+<h2>The data wall: bought off all the way, and pushed back</h2>
+<p>Ilya's wall is the most concrete of the four and the only one with quantitative research behind it. Its current state: <strong>not hit, not gone — deferred by a series of measures, each with its own limits.</strong></p>
+<p><strong>How much stock is left?</strong> A widely cited study predicted in 2022 that high-quality language data would likely run out before 2026; its 2024 revision changed this to: on current trends, models will train on datasets comparable to the total stock of public human text <strong>between 2026 and 2032.</strong></p>
+<p>The companion estimate puts the magnitude at about 300 trillion tokens — but the original range must come along: <strong>100 trillion to 1,000 trillion, a full order of magnitude.</strong></p>
+<p>One clarification: "running out" here means <strong>training consumption catching up with the stock</strong>, not data being physically used up.</p>
+<p><strong>First measure: reuse it.</strong> One study measured that with compute held fixed, repeating the same data up to 4 times costs almost nothing in quality versus fresh data. But the second half of that sentence matters as much: <strong>repeat beyond that, and the value of adding compute eventually decays to zero.</strong> This is one of only two claims in this piece that survived all three votes unchanged.</p>
+<p><strong>Second measure: have models make the data.</strong> This is where the traps cluster.</p>
+<p>Microsoft's phi-4 used 40% synthetic data and did beat the stronger model that generated its data on two tests. But look right along the same table: on a test of factual recall, phi-4 scores 3.0 against its teacher's 39.4, and it trails on four others too. <strong>Two wins out of seven — and the worst loss is factual recall, which is exactly what real text buys.</strong></p>
+<p>That much-quoted "98% synthetic data" is precisely limited in the original: <strong>the 98% refers to the alignment stage, not pretraining.</strong> Completely different denominators.</p>
+<p>And how much synthetic data frontier closed models use <strong>cannot be known from outside</strong>.</p>
+<p>One common explanation needs correcting: people say every synthetic-data success is distillation from a stronger teacher and therefore cannot be extrapolated. That reasoning fails — NVIDIA's paper states that the teacher does not impose a ceiling on the student, and its first-round data generator was weaker than the model being trained. <strong>What blocks extrapolation is the layer and the unmeasurability, not teacher strength</strong>: the verifiable successes happen either at the alignment stage or on small models.</p>
+<p><strong>What about models degrading from eating their own output?</strong> The famous Nature paper's much-quoted hedged sentence — that indiscriminate training "can lead to" collapse — is in fact <strong>the journal editor's standfirst, not the paper's abstract.</strong> The authors' own abstract does not hedge at all, using "causes" and "irreversible."</p>
+<p>But the experiment behind that strong claim is small: recursive fine-tuning of a 125-million-parameter model on a small corpus, with a control that preserves no original data in later generations. And another setting in the same paper supplies the antidote: resample 10% of the original real data into every generation, and you get only minor degradation. The real data never leaves, which is why it works.</p>
+<p>Another group offers the direct rebuttal: <strong>it is <em>replacing</em> real data that causes collapse; <em>accumulating</em> does not</strong> — and the real internet is closer to accumulation.</p>
+<p><strong>As of August 2026, there is no confirmed public report of model collapse observed in real production training.</strong> It remains a laboratory phenomenon, not an incident that has happened. (To be precise: this is absence of evidence — vendors have no obligation to disclose, and failed internal runs are not published.)</p>
+<p><strong>Has the wall ever bitten a specific training run?</strong> The one public case is the Wall Street Journal's December 2024 report on Orion. Citing it carries three traps:</p>
+<p>First, "$500 million each" is wrong — the report states a general rule, that a six-month run could cost around half a billion in compute alone, not that Orion's two runs each did.</p>
+<p>Second, the most-quoted line — that there may not be enough data in the world to make it smart enough — is <strong>the paper's own subheadline</strong>, a reporter's framing; OpenAI never confirmed it.</p>
+<p>Third, the fatal one: the model in that report shipped in February 2025 as <strong>GPT-4.5</strong>, and the GPT-5 released in August 2025 is a different thing entirely. <strong>What that report supports is that GPT-4.5's pure scale-up route hit a wall — not that GPT-5 did.</strong></p>
+<p><strong>One counterintuitive note: published training-data sizes are not a line you can extrapolate.</strong> The numbers are right — 15 trillion, 36 trillion, 40 trillion, rising. But the rulers differ (some text-only, some including images and video), and part of that "growth" is data the models manufactured themselves. The clearest evidence is within one generation: <strong>Llama 4's Maverick beats Scout while using 22 trillion against Scout's 40 trillion, nearly half as much.</strong></p>
+<h2>Changing axes is not the same as running out of axes</h2>
+<p>After September 2024, "scaling" started meaning two things, and each camp often means only one.</p>
+<p>OpenAI's original wording about o1 was that performance keeps improving with more reinforcement learning and more thinking time — and then, in a clause usually dropped, <strong>"the constraints on scaling this approach differ substantially from those of LLM pretraining, and we are continuing to investigate them."</strong> The vendor is conceding that the new paradigm's limits are not yet understood.</p>
+<p>The two famous curves accompanying it have only "compute (log scale)" on the x-axis, <strong>with no numerical labels at all</strong>. It is a schematic; no multiple and no absolute magnitude can be read from it.</p>
+<p>The AIME math scores in that same post come at three levels: 74% answering once, 83% voting across 64 attempts, 93% sampling 1,000 times and picking one. "o1 scored 93" without the sampling method presents many attempts as one attempt's ability.</p>
+<p><strong>The new axis may not have the old one's shape.</strong> A Meta study using over 400,000 GPU-hours states plainly that unlike pretraining, which typically fits power laws, they model reinforcement learning's compute-performance relationship with an <strong>S-shaped curve</strong> — and an S-curve means <strong>there is a ceiling.</strong> Note that its validation ran on an 8-billion-parameter model, far below frontier scale.</p>
+<p><strong>Does reinforcement learning draw out existing ability or create new ability? Unsettled.</strong> One side probes the boundary with heavy sampling and finds base models catching up when sampled enough, concluding that current training does not elicit fundamentally new reasoning patterns; the other side (NVIDIA) counters with results from much longer training.</p>
+<p>But that counter is not clean: NVIDIA's own paper states that on tasks the base model already handles well, reinforcement learning delivers minimal or even negative gains; and <strong>its starting point is not a raw base model but one already distilled from a reasoning model</strong> — and distillation is precisely the path the other side concedes can introduce new patterns. The two papers are not in direct collision.</p>
+<p><strong>Inference is getting cheaper and more expensive at once.</strong> The price of reaching a given level falls somewhere between 9× and 900× per year (on data through February 2025, with the fastest declines concentrated in the year before that). In the other direction, reasoning models generate large volumes of thinking you never see, and it bills the same.</p>
+<p>The price itself is worth a note: OpenAI's official changelog records that on 10 June 2025, alongside the release of o3-pro, o3's price was reduced. But three claims usually cited with it — the "80%" magnitude, the line "same exact model, just cheaper," and "an independent retest confirmed performance unchanged" — could not be traced to primary sources in this check, so this article does not draw conclusions from them.</p>
+<h2>What is actually jamming is on the supply side</h2>
+<p>If the first wall cannot be detected, where does the second — the unaffordable one — stand?</p>
+<p>It is approaching. But <strong>what is jamming is electricity, concrete and delivery schedules, not returns.</strong></p>
+<p>Epoch AI's 2024 report ranked four constraints and concluded that by 2030, advancing models by a large margin — comparable to GPT-4's margin over GPT-2 — is <strong>likely achievable</strong>. And the obstacles, in order: <strong>power &gt; chip manufacturing capacity &gt; data &gt; latency. Data is third.</strong></p>
+<p>(One easily miscited point: that report's data estimate <strong>excludes synthetic data entirely</strong>, listing it separately as upside.)</p>
+<p>This constraint has a much-quoted piece of testimony from an interested party: Microsoft's CEO said in November 2025 that the biggest issue now is not a compute glut but power — "you may actually have a bunch of chips sitting in inventory that I can't plug in." Not a chip shortage, but a shortage of rooms with power. (This quotation did not go through this run's verification process; it comes from a podcast via media retelling, so it is used here only as a side observation.)</p>
+<p>A few numbers worth keeping:</p>
+<ul><li>Frontier training compute has grown about 5× per year over the past decade-plus, but counting only recent frontier models since 2018 it is <strong>4.2× per year</strong>, below the headline figure — and that dataset stops in May 2024.</li><li>The cost of the largest single training run grows about 2.4× per year, from roughly $200,000 in 2016 to about $490 million in 2025. Note the caliber: <strong>amortized hardware plus electricity</strong>, not the full cost of building the cluster, which can differ by an order of magnitude.</li><li>Algorithmic efficiency is also improving: the compute needed for a given result halves roughly every 8 months. But that data stops in 2023 — <strong>the entire reasoning-model era is outside it.</strong></li><li>A counterexample: Epoch estimates GPT-5's total training compute came in <strong>below</strong> GPT-4.5's, the first time in the GPT line that a successor used less. Epoch's attribution is not a wall: they argue OpenAI bet its resources on scaling post-training, while the new techniques were not yet mature enough to apply at GPT-4.5's scale. They predict the next generation will rise again, but the same piece discounts itself — the return to growth "might not last long" — and names the availability of high-quality pretraining data as a potentially harder bottleneck. (In passing: the summary "a pause, not a halt" that circulates from this comes from a technology newsletter, not from Epoch.)</li></ul>
+<p><strong>And demand shows no retreat.</strong> Epoch's May 2026 estimate: at current prices, token demand grows roughly 10× per year while global inference capacity grows about 3.4×, with long-context and agentic workloads hitting the shortfall first. (This estimate likewise did not go through this run's verification process, and the demand figure is itself stitched together from proxy indicators.)</p>
+<p>Worth seeing clearly in passing: the widely circulated short thesis rests on depreciation accounting and circular financing, <strong>not on models hitting a capability wall.</strong> The two get bundled together but require entirely different evidence.</p>
+
+<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">What actually binds (Epoch AI's ordering), and the lead-time ladder</text>
+  <rect x="24" y="52" width="146" height="46" rx="8" fill="#ff6ec4" opacity="0.22"/><rect x="24" y="52" width="146" height="3" rx="1.5" fill="#ff6ec4" opacity="1.00"/><text x="40" y="82" fill="#ff6ec4" font-size="13" font-weight="700" font-family="Menlo,monospace">1. Power</text><rect x="182" y="52" width="146" height="46" rx="8" fill="#e8794b" opacity="0.17"/><rect x="182" y="52" width="146" height="3" rx="1.5" fill="#e8794b" opacity="0.78"/><text x="198" y="82" fill="#e8794b" font-size="13" font-weight="700" font-family="Menlo,monospace">2. Chip capacity</text><rect x="340" y="52" width="146" height="46" rx="8" fill="#7b61ff" opacity="0.12"/><rect x="340" y="52" width="146" height="3" rx="1.5" fill="#7b61ff" opacity="0.56"/><text x="356" y="82" fill="#7b61ff" font-size="13" font-weight="700" font-family="Menlo,monospace">3. Data</text><rect x="498" y="52" width="146" height="46" rx="8" fill="#7c8593" opacity="0.07"/><rect x="498" y="52" width="146" height="3" rx="1.5" fill="#7c8593" opacity="0.34"/><text x="514" y="82" fill="#7c8593" font-size="13" font-weight="700" font-family="Menlo,monospace">4. Latency</text>
+  <text x="24" y="118" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Nadella: chips sitting in inventory that can't be plugged in</text>
+  <text x="340" y="118" fill="#7b61ff" font-size="10.5" font-family="-apple-system,sans-serif">Ilya's wall ranks third</text>
+  <text x="24" y="156" fill="#4cc9f0" font-size="12" font-weight="700" font-family="Menlo,monospace">Every additional 10x of compute adds about a year of lead time</text>
+  <line x1="298" y1="168" x2="298" y2="300" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="286" y="189" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">Renting GPUs: ~0</text><rect x="298" y="176" width="26" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="215" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">Buying GPUs: ~6 months</text><rect x="298" y="202" width="74" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="241" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">Building a data center: 1–2 yrs</text><rect x="298" y="228" width="150" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="267" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">Very large DC / power plant: 2–3 yrs</text><rect x="298" y="254" width="226" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/><text x="286" y="293" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">New cutting-edge fab: 4–5 yrs</text><rect x="298" y="280" width="340" height="18" rx="5" fill="#4cc9f0" opacity="0.8"/>
+</svg>
+<figcaption>Schematic: the constraint ordering is from Epoch AI's "Can AI scaling continue through 2030?" (Aug 2024); the lead-time ladder from its Sep 2025 report (whose own central estimate may be as low as 4–8 months). The mechanism of the slowdown is supply-side delivery, not diminishing returns</figcaption>
+</figure>
+<h2>The things that matter most</h2>
+<p><strong>This question currently cannot be answered, and not because the evidence hasn't arrived.</strong> Frontier models' parameter counts, data volumes and comparable core metrics are all unpublished. Those claiming a wall cannot produce a measurement; those denying it produce their own unlabelled charts. Anyone asserting either direction is speaking past their evidence.</p>
+<p><strong>The most widely circulated evidence has mostly shed its qualifiers in transit, always in the same direction — the one that makes the claim stronger.</strong> Kaplan's "some," Ilya's reporter-written sentence, o3's "internal, aggressive configuration," the "98% synthetic" that turns out to be the alignment stage, the Nature hedge that turns out to be an editor's line — every correction restores a weaker fact from a stronger assertion. This is not one side's failing; both do it.</p>
+<p><strong>Four different walls got stuffed into one word, which is why it cannot be settled.</strong> Data, architecture, diminishing effect, delivery schedules — each side is answering something the other never said.</p>
+<p><strong>Capability is still rising, but the constraint genuinely closing in has moved from the returns side to the supply side.</strong> Power first, chips second, data third.</p>
+<p><strong>When you meet any "AI has/hasn't hit a wall" number, ask four things:</strong> Is this vendor-reported or independently measured? Which surrounding toolchain produced it? Is the model in that launch demo the same one I can buy? And has this number been revised since?</p>
+<h2>How to check the judgments in this article</h2>
+<p>Ordered from most to least confident:</p>
+<ol><li><strong>As of August 2026, no public study shows frontier models' measured results departing from the predicted line.</strong> How to refute: either side producing parameter counts, data volumes and the core metric under one consistent caliber.</li><li><strong>Diminishing returns are a property of the formula, not a 2024 discovery.</strong> Double the parameters, gain 5% — written into the 2020 paper.</li><li><strong>Ilya's "pretraining has plateaued" was written by a reporter, not by him</strong>; one of his actual quoted sentences supports continued scaling.</li><li><strong>Ilya's wall is data, not compute, and not the formula failing.</strong> He says on the same slide that compute is still growing.</li><li><strong>The compute slowdown Epoch forecasts is about data centers and power plants not being buildable fast enough, not about shrinking returns.</strong> Their constraint order: power, chips, data, latency.</li><li><strong>The same model with a different toolchain can score 22 percentage points apart on the coding benchmark</strong> (OpenAI's own data). So one-to-three-point gaps on leaderboards mean nothing.</li><li><strong>Launch-demo scores and shipping products can differ by more than 30 percentage points.</strong> The o3 demo scored 87.5% on one problem set; the released version 41% to 53% — and OpenAI confirmed they are not the same model.</li><li><strong>Repeating the same data up to 4 times costs almost nothing; beyond that, added compute's value eventually decays to zero.</strong> (Note: what is undamaged is the training metric, not downstream capability.)</li><li><strong>"Running out of data" means consumption catching up with stock, not data being physically exhausted</strong>; the window is 2026 to 2032, and the stock estimate itself spans an order of magnitude.</li><li><strong>As of August 2026, no confirmed public report exists of model collapse observed in real production training.</strong> (Absence of evidence — vendors need not disclose.)</li><li><strong>Capability measurement and pretraining returns are two ledgers, and existing independent indices only measure the first.</strong> They bake reasoning, reinforcement learning and post-training together, with no pretraining dimension to separate out.</li><li><strong>Published training-data sizes are not an extrapolable upward line.</strong> Within one generation, Llama 4's Maverick beats Scout on 22 trillion against 40 trillion.</li><li><strong>The prediction that reasoning-training's fast growth is a one-time dividend cannot be settled.</strong> Its basis is a screenshot of an unlabelled livestream chart, and frontier labs have disclosed no comparable figures since.</li></ol>
+<p><strong>What to watch.</strong> Three things would change the judgments here:</p>
+<p>First, <strong>any lab publishing parameter counts, data volumes and the core metric under one caliber</strong> — that would make the first wall checkable for the first time, and it is also the least likely to happen.</p>
+<p>Second, <strong>a bend in the slope of METR's ruler.</strong> It is the only one not held by vendors whose scale has physical meaning; if it bends, that is a real signal rather than another benchmark saturating.</p>
+<p>Third, <strong>power loosening or locking up.</strong> Since the binding constraint has moved to electricity, what sets the pace over the next two years is grid connections and data-center delivery, not papers.</p>
+<h2>A note on where this article was itself overturned</h2>
+<p>Adversarial verification killed one of this article's planned conclusions, along with several statements. The important one:</p>
+<p><strong>The plan was to write that Ilya, having proclaimed the age of scaling over, turned around and took $5 billion from NVIDIA to increase his compute tenfold.</strong> Two votes judged this a false contradiction manufactured by deleting qualifiers — his own definition of the next phase is "it's back to the age of research again, just with big computers," what he rejects is that scaling the current recipe 100× would transform everything, and he explicitly grants that scaling up "would be different, for sure."</p>
+<p><strong>The critique that does hold is different and more interesting: scale drift.</strong> In that same interview he said you do need some amount of compute, but that whether research requires the largest compute ever assembled is far from obvious — citing AlexNet's 2 GPUs and the Transformer paper's experiments on no more than 64. Less than a year later, his "enough compute" had risen by an order of magnitude. And one more: a company that as of August 2026 has published neither a paper nor a product received an order-of-magnitude increase in compute, and its research claims cannot be checked from outside.</p>
+<p>Also overturned: "Orion is only 20% better than GPT-4" has no source; "first past 80%" does not hold; the ARC cost story runs the opposite direction from the circulating version; "$2,767 to evaluate o1" cannot be traced; the Nature hedge is an editor's standfirst and the authors' own wording is stronger; NVIDIA's paper is not a clean counterexample; and "every synthetic-data success is distillation from a stronger teacher" does not hold either.</p>
+<p><strong>Which is the article in miniature: in this argument, nearly every sufficiently sharp claim gets duller once returned to its source — and what remains is usually more worth knowing than the version that was circulating.</strong></p>
+<footer>BigCat Deep Research · 2026-08 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

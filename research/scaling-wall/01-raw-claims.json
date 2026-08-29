@@ -1,0 +1,1626 @@
+{
+ "L1-theory": {
+  "claims": [
+   {
+    "id": "L1-01",
+    "claim": "Kaplan et al. 2020 的原始声称是:语言模型交叉熵 loss 随模型规模、数据量、训练算力呈幂律下降,部分趋势跨越七个以上数量级——这是「scaling laws」一词的原始口径,针对的是 loss 而非下游能力。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2001.08361",
+    "quote_or_data": "\"The loss scales as a power-law with model size, dataset size, and the amount of compute used for training, with some trends spanning more than seven orders of magnitude.\"",
+    "date": "2020-01-23",
+    "caliber_notes": "作者为 OpenAI 团队(Kaplan 为约翰霍普金斯合作者);度量是 WebText2 测试集上的 cross-entropy test loss,非任何下游 benchmark。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-02",
+    "claim": "Kaplan 幂律的具体指数:L(N)=(Nc/N)^0.076(非嵌入参数)、L(D)∝D^-0.095、L(Cmin)∝Cmin^-0.050;原文明确算出「参数翻倍 loss 只降到原来的 0.95」——幂律本身就是内生的收益递减,「递减」从第一天起就写在公式里。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2001.08361",
+    "quote_or_data": "\"The power laws αN, αD, αC^min specify the degree of performance improvement expected as we scale up N, D, or Cmin; for example, doubling the number of parameters yields a loss that is smaller by a factor 2^−αN = 0.95.\" (αN∼0.076, αD∼0.095, αC^min∼0.050)",
+    "date": "2020-01-23",
+    "caliber_notes": "指数针对非嵌入参数(non-embedding);Nc、Dc 等常数依赖分词方式、无基本意义(原文自述)。任何「回报递减了」的说法必须先回答:是偏离了这条线,还是这条线本来就递减。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-03",
+    "claim": "Kaplan 原文自己承认幂律最终必然变平:上端未见偏离,但 loss 到零之前性能必须 flatten——「终将撞墙」在 2020 年原文里就是共识,争议只在何时、何种形式。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2001.08361",
+    "quote_or_data": "\"We observe no signs of deviation from these trends on the upper end, though performance must flatten out eventually before reaching zero loss.\"",
+    "date": "2020-01-23",
+    "caliber_notes": "「无偏离迹象」的时间窗是 2020 年初、最大到 ~1.5B 参数级实验;不能外推到 2026 年的前沿规模。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-04",
+    "claim": "Kaplan 的算力分配建议(大模型+少数据+提前停止)后来被推翻:原文称最优算力效率训练是「训练非常大的模型、用相对少的数据、显著早于收敛就停」。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2001.08361",
+    "quote_or_data": "\"Larger models are significantly more sample-efficient, such that optimally compute-efficient training involves training very large models on a relatively modest amount of data and stopping significantly before convergence.\"",
+    "date": "2020-01-23",
+    "caliber_notes": "这条是 Kaplan 与 Chinchilla 的分歧点;GPT-3(175B/300B tokens)按此建议训练,后被证明严重欠训练。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-05",
+    "claim": "Hoffmann et al. 2022(Chinchilla)的核心修正:当时的大模型普遍「显著欠训练」,算力最优要求模型规模与训练 token 数等比例增长(模型翻倍、数据也翻倍),实践口径约 20 tokens/参数(Chinchilla 70B × 1.4T tokens)。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2203.15556",
+    "quote_or_data": "\"We find that current large language models are significantly undertrained... For compute-optimal training, the model size and the number of training tokens should be scaled equally: for every doubling of model size the number of training tokens should also be doubled.\"",
+    "date": "2022-03-29",
+    "caliber_notes": "DeepMind 团队自研自评,但方法透明且被广泛复现采纳;「20 tokens/param」是训练算力最优,不是推理成本最优——后来 Llama 系列刻意超训练(远超 20:1)以换取部署便宜,两个口径常被混淆。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-06",
+    "claim": "Chinchilla 用同等算力、更优分配实证反超:70B 模型在大量下游任务上一致优于 Gopher(280B)、GPT-3(175B)、Jurassic-1(178B)、MT-NLG(530B),MMLU 达 67.5%(比 Gopher 高 7 个百分点以上)——说明「堆参数」不等于「堆算力最优」。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2203.15556",
+    "quote_or_data": "\"Chinchilla uniformly and significantly outperforms Gopher (280B), GPT-3 (175B), Jurassic-1 (178B), and Megatron-Turing NLG (530B) on a large range of downstream evaluation tasks... a state-of-the-art average accuracy of 67.5% on the MMLU benchmark, greater than a 7% improvement over Gopher.\"",
+    "date": "2022-03-29",
+    "caliber_notes": "厂商(DeepMind)自报下游成绩;MMLU 67.5% 的时间窗是 2022 年 SOTA。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-07",
+    "claim": "Chinchilla 对 Kaplan 分歧的自家解释:Kaplan 对所有模型用固定 token 数和固定学习率日程,无法建模这些超参对 loss 的影响;而学习率日程与训练 token 数匹配才能得到最优最终 loss,用中间 loss 会低估「少数据训练」的效果。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2203.15556",
+    "quote_or_data": "Kaplan et al. \"use a fixed number of training tokens and learning rate schedule for all models; this prevents them from modelling the impact of these hyperparameters on the loss... setting the learning rate schedule to approximately match the number of training tokens results in the best final loss regardless of model size.\"",
+    "date": "2022-03-29",
+    "caliber_notes": "这是 Hoffmann 方的归因;2024 年 Pearce & Song 给出了不同的主因(见 L1-08),两种解释不互斥。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-08",
+    "claim": "Pearce & Song 2024 复盘认为 Kaplan-Chinchilla 系数分歧(0.73 vs 0.50)的主因是:Kaplan 只数非嵌入参数、且在小规模做实验;在同样条件下模拟 Chinchilla 研究会复现出接近 Kaplan 的有偏系数——结论重申 Chinchilla 系数,建议未来一律用总参数和总算力。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2406.12907",
+    "quote_or_data": "\"Kaplan counting non-embedding rather than total parameters, combined with their analysis being performed at small scale... Simulating the Chinchilla study under these conditions produces biased scaling coefficients close to Kaplan's.\"",
+    "date": "2024-06-18",
+    "caliber_notes": "非嵌入参数 vs 总参数是典型口径陷阱:同一批实验、不同参数计法,得出相反的分配建议。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-09",
+    "claim": "Epoch AI 的 Besiroglu et al. 2024 复现发现 Chinchilla 第三种估计法(参数化拟合)有三处问题:与前两种方法不一致、拟合不上从图中重建的数据、置信区间窄得离谱——「这么窄的区间需要 60 多万次实验,而他们大概只跑了不到 500 次」。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2404.10102",
+    "quote_or_data": "\"...inconsistent with their first two estimation methods, fail at fitting the extracted data, and report implausibly narrow confidence intervals — intervals this narrow would require over 600,000 experiments, while they likely only ran fewer than 500.\"",
+    "date": "2024-04-15",
+    "caliber_notes": "Epoch AI 是研究机构(非厂商);数据是从 Hoffmann 论文图里重建的,非原始数据。注意:复现推翻的是 Approach 3 的拟合数值,不是「等比例缩放」的总结论。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-10",
+    "claim": "复现修正后的拟合 L(N,D)=1.8172+482.01/N^0.3478+2085.43/D^0.3658 给出约 20 tokens/参数的最优比,与 Hoffmann 自己的 Approach 1、2 及 Chinchilla 实际训练配比一致;而 Hoffmann 原 Approach 3 的参数隐含约 70 tokens/参数,连他们自己训模型都没照做。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/publications/chinchilla-scaling-a-replication-attempt",
+    "quote_or_data": "\"L(N,D) = 1.8172 + 482.01/N^0.3478 + 2085.43/D^0.3658\"; 原估计 \"suggests using approximately 70 tokens per parameter\",修正后 \"implies an optimal ratio of around 20 tokens per parameter, which is consistent with both how the Chinchilla model was trained and the findings from Approaches 1 and 2\"",
+    "date": "2024-04-15",
+    "caliber_notes": "70 vs 20 的差异全部来自拟合程序问题,不是物理发现;引用 Chinchilla 数值时必须说明用的是哪个 Approach、原版还是修正版。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-11",
+    "claim": "Hoffmann 方作者事后承认了问题:主要作者之一 Borgeaud 澄清,标准误异常小的原因是 L-BFGS-B 优化器中 Huber loss 按样本取平均而非求和导致 loss scale 过高——即旗舰缩放律论文确有拟合 bug,但修正后核心结论(≈20 tokens/param)反而更稳固。",
+    "source_type": "从业者",
+    "source_url": "https://arxiv.org/html/2404.10102v2",
+    "quote_or_data": "\"one of the lead authors of Hoffmann et al., (2022) has clarified that the reason behind the low standard errors was a high loss scale in their L-BFGS-B minimizer resulting from them averaging Huber loss values over examples instead of summing them (Borgeaud, 2024).\"",
+    "date": "2024-04",
+    "caliber_notes": "作者承认经由 X/社交媒体(Borgeaud 2024),被 Besiroglu v2 论文正式引用;非正式勘误、arXiv 原文未撤改。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-12",
+    "claim": "「撞墙」的数学形式化在严肃文献里有现成载体:Chinchilla 参数化形式 L=E+A/N^α+B/D^β 中的不可约项 E(数据分布的熵)本身就是一堵理论上的墙——N、D 无穷大 loss 也只能到 E(复现拟合值 1.8172);因此「撞墙」若要成为可检验命题,只能定义为(a)实测点系统性偏到幂律线下方失效、或(b)幂律照旧但每单位 loss 下降的算力/美元代价在经济上不可承受,而不是幂律本身的凹性。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2404.10102",
+    "quote_or_data": "参数化损失函数含常数项 E:\"L(N,D) = 1.8172 + 482.01/N^0.3478 + 2085.43/D^0.3658\"(E=1.8172 为不可约损失)",
+    "date": "2024-04-15",
+    "caliber_notes": "这是概念澄清型论断:前半句(E 的存在与数值)有一手出处,后半句(撞墙的两种可检验定义)是从公式结构出发的整理,文章使用时应作为分析框架而非引用他人结论。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-13",
+    "claim": "标题看似权威的 arXiv 2512.20264《The AI Scaling Wall of Diminishing Returns》实为单一作者(Hemant Shukla)的立场短文,挂在天体物理仪器分类(astro-ph.IM)下、未经同行评审;其摘要断言「compute grows 10-100x while accuracy barely moves」但并非系统实证研究——引用它当「撞墙已被论文证实」属于来源级别误用。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2512.20264",
+    "quote_or_data": "\"LLMs are hitting the scaling wall - compute grows 10-100x while accuracy barely moves. This note quantifies the slowdown and argues that the next leap in AI will come not from bigger models, but from smarter, more efficient ones.\" (单作者 note,2025-12-23 提交,astro-ph.IM 分类)",
+    "date": "2025-12-23",
+    "caliber_notes": "来源分级为预印本立场文(弱);「10-100x compute vs accuracy barely moves」未给分子分母与时间窗,文章若引用必须降级处理或仅作观点引述。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-14",
+    "claim": "Sutskever 在 NeurIPS 2024(2024-12-13)公开宣称「我们所知的预训练必将终结」,理由是数据而非算力:「我们只有一个互联网」「数据是 AI 的化石燃料」「已达峰值数据」——这是「预训练轴撞墙」论最重量级的从业者背书,但其墙是数据墙,不是幂律失效。",
+    "source_type": "从业者",
+    "source_url": "https://www.techmeme.com/241213/p33",
+    "quote_or_data": "\"Pre-training as we know it will unquestionably end\"; \"Data is not growing because we only have one internet. You could even say data is the fossil fuel of AI.\"; \"We've achieved peak data and there'll be no more\"",
+    "date": "2024-12-13",
+    "caliber_notes": "公开演讲、经 The Verge 等媒体转述及现场视频存证(X: AndrewCurran_);Sutskever 时任 SSI 创始人,其「预训练已尽」叙事与其新公司(不靠预训练规模竞争)的融资定位存在利益一致性,引用时应标注。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-15",
+    "claim": "反方的代表性发言同样没有数据:Altman 2024-11-14 在 X 仅发三个词「there is no wall」,回应「OpenAI 下一代模型仅温和提升」的报道;Google DeepMind 研究 VP Vinyals 跟帖「what wall?」——「没撞墙」阵营的公开证据在当时同样是断言而非实测。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/sama/status/1856941766915641580",
+    "quote_or_data": "\"there is no wall\" (Sam Altman, X, 2024-11-14)",
+    "date": "2024-11-14",
+    "caliber_notes": "厂商口径、零数据;OpenAI 当时正处巨额融资周期,「无墙」叙事与估值直接相关,利益位置必须标注。此条与 L1-14 对照使用:双方旗手的公开表态都不是可检验证据。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-16",
+    "claim": "数据受限缩放律(Muennighoff et al. 2023, NeurIPS)给数据墙装了缓冲垫也画了硬边界:固定算力下重复数据训练至 4 个 epoch,loss 与用全新数据几乎无差;但继续重复下去「增加算力的价值最终衰减到零」——重复数据可推迟数据墙,推不倒它。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2305.16264",
+    "quote_or_data": "\"with constrained data for a fixed compute budget, training with up to 4 epochs of repeated data yields negligible changes to loss compared to having unique data... with more repetition, the value of adding compute eventually decays to zero.\" (实验至 9B 参数 / 900B tokens)",
+    "date": "2023-05-25",
+    "caliber_notes": "实验上限 9B 参数,外推到前沿规模有假设成分;「数据耗尽」讨论必须区分 unique tokens 存量与 4-epoch 缓冲后的 effective tokens。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-17",
+    "claim": "数据墙的时间表有定量研究:Villalobos et al.(Epoch AI,ICML 2024 位置论文)预测 2026-2032 年间训练集规模将追平公开人类文本存量,若模型超训练则更早——「数据用尽」不是修辞,是带区间的预测。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2211.04325",
+    "quote_or_data": "\"models will be trained on datasets roughly equal in size to the available stock of public human text data between 2026 and 2032, or slightly earlier if models are overtrained.\"",
+    "date": "2024-06-04",
+    "caliber_notes": "口径是「公开人类文本」——不含私有数据、多模态、合成数据;2022 首版后 2024-06 大幅修订,引用须用修订版区间。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-18",
+    "claim": "缩放律家族在精度维度的扩展(Kumar et al. 2024《Scaling Laws for Precision》)发现非单调现象:低精度训练更大模型可能才是算力最优,且「训练数据越多,训后量化的性能退化越大,最终让额外的预训练数据变得有害」——「更多数据永远更好」在量化部署口径下不成立。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2411.04330",
+    "quote_or_data": "\"training larger models in lower precision may be compute optimal... the degradation introduced by post-training quantization increases as models are trained on more data, eventually making additional pretraining data actively harmful.\"",
+    "date": "2024-11-07",
+    "caliber_notes": "「有害」的口径是训后量化(post-training quantization)后的模型,非全精度模型;哈佛/斯坦福等学术团队。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-19",
+    "claim": "蒸馏缩放律(Apple 的 Busbridge et al.,ICML 2025)把「教师-学生」也纳入可预测框架:给定算力预算及其在师生间的分配即可估计蒸馏模型性能;多学生或已有教师时蒸馏优于监督预训练(有随学生规模增长的算力阈值),只蒸一个学生且教师还需从头训时监督学习通常更好。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2502.08606",
+    "quote_or_data": "\"a distillation scaling law that estimates distilled model performance based on a compute budget and its allocation between the student and teacher\"; \"if only one student is to be distilled and a teacher also requires training, supervised learning is generally preferable.\"",
+    "date": "2025-02-12",
+    "caliber_notes": "作者全部为 Apple 研究员(厂商研究、但经 ICML 同行评审);结论支持「缩放律框架仍在扩张而非失效」。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-20",
+    "claim": "测试时算力缩放的奠基实证(Snell et al. 2024):按提示难度自适应分配推理算力,效率比 best-of-N 基线提升 4 倍以上;在 FLOPs 对齐比较中,小模型加测试时算力可胜过大它 14 倍的模型——算力换能力的曲线没消失,而是换了一根轴。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2408.03314",
+    "quote_or_data": "compute-optimal 策略 \"more than 4x\" 于 best-of-N;小模型在 \"attain non-trivial success rates\" 的题上可在 FLOPs-matched 比较中胜过 \"a 14x larger model\"(UC Berkeley/DeepMind,MATH 数学推理域)",
+    "date": "2024-08-06",
+    "caliber_notes": "14x 结论限定条件苛刻:基座模型对该题需有非零成功率、且题目难度分布合适;不能外推为「推理算力普遍替代参数」。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-21",
+    "claim": "厂商对新缩放轴的正式表述(OpenAI o1 发布文):o1 性能「随更多强化学习(训练时算力)和更多思考时间(测试时算力)持续提升」,且「这一方法的缩放约束与 LLM 预训练有实质不同」——厂商自己承认预训练轴与推理轴是两回事。",
+    "source_type": "厂商",
+    "source_url": "https://openai.com/index/learning-to-reason-with-llms/",
+    "quote_or_data": "\"The performance of o1 consistently improves with more reinforcement learning (train-time compute) and with more time spent thinking (test-time compute). The constraints on scaling this approach differ substantially from those of LLM pretraining, and we are continuing to investigate them.\"",
+    "date": "2024-09-12",
+    "caliber_notes": "厂商口径:图表坐标轴刻度未公开、无第三方复核;「持续提升」无时间窗与上限说明。OpenAI 融资叙事直接受益于「缩放继续有效」。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-22",
+    "claim": "测试时缩放也有反证:对 o1 类开源复现模型(QwQ 等)的再检验发现「更长的思维链并不持续提高准确率;正确解往往比错误解更短」,更长 CoT 中更多自我修订常导致性能退化——新轴同样不是无限直线。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2502.12215",
+    "quote_or_data": "\"longer CoTs of these o1-like models do not consistently enhance accuracy; in fact, correct solutions are often shorter than incorrect ones... longer CoTs contain more self-revisions, which often lead to performance degradation.\"",
+    "date": "2025-02-17",
+    "caliber_notes": "实验对象是开源 o1 类模型,不能直接断言 o1/o3 本体;「测试时缩放有效」与「单条 CoT 越长越好」是两个不同口径(并行采样 vs 串行加长)。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-23",
+    "claim": "「loss 降=能力涨」链条的正方:Wei et al. 2022 定义涌现能力为「小模型不具备、大模型具备的能力」,其核心含义是下游能力无法从小模型性能外推预测,继续放大可能解锁新能力——这为「堆算力值得」提供了超出 loss 曲线的论据。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2206.07682",
+    "quote_or_data": "\"an ability to be emergent if it is not present in smaller models but is present in larger models\"; 涌现能力 \"cannot be predicted simply by extrapolating the performance of smaller models\"(TMLR 2022)",
+    "date": "2022-06-15",
+    "caliber_notes": "作者主要来自 Google;「涌现」依赖所选 benchmark 与打分方式,见 L1-24 的对立面。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L1-24",
+    "claim": "反方(NeurIPS 2023 杰出论文奖):Schaeffer et al. 证明所谓涌现多为度量假象——「非线性或不连续的度量产生表观涌现,线性或连续度量产生平滑、连续、可预测的变化」,换度量或更好的统计后「所谓涌现能力就蒸发了」。这直接决定「loss 还在降所以能力还在涨」与「loss 降速放缓所以撞墙」两种推断都不能直接从 loss 曲线读出。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2304.15004",
+    "quote_or_data": "\"nonlinear or discontinuous metrics produce apparent emergent abilities, whereas linear or continuous metrics produce smooth, continuous predictable changes\"; \"alleged emergent abilities evaporate with different metrics or with better statistics\"",
+    "date": "2023-04-28",
+    "caliber_notes": "NeurIPS 2023 Outstanding Paper(Schaeffer/Miranda/Koyejo);注意其结论是「涌现的锐利性是度量伪影」,不是「规模无用」——常被两个方向都误引。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-25",
+    "claim": "「缩放律作为预测公式仍成立」的最强实证是 GPT-4:OpenAI 称用不超过 GPT-4 千分之一算力训练的小模型,准确预测了 GPT-4 的部分性能(含最终 loss)——公式预测力与「继续堆算力是否划算」是两个独立命题。",
+    "source_type": "厂商",
+    "source_url": "https://arxiv.org/abs/2303.08774",
+    "quote_or_data": "\"This allowed us to accurately predict some aspects of GPT-4's performance based on models trained with no more than 1/1,000th the compute of GPT-4.\"",
+    "date": "2023-03-15",
+    "caliber_notes": "厂商口径:「some aspects」限定词重要——loss 与 HumanEval 可预测,报告同时承认个别能力(如 hindsight neglect 反缩放翻转)事前难料;原始数据未公开、无法第三方复核。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L1-26",
+    "claim": "「撞墙=偏离幂律」在 2024 年末的实名证词:Sutskever 对 Reuters 表示扩大预训练的收益已趋平——「2010 年代是缩放的时代,现在我们回到了奇迹与发现的时代」,与 L1-14 的 NeurIPS 演讲构成同一从业者前后一致的判断。",
+    "source_type": "媒体",
+    "source_url": "https://www.reuters.com/technology/artificial-intelligence/openai-rivals-seek-new-path-smarter-ai-current-methods-hit-limitations-2024-11-11/",
+    "quote_or_data": "Sutskever 对 Reuters:results from scaling up pre-training \"have plateaued\";\"The 2010s were the age of scaling, now we're back in the age of wonder and discovery once again.\"(2024-11-11 报道)",
+    "date": "2024-11-11",
+    "caliber_notes": "媒体转述的直接引语(Reuters 采访),「plateaued」一词为 Reuters 转述框架的一部分,引用时区分直接引语与记者概括;利益位置同 L1-14。",
+    "load_bearing_candidate": false
+   }
+  ],
+  "cross_caliber_issues": [
+   "非嵌入参数 vs 总参数:Kaplan 系数 0.73 与 Chinchilla 0.50 的分歧主因之一就是参数计法不同(Pearce & Song 2024);引用任何缩放指数必须注明参数口径。",
+   "cross-entropy test loss vs 下游 benchmark 准确率:缩放律原始命题只对 loss(WebText2 测试集)成立;loss→能力的换算取决于度量是否线性(Wei 2022 vs Schaeffer 2023),「loss 还在降」不自动等于「能力还在涨」,反之亦然。",
+   "幂律的内生递减 vs 「撞墙」:参数翻倍 loss 只 ×0.95 本来就写在 Kaplan 公式里;把 log-log 直线在线性坐标下的平缓段当「撞墙证据」是坐标系错觉。可检验的墙只有两种:实测偏到幂律线下方,或幂律照旧但边际算力经济上不可行。",
+   "训练算力最优 vs 推理/部署最优:20 tokens/param 是训练算力最优口径;Llama 系列刻意超训练(数百 tokens/param)以降低推理成本,拿部署配比反驳 Chinchilla 是口径错位。",
+   "Chinchilla Approach 3 原版(≈70 tokens/param)vs 修正版(≈20):引用 Chinchilla 数值必须说明用哪个 Approach、是否 Besiroglu 修正后;原 Approach 3 数值已被作者承认有拟合 bug(Borgeaud 2024)。",
+   "unique tokens 存量 vs effective tokens:重复 4 epoch 内几乎等价于新数据(Muennighoff),「2026-2032 数据用尽」(Villalobos)的口径是公开人类文本 unique 存量,不含重复缓冲、私有数据、多模态与合成数据。",
+   "预训练轴 vs 测试时/RL 轴:2024 年后厂商说「scaling 继续有效」多指 test-time/RL 轴(o1),批评者说「撞墙」多指预训练轴;同用 scaling 一词,实指不同曲线。",
+   "测试时缩放内部:并行采样(best-of-N/coverage)vs 串行加长 CoT 是两条曲线——后者已被证明非单调(2502.12215),不能拿并行曲线的收益为「思考越长越好」背书。",
+   "全精度 vs 量化后:「更多预训练数据更好」在量化部署口径下会反转为有害(Kumar et al. 2024),讨论数据规模收益必须注明部署精度。",
+   "来源级别错位:arXiv 2512.20264 标题酷似权威综述,实为单作者、astro-ph.IM 分类、未评审的立场短文;而「there is no wall」(Altman)与「pre-training will end」(Sutskever)均为零数据断言且各有融资/公司定位利益,不能当实测证据。",
+   "厂商预测力声明的限定词:GPT-4 报告是「accurately predict some aspects」——loss 和 HumanEval 可预测、个别能力仍翻转;去掉 some aspects 引用会夸大「公式全能」。"
+  ],
+  "line": "L1 缩放律一手谱系(理论线):从 Kaplan 2020 幂律原始口径、Chinchilla 2022 修正、Epoch 2024 复现与作者承认拟合 bug,到数据/精度/蒸馏/测试时缩放律家族与涌现之争——核心区分「缩放律作为 loss 预测公式仍成立」与「继续堆算力在经济/能力上仍值得」两个独立命题。",
+  "sources_count": 18
+ },
+ "L2-narrative": {
+  "line": "2024-11 撞墙叙事由 The Information/Bloomberg/Reuters 匿名源+Ilya 间接引语点燃,Altman 四字反驳;2025 年 GPT-4.5/GPT-5 先坐实再翻转,Gemini 3 后 \"No walls in sight\" 成新主流;2026 年反方(Amodei/Hassabis)口径统一为\"没墙\",而喊\"换范式\"者(Ilya/LeCun)恰在融资买算力——话语与利益位置高度相关。",
+  "claims": [
+   {
+    "id": "L2-01",
+    "claim": "2024-11-09 The Information 报道(Amir Efrati/Stephanie Palazzolo):OpenAI 下一代模型 Orion 相对 GPT-4 的提升\"远小于\"GPT-3 到 GPT-4 的跃迁,且在编码等任务上\"不可靠地优于前代\";消息源为参与内测的匿名 OpenAI 员工。",
+    "source_type": "媒体",
+    "source_url": "https://www.theinformation.com/articles/openai-shifts-strategy-as-rate-of-gpt-ai-improvements-slows",
+    "quote_or_data": "Orion's improvement was \"far smaller\" than GPT-4 over GPT-3; Orion \"isn't reliably better than its predecessor in handling certain tasks\" (coding). 归因结构: anonymous \"OpenAI employees who have used or tested Orion\".",
+    "date": "2024-11-09",
+    "load_bearing_candidate": true,
+    "caliber_notes": "原文付费墙,引语经二手转述(digitaltrends/dataconomy 等)回收;日期个别转载写 11-16,主流引用为 11-09。全部为匿名内测口径,非公开基准测试。"
+   },
+   {
+    "id": "L2-02",
+    "claim": "2024-11-13 Bloomberg(Rachel Metz、Shirin Ghaffary、Dina Bass、Julia Love)报道三家同时遇阻:OpenAI Orion 九月首轮训练未达预期、Google 下一代 Gemini\"不及内部预期\"、Anthropic 3.5 Opus 发布时间表推迟。",
+    "source_type": "媒体",
+    "source_url": "https://www.bloomberg.com/news/articles/2024-11-13/openai-google-and-anthropic-are-struggling-to-build-more-advanced-ai",
+    "quote_or_data": "\"three of the leading AI companies are now seeing diminishing returns from their costly efforts to build newer models\"; Orion \"fell short when trying to answer coding questions that it hadn't been trained on\"; Gemini iteration \"not living up to internal expectations\".",
+    "date": "2024-11-13",
+    "load_bearing_candidate": true,
+    "caliber_notes": "匿名知情人口径;三家事后均未公开确认;3.5 Opus 最终确实未按原名发布(旁证)。"
+   },
+   {
+    "id": "L2-03",
+    "claim": "2024-11-11 Reuters:Ilya Sutskever 表示扩大预训练规模的收益已趋平——注意\"have plateaued\"是 Reuters 的间接引语(转述结构),他的直接引语是\"2010 年代是 scaling 的时代,现在我们回到了惊奇与发现的时代\"。",
+    "source_type": "媒体",
+    "source_url": "https://www.business-reporter.co.uk/news/openai-and-rivals-seek-new-path-to-smarter-ai-as-current-methods-hit-limitations-11741",
+    "quote_or_data": "间接引语: told Reuters that \"results from scaling up pre-training...have plateaued\"; 直接引语: \"The 2010s were the age of scaling, now we're back in the age of wonder and discovery once again. Everyone is looking for the next thing.\" \"Scaling the right thing matters more now than ever.\"",
+    "date": "2024-11-11",
+    "load_bearing_candidate": true,
+    "caliber_notes": "最常被引用的\"plateaued\"一句并非引号内原话而是记者转述;说话者利益位置:Ilya 时任 SSI 创始人,正以\"不同于 scaling 的新路径\"为卖点融资(2024 年已募 $1B)。"
+   },
+   {
+    "id": "L2-04",
+    "claim": "同一篇 Reuters 报道中,OpenAI 研究员 Noam Brown 以扑克实验论证测试时计算范式:让 bot 思考 20 秒等效于模型放大 10 万倍、训练时间延长 10 万倍。",
+    "source_type": "媒体",
+    "source_url": "https://www.business-reporter.co.uk/news/openai-and-rivals-seek-new-path-to-smarter-ai-as-current-methods-hit-limitations-11741",
+    "quote_or_data": "\"It turned out that having a bot think for just 20 seconds in a hand of poker got the same boosting performance as scaling up the model by 100,000x and training it for 100,000 times longer\"",
+    "date": "2024-11-11",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径:OpenAI 当时正主推 o1 测试时计算范式,该类比来自扑克这一特定可验证域,外推到 LLM 需谨慎。"
+   },
+   {
+    "id": "L2-05",
+    "claim": "2024-11-14 Sam Altman 在 X 发帖,全文仅四个词\"there is no wall\",被普遍解读为回应上述三篇报道;Google DeepMind 的 Oriol Vinyals 同日回复\"what wall?\"。",
+    "source_type": "从业者",
+    "source_url": "https://x.com/sama/status/1856941766915641580",
+    "quote_or_data": "\"there is no wall\" (原帖全文)",
+    "date": "2024-11-14",
+    "load_bearing_candidate": true,
+    "caliber_notes": "无任何论据的纯断言;利益位置:OpenAI 刚于 2024-10 完成 $6.6B 融资,且正推进需要巨额算力叙事的基建计划;\"回应报道\"是媒体推断,帖子本身未指明对象。"
+   },
+   {
+    "id": "L2-06",
+    "claim": "2024-11 (Microsoft Ignite 期间) Satya Nadella 公开表示 scaling laws 不是物理定律:\"这些不是物理定律,只是恰好成立的经验观察,就像摩尔定律一样\"。",
+    "source_type": "厂商",
+    "source_url": "https://garymarcus.substack.com/p/satya-nadella-and-the-three-stages",
+    "quote_or_data": "\"these are not physical laws. There are just empirical observations that hold true just like Moore's law did\"",
+    "date": "2024-11-19",
+    "load_bearing_candidate": false,
+    "caliber_notes": "经 Gary Marcus (2024-11-23) 转引,Marcus 有\"我早说过\"的立场利益;Nadella 利益位置复杂:微软卖算力(希望 scaling 继续)但也需对冲资本开支预期。"
+   },
+   {
+    "id": "L2-07",
+    "claim": "2024-12-13 Ilya Sutskever 在 NeurIPS 2024(温哥华)Test of Time 演讲中断言\"我们所知的预训练将毫无疑问地终结\",论据是数据墙而非算力墙:算力在增长而数据没有,\"我们只有一个互联网\",\"数据是 AI 的化石燃料\",已达\"peak data\"。",
+    "source_type": "研究",
+    "source_url": "https://x.com/AndrewCurran_/status/1867756563009790169",
+    "quote_or_data": "\"Pre-training as we know it will unquestionably end\"; \"You could even go as far as to say that data is the fossil fuel of AI. It was created somehow, and now we use it, and we've achieved peak data - and there'll be no more\"",
+    "date": "2024-12-13",
+    "load_bearing_candidate": true,
+    "caliber_notes": "关键口径:他说的是数据受限(fossil fuel/one internet),不是算力或算法撞墙,媒体普遍压缩为\"AI 撞墙\";演讲有公开视频可回溯。利益位置:SSI 创始人,卖\"scaling 之外的新路径\"。"
+   },
+   {
+    "id": "L2-08",
+    "claim": "2024-11-11 Dario Amodei 在 Lex Fridman 播客 #452 上持反方:按曲线外推,几年内模型将超过最高专业人类水平——\"如果外推曲线继续,这就是我们所在的轨迹\"。",
+    "source_type": "从业者",
+    "source_url": "https://lexfridman.com/dario-amodei-transcript/",
+    "quote_or_data": "\"If you extrapolate the curves that we've had so far... we're starting to get to PhD level... if we extrapolate the straight curve, within a few years, we will get to these models being above the highest professional level\"",
+    "date": "2024-11-11",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径+利益位置:Anthropic 当月获 Amazon 追加 $40 亿投资,scaling 继续是其融资叙事核心;但他同时列举了\"可能不发生的理由\",完整语境比引用版更含糊。"
+   },
+   {
+    "id": "L2-09",
+    "claim": "2024-11 下旬 Scale AI CEO Alexandr Wang 在 Cerebral Valley 峰会上说\"看起来我们在预训练上确实撞墙了\",但\"AI 进步没有撞墙\"——精确区分了预训练口径与整体进步口径。",
+    "source_type": "从业者",
+    "source_url": "https://www.newcomer.co/p/our-biggest-takeaways-from-cerebral",
+    "quote_or_data": "\"It seems to be the case that we've hit a wall on pre-training\"; \"the large-cluster training on huge amounts of internet data, that seems to have genuinely hit a wall, but we haven't hit a wall on progress in AI\"",
+    "date": "2024-11-20",
+    "load_bearing_candidate": false,
+    "caliber_notes": "利益位置极强:Scale AI 卖训练数据,\"数据墙\"叙事直接利好其\"前沿数据\"业务;2025 年 Wang 转任 Meta Superintelligence Labs 负责人后立场语境改变。"
+   },
+   {
+    "id": "L2-10",
+    "claim": "2025-02-27 OpenAI 发布 GPT-4.5(即传闻中的 Orion),Altman 原帖自述\"它是一个巨大、昂贵的模型\"\"这不是推理模型,不会碾压基准测试\";API 定价 $75/百万输入 tokens、$150/百万输出,远高于 GPT-4o。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/sama/status/1895203654103351462",
+    "quote_or_data": "\"GPT-4.5 is ready! good news: it is the first model that feels like talking to a thoughtful person to me... bad news: it is a giant, expensive model\"; \"this isn't a reasoning model and won't crush benchmarks\"; 定价 $75/$150 per 1M tokens",
+    "date": "2025-02-27",
+    "load_bearing_candidate": true,
+    "caliber_notes": "这是 2024-11 匿名报道的公开验证点:最大预训练模型公开发布却以\"情商/品味\"而非能力跃迁为卖点;2025 年中 OpenAI 已将 GPT-4.5 从 API 下线(经济性口径 vs 能力口径要分开)。"
+   },
+   {
+    "id": "L2-11",
+    "claim": "GPT-4.5 system card 初版含\"GPT-4.5 is not a frontier model\"字样,随后 OpenAI 将该句从文档中删除——被 Nathan Lambert (Interconnects) 与 TechCrunch 记录。",
+    "source_type": "媒体",
+    "source_url": "https://www.interconnects.ai/p/gpt-45-not-a-frontier-model",
+    "quote_or_data": "\"GPT-4.5 is not a frontier model\" (原 system card 文本,后被移除)",
+    "date": "2025-02-27",
+    "load_bearing_candidate": false,
+    "caliber_notes": "删改行为本身是叙事管理证据;引用时需注明该句已不在现行官方 PDF 中,依赖第三方存档截图。"
+   },
+   {
+    "id": "L2-12",
+    "claim": "2025-08-07 GPT-5 发布后遭遇大规模用户反弹(路由器争议、4o 下线、发布会图表错误),Altman 承认 OpenAI 在发布上\"totally screwed up\";Gary Marcus 2025-08 定性文\"overdue, overhyped, and underwhelming\"成为\"underwhelming\"叙事的核心出处。",
+    "source_type": "媒体",
+    "source_url": "https://spectrum.ieee.org/gpt-5-trough-of-disillusionment",
+    "quote_or_data": "Altman: OpenAI \"totally screwed up\" the launch; Marcus: GPT-5 \"overdue, overhyped, and underwhelming\"; 用户实测 \"unable to correctly count the number of b's in 'blueberry'\"",
+    "date": "2025-08-11",
+    "load_bearing_candidate": true,
+    "caliber_notes": "注意区分两个口径:产品发布事故(路由器/4o 情感依恋)与模型能力递减是两回事,反弹主体是前者却被广泛引作后者证据;Marcus 是长期\"撞墙\"论者,有立场连续性利益。"
+   },
+   {
+    "id": "L2-13",
+    "claim": "2025-11-18 Gemini 3 发布当天,Google DeepMind 研究副总裁/Gemini 联合负责人 Oriol Vinyals 发帖直接反驳撞墙论:预训练带来\"我们见过的最大代际跃迁\",\"看不到任何墙\"。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/OriolVinyalsML/status/1990854455802343680",
+    "quote_or_data": "\"The secret behind Gemini 3? Simple: Improving pre-training & post-training. Pre-training: Contra the popular belief that scaling is over...the team delivered a drastic jump. The delta between 2.5 and 3.0 is as big as we've ever seen. No walls in sight!\"",
+    "date": "2025-11-18",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商口径:发布日营销语境,\"delta as big as we've ever seen\"无公开可复核的预训练消融数据支撑;\"improving pre-training\"(算法/数据配方改进)与\"scaling pre-training compute\"(纯算力放大)是两个口径,他的措辞其实是前者。帖中提及\"NeurIPS '25 talk with @ilyasut and @quocleix\"发帖时 NeurIPS'25(12-02 开幕)尚未举行,所指存疑(三人恰是 NeurIPS'24 seq2seq Test of Time 得主)。"
+   },
+   {
+    "id": "L2-14",
+    "claim": "2025-11-25 Ilya Sutskever 在 Dwarkesh Patel 播客上系统化其立场:2020-2025 是 scaling 时代,现在\"回到研究时代,只是带着大计算机\";并明确否认 100 倍算力会带来质变——\"如果把规模扩大100倍,一切都会改变吗?我不这么认为\"。",
+    "source_type": "从业者",
+    "source_url": "https://www.dwarkesh.com/p/ilya-sutskever-2",
+    "quote_or_data": "\"from 2020 to 2025, it was the age of scaling\"; \"it's back to the age of research again, just with big computers\"; \"But is the belief that if you just 100x the scale, everything would be transformed? I don't think that's true\"; \"We got to the point where we are in a world where there are more companies than ideas by quite a bit.\"",
+    "date": "2025-11-25",
+    "load_bearing_candidate": true,
+    "caliber_notes": "利益位置:SSI 无产品、以研究差异化融资,\"研究时代\"叙事即其商业模型;但注意他并未说算力无用(\"just with big computers\"),且八个月后 SSI 接受 Nvidia 注资扩算力 10 倍(见 L2-19),引用时勿剪掉后半句。"
+   },
+   {
+    "id": "L2-15",
+    "claim": "2025-10-17 Andrej Karpathy 在 Dwarkesh 播客上给出中间立场:AGI 还要十年,当前 agent 是\"slop\",行业\"步子迈得太大还假装很惊艳\";批评 RL 是\"用吸管吸监督信号\"。",
+    "source_type": "从业者",
+    "source_url": "https://simonwillison.net/2025/Oct/18/agi-is-still-a-decade-away/",
+    "quote_or_data": "\"the industry is making too big of a jump and is trying to pretend like this is amazing, and it's not. It's slop\"; RL is \"sucking supervision through a straw\"; 主张 \"decade of agents\" 而非 \"year of agents\"",
+    "date": "2025-10-17",
+    "load_bearing_candidate": false,
+    "caliber_notes": "当时利益位置相对中立(Eureka Labs 教育创业,不在融资卖模型);2026-05 加入 Anthropic 后语境改变(见 L2-20)。"
+   },
+   {
+    "id": "L2-16",
+    "claim": "2025-12-11 OpenAI 在 Gemini 3 发布约三周后推出 GPT-5.2,媒体报道内部\"Code Red\"备忘录促使加速发布;OpenAI 宣称 GPT-5.2 Thinking 在 GDPval 上首次达到或超过人类专家水平(70.9% 的对比中打平或胜出)——GPT-5 的\"underwhelming\"叙事由此开始回摆。",
+    "source_type": "厂商",
+    "source_url": "https://openai.com/index/introducing-gpt-5-2/",
+    "quote_or_data": "\"On GDPval...GPT-5.2 Thinking sets a new state-of-the-art score and is the first model that performs at or above human expert level, beating or tying top industry professionals on 70.9% of comparisons\"",
+    "date": "2025-12-11",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径三重:GDPval 是 OpenAI 自建 eval、自选任务分布、由其委托的评审判定;\"Code Red\"为媒体匿名源转述;评价回升的证据链主要来自厂商基准而非独立复测。"
+   },
+   {
+    "id": "L2-17",
+    "claim": "2025-11-19 Yann LeCun 确认离开 Meta 创办世界模型公司 AMI Labs,公开称 LLM 是通往人类水平智能的\"死胡同\";2026-02 印度 AI Impact Summit 上称\"LLM 极其有用,但主要是信息检索系统\";2026-03-10 AMI Labs 宣布 $1.03B 种子轮(投前估值 $3.5B)。",
+    "source_type": "从业者",
+    "source_url": "https://eu.36kr.com/en/p/3571987975018880",
+    "quote_or_data": "LLMs are a \"dead end\" on the path to human-level intelligence; \"LLMs are incredibly useful but are mostly information retrieval systems\" (2026-02); \"I told him I can do this faster, cheaper, and better outside of Meta\"",
+    "date": "2026-03-10",
+    "load_bearing_candidate": false,
+    "caliber_notes": "利益位置:\"LLM 死胡同\"是其十亿美元融资的核心 pitch;注意他否定的是 LLM 架构而非 scaling 本身(架构墙 vs 规模墙是不同口径);36kr 为中文转述,\"dead end\"原话出处为其公开对谈,英文一手视频可回溯。"
+   },
+   {
+    "id": "L2-18",
+    "claim": "2026-03-03 Dario Amodei 在 Morgan Stanley TMT 大会上明确否认撞墙:\"We do not see hitting the wall. We don't see a wall.\"并预言 2026 年会有\"激进加速\"。",
+    "source_type": "厂商",
+    "source_url": "https://eu.36kr.com/en/p/3709346127933831",
+    "quote_or_data": "\"We do not see hitting the wall.\" \"We don't see a wall.\"",
+    "date": "2026-03-03",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商口径:投行会议场合、面向投资人;Anthropic 处于持续大额融资周期,\"没墙+加速\"直接支撑估值;引语经 36kr 英文版转述,建议回溯 Morgan Stanley 会议实录或权威英文媒体二次确认。"
+   },
+   {
+    "id": "L2-19",
+    "claim": "2026-07-27 Nvidia 宣布向 Ilya Sutskever 的 SSI 投资 $50 亿并给予下一代 Vera Rubin 平台访问权,预计使 SSI 算力提升一个数量级——喊\"研究时代\"的 Ilya 同时在把算力扩大 10 倍,SSI 至今(2026-08)无任何产品。",
+    "source_type": "厂商",
+    "source_url": "https://nvidianews.nvidia.com/news/ilya-sutskevers-safe-superintelligence-inc-and-nvidia-announce-long-term-strategic-partnership",
+    "quote_or_data": "Nvidia committed to invest $5 billion; Vera Rubin platform access \"expected to increase the startup's compute resources by an order of magnitude\"; SSI 融资史: $1B (2024, $5B 估值) → $2B (2025-02, $32B 估值)",
+    "date": "2026-07-27",
+    "load_bearing_candidate": true,
+    "caliber_notes": "双重利益位置:Nvidia 卖算力,投资即锁定客户与\"scaling 继续\"叙事;SSI 的行为(买 10x 算力)与其创始人的话语(scaling 时代结束)之间的张力是本文关键证据——但 Ilya 原话是\"age of research, just with big computers\",行为与完整原话并不矛盾,勿断章。"
+   },
+   {
+    "id": "L2-20",
+    "claim": "2026-05-19 Andrej Karpathy 宣布加入 Anthropic,领导一个用 Claude 加速预训练研究的新团队——被行业解读为\"预训练未死\"的用脚投票;其原话未直接评论 scaling 是否撞墙。",
+    "source_type": "从业者",
+    "source_url": "https://techcrunch.com/2026/05/19/openai-co-founder-andrej-karpathy-joins-anthropics-pre-training-team/",
+    "quote_or_data": "\"I've joined Anthropic. I think the next few years at the frontier of LLMs will be especially formative. I am very excited to join the team here and get back to R&D.\"",
+    "date": "2026-05-19",
+    "load_bearing_candidate": false,
+    "caliber_notes": "\"此举证明预训练没撞墙\"是媒体/评论者的推断而非任何一方原话;Karpathy 本人措辞刻意中性;利益位置从中立教育者转为 Anthropic 雇员。"
+   },
+   {
+    "id": "L2-21",
+    "claim": "2026-04-07 Demis Hassabis 在 20VC 播客上称前沿实验室仍从扩大计算与训练中获得\"非常可观\"的收益,收益递减叙事被夸大;但他 2025-12 也说过 scaling 只占通往 AGI 的约一半,没有一两次 Transformer 级突破会停在收益递减的\"中间地带\"。",
+    "source_type": "厂商",
+    "source_url": "https://the-decoder.com/deepmind-ceo-hassabis-world-models-are-the-future-but-the-ai-bubble-is-real/",
+    "quote_or_data": "gains from scaling remain \"very substantial\"; 同时承认 \"diminishing returns\" from simply making models larger but investment \"still well worth doing\"; 需 \"push scaling to the maximum\" 但可能只是 half the equation",
+    "date": "2026-04-07",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径但内部有对冲:同一说话者在不同场合分别强调\"没夸大墙\"与\"scaling 不够\",引用单侧即失真;转述自 the-decoder/20VC,建议回溯播客原音频。"
+   },
+   {
+    "id": "L2-22",
+    "claim": "2026-07 中旬 Altman 在 X 上就 GPT-5.6 Sol 需求激增发帖:\"我们会移山填海继续 scale,但近期可能有一些磕绊\"——此处的 scale 指推理/基建容量,不是预训练规模,却常被引作 scaling 立场声明。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/sama/status/2077106587307798989",
+    "quote_or_data": "\"5.6 sol growth is insane. the inference team has done heroic work to be able to support demand. we are going to move mountains to continue to scale, but it is possible there are some hiccups soon.\"",
+    "date": "2026-07-14",
+    "load_bearing_candidate": false,
+    "caliber_notes": "典型口径混淆样本:inference-serving scaling ≠ pre-training scaling;上下文明确是推理团队扛需求。日期以 Axios 报道(2026-07-14)为准,原帖时间戳需以 X 为准。"
+   },
+   {
+    "id": "L2-23",
+    "claim": "2025-08 下旬(GPT-5 发布风波后与记者晚餐会)Altman 承认 GPT-5 发布失当并把叙事转向 GPT-6,称 GPT-6 与 GPT-5 的间隔将短于 GPT-4 到 GPT-5;2026 年 OpenAI 实际走的是 GPT-5.x 快速迭代路线(5.1/5.2/5.3-Codex/5.4/5.6 Sol),截至 2026-08 GPT-6 未发布。",
+    "source_type": "媒体",
+    "source_url": "https://finance.yahoo.com/news/openai-ceo-sam-altman-concedes-171805241.html",
+    "quote_or_data": "Altman: GPT-6 \"will arrive faster than the gap between GPT-4 and GPT-5\"(媒体转述晚餐会发言);后续实际发布序列: GPT-5.1 (2025-11), GPT-5.2 (2025-12-11), GPT-5.3-Codex, GPT-5.4, GPT-5.6 Sol (2026-07-09)",
+    "date": "2025-08-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "晚餐会转述口径,无逐字记录;\"版本号快跑\"本身可同时被解读为进步加速或大代际跃迁难产,注意不要单向解读。"
+   },
+   {
+    "id": "L2-24",
+    "claim": "疑似伪引/变形之一:\"the age of giant models is over\"常被当作 Altman 原话并挪到 2024-11 语境;一手出处是 2023-04 MIT 活动上 Wired 记录的\"I think we're at the end of the era where it's going to be these, like, giant, giant models\",时间与措辞均被改写。",
+    "source_type": "媒体",
+    "source_url": "https://www.wired.com/story/openai-ceo-sam-altman-the-age-of-giant-ai-models-is-already-over/",
+    "quote_or_data": "一手措辞: \"I think we're at the end of the era where it's going to be these, like, giant, giant models... We'll make them better in other ways.\" (2023-04, Wired 转述其 MIT 发言);流传版: \"the age of giant models is over\"",
+    "date": "2023-04-17",
+    "load_bearing_candidate": false,
+    "caliber_notes": "有一手但被系统性变形:Wired 标题党化的标题反过来成了\"引语\";引用时必须回到会场原话并标 2023 年时间。"
+   },
+   {
+    "id": "L2-25",
+    "claim": "疑似伪引/变形之二:\"Orion 只比 GPT-4 好 20%\"这一具体百分比在中英文社区广泛流传,但在 The Information 原报道及 Bloomberg 报道中均找不到该表述的一手出处;原报道的相关说法是 Orion 在完成 20% 训练时已接近 GPT-4 水平(训练进度口径),被讹变为提升幅度口径。",
+    "source_type": "媒体",
+    "source_url": "https://www.theinformation.com/articles/openai-shifts-strategy-as-rate-of-gpt-ai-improvements-slows",
+    "quote_or_data": "流传版: \"Orion is only 20% better than GPT-4\"(无一手出处);可回溯版本: 报道称 Orion 完成约 20% 训练时性能已与 GPT-4 相当(training-progress 口径)",
+    "date": "2024-11-09",
+    "load_bearing_candidate": false,
+    "caliber_notes": "标记为疑似伪引:训练进度 20% ≠ 能力提升 20%,两个口径完全不同;正文若用必须注明无法核实一手。"
+   },
+   {
+    "id": "L2-26",
+    "claim": "疑似伪引/待核之三:\"The AGI bubble is bursting a little bit\"(常归于 Hugging Face 的 Margaret Mitchell,称出自 2024-11-13 Bloomberg 报道)——本次检索未能在可访问的一手/存档文本中确认该引语,建议标注待核或回溯 Bloomberg 付费原文。",
+    "source_type": "媒体",
+    "source_url": "https://www.bloomberg.com/news/articles/2024-11-13/openai-google-and-anthropic-are-struggling-to-build-more-advanced-ai",
+    "quote_or_data": "流传版: \"The AGI bubble is bursting a little bit\" — Margaret Mitchell(未能回溯确认)",
+    "date": "2024-11-13",
+    "load_bearing_candidate": false,
+    "caliber_notes": "付费墙阻断核验;若正文引用需先以 Bloomberg 原文或 Mitchell 本人确认,否则按疑似伪引处理。"
+   }
+  ],
+  "cross_caliber_issues": [
+   "三种\"scaling\"口径混用:预训练算力/数据 scaling、推理算力(测试时计算)scaling、基建容量 scaling。Altman 2026-07 \"move mountains to continue to scale\"是推理基建口径,却常被引作预训练立场;o1/测试时计算的成功常被同时用作\"撞墙了(所以换范式)\"和\"没撞墙(进步继续)\"的证据。",
+   "数据墙 vs 算力墙 vs 架构墙:Ilya NeurIPS 2024 说的是数据受限(peak data),LeCun 说的是架构死胡同(LLM 本身),The Information 说的是收益递减(效果口径)——三者被媒体统一压缩为\"AI 撞墙\",但互相之间甚至不兼容。",
+   "间接引语被当直接引语:最高频引用的 Ilya \"results from scaling up pre-training have plateaued\"是 Reuters 记者的转述结构(无引号),不是逐字原话;他的逐字原话(\"Scaling the right thing matters more now than ever\")语义明显更弱。",
+   "匿名内测口径 vs 公开发布口径:2024-11 各报道基于 2024 年 9 月前后的中间 checkpoint 匿名评价;GPT-4.5 (2025-02) 发布版已含完整后训练。用发布版表现反推\"报道错了\"或用报道反推\"发布版差\"都是时间窗错配。",
+   "\"improving pre-training\" vs \"scaling pre-training compute\":Vinyals 的 Gemini 3 帖子原话是改进预训练(配方/数据/算法),被 Tunguz 等转述为\"预训练 scaling laws 完好\"(纯算力放大口径);两者对\"撞墙\"命题的证明力完全不同。",
+   "厂商自评基准口径:GPT-5.2 的 GDPval 70.9% 是 OpenAI 自建任务集+自选评审的厂商口径,与第三方基准(如独立机构复测)不可直接对齐;Gemini 3 \"delta as big as we've ever seen\"无公开消融数据。",
+   "训练进度百分比 vs 能力提升百分比:\"Orion 完成 20% 训练即达 GPT-4 水平\"被讹传为\"Orion 只比 GPT-4 强 20%\",分子分母完全不同。",
+   "话语与行为的错位需双向核对:说\"scaling 时代结束\"的 Ilya 在 2026-07 接受 Nvidia $5B 并扩算力 10 倍;说\"没有墙\"的 OpenAI 在 2025 年下线了其最大预训练模型 GPT-4.5(经济性原因)。单看话语或单看行为都会得出相反结论。",
+   "利益位置映射:喊\"墙在/换范式\"者多在卖替代品(SSI 卖研究差异化、Scale 卖数据、LeCun 卖世界模型、Marcus 卖长期立场);喊\"没墙\"者多在融资或卖算力(OpenAI/Anthropic 融资、Google 卖 TPU、Nvidia 投资 SSI 兼锁定客户)。但映射不完美:Anthropic 2026-05 雇 Karpathy 攻预训练研究,与\"预训练已成熟\"的行业共识相反。",
+   "发布事故 vs 能力停滞:GPT-5 2025-08 的反弹主因是路由器故障与 4o 下线引发的用户情感反弹(产品口径),被广泛引作\"能力撞墙\"证据(能力口径);IEEE Spectrum 等报道两条线混写。"
+  ],
+  "sources_count": 30
+ },
+ "L3-benchmarks": {
+  "line": "L3 旗舰实测时序:2024-06→2026-08 各硬基准(SWE-bench V、GPQA-D、FrontierMath、ARC-AGI、HLE、AIME/IMO)全部持续跃升且多个基准被打饱和换代;METR time horizon 加速(TH1.1 判 2024 后倍增期 ~89 天);独立复测显示厂商数字在 GPQA 上基本诚实、但在\"preview 版高算力档\"(o3/FrontierMath/ARC)上存在系统性口径差;2026 年顶部拥挤是\"多家追平且都在涨\"而非停滞。",
+  "claims": [
+   {
+    "id": "L3-01",
+    "claim": "METR 2025-03 原始论文定义 50% time horizon(模型以 50% 概率自主完成的任务的人类耗时长度),并测得 2019-2025 年该指标指数增长、倍增期约 7 个月;当时 Claude 3.7 Sonnet 的 50% horizon 约 1 小时。",
+    "source_type": "研究",
+    "source_url": "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/",
+    "quote_or_data": "50% time horizon = \"the length (for humans) of tasks that the model can successfully complete with x% probability\"; doubling time ~\"7 months\" over the past 6 years; Claude 3.7 Sonnet ≈ \"approximately one hour\"",
+    "date": "2025-03-19",
+    "load_bearing_candidate": true,
+    "caliber_notes": "任务集=HCAST+RE-Bench+SWAA 软件/研究任务;50% 成功率口径(非 80%,80% horizon 约低一个数量级);METR 为独立非营利评测机构"
+   },
+   {
+    "id": "L3-02",
+    "claim": "METR 在原始论文中逐字承认主要不确定性来自模型误差与外推效度,而非拟合噪声。",
+    "source_type": "研究",
+    "source_url": "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/",
+    "quote_or_data": "\"there remains the possibility of substantial model error\"; results \"do not account for future changes in the trend or external validity concerns, which are responsible for the majority of our uncertainty.\"",
+    "date": "2025-03-19",
+    "load_bearing_candidate": false,
+    "caliber_notes": "引用 METR 结论时必须带这条自报 caveat,否则是选择性引用"
+   },
+   {
+    "id": "L3-03",
+    "claim": "METR 2026-01-29 发布 Time Horizon 1.1:任务从 170 扩到 228(新增 73 个 HCAST 任务、8 小时以上长任务从 14 增到 31、删 15 改 53),基础设施从自研 Vivaria 迁到 UK AISI 的 Inspect;2023 年以来倍增期改判为 130.8 天 [95%CI 107,161](TH1.0 为 165.3 天),2024 年以来为 88.6 天(约 10 倍/年),整体较 TH1.0 判快约 20%。",
+    "source_type": "研究",
+    "source_url": "https://metr.org/blog/2026-1-29-time-horizon-1-1/",
+    "quote_or_data": "since-2023 doubling \"130.8 days [107, 161]\" vs 165.3 days in TH1.0; since-2024 88.6 days vs 108.9; post-2023 \"progress is estimated to be 20% more rapid under TH1.1\"",
+    "date": "2026-01-29",
+    "load_bearing_candidate": true,
+    "caliber_notes": "改版本身抬高了增速估计约 20%——跨版本比较时序必须注明 TH1.0/1.1 口径;'10x/年'是 2024 后子样本斜率,全样本 P50 倍增仍为 196.5 天"
+   },
+   {
+    "id": "L3-04",
+    "claim": "TH1.1 具体模型 50% horizon(分钟):Claude Opus 4.5 = 320 [170,729]、GPT-5 = 214 [117,480]、o3 = 121 [74,201]、Claude 3.7 Sonnet = 60 [32,106];METR 自列 caveats:置信区间仍非常宽,31 个 8h+ 长任务中只有 5 个有实测人类基线(其余为估计)。",
+    "source_type": "研究",
+    "source_url": "https://metr.org/blog/2026-1-29-time-horizon-1-1/",
+    "quote_or_data": "\"These confidence intervals are still very wide, and we are actively working on adding more long tasks\"; \"only 5 of our 31 long (8h+) tasks\" have measured human baselines",
+    "date": "2026-01-29",
+    "load_bearing_candidate": false,
+    "caliber_notes": "CI 上下限差约 2 倍;顶部数据点最依赖'估计的'人类基线时长"
+   },
+   {
+    "id": "L3-05",
+    "claim": "SWE-bench Verified 2024 年底基线:Claude 3.5 Sonnet(2024-10 升级版)49.0%,o1 为 48.9%,o3-mini 49.3%,DeepSeek R1 49.2%——2024 年末最强公开模型约在 49% 一线。",
+    "source_type": "厂商",
+    "source_url": "https://www.anthropic.com/research/swe-bench-sonnet",
+    "quote_or_data": "Claude 3.7 announcement comparison table: o1 48.9%, o3-mini 49.3%, DeepSeek R1 49.2%; Claude 3.5 Sonnet (upgraded) 49.0%",
+    "date": "2024-10-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径(Anthropic 自报+其对友商的转引);SWE-bench Verified 为 OpenAI 人工筛过的 500 题子集"
+   },
+   {
+    "id": "L3-06",
+    "claim": "Anthropic 报 Claude 3.7 Sonnet(2025-02)SWE-bench Verified 62.3%,加'custom scaffold'后 70.3%——同一模型同一基准因脚手架差 8 个百分点,且 70.3% 实为'在其基础设施上可运行的 n=489 子集'。",
+    "source_type": "厂商",
+    "source_url": "https://www.anthropic.com/news/claude-3-7-sonnet",
+    "quote_or_data": "62.3% accuracy, \"with a custom scaffold\" 70.3%; \"a score of 70.3% on the subset of n=489 verified tasks which work on Anthropic's infrastructure\"",
+    "date": "2025-02-24",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径;scaffold 与子集双重口径差,headline 数常只引 70.3%"
+   },
+   {
+    "id": "L3-07",
+    "claim": "OpenAI 2024-12-20 发布会口径的 o3(preview):SWE-bench Verified 71.7%(比 o1 高 22.8pp)、GPQA Diamond 87.7%、AIME 96.7%、FrontierMath 25.2%(此前无模型超 2%)。",
+    "source_type": "厂商",
+    "source_url": "https://www.infoq.com/news/2024/12/openai-announces-o3/",
+    "quote_or_data": "\"71.7% accuracy on SWE-Bench and 96.7% on the AIME\"; \"o3 achieves 87.7% on GPQA Diamond\"; \"solving 25.2% of problems; no other model exceeds 2%\"",
+    "date": "2024-12-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商发布会口径,且是后来未原样发售的 preview 配置(见 L3-13/14);媒体(InfoQ)转述 OpenAI 直播,OpenAI 官网禁抓无法直引"
+   },
+   {
+    "id": "L3-08",
+    "claim": "GPT-5(2025-08-07)OpenAI 自报:SWE-bench Verified 74.9%(o3 为 69.1%)、AIME 2025 无工具 94.6%、GPQA(GPT-5 pro 扩展推理)88.4%、FrontierMath 26.3%(带工具 32.1%)。",
+    "source_type": "厂商",
+    "source_url": "https://openai.com/index/introducing-gpt-5-for-developers/",
+    "quote_or_data": "\"GPT-5 scores 74.9% on SWE-bench Verified\"; \"new state of the art on AIME 2025 at 94.6% without tools\"; GPQA \"88.4% without tools\" (GPT-5 pro); FrontierMath \"26.3% → 32.1% with tool support\"",
+    "date": "2025-08-07",
+    "load_bearing_candidate": false,
+    "caliber_notes": "全部厂商自报;注意 88.4% 是 GPT-5 pro 档而非基础 GPT-5;74.9% 用 OpenAI 自家 scaffold"
+   },
+   {
+    "id": "L3-09",
+    "claim": "2025-11 两周内:Gemini 3 Pro(11-18)自报 SWE-bench Verified 76.2%、GPQA Diamond 91.9%、HLE 37.5%、ARC-AGI-2 31.1%(Deep Think 45.1%);Claude Opus 4.5(11-24)自报 SWE-bench Verified 80.9%,为首个破 80% 的模型(同期 GPT-5.1-Codex-Max 77.9%)。",
+    "source_type": "厂商",
+    "source_url": "https://www.testingcatalog.com/claude-opus-4-5-scores-80-on-swe-bench-verified/",
+    "quote_or_data": "Opus 4.5 \"80.9% score on SWE-bench Verified...edging out OpenAI's GPT-5.1-Codex-Max (77.9%) and Google's Gemini 3 Pro (76.2%)\"; Gemini 3 Pro: GPQA 91.9%, HLE 37.5%, ARC-AGI-2 31.1%",
+    "date": "2025-11-24",
+    "load_bearing_candidate": true,
+    "caliber_notes": "均厂商自报口径;SWE-bench V 时序 49%(2024 末)→62%(2025-02)→75%(2025-08)→81%(2025-11)是'撞墙后能力仍跃升'的核心数据链;GPQA 91.9% 已逼近题目标注噪声上限(GPQA 原论文 PhD 专家在自己领域仅 ~70% 左右)"
+   },
+   {
+    "id": "L3-10",
+    "claim": "Epoch AI 独立复测结论:各家厂商对近期旗舰的 GPQA Diamond 自报分数与独立评测一致,系统性虚报罕见;最大缺口为 Llama 4 Maverick 自报 69.8% vs Epoch 实测 67.0%(2.8pp,p=0.32,仍在评测噪声内);评测本身噪声为 ±4-6pp(90% 置信)。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/self-reported-gpqa",
+    "quote_or_data": "\"AI developers accurately report GPQA Diamond scores for their recent top models\"; results \"consistently fell well within our confidence intervals\"; within \"4-6 percentage points with 90% confidence\"",
+    "date": "2025-11-01",
+    "load_bearing_candidate": true,
+    "caliber_notes": "这是对'厂商数字都是营销注水'叙事的直接反证,但 Epoch 自注:只覆盖每家最强一个模型、只适用于 GPQA、且假设 Epoch 自身方法无系统偏差"
+   },
+   {
+    "id": "L3-11",
+    "claim": "Epoch AI 同时指出 agentic 基准上 scaffold 是最大混杂变量:SWE-bench Verified 上仅更换 scaffold 就能让 GPT-5 分数波动最多 11 个百分点、Kimi K2 Thinking 波动最多 15 个百分点。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/why-benchmarking-is-hard",
+    "quote_or_data": "\"simply switching the scaffold makes up to an 11% difference for GPT-5 and up to a 15% difference for Kimi K2 Thinking\"; \"The choice of scaffold has the single biggest impact on the overall performance\"",
+    "date": "2025-11-14",
+    "load_bearing_candidate": false,
+    "caliber_notes": "意味着跨厂商 SWE-bench 榜单 1-3pp 的差距无判别力;比较应锁定同 scaffold"
+   },
+   {
+    "id": "L3-12",
+    "claim": "FrontierMath 资助争议:OpenAI 出资并拥有 300 道题的所有权、可见其中 250 道的题面与解答(仅 50 题 holdout 只给题面),此事在 2024-12-20 o3 发布前未公开,多数出题数学家不知情;Epoch 书面承认沟通失误。OpenAI 对不用该数据训练仅有口头协议(verbal agreement,见 TechCrunch 报道)。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/latest/openai-and-frontiermath",
+    "quote_or_data": "\"OpenAI retains ownership of these questions and has access to the problems and solutions, with the exception of a holdout set\"; \"a 50-problem set for which OpenAI will only receive the problem statements and not the solutions\"; \"Many contributors were unaware of these details, and our communication with them should have been more systematic and transparent.\"",
+    "date": "2025-01-16",
+    "load_bearing_candidate": true,
+    "caliber_notes": "o3 的 25.2% FrontierMath 成绩是在'出资方可见大部分题目与解答'背景下产生;'verbal agreement' 表述来自 TechCrunch 2025-01-19 报道(https://techcrunch.com/2025/01/19/ai-benchmarking-organization-criticized-for-waiting-to-disclose-funding-from-openai/),Epoch 官方声明未逐字出现该词"
+   },
+   {
+    "id": "L3-13",
+    "claim": "厂商 vs 独立最典型口径差:OpenAI 2024-12 称 o3 FrontierMath 超 25%,Epoch 2025-04-18 用发布版 o3 独立实测约 10%;OpenAI 研究主管 Mark Chen 原话承认 25% 是'激进 test-time compute 设置'下的内部结果。",
+    "source_type": "媒体",
+    "source_url": "https://techcrunch.com/2025/04/20/openais-o3-ai-model-scores-lower-on-a-benchmark-than-the-company-initially-implied",
+    "quote_or_data": "Mark Chen: \"We're seeing [internally], with o3 in aggressive test-time compute settings, we're able to get over 25%.\" Epoch: \"o3 scored around 10%, well below OpenAI's highest claimed score\"; Epoch 解释 \"might be due to OpenAI evaluating with a more powerful internal scaffold, using more test-time [computing], or because those results were run on a different subset of FrontierMath.\"",
+    "date": "2025-04-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "媒体报道但含双方逐字引语,Epoch 原始数据见其 FrontierMath 基准页;差异三来源:内部 scaffold/算力档/FrontierMath 版本子集——不能直接等同于'造假'"
+   },
+   {
+    "id": "L3-14",
+    "claim": "ARC-AGI 的 o3 口径:2024-12 测的是 o3-preview——semi-private 集 75.7%($10k 算力上限内,单任务约 $26-200)、172 倍算力档 87.5%(单任务估 $4,560,后随 API 定价追溯上修至约 $30,000);public 集对应 82.8%/91.5%;且 OpenAI 自述该版本用 ARC-AGI-1 公开训练集的 75% 参与了训练。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/oai-o3-pub-breakthrough",
+    "quote_or_data": "\"75.7% on the Semi-Private Evaluation set at our stated public leaderboard $10k compute limit\"; high-compute (172x) \"87.5%\"; \"OpenAI shared they trained the o3 we tested on 75% of the Public Training set.\" 成本上修见 TechCrunch 2025-04-02",
+    "date": "2024-12-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "四重口径:semi-private vs public 集、低/高算力档、多数投票采样数(6 vs 1024 samples)、成本为追溯估算且上修过一个数量级;87.5% 不符合 ARC-AGI-Pub 规则不能上榜"
+   },
+   {
+    "id": "L3-15",
+    "claim": "2025-04 ARC Prize 复测发布版 o3:ARC-AGI-1 仅 41%(low)/53%(medium),ARC-AGI-2 为 1.9%/2.9%——与 12 月 preview 的 76%/88% 相比腰斩,因为发布版是不同模型:多模态、未直接用 ARC 训练、算力档更小、为产品调优;2025-06 降价后复测 o3-2025-04-16 性能无变化。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi",
+    "quote_or_data": "\"The production o3 uses a different model from the o3-preview evaluated in December\"; public o3 \"wasn't directly trained on ARC-AGI\"; \"OpenAI has indicated that the level of test-time compute available for o3-preview is not available in the production o3\"; retest: \"observed no difference in performance\" (x.com/arcprize/status/1932836756791177316)",
+    "date": "2025-04-22",
+    "load_bearing_candidate": true,
+    "caliber_notes": "'同名不同模'是 2024-2026 最重要口径陷阱:发布会数字(preview+高算力)与用户可用产品(发布版)可以差 30+pp;降价复测证明价格与性能口径独立"
+   },
+   {
+    "id": "L3-16",
+    "claim": "Chollet 在宣布 o3 破纪录当天即预告基准换代:o3 非 AGI、仍在很简单任务上失败,预测其在 ARC-AGI-2 上'高算力也低于 30%'而人类未训练可超 95%——后被证实(发布版 o3 仅 2.9%)。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/oai-o3-pub-breakthrough",
+    "quote_or_data": "o3 \"still fails on some very easy tasks, indicating fundamental differences with human intelligence\"; ARC-AGI-2 will likely cut o3 to \"under 30% even at high compute\" while humans score \"over 95% with no training\"",
+    "date": "2024-12-20",
+    "load_bearing_candidate": false,
+    "caliber_notes": "基准设计者本人的利益位置:ARC Prize 以'能造出 AI 做不出的题'为存在价值"
+   },
+   {
+    "id": "L3-17",
+    "claim": "ARC-AGI-2 时序显示 21 个月内从近零到近饱和:2025-03 发布时前沿模型个位数(Gemini 2.5 Pro 4.9%、发布版 o3 2.9%)→GPT-5.1 17.6%→Gemini 3 Pro 31.1%(2025-11)→GPT-5.2 约 53%(2026-01)→2026-08 榜首 GPT-5.6 Sol 约 92.5%、Claude Opus 5 约 90.4%;同时 ARC-AGI-3(2026-03)again 把所有前沿模型打回近零。",
+    "source_type": "媒体",
+    "source_url": "https://benchlm.ai/benchmarks/arc-agi-2",
+    "quote_or_data": "\"As of August 21, 2026, GPT-5.6 Sol leads the ARC-AGI-2 leaderboard with 92.5%, followed by Claude Opus 5 (90.4%)\"; \"ARC-AGI-3's launch in March 2026 — and its humbling of every frontier model back to near-zero\" (labs.adaline.ai)",
+    "date": "2026-08-21",
+    "load_bearing_candidate": false,
+    "caliber_notes": "2026 年数字来自第三方聚合榜(benchlm/adaline,媒体级),建议成文前到 arcprize.org/leaderboard 核对 verified 标记与算力/成本档;31.1%/45.1% 与 17.6% 为厂商自报"
+   },
+   {
+    "id": "L3-18",
+    "claim": "Humanity's Last Exam 时序:2025-01 发布时最好模型个位数(GPT-4o 2.7%、o1 8.0%)→Grok 4 自报 25.4%(带工具 44.4%,2025-07)≈GPT-5 25.3%→Gemini 3 Pro 37.5%(2025-11)→2026-08-16 Scale 公开榜首 Gemini 3.1 Pro Preview(thinking high)46.44%。",
+    "source_type": "研究",
+    "source_url": "https://labs.scale.com/leaderboard/humanitys_last_exam",
+    "quote_or_data": "\"GPT-4o managed just 2.7%, Claude 3.5 Sonnet reached 4.1%, and OpenAI's o1 model achieved only 8.0%\"; \"As of August 16, 2026...Gemini 3.1 Pro Preview (thinking high) at 46.44%, GPT-5.4 Pro at 44.32%\"",
+    "date": "2026-08-16",
+    "load_bearing_candidate": true,
+    "caliber_notes": "必须区分 no-tools vs with-tools(Grok 4: 26.9%→44%)与 text-only vs 全集(含多模态题);HLE 由 Scale AI+CAIS 维护,Scale 同时是数据供应商存在利益关联;19 个月 3%→46% 是'专为抗饱和设计的基准也在快速被爬'的关键证据"
+   },
+   {
+    "id": "L3-19",
+    "claim": "竞赛数学在 2025-07 越过人类精英线:OpenAI 实验推理模型与 DeepMind Gemini Deep Think 均在 2025 IMO 达金牌线 35/42(人类同规则:两场 4.5 小时、无工具、自然语言证明);DeepMind 经 IMO 官方评委认证,OpenAI 抢在官方放榜前自行宣布(由 3 名前 IMO 奖牌得主一致评分)引发争议。",
+    "source_type": "厂商",
+    "source_url": "https://simonwillison.net/2025/Jul/21/gemini-imo/",
+    "quote_or_data": "\"an advanced version of Gemini with Deep Think officially achieves gold-medal standard at the International Mathematical Olympiad\" (35/42); OpenAI \"scored 35 out of 42 points...solved problems 1 through 5, missing only problem 6\"",
+    "date": "2025-07-21",
+    "load_bearing_candidate": false,
+    "caliber_notes": "两家均为实验版模型而非发售产品——'实验版口径'再现;OpenAI 版本评分为自聘评委非官方认证"
+   },
+   {
+    "id": "L3-20",
+    "claim": "AIME 已饱和退役:o3 于 2024-12 达 96.7%,GPT-5 于 2025-08 达 94.6%(AIME 2025 无工具),至 2026-04 GPT-5.4 达 100.0%、多家 99%+,聚合榜单已将 AIME/HMMT 标为'effectively solved'并移出加权计分。",
+    "source_type": "媒体",
+    "source_url": "https://benchlm.ai/math",
+    "quote_or_data": "\"As of April 2026, GPT-5.4 leads with a perfect score of 100.0%\"; \"AIME and HMMT are effectively solved by AI — they are displayed for reference but no longer factor into the weighted score\"",
+    "date": "2026-04-01",
+    "load_bearing_candidate": false,
+    "caliber_notes": "AIME 每年换题(2024/2025/2026 版本口径不同),赛后题目迅速入网存在污染窗口;'饱和'判定来自第三方聚合榜非官方机构"
+   },
+   {
+    "id": "L3-21",
+    "claim": "FrontierMath 在换代加难后仍被持续攻克:从 2024-11 的 <2% → o3 厂商口径 25.2%(独立复测 10%)→ GPT-5 26.3%(2025-08)→ GPT-5.5 自报 Tier 1-3 达 51.7%、最难的 Tier 4 达 35.4%(2026-04-23),且 OpenAI 同页给出 Claude Opus 4.7 与 Gemini 3.1 Pro 更低的对比数字。",
+    "source_type": "厂商",
+    "source_url": "https://en.wikipedia.org/wiki/GPT-5.5",
+    "quote_or_data": "GPT-5.5 (released April 23, 2026): \"FrontierMath Tier 1–3: 51.7%; FrontierMath Tier 4: 35.4%\" (OpenAI self-reported, presented alongside lower scores for Claude Opus 4.7 and Gemini 3.1 Pro)",
+    "date": "2026-04-23",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商自报+出资方与基准存在数据访问关系(L3-12);Tier 1-3 与 Tier 4 是不同难度子集不能混报;鉴于 o3 前例,GPT-5.5 的 51.7% 应默认为'厂商最优配置口径'待独立复测"
+   },
+   {
+    "id": "L3-22",
+    "claim": "污染实证:Scale AI 的 GSM1k 研究(NeurIPS 2024)复刻 GSM8k 同难度新题,发现模型在新题上准确率最多掉 13%,Phi 与 Mistral 系'几乎所有尺寸都系统性过拟合',而当时前沿模型(GPT/Claude/Gemini)过拟合迹象极小;生成 GSM8k 原题的概率与新旧题分差正相关(Spearman r²=0.32),提示部分记忆。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2405.00332",
+    "quote_or_data": "\"we observe accuracy drops of up to 13%, with several families of models (e.g., Phi and Mistral) showing evidence of systematic overfitting\"; \"many models, especially those on the frontier...show minimal signs of overfitting\"; \"Spearman's r^2=0.32\"",
+    "date": "2024-05-01",
+    "load_bearing_candidate": false,
+    "caliber_notes": "关键限定:污染主要坐实在中小开源模型,不支持'前沿旗舰分数全靠背题'的强命题"
+   },
+   {
+    "id": "L3-23",
+    "claim": "基准寿命已有量化研究:ICML 2026 系统研究考察 60 个 LLM 基准的 14 项饱和属性,近半数已饱和(29/60 高或极高饱和),60 个月以上老基准饱和率 54.5% vs 24 个月内新基准 42.9%;结论是抗饱和靠专家策题而非公开测试集。MMLU 从 2021 年发布到 GPT-4 超 86% 约两年,前沿收敛于 86-90% 后被主流榜单弃用。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2602.16763",
+    "quote_or_data": "benchmarks \"quickly 'saturate', making it difficult to differentiate models and diminishing their long-term value\"; resilience determined by \"expert-curation, not by public test data\"",
+    "date": "2026-02-16",
+    "load_bearing_candidate": false,
+    "caliber_notes": "'撞墙'表象的一部分是测量工具寿命 ~2 年:老基准打平≠能力停滞,需看换代后新基准爬升速度(ARC-2、HLE、FrontierMath 均在爬)"
+   },
+   {
+    "id": "L3-24",
+    "claim": "'顶部拥挤'实况(独立指数):Artificial Analysis 2026-07 报告 8 天内 4 家发旗舰,6 家实验室有 Intelligence Index >50 的模型(6 月初仅 2 家),前三名仅差 3 分(Claude [Opus] 5 系 60、GPT-5.6 Sol 59、Kimi K3 57),榜首领先从 4 分缩到 1 分——而 2022 年末以来大部分时间前沿由一两家独占;即分差缩小源于多家追平,且各家绝对分仍在涨。",
+    "source_type": "研究",
+    "source_url": "https://artificialanalysis.ai/articles/four-frontier-launches-in-eight-days-six-labs-now-field-a-model-above-50-on-the-artificial-analysis-intelligence-index",
+    "quote_or_data": "\"Six labs now field a model above 50 on the Artificial Analysis Intelligence Index\" (up from two in early June); top three span three points; lead \"narrowed from four points to one\"; \"for most of the period since late 2022, the frontier...was held by one or two labs\"",
+    "date": "2026-07-16",
+    "load_bearing_candidate": true,
+    "caliber_notes": "AA 为独立评测商但接受厂商付费服务;其指数 v4.x 换代过(加入 GDPval-AA v2 与私有 AA-Briefcase 长程任务),跨版本分数不可直接比;'差 3 分'是拥挤证据而非放缓证据"
+   },
+   {
+    "id": "L3-25",
+    "claim": "Epoch Capabilities Index(149 个模型、2021-12→2025-12)测得前沿能力进步在 2024-04 前后出现断点加速:从约 8 分/年升到约 15 分/年(近翻倍),此后至其 2026 年中更新未见减速迹象——与'2024 年底撞墙'的时间线直接相反。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/ai-capabilities-progress-has-sped-up",
+    "quote_or_data": "before breakpoint \"about 8 points/year\", after \"15 points/year\"; \"149 models over four years, ranging from December 2021 to December 2025\"",
+    "date": "2026-05-01",
+    "load_bearing_candidate": true,
+    "caliber_notes": "关键限定:这是'部署能力'(含推理/RL/后训练/工具)的总进步,不区分预训练 scaling 单因子——'预训练收益递减'与'总能力加速'可同时为真;ECI 为复合指数,2023 前数据 CI 很宽"
+   },
+   {
+    "id": "L3-26",
+    "claim": "o3 高算力档成本口径被追溯上修一个数量级:ARC Prize 最初按 API 定价估 o3-high 单任务约 $3,000,2025-04 因 OpenAI 定价信息更新改估约 $30,000/任务;o3-preview 低算力档也从最初 ~$20/任务改为 ~$200/任务。",
+    "source_type": "媒体",
+    "source_url": "https://techcrunch.com/2025/04/02/openais-o3-model-might-be-costlier-to-run-than-originally-estimated",
+    "quote_or_data": "Arc Prize Foundation \"originally estimated...o3 high, cost around $3,000 to solve a single ARC-AGI problem\" but \"now...thinks that the cost is much higher — possibly around $30,000 per task\"",
+    "date": "2025-04-02",
+    "load_bearing_candidate": false,
+    "caliber_notes": "成本均为按公开定价的追溯估算而非实付账单;讨论'能力涨价买来的'论点时,成本数字的口径(估算时点、定价版本)比分数口径更不稳定"
+   }
+  ],
+  "cross_caliber_issues": [
+   "同名不同模:发布会 preview/实验版 vs 发售版(o3 是最大案例:ARC-AGI-1 88%→53%、FrontierMath 25%→10%;IMO 金牌模型也均为实验版)——引用任何发布会数字前先确认是否发售配置",
+   "算力/采样档位:低算力单样本 vs 高算力多数投票(o3 的 87.5% 是 172 倍算力+1024 samples,不符合公开榜规则);同理 GPT-5 pro vs GPT-5、Deep Think vs 基础档",
+   "scaffold 口径:SWE-bench Verified 换 scaffold 波动可达 11-15pp,Claude 3.7 的 62.3% vs 70.3%(custom scaffold+n=489 子集)——跨厂商榜单几个点的差距无意义",
+   "评测集口径:ARC semi-private vs public(75.7 vs 82.8)、HLE text-only vs 全集、FrontierMath Tier 1-3 vs Tier 4 及版本更迭、SWE-bench full vs Verified(500题) vs Pro",
+   "工具口径:with tools vs without(Grok 4 HLE 26.9→44.4;GPT-5 FrontierMath 26.3→32.1)——时序图混排带工具与不带工具点会假造跃升",
+   "基准改版重置刻度:METR TH1.0→TH1.1 使 2023 后增速估计抬高约 20%;AA Intelligence Index v4→v4.1 换构成;跨版本分数不可直接连线",
+   "基准饱和 vs 能力停滞:MMLU/HumanEval/AIME 打平是天花板效应(近半数基准已饱和、寿命约 2 年),判断撞墙必须看未饱和基准(HLE/ARC-2/FrontierMath/METR)的斜率",
+   "成本为追溯估算:o3 单任务成本 $20→$200、$3k→$30k 均为按 API 定价的事后改估;且 2025-06 降价后复测性能不变——价格口径与能力口径独立",
+   "利益位置:FrontierMath 由被测厂商 OpenAI 出资并持有题目(仅50题holdout);HLE 挂靠 Scale AI(数据供应商);ARC Prize 以出难题为存在价值;Epoch 受 OpenAI 资助过——独立机构也各有立场",
+   "'预训练收益递减'与'总能力加速'不互斥:ECI/METR 测的是含 test-time compute、RL 后训练、工具与 scaffold 的部署能力,撞墙争论的原命题只关于预训练 scaling 单因子——文章立论必须区分这两个分母",
+   "时间窗锚点:'撞墙叙事'起点是 2024-11(Orion 报道/Ilya 表态),'21 个月'时序应从该点起算;之后 SWE-V 49→81+、HLE 3→46、ARC-2 0→90+ 全部发生在叙事发布之后",
+   "置信区间宽度:METR 单模型 horizon 的 95%CI 上下限差约 2 倍、GPQA 评测噪声 ±4-6pp、顶部指数差 1-3 分——顶部排名差异多半在噪声内,不能拿来论证任何方向"
+  ],
+  "sources_count": 24
+ },
+ "L4-testtime": {
+  "line": "L4 test-time/RL 缩放(推理时代线):推理侧曲线、成本与 RL 争议",
+  "claims": [
+   {
+    "id": "L4-01",
+    "claim": "OpenAI o1 博客(2024-09-12)的原始口径是:o1 性能随 RL 训练算力与思考时间(test-time compute)双双持续提升,且明确说这条缩放路线的约束『与 LLM 预训练大不相同』;配图标题称『平滑提升』。",
+    "source_type": "厂商",
+    "source_url": "https://openai.com/index/learning-to-reason-with-llms/",
+    "quote_or_data": "We have found that the performance of o1 consistently improves with more reinforcement learning (train-time compute) and with more time spent thinking (test-time compute). The constraints on scaling this approach differ substantially from those of LLM pretraining, and we are continuing to investigate them. […] o1 performance smoothly improves with both train-time and test-time compute",
+    "date": "2024-09-12",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商口径(OpenAI 有直接融资利益)。双曲线图:y 轴为 AIME pass@1 准确率,x 轴为对数刻度的 train-time/test-time compute,但 x 轴绝对数值未标注——log-linear 声称只在单一基准(AIME)上展示,无法从图中读出绝对算力量级。"
+   },
+   {
+    "id": "L4-02",
+    "claim": "o1 在 2024 AIME 上的三档数字实为三种口径:单样本 74%(11.1/15)、64 样本共识 83%(12.5/15)、1000 样本+学习打分器重排 93%(13.9/15)。",
+    "source_type": "厂商",
+    "source_url": "https://openai.com/index/learning-to-reason-with-llms/",
+    "quote_or_data": "o1 averaged 74% (11.1/15) with a single sample per problem, 83% (12.5/15) with consensus among 64 samples, and 93% (13.9/15) when re-ranking 1000 samples with a learned scoring function.",
+    "date": "2024-09-12",
+    "load_bearing_candidate": false,
+    "caliber_notes": "93% 不是单次推理成绩,是 1000 样本重排;引用『o1 达到 AIME 93%』而不注明采样口径会夸大 test-time 单次能力。分母是 15 题/卷的 2024 AIME。"
+   },
+   {
+    "id": "L4-03",
+    "claim": "o3-preview(2024-12-20)在 ARC-AGI-1 半私有集 100 题上:高效率档(6 样本、33.5M tokens)得 75.7%,总零售成本 $2,680、$26/题;低效率档(1024 样本、5.7B tokens、约 172 倍算力)得 87.5%,总成本 $456,000、$4,560/题。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/oai-o3-pub-breakthrough",
+    "quote_or_data": "OpenAI's new o3 system - trained on the ARC-AGI-1 Public Training set - has scored a breakthrough 75.7% on the Semi-Private Evaluation set at our stated public leaderboard $10k compute limit. A high-compute (172x) o3 configuration scored 87.5%. […] Semi-Private | 100 | Low | 87.5% | $456,000 | 1024 | 5.7B | $4,560 | 13.8",
+    "date": "2024-12-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "第三方评测但由 OpenAI 出算力并指定测试档位;模型『trained on 75% of the Public Training set』(tuned 版)。成本数字被两次重新核算:2025-03-24 按 o1-pro 价、2025-12-10 按 o3-pro 价 $80/M tokens——$/task 是零售 API 价折算,非真实算力成本,且同一 token 量的美元数随价目表变动。"
+   },
+   {
+    "id": "L4-04",
+    "claim": "Chollet 在同一篇 o3 评测中给出经济性对照:人类解 ARC 任务约 $5/题、能耗几美分,而 o3-preview 低算力档要 $27/题——test-time 缩放当时在该任务上尚不具备对人的成本优势。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/oai-o3-pub-breakthrough",
+    "quote_or_data": "you could pay a human to solve ARC-AGI tasks for roughly $5 per task (we know, we did that), while consuming mere cents in energy. Meanwhile o3-preview requires $27 per task in the low-compute mode. But cost-performance will likely improve quite dramatically over the next few months and years",
+    "date": "2024-12-20",
+    "load_bearing_candidate": false,
+    "caliber_notes": "$27/题与表格 $26/题的微差来自重新定价;作者同时预测成本-性能会快速改善(后被 o3 降价 80% 部分兑现),引用时正反两半都要带上。"
+   },
+   {
+    "id": "L4-05",
+    "claim": "2025-04-16 正式发布的 o3 与 2024-12 测的 o3-preview 不是同一个模型(OpenAI 已确认):正式版 o3-low 在 ARC-AGI-1 半私有集只得 41%、o3-medium 53%,远低于 preview 的 76%/88%;正式版没有直接用 ARC 数据训练,且 preview 的 test-time 算力档位在产品中不可用。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi",
+    "quote_or_data": "They confirmed that this public o3 model differs from the o3-preview we tested in December 2024. […] o3-low scored 41% on the ARC-AGI-1 Semi Private Eval set, and the o3-medium reached 53%. Neither surpassed 3% on ARC-AGI-2. […] OpenAI has indicated that the level of test-time compute available for o3-preview is not available in the production o3",
+    "date": "2025-04-22",
+    "load_bearing_candidate": true,
+    "caliber_notes": "『o3 在 ARC 得 87.5%』这一广为流传的数字属于 preview+ARC 调优+近乎无上限算力的组合口径,不能当作正式产品能力;同名不同模型是本题最典型的口径陷阱。"
+   },
+   {
+    "id": "L4-06",
+    "claim": "正式版 o3/o4-mini 开 high reasoning 档时大量任务根本不返回结果(o3-high 100 题只回 37 题,已回部分 82% 正确),且先返回的题更简单——ARC Prize 明确拒绝把这类数据报成成绩,称其存在幸存者偏差。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi",
+    "quote_or_data": "ARC-AGI-1 Semi Private Eval: Responded to 37 out of 100 tasks, 82% accuracy. […] the small number of returned tasks and the skewed solve rates make these results unrepresentative and should not be reported on. At best, they reflect an upper bound on performance under high-effort settings.",
+    "date": "2025-04-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "分母陷阱:『high 档 82%』的分母是返回的 37 题而非全部 100 题;test-time 算力加大后超时/不返回本身就是收益边界的证据之一。"
+   },
+   {
+    "id": "L4-07",
+    "claim": "被广泛引用的 DeepSeek『$5.6M』是 V3 基座模型一次正式训练的 GPU 租金口径:2.788M H800 GPU 时 × 假定 $2/GPU 时 = $5.576M,论文原文明确排除了此前研究与架构/算法/数据消融实验的成本;这不是 R1 的训练成本。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2412.19437",
+    "quote_or_data": "DeepSeek-V3 costs only 2.788M GPU hours for its full training. Assuming the rental price of the H800 GPU is $2 per GPU hour, our total training costs amount to only $5.576M. […] Note that the aforementioned costs include only the official training of DeepSeek-V3, excluding the costs associated with prior research and ablation experiments on architectures, algorithms, or data.",
+    "date": "2024-12-27",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商自报(论文作者即 DeepSeek);租金口径不含集群资本开支、研发人力、失败跑;媒体普遍把 V3 预训练成本误写成『训练 R1 只花 560 万美元』。SemiAnalysis 等估其实际 GPU 资产规模远大于此。"
+   },
+   {
+    "id": "L4-08",
+    "claim": "R1 的 RL 阶段成本首次官方披露于 2025-09 的 Nature 同行评审论文补充材料:约 $294,000,用 512 块 H800 训练约 80 小时;完整口径需叠加 V3 基座的 $5.576M(合计约 $5.87M,仍为租金口径)。",
+    "source_type": "研究",
+    "source_url": "https://www.nature.com/articles/s41586-025-09422-z",
+    "quote_or_data": "DeepSeek says R1 model training cost only $294,000 … trained over 80 hours on a 512-chip cluster of Nvidia H800s(Nature 补充材料数字,经 Reuters/CNN/TechSpot 等转述核实)",
+    "date": "2025-09-17",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商自报数字经 Nature 同行评审发表(首个过同行评审的主流大模型论文);仍是 GPU 租金口径。$294K 只覆盖从 V3 到 R1 的 RL 阶段,单独引用会低估一个数量级以上。本条引语为媒体转述,原始出处为 Nature 论文补充材料。"
+   },
+   {
+    "id": "L4-09",
+    "claim": "在官方披露前,Epoch AI 独立测算 R1 的 RL 阶段 GPU 时间成本『大约 $1M』量级,且 RL 计算量约为 V3 预训练(约 3e24 FLOP)的六分之一以下——与后来官方 $294K 同一数量级区间,佐证『推理 RL 阶段远比预训练便宜』在 2025 年初成立。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/what-went-into-training-deepseek-r1",
+    "quote_or_data": "a reasonable ballpark estimate for the dollar cost of the GPU time that went into training R1 starting from V3 is around $1M",
+    "date": "2025-01",
+    "load_bearing_candidate": false,
+    "caliber_notes": "独立第三方估算,依赖公开超参与吞吐假设,不确定度大;$1M vs $294K 的差距体现估算口径(利用率、重跑次数)差异,数量级一致。"
+   },
+   {
+    "id": "L4-10",
+    "claim": "R1 证明了推理缩放的可复制性:纯 RL、无需人工标注推理轨迹即可催生自反思/验证等推理行为,权重开源(MIT),把 o1 式推理从 OpenAI 独门变成任何有基座模型的团队都能复现的配方。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2501.12948",
+    "quote_or_data": "the reasoning abilities of LLMs can be incentivized through pure reinforcement learning (RL), obviating the need for human-labeled reasoning trajectories. […] The proposed RL framework facilitates the emergent development of advanced reasoning patterns, such as self-reflection, verification, and dynamic strategy adaptation.",
+    "date": "2025-01-22",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商自报+后经 Nature 同行评审背书;『可复制』的限度:效果集中在可验证域(数学/代码/STEM),依赖足够强的基座(V3 671B),不等于小成本从零造前沿模型。"
+   },
+   {
+    "id": "L4-11",
+    "claim": "R1 论文的蒸馏对照:大模型 RL 中涌现的推理模式可以系统性迁移给小模型来提升其推理能力(DeepSeek 开源了系列蒸馏模型),这成为『蒸馏 vs 直接 RL』争论中支持蒸馏路线的厂商实证。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2501.12948",
+    "quote_or_data": "the emergent reasoning patterns exhibited by these large-scale models can be systematically harnessed to guide and enhance the reasoning capabilities of smaller models",
+    "date": "2025-01-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商自报;arXiv 初版更强的表述是『蒸馏优于对小模型直接 RL』,本条引语取自更新后摘要,措辞较温和。Yue et al. 也从独立评测得出『蒸馏能突破基座边界而 RLVR 不能』的方向一致结论。"
+   },
+   {
+    "id": "L4-12",
+    "claim": "R2 至 2025-08 仍未发布:FT 报道 DeepSeek 因被要求改用华为昇腾芯片训练、多次训练失败而推迟 R2(训练回退英伟达、昇腾只做推理);Reuters 6 月报道 CEO 梁文锋对性能不满意、无发布日期——『推理缩放可复制』的续集卡在算力工程上。",
+    "source_type": "媒体",
+    "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/deepseek-reportedly-urged-by-chinese-authorities-to-train-new-model-on-huawei-hardware-after-multiple-failures-r2-training-to-switch-back-to-nvidia-hardware-while-ascend-gpus-handle-inference",
+    "quote_or_data": "DeepSeek delayed releasing its R2 model due to unsuccessful attempts to train it on Huawei's Ascend chips … R2 training to switch back to Nvidia hardware while Ascend GPUs handle inference(转述 Financial Times 2025-08-14 报道)",
+    "date": "2025-08-14",
+    "load_bearing_candidate": false,
+    "caliber_notes": "媒体口径、匿名信源,DeepSeek 未官方证实;FT 原文在付费墙后,此为转述链(FT→Tom's Hardware/TrendForce)。不宜作为『推理缩放撞墙』证据,更接近硬件供应链约束证据。"
+   },
+   {
+    "id": "L4-13",
+    "claim": "Meta 的『The Art of Scaling Reinforcement Learning Compute for LLMs』(2025-10,40 万 GPU 时系统研究)发现 RL 的算力-性能曲线是 S 形(sigmoid)而非幂律——存在性能上渐近线,配方差异主要改变渐近线和效率;其 ScaleRL 配方可从小规模外推预测 10 万 GPU 时单次 RL 训练的曲线。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2510.13786",
+    "quote_or_data": "more than 400,000 GPU-hours […] fit sigmoidal compute-performance curves for RL training […] successfully scaling and predicting validation performance on a single RL run scaled up to 100,000 GPU-hours […] brings RL training closer to the predictability long achieved in pre-training",
+    "date": "2025-10-15",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商研究(Meta,预印本,截至检索未见同行评审版);S 形意味着『RL 算力翻倍收益』不是常数——早段陡、逼近渐近线后趋零,与预训练幂律(无明确上界但持续递减)形状不同,不能拿单点倍增收益外推。"
+   },
+   {
+    "id": "L4-14",
+    "claim": "Epoch AI(2025-05)依据 OpenAI 披露『o3 的训练算力是 o1 的 10 倍』推断:推理 RL 训练算力若继续每几个月 10 倍增长,最快一年内触及总训练算力前沿,此后增速将回落到与整体前沿一致的每年约 4 倍——推理训练的超高速增长是一次性追赶红利。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/how-far-can-reasoning-models-scale",
+    "quote_or_data": "OpenAI has said that o3 is a 10x scale-up in training compute from o1 […] If reasoning training is only a few (say, less than three) orders of magnitude below the overall frontier, this growth rate could slow down within a year or so.",
+    "date": "2025-05",
+    "load_bearing_candidate": true,
+    "caliber_notes": "10 倍是 OpenAI 厂商口径的相对倍数(发布会图表),绝对 FLOP 未公开,且『o3 训练算力』是否纯指 RL 阶段口径不明;Epoch 的推断依赖该披露为真。"
+   },
+   {
+    "id": "L4-15",
+    "claim": "Yue et al.(2025-04『Does RL Really Incentivize Reasoning Capacity…』)用 pass@k 口径发现:RLVR 模型在小 k(如 k=1)占优,但 k 大时基座模型反超——结论是当前 RLVR 没有引出根本性新推理模式,能力源自并受限于基座模型。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2504.13837",
+    "quote_or_data": "RLVR-trained models outperform their base models at small k (e.g., k = 1), the base models achieve a higher pass@k score when k is large. […] the current training setup does not elicit fundamentally new reasoning patterns […] originate from and are bounded by the base model",
+    "date": "2025-04-18",
+    "load_bearing_candidate": true,
+    "caliber_notes": "清华团队预印本;pass@k 大 k 口径的争议点:可验证域最终答案可『蒙对』,大 k 下命中不等于会做;结论限定于『当前训练设置』(数千步内的 RLVR),作者自己也报告蒸馏可以突破基座边界。"
+   },
+   {
+    "id": "L4-16",
+    "claim": "NVIDIA ProRL(2025-05)给出反例:延长 RL 训练(2000+ 步)能发现基座模型『在任意采样量下都完全失败』的任务上的新解法,RL 模型在全 k 区间的 pass@k 都占优——直接反驳『RL 只是引出既有能力』。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2505.24864",
+    "quote_or_data": "prolonged RL (ProRL) training can uncover novel reasoning strategies that are inaccessible to base models, even under extensive sampling […] including scenarios where base models fail entirely regardless of the number of attempts",
+    "date": "2025-05-30",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商研究(NVIDIA 的利益位置:RL 训练时长越有价值越利好算力销售);实验基于 1.5B 小模型(DeepSeek-R1-Distill-Qwen-1.5B),对前沿规模模型的外推性存疑;与 Yue et al. 的分歧核心在训练时长与基座强弱。"
+   },
+   {
+    "id": "L4-17",
+    "claim": "Epoch AI 测算:达到同一性能水位的 LLM 推理价格每年下降 9 至 900 倍不等(取决于基准水位),其中『达到 GPT-4 在 PhD 级科学题上表现』的价格每年降约 40 倍;但最快的降幅集中在最近一年,能否持续存疑。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/llm-inference-price-trends",
+    "quote_or_data": "The rate of decline varies dramatically depending on the performance milestone, ranging from 9x to 900x per year. […] the price to achieve GPT-4's performance on a set of PhD-level science questions fell by 40x per year. […] The fastest price drops in that range have occurred in the past year, so it's less clear that those will persist.",
+    "date": "2025",
+    "load_bearing_candidate": true,
+    "caliber_notes": "口径是『同能力档的 API 零售价』,分子为 $/token 价目、分母为固定基准得分水位;不是厂商真实推理成本(定价含补贴/毛利策略),窗口约三年、六个基准。"
+   },
+   {
+    "id": "L4-18",
+    "claim": "2025-06-10 OpenAI 将 o3 API 降价 80%($10/$40 → $2/$8 每百万 input/output tokens),官方称『同一个模型,只是推理栈优化后更便宜』,同时推出更高算力档 o3-pro($20/$80);ARC Prize 复测确认降价后性能未变。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/OpenAIDevs/status/1932532777565446348",
+    "quote_or_data": "We're cutting the price of o3 by 80% and introducing o3-pro in the API, which uses even more compute. o3: Input: $2 / 1M tokens Output: $8 / 1M tokens Now in effect. We optimized our inference stack that serves o3. Same exact model—just cheaper.",
+    "date": "2025-06-10",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径:降价动机不可观测(推理栈优化 vs 竞争性补贴无法从外部区分);价格≠成本,80% 降价不能直接当作成本降 80% 的证据。"
+   },
+   {
+    "id": "L4-19",
+    "claim": "推理模型让『跑同一套评测』的总账单暴涨:Artificial Analysis 数据显示跑完 7 个基准 o1 花 $2,767.05,而 GPT-4o 只要 $108.85(约 25 倍);其评测约 12 个推理模型共花 $5,200,超过评测 80 多个非推理模型的 $2,400——单 token 降价与单任务 token 量暴增同时发生。",
+    "source_type": "媒体",
+    "source_url": "https://techcrunch.com/2025/04/10/the-rise-of-ai-reasoning-models-is-making-benchmarking-more-expensive",
+    "quote_or_data": "it costs $2,767.05 to evaluate OpenAI's o1 reasoning model across a suite of seven popular AI benchmarks … OpenAI's non-reasoning GPT-4o model cost just $108.85 to evaluate(TechCrunch 转述 Artificial Analysis 数据)",
+    "date": "2025-04-10",
+    "load_bearing_candidate": true,
+    "caliber_notes": "媒体转述第三方评测机构(Artificial Analysis)自报支出;口径是零售 API 价 × 评测 token 量,分母是特定基准套件而非真实工作负载;驱动因素是推理模型输出 token 量(长思维链)数量级增长,而非单价上涨。"
+   },
+   {
+    "id": "L4-20",
+    "claim": "Apple『The Illusion of Thinking』(2025-06)在受控谜题环境中发现 test-time 推理的收益边界:超过某复杂度后准确率完全崩塌,且模型推理努力(思考 token)先增后降——即便 token 预算还有剩余;存在三个性能区间(低复杂度普通模型反而更好/中等复杂度 LRM 占优/高复杂度双双崩塌)。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2506.06941",
+    "quote_or_data": "LRMs face a complete accuracy collapse beyond certain complexities. […] their reasoning effort increases with problem complexity up to a point, then declines despite having remaining token budget. […] (1) low-complexity tasks where standard models outperform LRMs, (2) medium-complexity tasks where LRMs demonstrates advantage, and (3) high-complexity tasks where both models face complete collapse",
+    "date": "2025-06",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商研究(Apple 无前沿推理模型,利益位置与 OpenAI 相反);已有针锋相对的反驳(见 L4-21):部分『崩塌』可能是实验设计伪影。引用必须成对出现。"
+   },
+   {
+    "id": "L4-21",
+    "claim": "对 Apple 论文的反驳(Lawsen,arXiv 2506.09250)指出其『准确率崩塌』主要是实验设计缺陷:汉诺塔大 N 的完整解超出模型输出 token 上限(模型自己在输出里声明了这一点),River Crossing 在 N>5 时数学上无解却被判错;控制这些伪影后模型在原『失败』实例上准确率很高。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2506.09250",
+    "quote_or_data": "Tower of Hanoi experiments risk exceeding model output token limits, with models explicitly acknowledging these constraints in their outputs […] mathematically impossible instances for N > 5 due to insufficient boat capacity, yet models are scored as failures […] their findings primarily reflect experimental design limitations rather than fundamental reasoning failures",
+    "date": "2025-06",
+    "load_bearing_candidate": false,
+    "caliber_notes": "短篇评论型预印本,非同行评审;初版曾以『C. Opus』(Claude 模型)列为共同作者引发关注,引用时以 Lawsen 为作者。双方分歧不影响『token 预算是 test-time 缩放的硬约束』这一共识。"
+   },
+   {
+    "id": "L4-22",
+    "claim": "Microsoft 对 8 类复杂任务的系统测量(2025-04)发现 test-time 缩放收益高度任务依赖:随问题复杂度上升收益递减,『多花 token 不必然换来更高准确率』;数学类受益明显,而日历规划、NP-hard、空间推理等任务上即便配完美验证器做大规模采样,与前沿推理模型的差距在部分任务仍无法弥合、在另一些任务却几乎抹平。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2504.00294",
+    "quote_or_data": "the advantages of inference-time scaling vary across tasks and diminish as problem complexity increases. […] simply using more tokens does not necessarily translate to higher accuracy […] for some tasks, these models can achieve performance close to the average performance of today's most advanced reasoning models. However, for other tasks, a significant performance gap remains, even in very high scaling regimes.",
+    "date": "2025-04-01",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商研究(Microsoft 与 OpenAI 有投资关系,但该文结论偏保守方向,利益指向不明显);『完美验证器』是理想化口径,真实开放任务无此验证器,实际增益应更低。"
+   },
+   {
+    "id": "L4-23",
+    "claim": "ARC Prize 对正式版 o3 的逐题对照发现:在简单任务上 high 档相对 medium 档常常『零准确率增益但更高成本』(同题耗更多 token 得同样答案)——test-time 算力应按任务难度配置而非一律拉满。",
+    "source_type": "研究",
+    "source_url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi",
+    "quote_or_data": "When comparing o3-medium and o3-high on the same tasks, we found that o3-high consistently used more tokens to arrive at the same answers. […] On easy tasks, o3-high often offers no accuracy gain but incurs a higher cost.",
+    "date": "2025-04-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "限定在 ARC-AGI 任务分布;正式版 o3 的 $/task 已降至 $1.22(low)/$2.52(medium)每题(ARC-AGI-2 口径),与 preview 的 $26-$4,560/题(ARC-AGI-1、旧价目)不可直接比,基准集和价目都换了。"
+   }
+  ],
+  "cross_caliber_issues": [
+   "『DeepSeek 训练成本 $5.6M』三重混淆:$5.576M 是 V3 基座一次正式训练的 GPU 租金口径(不含研究/消融/资本开支/人力),$294K 只是 V3→R1 的 RL 阶段,媒体常把前者说成 R1 成本、把租金口径说成全部成本;SemiAnalysis 指其实际 GPU 资产规模远大于租金口径所暗示。",
+   "o3 同名不同模:2024-12 的 o3-preview(用 75% ARC 公开训练集调优+近乎无上限 test-time 算力,ARC-AGI-1 得 87.5%)与 2025-04 正式版 o3(41-53%)是不同模型、不同算力档、不同训练数据暴露——引用 87.5% 必须标 preview。",
+   "ARC 的 $/task 是零售 API 价折算且被两次重新定价(o1-pro 价→o3-pro 价 $80/M tokens):同一次 2024-12 的 token 消耗,总成本数字在 2025 年内变动;$/task ≠ 算力成本 ≠ 厂商真实成本。",
+   "AIME 74% / 83% / 93% 是同一模型的三种采样口径(pass@1 / cons@64 / 1000 样本重排),混用会把多次采样成绩当单次推理能力。",
+   "pass@k 大 k 口径:基座模型的『能力上界』含蒙对成分(可验证域最终答案可猜),Yue et al. 与 ProRL 的分歧部分源于 k 的取值、训练步数(数百步 vs 2000+ 步)与模型规模(前沿 vs 1.5B)不同。",
+   "『推理变便宜』与『推理变贵』同时为真:同能力档 $/token 每年降 9-900 倍(Epoch),但长思维链使单任务 token 量涨数量级(o1 跑 7 基准 $2,767 vs GPT-4o $109)——分子(价格)降、分母侧用量涨,谈经济可持续性必须指明是单 token、单任务还是总账单口径。",
+   "『训练算力 10 倍』口径:OpenAI 只给 o1→o3 的相对倍数,绝对 FLOP 未公开,且未说明是否纯 RL 阶段;『RL/训练侧缩放』与『test-time/推理侧缩放』是两条不同的轴,厂商双曲线图常被压成一句『推理缩放定律』混谈。",
+   "高 reasoning 档的幸存者偏差:o3-high『82% 准确率』分母是返回的 37/100 题,未返回任务系统性偏难;任何 test-time 拉满档的成绩要先查任务覆盖率。",
+   "RL 缩放曲线形状之争:Meta 40 万 GPU 时研究拟合出 S 形(有上渐近线)而非幂律——引用『RL 算力翻倍带来 X 增益』必须说明处于曲线哪一段,单点倍增收益不可外推。",
+   "『准确率崩塌』vs『token 上限伪影』:Apple 谜题实验的部分崩塌被反驳为输出 token 限制与不可解题目所致;引用 test-time 收益边界证据时需成对引用原文与反驳。"
+  ],
+  "sources_count": 19
+ },
+ "L5-data": {
+  "line": "L5 数据墙与合成数据:数据存量测算两版口径(2022\"2026年前耗尽\"→2024\"2026-2032\")、坍缩文献两侧(完全替换才坍缩 vs 累积不坍缩)、合成数据厂商实践(phi-4 40%/Nemotron 98%对齐)、授权收紧(C4 一年 5%+被 robots.txt 封、Cloudflare 2025-07 默认拦截),截至 2026-08 唯一公开\"墙咬到训练 run\"个案是 WSJ 报道的 OpenAI Orion(媒体匿名信源),而公开训练集规模仍在涨(Llama4 Scout 40T、Qwen3 36T)。",
+  "claims": [
+   {
+    "id": "L5-01",
+    "claim": "Villalobos et al. 2022 原版(v1, 2022-10)预测:高质量语言数据「很可能在 2026 年前」耗尽,低质量语言数据 2030-2050 耗尽,图像数据 2030-2060 耗尽。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2211.04325v1",
+    "quote_or_data": "v1 abstract: high-quality language data exhausted \"likely before 2026\"; low-quality language data \"between 2030 and 2050\"; image data \"between 2030 and 2060\". Conclusion: \"the current trend of ever-growing ML models that rely on enormous datasets might slow down if data efficiency is not drastically improved or new sources of data become available.\"",
+    "date": "2022-10-26",
+    "load_bearing_candidate": true,
+    "caliber_notes": "引用此文必须标版本:v1(2022)与 v2(2024)结论差很大;v1 的『2026 前耗尽高质量数据』已被同一团队修订"
+   },
+   {
+    "id": "L5-02",
+    "claim": "同一论文 2024 修订版(v2, ICML 2024)改口:若当前趋势延续,模型将在 2026-2032 年间训练到与公开人类文本总存量相当的数据集规模,过训练(overtrained)则略早。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2211.04325",
+    "quote_or_data": "v2 abstract: \"if current LLM development trends continue, models will be trained on datasets roughly equal in size to the available stock of public human text data between 2026 and 2032, or slightly earlier if models are overtrained... We argue that synthetic data generation, transfer learning from data-rich domains, and data efficiency improvements might support further progress.\" v1 提交 2022-10-26,v2 修订 2024-06-04。",
+    "date": "2024-06-04",
+    "load_bearing_candidate": true,
+    "caliber_notes": "『训练数据集规模≈存量』不等于『数据用光』——是需求曲线追上存量曲线的口径"
+   },
+   {
+    "id": "L5-03",
+    "claim": "Epoch AI 2024-06-06 博客口径:质量与重复调整后的有效公开人类文本存量约 300 万亿 token;80% 置信区间在 2026-2032 年间被完全利用;若过训练 5 倍则 2027 年用完,过训练 100 倍则 2025 年用完。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data",
+    "quote_or_data": "\"the effective stock of quality and repetition adjusted human-generated public text for AI training at around 300 trillion tokens\"; \"80% confidence interval is that the data stock will be fully utilized at some point between 2026 and 2032\"; \"If models are overtrained by a modest factor of 5x, the stock of data will be fully used by 2027, but if they are overtrained by 100x, the stock of data will be fully used by 2025\"; \"new innovations will be required to maintain progress beyond 2030\"",
+    "date": "2024-06-06",
+    "load_bearing_candidate": true,
+    "caliber_notes": "『300T』是 quality+repetition adjusted 的有效存量,不是原始 token 数;与『indexed web 500T words』(L5-22)是不同调整口径,不可混用"
+   },
+   {
+    "id": "L5-04",
+    "claim": "2024 修订把 2022 版『2024/2026 年前耗尽高质量数据』推迟到 2028 及以后,明确修正来源是多 epoch 训练容忍度与数据质量方法学的新发现(即吸收了 Muennighoff 等的结果)。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data",
+    "quote_or_data": "Epoch blog: \"models can be trained on several epochs without significant degradation\" / \"the same dataset can be used multiple times during training, effectively increasing the amount of data available\"。媒体转述(SAP/Silicon Canals 等)称 2024 版把高质量文本用尽从 2024 推到 2028。",
+    "date": "2024-06-06",
+    "load_bearing_candidate": false,
+    "caliber_notes": "『2024→2028』这一对比句本身来自媒体对两版的转述,精确表述以论文两版原文为准(v1: likely before 2026)"
+   },
+   {
+    "id": "L5-05",
+    "claim": "Muennighoff et al.(NeurIPS 2023, data-constrained scaling)实测:固定算力预算下,重复训练最多 4 个 epoch 与全新数据相比损失几乎无差;继续重复则新增算力的价值最终衰减到零。实验规模至 900B token、9B 参数、共 400 个训练 run。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2305.16264",
+    "quote_or_data": "\"We find that with constrained data for a fixed compute budget, training with up to 4 epochs of repeated data yields negligible changes to loss compared to having unique data.\" ... \"with more repetition, the value of adding compute eventually decays to zero\"; experiments \"ranging up to 900 billion training tokens and 9 billion parameter models\"",
+    "date": "2023-05",
+    "load_bearing_candidate": true,
+    "caliber_notes": "『4 epoch 无损』的限定语:固定算力预算下、损失口径;不是任意规模任意任务的通用许可"
+   },
+   {
+    "id": "L5-06",
+    "claim": "Shumailov et al.(Nature 2024-07)的 model collapse 结论带关键限定:实验是逐代用上一代模型生成的数据训练(替换式递归),OPT-125m 在 wikitext2 上不保留原始数据时数代内困惑度从 34 恶化到 50+;摘要说的是『不加区分地(indiscriminately)』用生成数据训练会坍缩。",
+    "source_type": "研究",
+    "source_url": "https://www.nature.com/articles/s41586-024-07566-y",
+    "quote_or_data": "Nature abstract: \"indiscriminately training generative artificial intelligence on real and generated content, usually done by scraping data from the Internet, can lead to a collapse in the ability of the models to generate diverse high-quality output.\" 实验:OPT-125m fine-tuned on wikitext2,逐代生成替换,基线 perplexity 34(zero-shot 115),无原始数据保留时五代内升破 50。",
+    "date": "2024-07-24",
+    "load_bearing_candidate": true,
+    "caliber_notes": "引用此文说『合成数据必然坍缩』是误读:限定语是替换式+不加区分;实验数值部分经二手转述核对,正文原文在付费墙后(PDF 已存本地未能解析)"
+   },
+   {
+    "id": "L5-07",
+    "claim": "同一篇 Nature 论文自己就给了缓解条件:每代保留 10% 原始真实数据时,10 代内性能基本稳定、退化轻微——『坍缩』在原论文内部就不是无条件结论。",
+    "source_type": "研究",
+    "source_url": "https://www.nature.com/articles/s41586-024-07566-y",
+    "quote_or_data": "实验条件对比:no original data retained → perplexity 34→50+ within 5 generations;\"When 10% of the original data was preserved, performance remained stable across 10 generations\"(degradation \"minor\")。",
+    "date": "2024-07-24",
+    "load_bearing_candidate": false,
+    "caliber_notes": "10% 条件的具体数字经多个二手源(含 Nature 报道)转述一致,建议验证阶段对照论文 Fig/正文原句"
+   },
+   {
+    "id": "L5-08",
+    "claim": "Gerstgrasser et al. 2024-04 的正面反驳:『替换』真实数据才趋向坍缩,『累积』(合成数据与原始真实数据并存)则避免坍缩,并给出理论证明——累积时测试误差有与迭代次数无关的有限上界;结论跨语言模型、扩散模型、VAE 成立。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2404.01413",
+    "quote_or_data": "\"replacing the original real data by each generation's synthetic data does indeed tend towards model collapse\"; \"accumulating the successive generations of synthetic data alongside the original real data avoids model collapse\"; \"if data instead accumulate, the test error has a finite upper bound independent of the number of iterations, meaning model collapse no longer occurs.\"",
+    "date": "2024-04-01",
+    "load_bearing_candidate": true,
+    "caliber_notes": "『accumulate, don't replace』与 L5-06 并非矛盾而是实验设定不同;真实互联网更接近累积而非替换"
+   },
+   {
+    "id": "L5-09",
+    "claim": "2026 年坍缩文献走向继续弱化『必然性』:2026-05 发表于 Physical Review Letters 的分析(KCL/NTNU/ICTP)证明在指数族模型中,训练中混入哪怕一个真实世界数据点即可在所有测试情形下阻止坍缩。",
+    "source_type": "研究",
+    "source_url": "https://techxplore.com/news/2026-05-real-world-ai-collapse-analysis.html",
+    "quote_or_data": "\"it took as little as one datapoint from the outside world integrated into their training to prevent this in all cases.\"(Physical Review Letters, 2026-05-14;作者含 KCL 的 Yasser Roudi)",
+    "date": "2026-05-14",
+    "load_bearing_candidate": false,
+    "caliber_notes": "结论限定在指数族统计模型,对 LLM 是外推;经 TechXplore 转述,验证阶段可回溯 PRL 原文"
+   },
+   {
+    "id": "L5-10",
+    "claim": "截至 2026-08,未检索到任何一例经证实的『model collapse 在真实生产训练管线中被观测到』的公开报告;2025-2026 的综述与实务文章一致把坍缩定性为『管线设计可规避』的风险(保留真实数据、过滤、检测生成文本),而非已发生的事故。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/pdf/2502.15654",
+    "quote_or_data": "综述框架:\"It's not inevitable if you design the pipeline to resist it\"(2025-2026 实务综述对 Gerstgrasser 结果的通行概括);相关文献如 \"Machine-generated text detection prevents language model collapse\" (arXiv 2502.15654) 把坍缩作为可预防对象研究。",
+    "date": "2026-08",
+    "load_bearing_candidate": true,
+    "caliber_notes": "这是『缺席证据』型论断——只能说『未检索到公开个案』,不能说『从未发生』;厂商没有披露义务,内部失败 run 不会公开"
+   },
+   {
+    "id": "L5-11",
+    "claim": "微软 phi-4(2024-12,厂商自报):合成数据占预训练 token 预算的 40%(总预算约 10T token),约 400B 独立合成 token、50 类合成数据集,合成部分重复约 13.8 epoch(所有来源中最高重复率);并自报 14B 的 phi-4 在 GPQA 与 MATH 上显著超过其教师 GPT-4o。",
+    "source_type": "厂商",
+    "source_url": "https://arxiv.org/html/2412.08905v1",
+    "quote_or_data": "\"Synthetic data constitutes the bulk of the training data for phi-4 and is generated using a diverse array of techniques, including multi-agent prompting, self-revision workflows, and instruction reversal.\" 配比:synthetic 40% / web 15% / web rewrites 15% / code 20% / acquired 10%;~400B unweighted synthetic tokens,13.8 epochs;\"phi-4 significantly exceeds its teacher GPT-4o on the GPQA... and MATH... benchmarks\"",
+    "date": "2024-12-12",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商口径(微软自报自评);且 phi-4 是 14B 蒸馏路线、有 GPT-4o 当教师——证明『蒸馏+合成可造好的小模型』,不直接证明『前沿模型可自举越过数据墙』"
+   },
+   {
+    "id": "L5-12",
+    "claim": "NVIDIA Nemotron-4 340B(2024-06,厂商自报):对齐阶段(SFT+DPO/RPO)所用数据 98% 以上为合成生成,人工标注仅约 2 万条;并开源了合成数据生成管线。",
+    "source_type": "厂商",
+    "source_url": "https://arxiv.org/pdf/2406.11704",
+    "quote_or_data": "\"over 98% of the data used for supervised fine-tuning and preference fine-tuning (DPO & RPO)\" 为合成;\"only approximately 20K human-annotated data\" 用于整个对齐过程。",
+    "date": "2024-06",
+    "load_bearing_candidate": false,
+    "caliber_notes": "关键口径:98% 是『对齐/后训练』数据占比,分母不是预训练 token——常被误引为『98% 训练数据是合成的』"
+   },
+   {
+    "id": "L5-13",
+    "claim": "阿里 Qwen3(2025-05,厂商自报):预训练约 36T token、119 种语言,其中明确包含由 Qwen2.5-Math 生成的合成数学题与教科书、Qwen2.5-Coder 生成的代码数据,以及 Qwen2.5-VL 从 PDF 提取的文本——自家上代模型已成为下代预训练数据的生产工具。",
+    "source_type": "厂商",
+    "source_url": "https://arxiv.org/pdf/2505.09388",
+    "quote_or_data": "Qwen3 Technical Report: pre-training \"approximately 36 trillion tokens\" covering \"119 languages and dialects\";\"Qwen2.5-Math generated synthetic math problems and textbooks\";Qwen2.5-Coder 用于 code 数据,Qwen2.5-VL 用于 PDF 文本抽取;第一阶段约 30T token。",
+    "date": "2025-05-13",
+    "load_bearing_candidate": false,
+    "caliber_notes": "厂商口径;合成部分具体占 36T 的比例未披露"
+   },
+   {
+    "id": "L5-14",
+    "claim": "Meta Llama 4(2025-04,厂商自报):Scout 预训练约 40T token、Maverick 约 22T,均以 2T 总参数的 Behemoth 为教师做 codistillation(动态加权软/硬目标的新蒸馏损失);对照 Llama 3 的 15T,公开披露的预训练数据规模到 2025 年仍在上升而非收缩。",
+    "source_type": "厂商",
+    "source_url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+    "quote_or_data": "Meta blog: Maverick \"codistilled from Llama 4 Behemoth as a teacher model\";\"a novel distillation loss function that dynamically weights the soft and hard targets\";Scout ~40T tokens、Maverick ~22T tokens;Behemoth \"288 billion active parameters... nearly 2 trillion total\"。",
+    "date": "2025-04-05",
+    "load_bearing_candidate": true,
+    "caliber_notes": "厂商口径;40T/22T 是 token 数不区分 epoch 与模态(Llama4 原生多模态,含图像 token,与纯文本 15T 不完全同口径);Behemoth 本尊多次推迟发布(媒体归因于性能而非数据)"
+   },
+   {
+    "id": "L5-15",
+    "claim": "『前沿闭源模型到底用了多少合成数据』不存在独立测量:OpenAI 自 GPT-4 起明确拒绝披露数据构成(GPT-4 技术报告原文承认不含数据集构建等任何细节),GPT-5/Gemini 2.5 等延续不披露;已知的合成占比数字全部来自开放权重模型的厂商自报。",
+    "source_type": "官方",
+    "source_url": "https://arxiv.org/pdf/2303.08774",
+    "quote_or_data": "GPT-4 Technical Report: \"this report contains no further details about the architecture (including model size), hardware, training compute, dataset construction, training method, or similar.\"(理由为 \"competitive landscape and the safety implications\")",
+    "date": "2023-03-14",
+    "load_bearing_candidate": true,
+    "caliber_notes": "这条支撑『合成数据规模无独立测量』的判断;GPT-4 报告是官方一手,GPT-5 不披露为延续事实(各系统卡无数据配比)"
+   },
+   {
+    "id": "L5-16",
+    "claim": "Longpre et al. \"Consent in Crisis\"(2024-07,14000 域名纵向审计):仅 2023-2024 一年内,robots.txt 收紧使 C4 全体 token 的约 5%+、以及 C4 中『最活跃维护的关键来源』token 的 28%+ 被完全禁止抓取;按服务条款(ToS)口径则 C4 的 45% 已受限。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2407.14933",
+    "quote_or_data": "\"rendering ~5%+ of all tokens in C4, or 28%+ of the most actively maintained, critical sources in C4, fully restricted from use\"; \"a full 45% of C4 is now restricted\" (Terms of Service 口径);趋势被描述为 \"a rapid crescendo of data restrictions from web sources\",正在 \"rapidly biasing the diversity, freshness, and scaling laws for general-purpose AI systems\"。",
+    "date": "2024-07-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "三个数字三个分母:5%+ 是全 C4 token 加权、28%+ 只算头部活跃源、45% 是 ToS 而非 robots.txt——混用任意两个都会失真;且 robots.txt 无法律强制力,『受限』≠『实际未被抓』"
+   },
+   {
+    "id": "L5-17",
+    "claim": "Cloudflare 于 2025-07-01 成为首家默认拦截 AI 爬虫的大型基础设施商:新注册域名默认询问是否允许 AI 抓取(从 opt-out 改为 opt-in),同时上线 Pay Per Crawl 私测市场让站点对每次抓取收费;Cloudflare 服务约 20% 的互联网站点。",
+    "source_type": "厂商",
+    "source_url": "https://blog.cloudflare.com/content-independence-day-no-ai-crawl-without-compensation/",
+    "quote_or_data": "Cloudflare 官方新闻稿(2025-07-01)\"Cloudflare Just Changed How AI Crawlers Scrape the Internet-at-Large; Permission-Based Approach Makes Way for A New Business Model\";Nieman Lab: 首家 \"block AI scraping by default\",Pay Per Crawl 为 private beta,站点自定价、AI 公司可接受或不接受;约 20% 网络流量经 Cloudflare(媒体通行估计)。",
+    "date": "2025-07-01",
+    "load_bearing_candidate": false,
+    "caliber_notes": "Cloudflare 自身是 Pay Per Crawl 市场的利益方(向数据交易抽成的商业模式);『20% 的互联网』是流量/站点份额的粗口径;默认拦截只覆盖新注册域名,存量站点需手动开启"
+   },
+   {
+    "id": "L5-18",
+    "claim": "数据授权已成真实市场:Reddit 与 Google 2024 年初达成约 6000 万美元/年的内容授权(供 Gemini 训练,Reddit IPO 前披露),2025-2026 续约谈判中 Reddit 考虑收紧 Google 的结构化数据访问以抬价。",
+    "source_type": "媒体",
+    "source_url": "https://www.cbsnews.com/news/google-reddit-60-million-deal-ai-training/",
+    "quote_or_data": "CBS/Reuters 口径:\"content licensing deal worth about $60 million per year\";协议给 Google \"real-time, structured, unique content from their large and dynamic platform\";Bloomberg 2025-09-17:Reddit 寻求与 Google/OpenAI 谈下一轮内容协议。",
+    "date": "2024-02-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "6000 万/年为媒体报道数字(Reddit 招股书披露口径为 2024 年约 6640 万美元数据授权收入),双方未官方确认单一合约金额"
+   },
+   {
+    "id": "L5-19",
+    "claim": "News Corp 与 OpenAI 2024-05 签订多年期内容授权,报道口径为五年可能超过 2.5 亿美元(约 5000 万美元/年,覆盖 WSJ、Barron's、NY Post 等)——头部出版商文本的市场化定价出现基准。",
+    "source_type": "媒体",
+    "source_url": "https://variety.com/2024/digital/news/news-corp-openai-licensing-deal-1236013734/",
+    "quote_or_data": "WSJ/Variety 报道:\"could be worth more than $250 million over five years\";内容含 \"the Wall Street Journal and the New York Post\" 等;官方新闻稿未披露金额。",
+    "date": "2024-05-22",
+    "load_bearing_candidate": false,
+    "caliber_notes": "金额是 WSJ(News Corp 自家媒体)援引知情人的报道口径,含现金+API credits,官方未确认;2025-06 双方协议延伸讨论属后续报道"
+   },
+   {
+    "id": "L5-20",
+    "claim": "Ilya Sutskever 在 NeurIPS 2024(2024-12-13)公开宣称:『我们已达 peak data』『数据是 AI 的化石燃料,互联网只有一个』『我们所知的预训练必将终结』——这是撞墙叙事最高调的一手表态。",
+    "source_type": "从业者",
+    "source_url": "https://x.com/AndrewCurran_/status/1867756563009790169",
+    "quote_or_data": "\"Pre-training as we know it will unquestionably end\"; \"data is the fossil fuel of AI\"; \"we have but one internet\"; \"we have reached peak data, and there will be no more—we must work with what we have\"(NeurIPS 2024 Test-of-Time 演讲,有现场视频,引语经多方在场转录一致)",
+    "date": "2024-12-13",
+    "load_bearing_candidate": true,
+    "caliber_notes": "非伪引(有演讲视频),但注意利益位置:Sutskever 时任 SSI 创始人,『预训练终结、需要新范式』同时是其新公司的融资叙事;这是观点/预测而非实测数据"
+   },
+   {
+    "id": "L5-21",
+    "claim": "截至 2026-08,『数据墙咬到具体训练 run』的唯一公开个案是 WSJ 2024-12-20 对 OpenAI Orion(GPT-5 计划,后以 GPT-4.5 发布)的报道:至少两次大型训练 run 结果不及预期、每次成本约 5 亿美元,报道称『世界上可能没有足够的数据让它变得足够聪明』,OpenAI 因此雇工程师/数学家手写数据并转向合成数据。",
+    "source_type": "媒体",
+    "source_url": "https://www.wsj.com/tech/ai/openai-gpt5-orion-delays-639e7693",
+    "quote_or_data": "WSJ (Deepa Seetharaman): \"OpenAI's new artificial-intelligence project is behind schedule—and there may not be enough data in the world to make it smart enough\"; \"OpenAI has conducted at least two large training runs... each time new problems arose and the software fell short of the results researchers were hoping for\";应对:雇人 \"to create original content, including software code, solving mathematical problems\" + 合成数据。",
+    "date": "2024-12-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "媒体匿名信源,OpenAI 未证实『数据不足』归因;Orion 失利也可解释为架构/预期管理问题;GPT-4.5 于 2025-02 实际发布且 OpenAI 称其为最大预训练模型——『墙咬到』与『模型仍发布』并存"
+   },
+   {
+    "id": "L5-22",
+    "claim": "Epoch AI 2024-08-20 报告《Can AI scaling continue through 2030?》给出反撞墙测算:去重后索引网络约 500T 词、到 2030 预计再增 50%;计入多模态与合成数据后 2030 年可用有效 token 为 400 万亿-2 京(quadrillion),支持 6e28-2e32 FLOP 训练;最先咬合的约束是电力和芯片产能,不是数据。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/blog/can-ai-scaling-continue-through-2030",
+    "quote_or_data": "\"The indexed web contains about 500T words of unique text, and is projected to increase by 50% by 2030\"; \"400 trillion to 20 quadrillion effective tokens available for training\" → \"6e28 to 2e32 FLOP\"; \"the constraint likely to bind first is power, followed by the capacity to manufacture enough chips\"; \"Training runs of around 2e29 FLOP are likely possible by 2030\"",
+    "date": "2024-08-20",
+    "load_bearing_candidate": true,
+    "caliber_notes": "500T words 是未做质量调整的索引网络存量,与 L5-03 的 300T『有效存量』口径不同;Epoch 接受 OpenPhil 等资助、立场偏『可继续扩展』,但方法公开可查"
+   },
+   {
+    "id": "L5-23",
+    "claim": "2025-09 Epoch/DeepMind 背景的更新研究维持判断:『数据稀缺不太可能像许多批评者预期的那样阻止扩展』,但同时明确警示合成数据『尚未被充分理解,目前只在数学、代码等较窄领域被可靠证明能提升能力』。",
+    "source_type": "研究",
+    "source_url": "https://www.hpcwire.com/aiwire/2025/09/19/from-exascale-to-extreme-deepmind-backed-study-charts-ais-path-to-2030/",
+    "quote_or_data": "\"A bottleneck remains possible, but the weight of the evidence presented suggests that data scarcity is less likely to stop scaling than many critics expect\"; \"AI-generated synthetic data is not yet well understood, and has only been shown to reliably improve capabilities in relatively narrow domains like math and coding\"",
+    "date": "2025-09-19",
+    "load_bearing_candidate": false,
+    "caliber_notes": "经 AIwire 转述的 DeepMind-backed 研究;『合成数据只在窄域被证明有效』这句是对『合成数据万能论』的重要限定,与厂商叙事相抵"
+   },
+   {
+    "id": "L5-24",
+    "claim": "数据池污染有了独立测量:SEO 公司 Graphite 对 2020-2025 年 6.5 万篇网络文章的抽样分析称,AI 撰写文章的篇数占比于 2024-11 首次超过人类撰写,2025-05 达 51.7%;但占比自 2024-05 起趋于平台化,且 AI 文章在 Google 中可见度更低——『发布量占比』不等于『被读/被抓取占比』。",
+    "source_type": "从业者",
+    "source_url": "https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans",
+    "quote_or_data": "Graphite(Axios 2025-10-14 报道):AI-written articles \"first surpassed human-written ones in November 2024\";2025-05 抽样中 AI 文占 51.7%;\"the proportion of AI-generated articles has remained relatively stable since May 2024\";Graphite 强调 publishing volume 与 audience visibility 是不同度量。",
+    "date": "2025-10-14",
+    "load_bearing_candidate": false,
+    "caliber_notes": "检测器判定 AI 文本本身有误差;样本为『文章』类 URL 不代表全网 token;Graphite 是内容营销公司(利益相关);此数据常被『50% 互联网是 AI 垃圾』标题党引用,原研究自己做了可见度限定"
+   },
+   {
+    "id": "L5-25",
+    "claim": "截至 2026-08 的判决性小结:公开证据侧,『数据墙』未在任何厂商官方口径中被承认限制了训练集规模(公开预训练规模仍逐代上涨:Llama3 15T→Qwen3 36T→Llama4 Scout 40T);唯一的『咬到』个案(Orion)是媒体匿名报道;推迟机制(多 epoch、蒸馏/合成、多模态、授权采购)在 2024-2026 全部被大规模启用——『墙』更准确的描述是被持续赎买推后,而非已撞上或不存在。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/blog/can-ai-scaling-continue-through-2030",
+    "quote_or_data": "综合:Epoch \"the constraint likely to bind first is power\" + Meta Scout ~40T tokens + Qwen3 ~36T tokens + phi-4 synthetic 40% + WSJ Orion 报道。",
+    "date": "2026-08",
+    "load_bearing_candidate": true,
+    "caliber_notes": "这是综合判断而非单一来源事实;反例风险:闭源厂商内部因数据受限砍掉的 run 不会公开,『无公开证据』受幸存者偏差影响"
+   }
+  ],
+  "cross_caliber_issues": [
+   "数据存量三口径不可混用:Epoch『有效存量 300T token』(质量+重复调整后) vs 『索引网络 500T words』(未调整、词非token) vs 『2030 可用 400T-20Q token』(计入多模态+合成)——同一机构三个数字,分母和调整方式全不同",
+   "同一论文两版结论相反向:Villalobos v1(2022)『高质量数据 2026 前耗尽』vs v2(2024)『2026-2032 达到存量规模』——引用必须标版本,否则可用同一引文同时支撑撞墙与不撞墙",
+   "model collapse 的实验设定决定结论:『替换式递归』(Shumailov)坍缩 vs 『累积式』(Gerstgrasser)不坍缩;真实互联网是累积式,引 Nature 结论必须带 replace/indiscriminate 限定语",
+   "合成数据占比的分母陷阱:phi-4 的 40% 是预训练 token 占比,Nemotron 的 98% 是对齐(SFT/DPO)数据占比——后者常被误引为『98% 训练数据是合成的』",
+   "token 计数:unique tokens vs epoch 加权 tokens(phi-4 合成 400B unique × 13.8 epochs ≈ 5.5T 有效);多模态模型的 token 数(Llama4 40T 含图像)与纯文本 token 不同口径",
+   "robots.txt 限制三分母:全 C4 token 加权 ~5%+ vs 头部活跃源 28%+ vs ToS 口径 45%;且 robots.txt 无强制力,『声明限制』≠『实际未被抓取』",
+   "AI 生成内容占比:发布文章篇数占比(Graphite 51.7%)vs 流量/搜索可见度占比(低得多)vs 训练语料 token 占比(无测量)——三者常被混为『一半互联网是 AI 写的』",
+   "『合成数据成功』案例几乎全是有更强教师模型的蒸馏(phi-4←GPT-4o, Llama4←Behemoth),逻辑上不能外推为『前沿最强模型可自举突破数据墙』——蒸馏消耗的是教师的能力存量",
+   "授权交易金额几乎全为媒体『reported』口径(Reddit $60M/yr、News Corp $250M/5yr),官方未确认,且常混现金与 API credits",
+   "撞墙表态的利益位置:Sutskever『peak data』(SSI 融资叙事)与 Epoch『数据不是首要约束』(接受偏 scaling 乐观阵营资助)各有立场;WSJ Orion 报道为匿名信源且 OpenAI 未证实归因",
+   "『耗尽』的语义:Epoch 口径是『训练集规模追上存量』(需求线撞存量线),不是『数据被物理用光』;多 epoch 与过训练系数(5x/100x)会把同一存量对应的耗尽年在 2025-2032 间大幅挪动"
+  ],
+  "sources_count": 22
+ },
+ "L6-compute-econ": {
+  "claims": [
+   {
+    "id": "L6-01",
+    "claim": "Epoch AI 实测:frontier AI 模型训练算力 2010–2024.5 年增 5.3 倍/年(90% CI 4.9–5.7x);全部 notable 模型口径为 4.1x/年;结论基线为「4-5x/年」。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/publications/training-compute-of-frontier-ai-models-grows-by-4-5x-per-year",
+    "quote_or_data": "\"the amount of compute used to train notable models has grown about 4-5x/year. This should also be used as a baseline for future growth expectations.\"",
+    "date": "2024-05",
+    "caliber_notes": "分母是 Epoch 数据库中的 notable/frontier 模型样本;不同子集(notable 4.1x、frontier 5.3x、frontier LLM 5.0x)增速不同,时间窗均截至 2024 年 5 月。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-02",
+    "claim": "frontier 语言模型子集:约 2020 年中至 2024.5,训练算力 5.0x/年(80% CI 3.1–7.3x),即约每 5-6 个月翻倍。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/publications/training-compute-of-frontier-ai-models-grows-by-4-5x-per-year",
+    "quote_or_data": "Frontier Language Models growth rate: 5.0x/year (80% CI: 3.1x to 7.3x), period ~mid-2020 to May 2024",
+    "date": "2024-05",
+    "caliber_notes": "仅语言模型、仅 frontier;CI 很宽,不宜引为精确 5x。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-03",
+    "claim": "最大训练 run 的成本每约 8 个月翻倍:Epoch 实测大规模模型训练成本 2016–2025 年增 2.4x/年,从 GNMT 约 $20 万(2016)涨到 Grok 4 约 $5 亿(2025)。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/cost-trend-large-scale",
+    "quote_or_data": "\"Training cost of large-scale models is growing at a rate of 2.4x per year\"; cost calculated by \"amortizing cluster costs over the training period\", \"about half of this spending on GPUs, with the remainder on other hardware and energy\"; range $200k (GNMT, 2016) to $500M (Grok 4, 2025), in 2023 USD",
+    "date": "2025",
+    "caliber_notes": "口径是「最终训练 run 的摊销硬件+能源成本」(2023 美元),不是整个集群资本开支(Colossus Phase 1 全额约 $40 亿)也不是云租价;三种口径差可达一个量级。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-04",
+    "claim": "同一团队的同行评审版(Cottier 等):frontier 模型最终训练 run 摊销硬件+能源成本自 2016 年起 2.4x/年(95% CI 2.0–3.1x);若趋势延续,2027 年最大 run 将超 $10 亿。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2405.21015",
+    "quote_or_data": "amortized hardware and energy cost \"has grown rapidly, at a rate of 2.4x per year since 2016 (95% CI: 2.0x to 3.1x)\"; largest training runs \"will cost more than a billion dollars by 2027\"",
+    "date": "2024-06",
+    "caliber_notes": "作者为 Epoch AI(Ben Cottier 等);「>$10 亿」是趋势外推非实测。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-05",
+    "claim": "算法效率独立测量(Ho, Besiroglu 等):达到同一性能所需预训练算力每约 8 个月减半(95% CI 5–14 个月),基于 2012–2023 年 200+ 个语言模型在 Wikitext/Penn Treebank 上的评测。",
+    "source_type": "研究",
+    "source_url": "https://arxiv.org/abs/2403.05812",
+    "quote_or_data": "\"the compute required to reach a set performance threshold has halved approximately every 8 months\" (95% CI: 5 to 14 months), dataset of over 200 language model evaluations on Wikitext and Penn Treebank spanning 2012-2023",
+    "date": "2024-03",
+    "caliber_notes": "衡量的是预训练困惑度基准,不含 RL/推理期算法进步;换算「等效算力增益」约 2.5-2.8x/年,与物理算力 4-5x/年相乘才是总有效算力增速。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-06",
+    "claim": "最大 run 的 FLOP 序列:GPT-4 约 2.1e25(2023)→ Grok 3 约 4.6e26(2025 年 2 月,Epoch 数据库中首个超 1e26 的模型,约为 GPT-4 的 22 倍);截至 2025 年 6 月已有 30+ 个模型超过 1e25。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/models-over-1e25-flop",
+    "quote_or_data": "\"As of June 2025, we have identified over 30 publicly announced AI models from 12 different AI developers... over the 1e25 FLOP training compute threshold\"; Grok-3 estimated 4.6e26 FLOP, ~22x GPT-4's 2.1e25",
+    "date": "2025-06",
+    "caliber_notes": "均为 Epoch 第三方估算(非厂商披露),不确定度约 2-3 倍;截至本次检索未找到 Epoch 对 2026 年新最大 run(如 Gemini 3/Grok 5)的公开 FLOP 点估计,只有媒体/咨询口径称 2026 frontier run 在 1e26–1e27 区间。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-07",
+    "claim": "Epoch「算力扩张将因交付周期变长而放缓」(2025-09-05,Edelman & Ho):放缓机制是供给侧串行交付时间而非收益递减——每再扩 10 倍算力,项目 lead time 约延长 1 年;GPU 采购约 0.5 年、数据中心 1-2 年、超大数据中心+电厂 2-3 年、新建先进晶圆厂 4-5 年。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/compute-scaling-will-slow-down-due-to-increasing-lead-times",
+    "quote_or_data": "\"every additional 10x increase in compute scale lengthens lead times by around a year\"; infrastructure timelines: GPU purchasing ~0.5 yr, data center 1-2 yr, very large data center/power plant 2-3 yr, new cutting-edge fab 4-5 yr",
+    "date": "2025-09-05",
+    "caliber_notes": "注意发表于 2025 年 9 月而非 2026;论证明确是供给侧(交付周期+投资分步验证),作者未主张技术收益递减——与「撞墙」叙事的关键区别。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-08",
+    "claim": "同文预测:训练算力仍可通过内部配置再维持 5x/年约 1-2 年,但算力存量增速将放缓;OpenAI 算力存量截至 2025 年中约 2.2x/年,按趋势 2030 年到「万亿美元集群」,计入 lead time 则推迟到约 2035 年。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/compute-scaling-will-slow-down-due-to-increasing-lead-times",
+    "quote_or_data": "training compute scaling could continue \"at 5x per year for another 1-2 years\"; OpenAI compute stock has grown \"around 2.2x each year\"",
+    "date": "2025-09-05",
+    "caliber_notes": "「存量 2.2x/年」是公司总算力存量,不同于单次训练 run 的 4-5x/年(流量),两者常被混用。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-09",
+    "claim": "GPT-5 训练算力低于前代:Epoch 估计 GPT-5 总训练算力约 5e25 FLOP(含预训练+RL),高于 GPT-4(约 2e25)但低于 GPT-4.5(>1e26);原因是新后训练技术更省算力+市场时间压力,而非撞墙;并预测 GPT-6 将回升超过 GPT-4.5。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/why-gpt5-used-less-training-compute-than-gpt45-but-gpt6-probably-wont",
+    "quote_or_data": "\"Unlike all previous versions of GPT, it was likely trained on less compute than its immediate predecessor, GPT-4.5\"; \"new post-training techniques made it possible to outperform GPT-4.5 with less training compute\"; \"GPT-6 is likely to need much more training compute than GPT-5, and probably more than GPT-4.5\"; FLOP estimates: GPT-5 ~5e25 total, pretraining ~3e25 (from https://epochai.substack.com/p/notes-on-gpt-5-training-compute, 2025-10-13)",
+    "date": "2025-09-26",
+    "caliber_notes": "全部为 Epoch 第三方推断(参数量+token 数反推),OpenAI 未官方披露;5e25 是「预训练+RL 总量」口径,引用时勿写成「预训练算力」;Epoch 自己定性为「a pause, not a halt」。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-10",
+    "claim": "xAI 官方:Grok 4 把 RL 扩到预训练量级——在 20 万 GPU 的 Colossus 上做 RL,RL 算力比此前用量高一个数量级以上,且训练算力效率提升 6 倍。",
+    "source_type": "厂商",
+    "source_url": "https://x.ai/news/grok-4",
+    "quote_or_data": "\"Colossus, our 200,000 GPU cluster, to run reinforcement learning training\"; the run \"saw smooth performance gains while training on over an order of magnitude more compute than had been used previously\"; \"increased the compute efficiency of our training by 6x\"",
+    "date": "2025-07",
+    "caliber_notes": "厂商口径,xAI 有融资叙事动机;官方文本未给出「RL:预训练=1:1」的明确配比数字,「10x RL compute」说法出自发布直播的转述(interconnects.ai 等)。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-11",
+    "claim": "Google DeepMind 官方(Gemini 负责人 Oriol Vinyals,2025-11-18):Gemini 3 的提升来自预训练+后训练双双改进,直接反驳「预训练 scaling 结束」。",
+    "source_type": "厂商",
+    "source_url": "https://x.com/OriolVinyalsML/status/1990854455802343680",
+    "quote_or_data": "\"Pre-training: Contra the popular belief that scaling is over—which we discussed in our NeurIPS '25 talk with @ilyasut and @quocleix—the team delivered a drastic jump. The delta between 2.5 and 3.0 is as big as we've ever seen. No walls in sight!\"",
+    "date": "2025-11-18",
+    "caliber_notes": "厂商口径(Google 正与 OpenAI 竞争、有云/TPU 销售利益);「delta as big as ever」是能力增量表述,Google 未披露 Gemini 3 预训练 FLOP,不能当作算力继续翻倍的定量证据。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-12",
+    "claim": "Ilya Sutskever(2025-11-25,Dwarkesh 播客):2020–2025 是 scaling 时代,现在回到研究时代;再堆 100 倍算力「会不一样,但不会脱胎换骨」。",
+    "source_type": "从业者",
+    "source_url": "https://www.dwarkesh.com/p/ilya-sutskever-2",
+    "quote_or_data": "\"Up until 2020, from 2012 to 2020, it was the age of research. Now, from 2020 to 2025, it was the age of scaling... It would be different, for sure. But is the belief that if you just 100x the scale, everything would be transformed? I don't think that's true. So it's back to the age of research again, just with big computers.\"",
+    "date": "2025-11-25",
+    "caliber_notes": "一手访谈原文;Sutskever 的 SSI 走「不堆算力」差异化路线并以此融资,同样有利益位置;他主张的是边际转化率下降(需求侧论证),与 Epoch 的供给侧论证机制不同。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-13",
+    "claim": "Microsoft CEO Nadella(2025-11 初,BG2 播客):当前最大瓶颈不是算力过剩而是电力与机房交付,「有一批芯片在库存里插不上电」——供给侧交付不动的直接一手证词。",
+    "source_type": "厂商",
+    "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/microsoft-ceo-says-the-company-doesnt-have-enough-electricity-to-install-all-the-ai-gpus-in-its-inventory-you-may-actually-have-a-bunch-of-chips-sitting-in-inventory-that-i-cant-plug-in",
+    "quote_or_data": "\"The biggest issue we are now having is not a compute glut, but it's power... you may actually have a bunch of chips sitting in inventory that I can't plug in\"; \"It's not a supply issue of chips; it's actually the fact that I don't have warm shells to plug into.\"",
+    "date": "2025-11",
+    "caliber_notes": "原始出处是 BG2 Pod 视频访谈(与 Altman 同场),此 URL 为媒体转述但含逐字引语;厂商口径——Microsoft 有为放缓 capex/租赁调整辩护的动机。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-14",
+    "claim": "Epoch(2026-05-20,Josh You):前五大 AI 开发商 2025 年底合计可能占全球 AI 算力不到一半;OpenAI 约 170 万 H100 当量、OpenAI+Anthropic+xAI 合计约占全球运营 AI 算力 20-30%;2025 年全球装机 AI 算力按 H100e 计约增至 3 倍,OpenAI 自身约 4x/年。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/frontier-labs-dont-use-most-ai-compute",
+    "quote_or_data": "\"the five most resource-rich AI developers in the world probably had access to less than half of global AI compute at the end of last year\"; OpenAI ~1.7 million H100-equivalents (end of 2025); global installed compute \"tripled in H100e terms in 2025\"",
+    "date": "2026-05-20",
+    "caliber_notes": "H100e 是等效算力口径非芯片颗数;说明大部分算力增长在 frontier 训练之外(推理/企业),引用时别把「全球算力 3 倍/年」当成「训练算力 3 倍/年」。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-15",
+    "claim": "Epoch 估算:2024 年 OpenAI 算力支出中仅约 30% 用于推理,其余用于训练/研究——早期「训练为主」的基线,用来对照 2026 年推理占比反超的转移。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/company-spending-breakdown",
+    "quote_or_data": "Only ~30% of OpenAI's compute spending in 2024 was used on inference (Epoch AI data insight on AI company spending breakdown)",
+    "date": "2025",
+    "caliber_notes": "单一公司(OpenAI)、支出口径、2024 年;不能与全行业工作负载口径(Deloitte)或芯片收入口径(NVIDIA)直接相除比较。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-16",
+    "claim": "Epoch「算力荒要来了吗」(2026-05-25):按当前价格 token 需求约 10x/年增长,而全球推理供给能力约 3.4x/年增长,长上下文/agent 工作负载最先撞上供给缺口——需求侧不仅没退坡反而过热。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/gradient-updates/is-a-compute-crunch-coming",
+    "quote_or_data": "token demand \"growing by roughly 10x per year\"; global inference capacity projected to grow at \"3.4x/year\" through 2032; \"a compute crunch is likely near—particularly for the long-context workloads that drive agentic AI\"",
+    "date": "2026-05-25",
+    "caliber_notes": "需求 10x/年是多代理指标(Google token 处理量、工程师用量)拼接的估算,不是直接计量;「需求>供给」结论与「AI 需求不足以撑 capex」的空头叙事直接对撞,是判决性证据之一。",
+    "load_bearing_candidate": true
+   },
+   {
+    "id": "L6-17",
+    "claim": "Deloitte 2026 TMT 预测:推理占全部 AI 算力的比例从 2023 年约 1/3 → 2025 年约 1/2 → 2026 年约 2/3;2026 年全球 AI 数据中心 capex 约 $4000-4500 亿。",
+    "source_type": "研究",
+    "source_url": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-and-telecom-predictions/2026/compute-power-ai.html",
+    "quote_or_data": "\"Inference workloads will indeed be the hot new thing in 2026, accounting for roughly two-thirds of all compute (up from a third in 2023 and half in 2025)\"; overall AI data center capex for 2026: US$400-450 billion globally",
+    "date": "2025-11",
+    "caliber_notes": "咨询机构预测口径(按计算负载强度),非实测;Deloitte 面向科技客户有温和利益位置。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-18",
+    "claim": "Gartner(2026-08 报道):2026 年成为云 AI 支出中推理首次超过训练的年份——AI 优化 IaaS 约 $420 亿中推理 $233 亿 vs 训练 $190 亿(「每 1 美元云 AI 支出约 55 美分花在推理」)。",
+    "source_type": "媒体",
+    "source_url": "https://www.techtimes.com/articles/323879/20260811/gartner-marks-first-year-inference-spending-beats-ai-training-55-cents-every-cloud-dollar.htm",
+    "quote_or_data": "Worldwide spending on AI-optimized IaaS to reach $42 billion in 2026, with $23.3 billion toward inference workloads vs $19 billion for training (Gartner, as reported by Tech Times)",
+    "date": "2026-08-11",
+    "caliber_notes": "分母是「AI 优化 IaaS(云租用)」,远小于总 AI 基建盘子;原始 Gartner 页面未能直接访问(转述自 Tech Times),引用前宜回溯 Gartner 原发布。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-19",
+    "claim": "NVIDIA 厂商口径:Q1 FY2027(2026-05-20 电话会)数据中心收入 $750 亿、同比 +92%;管理层称推理是主增长引擎(「tokens are now profitable, so model makers are in a race to produce more」),Kress 称过去一年约 40% 数据中心收入与推理相关。",
+    "source_type": "厂商",
+    "source_url": "https://www.fool.com/earnings/call-transcripts/2026/05/20/nvidia-nvda-q1-2027-earnings-transcript/",
+    "quote_or_data": "Q1 FY2027 data center revenue $75 billion, up 92% YoY; Jensen Huang: \"we are growing share in inference very, very quickly\"; roughly 40% of data center revenue tied to AI inference last year, per CFO Colette Kress",
+    "date": "2026-05-20",
+    "caliber_notes": "厂商口径,NVIDIA 有维持「需求无上限」叙事的直接利益;「40% 与推理相关」是公司内部估计、无外部可验证方法学;注意 NVIDIA 财年错位(Q1 FY2027 = 2026 年 2-4 月)。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-20",
+    "claim": "高盛《Tracking Trillions》(2026-06):基线模型隐含 2026 年 AI capex 约 $7650 亿、2031 年约 $1.6 万亿、2026-31 累计约 $7.6 万亿;GPU 按 3 年 vs 7 年折旧的假设差异就造成累计预测约 $1.76 万亿的摆动;并点名电力而非资本是部署节奏的约束。",
+    "source_type": "厂商",
+    "source_url": "https://www.goldmansachs.com/insights/articles/tracking-trillions-the-assumptions-shaping-scale-of-the-ai-build-out",
+    "quote_or_data": "Baseline: $765B annual AI capex in 2026 → $1.6T in 2031, $7.6T cumulative 2026-2031; 3-yr vs 7-yr GPU lifecycle assumptions create a ~$1.76T difference in cumulative forecasts (per third-party summary at nilsliu.dev, original page returned 403)",
+    "date": "2026-06",
+    "caliber_notes": "卖方投行口径(高盛承销/做市 AI 相关融资,有利益位置);高盛股票研究同期另有更审慎表述(\"the economics of AI are more questionable today than two years ago\");原文访问受限,数字经第三方摘要转述,补 2026-06 后新事实用、capex 细节勿与本站 #9 期重复。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-21",
+    "claim": "空头侧把「撞墙+折旧」做成做空论据:Michael Burry(2026 年中再度公开)估计行业 2026-28 少提折旧约 $1760 亿、足以虚增合并利润约 20%(Oracle 利润或虚高 27%、Meta 21%),并持有 Nvidia/Palantir 看跌头寸,称本轮比互联网泡沫顶点更热、存在「circular funding」。",
+    "source_type": "媒体",
+    "source_url": "https://247wallst.com/investing/2026/07/02/the-michael-burry-bear-case-for-ai-chips-is-back-and-this-gpu-math-problem-wont-go-away/",
+    "quote_or_data": "Burry estimates industry understating depreciation by ~$176 billion between 2026-2028, inflating combined reported earnings ~20%; Oracle and Meta profits potentially overstated by 27% and 21% by 2028; market had \"jumped the shark\"",
+    "date": "2026-07-02",
+    "caliber_notes": "从业者(空头持仓=直接利益位置)经媒体转述;原始出处为 Burry 的 X 帖与其付费通讯,引用前应回溯;注意其论据核心是折旧会计与循环融资,不是「模型能力撞墙」——两者常被打包混用。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-22",
+    "claim": "多头侧把「没撞墙」做成加仓论据:VC Tomasz Tunguz(2025-11-20)以 Gemini 3 为据称「scaling 墙是海市蜃楼」,直接推导到 Blackwell 算力将兑换成模型能力、支持 $3-4 万亿/年的基建叙事。",
+    "source_type": "从业者",
+    "source_url": "https://tomtunguz.com/gemini-3-proves-pretraining-scaling-laws-intact/",
+    "quote_or_data": "\"Gemini 3 proves the scaling laws are intact, so Blackwell's extra power will translate directly into better model capabilities\"; cites Nvidia's projected \"$3 trillion to $4 trillion in annual AI infrastructure build\" by 2030",
+    "date": "2025-11-20",
+    "caliber_notes": "风投(Theory Ventures GP)口径,持仓利多 AI 基建;其证据链依赖 Vinyals 推文的能力 delta 表述,并无独立 FLOP 数据——展示「撞墙与否」如何被直接嫁接到融资/建仓叙事。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-23",
+    "claim": "Morgan Stanley 2026 年展望把「AI capex 未能及时转化为生产率」列为其看多观点的头号风险,但评估 2026 年内发生概率低(企业资产负债表健康、现金充裕、杠杆低)。",
+    "source_type": "厂商",
+    "source_url": "https://www.itiger.com/hant/news/1194527807",
+    "quote_or_data": "Morgan Stanley identifies the primary threat to its constructive view as \"AI capital boom fails to boost productivity\", considered unlikely in 2026 given strong corporate fundamentals",
+    "date": "2026",
+    "caliber_notes": "卖方投行(看多立场=利益位置),经中文财经媒体转述,未回溯到 MS 原报告;仅作「投行如何摆放 scaling/回报风险」的叙事证据,不作数字引用。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-24",
+    "claim": "Epoch 更早的供给侧基线(2024-08《Can AI scaling continue through 2030?》):在电力、芯片产能、数据、延迟四大约束下,2030 年底前 2e29 FLOP 量级的训练 run「可能可行」——即供给侧约束在 2030 前不构成硬墙,只决定节奏。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/blog/can-ai-scaling-continue-through-2030",
+    "quote_or_data": "Epoch's headline conclusion: training runs of ~2e29 FLOP will likely be feasible by 2030, with power, chip manufacturing capacity, data, and latency as the binding constraints examined",
+    "date": "2024-08",
+    "caliber_notes": "该句为报告结论转述(本次未逐字抓原文,引用前建议核对原文措辞);与 2025-09 lead-times 文对读:同一机构认为「物理上可行」但「交付节奏会拖慢」,两文并不矛盾。",
+    "load_bearing_candidate": false
+   },
+   {
+    "id": "L6-25",
+    "claim": "训练电力需求独立测量:Epoch 数据洞察显示 frontier 模型训练所需电力每年翻倍——供给侧(电力)成为约束的量化基础。",
+    "source_type": "研究",
+    "source_url": "https://epoch.ai/data-insights/power-usage-trend",
+    "quote_or_data": "\"The power required to train frontier AI models is doubling annually\" (Epoch AI data insight title/finding)",
+    "date": "2025",
+    "caliber_notes": "电力 2x/年 < 算力 4-5x/年,差额来自能效提升;引用时注意是「单次最大训练 run 的功率」而非数据中心总用电。",
+    "load_bearing_candidate": false
+   }
+  ],
+  "cross_caliber_issues": [
+   "「训练算力增速」的样本口径:notable 模型 4.1x/年 vs frontier 模型 5.3x/年 vs frontier 语言模型 5.0x/年,同出 Epoch 但分母不同;引用「4-5x/年」时须说明是哪个子集、截至 2024-05 的窗口。",
+   "训练「成本」三种口径差一个量级:Epoch 的 2.4x/年是最终 run 的摊销硬件+能源(2023 美元,Grok 4 约 $5 亿);集群全额资本开支(Colossus Phase 1 约 $40 亿)与云租用报价是另外两种口径,混用会把成本高估/低估 5-10 倍。",
+   "FLOP 口径:预训练 vs 预训练+RL 总量。GPT-5 的 ~5e25 是总口径(其中预训练约 3e25);「GPT-5 预训练算力低于 GPT-4.5」与「总训练算力低于 GPT-4.5」是两个不同命题,Epoch 的表述是后者。",
+   "「推理占比」四个互不可比的分母:NVIDIA 数据中心收入的 ~40%(厂商内部估计)、Deloitte 全行业计算负载的 ~2/3(2026 预测)、Gartner 云 AI IaaS 支出的 ~55%(仅云租用)、Epoch 对 OpenAI 2024 支出的 ~30%(单公司、支出口径)——不能相互印证或相除。",
+   "「撞墙」一词混用两件事:能力收益递减(需求侧,Sutskever 的 100x 论)vs 算力增速放缓(供给侧,Epoch 的 lead time 论)。Epoch 明确预测放缓但机制是交付周期,引用其放缓预测来支持「收益递减」是错配。",
+   "能力 delta ≠ 算力数据:Vinyals「delta as big as ever, no walls」是能力表述,Google 未披露 Gemini 3 FLOP;不能当作「预训练算力继续 4-5x」的定量证据(Tunguz 等多头叙事正是这样嫁接的)。",
+   "NVIDIA 财年错位:FY2026 Q4 止于 2026 年 1 月、FY2027 Q1 止于 2026 年 4 月,与日历年季度混排会算错同比;且 2026 年财报数字在二手转述中相互出入,引用前应以 nvidianews 原始 PR 核对。",
+   "GPU 折旧年限双向使用:同一个「3 年 vs 5-6 年」参数,Burry 用来论证利润虚增(空头),高盛用来展示 capex 预测 $1.76 万亿的敏感性(中性/多头)——引用折旧论据时必须写明假设方向。",
+   "算力「存量」vs「流量」:OpenAI 算力存量 ~2.2-4x/年、全球装机 H100e 2025 年约 3 倍,均不同于单次最大训练 run 的 4-5x/年;三者混用是常见错误。",
+   "H100e(H100 当量)是等效算力单位而非芯片颗数;跨代芯片(B200/Rubin)换算系数不同来源不一致。",
+   "「预训练死了」的时间线错位:Sutskever 的表述(2024 NeurIPS 与 2025-11 访谈)与 GPT-5(2025-08)的省算力选择常被引作同一件事,但 Epoch 将后者归因于后训练性价比+交期压力并预测 GPT-6 回升——「让位给 RL」不等于「预训练停止增长」。",
+   "Epoch 与 xAI 等实验室有数据合作关系但自称独立;SemiAnalysis 是商业订阅分析(从业者口径);引用两者时利益位置标注不同于同行评审论文。"
+  ],
+  "line": "L6 算力/成本独立测量与经济可持续(独立测量线)",
+  "sources_count": 21
+ }
+}
