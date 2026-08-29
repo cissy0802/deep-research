@@ -74,3 +74,18 @@ workflow `wf_0b991a37-760`,33 agents,**30 成功 / 3 失败**(B11-compute-econ �
 - **G2 空白检验坐实**:截至 2026-08 **未检索到任何公开实证**显示前沿模型 loss 实测点系统性偏离拟合幂律线;且该检验在公开信息下**结构性不可证伪**(前沿闭源模型的 N、D 与同口径 loss 均不公开,loss 跨语料/分词器不可比)。正面证据只有厂商自述(GPT-4 报告、Llama 3 论文)。这是本文最强论点之一。
 - **G2 修正**:「不可约项 E 2020 年就写在公式里」不成立——Kaplan 2020 的拟合式没有 E、外推趋于零损失;带常数项是 Henighan et al. 2020 与 Chinchilla 2022 的事。2020 年写死的是幂律指数蕴含的边际递减(参数翻倍→loss ×0.95)。
 - **G1 修正**:Kaplan 摘要原文是 "with **some** trends spanning more than seven orders of magnitude";且「performance must flatten out」必须整句引——原句主句是「上端未见任何偏离迹象」,让步从句才是走平,单摘后半句是把作者主张翻面。
+
+---
+
+## ✅ 已发布(2026-08-28)
+四个页面全部 200,index 中英条目已上线:
+- https://hub.cissychen.com/deep-research/scaling-wall-deep.html
+- https://hub.cissychen.com/deep-research/scaling-wall-deep.en.html
+- https://hub.cissychen.com/deep-research/scaling-wall-plain.html
+- https://hub.cissychen.com/deep-research/scaling-wall-plain.en.html
+
+commit 46edbda(只提交本期页面 + index,避免剥掉全站已烘焙 TTS)。
+一致性回查抓到 26 处偏差并全部修复,其中一条判死项(「a pause, not a halt」误挂 Epoch)
+曾溜回四份文稿;三条未进验证流程的引用(Nadella 播客、Epoch 算力荒、Burry 折旧)已标【未验证】。
+
+**⚠️ TOPICS.md 的「待研究」区现已为空** —— 下次 routine 运行会无题可取,需 BigCat 从候选池升级排期。
