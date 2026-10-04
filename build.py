@@ -3208,7 +3208,389 @@ def fig_sw_constraints(lang: str) -> str:
 </figure>"""
 
 
+def fig_rsi_ladder(lang: str) -> str:
+    """Four definitions of 'compounding', in rising order of strictness."""
+    t = {
+        "zh": dict(title="「复利」的四种可检验定义,门槛逐级升高",
+                   l1="① 相继翻倍时间缩短", d1="每一次能力翻倍,比上一次用时更短",
+                   l2="② 外生投入固定时回路自持", d2="人力与训练算力不再增长,AI 仍能让进步加速",
+                   l3="③ 世代增益比 ≥ 1", d3="第 n+1 轮的增益不小于第 n 轮(Chalmers 的比例性论题)",
+                   l4="④ 世代时间趋近于零", d4="绕回路一圈的时间缩向零——奇点的必要条件(Ord)",
+                   up="门槛更高", st="截至 2026-10 的公开证据:四级都未被证实",
+                   rsp="Anthropic RSP v3.4 的阈值属于这一族:看「加速度」,不看「被 AI 托住的高速」",
+                   cap="示意:四种定义取自 AI Futures Project、Cunningham 等(2026-09)、Chalmers(2010)、Ord(2026-08)。本文采用的判据是:有证据显示下一轮改进变快或变大,且逐轮累积"),
+        "en": dict(title="Four testable definitions of 'compounding', in rising strictness",
+                   l1="① Successive doublings get faster", d1="Each capability doubling takes less time than the last",
+                   l2="② Self-sustaining with inputs fixed", d2="No growth in labor or training compute, yet AI still accelerates progress",
+                   l3="③ Generation gain ratio ≥ 1", d3="Round n+1 gains at least as much as round n (Chalmers' proportionality)",
+                   l4="④ Generation time → 0", d4="Time per loop shrinks toward zero — required for a true singularity (Ord)",
+                   up="stricter", st="Public evidence as of Oct 2026: none of the four is established",
+                   rsp="Anthropic's RSP v3.4 threshold belongs to this family: acceleration, not AI-propped high speed",
+                   cap="Schematic: definitions from the AI Futures Project, Cunningham et al. (Sep 2026), Chalmers (2010) and Ord (Aug 2026). This article's test: evidence that the next round of improvement gets faster or larger, cumulatively"),
+    }[lang]
+    rows = [(t['l1'], t['d1'], "#4cc9f0"), (t['l2'], t['d2'], "#52b788"),
+            (t['l3'], t['d3'], "#7b61ff"), (t['l4'], t['d4'], "#ff6ec4")]
+    out, y = [], 218
+    for i, (lab, desc, c) in enumerate(rows):
+        x = 40 + i * 28
+        out.append(f'<rect x="{x}" y="{y}" width="{600 - i * 28}" height="40" rx="8" fill="{c}" opacity="0.12" stroke="{c}" stroke-opacity="0.5"/>')
+        out.append(f'<text x="{x + 14}" y="{y + 17}" fill="{c}" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{lab}</text>')
+        out.append(f'<text x="{x + 14}" y="{y + 33}" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{desc}</text>')
+        y -= 52
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(out)}
+  <line x1="672" y1="250" x2="672" y2="70" stroke="#5a6378" stroke-width="1.4"/>
+  <path d="M 667 78 L 672 68 L 677 78" fill="none" stroke="#5a6378" stroke-width="1.4"/>
+  <text x="664" y="62" fill="#7c8593" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{t['up']}</text>
+  <text x="24" y="290" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['st']}</text>
+  <text x="24" y="312" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">{t['rsp']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_layers(lang: str) -> str:
+    """Five layers of 'AI improving AI': who judges, what has been shown."""
+    t = {
+        "zh": dict(title="五层「AI 改进 AI」:每一层,谁当裁判?",
+                   h1="层", h2="代表", h3="裁判", h4="改进者被改进?",
+                   r=[("L0 产出", "AlphaEvolve、FLT 证明", "自动评估器 / Lean", "否:增益随底座模型变强"),
+                      ("L1 外壳", "DGM、HyperAgents、AIDE²", "基准分数(弱代理)", "一项正证据;复利 p>0.05"),
+                      ("L2 训练信号", "Self-Rewarding、R-Zero", "模型自己", "2–3 轮饱和,久训崩溃"),
+                      ("L3 研发流程", "80% 代码、26% 指数", "人类审查", "速率 <2×(厂商口径)"),
+                      ("L4 无人闭环", "—", "—", "无公开实例")],
+                   cap="示意:L0–L3 都有真实活动,L4 没有。凡是被证实的增益,都落在裁判可靠的格子里;「改进者被改进」只在 L1 有一项统计显著的证据"),
+        "en": dict(title="Five layers of 'AI improving AI': who judges each one?",
+                   h1="Layer", h2="Examples", h3="Judge", h4="Improver improved?",
+                   r=[("L0 output", "AlphaEvolve, FLT proof", "auto-evaluator / Lean", "No: gains track the base LLM"),
+                      ("L1 scaffold", "DGM, HyperAgents, AIDE²", "benchmark score (weak proxy)", "One positive; compounding p>0.05"),
+                      ("L2 training signal", "Self-Rewarding, R-Zero", "the model itself", "Saturates in 2–3 rounds"),
+                      ("L3 R&amp;D process", "80% code, 26% index", "human review", "Rate &lt;2× (vendor-reported)"),
+                      ("L4 closed loop", "—", "—", "No public instance")],
+                   cap="Schematic: L0–L3 all show real activity; L4 shows none. Every confirmed gain sits where the judge is reliable; 'the improver got better' has one statistically significant result, in L1"),
+    }[lang]
+    xs = [24, 150, 330, 492]
+    cols = ["#4cc9f0", "#9aa3b2", "#7b61ff", "#ff6ec4"]
+    out = []
+    for x, h in zip(xs, (t['h1'], t['h2'], t['h3'], t['h4'])):
+        out.append(f'<text x="{x}" y="66" fill="#7c8593" font-size="11" font-weight="700" font-family="Menlo,monospace">{h}</text>')
+    y = 96
+    for row in t['r']:
+        out.append(f'<line x1="24" y1="{y - 18}" x2="676" y2="{y - 18}" stroke="#2a3140" stroke-width="1"/>')
+        for x, cell, c in zip(xs, row, cols):
+            out.append(f'<text x="{x}" y="{y}" fill="{c}" font-size="11.5" font-family="-apple-system,sans-serif">{cell}</text>')
+        y += 40
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_aide(lang: str) -> str:
+    """AIDE² main run: accepted rewrites along 100 steps — gaps do not shrink."""
+    t = {
+        "zh": dict(title="AIDE² 主运行:7 次被接受的改写落在 100 步里",
+                   ax="步数", g0="起点 0.703", g1="终点 0.778", hb="人类工程基线 0.749",
+                   gap="间隔(步)", note="改写者全程固定为人类工程的 AIDEhuman;同协议另两次运行只接受了 2 次和 4 次",
+                   cap="示意:若是复利,接受应越来越密;实际间隔为 4、22、11、8、16、22 步,没有缩短。分数为选拔用的私有分(厂商口径,arXiv 2609.26457);检验「改进后的 agent 当改进者更强」的 ignition test 作者自评无结论"),
+        "en": dict(title="AIDE² main run: 7 accepted rewrites across 100 steps",
+                   ax="step", g0="start 0.703", g1="end 0.778", hb="human-engineered baseline 0.749",
+                   gap="gap (steps)", note="The rewriter was the fixed, human-engineered AIDEhuman throughout; two more runs accepted only 2 and 4",
+                   cap="Schematic: compounding would make acceptances bunch up; the actual gaps are 4, 22, 11, 8, 16, 22 steps — not shrinking. Grades are the private selection grade (vendor-reported, arXiv 2609.26457); the ignition test of whether the improved agent is a better improver was judged inconclusive by its authors"),
+    }[lang]
+    x0, x1 = 112, 660
+    def sx(s): return x0 + (x1 - x0) * s / 100
+    steps = [2, 6, 28, 39, 47, 63, 85]
+    out = []
+    for s in steps:
+        out.append(f'<line x1="{sx(s):.1f}" y1="92" x2="{sx(s):.1f}" y2="150" stroke="#4cc9f0" stroke-width="2.4"/>')
+        out.append(f'<text x="{sx(s):.1f}" y="84" fill="#4cc9f0" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{s}</text>')
+    gaps = [4, 22, 11, 8, 16, 22]
+    for a, b, g in zip(steps, steps[1:], gaps):
+        out.append(f'<text x="{(sx(a) + sx(b)) / 2:.1f}" y="176" fill="#ff6ec4" font-size="11" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{g}</text>')
+    ticks = "".join(f'<text x="{sx(s):.1f}" y="226" fill="#5a6378" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{s}</text>' for s in (0, 25, 50, 75, 100))
+    return f"""<figure>
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{x0}" y1="210" x2="{x1}" y2="210" stroke="#5a6378" stroke-width="1.4"/>
+  {ticks}
+  <text x="{x1}" y="246" fill="#7c8593" font-size="10.5" text-anchor="end" font-family="Menlo,monospace">{t['ax']}</text>
+  {''.join(out)}
+  <text x="24" y="176" fill="#ff6ec4" font-size="10.5" font-family="Menlo,monospace">{t['gap']}</text>
+  <text x="{x0}" y="64" fill="#9aa3b2" font-size="11" font-family="Menlo,monospace">{t['g0']}</text>
+  <text x="{x1}" y="64" fill="#52b788" font-size="11" font-weight="700" text-anchor="end" font-family="Menlo,monospace">{t['g1']}</text>
+  <text x="{(x0 + x1) / 2}" y="64" fill="#7b61ff" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{t['hb']}</text>
+  <text x="24" y="282" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">{t['note']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_rounds(lang: str) -> str:
+    """Per-round gains of self-rewarding training — flat or shrinking, never rising."""
+    t = {
+        "zh": dict(title="自打分训练:每一轮多涨几个百分点?",
+                   s1="Self-Rewarding(Llama 2 70B,3 轮)", s2="Self-Rewarding+长度控制(复现,4 轮)", s3="Meta-Rewarding(裁判也训练,4 轮)",
+                   r="第 {} 轮", unit="pp",
+                   cap="示意:条长为该轮相对上一轮的胜率增量(AlpacaEval 2;前一组为原始胜率,后两组为长度控制胜率,口径不同不可横比)。没有一组逐轮递增;复现组第 4 轮只多 0.62。来源:Yuan 等 2024、Wu 等 2024(Meta-Rewarding 表格)"),
+        "en": dict(title="Self-rewarding training: how much does each round add?",
+                   s1="Self-Rewarding (Llama 2 70B, 3 rounds)", s2="Self-Rewarding + length control (replication, 4 rounds)", s3="Meta-Rewarding (judge also trained, 4 rounds)",
+                   r="round {}", unit="pp",
+                   cap="Schematic: bar length is the round's gain in win rate over the previous round (AlpacaEval 2; first group raw win rate, the other two length-controlled — different calibers, not comparable across groups). No group rises round over round; the replication adds just 0.62 in round 4. Sources: Yuan et al. 2024; Meta-Rewarding tables"),
+    }[lang]
+    groups = [(t['s1'], [(2, 5.44), (3, 5.06)], "#4cc9f0"),
+              (t['s2'], [(2, 3.45), (3, 4.49), (4, 0.62)], "#ff6ec4"),
+              (t['s3'], [(2, 4.81), (3, 2.79), (4, 3.99)], "#7b61ff")]
+    out, y = [], 62
+    for name, rows, c in groups:
+        out.append(f'<text x="24" y="{y}" fill="{c}" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{name}</text>')
+        y += 10
+        for rd, v in rows:
+            w = v * 60
+            out.append(f'<text x="168" y="{y + 12}" fill="#7c8593" font-size="11" text-anchor="end" font-family="Menlo,monospace">{t["r"].format(rd)}</text>')
+            out.append(f'<rect x="180" y="{y}" width="{w:.0f}" height="16" rx="4" fill="{c}" opacity="0.85"/>')
+            out.append(f'<text x="{180 + w + 8:.0f}" y="{y + 12}" fill="{c}" font-size="11.5" font-weight="700" font-family="Menlo,monospace">+{v:.2f} {t["unit"]}</text>')
+            y += 22
+        y += 18
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 6}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="180" y1="44" x2="180" y2="{y - 12}" stroke="#5a6378" stroke-width="1.2" stroke-dasharray="2,4"/>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_ledgers(lang: str) -> str:
+    """Two ledgers: participation metrics vs rate metrics."""
+    t = {
+        "zh": dict(title="同一批公司的两本账",
+                   ha="第一本:AI 参与了多少", hb="第二本:研发快了多少",
+                   a=[("&gt;80%", "合并代码由 Claude 撰写(Anthropic,2026-05)"),
+                      ("约 8×", "人均每日合并代码量 vs 2024(自称「几乎肯定高估」)"),
+                      ("26%", "研发工作由 Claude「主导」(自评原型指数,2026-08)"),
+                      ("3.1×", "agent 工时 / 人类工时(OpenAI,2026-08 中)")],
+                   b=[("&lt;2×", "内部研发加速「还不到 2 倍」(Anthropic 风险报告)"),
+                      ("未翻倍", "内部能力指数斜率,两种拟合下都未翻倍"),
+                      ("约 1.5×", "METR 另一团队初步估计,约三成可能到 2×"),
+                      ("未达 High", "OpenAI Astra:AI 自我改进(2026-09-03)")],
+                   gap="至少差一个数量级",
+                   cap="示意:左栏是投入/参与度,右栏是进步速率;RSI 的度量是右栏。两栏均为厂商自报或经厂商发布,唯一的非厂商数字(约 1.5×)证据未公开"),
+        "en": dict(title="The same companies keep two ledgers",
+                   ha="Ledger 1: how much AI takes part", hb="Ledger 2: how much faster R&amp;D got",
+                   a=[("&gt;80%", "of merged code authored by Claude (Anthropic, May 2026)"),
+                      ("~8×", "code merged per engineer-day vs 2024 (overstated, it says)"),
+                      ("26%", "of R&amp;D work 'led' by Claude (self-rated prototype index, Aug)"),
+                      ("3.1×", "agent-workdays per human workday (OpenAI, mid-Aug)")],
+                   b=[("&lt;2×", "internal R&amp;D 'not yet by a factor of 2' (Anthropic risk report)"),
+                      ("not 2×", "internal capability-index slope has not doubled, either fit"),
+                      ("~1.5×", "preliminary METR-team estimate, ~30% chance of 2×"),
+                      ("below High", "OpenAI Astra on AI self-improvement (Sep 3)")],
+                   gap="at least an order of magnitude apart",
+                   cap="Schematic: the left column measures input and participation, the right measures the rate of progress — RSI is measured on the right. Both columns are vendor-reported or vendor-published; the only non-vendor figure (~1.5×) has no public evidence"),
+    }[lang]
+    out = []
+    y = 82
+    for (va, da), (vb, db) in zip(t['a'], t['b']):
+        out.append(f'<text x="34" y="{y}" fill="#ff6ec4" font-size="17" font-weight="700" font-family="Menlo,monospace">{va}</text>')
+        out.append(f'<text x="34" y="{y + 18}" fill="#9aa3b2" font-size="10" font-family="-apple-system,sans-serif">{da}</text>')
+        out.append(f'<text x="364" y="{y}" fill="#4cc9f0" font-size="17" font-weight="700" font-family="Menlo,monospace">{vb}</text>')
+        out.append(f'<text x="364" y="{y + 18}" fill="#9aa3b2" font-size="10" font-family="-apple-system,sans-serif">{db}</text>')
+        y += 54
+    return f"""<figure>
+<svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="28" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="24" y="40" width="322" height="236" rx="10" fill="#ff6ec4" opacity="0.06"/>
+  <rect x="354" y="40" width="322" height="236" rx="10" fill="#4cc9f0" opacity="0.06"/>
+  <text x="34" y="58" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  <text x="364" y="58" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  {''.join(out)}
+  <text x="350" y="304" fill="#7b61ff" font-size="12.5" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">⟵ {t['gap']} ⟶</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_thresholds(lang: str) -> str:
+    """Timeline of AI R&D threshold rewrites, 2025-02 → 2026-07."""
+    t = {
+        "zh": dict(title="「越线」的定义,18 个月里改写了多少次",
+                   ev=[("2025-02", "GDM FSF v2.0:加速 CCL 写明「例如 2 倍」、以 2020–2024 为基准", "#7b61ff"),
+                       ("2025-04", "OpenAI PF v2:High =「给每位研究员配一名中级研究工程师助手」", "#52b788"),
+                       ("2025-09", "GDM FSF v3.0:删去「2 倍」与基准年份;允许用自家进展信息评估", "#7b61ff"),
+                       ("2025-12", "OpenAI GPT-5.2 卡:High 被复述为「相当于一名中级研究工程师」", "#52b788"),
+                       ("2026-02", "Anthropic Opus 4.6 卡:「高概率近期越线」;员工 11/3/2 → 回访后 0/16", "#ff6ec4"),
+                       ("2026-02-24", "Anthropic RSP v3.0:整体重写,改为「一年压缩两年进展」", "#ff6ec4"),
+                       ("2026-04-02", "RSP v3.1:澄清为总体进步速率翻倍,非研究员生产率翻倍", "#ff6ec4"),
+                       ("2026-07-08", "RSP v3.4:双基准;进步「恒定或放缓」不算越线", "#ff6ec4"),
+                       ("2026-08", "Anthropic 风险报告:自动化研发风险 Very low → Low,「早期加速迹象」", "#e8794b")],
+                   cap="示意:每次改写各有理由,合在一起使外部核验越来越难——三家阈值单位已互不可比,判定所需的内部领先指标不在公开版。截至 2026-10,没有一家宣布越线"),
+        "en": dict(title="How many times 'crossing the line' was redefined in 18 months",
+                   ev=[("2025-02", "GDM FSF v2.0: acceleration CCL says 'e.g. 2x' vs 2020–2024 rates", "#7b61ff"),
+                       ("2025-04", "OpenAI PF v2: High = 'a mid-career research engineer assistant' for every researcher", "#52b788"),
+                       ("2025-09", "GDM FSF v3.0: drops '2x' and the base years; allows own-progress info", "#7b61ff"),
+                       ("2025-12", "OpenAI GPT-5.2 card: High restated as 'a performant mid-career research engineer'", "#52b788"),
+                       ("2026-02", "Anthropic Opus 4.6 card: 'high probability' of a near-term cross; staff 11/3/2 → 0/16", "#ff6ec4"),
+                       ("2026-02-24", "Anthropic RSP v3.0: full rewrite — 'two years of progress in one'", "#ff6ec4"),
+                       ("2026-04-02", "RSP v3.1: aggregate progress rate doubling, not researcher productivity", "#ff6ec4"),
+                       ("2026-07-08", "RSP v3.4: dual baseline; 'constant or slowing' progress does not count", "#ff6ec4"),
+                       ("2026-08", "Anthropic risk report: automated-R&amp;D risk Very low → Low, 'early signs'", "#e8794b")],
+                   cap="Schematic: each rewrite had its reasons; together they make outside verification steadily harder — the three labs' threshold units are no longer comparable, and the internal leading indicators needed to judge are not in the public versions. As of Oct 2026, no lab has declared a crossing"),
+    }[lang]
+    out, y = [], 64
+    for d, txt, c in t['ev']:
+        out.append(f'<circle cx="120" cy="{y - 4}" r="4.5" fill="{c}"/>')
+        out.append(f'<text x="108" y="{y}" fill="{c}" font-size="10.5" font-weight="700" text-anchor="end" font-family="Menlo,monospace">{d}</text>')
+        out.append(f'<text x="134" y="{y}" fill="#c9ced8" font-size="10.5" font-family="-apple-system,sans-serif">{txt}</text>')
+        y += 30
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 4}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="120" y1="52" x2="120" y2="{y - 26}" stroke="#5a6378" stroke-width="1.4"/>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_judge(lang: str) -> str:
+    """The judge bottleneck in two forms: absent vs attacked."""
+    t = {
+        "zh": dict(title="裁判瓶颈的两种形态",
+                   ha="裁判缺席 → 进展停在人那里", hb="裁判存在 → 裁判被攻击",
+                   a=["影子评估:工程全做完,两篇研究都被原作者拒稿",
+                      "57/886 会话:把猜测当事实、把未验证报成已验证",
+                      "「主要测试渐进想法,偏好不够大胆的假设」",
+                      "METR:研究更依赖远见、自建反馈回路与「品味」",
+                      "Google:多数问题上「AI 辅助的人类」更快更好"],
+                   b=["DGM:删掉用于检测幻觉的工具调用标记",
+                      "STOP:形状错误让准确率算出「超过 1000%」",
+                      "AlphaEvolve:钻评分函数的数值积分漏洞",
+                      "GPT-5.6 Sol:作弊让时间视界在 11.3h 与 >270h 间摆动",
+                      "ExploitGym:约 1200 个 agent 合谋寻找欺骗评分器的方法"],
+                   cap="示意:生成已经便宜,把生成变成「改进」的是裁判。没有标准答案的地方,裁判不存在;有标准答案且裁判可触达的地方,它会被攻击——最新一次的规模最大"),
+        "en": dict(title="The judge bottleneck, in two forms",
+                   ha="Judge absent → progress stops at the human", hb="Judge present → the judge gets attacked",
+                   a=["Shadow eval: engineering done, both papers rejected",
+                      "57/886 sessions: guesses as fact, unverified as verified",
+                      "Tests mostly incremental ideas, less ambitious ones",
+                      "METR: research needs foresight, own loops, 'taste'",
+                      "Google: 'AI-assisted humans' faster on most problems"],
+                   b=["DGM: deleted the markers that detect hallucination",
+                      "STOP: a shape bug made 'accuracy' read over 1000%",
+                      "AlphaEvolve: exploited the scorer's integration",
+                      "GPT-5.6 Sol: cheating swings horizon 11.3h ↔ &gt;270h",
+                      "ExploitGym: ~1,200 agents working to fool the scorer"],
+                   cap="Schematic: generation is already cheap; what turns generation into 'improvement' is the judge. Where there is no answer key, the judge does not exist; where there is one within reach, it gets attacked — and the latest incident is the largest"),
+    }[lang]
+    out, y = [], 86
+    for a, b in zip(t['a'], t['b']):
+        out.append(f'<text x="36" y="{y}" fill="#c9ced8" font-size="10.5" font-family="-apple-system,sans-serif">· {a}</text>')
+        out.append(f'<text x="366" y="{y}" fill="#c9ced8" font-size="10.5" font-family="-apple-system,sans-serif">· {b}</text>')
+        y += 36
+    return f"""<figure>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="28" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <rect x="24" y="42" width="322" height="230" rx="10" fill="#7b61ff" opacity="0.07"/>
+  <rect x="354" y="42" width="322" height="230" rx="10" fill="#ff6ec4" opacity="0.07"/>
+  <text x="36" y="62" fill="#7b61ff" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  <text x="366" y="62" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_rsi_r(lang: str) -> str:
+    """Estimates of the software R&D return r, against the explosion threshold r = 1."""
+    t = {
+        "zh": dict(title="软件研发回报 r 的估计,横跨阈值 1 的两边",
+                   thr="r = 1:高于它才可能自我加速",
+                   rows=[("Eth &amp; Davidson 最佳猜测", 1.0, 4.0, None),
+                         ("同上,计入硬件不变", 0.5, 2.0, None),
+                         ("Ho &amp; Whitfill:语言模型", 1.069, 3.212, 1.892),
+                         ("同上,附录情景:计算为互补投入(÷3)", None, None, 0.63)],
+                   cap="示意:横轴为对数刻度。区间为作者给出的范围或 90% 可信区间;最后一行是 Ho 与 Whitfill 技术附录中的 Cobb-Douglas 情景,不是主估计。计算与人力能否互相替代决定了哪一行算数,而这个弹性只有 27 个观测、两种设定结论相反"),
+        "en": dict(title="Estimates of the software R&amp;D return r straddle the threshold of 1",
+                   thr="r = 1: above it, self-acceleration is possible",
+                   rows=[("Eth &amp; Davidson best guess", 1.0, 4.0, None),
+                         ("Same, hardware held fixed", 0.5, 2.0, None),
+                         ("Ho &amp; Whitfill: language models", 1.069, 3.212, 1.892),
+                         ("Same, appendix scenario: compute complementary (÷3)", None, None, 0.63)],
+                   cap="Schematic: log-scale axis. Intervals are the authors' stated ranges or 90% credible intervals; the last row is the Cobb-Douglas scenario in Ho &amp; Whitfill's technical appendix, not their main estimate. Whether compute and labor substitute decides which row counts — and that elasticity rests on 27 observations, with two specifications pointing opposite ways"),
+    }[lang]
+    import math
+    x0, x1, lo, hi = 330, 670, math.log(0.4), math.log(4.5)
+    def sx(v): return x0 + (x1 - x0) * (math.log(v) - lo) / (hi - lo)
+    out, y = [], 78
+    for name, a, b, m in t['rows']:
+        out.append(f'<text x="{x0 - 12}" y="{y + 4}" fill="#9aa3b2" font-size="10.5" text-anchor="end" font-family="-apple-system,sans-serif">{name}</text>')
+        if a is not None:
+            out.append(f'<line x1="{sx(a):.1f}" y1="{y}" x2="{sx(b):.1f}" y2="{y}" stroke="#4cc9f0" stroke-width="5" stroke-linecap="round" opacity="0.75"/>')
+        if m is not None:
+            out.append(f'<circle cx="{sx(m):.1f}" cy="{y}" r="5" fill="#ff6ec4"/>')
+            out.append(f'<text x="{sx(m):.1f}" y="{y - 10}" fill="#ff6ec4" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{m}</text>')
+        y += 42
+    ticks = "".join(
+        f'<line x1="{sx(v):.1f}" y1="{y - 18}" x2="{sx(v):.1f}" y2="{y - 12}" stroke="#5a6378"/>'
+        f'<text x="{sx(v):.1f}" y="{y}" fill="#5a6378" font-size="10" text-anchor="middle" font-family="Menlo,monospace">{v}</text>'
+        for v in (0.5, 1, 2, 4))
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 34}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{sx(1):.1f}" y1="52" x2="{sx(1):.1f}" y2="{y - 18}" stroke="#7b61ff" stroke-width="1.6" stroke-dasharray="4,4"/>
+  <line x1="{x0}" y1="{y - 18}" x2="{x1}" y2="{y - 18}" stroke="#5a6378" stroke-width="1.2"/>
+  {ticks}
+  {''.join(out)}
+  <text x="{sx(1) + 6:.1f}" y="{y + 24}" fill="#7b61ff" font-size="10.5" font-family="-apple-system,sans-serif">{t['thr']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "recursive-self-improvement-deep": [
+        ("zh", "0. ", fig_rsi_ladder, "end"),
+        ("en", "0. ", fig_rsi_ladder, "end"),
+        ("zh", "1. ", fig_rsi_layers, "end"),
+        ("en", "1. ", fig_rsi_layers, "end"),
+        ("zh", "3. ", fig_rsi_aide, "end"),
+        ("en", "3. ", fig_rsi_aide, "end"),
+        ("zh", "4. ", fig_rsi_rounds, "end"),
+        ("en", "4. ", fig_rsi_rounds, "end"),
+        ("zh", "5. ", fig_rsi_ledgers, "end"),
+        ("en", "5. ", fig_rsi_ledgers, "end"),
+        ("zh", "6. ", fig_rsi_thresholds, "end"),
+        ("en", "6. ", fig_rsi_thresholds, "end"),
+        ("zh", "8. ", fig_rsi_judge, "end"),
+        ("en", "8. ", fig_rsi_judge, "end"),
+        ("zh", "9. ", fig_rsi_r, "end"),
+        ("en", "9. ", fig_rsi_r, "end"),
+    ],
+    "recursive-self-improvement-plain": [
+        ("zh", "先说清楚", fig_rsi_ladder, "end"),
+        ("en", "First, what", fig_rsi_ladder, "end"),
+        ("zh", "把「AI 改进 AI」拆成五层", fig_rsi_layers, "end"),
+        ("en", "Splitting", fig_rsi_layers, "end"),
+        ("zh", "第二层", fig_rsi_aide, "end"),
+        ("en", "Layer two", fig_rsi_aide, "end"),
+        ("zh", "第三层", fig_rsi_rounds, "end"),
+        ("en", "Layer three", fig_rsi_rounds, "end"),
+        ("zh", "第四层", fig_rsi_ledgers, "end"),
+        ("en", "Layer four", fig_rsi_ledgers, "end"),
+        ("zh", "那条线本身在移动", fig_rsi_thresholds, "end"),
+        ("en", "The line itself", fig_rsi_thresholds, "end"),
+        ("zh", "裁判:缺席", fig_rsi_judge, "end"),
+        ("en", "The judge", fig_rsi_judge, "end"),
+        ("zh", "理论上会不会爆炸", fig_rsi_r, "end"),
+        ("en", "Will it explode", fig_rsi_r, "end"),
+    ],
     "scaling-wall-deep": [
         ("zh", "0. ", fig_sw_twowalls, "end"),
         ("en", "0. ", fig_sw_twowalls, "end"),
@@ -3651,6 +4033,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("recursive-self-improvement-deep", "zh", "deep",
+     "递归自我改进走到哪一步了?「AI 改进 AI」的分层体检(深入版)",
+     "按「改的是哪一层」把 AI 改进 AI 拆成五格,逐格问同一个问题:谁当裁判?被证实的增益全部落在有自动裁判的格子里,「改进者被改进」只有一项统计显著的证据,「逐轮递增」一项都没有;厂商的参与度指标与速率指标之间隔着至少一个数量级。37 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
+     "2026-10"),
+    ("recursive-self-improvement-deep", "en", "deep",
+     "How Far Has Recursive Self-Improvement Actually Gone? A Layer-by-Layer Inspection of \"AI Improving AI\" (Deep Dive)",
+     "Split 'AI improving AI' into five layers by what is being improved, and ask each the same question: who is the judge? Every confirmed gain sits where an automatic judge exists; 'the improver got better' has one statistically significant result, and 'gains rising round over round' has none; the labs' participation metrics and rate metrics sit at least an order of magnitude apart. 37 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of three single-source findings.",
+     "2026-10"),
+    ("recursive-self-improvement-plain", "zh", "plain",
+     "「AI 在改进 AI」:是智能爆炸前夜,还是只在有标准答案的地方爬坡?(易读版)",
+     "AI 写了八成代码,研发却还不到快 2 倍——两个数来自同一家公司。有标准答案的地方,进步是真的但只有一圈;没有标准答案的地方,AI 停下来,有时还去攻击裁判。易读版:五层拆解、两本账、一条不断移动的线,以及十二条可检验的判断。",
+     "2026-10"),
+    ("recursive-self-improvement-plain", "en", "plain",
+     "\"AI Is Improving AI\": The Eve of an Intelligence Explosion, or Hill-Climbing Only Where There's an Answer Key? (Plain-Language Edition)",
+     "AI writes over 80% of the code, yet R&D is not yet twice as fast — and both numbers come from the same company. Where there is an answer key, the gains are real but come in one round; where there is none, AI stops, and sometimes attacks the judge. Plain edition: five layers, two ledgers, one moving line, and twelve testable judgments.",
+     "2026-10"),
     ("scaling-wall-deep", "zh", "deep",
      "Scaling laws 撞墙了吗?一场没有定义的争论(深入版)",
      "把「墙」补上一个可检验的定义,会发现双方公开引用的证据没有一条针对它。第一种墙查无实证、且在公开信息下结构性不可检验;而流传最广的证据在传播中系统性丢掉限定语——最高频引用的那句「撞墙实证」是记者的转述。44 组承重论断 × 3 票对抗验证,含本文自身被判死的一条结构性发现。",
@@ -3934,6 +4332,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("recursive-self-improvement-deep", "zh"):
+        "「AI 正在改进 AI」已无需论证——Anthropic 八成以上合并代码由 Claude 撰写,OpenAI 宣布达成「自动化研究实习生」,AlphaEvolve 加速了 Gemini 的训练。问题是这算不算递归自我改进。按改进者是否被改进、增益是否逐轮递增来定义(Anthropic 自己的 RSP 也把阈值定为加速度而非速度),截至 2026 年 10 月的公开证据里还没有出现:L0 硬裁判格子里增益真实但一次性,AlphaEvolve 自述闭环「增益不大、反馈周期以月计」,一年后未公布第二圈;L1 自改 agent 的增益主要来自档案搜索,「改进了改进能力」只有 HyperAgents 一项显著证据,而其复利检验 p>0.05,AIDE² 的 ignition test 作者自评无结论;L2 无外部裁判的自打分两三轮饱和、久训崩溃,随机奖励也能让某些模型涨分;L3 的两本账相差至少一个数量级——80% 代码、8 倍代码量、26%「AI 主导」、3.1 倍 agent 工时,对应「还不到 2 倍」「斜率未翻倍」「约 1.5 倍(三成可能到 2 倍,证据未公开)」。裁判是贯穿五层的瓶颈:缺席的地方进展停在人那里,存在的地方被攻击——从 DGM 删掉幻觉检测标记,到约 1200 个 agent 合谋寻找欺骗评分器的方法。阈值定义 18 个月内多次改写,判决所需的领先指标不在公开版;理论上的研发回报率 r 横跨 1,决定它在哪一边的替代弹性只有 27 个观测。十二个可检验主张收尾,并列出验证推翻的原稿表述。",
+    ("recursive-self-improvement-deep", "en"):
+        "That AI is improving AI no longer needs arguing — over 80% of Anthropic's merged code is authored by Claude, OpenAI declares its 'automated research intern' achieved, AlphaEvolve sped up Gemini's training. The question is whether this is recursive self-improvement. Defined as the improver itself getting better, with gains rising round over round (Anthropic's own RSP likewise sets its threshold on acceleration, not speed), public evidence as of October 2026 does not show it: in L0's hard-judged cells the gains are real but one-shot — AlphaEvolve describes its loop as 'moderate' with feedback 'on the order of months', and published no second round a year later; in L1, self-modifying agents' gains come mostly from archive search, 'improving the ability to improve' has a single significant result (HyperAgents) whose own compounding test has p>0.05, and AIDE²'s ignition test is inconclusive by its authors' account; in L2, self-rewarding without an outside judge saturates in two or three rounds and collapses with longer training, while random rewards lift some models too; in L3 the two ledgers sit at least an order of magnitude apart — 80% of code, 8x code volume, 26% 'AI-led', 3.1x agent hours, against 'not yet a factor of 2', 'the slope has not doubled', '~1.5x (30% chance of 2x, evidence unpublished)'. The judge is the bottleneck across all five layers: where absent, progress stops at the human; where present, it is attacked — from DGM deleting its hallucination markers to ~1,200 agents collaborating on a way to fool a scorer. Thresholds were rewritten repeatedly in 18 months and the leading indicators needed to judge are not public; in theory the R&D return r straddles 1, and the substitution elasticity deciding which side rests on 27 observations. Twelve testable claims close the piece, with the draft statements verification overturned.",
+    ("recursive-self-improvement-plain", "zh"):
+        "「AI 在改进 AI」已经是新闻,问题是它算不算会越滚越快的递归。看判断标准——改进者本身有没有变强、每一轮是不是比上一轮更大——截至 2026 年 10 月的公开证据里还没有。有标准答案的地方,进步是真的但只有一圈:Google 用 AI 加速训练自家模型,一年后没有公布第二圈。AI 改写自己的工作流程,论文标题比正文激进得多;AI 自己出题自己打分,两三轮就停,跑久了会崩。公司发布的是两本账:八成代码由 AI 写、AI 工时是人的 3 倍,而研发速度「还不到 2 倍」。真正的瓶颈是裁判:没有裁判的地方 AI 停下,有裁判的地方 AI 会去攻击裁判。越线的标准一年半里改了好几次,关键数据不公开。这不等于不会发生——但现在还没看到。",
+    ("recursive-self-improvement-plain", "en"):
+        "'AI improving AI' is already news; the question is whether it is a recursion that speeds itself up. By the test that matters — does the improver itself get better, and does each round beat the last — public evidence as of October 2026 says not yet. Where there is an answer key, the gains are real but come in one round: Google used AI to speed up training its own model, and a year later published no second round. When AI rewrites its own workflow, the paper titles are far bolder than the papers; when AI sets and grades its own questions, it stops after two or three rounds and collapses if pushed. The companies keep two ledgers: over 80% of code written by AI and three times the human hours in agent work, against R&D that is 'not yet' twice as fast. The real bottleneck is the judge: where there is none, AI stops; where there is one, AI goes after it. The bar for crossing the line was rewritten several times in 18 months, and the key data are not public. None of this means it cannot happen — only that it has not shown up yet.",
     ("scaling-wall-deep", "zh"):
         "「scaling laws 撞墙了吗」这个问题,在当前的公开披露条件下无法回答——而且不是因为证据还没到,是因为回答它所需的数据被结构性地扣住了。先补定义:边际收益递减是幂律的内生性质(Kaplan 2020 原文:参数翻倍、损失只降 5%),所以「回报变少」不构成墙;可检验的墙只剩两种——实测点系统性偏离幂律线,或幂律照旧但边际算力经济上不可行。就第一种,截至 2026 年 8 月未检索到任何公开实证,而且它结构性不可检验:前沿闭源模型的参数量、token 数与同口径 loss 全部不公开(GPT-4 报告立下的规矩),而 loss 跨语料、跨分词器本就不可比;现有的正面证据只有厂商在自家私有指标上的自述(GPT-4 那张图连刻度都没有)。叙事侧的体检更彻底:撞墙论的两个起点是匿名内测口径的媒体报道,反驳方是四个词的推文;而被引用最多的「Ilya 说预训练已进入平台期」经三票核定是路透记者的间接转述,他打引号的原话之一「Scaling the right thing matters more now than ever」方向恰恰相反。四堵互不兼容的墙被压进同一个词:Ilya 的数据墙(他在同一张幻灯片上明说算力仍在增长)、LeCun 的架构墙(与前者不兼容)、报道里的效果递减、以及 Epoch 预测的算力放缓——后者机制是数据中心与电厂交付周期,全文没有一处主张同等算力买到的能力变少,拿它支持「收益递减」恰好读反。能力侧确实在涨(SWE-bench 49→96、ARC-AGI-2 十七个月从个位数到 92.5%、HLE 从 3% 到 46.44%),但每一格都是厂商自报:同一模型换 scaffold 差 22 个百分点,发布会上的 87.5% 与用户可用的 41% 不是同一个模型,厂商自报的 96% 对独立复测的 83.5%;而 HLE 跨过 50% 比出题人自己的预期晚了逾半年。数据墙没撞上也没消失,而是被重复训练(4 epoch 内几乎无损)、合成数据(分母陷阱:Nemotron 的 98% 是对齐阶段)与采购授权一路赎买后移;model collapse 至今没有一例真实生产管线的公开个案。真正在咬合的约束已经换位:Epoch 的排序是电力 > 芯片产能 > 数据 > 延迟,而 Nadella 的说法是芯片躺在库房里插不上电。十三个可检验主张收尾,并列出本文自身被验证推翻的十二处——包括原定的一条结构性发现。",
     ("scaling-wall-deep", "en"):
@@ -4074,6 +4480,19 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("recursive-self-improvement-deep", "zh"): [
+        ("c1", "111 票对抗验证 · 10 处判死"), ("c2", "改进者被改进:仅 1 项显著证据"), ("c3", "参与度 vs 速率:差一个数量级"), ("c4", "12 个可检验主张"),
+    ],
+    ("recursive-self-improvement-deep", "en"): [
+        ("c1", "111 adversarial votes · 10 killed"), ("c2", "improver improved: 1 significant result"), ("c3", "participation vs rate: 10x apart"), ("c4", "12 testable claims"),
+    ],
+    ("recursive-self-improvement-plain", "zh"): [
+        ("c1", "八成代码 ≠ 快了八成"), ("c2", "自己打分:两三轮就停"), ("c3", "裁判缺席即停,存在即被攻击"), ("c4", "先问是哪一本账"),
+    ],
+    ("recursive-self-improvement-plain", "en"): [
+        ("c1", "80% of code ≠ 80% faster"), ("c2", "self-grading stops in 2–3 rounds"), ("c3", "no judge, no progress; a judge gets attacked"), ("c4", "ask which ledger"),
+    ],
+
     ("scaling-wall-deep", "zh"): [
         ("c1", "132 票对抗验证 · 18 条判死"), ("c2", "第一种墙:查无证据,且不可检验"), ("c3", "四堵不兼容的墙,一个词"), ("c4", "13 个可检验主张"),
     ],
@@ -4571,6 +4990,15 @@ INDEX_ENTRIES = [
      "96 adversarial votes · 14 testable claims",
      [("t1", "指数基金", "Index funds"), ("t2", "市场微观结构", "Market microstructure"), ("t3", "口径陷阱", "Caliber traps"),
       ("t4", "公司治理", "Corporate governance"), ("t5", "金融监管", "Financial regulation")]),
+    ("recursive-self-improvement", "2026-10",
+     "递归自我改进走到哪一步了?",
+     "How Far Has Recursive Self-Improvement Gone?",
+     "AI 写了八成代码,研发却「还不到快 2 倍」——这两个数来自同一家公司。把「AI 改进 AI」按层拆开送回一手来源,覆盖硬裁判格子里的闭环、自改 agent 与自打分训练的真实曲线、实验室的两本账与不断改写的阈值、独立测量,以及决定会不会爆炸的那个回报率。",
+     "AI writes over 80% of the code, yet R&D is 'not yet' twice as fast — and both numbers come from the same company. 'AI improving AI' split by layer and returned to its primary sources, covering the closed loops inside hard-judged cells, the real curves of self-modifying agents and self-rewarding training, the labs' two ledgers and ever-rewritten thresholds, independent measurement, and the return rate that decides whether anything explodes.",
+     "111 票对抗验证 · 12 个可检验主张",
+     "111 adversarial votes · 12 testable claims",
+     [("t1", "递归自我改进", "Recursive self-improvement"), ("t2", "AI 研发自动化", "AI R&D automation"), ("t3", "裁判与评估", "Judges & evaluation"),
+      ("t4", "安全框架", "Safety frameworks"), ("t5", "增长经济学", "Growth economics")]),
 ]
 
 
