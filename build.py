@@ -3554,7 +3554,415 @@ def fig_rsi_r(lang: str) -> str:
 </figure>"""
 
 
+def _pp_arrow(x1, y1, x2, y2, color, dashed=False, width=2.2):
+    """Straight arrow with an explicit triangle head (no SVG markers)."""
+    import math
+    ang = math.atan2(y2 - y1, x2 - x1)
+    hx, hy = x2 - 10 * math.cos(ang), y2 - 10 * math.sin(ang)
+    px, py = -math.sin(ang) * 5, math.cos(ang) * 5
+    dash = ' stroke-dasharray="6,5"' if dashed else ''
+    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{hx:.1f}" y2="{hy:.1f}" stroke="{color}" stroke-width="{width}"{dash}/>'
+            f'<polygon points="{x2:.1f},{y2:.1f} {hx + px:.1f},{hy + py:.1f} {hx - px:.1f},{hy - py:.1f}" fill="{color}"/>')
+
+
+def fig_pp_margins(lang: str) -> str:
+    """Latest-quarter GAAP operating margin by layer."""
+    t = {
+        "zh": dict(title="最近一季 GAAP 经营利润率:越靠近物理稀缺越厚",
+                   rows=[("Micron(存储,FQ4)", 80.7, "80.7%", "c"), ("SK hynix(存储,2Q)", 76, "76%", "c"),
+                         ("NVIDIA(GPU,Q2 FY27)", 66.2, "66.2%", "c"), ("TSMC(代工,2Q)", 60.3, "60.3%", "c"),
+                         ("微软 Intelligent Cloud", 40.6, "40.6%", "v"), ("AWS", 39.4, "39.4%", "v"),
+                         ("Google Cloud", 35.6, "35.6%", "v"), ("CoreWeave(算力租赁)", -1.9, "−1.9%", "p"),
+                         ("OpenAI(模型,媒体报道)", -184, "−184%(亏损约为收入 1.8 倍)", "p")],
+                   lg=["芯片与存储", "云分部", "算力租赁与模型"],
+                   cap="示意:各家最近一个财季,截止日最多错开约两个月;云为分部口径,未摊入 AI 研发;SK hynix 为韩国会计准则;OpenAI 为 WSJ 报道的含股权激励经营亏损除以收入,未经审计"),
+        "en": dict(title="Latest-quarter GAAP operating margin: thicker nearer physical scarcity",
+                   rows=[("Micron (memory, FQ4)", 80.7, "80.7%", "c"), ("SK hynix (memory, 2Q)", 76, "76%", "c"),
+                         ("NVIDIA (GPU, Q2 FY27)", 66.2, "66.2%", "c"), ("TSMC (foundry, 2Q)", 60.3, "60.3%", "c"),
+                         ("Microsoft Intelligent Cloud", 40.6, "40.6%", "v"), ("AWS", 39.4, "39.4%", "v"),
+                         ("Google Cloud", 35.6, "35.6%", "v"), ("CoreWeave (GPU rental)", -1.9, "−1.9%", "p"),
+                         ("OpenAI (model, press)", -184, "−184% (loss ≈ 1.8× revenue)", "p")],
+                   lg=["Chips &amp; memory", "Cloud segments", "GPU rental &amp; models"],
+                   cap="Schematic: each company's latest fiscal quarter, period ends up to about two months apart; cloud figures are segment-level and exclude AI R&amp;D; SK hynix under K-IFRS; OpenAI is the WSJ-reported operating loss including stock compensation divided by revenue, unaudited"),
+    }[lang]
+    col = {"c": "#4cc9f0", "v": "#7b61ff", "p": "#ff6ec4"}
+    out = []
+    y = 64
+    for label, v, txt, k in t['rows']:
+        c = col[k]
+        out.append(f'<text x="250" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        if v > 0:
+            w = v * 4.2
+            out.append(f'<rect x="262" y="{y}" width="{w:.0f}" height="19" rx="4" fill="{c}" opacity="0.85"/>')
+            out.append(f'<text x="{262 + w + 8:.0f}" y="{y + 14}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        else:
+            out.append(f'<rect x="258" y="{y + 4}" width="4" height="11" fill="{c}"/>')
+            out.append(f'<text x="272" y="{y + 14}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 31
+    lg = []
+    lx = 262
+    for i, (name, k) in enumerate(zip(t['lg'], ["c", "v", "p"])):
+        lg.append(f'<rect x="{lx}" y="{y + 12}" width="12" height="12" rx="2" fill="{col[k]}"/>'
+                  f'<text x="{lx + 18}" y="{y + 22}" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">{name}</text>')
+        lx += 140
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 40}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="262" y1="54" x2="262" y2="{y}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(out)}
+  {''.join(lg)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_history(lang: str) -> str:
+    """PC-era profit split, and why GPUs leave no cheap legacy."""
+    t = {
+        "zh": dict(title="历史上谁拿走了利润,以及这次哪里不一样",
+                   ha="2000 年前后的经营利润(SEC 10-K)",
+                   a=[("Intel + 微软", 21.3, "约 $213 亿"), ("Dell 全公司 + Compaq 两个 PC 分部", 3.1, "约 $31 亿")],
+                   ratio="约 7 倍(换口径在 6.2–7.7 倍之间)",
+                   hb="基建能被后来者用多久",
+                   b=[("铁路、光纤", 150, "数十年,破产后被廉价接手"), ("GPU", 24, "会计折旧 5–6 年,实际可能更短")],
+                   cap="示意:上半为 SEC 原始数字(财年最多错开约 8 个月,非严格同口径);下半条长为示意。光纤与铁路的「建设者破产、使用者受益」依赖资产寿命长,GPU 不满足这个条件"),
+        "en": dict(title="Who took the profit before, and what is different this time",
+                   ha="Operating profit around 2000 (SEC 10-Ks)",
+                   a=[("Intel + Microsoft", 21.3, "~$21.3B"), ("Dell + Compaq's two PC segments", 3.1, "~$3.1B")],
+                   ratio="~7× (6.2–7.7× depending on the cut)",
+                   hb="How long can latecomers use the build-out",
+                   b=[("Railways, fiber", 150, "decades; bought cheap after bankruptcy"), ("GPUs", 24, "5–6-yr accounting life, maybe shorter")],
+                   cap="Schematic: the top half uses original SEC figures (fiscal years up to ~8 months apart; not a strict like-for-like); bar lengths in the bottom half are illustrative. Fiber's and rail's 'builders go bust, users benefit' depends on long asset lives, which GPUs lack"),
+    }[lang]
+    out = []
+    y = 66
+    for label, v, txt in t['a']:
+        w = v * 11
+        out.append(f'<text x="318" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out.append(f'<rect x="330" y="{y}" width="{w:.0f}" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/>')
+        out.append(f'<text x="{330 + w + 8:.0f}" y="{y + 14}" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 30
+    ry = y + 10
+    y2 = ry + 44
+    out2 = []
+    for label, w, txt in t['b']:
+        out2.append(f'<text x="318" y="{y2 + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out2.append(f'<rect x="330" y="{y2}" width="{w}" height="19" rx="4" fill="#7b61ff" opacity="0.85"/>')
+        out2.append(f'<text x="{330 + w + 8}" y="{y2 + 14}" fill="#b9a8ff" font-size="11.5" font-family="-apple-system,sans-serif">{txt}</text>')
+        y2 += 46
+    return f"""<figure>
+<svg viewBox="0 0 700 {y2 + 4}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="24" y="54" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t['ha']}</text>
+  {''.join(out)}
+  <text x="330" y="{ry + 4}" fill="#e4e6eb" font-size="12" font-family="-apple-system,sans-serif">→ {t['ratio']}</text>
+  <text x="24" y="{ry + 34}" fill="#b9a8ff" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t['hb']}</text>
+  {''.join(out2)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_memory(lang: str) -> str:
+    """Scarcity rent moves to memory — and the fattest part is not HBM."""
+    t = {
+        "zh": dict(title="稀缺租金上移到存储,而最厚的不是 HBM",
+                   ha="Micron 全年 GAAP 毛利率",
+                   a=[("FY25", 39.8, "39.8%"), ("FY26", 80.7, "80.7%")],
+                   hb="Micron FQ4 FY26 各事业部毛利率",
+                   b=[("Cloud Memory(含 HBM)", 83, "83%", "#ff6ec4"), ("Core Data Center", 90, "90%", "#4cc9f0"), ("Mobile &amp; Client", 90, "90%", "#4cc9f0")],
+                   note=["同期 NVIDIA:采购承诺 $1,190 亿 → $2,790 亿,「主要用于采购存储」", "NVIDIA 正式毛利指引降到 74%"],
+                   cap="示意:Micron 8-K 与 prepared remarks;NVIDIA 8-K。含 HBM 的事业部毛利反而最低,AI 造成的是整个存储市场的缺货涨价。NVIDIA 口头预计 FY28 靠自身提价把毛利拉回 72%–73%,迁移可能是暂时的"),
+        "en": dict(title="Scarcity rent moves up to memory — and the fattest part is not HBM",
+                   ha="Micron full-year GAAP gross margin",
+                   a=[("FY25", 39.8, "39.8%"), ("FY26", 80.7, "80.7%")],
+                   hb="Micron FQ4 FY26 gross margin by business unit",
+                   b=[("Cloud Memory (incl. HBM)", 83, "83%", "#ff6ec4"), ("Core Data Center", 90, "90%", "#4cc9f0"), ("Mobile &amp; Client", 90, "90%", "#4cc9f0")],
+                   note=["Meanwhile NVIDIA: purchase commitments $119B → $279B, 'primarily related to", "the procurement of memory'; its formal gross-margin guide was cut to 74%"],
+                   cap="Schematic: Micron 8-K and prepared remarks; NVIDIA 8-K. The HBM-heavy unit has the lowest margin — AI has caused a shortage across the whole memory market. NVIDIA says orally it expects its own price increases to restore 72–73% in FY28, so the shift may be temporary"),
+    }[lang]
+    out = []
+    y = 60
+    out.append(f'<text x="24" y="{y}" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t["ha"]}</text>')
+    y += 12
+    for label, v, txt in t['a']:
+        w = v * 4
+        out.append(f'<text x="250" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out.append(f'<rect x="262" y="{y}" width="{w:.0f}" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/>')
+        out.append(f'<text x="{262 + w + 8:.0f}" y="{y + 14}" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 30
+    y += 22
+    out.append(f'<text x="24" y="{y}" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t["hb"]}</text>')
+    y += 12
+    for label, v, txt, c in t['b']:
+        w = v * 4
+        out.append(f'<text x="250" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out.append(f'<rect x="262" y="{y}" width="{w:.0f}" height="19" rx="4" fill="{c}" opacity="0.85"/>')
+        out.append(f'<text x="{262 + w + 8:.0f}" y="{y + 14}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 30
+    y += 20
+    for ln in t["note"]:
+        out.append(f'<text x="24" y="{y}" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">{ln}</text>')
+        y += 17
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 18}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_power(lang: str) -> str:
+    """Electricity is a small share of cost; being powered a year late is not."""
+    t = {
+        "zh": dict(title="1 GW AI 数据中心:电费很小,晚一年通电很贵",
+                   h="每年,每 GW(美元)",
+                   rows=[("服务器(年化)", 5.0, "约 $50 亿", "#4cc9f0"), ("其余(设施、运维等)", 2.9, "约 $29 亿", "#5a8bb0"),
+                         ("电费", 0.6, "约 $6 亿(约 7%)", "#52b788"), ("晚通电一年的机会成本", 6.5, "约 $60–70 亿(粗算)", "#ff6ec4")],
+                   cap="示意:前三行为 Epoch AI 风格化模型(全部 GB200、美国平均工业电价 8.34 美分/度,年化总成本约 $85 亿);其他独立测算的电费占比在约 7%–17%。最后一行是本期方法学审计席按 Epoch 年化口径的粗算,不是测量:正因为电费占比小,「能马上通电」才值钱"),
+        "en": dict(title="1 GW AI data center: power is cheap, being powered a year late is not",
+                   h="Per year, per GW (US$)",
+                   rows=[("Servers (annualized)", 5.0, "~$5.0B", "#4cc9f0"), ("Other (facility, operations…)", 2.9, "~$2.9B", "#5a8bb0"),
+                         ("Electricity", 0.6, "~$0.6B (~7%)", "#52b788"), ("Opportunity cost of a 1-year delay", 6.5, "~$6–7B (rough)", "#ff6ec4")],
+                   cap="Schematic: the first three rows come from Epoch AI's stylized model (all GB200, US average industrial power at 8.34¢/kWh, ~$8.5B annualized total cost); other independent estimates put power at roughly 7–17%. The last row is this issue's methodology seat's rough calculation on Epoch's annualized basis, not a measurement: because power is a small share of cost, being powered right away is what's valuable"),
+    }[lang]
+    out = []
+    y = 70
+    for label, v, txt, c in t['rows']:
+        w = v * 46
+        out.append(f'<text x="250" y="{y + 15}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out.append(f'<rect x="262" y="{y}" width="{max(w, 4):.0f}" height="20" rx="4" fill="{c}" opacity="0.85"/>')
+        out.append(f'<text x="{262 + max(w, 4) + 8:.0f}" y="{y + 15}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 44 if label != t['rows'][2][0] else 58
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 6}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <text x="262" y="56" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{t['h']}</text>
+  <line x1="262" y1="64" x2="262" y2="{y - 8}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <line x1="40" y1="{y - 70}" x2="660" y2="{y - 70}" stroke="#3a4256" stroke-width="1"/>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_curves(lang: str) -> str:
+    """Two price curves measured on different bases."""
+    t = {
+        "zh": dict(title="两条价格曲线:两派看的不是同一条线",
+                   a="固定能力水平的最低成本", a2="约每年降 13 倍(Epoch;各家测得 5–50 倍)",
+                   b="用当时最强模型跑完一套测试的成本", b2="每年升 3–18 倍(MIT FutureTech,推理 token 暴增)",
+                   ya="成本(对数刻度)", la="「商品化」看的是这条", lb="「前沿溢价」看的是这条",
+                   cap="示意:斜率按 Epoch 与 MIT FutureTech 的估计画出,两条线的取样口径不同(前者是达到固定能力的最便宜方式,后者是前沿模型的每任务开销),不能直接相比。每 token 标价则是分层的:顶档上探,同时出现更便宜的主力档"),
+        "en": dict(title="Two price curves: the two camps are looking at different lines",
+                   a="Cheapest cost of a fixed capability level", a2="falls ~13× a year (Epoch; others measure 5–50×)",
+                   b="Cost of running the best model of the day on a benchmark", b2="rises 3–18× a year (MIT FutureTech; reasoning tokens)",
+                   ya="cost (log scale)", la="the 'commoditization' camp watches this", lb="the 'frontier premium' camp watches this",
+                   cap="Schematic: slopes drawn from Epoch's and MIT FutureTech's estimates; the two lines are sampled differently (the cheapest way to reach a fixed capability vs. per-task spending on frontier models) and are not directly comparable. Per-token list prices are tiered: the top tier rises while cheaper mainstream tiers appear"),
+    }[lang]
+    years = ["2023", "2024", "2025", "2026"]
+    ax = "".join(f'<text x="{110 + i * 160}" y="318" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">{yr}</text>' for i, yr in enumerate(years))
+    return f"""<figure>
+<svg viewBox="0 0 700 432" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="90" y1="60" x2="90" y2="300" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="90" y1="300" x2="610" y2="300" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="96" y="56" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">{t['ya']}</text>
+  {ax}
+  <polyline points="110,116 270,170 430,222 590,272" fill="none" stroke="#4cc9f0" stroke-width="3"/>
+  <polyline points="110,262 270,212 430,160 590,104" fill="none" stroke="#ff6ec4" stroke-width="3"/>
+  <circle cx="590" cy="272" r="4" fill="#4cc9f0"/><circle cx="590" cy="104" r="4" fill="#ff6ec4"/>
+  <text x="575" y="292" fill="#4cc9f0" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">{t['la']}</text>
+  <text x="128" y="282" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">{t['lb']}</text>
+  <line x1="40" y1="352" x2="70" y2="352" stroke="#4cc9f0" stroke-width="3"/>
+  <text x="80" y="356" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t['a']}</text>
+  <text x="80" y="373" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{t['a2']}</text>
+  <line x1="40" y1="398" x2="70" y2="398" stroke="#ff6ec4" stroke-width="3"/>
+  <text x="80" y="402" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">{t['b']}</text>
+  <text x="80" y="419" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{t['b2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_loop(lang: str) -> str:
+    """The circular flow between chips, cloud and frontier labs."""
+    t = {
+        "zh": dict(title="资金在转圈:现金向上,股权与信用向下,估值回到上游利润表",
+                   n=["芯片与存储", "云厂商", "前沿实验室"],
+                   s=["NVIDIA、Broadcom…", "微软、Amazon、Google、Oracle", "OpenAI、Anthropic"],
+                   l1="① 现金:算力合同", l2="② 现金:资本开支", l3="③ 股权与信用", l4="④ 股权(按算力交付放款)", l5="⑤ 账面收益(估值上调)",
+                   leg=["① 微软 FY26 从 OpenAI 确认收入 $241 亿;Anthropic 约 $5,180 亿十年算力义务(泄露草案)",
+                        "③ NVIDIA 近 $500 亿投资前沿实验室,预计明年约 1/4 业务靠其资产负债表;$1,050 亿为或有担保上限",
+                        "④ Amazon 对 Anthropic 至多 $200 亿额度,按 AWS 算力交付里程碑释放",
+                        "⑤ Amazon 2026Q2 对 Anthropic 估值上调约 $505 亿(税前);NVIDIA 上半年约 17% 税前利润来自股权收益"],
+                   cap="示意:箭头只表示资金或价值的方向,粗细不代表金额。数字均为 SEC 文件或电话会口径,Anthropic 义务来自泄露的 S-1 草案"),
+        "en": dict(title="Money goes in a circle: cash up, equity and credit down, valuations back into upstream profit",
+                   n=["Chips &amp; memory", "Cloud providers", "Frontier labs"],
+                   s=["NVIDIA, Broadcom…", "Microsoft, Amazon, Google, Oracle", "OpenAI, Anthropic"],
+                   l1="① cash: compute contracts", l2="② cash: capex", l3="③ equity &amp; credit", l4="④ equity (released per compute delivery)", l5="⑤ paper gains (valuation markups)",
+                   leg=["① Microsoft FY26 revenue from OpenAI $24.1B; Anthropic ~$518B ten-year compute obligations (leaked draft)",
+                        "③ NVIDIA: ~$50B invested in frontier labs; ~1/4 of next year's business balance-sheet-backed; $105B is a contingent cap",
+                        "④ Amazon: up to $20B facility for Anthropic, released on AWS compute-delivery milestones",
+                        "⑤ Amazon Q2 2026 Anthropic markup ~$50.5B (pre-tax); ~17% of NVIDIA's H1 pre-tax profit from equity gains"],
+                   cap="Schematic: arrows show only the direction of money or value; thickness does not represent size. Figures are from SEC filings or earnings calls; Anthropic's obligations come from the leaked draft S-1"),
+    }[lang]
+    boxes = []
+    xs = [30, 270, 510]
+    for i, x in enumerate(xs):
+        c = ["#4cc9f0", "#7b61ff", "#ff6ec4"][i]
+        boxes.append(f'<rect x="{x}" y="96" width="160" height="150" rx="12" fill="{c}" opacity="0.10" stroke="{c}" stroke-width="1.5"/>')
+        boxes.append(f'<text x="{x + 80}" y="164" fill="{c}" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">{t["n"][i]}</text>')
+        boxes.append(f'<text x="{x + 80}" y="186" fill="#9aa3b2" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t["s"][i]}</text>')
+    a = []
+    # ① lab -> cloud (cash), ④ cloud -> lab (equity)
+    a.append(_pp_arrow(510, 130, 430, 130, "#4cc9f0"))
+    a.append(f'<text x="470" y="122" fill="#4cc9f0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">①</text>')
+    a.append(_pp_arrow(430, 172, 510, 172, "#7b61ff"))
+    a.append(f'<text x="470" y="164" fill="#b9a8ff" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">④</text>')
+    a.append(_pp_arrow(510, 214, 430, 214, "#ff6ec4", dashed=True))
+    a.append(f'<text x="470" y="206" fill="#ff6ec4" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">⑤</text>')
+    # ② cloud -> chips (cash)
+    a.append(_pp_arrow(270, 150, 190, 150, "#4cc9f0"))
+    a.append(f'<text x="230" y="142" fill="#4cc9f0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">②</text>')
+    # ③ chips -> lab along the bottom
+    a.append('<polyline points="110,246 110,286 590,286" fill="none" stroke="#7b61ff" stroke-width="2.2"/>')
+    a.append(_pp_arrow(590, 286, 590, 247, "#7b61ff"))
+    a.append(f'<text x="350" y="280" fill="#b9a8ff" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t["l3"]}</text>')
+    # ⑤ lab -> chips along the top (dashed)
+    a.append('<polyline points="590,96 590,64 110,64" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="6,5"/>')
+    a.append(_pp_arrow(110, 64, 110, 95, "#ff6ec4", dashed=True))
+    a.append(f'<text x="350" y="58" fill="#ff6ec4" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t["l5"]}</text>')
+    key = [(t['l1'], "#4cc9f0"), (t['l2'], "#4cc9f0"), (t['l4'], "#b9a8ff")]
+    k = "".join(f'<text x="{40 + i * 215}" y="316" fill="{c}" font-size="11" font-family="-apple-system,sans-serif">{s}</text>' for i, (s, c) in enumerate(key))
+    leg = "".join(f'<text x="30" y="{344 + i * 19}" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">{s}</text>' for i, s in enumerate(t['leg']))
+    return f"""<figure>
+<svg viewBox="0 0 700 {344 + 19 * len(t['leg'])}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="28" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(boxes)}
+  {''.join(a)}
+  {k}
+  {leg}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_ledger(lang: str) -> str:
+    """Amazon Q2 2026: one paper gain vs the cloud segment's operating profit."""
+    t = {
+        "zh": dict(title="Amazon 2026 年第二季度:一笔账面收益是云业务利润的 3 倍",
+                   rows=[("AWS 分部经营利润", 16.6, "$166 亿", "#7b61ff"), ("Amazon 合并经营利润", 27.5, "$275 亿", "#7b61ff"),
+                         ("对 Anthropic 的估值上调(非经营)", 50.5, "约 $505 亿(税前)", "#ff6ec4")],
+                   cap="示意:Amazon 10-Q。估值上调依据 Anthropic 融资的可观察价格;上半年合计约 $628 亿,为此计提约 $159 亿离散所得税。同一次重估在 Anthropic 一侧表现为非现金亏损(2025 年约 $340 亿,泄露草案)"),
+        "en": dict(title="Amazon, Q2 2026: one paper gain is 3× the cloud segment's profit",
+                   rows=[("AWS segment op. profit", 16.6, "$16.6B", "#7b61ff"), ("Amazon total op. profit", 27.5, "$27.5B", "#7b61ff"),
+                         ("Anthropic markup (non-op.)", 50.5, "~$50.5B (pre-tax)", "#ff6ec4")],
+                   cap="Schematic: Amazon 10-Q. The markup reflects observable prices from Anthropic's funding rounds; ~$62.8B for the first half, with ~$15.9B of discrete income tax booked against it. The same remeasurement shows up on Anthropic's side as a non-cash loss (~$34B in 2025, per the leaked draft)"),
+    }[lang]
+    out = []
+    y = 64
+    for label, v, txt, c in t['rows']:
+        w = v * 4.4
+        out.append(f'<text x="250" y="{y + 15}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">{label}</text>')
+        out.append(f'<rect x="262" y="{y}" width="{w:.0f}" height="20" rx="4" fill="{c}" opacity="0.85"/>')
+        out.append(f'<text x="{262 + w + 8:.0f}" y="{y + 15}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 44
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 4}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="262" y1="54" x2="262" y2="{y - 10}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_pp_scenarios(lang: str) -> str:
+    """Two observable variables, four long-run scenarios."""
+    t = {
+        "zh": dict(title="长期落点:两个可观测变量,四种情景",
+                   xl="物理瓶颈(存储、芯片、电力接入)", xa="持续", xb="解除",
+                   yl="前沿能力对客户", ya="还不够好", yb="已经够好",
+                   q=[("① 物理层 + 整合的前沿实验室", "信号:实验室 GAAP 经营利润转正"),
+                      ("③ 整合者赢(模型 + 产品)", "信号:租价回落,前沿支出份额仍升"),
+                      ("② 物理层独占", "信号:存储利润率持续高于 NVIDIA"),
+                      ("④ 用户触点赢", "Google、微软、Apple、Meta;信号:开源份额回升,巨头资本开支占比下降")],
+                   now="2026-10 读数",
+                   cap="示意:两个变量来自 Christensen(性能是否「够好」)与 Thompson(稀缺解除后价值回到用户触点)。截至 2026 年 10 月,物理瓶颈明显持续,「够好」的证据刚出现,读数落在①与②之间"),
+        "en": dict(title="Long-run landing spot: two observable variables, four scenarios",
+                   xl="Physical bottleneck (memory, chips, grid access)", xa="persists", xb="clears",
+                   yl="Frontier capability, to customers", ya="not good enough", yb="good enough",
+                   q=[("① Physical layer + integrated labs", "signal: labs turn GAAP-profitable"),
+                      ("③ Integrators win (model + product)", "signal: rents fall, frontier spend share still rises"),
+                      ("② Physical layer takes it all", "signal: memory margins stay above NVIDIA"),
+                      ("④ User touchpoint wins", "Google, Microsoft, Apple, Meta; signal: open share recovers, capex ratio falls")],
+                   now="Oct 2026 reading",
+                   cap="Schematic: the two variables come from Christensen (is performance 'good enough') and Thompson (once scarcity clears, value returns to the user touchpoint). As of October 2026 the physical bottleneck clearly persists and evidence of 'good enough' has only just appeared, placing the reading between ① and ②"),
+    }[lang]
+    cells = []
+    pos = [(150, 70), (420, 70), (150, 200), (420, 200)]
+    cols = ["#4cc9f0", "#7b61ff", "#4cc9f0", "#ff6ec4"]
+    for (x, y), (h, s), c in zip(pos, t['q'], cols):
+        cells.append(f'<rect x="{x}" y="{y}" width="262" height="122" rx="10" fill="{c}" opacity="0.08" stroke="{c}" stroke-width="1"/>')
+        cells.append(f'<text x="{x + 12}" y="{y + 30}" fill="{c}" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">{h}</text>')
+        for j, part in enumerate(s.replace(";", "|").replace("; ", "|").split("|")):
+            cells.append(f'<text x="{x + 12}" y="{y + 54 + j * 17}" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">{part.strip()}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  {''.join(cells)}
+  <text x="140" y="134" fill="#e4e6eb" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{t['ya']}</text>
+  <text x="140" y="264" fill="#e4e6eb" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">{t['yb']}</text>
+  <text x="24" y="58" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">{t['yl']}</text>
+  <text x="281" y="345" fill="#e4e6eb" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['xa']}</text>
+  <text x="551" y="345" fill="#e4e6eb" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['xb']}</text>
+  <text x="416" y="368" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">{t['xl']}</text>
+  <circle cx="300" cy="196" r="7" fill="#ffd166"/>
+  <text x="290" y="186" text-anchor="end" fill="#ffd166" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">{t['now']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
 FIGURES = {
+    "ai-profit-pools-deep": [
+        ("zh", "2. ", fig_pp_history, "end"),
+        ("en", "2. ", fig_pp_history, "end"),
+        ("zh", "3. ", fig_pp_memory, "end"),
+        ("en", "3. ", fig_pp_memory, "end"),
+        ("zh", "5. ", fig_pp_power, "end"),
+        ("en", "5. ", fig_pp_power, "end"),
+        ("zh", "7. ", fig_pp_curves, "end"),
+        ("en", "7. ", fig_pp_curves, "end"),
+        ("zh", "9. ", fig_pp_margins, "end"),
+        ("en", "9. ", fig_pp_margins, "end"),
+        ("zh", "10. ", fig_pp_loop, "end"),
+        ("en", "10. ", fig_pp_loop, "end"),
+        ("zh", "10. ", fig_pp_ledger, "end"),
+        ("en", "10. ", fig_pp_ledger, "end"),
+        ("zh", "11. ", fig_pp_scenarios, "end"),
+        ("en", "11. ", fig_pp_scenarios, "end"),
+    ],
+    "ai-profit-pools-plain": [
+        ("zh", "历史上谁拿走了利润", fig_pp_history, "end"),
+        ("en", "Who took the profit", fig_pp_history, "end"),
+        ("zh", "芯片", fig_pp_memory, "end"),
+        ("en", "Chips", fig_pp_memory, "end"),
+        ("zh", "租算力的公司和电力", fig_pp_power, "end"),
+        ("en", "GPU renters and electricity", fig_pp_power, "end"),
+        ("zh", "两条价格曲线", fig_pp_curves, "end"),
+        ("en", "Two price curves", fig_pp_curves, "end"),
+        ("zh", "并排看", fig_pp_margins, "end"),
+        ("en", "Side by side", fig_pp_margins, "end"),
+        ("zh", "钱在转圈", fig_pp_loop, "end"),
+        ("en", "The money goes in a circle", fig_pp_loop, "end"),
+        ("zh", "钱在转圈", fig_pp_ledger, "end"),
+        ("en", "The money goes in a circle", fig_pp_ledger, "end"),
+        ("zh", "以后会怎样", fig_pp_scenarios, "end"),
+        ("en", "What happens next", fig_pp_scenarios, "end"),
+    ],
     "recursive-self-improvement-deep": [
         ("zh", "0. ", fig_rsi_ladder, "end"),
         ("en", "0. ", fig_rsi_ladder, "end"),
@@ -4033,6 +4441,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("ai-profit-pools-deep", "zh", "deep",
+     "AI 价值链的利润池会落在哪一层?——五层账本与一个转圈的资金环(深入版)",
+     "把芯片与存储、电力与数据中心、云、模型、应用五层放到同一把尺子(分部经营利润)上:当下利润压倒性在上游,稀缺租金正从 GPU 迁往存储;云层的高利润率建立在三个假设上;模型层收入分化而利润未现;资金在层间转圈,上游在为模型层的信用托底。31 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
+     "2026-10"),
+    ("ai-profit-pools-deep", "en", "deep",
+     "Where Will the Profit Pools of the AI Value Chain Settle? Five Layers of Ledgers and a Circular Flow of Money (Deep Dive)",
+     "Chips and memory, power and data centers, cloud, models, and applications put on one ruler (segment operating profit): today's profit sits overwhelmingly upstream, with scarcity rent moving from GPUs to memory; cloud's high margins rest on three assumptions; model-layer revenue has diverged while profit has yet to appear; and money circulates between layers, with upstream firms underwriting the model layer's credit. 31 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of three single-source findings.",
+     "2026-10"),
+    ("ai-profit-pools-plain", "zh", "plain",
+     "AI 赚的钱最后落在谁手里?做模型的是不是在给人做嫁衣(易读版)",
+     "存储芯片的利润率已经超过 NVIDIA,做模型的还在大亏——但上游一边收实验室的算力钱,一边为实验室的信用兜底。易读版:五层并排、一个资金圈、两条价格曲线,以及十一条可检验的判断。",
+     "2026-10"),
+    ("ai-profit-pools-plain", "en", "plain",
+     "Who Ends Up With the Money AI Makes? Are Model Makers Just Sewing Someone Else's Wedding Dress? (Plain-Language Edition)",
+     "Memory-chip margins now beat NVIDIA's and the model makers are deep in the red — yet upstream firms collect the labs' compute bills while underwriting the labs' credit. Plain edition: five layers side by side, one circle of money, two price curves, and eleven testable judgments.",
+     "2026-10"),
     ("recursive-self-improvement-deep", "zh", "deep",
      "递归自我改进走到哪一步了?「AI 改进 AI」的分层体检(深入版)",
      "按「改的是哪一层」把 AI 改进 AI 拆成五格,逐格问同一个问题:谁当裁判?被证实的增益全部落在有自动裁判的格子里,「改进者被改进」只有一项统计显著的证据,「逐轮递增」一项都没有;厂商的参与度指标与速率指标之间隔着至少一个数量级。37 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
@@ -4332,6 +4756,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("ai-profit-pools-deep", "zh"):
+        "「做模型的是不是在给人做嫁衣」有四套流行答案:卖铲子的赢、模型终将商品化、聚合者通吃、前沿实验室赢家通吃。用同一把尺子(最近一季 GAAP 分部经营利润率)量五层,截至 2026 年 10 月的分布很清楚:存储(Micron 80.7%、SK hynix 76%)> 芯片(NVIDIA 66.2%)> 代工(TSMC 60.3%)> 云分部(35.6%–40.6%)> neocloud(CoreWeave 经营亏损,利息高于调整后经营利润)> 前沿实验室(OpenAI 经营亏损约为收入 1.8 倍)。芯片层内部的稀缺租金正迁往存储,而且落在通用 DRAM/NAND 而非 HBM;云层的高利润率依赖研发不摊入、GPU 按 5.5–6 年折旧、AI 租赁毛利会爬升三个假设,现金流已经分化;模型层收入在头部之间分化,但利润只有一家、一个季度、一个调整后口径。最重要的结构是资金在转圈:现金从实验室流向上游,股权和信用从上游流回实验室(NVIDIA 近 $500 亿投资、预计明年约四分之一业务靠其资产负债表),实验室的估值又以账面收益回到上游利润表(Amazon 一季对 Anthropic 的估值上调约为 AWS 当季经营利润 3 倍)。「嫁衣」在现金上成立,在风险上反了。电费只占数据中心成本约一成上下,但「能马上通电」的影子价格很高;固定能力价格每年降约一个数量级,而用最强模型办事在变贵。长期落点取决于两个可观测变量:前沿是否「够好」、物理瓶颈是否解除。十一个可检验主张收尾,并列出验证推翻的原稿表述。",
+    ("ai-profit-pools-deep", "en"):
+        "Are model makers doing the work while someone else collects the payoff? Four popular answers compete: sell the shovels, models will commoditize, aggregators take all, the frontier lab takes all. Measured on one ruler (latest-quarter GAAP segment operating margin), the distribution as of October 2026 is clear: memory (Micron 80.7%, SK hynix 76%) > chips (NVIDIA 66.2%) > foundry (TSMC 60.3%) > cloud segments (35.6–40.6%) > neoclouds (CoreWeave at an operating loss, interest above adjusted operating profit) > frontier labs (OpenAI's operating loss about 1.8× revenue). Within the chip layer, scarcity rent is moving to memory — and to commodity DRAM/NAND rather than HBM; cloud's high margins rest on three assumptions (R&D not allocated, GPUs depreciated over 5.5–6 years, AI rental margins climbing), and cash flows have already diverged; model-layer revenue has diverged at the top, but profit amounts to one company, one quarter, one adjusted measure. The key structure is that money circulates: cash flows from labs upstream, equity and credit flow from upstream back to the labs (NVIDIA ~$50B invested, about a quarter of next year's business expected to be balance-sheet-backed), and lab valuations return to upstream income statements as paper gains (Amazon's one-quarter Anthropic markup was about 3× AWS's operating profit that quarter). The story holds for cash and runs the other way for risk. Power is roughly a tenth of data-center cost, yet being powered right away carries a high shadow price; fixed-capability prices fall about an order of magnitude a year while running the best model on a task gets dearer. The long-run landing spot depends on two observable variables: whether the frontier is 'good enough', and whether the physical bottleneck clears. Eleven testable claims close the piece, with the draft statements verification overturned.",
+    ("ai-profit-pools-plain", "zh"):
+        "AI 的钱现在在哪?越靠近物理上的稀缺越多:存储芯片的利润率已经超过 NVIDIA,NVIDIA 超过台积电,台积电超过云业务,出租 GPU 的公司被利息吃掉利润,做模型的还在大亏。云的高利润率有三个前提,每个都有反例;做模型的收入已经拉开差距,但只有一家在一个季度里按自定义口径赚了钱。最值得注意的是钱在转圈:实验室付算力钱给上游,上游又投钱、做担保把实验室撑住,实验室估值一涨,上游就记一笔账面利润——Amazon 一个季度这样记的钱是它云业务利润的 3 倍。所以「做模型的给人做嫁衣」只对了一半:真正该问的是,万一实验室出问题,谁来买单。电费只占小头,但「能马上通电」很值钱;同样水平的 AI 每年便宜一个数量级,用最强的模型办事却越来越贵。",
+    ("ai-profit-pools-plain", "en"):
+        "Where is AI's money right now? The closer to physical scarcity, the more of it: memory-chip margins now exceed NVIDIA's, NVIDIA's exceed TSMC's, TSMC's exceed the cloud businesses', GPU-rental companies see their profit eaten by interest, and model makers are still deep in the red. Cloud's high margins rest on three assumptions, each with counterexamples; model makers' revenues have pulled apart, but only one has made money, for one quarter, on its own adjusted measure. The most important finding is that the money goes in a circle: labs pay upstream for compute, upstream firms invest in and guarantee the labs to keep them going, and when a lab's valuation rises the upstream investor books a paper profit — in one quarter Amazon booked about three times its cloud segment's profit this way. So 'model makers are working for someone else' is only half right: the real question is who pays if a lab runs into trouble. Electricity is a small part of the cost, but being powered right away is valuable; the same level of AI gets an order of magnitude cheaper each year, while running the best model on a task keeps getting dearer.",
     ("recursive-self-improvement-deep", "zh"):
         "「AI 正在改进 AI」已无需论证——Anthropic 八成以上合并代码由 Claude 撰写,OpenAI 宣布达成「自动化研究实习生」,AlphaEvolve 加速了 Gemini 的训练。问题是这算不算递归自我改进。按改进者是否被改进、增益是否逐轮递增来定义(Anthropic 自己的 RSP 也把阈值定为加速度而非速度),截至 2026 年 10 月的公开证据里还没有出现:L0 硬裁判格子里增益真实但一次性,AlphaEvolve 自述闭环「增益不大、反馈周期以月计」,一年后未公布第二圈;L1 自改 agent 的增益主要来自档案搜索,「改进了改进能力」只有 HyperAgents 一项显著证据,而其复利检验 p>0.05,AIDE² 的 ignition test 作者自评无结论;L2 无外部裁判的自打分两三轮饱和、久训崩溃,随机奖励也能让某些模型涨分;L3 的两本账相差至少一个数量级——80% 代码、8 倍代码量、26%「AI 主导」、3.1 倍 agent 工时,对应「还不到 2 倍」「斜率未翻倍」「约 1.5 倍(三成可能到 2 倍,证据未公开)」。裁判是贯穿五层的瓶颈:缺席的地方进展停在人那里,存在的地方被攻击——从 DGM 删掉幻觉检测标记,到约 1200 个 agent 合谋寻找欺骗评分器的方法。阈值定义 18 个月内多次改写,判决所需的领先指标不在公开版;理论上的研发回报率 r 横跨 1,决定它在哪一边的替代弹性只有 27 个观测。十二个可检验主张收尾,并列出验证推翻的原稿表述。",
     ("recursive-self-improvement-deep", "en"):
@@ -4480,6 +4912,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("ai-profit-pools-deep", "zh"): [
+        ("c1", "93 票对抗验证 · 70 余处改写"), ("c2", "存储利润率 > NVIDIA"), ("c3", "一笔账面收益 = 3× AWS 利润"), ("c4", "11 个可检验主张"),
+    ],
+    ("ai-profit-pools-deep", "en"): [
+        ("c1", "93 adversarial votes · 70+ rewrites"), ("c2", "memory margins > NVIDIA's"), ("c3", "one paper gain = 3× AWS profit"), ("c4", "11 testable claims"),
+    ],
+    ("ai-profit-pools-plain", "zh"): [
+        ("c1", "越靠近物理稀缺越赚钱"), ("c2", "电费小,通电贵"), ("c3", "「嫁衣」只对了一半"), ("c4", "先问谁在兜底"),
+    ],
+    ("ai-profit-pools-plain", "en"): [
+        ("c1", "nearer physical scarcity, fatter margins"), ("c2", "power is cheap, being powered isn't"), ("c3", "the story is half right"), ("c4", "ask who is underwriting"),
+    ],
     ("recursive-self-improvement-deep", "zh"): [
         ("c1", "111 票对抗验证 · 10 处判死"), ("c2", "改进者被改进:仅 1 项显著证据"), ("c3", "参与度 vs 速率:差一个数量级"), ("c4", "12 个可检验主张"),
     ],
@@ -4999,6 +5443,15 @@ INDEX_ENTRIES = [
      "111 adversarial votes · 12 testable claims",
      [("t1", "递归自我改进", "Recursive self-improvement"), ("t2", "AI 研发自动化", "AI R&D automation"), ("t3", "裁判与评估", "Judges & evaluation"),
       ("t4", "安全框架", "Safety frameworks"), ("t5", "增长经济学", "Growth economics")]),
+    ("ai-profit-pools", "2026-10",
+     "AI 价值链的利润池会落在哪一层?",
+     "Where Will the AI Value Chain's Profit Pools Settle?",
+     "存储芯片的利润率已经超过 NVIDIA,而上游一边收前沿实验室的算力钱、一边为它们的信用兜底——「做模型的在给人做嫁衣」只对了一半。把芯片、电力、云、模型、应用五层放到同一把尺子上送回一手财报,覆盖稀缺租金的迁移、云层利润率背后的假设、两条方向相反的价格曲线、握有分发的巨头,以及在层与层之间转圈的资金。",
+     "Memory-chip margins now beat NVIDIA's, while upstream firms both collect the frontier labs' compute bills and underwrite their credit — so 'model makers are working for someone else' is only half right. Chips, power, cloud, models, and applications put on one ruler and returned to primary filings, covering the migration of scarcity rent, the assumptions behind cloud margins, two price curves running in opposite directions, the incumbents who own distribution, and the money circulating between layers.",
+     "93 票对抗验证 · 11 个可检验主张",
+     "93 adversarial votes · 11 testable claims",
+     [("t1", "价值链", "Value chains"), ("t2", "半导体", "Semiconductors"), ("t3", "云计算", "Cloud computing"),
+      ("t4", "AI 商业模式", "AI business models"), ("t5", "公司财务", "Corporate finance")]),
 ]
 
 

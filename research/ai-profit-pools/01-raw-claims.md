@@ -1,0 +1,908 @@
+# Round 1 原始论断(7 线)
+
+## T-theory-history
+
+### 要点
+（1）理论原典分两派。一派说利润往"整合层"走：Christensen 的利润守恒定律认为，一层商品化后，靠专有产品赚的利润会出现在相邻环节；他在原书中说，性能"还不够好"的阶段整合架构占优，到了性能过剩阶段就转向模块化。另一派说利润往"用户关系"走：Thompson 的聚合理论认为，掌握用户关系的人把供给方商品化；Spolsky 讲"把互补品商品化"。Meta 开源 Llama 就是 Spolsky 策略的现实版本。
+（2）Thompson 本人在 2026 年反复摇摆。3 月他认为模型与 harness 的整合让 Anthropic 和 OpenAI 的利润前景比预想好得多；6 月他承认眼下的大赢家是 Nvidia、TSMC 和存储厂，并说长期最值钱的位置是用户触点；9 月他又说，客户已觉得当前能力"够好"，Microsoft 的 harness 也能更换模型，"纯能力不再直接等于护城河"。
+（3）Microsoft 的 Nadella 也在转向（他是利益相关方）。2025 年他说模型商品化、模型公司有"赢家诅咒"；2026 年 6 月他转而担心少数模型拿走全部经济回报。这一转向本身就是"模型商品化的速度慢于下游预期"的信号。
+（4）历史数据，PC 时代（来自 SEC 10-K 原文）：2000 年 Intel 与 Microsoft 的 GAAP 经营利润合计约 213 亿美元，经营利润率分别为 30.8% 和 47.6%；Dell 全公司加 Compaq 两个 PC 分部合计约 31 亿美元，Compaq 的 PC 分部利润率约 2.2%，其商用 PC 分部 1998–1999 年连续亏损。但 Compaq 的企业计算分部（服务器）仍有 21 亿美元经营利润，说明整机厂在整合层还能赚钱。
+（5）历史，光纤与铁路：光纤泡沫中建设者破产，Odlyzko 当时就预言骨干传输会商品化、利润流向网络边缘；Thompson 认为破产留下的"免费"光纤成就了今天的互联网。但他也指出，GPU 5 年左右就折旧完，不像光纤、铁路那样能作为长寿命资产被后来者廉价接手，这削弱了"基建泡沫最终惠及使用者"的类比。英国铁路狂热中，投资者损失约为投入的三分之一（约 8000 万英镑）。
+（6）历史，电气化与智能手机：Paul David 发现，电气化的生产率收益要到首座电站开业约 40 年后才在工厂端兑现。智能手机方面，Counterpoint 估计 Apple 在 2022 年以 18% 的出货份额拿走 85% 的经营利润。
+（7）现代分析：a16z（2023）认为当下钱主要流向基础设施，生成式 AI 没有系统性护城河；它在 2024 年测得同等能力的模型价格每年下降 10 倍。Sequoia（2024）认为 GPU 算力正在商品化、缺乏定价权。Bain（2025）测算到 2030 年需要 2 万亿美元年收入，即使算上 AI 带来的节省仍差 8000 亿。Evans（2026-07）认为一切迹象都指向模型成为低毛利基础设施，但明确说"没人知道"。
+（8）反方：Amodei 用"每个模型是一家公司"的卡通示例（厂商口径）论证单个模型可以盈利，并反驳商品化。另外，Christensen 的理论本身也意味着：只要前沿能力"不够好"，利润就留在整合的前沿实验室。
+（9）结论层面：当下的利润分布在芯片、存储和代工层，这一点证据充分。长期利润落在哪一层，取决于模型能力何时变得"够好"，这是一个经验判断，理论本身给不出答案。
+
+### 论断
+- **T1** ★ [官方(HBR原刊;逐字经搜索摘录,未直接抓取全文)|2004-02|中性] Christensen 利润守恒定律：一个环节因商品化而失去可观利润时，靠专有产品赚取可观利润的机会通常出现在相邻环节
+  - 原文:When attractive profits disappear at one stage in the value chain because a product becomes commoditized, the opportunity to earn attractive profits with proprietary products usually emerges at an adjacent stage.
+  - https://hbr.org/2004/02/breakthrough-ideas-for-2004
+- **T2** ★ [原著(经从业者博客 Stratechery 原样引用)|2003(原书)/2026-09-21(引用)|前沿赢家通吃] Christensen 原书：性能'不够好'时，专有、互相依赖的整合架构占优；需求被满足后，架构向模块化演进（性能过剩阶段）。据此，前沿能力仍不够好时，利润在整合的前沿实验室
+  - 原文:when there is a performance gap — when product functionality and reliability are not yet good enough ... firms that build their products around proprietary, interdependent architectures enjoy an important competitive advantage against competitors whose product architectures are modular
+  - https://stratechery.com/2026/frontier-overhangs/
+- **T3** ★ [原著(经从业者博客转引)|2003(原书)/2026-06-02(引用)|中性] Christensen 原书：价值链某处发生商品化时，另一处同时发生去商品化；站在性能'尚不够好'位置的公司拿走利润
+  - 原文:companies that position themselves at a spot in the value chain where performance is not yet good enough will capture the profit.
+  - https://94040.substack.com/p/could-anthropic-commoditize-the-cloud
+- **T4** [官方(HBR原刊摘要)|2001-11|中性] Christensen 等以 IBM 为例：IBM 80 年代初外包 OS 和 CPU 时，占大型机市场 70%、利润 95%；此后 Intel 与 Microsoft 拿走计算机行业大部分利润（注意该文发表于 2001 年 11 月，不是 2004 年）
+  - 原文:It owned 70% of the entire mainframe market, controlled 95% of its profits, and had long dominated the industry.
+  - https://hbr.org/2001/11/skate-to-where-the-money-will-be
+- **T5** [官方(Bain/HBR 1998摘要;全文付费)|1998-05|中性] Bain 利润池框架：利润集中的格局常与收入集中的格局不同（U-Haul 例：核心租赁占收入池大头，配件占利润池大头）
+  - 原文:while the core rental business represented the vast majority of the industry's revenue pool, accessories provided a large share of the industry's profit pool
+  - https://www.bain.com/insights/profit-pools-a-fresh-look-at-strategy/
+- **T6** ★ [从业者博客|2015-07-21|聚合者通吃] 聚合理论：互联网让分发免费、交易成本归零，聚合者以独占的用户关系把模块化的供给方商品化
+  - 原文:the Internet has made distribution (of digital goods) free, neutralizing the advantage that pre-Internet distributors leveraged to integrate with suppliers. Secondly, the Internet has made transaction costs zero
+  - https://stratechery.com/2015/aggregation-theory/
+- **T7** [从业者博客|2002-06-12|模型商品化] Spolsky：聪明的公司会把自家产品的互补品商品化；Microsoft 的目标是把 PC 硬件商品化
+  - 原文:Smart companies try to commoditize their products' complements.
+  - https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/
+- **T8** ★ [官方(厂商博客)|2024-07-23|模型商品化] Meta 开源 Llama 就是'把互补品商品化'：卖模型访问权不是 Meta 的商业模式，开源不伤其收入
+  - 原文:selling access to AI models isn't our business model. That means openly releasing Llama doesn't undercut our revenue
+  - https://about.fb.com/news/2024/07/open-source-ai-is-the-path-forward/
+- **T9** ★ [从业者博客|2026-03-16|前沿赢家通吃] Thompson（2026-03）：agent 时代的差异化在模型与 harness 的整合，利润从模块化环节流向整合环节，因此 Anthropic/OpenAI 的利润前景比 2025 年底看上去好得多
+  - 原文:profits flow away from modular parts of the value chain — which are commoditized — and flow towards integrated parts of the value chain, which are differentiated.
+  - https://stratechery.com/2026/agents-over-bubbles/
+- **T10** ★ [从业者博客|2026-06-15|卖铲子赢] Thompson（2026-06）：目前最大受益者是 Nvidia、TSMC 和存储厂；Anthropic 与 OpenAI 合计已亏损数百亿美元（媒体/从业者口径，非财报），其模型发布后被中国开源模型蒸馏并商品化。他认为这一看空实验室的论点是正当的
+  - 原文:the biggest beneficiaries have been Nvidia, TSMC, and the memory makers (SK hynix, Samsung, and Micron). Anthropic and OpenAI, meanwhile, have collectively lost tens of billions of dollars building leading-edge models that, once released, are distilled and commoditized by open source models, primarily from China.
+  - https://stratechery.com/2026/anthropics-safety-superpower/
+- **T11** ★ [从业者博客|2026-06-15|聚合者通吃] Thompson：算力短缺期价值流向算力；供需平衡后，最值钱的位置是拥有用户触点（因此前沿实验室必须向用户端靠拢，与软件公司正面冲突）。这是区分当下与长期利润落点的关键表述
+  - 原文:Right now that's compute, but in the fullness of time, whenever we have enough compute, the most valuable place to be in the value chain will be the place that has always been the most valuable: owning the user touchpoint.
+  - https://stratechery.com/2026/anthropics-safety-superpower/
+- **T12** ★ [从业者博客|2026-09-21|模型商品化] Thompson（2026-09）收回部分整合论：Microsoft Copilot Cowork 已能更换模型，harness 与模型可以分离；客户觉得当前能力'够好'，前沿的价值随之下降
+  - 原文:current model capabilities are “good enough” for customers to not do whatever is necessary to get access to the cutting edge, which reduces the value of the cutting edge to its proprietors ... Pure capability no longer translates directly into a moat.
+  - https://stratechery.com/2026/frontier-overhangs/
+- **T13** ★ [从业者博客|2025-12-01|聚合者通吃] Thompson（2025-12）：LLM 是对内容更彻底的商品化，ChatGPT 处在'聚合者'象限，应走广告模式；TPU 对 Nvidia 的长期威胁是利润率被稀释
+  - 原文:the long-term threat to Nvidia from TPUs is margin dilution
+  - https://stratechery.com/2025/google-nvidia-and-openai/
+- **T14** [从业者博客|2024-03-04|中性] Thompson（2024）：生成式 AI 颠覆了聚合者的前提——对用户而言不再有丰富的供给，只剩一个答案
+  - 原文:suddenly, there isn't an abundance of supply, at least from the perspective of the end users; there is simply one answer.
+  - https://stratechery.com/2024/aggregators-ai-risk/
+- **T15** ★ [厂商自报(访谈逐字稿)|2025-11-12|模型商品化] Nadella（Microsoft，利益相关方，2025-11）：模型公司可能有'赢家诅咒'，离被商品化只差一次复制；价值归模型还是归 scaffolding，'时间会告诉我们'
+  - 原文:if you're a model company, you may have a winner's curse. You may have done all the hard work, done unbelievable innovation, except it's one copy away from that being commoditized.
+  - https://www.dwarkesh.com/p/satya-nadella-2
+- **T16** ★ [媒体转述(原为厂商博文)|2026-06-15|前沿赢家通吃] Nadella 转向（2026-06 博文，经 The Decoder 转述）：担心少数 AI 系统拿走全部经济回报、各行业的知识被商品化。与 2025-03'模型正在商品化'形成对照，暗示模型商品化慢于下游预期
+  - 原文:If all the value is accrued by only a few models, the political economy will simply not tolerate it.
+  - https://the-decoder.com/microsoft-ceo-satya-nadella-warns-of-a-small-number-of-ai-systems-capturing-all-the-economic-returns/
+- **T17** ★ [厂商自报(播客逐字稿)|2025-08-06|前沿赢家通吃] Amodei（厂商口径、卡通示例）：把每个模型看作一家公司，2023 年训练的模型花 1 亿美元、带来 2 亿美元收入，是盈利的；公司整体亏损扩大是因为下一代训练成本按 10 倍增长
+  - 原文:If you consider each model to be a company, the model that was trained in 2023 was profitable. You paid $100 million, and then it made $200 million of revenue.
+  - https://cheekypint.substack.com/p/a-cheeky-pint-with-anthropic-ceo
+- **T18** [厂商自报|2025-08-06|前沿赢家通吃] Amodei 反驳商品化：模型有不同'人格'，差异化强于云；并以云（千亿美元级 API 业务、玩家很少）作类比
+  - 原文:These models have different personalities, they're like talking to different people. A joke I often make is, if I'm sitting in a room with ten people, does that mean I've been commoditized?
+  - https://cheekypint.substack.com/p/a-cheeky-pint-with-anthropic-ceo
+- **H1** ★ [官方(SEC 10-K)|2001-03-13|中性] PC 时代：Intel 2000 年净营收 337.26 亿美元，GAAP 经营利润 103.95 亿美元（经营利润率 30.8%，毛利率 62.5%）
+  - 原文:Net revenues $ 33,726 ... Cost of sales 12,650 ... Operating income 10,395
+  - https://www.sec.gov/Archives/edgar/data/50863/000091205701503434/0000912057-01-503434.txt
+- **H2** ★ [官方(SEC 10-K)|2000-09-28|中性] PC 时代：Microsoft FY2000（截至 2000-06-30）营收 229.56 亿美元，GAAP 经营利润 109.37 亿美元（47.6%）
+  - 原文:Revenue $15,262 $19,747 $22,956 ... Operating income 6,414 9,928 10,937
+  - https://www.sec.gov/Archives/edgar/data/789019/000103221000001961/0001032210-00-001961.txt
+- **H3** ★ [官方(SEC 10-K)|2001-02-09|中性] PC 整机商：Dell FY2001（截至 2001-02-02）营收 318.88 亿美元，毛利率 20.2%，经营利润 26.63 亿美元（8.4%）；Compaq 2000 年商用 PC 分部经营利润 2.89 亿美元（营收 131.36 亿，约 2.2%），1999/1998 年分别亏损 4.48 亿和 0.46 亿，消费 PC 分部 1.70 亿（营收 75.86 亿）。同期 Compaq 企业计算分部经营利润 21.40 亿美元——整机商在整合/企业层仍有利润
+  - 原文:COMMERCIAL PERSONAL COMPUTING | Revenue 13,136 12,185 11,846 | Operating income (loss) 289 (448) (46) | CONSUMER | Revenue 7,586 5,994 4,932 | Operating income 170 262 183
+  - https://www.sec.gov/Archives/edgar/data/714154/000089056601000112/0000890566-01-000112.txt
+- **H4** ★ [官方(SEC 10-K,自算)|2000-2001|中性] 自算汇总：约 2000 年 Intel+Microsoft 经营利润约 213 亿美元，Dell 全公司加 Compaq 两个 PC 分部约 31 亿美元，平台层与整机层利润相差约 7 倍（财年不一致、全部为 GAAP 经营利润）
+  - 原文:(由 H1-H3 SEC 原文数字计算)
+  - https://www.sec.gov/Archives/edgar/data/826083/000095013401501052/0000950134-01-501052.txt
+- **H5** [媒体转述(分析机构数据)|2023-02-03|聚合者通吃] 智能手机：Counterpoint 估计 Apple 2022 年以 18% 出货份额拿到 48% 收入份额和 85% 经营利润份额（分析机构口径，经媒体转述）
+  - 原文:it still captured 18% of shipment share, 48% of the revenue of the marketplace, and 85% of the profit generated by the segment for the year.
+  - https://appleinsider.com/articles/23/02/03/apple-collects-nearly-all-of-the-profit-in-the-worldwide-smartphone-market
+- **H6** [从业者/研究论文(AT&T Labs 工作论文)|1998-10-07|中性] 光纤泡沫前夜：Odlyzko 测得互联网骨干链路平均利用率约 10-15%，企业长途专线约 3-5%（是'平均利用率'，不是'点亮比例'）
+  - 原文:the Internet backbone links appear to have average utilizations closer to 10% to 15%, and corporate long-haul links (which is where the bulk of data transport capacity is) have utilizations in the 3% to 5% range.
+  - https://www-users.cse.umn.edu/~odlyzko/doc/network.utilization.pdf
+- **H7** ★ [同行评审(会议论文 ITCom 2003)|2003|卖铲子赢(反证)] Odlyzko（2003）：骨干传输将保持商品化、收入低迷，利润机会向网络边缘迁移；过剩基建以远低于建设成本的价格出售
+  - 原文:Backbone transport is likely to remain a commodity and be provided as a single high quality service. It is probable that backbone revenues will stay low, as the complexity, cost, and revenue and profit opportunities continue to migrate towards the edges of the network.
+  - https://www-users.cse.umn.edu/~odlyzko/doc/itcom.internet.growth.pdf
+- **H8** ★ [从业者博客|2025-11-05|卖铲子赢(反证)] Thompson：电信公司超建光纤后破产，但这些光纤因建设者破产而近乎免费，成就了今天几乎免费的互联网（基建方承担风险，使用方拿走剩余）
+  - 原文:That fiber, however, became the background of today's Internet; the fact that it basically existed for free — because the companies who built it went bankrupt — enabled the effectively free nature of the Internet today.
+  - https://stratechery.com/2025/the-benefits-of-bubbles/
+- **H9** ★ [从业者博客|2025-11-05|电力稀缺] 类比失效点：GPU 不像光纤、铁路，超大厂一般按 5 年折旧且可能偏长，不会作为折旧完毕的资产被长期廉价使用；fab 和电力才是长寿命基建
+  - 原文:Chips break down and get superseded by better ones; most hyperscalers depreciate them over five years, and that may be generous.
+  - https://stratechery.com/2025/the-benefits-of-bubbles/
+- **H10** [媒体转述|2002-01-28|卖铲子赢(反证)] Global Crossing 2002-01-28 申请 Chapter 11，列示资产 224 亿美元、债务 124 亿美元，时为美国第四大破产案（媒体/百科转述，未取一手）
+  - 原文:(媒体转述,无一手逐字)
+  - https://en.wikipedia.org/wiki/Global_Crossing
+- **H11** [从业者/研究论文(预印本)|2010-01-15|卖铲子赢(反证)] 英国铁路狂热：到 1850 年英国投资者投入约 2.5 亿英镑（近当年 GDP 一半），损失约三分之一（约 8000 万英镑）
+  - 原文:By the end of 1850, British investors had put about £250 million into their country's railways, almost half of their GDP ... Their financial losses can be estimated ... at about a third of that, or about £80 million
+  - https://www-users.cse.umn.edu/~odlyzko/doc/hallucinations.pdf
+- **H12** [同行评审(AER Papers & Proceedings)|1990-05|中性] 电气化：工厂电气化要到 1920 年代初（首座中心电站开业约 40 年后）才影响制造业生产率；1919-29 年制造业 TFP 加速中约一半可由电动机容量增长解释。收益来自使用方重组流程（此文讲生产率，不讲利润分配）
+  - 原文:factory electrification did not reach full fruition in its technical development nor have an impact on productivity growth in manufacturing before the early 1920s. ... This was four decades after the first central power station opened for business.
+  - http://www.dklevine.com/archive/refs4115.pdf
+- **M1** ★ [分析机构(VC,利益相关方)|2023-01-19|卖铲子赢] a16z（2023-01）：基础设施厂商是迄今最大赢家，拿走流经技术栈的大部分资金；估计生成式 AI 收入的 10-20% 流向云厂商；生成式 AI 没有系统性护城河
+  - 原文:infrastructure vendors are likely the biggest winners in this market so far, capturing the majority of dollars flowing through the stack.
+  - https://a16z.com/who-owns-the-generative-ai-platform/
+- **M2** [分析机构(VC)|2023-01-19|卖铲子赢] a16z：应用公司毛利率少数高达 90%，更常见的是 50-60%，主要被推理成本压低
+  - 原文:as high as 90% in a few cases but more often as low as 50-60%, driven largely by the cost of model inference.
+  - https://a16z.com/who-owns-the-generative-ai-platform/
+- **M3** ★ [分析机构(VC)|2024-11-12|模型商品化] a16z LLMflation：同等能力（按 MMLU 口径）的 LLM 成本每年下降 10 倍，作者承认方法不完善
+  - 原文:For an LLM of equivalent performance, the cost is decreasing by 10x every year.
+  - https://a16z.com/llmflation-llm-inference-cost/
+- **M4** ★ [分析机构(VC)|2024-06-20|卖铲子赢(反证)] Sequoia/Cahn：用 Nvidia run-rate 营收 ×2（数据中心总成本）再 ×2（终端 50% 毛利）推算'6000 亿美元问题'；GPU 算力正在商品化，缺乏铁路式的定价权
+  - 原文:GPU computing is increasingly turning into a commodity, metered per hour. ... Without a monopoly or oligopoly, high fixed cost + low marginal cost businesses almost always see prices competed down to marginal cost (e.g., airlines).
+  - https://www.sequoiacap.com/article/ais-600b-question/
+- **M5** ★ [分析机构|2025-09-23|电力稀缺] Bain 2025：到 2030 年需要约 2 万亿美元年收入支撑算力（对应约 5000 亿美元年 capex）；即使算上 AI 带来的节省仍差 8000 亿；增量算力需求约 200GW，美国占一半
+  - 原文:Even with AI-related savings, the world is still $800 billion short to keep pace with demand.
+  - https://www.bain.com/about/media-center/press-releases/20252/$2-trillion-in-new-revenue-needed-to-fund-ais-scaling-trend---bain--companys-6th-annual-global-technology-report/
+- **M6** ★ [从业者博客|2026-07-09|模型商品化] Evans（2026-07）：问题在于基础模型有可持续定价权，还是成为低毛利商品化基础设施；他认为目前一切迹象指向后者，但强调答案不可知
+  - 原文:whether the foundation models have sustainable pricing power, strategic leverage and value capture, or whether they become low-margin commodity infrastructure providers. At the moment, I think every dynamic we can see points to the latter.
+  - https://www.ben-evans.com/benedictevans/2026/7/9/ways-to-think-about-token-pricing
+- **M7** ★ [从业者博客(引媒体口径)|2026-07-09|中性] Evans：据广泛报道，推理目前有 40-50% 毛利（含服务器折旧，不含远大于收入的下一代训练成本；资产寿命未知）——二手口径
+  - 原文:it's been pretty widely reported that inference today has 40-50% gross margins
+  - https://www.ben-evans.com/benedictevans/2026/7/9/ways-to-think-about-token-pricing
+- **M8** ★ [从业者博客|2026-07-09|前沿赢家通吃(反证)] Evans：目前没发现能让一家持续领先的网络效应或赢家通吃机制；一个极端是两三个巨型模型拥有定价权，另一个极端是 LLM 像数据库，价值在上层
+  - 原文:we don't yet know of a network effect or any other winner-takes-all effect that would let one company pull ahead, stay ahead, and do things that others could not, in some sustainable way.
+  - https://www.ben-evans.com/benedictevans/2026/7/9/ways-to-think-about-token-pricing
+
+### 交叉口径问题
+- "Skate to Where the Money Will Be" 发表于 HBR 2001-11（Christensen, Raynor, Verlinden），不是 2004；2004 年 HBR 'Breakthrough Ideas for 2004' 才是利润守恒定律的短文出处
+- Christensen 原书逐字均为二手转引（Thompson 2026-09-21、Zinger 2026-06-02 引用 The Innovator's Solution），HBR 2004 短句来自搜索摘录，未抓到原文全文
+- Bain 1998 利润池原文的汽车业数据在付费墙后，未取得逐字；只有 U-Haul 摘要句
+- PC 时代利润对比财年不一致：Intel/Compaq 为日历年 2000，Microsoft 为截至 2000-06 的 FY2000，Dell 为截至 2001-02 的 FY2001；全部为 GAAP 经营利润；Intel 和 Compaq 的数字包含非 PC 业务（Intel 含通信/闪存，Compaq 只取 PC 分部）
+- Apple 85% 为 Counterpoint 2022 年'经营利润份额'估算（分析机构口径，经 AppleInsider 转述），近年数据未取到；Thompson 说 Apple 拿走'几乎全部 PC 与手机利润'属从业者断言
+- 光纤'2002 年仅 2.7% 点亮'为 WSJ 二手口径，未取一手；Odlyzko 1998 年的 3-5%/10-15% 是平均链路利用率，与'点亮比例'不是同一概念，不能混用
+- Global Crossing 资产/债务数字与 FCC Powell '万亿债务'证词均为媒体/百科转述
+- 铁路损失约 8000 万英镑出自 Odlyzko 预印本（2010，非同行评审定稿）
+- Paul David 1990 讲的是生产率滞后，不是利润分配，只能作'使用方获益滞后'的旁证
+- Amodei '每个模型盈利'是他自称的'卡通示例'（厂商口径），不是财报；Thompson 说的'OpenAI+Anthropic 合计亏损数百亿'为媒体/从业者口径
+- Nadella 2026-06 博文经 The Decoder 转述，原博文未直接抓取；Nadella 是 Microsoft CEO，有利益立场（希望模型商品化、harness 留在 Microsoft）
+- Evans 引用的推理毛利 40-50% 是'广泛报道'的二手口径，含服务器折旧、不含训练成本
+- a16z LLMflation 的每年 10 倍降价按 MMLU 等效能力衡量，benchmark 有污染风险，作者承认方法不完善；这是'价格'下降，不等于利润下降
+- 聚合理论的前提是分发免费、交易成本为零（Thompson 2015），而 AI 推理边际成本不为零，类比搜索/社交时须调整：聚合者的毛利结构可能显著低于 Google
+- Thompson 的立场在 2026 年内三次变化（3 月整合论→6 月用户触点→9 月动摇），引用时必须带日期，不能当作单一结论
+- 当下利润分布（Nvidia/TSMC/存储厂获益）与长期利润落点（用户触点 vs 整合层）在 Thompson 6 月文中被明确区分，成文时应保持这一区分
+
+## CHIP-semis
+
+### 要点
+1) 截至 2026 年 10 月,芯片层(含内存、晶圆代工)是 AI 价值链当下最赚钱的一层:NVIDIA Q2 FY27(至 2026-07-26)收入 $96.2B,数据中心 $89.0B,GAAP 毛利率 75.0%,GAAP 经营利润率约 66%。2) 时间序列显示利润高度周期化:FY23 经营利润率约 16%,FY24 54%,FY25 62%,FY26 60%(含 H20 减值),本季 66%。3) 利润正沿供应链往上游分流:Micron FQ4 2026 的 GAAP 毛利率 86.8%、经营利润率 80.7%,SK hynix 2Q26 经营利润率 76%,都已超过 NVIDIA。而且内存的高利润来自整体短缺,不只是 HBM。NVIDIA 自己指引毛利率见底到 71-72%,FY28 落在 72-73%,原因是"extreme pricing conditions in memory";NVIDIA 的采购承诺从 $119B 跳到 $279B,主要是内存。4) TSMC 毛利率 67.7%,CoWoS 产能限制了客户的增长。5) NVIDIA 的定价权有反证:单一直接客户占收入 16%,Hyperscale 占数据中心收入 55%;自研和定制 ASIC 已经规模化(Google 开始确认 TPU 系统外售收入;Anthropic 签下数 GW 的 TPU;AWS 自研芯片 run-rate 超过 $25B;Maia 200 和 MTIA 都在部署)。SemiAnalysis 估算,TPU 的 TCO 比 GB200 低约 44%,而且光是 TPU 的威胁就让 OpenAI 在 NVIDIA 机队上省了约 30%。6) NVIDIA 没有降价,而是用资产负债表"买"需求:对前沿实验室投资近 $50B,给 AI 云的算力回购承诺 $36B,为 OpenAI 的 PORTS-Pike 租约提供上限 $105B 的担保,DSO 从 45 天升到 60 天。管理层承认,明年约 1/4 的业务来自需要它用资产负债表支持的 AI 实验室。所以就当下而言,更像是芯片商在给模型商垫资,而不是模型商在给芯片商做嫁衣。7) 定制 ASIC 没有消灭芯片层的利润,而是在芯片层内部重新分配,并压低了整体毛利率:Broadcom 本季 AI 半导体收入 $16.7B,non-GAAP 毛利率受内存含量拖累降到 75%,Q4 指引降到 73%,半导体分部毛利约 67%;Marvell non-GAAP 毛利 58.9%;AMD 的数据中心分部经营利润率约 31%,还要向 OpenAI 和 Meta 发行行权价 $0.01 的认股权证来换取订单。8) DeepSeek 自然实验:2025-01-27 NVDA 单日下跌 17%,蒸发约 $589B(媒体数据)。此后数据中心季度收入从 $35.6B 涨到 $89.0B,市值约 $5.7T,事后看支持杰文斯式的解读。但同期混杂了 Blackwell 换代、主权和 AI 云需求、NVIDIA 自身融资支持等因素,不能单独归因于效率提升带来的需求。9) 本线结论:当下的利润分布明显偏向芯片层和内存层,但稀缺点一直在移动(GPU→CoWoS→HBM/DRAM→电力),再加上客户集中、ASIC 替代和信用支撑的需求,长期的利润落点并不稳固。
+
+### 论断
+- **CHIP-01** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA Q2 FY27(截至 2026-07-26)收入 $96,221M(同比 +106%),数据中心 $89,023M(同比 +117%),GAAP/non-GAAP 毛利率均为 75.0%,GAAP 经营利润 $63,734M(经营利润率约 66.2%,系计算值)
+  - 原文:Revenue $96,221 $81,615 $46,743 18 % 106 % Gross margin 75.0 % 74.9 % 72.4 % ... Operating income $63,734 $53,536 $28,440 ... Data Center $89,023 $75,246 $41,096 18 % 117 %
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm
+- **CHIP-02** ★ [官方(财报/SEC/官方博客)|2024-02-21|中性] NVIDIA 利润率时间序列(GAAP,财年截至 1 月):FY23 收入 $26,974M、毛利率 56.9%、经营利润 $4,224M(约 16%);FY24 收入 $60,922M、毛利率 72.7%、经营利润 $32,972M(约 54%)——芯片层利润高度周期化
+  - 原文:Revenue $60,922 $26,974 Up 126% Gross margin 72.7 % 56.9 % Up 15.8 pts Operating expenses $11,329 $11,132 Up 2% Operating income $32,972 $4,224 Up 681%
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581024000028/q4fy24cfocommentary.htm
+- **CHIP-03** ★ [官方(财报/SEC/官方博客)|2026-02-25|卖铲子赢] NVIDIA FY26(截至 2026-01-25)收入 $215,938M,数据中心 $193,737M,GAAP 毛利率 71.1%(FY25 为 75.0%,FY26 下滑主要因 H20 约 $4.5B 减值),GAAP 经营利润 $130,387M(约 60%)
+  - 原文:Revenue $215,938 $130,497 65 % Gross margin 71.1 % 75.0 % (3.9) pts Operating expenses $23,076 $16,405 41 % Operating income $130,387 $81,453 60 %
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000019/q4fy26cfocommentary.htm
+- **CHIP-04** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA 指引毛利率下行:Q3 FY27 为 74%±0.5pt,Q4 见底 71-72%,FY28 落在 72-73%,原因是内存涨价超出预期——这是芯片层利润被上游内存分流的直接证据
+  - 原文:we are experiencing extreme pricing conditions in memory. The magnitude of the price increase has exceeded our prior expectations and are headed even higher into next year... We expect margins to bottom in Q4 in the 71% to 72% range before settling at 72% to 73% in fiscal year 2028 as executed price increases take effect in Q1.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **CHIP-05** ★ [官方(财报/SEC/官方博客)|2026-08-26|聚合者通吃] NVIDIA 客户集中度(10-Q):Q2 FY27 单一直接客户占总收入 16%;FY27 上半年三家直接客户分别占 16%/15%/13%;上年同季两家分别占 23%/16%;另估计有一家 AI 研究与部署公司通过向其客户购买云服务贡献了可观收入
+  - 原文:For the second quarter of fiscal year 2027, one direct customer represented 16 % of total revenue... For the first half of fiscal year 2027, three direct customers represented 16 %, 15 %, and 13 % of total revenue... We estimate that one AI research and deployment company contributed a meaningful amount of our revenue by purchasing cloud services from our customers
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **CHIP-06** [官方(财报/SEC/官方博客)|2026-08-26|聚合者通吃] NVIDIA 数据中心收入里 Hyperscale 为 $48,710M,约占 55%(计算值);AI Clouds/Industrial/Enterprise 为 $40,313M(同比 +138%)。Q4 FY26 时超大规模云厂约占数据中心收入的一半出头
+  - 原文:Data Center $89,023 ... Hyperscale 48,710 43,050 24,168 13 % 102 % AI Clouds, Industrial, & Enterprise 40,313 32,196 16,928 25 % 138 %
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm
+- **CHIP-07** ★ [官方(财报/SEC/官方博客)|2026-08-26|前沿赢家通吃] NVIDIA 用资产负债表支撑下游需求:对前沿实验室投资近 $50B;管理层称明年约 1/4 的业务来自需要它用资产负债表支持的 AI 实验室;公司承认外界会称之为循环融资
+  - 原文:we've invested nearly $50 billion in the frontier AI labs... we know some will call this circular financing. We see it differently... we expect demand from the AI labs for which we expect to leverage our balance sheet to contribute toward roughly a quarter of our business next year.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **CHIP-08** ★ [官方(财报/SEC/官方博客)|2026-08-26|电力稀缺] NVIDIA 为 OpenAI 在 SB Energy PORTS-Pike 园区约 4.25GW 的 20 年租约提供上限 $105B 的担保;公司称该园区每一代部署约等于 150 万颗 GPU、$150-200B 的 NVIDIA 收入
+  - 原文:Our guarantee obligations are capped at a total of $105 billion ... Each generation of NVIDIA infrastructure deployed at PORTS-Pike could represent approximately 1.5 million NVIDIA GPUs, or approximately $150 billion to $200 billion in NVIDIA revenue.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm
+- **CHIP-09** ★ [官方(财报/SEC/官方博客)|2026-08-26|中性] NVIDIA 与 AI 云签有算力回购承诺共 $36B(一般为 6 年),AI 云可以单方面停止向 NVIDIA 供应、转卖给出价更高的第三方;非上市股权投资从 $22.3B(2026-01)增至 $51.2B(2026-07);Q2 股权投资净收益 $7.8B 计入 GAAP 净利;DSO 从 45 天升到 60 天
+  - 原文:AI clouds procure our data center infrastructure products and we commit to cloud service agreements, which the AI clouds can unilaterally stop providing to us and sell to third-party customers at more advantageous rates. Our commitments, which are typically six years in duration, totaled $36 billion as of July 26, 2026
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **CHIP-10** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA 的供应/产能承诺从上季的 $119B 增至 $279B,主要用于采购内存
+  - 原文:Our commitments increased from $119 billion last quarter to $279 billion, primarily related to the procurement of memory.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27cfocommentary.htm
+- **CHIP-11** [厂商自报|2026-08-26|卖铲子赢] NVIDIA 称 FY28 收入增长约 70%,且是受供给约束的展望;供给瓶颈至少持续到 FY28 末;NVIDIA 算力在其服务的所有云上都已满载
+  - 原文:We expect to grow revenue by approximately 70% in fiscal 2028. This is a supply-constrained outlook... we expect supply to remain a bottleneck at least through the end of fiscal year 2028... NVIDIA Compute is fully utilized across every cloud we serve.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **CHIP-12** ★ [官方(财报/SEC/官方博客)|2026-09-30|卖铲子赢] Micron FQ4 2026(截至 2026-09-03)收入 $54.23B,GAAP 毛利率 86.8%,GAAP 经营利润率 80.7%;FY26 收入 $133.19B,GAAP 毛利率 80.7%(FY25 为 39.8%)——内存商的利润率已超过 NVIDIA
+  - 原文:Revenue $ 54,229 $ 41,456 $ 11,315 ... Gross margin 47,047 35,056 5,054 ... Percent of revenue 86.8 % 84.6 % 44.7 % ... Operating income 43,751 ... Percent of revenue 80.7 %
+  - https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm
+- **CHIP-13** ★ [官方(财报/SEC/官方博客)|2026-09-30|中性] Micron 分部数据显示高利润来自内存整体短缺,不只是 HBM:Cloud Memory BU(含 HBM)毛利 83%、经营利润率 76%;Core Data Center BU 和 Mobile & Client BU 毛利都是 90%
+  - 原文:Cloud Memory Business Unit Revenue $ 16,283 $ 13,769 $ 4,543 Gross margin 83 % 83 % 59 % Operating margin 76 % 78 % 48 % Core Data Center Business Unit Revenue $ 18,002 ... Gross margin 90 %
+  - https://www.sec.gov/Archives/edgar/data/723125/000072312526000018/a2026q4ex991-pressrelease.htm
+- **CHIP-14** ★ [官方(财报/SEC/官方博客)|2026-07|卖铲子赢] SK hynix 2Q26 收入 79.32 万亿韩元,经营利润 60.54 万亿韩元,经营利润率 76%(历史新高);已与约 10 家客户签订长期协议(LTA)
+  - 原文:The company has finalized Long-Term Agreements (LTAs) with around 10 customers, including key strategic partners
+  - https://news.skhynix.com/en/q2-2026-business-results/
+- **CHIP-15** ★ [官方(财报/SEC/官方博客)|2026-07-16|卖铲子赢] TSMC 2Q26 收入 US$40.20B,毛利率 67.7%,经营利润率 60.3%;HPC 占收入 66%;3Q26 毛利指引 65-67%
+  - 原文:Gross margin for the quarter was 67.7%, operating margin was 60.3%, and net profit margin was 55.6%.
+  - https://www.sec.gov/Archives/edgar/data/1046179/000104617926000451/a2q26e_withguidancexfinal.htm
+- **CHIP-16** [媒体转述|2026-07-16|卖铲子赢] TSMC CEO 称先进封装(CoWoS)产能紧张到限制客户增长;2026 年资本开支上调至 $60-64B,全年收入增长略高于 40%
+  - 原文:Our packaging capacity is so tight that now it's limiting my customers' growth
+  - https://www.investing.com/news/transcripts/earnings-call-transcript-tsmc-lifts-2026-outlook-as-ai-demand-stays-hot-in-q2-2026-93CH-4794777
+- **CHIP-17** [分析机构|2026-01-15|卖铲子赢] TSMC 称 AI 加速器收入约占 2025 年总收入的 high-teens percent(百分之十几的高段),2024-2029 年 CAGR 接近 mid-to-high 50%;长期毛利率目标为整个周期 56% 以上(实际 2Q26 为 67.7%)
+  - 原文:AI accelerator revenue at high-teens percent of total ... raised its AI accelerator five-year growth outlook to approach a mid-to-high 50% CAGR
+  - https://futurumgroup.com/insights/tsmc-q4-fy-2025-results-and-fy-2026-outlook-signal-ai-led-growth/
+- **CHIP-18** ★ [官方(财报/SEC/官方博客)|2026-09-02|卖铲子赢] Broadcom Q3 FY26(截至 2026-08-02)AI 半导体收入 $16.7B(同比 +221%),Q4 指引 $21.7B;全公司收入 $29.6B,GAAP 经营利润 $16.0B / non-GAAP $20.1B;GAAP 毛利约 69.1%、non-GAAP 约 75.0%(均为计算值)
+  - 原文:Q3 AI semiconductor revenue of $16.7 billion grew 221% year-over-year, and 54% quarter-over-quarter... In Q4 the momentum continues, and we expect AI semiconductor revenue to accelerate to $21.7 billion, up 236% year-over-year.
+  - https://www.sec.gov/Archives/edgar/data/1730168/000173016826000076/avgo-08022026x8kxex99.htm
+- **CHIP-19** ★ [媒体转述|2026-09-02|模型商品化] Broadcom 的定制 XPU 因内存含量高而拉低毛利:Q3 non-GAAP 毛利 75%(环比 -210bp),Q4 指引约 73%,半导体分部毛利约 67%;管理层要求投资者关注经营利润率(Q3 约 68%)。AI 收入目标为 FY27 约 $115B、FY28 约 $230B(公司目标);客户包括 Google、Anthropic(2027 年最大 XPU 客户)、OpenAI、Meta
+  - 原文:Gross margin was 75% of revenue in the quarter, down 210 basis points sequentially as AI semiconductor revenue was a greater proportion of our total revenue mix... stop focusing on gross margin is what we're saying, look at where it matters, operating margin
+  - https://www.fool.com/earnings/call-transcripts/2026/09/09/broadcom-avgo-q3-2026-earnings-call-transcript/
+- **CHIP-20** [厂商自报|2026-09-02|模型商品化] Broadcom 称与客户联合开发、针对其 LLM 负载优化的定制芯片能胜过任何 GPU,成本约为一半;每 GW 的芯片支出将维持在 $20-30B(利益相关方自报)
+  - 原文:when you co-develop a chip that is optimized for your particular LLM workloads, you will outperform any GPU
+  - https://www.fool.com/earnings/call-transcripts/2026/09/09/broadcom-avgo-q3-2026-earnings-call-transcript/
+- **CHIP-21** ★ [官方(财报/SEC/官方博客)|2026-08-04|前沿赢家通吃] AMD Q2 2026 数据中心收入 $6.7B(同比 +107%),分部经营利润 $2.1B(约 31%);全公司 GAAP 毛利 54%。AMD 向 OpenAI 和 Meta 各发行至多 1.6 亿股、行权价 $0.01 的认股权证,按 GPU 采购里程碑分批归属——挑战者要用股权换订单
+  - 原文:the Company issued warrants to OpenAI OpCo, LLC (OpenAI) and Meta Platforms, Inc. (Meta), each entitling the holder the right to purchase up to 160 million shares of the Company's common stock at an exercise price of $0.01 per share ... The warrants vest in tranches based on specified AMD Instinct TM GPU purchase milestones
+  - https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm
+- **CHIP-22** [官方(财报/SEC/官方博客)|2026-08-27|中性] Marvell Q2 FY27 收入 $2.739B(同比 +37%),GAAP 毛利 53.1% / non-GAAP 58.9%,数据中心收入增长 46%;定制业务预计从 FY27 下半年显著加速——定制 ASIC 二线供应商的毛利远低于 NVIDIA
+  - 原文:Q2 Gross Margin: 53.1% GAAP gross margin; 58.9% non-GAAP gross margin
+  - https://www.sec.gov/Archives/edgar/data/1835632/000183563226000022/q227_8kx812026ex-991.htm
+- **CHIP-23** ★ [官方(财报/SEC/官方博客)|2026-07-22|聚合者通吃] Alphabet 自 2026 年 Q2 起把 TPU 系统外售作为 Google Cloud 产品收入确认;截至 2026-06-30,Cloud 收入积压(RPO,即承诺额,非已确认收入)为 $513.9B
+  - 原文:Our Google Cloud product sales generally consist of the sale of TPU systems comprising hardware, software, installation, support, and extended warranty services.
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+- **CHIP-24** ★ [厂商自报|2026-04-06|模型商品化] Anthropic 与 Google、Broadcom 签下数 GW 的下一代 TPU 产能(媒体称约 3.5GW),2027 年起陆续上线;同时用 Trainium、TPU、NVIDIA GPU 多平台;run-rate 收入超过 $30B(厂商自报 run-rate)
+  - 原文:multiple gigawatts of next-generation TPU capacity that we expect to come online starting in 2027... We train and run Claude on a range of AI hardware—AWS Trainium, Google TPUs, and NVIDIA GPUs
+  - https://www.anthropic.com/news/google-broadcom-partnership-compute
+- **CHIP-25** [媒体转述|2026-10-01|中性] 据 Reuters 转述 Anthropic IPO 招股书,Broadcom 将向 Anthropic 提供至多 $42B 融资,用于租赁其芯片;Anthropic 预计 2027 年成为 Broadcom 最大的算力客户——定制芯片同样出现循环融资
+  - 原文:Broadcom is lending up to $42 billion to Anthropic for its infrastructure buildout.
+  - https://finance.yahoo.com/technology/article/broadcom-to-lend-anthropic-up-to-42-billion-to-lease-chips-in-latest-circular-investing-deal-121617505.html
+- **CHIP-26** ★ [分析机构|2025-11-28|模型商品化] SemiAnalysis 估算:从 Google 自身看,TPUv7 Ironwood 全口径单芯片 TCO 比 GB200 服务器低约 44%;Anthropic 的 100 万颗 TPU 中约 40 万颗由 Broadcom 直售成品机架(约 $10B),其余 60 万颗经 GCP 租用(估计 RPO 约 $42B)
+  - 原文:the all-in TCO per Ironwood chip for the full 3D Torus configuration being ~44% lower than the TCO of a GB200 server.
+  - https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the
+- **CHIP-27** ★ [分析机构|2025-11-28|模型商品化] SemiAnalysis 称,光是 TPU 的竞争威胁就让 OpenAI 在整个 NVIDIA 机队上省了约 30%;NVIDIA 选择用股权投资而不是降价来保住在基础模型实验室的地位,以免毛利率下降——表观毛利稳定,但部分让利转移到了资产负债表
+  - 原文:OpenAI hasn't even deployed TPUs yet and they've already saved ~30% on their entire lab wide NVIDIA fleet.
+  - https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the
+- **CHIP-28** ★ [媒体转述|2026-07-30|聚合者通吃] AWS 自研芯片业务(Trainium + Graviton)年化收入 run-rate 超过 $25B,同比增长三位数;已拿到 Anthropic 和 OpenAI 的多年、多 GW 承诺;Jassy 称未来很可能脱离 AWS 云单独出售 Trainium
+  - 原文:Our chips business now has an annual revenue run rate of over $25 billion, growing triple-digit percentages year-over-year.
+  - https://www.fool.com/earnings/call-transcripts/2026/08/07/amazon-amzn-q2-2026-earnings-call-transcript/
+- **CHIP-29** [厂商自报|2026-01-26|聚合者通吃] Microsoft Maia 200 的每美元性能比其机队中最新一代硬件高 30%,将服务 OpenAI 的 GPT-5.2 等模型(厂商自报)
+  - 原文:30% better performance per dollar than the latest generation hardware in our fleet today
+  - https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/
+- **CHIP-30** [官方(财报/SEC/官方博客)|2026-03-11|聚合者通吃] Meta 已部署数十万颗 MTIA 芯片用于推理(内容推荐和广告),MTIA 400/450/500 将主要承担 2026-2027 年的 GenAI 推理
+  - 原文:We deploy hundreds of thousands of MTIA chips for inference workloads across both organic content and ads on our apps.
+  - https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/
+- **CHIP-31** [厂商自报|2026-08-26|卖铲子赢] 黄仁勋回应定制芯片竞争(分析师提到 OpenAI 和 Anthropic 都在自研芯片):多数 XPU 是只服务单一云或单一服务的推理专用芯片,而 NVIDIA 是覆盖 AI 全生命周期、任何云都能用的平台;并称闭源和开源领先模型都跑在 NVIDIA 上(厂商自报)
+  - 原文:Whereas many of these XPUs are inference-specific chips for one cloud or one service, NVIDIA is a platform, an entire AI factory platform that spans the entire AI life cycle that you can use in any cloud.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **CHIP-32** [媒体转述|2025-01-27|模型商品化] DeepSeek 冲击:2025-01-27 NVDA 单日下跌约 17%,市值蒸发约 $589B,为美股史上最大单日市值损失,收于 $118.58
+  - 原文:Nvidia sheds almost $600 billion in market cap, biggest one-day loss in U.S. history
+  - https://www.cnbc.com/2025/01/27/nvidia-sheds-almost-600-billion-in-market-cap-biggest-drop-ever.html
+- **CHIP-33** ★ [厂商自报|2025-01-27|卖铲子赢] NVIDIA 当日声明把 DeepSeek 定性为测试时扩展的例证,强调推理仍需大量 GPU。此后数据中心季度收入从 $35.6B(Q4 FY25)涨到 $89.0B(Q2 FY27),市值约 $5.7T(2026-10,媒体数据),事后看支持杰文斯式解读,但存在 Blackwell 换代、NVIDIA 自身融资支持等混杂因素
+  - 原文:DeepSeek is an excellent AI advancement and a perfect example of Test Time Scaling... Inference requires significant numbers of NVIDIA GPUs and high-performance networking.
+  - https://www.cnbc.com/2025/01/27/nvidia-calls-chinas-deepseek-r1-model-an-excellent-ai-advancement.html
+
+### 交叉口径问题
+- NVIDIA 从 Q1 FY27 起 non-GAAP 不再剔除 SBC,历史 non-GAAP 已按新口径重述;旧新闻稿里的 non-GAAP 毛利率(如 FY25 75.5%、FY26 71.3%)和新口径不能直接比,做时间序列一律用 GAAP
+- NVIDIA 从 Q2 FY27 起重组分部:Data Center 拆成 Hyperscale 和 ACIE,Edge Computing 取代原 Gaming/ProViz/Auto,还把一家公司从 ACIE 重分类到 Hyperscale 并重述了上期;旧的 Compute/Networking 拆分不再披露
+- 财年和日历年不一致:NVIDIA FY27 Q2 = 2026 年 5-7 月;Broadcom FY26 Q3 截至 2026-08-02;Marvell FY27 Q2 截至约 2026-08-01;Micron FY26 Q4 截至 2026-09-03;AMD、TSMC、SK hynix、Alphabet 用日历季度
+- 各家 non-GAAP 定义不同:Broadcom 剔除 SBC 和无形资产摊销,NVIDIA 新口径不剔 SBC——Broadcom 的 non-GAAP 75% 毛利率和 NVIDIA 的 75% 不同口径;Broadcom GAAP 毛利约 69.1%
+- "AI 收入"各家自定义:Broadcom 的 AI semiconductor revenue = 定制 XPU + AI 网络;AWS 的 chips run-rate 含 Graviton CPU;AMD 的 Data Center 分部含 EPYC CPU,不等于 GPU 收入
+- run-rate 和已确认收入要分开:AWS 芯片 >$25B、Anthropic >$30B 都是 run-rate;Alphabet 的 $513.9B Cloud RPO 和 NVIDIA 的 $279B 供应承诺、$36B AI 云承诺、$105B 担保上限都是承诺额,不是已落地金额
+- NVIDIA GAAP 净利含股权投资公允价值收益(Q2 为 $7.8B),GAAP 净利 $59.7B 高于 non-GAAP 的 $54.0B;比较利润率应看经营利润而不是净利。SK hynix 净利率 118% 同样含非经营收益
+- NVIDIA FY26 GAAP 毛利率 71.1% 被 H20 约 $4.5B 存货减值压低,属一次性因素,不代表结构性压缩;真正的结构性压缩信号是 Q3/Q4 FY27 因内存涨价下调的指引
+- NVIDIA 的"直接客户"集中度和最终用户集中度不同:直接客户里有 ODM/OEM,最终用户藏在间接客户中;10-Q 只说一家 AI 研究与部署公司(推测为 OpenAI)贡献了可观收入,没给比例
+- TSMC 的 AI 加速器占比(high-teens)、长期毛利目标(56% 以上)、CoWoS 原话均来自电话会的媒体或分析机构转述,未拿到 TSMC 官方逐字稿 PDF(下载失败);Broadcom、Amazon 电话会引文同样来自 Motley Fool 转录
+- SemiAnalysis 的 TCO 降幅约 44%、OpenAI 省约 30%、Anthropic 100 万颗 TPU 的拆分都是分析机构估算,不是一手数据;Broadcom 说的"半价"和 Microsoft 说的"每美元性能 +30%"都是利益相关方自报
+- Broadcom 向 Anthropic 提供 $42B 融资出自 Reuters 对 Anthropic IPO 招股书的转述,EDGAR 全文检索没找到 Anthropic 的 S-1 原文,待核
+- DeepSeek 当日 -17%、约 $589B 来自媒体(CNBC/Bloomberg),未拿到收盘数据原始来源;2026-10 市值约 $5.7T 也是媒体或行情站数据
+- NVIDIA FY23 数据中心收入 $15,005M、FY24 $47,525M 取自 10-K 的历史数值,本次只逐字核对了 FY24/FY23 的总收入、毛利率和经营利润
+- 利润率口径:NVIDIA 是全公司口径,AMD 和 Micron 是分部经营利润率(分部不分摊部分费用);跨公司比较经营利润率时要注意分部和全公司口径不同
+
+## CLOUD-hyperscalers
+
+### 要点
+(1) 截至 2026 年 10 月,云是 AI 链条里少数已经在 GAAP 层面持续赚钱的一层。AWS 本季经营利润率 39.4%(扣除能源衍生品收益后约 38%),Google Cloud 35.6%,增速 82%。微软 Intelligent Cloud 经营利润率持平在约 41%,但毛利率从 60.4% 降到 57.1%,Microsoft Cloud 毛利率降到 65-66%。AI 正在压毛利,规模摊薄则在撑经营利润率。(2) 代价是现金流。Amazon 过去 12 个月 FCF 为 -$7.6B,Alphabet Q2 FCF 为 -$5.9B 并为此发股 $49.6B,Meta Q2 FCF 只有 $0.78B,Oracle FY26 FCF 为 -$23.7B。微软现金 capex 占经营现金流 63%,是唯一仍有大额正 FCF 的一家(约 $67B)。2026 年指引:MSFT 约 $175B(日历年,含融资租赁)、GOOG $195-205B、AMZN 约 $220B、META $130-145B。(3) 积压订单极大(MSFT $678B / GOOG $514B / AWS $496B / ORCL $664B),但高度集中于 OpenAI、Anthropic 等少数前沿实验室。微软 RPO 剔除 OpenAI 后只增 25%;微软 FY26 来自 OpenAI 的收入达 $24.1B。Oracle RPO 只有 13% 会在未来 12 个月确认。(4) 云厂商通过股权从模型层拿到巨额账面收益:Amazon 一季度 Anthropic 重估 $50.5B,是同季 AWS 经营利润的 3 倍;Alphabet 一季度未实现收益 $77.5B;微软 OpenAI 稀释收益 $6.5B,另有 Anthropic $3.2B。所以“做模型的给人做嫁衣”有一半应改成“云厂商同时是房东和股东”。也正因如此,衡量云层利润必须看分部经营利润,不能看 GAAP 净利。(5) 折旧方面,MSFT 和 GOOG 都在 2022-23 年把服务器年限从 4 年延到 6 年(MSFT 当年利润 +$3.7B),Meta 2025 年延到 5.5 年(少计折旧 $2.92B),Oracle 为 6 年。Amazon 则反向把部分服务器从 6 年缩到 5 年,并计提约 $920M 提前报废,这一点反驳了“大家都在拉长年限”的说法。Burry 估计 2026-28 年少计折旧 $176B,属投资人口径。微软 FY27 起把楼宇年限从 15 年延到 25 年,主要改变的是 capex 统计口径,对利润影响小。(6) GPU 租赁毛利只有二手证据:The Information 报道 Oracle 约 14%(2025-08 季度),Oracle 自报合同全周期 30-40%。各家 10-Q 都没有分拆 AI 租赁毛利。(7) Meta 是反向样本。Q2 经营利润同比降 8%,FoA 利润率从 53% 降到 39%,原因里明确写了 third-party cloud services 和 third-party AI token costs,说明下游应用/广告方当期在向云和模型层付钱。(8) “AI 收入”全是 run-rate,各家定义不同(MSFT AI business $37B、AWS AI $25B、Alphabet 不披露),不能横向比较。(9) 四家都称需求超过供给。当下的高利润率建立在稀缺之上,稀缺解除后利润率能否守住,决定长期利润是否落在云层,这一点目前没有证据。
+
+### 论断
+- **C01** ★ [官方(财报/SEC/官方博客)|2026-07-30|卖铲子赢] AWS 2026Q2 收入 $42.2B(+37%),分部经营利润 $16.6B(上年 $10.2B),经营利润率 39.4%(上年 32.9%);剔除能源合同衍生品未实现收益后同比改善约 520bp(约 38%)
+  - 原文:AWS segment operating income was $16.6 billion, compared with $10.2 billion in second quarter 2025. | Technology and infrastructure costs in Q2 2026 include net unrealized gains for energy contracts that are subject to derivative accounting, primarily related to AWS.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm
+- **C02** ★ [官方(财报/SEC/官方博客)|2026-07-22|卖铲子赢] Google Cloud 2026Q2 收入 $24.8B(+82%),分部经营利润 $8.81B(上年 $2.83B),利润率 35.6%(上年 20.7%)。口径:增速含首次确认的 TPU 系统硬件销售;前沿模型共享研发(Alphabet-level,Q2 -$5.8B)未分摊进 Cloud
+  - 原文:Google Cloud saw a meaningful acceleration in growth as revenues increased 82% to $24.8 billion | in the second quarter of 2026, we began recognizing revenue from the sale of TPU systems
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm
+- **C03** ★ [官方(财报/SEC/官方博客)|2026-09|卖铲子赢] 微软 2026-09 重述后首次披露 Azure 绝对额:FY26(截至 2026-06)$101.9B(FY25 $72.6B,+40%),Q4 $29.4B(+42%);新口径移出 GitHub/Security Copilot/医疗云。FY27Q1 指引按固定汇率 +44-45%
+  - 原文:Azure has been updated to reflect the move of GitHub cloud and other developer cloud services as well as Security Copilot to Microsoft 365 cloud.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm
+- **C04** ★ [官方(财报/SEC/官方博客)|2026-07-29|模型商品化] 微软 Intelligent Cloud FY26Q4 毛利率 57.1%(上年同期 60.4%,自算),经营利润率 40.6% 持平;Microsoft Cloud 毛利率 FY26 全年降至 66%,Q4 为 65%——AI 基础设施在压毛利
+  - 原文:Microsoft Cloud gross margin percentage decreased to 66% driven by continued investments in AI infrastructure and growing AI product usage
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **C05** [官方(财报/SEC/官方博客)|2026-09-10|中性] Oracle FY27Q1(截至 2026-08-31)OCI 收入 $7.4B(+121%);云与软件分部费用 +82%,收入 +33%,直接利润率 54.5%(上年 59.6%,自算,仅含直接可控成本)
+  - 原文:Q1 Cloud Infra (IaaS) Revenue up 121% in USD & up 120% in constant currency to $7.4 billion.
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm
+- **C06** ★ [媒体转述|2025-10-07|卖铲子赢] The Information 报道 Oracle 截至 2025-08 的季度 Nvidia GPU 租赁收入约 $9 亿、毛利约 14%(内部文件,媒体转述);Oracle 回应称 6 年期 $60B 合同全周期毛利 35%(区间 30-40%,厂商自报)。两者口径不同,10-Q 未分拆
+  - 原文:(CNBC 转述)Oracle is seeing thin cloud margins from Nvidia chips; Oracle: a $60 billion, six-year AI infrastructure project would have a gross margin of 35%
+  - https://www.cnbc.com/2025/10/07/oracle-stock-nvidia-chip-margins.html
+- **C07** ★ [官方(财报/SEC/官方博客)|2026-07-30|聚合者通吃] Meta 2026Q2 收入 +28%,但经营利润 $18.78B 同比降 8%,FoA 经营利润率 53%→39%;成本驱动明确包括第三方云服务与第三方 AI token 成本——应用/广告方当期在向云与模型层付费
+  - 原文:infrastructure expenses related to our data centers, technical infrastructure, and third-party cloud services; legal-related costs; and third-party AI token costs.
+  - https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm
+- **C08** [官方(财报/SEC/官方博客)|2026-04-29|卖铲子赢] 微软 AI business 年化 run-rate 超过 $37B(+123%,2026-04 披露;2025-01 为 $13B);run-rate 非确认收入,范围未定义
+  - 原文:Our AI business surpassed an annual revenue run rate of $37 billion, up 123% year-over-year.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526191457/msft-ex99_1.htm
+- **C09** [官方(财报/SEC/官方博客)|2026-07-30|卖铲子赢] AWS AI 业务年化 run-rate 超过 $25B,自研芯片业务年化 run-rate 超过 $25B,均为三位数增长;AWS 整体年化约 $169B(AI 约占 15%,两个 run-rate 可能重叠)
+  - 原文:Exceeded a $25 billion annual revenue run rate for AWS's AI business, growing triple-digit percentages year-over-year.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm
+- **C10** [官方(财报/SEC/官方博客)|2026-07-22|中性] Alphabet 不披露 AI 收入,只披露用量:Gemini 每分钟 220 亿 API token、Gemini App 9.5 亿 MAU——AI 收入口径无法与 MSFT/AWS 横比
+  - 原文:Gemini models now process 22 billion API tokens per minute and the Gemini App has 950 million monthly active users.
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm
+- **C11** ★ [官方(财报/SEC/官方博客)|2026-07-29|前沿赢家通吃] 微软商业 RPO $678B(+84%),剔除 OpenAI 仅 +25%;CFO 称环比 RPO 增长全部来自前沿模型公司以外的客户。RPO 约 30% 在 12 个月内确认
+  - 原文:RPO increased 25% when excluding OpenAI. | All sequential commercial RPO growth was driven by commitments from customers outside of frontier model companies.
+  - https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+- **C12** ★ [官方(财报/SEC/官方博客)|2026-07-29|前沿赢家通吃] 微软 FY26 来自 OpenAI 商业安排的收入(含收入分成)为 $24.1B,约占总收入 7.3%;期末对 OpenAI 应收 $6.0B;按转换后口径持股约 25%
+  - 原文:For fiscal year 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 24.1 billion, and accounts receivable from OpenAI as of June 30, 2026 was $ 6.0 billion.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **C13** ★ [官方(财报/SEC/官方博客)|2026-07-23|卖铲子赢] Alphabet 收入积压 $519.5B,其中 Google Cloud $513.9B,略超一半在 24 个月内确认;2026Q1 起口径改为包含 1 年以内合同(同比不可比)
+  - 原文:In the first quarter of 2026, we elected to change our reporting of revenue backlog to also include contracts with an original expected term of one year or less.
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+- **C14** ★ [官方(财报/SEC/官方博客)|2026-07-31|前沿赢家通吃] AWS 未确认长期合同承诺约 $496B,加权剩余期限 6.4 年;其中包括 OpenAI 在原 $38B 之上 8 年追加 $100B、Anthropic 10 年追加超过 $100B(两者都含 AWS 芯片履约条款)
+  - 原文:In Q1 2026, AWS and OpenAI Group PBC ("OpenAI") announced an expansion of the existing $ 38.0 billion multi-year commitment and commercial arrangement with OpenAI by $ 100.0 billion over 8.0 years
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+- **C15** ★ [官方(财报/SEC/官方博客)|2026-09-11|中性] Oracle RPO $664B(上年 $455B),只有约 13% 在未来 12 个月确认、37% 在 13-36 个月、34% 在 37-60 个月;10-K 承认 OCI 部分产品客户集中
+  - 原文:Remaining performance obligations were $ 664 billion as of August 31, 2026 , of which we expect to recognize approximately 13 % as revenues over the next twelve months
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+- **C16** ★ [官方(财报/SEC/官方博客)|2026-07-29|卖铲子赢] 微软 FY26 现金 capex $115.9B(FY25 $64.6B),占经营现金流 $182.9B 的 63%(FY25 47%),现金 FCF 约 $67B(FY25 约 $71.6B);Q4 含融资租赁 capex $41B,约 2/3 为 CPU/GPU 等短寿命资产;日历 2026 指引约 $175B(因融资租赁转经营租赁由约 $190B 下调,投资计划本身未变);另有 $329.1B 尚未起租的租赁
+  - 原文:our calendar year 2026 CapEx investment expectations remain unchanged. However, the shift from finance to operating leases adjusts our expectation to approximately $175 billion
+  - https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+- **C17** ★ [官方(财报/SEC/官方博客)|2026-06-01|卖铲子赢] Alphabet 2026 capex 指引上调至 $195-205B(2025 实际 $91.4B),2027 年将显著增加;2026Q2 capex $44.9B 超过经营现金流 $39.1B,FCF 为 -$5.9B;6 月宣布 $80B 股权融资(Q2 到账净额 $49.6B),另发债净额 $20.3B
+  - 原文:Alphabet Announces Proposed $80 Billion Equity Capital Raise to Expand AI Infrastructure and Compute
+  - https://www.sec.gov/Archives/edgar/data/1652044/000119312526257724/d83560dex991.htm
+- **C18** ★ [官方(财报/SEC/官方博客)|2026-07-30|电力稀缺] Amazon 截至 2026Q2 的 TTM 自由现金流 -$7.6B(净 capex $169.0B 超过 OCF $161.4B);2025 全年 FCF $11.2B;2026 年现金 capex 约 $220B,且仍称产能不足
+  - 原文:Free cash flow decreased to an outflow of $7.6 billion for the trailing twelve months, driven primarily by a year-over-year increase of $66.1 billion in purchases of property and equipment
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm
+- **C19** ★ [官方(财报/SEC/官方博客)|2026-07-29|聚合者通吃] Meta 2026 capex(含融资租赁本金)指引 $130-145B(2025 实际约 $72.2B);2026Q2 FCF 仅 $0.78B(上年同期 $8.5B);尚未起租的数据中心租赁约 $279B,7 月再签约 $68B
+  - 原文:We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $130-145 billion, narrowed from our prior outlook of $125-145 billion.
+  - https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm
+- **C20** ★ [官方(财报/SEC/官方博客)|2026-06-22|卖铲子赢] Oracle FY26(截至 2026-05)capex $55.7B,OCF $32.0B,FCF -$23.7B;FY27Q1 FCF 再为 -$5.4B,用完 $20B ATM 发股;非流动借款 $117.7B
+  - 原文:Net cash provided by operating activities $ 31,977 54% $ 20,821 Capital expenditures (55,663 ) 162% (21,215 ) Free cash flow $ (23,686 )
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm
+- **C21** ★ [官方(财报/SEC/官方博客)|2022-07-28|中性] 微软 2022-07 把服务器与网络设备年限从 4 年延到 6 年,估计 FY23 经营利润 +$3.7B;FY27 起把数据中心/办公楼年限从 15 年延到 25 年,公司称对 FY27 经营利润只有极小正面影响
+  - 原文:we determined we should increase the estimated useful lives of both server and network equipment from four years to six years ... it is estimated this change will increase our fiscal year 2023 operating income by $3.7 billion.
+  - https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm
+- **C22** [官方(财报/SEC/官方博客)|2023-02-03|中性] Alphabet 自 2023 财年起把服务器年限从 4 年延到 6 年、部分网络设备从 5 年延到 6 年;2026H1 折旧 $13.6B,同比 +43%
+  - 原文:adjusted the estimated useful life of our servers from four years to six years and the estimated useful life of certain network equipment from five years to six years
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204423000016/goog-20221231.htm
+- **C23** ★ [官方(财报/SEC/官方博客)|2026-01-29|中性] Meta 自 2025-01-01 起把多数服务器与网络资产年限延到 5.5 年,2025 年因此少计折旧 $2.92B、净利增加 $2.59B(每股 $1.00)
+  - 原文:the financial impact of this change in estimate included a reduction in depreciation expense of $ 2.92 billion and an increase in net income of $ 2.59 billion, or $ 1.00 per diluted share
+  - https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm
+- **C24** ★ [官方(财报/SEC/官方博客)|2026-02-06|模型商品化] Amazon 反向操作:自 2025-01 起把部分服务器从 6 年缩到 5 年,理由是 AI/ML 技术迭代加快,2025 年折旧因此增加 $1.4B;2024Q4 另计提约 $920M 提前报废。这是对“都在拉长年限”叙事的一手反证
+  - 原文:The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm
+- **C25** [官方(财报/SEC/官方博客)|2026-09-11|中性] Oracle 服务器与网络设备年限为 6 年;FY27Q1 折旧 $3.2B(上年同期 $1.4B)
+  - 原文:Comprised primarily of servers and networking equipment with estimated useful life of six years
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+- **C26** ★ [媒体转述|2025-11-11|模型商品化] Michael Burry 估计超大云厂商 2026-2028 年少计折旧 $176B,2028 年 Oracle 利润被高估 26.9%、Meta 20.8%(投资人估算,媒体转述);对照材料:Nadella 本人承认不想被一代芯片锁定 4-5 年折旧,应对方式是分批采购
+  - 原文:Understating depreciation by extending useful life of assets artificially boosts earnings - one of the more common frauds of the modern era.
+  - https://www.investing.com/news/stock-market-news/michael-burry-warns-of-176-billion-depreciation-understatement-by-tech-giants-4346876
+- **C27** ★ [官方(财报/SEC/官方博客)|2025-10-28|前沿赢家通吃] 微软-OpenAI 2025-10 重组:微软持有 OpenAI Group PBC 约 27%(估值约 $135B),OpenAI 追加 $250B Azure 采购承诺,微软放弃算力优先购买权;2026-04 再修订(媒体转述):约 20% 收入分成持续到 2030 年但设总额上限,IP 许可改为非独占
+  - 原文:OpenAI has contracted to purchase an incremental $250B of Azure services
+  - https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/
+- **C28** ★ [官方(财报/SEC/官方博客)|2026-07-29|前沿赢家通吃] 微软对 OpenAI 的权益法投资:FY25 净亏损 $4.8B,FY26 净收益 $6.5B,主要为 OpenAI 资本重组带来的稀释收益;另 FY26Q4 有 Anthropic 投资收益 $3.2B;non-GAAP 剔除 OpenAI 影响
+  - 原文:The net gains recorded for fiscal year 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **C29** ★ [官方(财报/SEC/官方博客)|2026-07-31|前沿赢家通吃] Amazon 2026Q2 税前非经营收益 $53.4B,主要来自 Anthropic 无投票权优先股的可观察价格上调($50.5B;H1 合计 $62.8B),约为同季 AWS 经营利润($16.6B)的 3 倍
+  - 原文:The upward adjustments relating to equity investments in private companies of $ 50.5 billion in Q2 2026 and $ 62.8 billion for the six months ended June 30, 2026 reflect observable changes in prices, primarily from our nonvoting preferred stock in Anthropic.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+- **C30** ★ [官方(财报/SEC/官方博客)|2026-07-22|前沿赢家通吃] Alphabet 2026Q2 其他收益 $98.0B,主要是股权未实现收益:未点名的非上市股权 $77.5B(公司仅称“a private company”),另持有 SpaceX 股份约 $94B;当季净利 $112.2B,经营利润只有 $40.8B
+  - 原文:Other income reflected a net gain of $98.0 billion, primarily the result of net unrealized gains on our equity securities.
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm
+- **C31** ★ [官方(财报/SEC/官方博客)|2026-09-10|电力稀缺] MSFT/GOOG/AMZN/ORCL 均称 AI 算力需求超过供给;当下云层利润率建立在稀缺之上,稀缺解除后能否守住尚无证据
+  - 原文:Customer demand for AI Cloud Training and Inferencing Services continues to grow faster than supply.
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm
+- **C32** [官方(财报/SEC/官方博客)|2026-07-30|模型商品化] Amazon Bedrock 同时上架 OpenAI GPT-5.6、Anthropic Claude Opus 5、Gemma 4、Grok 4.3 等多家模型,Q2 客户支出超过此前所有季度之和;支持“云当模型货架、模型可替换”的叙事,但未披露 Bedrock 收入
+  - 原文:Added 10+ fully managed foundation models to Amazon Bedrock, including OpenAI's GPT-5.6, Anthropic's Claude Opus 5, Google DeepMind's Gemma 4, and SpaceXAI's Grok 4.3.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm
+
+### 交叉口径问题
+- 财年错位:微软 FY26 = 2025-07 至 2026-06,Oracle FY26 = 2025-06 至 2026-05,其余为日历年;各家 capex 不能直接相加
+- capex 口径不一:微软日历 2026 约 $175B 含融资租赁,且因融资租赁转经营租赁由约 $190B 下调(投资计划本身未变);Amazon 用现金 capex 和净额(扣除处置与激励);Meta 含融资租赁本金;Alphabet 为购置 PP&E
+- 微软 2026-09 重述 Azure 定义(移出 GitHub、Security Copilot、医疗云),新旧口径增速差约 1 个百分点;旧的 'Azure and other cloud services' 不能与新 'Azure' 拼接成时间序列
+- Alphabet 收入积压自 2026Q1 起纳入 1 年以内合同,同比不可比;Google Cloud Q2 增速 82% 含首次确认的 TPU 系统硬件销售
+- Google Cloud 分部利润不含 Alphabet-level 共享 AI 研发(Q2 -$5.8B),Cloud 35.6% 利润率没有承担前沿模型成本;各家分部成本分摊方式不同
+- AWS Q2 利润率 39.4% 含能源合同衍生品未实现收益(非现金),剔除后约 38%
+- “AI 收入”全是 run-rate,定义各异:MSFT AI business $37B(2026-04)、AWS AI $25B、AWS 芯片 $25B(可能与 AI 重叠)、Alphabet 不披露
+- GAAP 净利被模型公司股权重估严重扭曲:Amazon Q2 Anthropic $50.5B、Alphabet Q2 未点名私企 $77.5B 加 SpaceX、微软 OpenAI 稀释收益 $6.5B 与 Anthropic $3.2B;衡量云层利润须用分部经营利润
+- 积压/RPO 是承诺额而非落地额,且集中于 OpenAI、Anthropic:微软 RPO 剔除 OpenAI 后仅 +25%;AWS 积压含两家各约 $100B 以上;Oracle RPO 仅 13% 在 12 个月内确认
+- Oracle GPU 租赁毛利 14% 来自 The Information 引用的内部文件(2025-08 季度,媒体转述),35% 是 Oracle 自报的 6 年合同全周期估算(厂商自报),口径不可直接比较
+- 微软 '$24.1B 来自 OpenAI 收入' 含收入分成,不全是 Azure 消费;按 Azure 的 1/4 推算属粗估
+- 电话会引语经 WebFetch 从转录页抽取,财报 8-K/10-Q/10-K 引文为 sec.gov 原文;验证阶段应优先核对 C11、C16、C17 的电话会原句
+- Burry 的 $176B 是投资人估算(媒体转述),未见方法论原文;Oracle 与 Meta 的高估比例同属转述
+
+## PHYS-neocloud-power
+
+### 要点
+截至 2026 年 10 月,算力租赁与电力/数据中心层的发现如下。(1) neocloud 的商业模式在财报里就是"带杠杆的折旧套利"。以 CoreWeave Q2 2026 为例:收入 $2.575B,non-GAAP 调整后 EBITDA 率 59%;折旧占收入 54%,净利息 $640M 约占收入 25%;GAAP 经营亏损 $49M,GAAP 净亏损 $626M。有息债务约 $35B,股东权益仅 $5B。Q3 利息指引 $0.86-0.94B,高于调整后经营利润指引 $0.20-0.26B。2026 全年 capex 指引 $35-39B,约为收入的 3 倍。(2) 2026 年是卖方市场:CoreWeave 7 月全线提价约 25%,一份 A100 合同续到 2029 年;Nebius 新单回收期缩短到 22 个月,预付款覆盖 50-60% 的 capex。即便如此,neocloud 股东层面仍是 GAAP 亏损,利润被债权人、NVIDIA(毛利率 75%)和电力/地产方分走。(3) GPU 租价是周期性波动,不是单调下跌。H100 从 2024 年初约 $8/h 跌到 2025-10 低点约 $1.70(一年期合约),跌幅约 80%,是商品化的证据;此后反弹到 2026 年 9-10 月的 $2.8-3.3,涨幅 60-90%。租价上行期各家上调折旧年限(Nebius 从 4 年改为 5 年,CoreWeave 6 年),而 Amazon 反向把部分服务器从 6 年缩短到 5 年;同一类资产折旧年限方向相反,利润率很难横向比较。(4) 超大规模云主动把"单代硬件折旧 + 单一客户集中"的风险外包给 neocloud(Nadella 原话)。NVIDIA 则通过 $6.3B 剩余容量兜底、回租 Lambda 的 GPU、入股 Crusoe 等方式支撑 neocloud。所以 neocloud 更像上游的融资与分销通道,拿的是风险溢价,不是稀缺租金。(5) 电力层利润确实在涨:Vistra 调整后 EBITDA +31%,Talen 约 4 倍,Constellation 上调指引,主因是 PJM 容量价从 $28.92 涨到 $325-333/MW-day,约 11 倍。但这部分租金被监管上限封住,已连续三次拍卖撞上限,政治上还明确要求数据中心自担新增发电成本。(6) Epoch AI 的模型显示,电费只占 1 GW AI 数据中心年化 TCO 的约 7%,服务器占 60%。所以电力卖方能拿到的是"接入速度/时间"的稀缺租金,金额远小于芯片层。核电 PPA 推算约 $83-115/MWh,有溢价,但不是倍数级租金。(7) 幽灵需求是反证:投机性接入申请约为实际建成量的 5-10 倍,德州州长下令审计,ERCOT 因此暂停了 Batch Zero 分类。(8) 最持久的稀缺点更可能是"已通电、已接入的容量/场地"。依据:DLR 超大规模客户续约 cash 价差 66.7%,neocloud 都在囤合同电力,GEV 燃气轮机排队约 5 年,并网中位数超过 5 年。但 GEV 在扩产(目标 2030 年 30 GW/年),单位租金也被监管和 TCO 占比双重压低。(9) 当下利润量级对比:NVIDIA 单季 GAAP 经营利润 $63.7B,本线覆盖的电力/设备/数据中心/neocloud 公司同季 EBITDA 加总不到它的 1/10。结论:电力层持久但利润薄,neocloud 利润薄且带杠杆,芯片层当下最厚。
+
+### 论断
+- **P1** ★ [官方(财报/SEC/官方博客)|2026-08-11|反驳卖铲子赢(对neocloud)] CoreWeave Q2 2026(截至2026-06-30)收入$2,575M(+112%);GAAP经营亏损$(49)M;净利息支出$(640)M;GAAP净亏损$(626)M;non-GAAP调整后EBITDA $1,510M(59%);调整后经营利润$128M(5%,上年同期16%)。EBITDA与GAAP的差距主要是单季折旧摊销$1,393M(占收入54%)
+  - 原文:Revenue $ 2,575 $ 1,212 Operating expenses 2,624 1,193 Operating income (loss) $ (49) $ 19 ... Interest expense, net $ (640) $ (267) Net loss $ (626) $ (290)
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000362/coreweave2q26earningspress.htm
+- **P2** ★ [官方(财报/SEC/官方博客)|2026-08-11|反驳卖铲子赢(对neocloud)] CoreWeave 2026-06-30资产负债表:有追索+无追索有息债务合计约$35.1B,经营租赁负债约$16.3B,股东权益$5.0B,累计亏损$(4.0)B;2026上半年capex $14.1B,经营现金流$3.66B
+  - 原文:Recourse debt, non-current 25,170 14,608 Non-recourse debt, non-current 2,385 57
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000362/coreweave2q26earningspress.htm
+- **P3** [官方(财报/SEC/官方博客)|2026-08-12|支持卖铲子赢] CoreWeave RPO $103.7B(承诺额,非落地),41%预计在24个月内确认,其余在第25-78个月;另有Q3初超过$25B的新签承诺未计入
+  - 原文:As of June 30, 2026, the Company had $ 103.7 billion of unsatisfied RPO, of which 41 % was expected to be recognized over the initial 24 months ending June 30, 2028
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+- **P4** ★ [官方(财报/SEC/官方博客)|2026-03-02|聚合者通吃(买方议价力)] CoreWeave客户集中度:2025全年微软占收入67%;Q2 2026前三大客户分别占36%/26%/10%(Q2 2025最大客户占71%);OpenAI承诺约$6.5B,Meta最高约$21.0B,Jane Street约$6.0B
+  - 原文:We recognized an aggregate of approximately 67% of our revenue from our top customer, Microsoft, for the year ended December 31, 2025.
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm
+- **P5** ★ [官方(财报/SEC/官方博客)|2026-03-02|中性] CoreWeave的GPU等技术设备按6年折旧(2023年起由5年延长);承诺合同通常1-6年、take-or-pay
+  - 原文:Effective January 1, 2023, the Company changed its estimate of the useful life for its computing equipment utilized in data centers from five to six years
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm
+- **P6** ★ [分析机构|2026-01-09|模型商品化(算力商品化)] H100云租价从2024年初约$8/h跌到2025年末$1.50-3.00/h;2025-12至2026-01由$2.00升到$2.20(Silicon Data指数,商业机构自报方法论)
+  - 原文:H100 cloud rates plummeted from around $8/hr in early 2024 to the $1.50-$3.00/hr range by late 2025
+  - https://www.silicondata.com/blog/h100-price-spike
+- **P7** ★ [分析机构|2026-04-02|支持卖铲子赢] SemiAnalysis:H100一年期合约租价从2025-10低点$1.70/h升到2026-03的$2.35/h(约+40%),更高租价延长GPU经济寿命
+  - 原文:H100 1-year GPU rental contract pricing has shot up almost 40% from a low of $1.70/hr/GPU in October 2025 to $2.35/hr/GPU by March 2026.
+  - https://newsletter.semianalysis.com/p/the-great-gpu-shortage-rental-capacity
+- **P8** [分析机构|2026-10-05|中性] Silicon Data neocloud H100指数(SDH100RT)2026-10-05为$2.81/GPU-h;2026-03 H100 hyperscaler指数约$7.43-7.52/h,neocloud约$2.43-2.63/h,相差约3倍;B200指数2026-03-30为5.48(3月均价$5.09/h)
+  - 原文:As of Oct 5, 2026 ... 2.81 USD / GPU-hour
+  - https://www.silicondata.com/products/silicon-index/h100
+- **P9** [媒体转述|2026-09-22|支持卖铲子赢] Ornn交易平台数据(媒体转述):H100小时租价一个月内+21.9%,从$2.69升到$3.28,约为H200的70%;韩国Vessl AI把H100从$2.39提到$2.98
+  - 原文:the hourly cloud rental rate for the H100 rose 21.9% over the past month to $3.28 from $2.69
+  - https://en.sedaily.com/finance/2026/09/22/h100-rental-prices-jump-22-percent-in-a-month-as-gpu
+- **P10** ★ [官方(财报/SEC/官方博客)|2026-07-14|电力稀缺] PJM 2028/29容量拍卖以FERC批准的上限$325/MW-day出清,比可靠性标准少6,831 MW,总额约$16.4B;连续三次拍卖撞上限;公告明确提到数据中心大负荷被计入负荷预测
+  - 原文:The price came in at the FERC-approved cap, $325/MW-day (UCAP) for the entire PJM footprint
+  - https://www.prnewswire.com/news-releases/pjm-capacity-auction-procures-138-318-mw-of-generation-resources-as-work-continues-to-address-growing-electricity-demand-302825613.html
+- **P11** ★ [官方(财报/SEC/官方博客)|2026-08-07|电力稀缺] Vistra Q2 2026 non-GAAP Ongoing Ops调整后EBITDA $1,767M(+31%);East(PJM)段$642M,上年同期$418M;主要驱动是更高的实现电价与容量价;GAAP净利$305M;并与KKR/KIA/NVIDIA合组Helix数据中心公司,Vistra出资至多$1.0B
+  - 原文:Ongoing Operations Adjusted EBITDA for the second quarter 2026 increased by $418 million compared to the second quarter 2025, driven primarily by higher realized energy and capacity prices
+  - https://www.sec.gov/Archives/edgar/data/1692819/000169281926000017/vistra-20260630xearningsre.htm
+- **P12** [官方(财报/SEC/官方博客)|2026-08-05|电力稀缺] Talen Q2 2026 non-GAAP调整后EBITDA $374M(上年同期$90M);GAAP归母净亏损$(92)M;2026指引上调至$2,025-2,225M;在2028/29 PJM拍卖中以$325/MWd出清超过10 GW
+  - 原文:Adjusted EBITDA increased by $284 million primarily due to increases in energy and other revenues and capacity revenues
+  - https://www.sec.gov/Archives/edgar/data/1622536/000162253626000065/a20260805q22026earningsrel.htm
+- **P13** [官方(财报/SEC/官方博客)|2026-08-06|电力稀缺] Constellation Q2 2026 GAAP EPS $1.42(上年$2.67),non-GAAP调整后经营EPS $2.55(上年$1.91);全年指引上调至$11.50-12.50;新签920 MW核电PPA,期限15-20年、2029-2032年起供;Crane(三里岛,微软PPA)目标2027年重启
+  - 原文:These agreements are for 15-20 years in duration and are set to begin in 2029 through 2032.
+  - https://www.sec.gov/Archives/edgar/data/1868275/000186827526000097/ceg-20260806991.htm
+- **P14** [媒体转述|2024-09-23|电力稀缺] Jefferies估算微软-Crane 20年固定价PPA约$110-115/MWh(双方未披露价格;分析机构估算)
+  - 原文:
+  - https://tech.yahoo.com/business/articles/microsoft-may-pay-constellation-premium-223049148.html
+- **P15** ★ [官方(财报/SEC/官方博客)|2026-07-22|电力稀缺] GE Vernova Q2 2026:订单$24.2B(有机+88%);燃气设备积压+槽位预订从100 GW增至116 GW(其中53 GW积压、63 GW槽位预订,后者是承诺不是确定订单),预计年底≥125 GW;产能2026年Q3达20 GW/年、2028年24 GW、2030年30 GW;Power段EBITDA率18.8%,公司调整后EBITDA率11.3%,GAAP净利率5.8%
+  - 原文:Gas Power equipment backlog and slot reservation agreements grew from 100 to 116 GW; now anticipate reaching at least 125 GW by year-end 2026
+  - https://www.sec.gov/Archives/edgar/data/1996810/000199681026000147/gevpressrelease2q26.htm
+- **P16** ★ [官方(财报/SEC/官方博客)|2026-07-23|电力稀缺] Digital Realty Q2 2026收入$1.9B(+29%);续约租金cash +25.4%、GAAP +32.0%(创纪录);已签未起租backlog $1.9B(100%口径);超过1MW的续约cash价差66.7%,0-1MW仅5.2%(分段数据为媒体转述)
+  - 原文:Rental rates on renewal leases signed during the second quarter of 2026 increased 25.4% on a cash basis and 32.0% on a GAAP basis.
+  - https://www.sec.gov/Archives/edgar/data/1297996/000110465926086270/dlr-20260723xex99d1.htm
+- **P17** [官方(财报/SEC/官方博客)|2026-08-12|中性] Nebius Q2 2026集团收入$582.3M(+454%);ARR $3.0B(run-rate口径:季末月AI cloud收入×12);集团non-GAAP调整后EBITDA $236.2M(41%),AI cloud段49.7%;GAAP净亏约$(190)M(媒体转述);Q2 capex约$5.7B
+  - 原文:Annualized run-rate (ARR) is calculated by taking Nebius AI cloud revenue from the last month of the quarter multiplied by 12.
+  - https://assets.nebius.com/assets/a6ecfd85-a6cb-4967-8ef7-9a25bd261f9c/SHLQ226.pdf
+- **P18** ★ [厂商自报|2026-08-12|支持卖铲子赢] Nebius单位经济(厂商自报):Q2大单收入约$20-25M/MW;70%的合同带预付款,覆盖50-60%的capex;回收期从2-3年降到1年10个月;短期合约有$40-50M/MW的定价机会;称当下就能按此条件卖光2027年产能
+  - 原文:the expected payback period for the associated capex and related operating costs for Q2 deals is 1 year and 10 months, down from our two-to-three year payback period previously.
+  - https://assets.nebius.com/assets/a6ecfd85-a6cb-4967-8ef7-9a25bd261f9c/SHLQ226.pdf
+- **P19** ★ [官方(财报/SEC/官方博客)|2026-08-12|中性] Nebius 2026年起把服务器/网络设备折旧年限从4年延长到5年;D&A占收入从72%降到45%,部分改善来自会计估计变化
+  - 原文:We use a five-year useful life for our server and network equipment based on usage patterns and current utilization commitments, up from the four-year useful life used prior to 2026.
+  - https://assets.nebius.com/assets/a6ecfd85-a6cb-4967-8ef7-9a25bd261f9c/SHLQ226.pdf
+- **P20** ★ [官方(财报/SEC/官方博客)|2026-02|模型商品化(算力商品化)] Amazon自2025-01-01起把部分服务器与网络设备的折旧年限从6年缩短到5年,理由是AI/ML技术迭代加速(2025年折旧因此增加约$1.4B,数额为媒体转述);Meta则延长到5.5年。同类资产折旧方向相反
+  - 原文:Effective January 1, 2025 we changed our estimate of the useful lives of a subset of our servers and networking equipment from six years to five years . The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm
+- **P21** ★ [官方(财报/SEC/官方博客)|2025-11-12|聚合者通吃(云层议价力)] Nadella:不做'一家模型公司、RPO期限有限'的托管商,不想被某一代硬件的大规模部署套牢,愿意通过租赁/build-to-suit/GPU即服务从neocloud租入容量——即把单代折旧风险和单客户风险外包给neocloud
+  - 原文:it didn't make sense for us to go be a hoster for one model company with limited time horizon RPO
+  - https://www.dwarkesh.com/p/satya-nadella-2
+- **P22** ★ [同行评审|2026|电力稀缺] LBNL Queued Up 2026版:截至2025年底排队的发电+储能约2,061 GW(较上年-10%);2025年撤回超过750 GW;2025年投运项目从申请到投运中位数超过5年;2000-2020年申请的容量仅13%投运(数字来自搜索摘要,官网403未能逐字核对)
+  - 原文:
+  - https://emp.lbl.gov/publications/queued-2026-edition-characteristics
+- **P23** ★ [官方(财报/SEC/官方博客)|2026-08-03|反驳电力稀缺(幽灵需求)] 德州州长要求先核验数据中心大负荷,ERCOT于2026-08-03暂停Batch Zero分类通知;据报道Batch Zero中204个项目共66.4 GW有条件纳入基荷,审计预计2026-12-10前后结束
+  - 原文:Governor Greg Abbott directing ERCOT to conduct a verification process before advancing any data center Large Loads through the interconnection process.
+  - https://www.ercot.com/services/comm/mkt_notices/M-A080326-01
+- **P24** [媒体转述|2025-05-15|反驳电力稀缺(幽灵需求)] Camus Energy CEO:投机性接入申请是实际建成数据中心的5-10倍;Dominion与Appalachian Power提议大负荷电价类别,要求至少按合同需量的60%/80%付费
+  - 原文:Conservatively, you're seeing five to 10 times more interconnection requests than data centers actually being built.
+  - https://www.utilitydive.com/news/a-fraction-of-proposed-data-centers-will-get-built-utilities-are-wising-up/748214/
+- **P25** ★ [官方(财报/SEC/官方博客)|2026-08-11|支持卖铲子赢] CoreWeave电话会:Blackwell/Vera Rubin定价与利润率创新高,旧代定价不低于多年前水平;7月全SKU提价约25%;刚签的A100(2020年发布)合同延续到2029年(厂商自证,且处于供给紧张周期)
+  - 原文:we recently signed an A100 contract that extends into 2029 at an attractive price. As a reminder, this SKU was introduced in 2020.
+  - https://s205.q4cdn.com/133937190/files/doc_financials/2026/q2/CRWV-US-CORRECTED-TRANSCRIPT-CoreWeave-Q2-2026-Earnings-Call-11August2026.pdf
+- **P26** ★ [官方(财报/SEC/官方博客)|2026-08-11|反驳卖铲子赢(对neocloud)] CoreWeave指引:Q3利息支出$860-940M,高于Q3 non-GAAP调整后经营利润$200-260M;2026全年收入$12.4-13.2B、调整后经营利润$0.96-1.15B、capex $35-39B(约为收入3倍);年底run-rate $18.5-19.5B
+  - 原文:Q3 interest expense is expected to be in the range of $860 million to $940 million, reflecting the growth in our debt balance to finance our accelerating deployments.
+  - https://s205.q4cdn.com/133937190/files/doc_financials/2026/q2/CRWV-US-CORRECTED-TRANSCRIPT-CoreWeave-Q2-2026-Earnings-Call-11August2026.pdf
+- **P27** [媒体转述|2025-09-16|支持卖铲子赢(芯片层)] NVIDIA承诺购买CoreWeave至2032-04-13的剩余未售容量,初始价值$6.3B;NVIDIA同时是其股东与供应商(循环融资)
+  - 原文:
+  - https://www.rcrwireless.com/20250916/ai-infrastructure/nvidia-cloud
+- **P28** ★ [分析机构|2026-05-14|反驳电力稀缺(租金规模)] Epoch AI模型:1 GW GB200数据中心前期capex $38B,年opex $0.9B;年化TCO $8.5B,其中服务器$5B(60%),能源仅$0.6B(约7%,电价8.34美分/kWh);IT设备寿命按3年算年化TCO升到$12B,按7年算降到$7B——GPU寿命假设的影响远大于电价
+  - 原文:Servers dominate this cost at $5 billion per year, or 60% of the total
+  - https://epoch.ai/data-insights/ai-datacenter-cost-breakdown
+- **P29** ★ [官方(财报/SEC/官方博客)|2026-01-16|反驳电力稀缺(租金上限)] 宾州州长Shapiro争取联邦支持,把PJM价格上限再延长两次拍卖,称可为13州用户节省约$27B,并要求把长期合约成本分摊给未自带电源的数据中心——电力稀缺租金有政治天花板
+  - 原文:Allocate the cost of those long-term contracts to data centers and new large users that have not brought their own power
+  - https://www.pa.gov/governor/newsroom/2026-press-releases/gov-shapiro-secures-federal-support-to-extend-pjm-price-cap
+- **P30** [厂商自报|2026-09-17|支持卖铲子赢] Crusoe Series F $3.9B,投后估值$30.9B(NVIDIA参投);TCV超过$140B(承诺额);毛签约容量6 GW+,已交付1 GW(非上市厂商自报)
+  - 原文:
+  - https://www.crusoe.ai/resources/newsroom/crusoe-announces-series-f-funding
+- **P31** [媒体转述|2025|支持卖铲子赢(芯片层)] Lambda截至2025-09财年收入超过$520M、亏损约$175M;NVIDIA以$1.5B租回18,000张自家GPU(4年),成为Lambda最大客户(媒体转述,非审计)
+  - 原文:
+  - https://www.datacenterdynamics.com/en/news/nvidia-signs-15bn-deal-to-lease-its-gpus-back-from-lambda-report/
+- **P32** [从业者博客|2025-06|电力稀缺(但租金有限)] Talen-AWS修订PPA:至2042年最多1,920 MW,合同期总收入约$18B,满量后年收入至多$1.4B(厂商自报/媒体转述);本线推算隐含电价约$83-90/MWh,与Jefferies对Crane的$110-115估计同一量级,约为批发电价的1.5-2.5倍,有溢价但不是倍数级租金
+  - 原文:
+  - https://electroneconomics.substack.com/p/talens-amazon-contract-carries-10
+- **P33** ★ [官方(财报/SEC/官方博客)|2026-08-26|支持卖铲子赢(芯片层)] NVIDIA Q2 FY27(截至2026-07-26)收入$96.2B,其中数据中心$89.0B;GAAP毛利率75.0%,GAAP经营利润$63.7B。本线覆盖的电力/设备/数据中心/neocloud公司同季EBITDA加总不到其1/10(本线自算,口径混杂,仅示量级)
+  - 原文:For the quarter, GAAP and non-GAAP gross margins were both 75.0%.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm
+
+### 交叉口径问题
+- CoreWeave 有三种利润口径:non-GAAP 调整后 EBITDA(59%)、non-GAAP 调整后经营利润(5%)、GAAP 经营利润(-2%)和 GAAP 净利(-24%)。引用时必须标明口径,差距主要是折旧(54% 收入)和利息(25% 收入)。
+- backlog/RPO($104B CoreWeave、Nebius 客户承诺 $40B+、Crusoe TCV >$140B、GEV 槽位预订 63 GW)都是承诺额,不是落地额。CoreWeave 的 RPO 跨度到第 78 个月,并以交付为条件。
+- ARR/run-rate(Nebius ARR $3.0B = 季末月收入 ×12;CoreWeave 年底 run-rate $18.5-19.5B)不是确认收入,不能和其他公司的年收入直接比较。
+- 折旧年限各家不同,方向还相反:CoreWeave 6 年;Nebius 2026 年起从 4 年改为 5 年(D&A 占收入从 72% 降到 45%,部分是会计变化);Amazon 部分服务器从 6 年缩短到 5 年;Meta 延长到 5.5 年。跨公司的利润率比较会失真。
+- GPU 租价有多个指数,口径不同:Silicon Data neocloud 与 hyperscaler 指数相差约 3 倍(挂牌价不等于成交价);SemiAnalysis 用一年期合约价;Ornn 用交易平台价;媒体常把按需价和合约价混用。时间点和合约期限必须写清楚。
+- 电力公司利润几乎都是 non-GAAP(Vistra Ongoing Ops 调整后 EBITDA、Talen 调整后 EBITDA、CEG 调整后经营 EPS)。GAAP 数字受未实现套保损益扰动很大,Talen 甚至是 GAAP 亏损。
+- PJM 容量价是上限价(collar),不是真实出清价;'无上限约 $530/MW-day' 是反事实估计。容量价总额 $16.4B 也不等于用户实际支付额,有对冲和自供部分。
+- 核电 PPA 价格两家公司都没有披露:微软-Crane 的 $110-115/MWh 是 Jefferies 估计;Talen-AWS 约 $83-90/MWh 是本线根据厂商自报的年收入推算的。
+- 财年与日历年:NVIDIA Q2 FY27 截至 2026-07-26,与云/电力公司的日历 Q2(截至 06-30)错开约 4 周。
+- 非上市公司(Lambda、Crusoe)的数字全是厂商自报或媒体转述,未经审计。
+- LBNL Queued Up 2026 的数字来自搜索摘要,官网返回 403,没能逐字核对原文。
+- DLR 超过 1MW 续约 cash 价差 66.7% 是媒体转述电话会/补充材料,没在 SEC 原文里核对;SEC 原文只核对了整体 25.4%/32.0%。
+- Epoch AI 的 TCO 是程式化模型(全 GB200、电价 8.34 美分/kWh、IT 寿命 5 年),不是某个具体设施的实际值。
+
+## MODEL-labs
+
+### 要点
+截至 2026 年 10 月,模型层出现分化:Anthropic 的季度确认收入在 2026 年第二季度首次超过 OpenAI($11.6B 对 $6.7B,WSJ 报道)。Anthropic 对投资人称已连续两个季度实现正的 adjusted 经营利润,但所称"80%+ 毛利"剔除了分销分成和训练成本。OpenAI 第二季度经营亏损 $12.3B(含 SBC),亏损增速快于收入;FT 看到的公司演示显示,其预计 2026-2030 年累计负自由现金流 $278B。另外要分清 run-rate 和确认收入:OpenAI 9 月 ARR 约 $70B,但 2026 全年确认收入预测仅 $36B;Anthropic 2025 年确认收入约 $4.6B,而年末 run-rate 为 $9B。利润被上游截走有官方证据:微软 FY26 10-K 显示,当期从 OpenAI 确认收入 $24.1B,高于 OpenAI 2025 全年确认收入 $13.1B。名义承诺额也很大:OpenAI 有 $250B Azure、$38B AWS、Oracle RPO 合计 $664B,Anthropic 有 $518B(泄露 S-1)。不过上游自己的利润也还没落成现金:Oracle 最近一季 FCF 为 -$5.4B。价格方面有两条曲线:达到固定能力的价格每季降约 47%(约 13×/年,Epoch 2026-09),但前沿旗舰价格逐代上调(GPT-5 $1.25/$10 → gpt-5.5 $5/$30;Anthropic 新顶档 Fable 5.1 $10/$50)。MIT FutureTech 也测得运行前沿级模型的成本年升 3-18×,新达到的 SOTA 能力可以短暂收溢价。开源权重模型落后闭源前沿约 4 个月,差距没有收窄,反而从 3 个月变成 4 个月。在 OpenRouter 上,闭源模型约占 80% 用量、96% 收入,价格平均是开源的 6 倍;Menlo 的企业调查显示开源份额从 19% 降到 11%。这与"模型商品化"叙事相反:能力在商品化,但前沿溢价和企业黏性仍在,不过利润只集中在头部一两家。整体看,当下利润分布是模型层亏损(除 Anthropic 的 adjusted 口径外),现金大量流向云和芯片;长期落点取决于前沿溢价能否覆盖算力承诺。Google 不单列模型层损益,是垂直整合的反例。
+
+### 论断
+- **A1** ★ [厂商自报|2026-05-28|前沿赢家通吃] Anthropic 官方称 run-rate 收入在 2026 年 5 月上旬突破 $47B(年化 run-rate,非确认收入);Series H 融资 $65B,投后估值 $965B
+  - 原文:our run-rate revenue crossed $47 billion earlier this month
+  - https://www.anthropic.com/news/series-h
+- **A2** [厂商自报|2026-05-08|前沿赢家通吃] Anthropic run-rate 2026 年 4 月达 $30B(2025 年末约 $9B),CEO 称实际增长 80 倍,远超按 10 倍计划的预期
+  - 原文:We tried to plan very well for a world of 10x growth per year. And yet we saw 80x.
+  - https://venturebeat.com/technology/anthropic-says-it-hit-a-30-billion-revenue-run-rate-after-crazy-80x-growth
+- **A3** ★ [媒体转述|2026-08-17|前沿赢家通吃] Anthropic run-rate 在 2026 年 7 月末超过 $65B;投资者预期 2026 年末达 $100-120B(媒体转述,知情人)
+  - 原文:Anthropic's annualized revenue run rate ... surpassed $65 billion at the end of July
+  - https://techcrunch.com/2026/08/17/anthropics-annualized-revenue-surges-to-65b/
+- **A4** ★ [媒体转述|2026-09-29|前沿赢家通吃] Anthropic 确认收入:2025 全年约 $4.6B(2024 约 $0.39B),2026Q1 $4.73B,2026Q2 >$11.5B(初步)。来自泄露的保密 S-1,EDGAR 2026-10-05 未见公开版本
+  - 原文:Revenue grew twelvefold in 2025 to nearly $4.6 billion
+  - https://fortune.com/2026/09/29/anthropic-ipo-s-1-prospectus-income-statement/
+- **A5** [厂商自报|2026-01-19|电力稀缺] OpenAI CFO 称 2025 年 ARR 超过 $20B(2024 年 $6B),算力从 0.6GW 增至 1.9GW,收入与算力同步扩张(厂商自报,ARR 口径)
+  - 原文:annualized revenue has surpassed $20 billion in 2025, up from $6 billion in 2024
+  - https://finance.yahoo.com/news/openai-cfo-says-annualized-revenue-173519097.html
+- **A7** ★ [媒体转述|2026-08-19|中性] WSJ:OpenAI 2026 年确认收入 Q1 $5.7B、Q2 $6.7B(环比 +18%);Anthropic Q2 $11.6B,季度确认收入首次超过 OpenAI
+  - 原文:Anthropic posting $11.6 billion in second-quarter revenue and a small operating profit while OpenAI's losses widened to $12.3 billion
+  - https://finance.yahoo.com/technology/ai/articles/openai-q2-growth-trails-anthropic-102250259.html
+- **A8** ★ [媒体转述|2026-09-29|前沿赢家通吃] Axios 独家报道 OpenAI ARR 接近 $70B(2026 年 9 月末),较 Q3 初增长 70%,B2B 增长超过 100%。OpenAI 未确认
+  - 原文:OpenAI is on pace to generate annualized revenue of almost $70 billion
+  - https://www.bloomberg.com/news/articles/2026-09-29/openai-s-annualized-revenue-nears-70-billion-axios-says
+- **A9** [分析机构|2026|前沿赢家通吃] xAI AI 业务 ARR 约 $500M,每月烧钱约 $1B(二手转述 Bloomberg 2026-01,待核)
+  - 原文:
+  - https://sacra.com/c/xai/
+- **A10** [分析机构|2026|前沿赢家通吃] Mistral ARR 2026 年 1 月约 $400M,CEO 称年内将超过 $1B ARR(二手,待核)。第二梯队收入比头部小两个数量级
+  - 原文:
+  - https://sacra.com/c/mistral/
+- **B1** ★ [媒体转述|2026-02|卖铲子赢] OpenAI 2025 年调整后毛利 33%(2024 年 40%,原目标 46%);推理成本 2025 年翻四倍,原因是需求超预期,只能临时购买更贵的算力(The Information 转述投资者材料)
+  - 原文:the company having to buy more expensive compute at the last minute in response to higher than expected demand
+  - https://x.com/aakashgupta/status/2025268716469108895
+- **B2** ★ [媒体转述|2026-01-22|卖铲子赢] Anthropic 2025 年毛利预计 40%(原预期 50%),推理成本超预期 23%;2024 年毛利为 -94%;含免费用户约 38%;2025 年训练成本约 $4.1B(The Information 2026-01)
+  - 原文:gross margin for its artificial intelligence products sold to enterprises and application developers would reach 40% in 2025
+  - https://www.itiger.com/news/1154519858
+- **B3** ★ [媒体转述|2026-09-13|前沿赢家通吃] FT/Reuters:Anthropic 毛利超过 80%,但口径剔除了渠道分成(含 Amazon)和训练成本;连续第二个季度为正的 adjusted 经营利润(剔除 SBC 和一次性项目)
+  - 原文:gross margins are above 80% before accounting for revenue shared with distribution partners, including Amazon, and the cost of training its model
+  - https://www.investing.com/news/stock-market-news/anthropic-tells-investors-it-will-be-profitable-for-second-straight-quarter-ft-reports-4898761
+- **B4** ★ [媒体转述|2026-09|卖铲子赢] 泄露 S-1:Anthropic 2025 年经营亏损 $8.06B(2024 年 $2.98B);GAAP 净亏约 $42B,其中约 $34B 为非现金重估;算力及基础设施支出 $7.33B,超过经营成本一半;两大客户占 2025 年收入近四分之一
+  - 原文:Anthropic spent $7.33 billion on compute and infrastructure alone
+  - https://the-decoder.com/anthropics-ipo-filing-shows-soaring-revenue-mounting-costs-and-existential-risks/
+- **B5** ★ [媒体转述|2026-08-19|卖铲子赢] OpenAI 经营亏损 2026Q1 $9.3B、Q2 $12.3B(含 SBC),亏损增速快于收入;Q1 non-GAAP 经营利润率 -122%(The Information)
+  - 原文:Q2 operating loss: $12.3 billion (including stock-based compensation)
+  - https://finance.yahoo.com/technology/ai/articles/openai-q2-growth-trails-anthropic-102250259.html
+- **B6** ★ [媒体转述|2026-09-18|卖铲子赢] OpenAI 预测 2026-2030 年累计负自由现金流 $278B(5 月版为 $305B);收入从 2026 年 $36B(确认口径)增至 2030 年 $350B。来源为 FT 看到的公司演示
+  - 原文:OpenAI expects that its negative free cash flow will reach $278 billion from 2026 to the end of 2030
+  - https://finance.yahoo.com/technology/ai/articles/openai-projects-burning-278-billion-230655542.html
+- **C1** ★ [官方(财报/SEC/官方博客)|2026-07|卖铲子赢] 微软 FY26 10-K(2025-07 至 2026-06):从 OpenAI 商业安排确认收入 $24.1B(含分成),应收 $6.0B,高于 OpenAI 2025 日历年确认收入 $13.1B。模型层现金大量流向云
+  - 原文:For fiscal year 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 24.1 billion, and accounts receivable from OpenAI as of June 30, 2026 was $ 6.0 billion.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **C2** [官方(财报/SEC/官方博客)|2026-07|聚合者通吃] 微软 FY26 GAAP 净利润因 OpenAI 投资增加 $5.0B(主要是重组带来的稀释收益,非经营性),FY25 减少 $3.6B;微软的 non-GAAP 指标剔除这些项目
+  - 原文:Current year net income and diluted EPS were positively impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted EPS of $5.0 billion and $0.67, respectively.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **C3** ★ [官方(财报/SEC/官方博客)|2025-10-28|卖铲子赢] OpenAI 承诺追加采购 $250B Azure 服务(多年名义承诺额,非已落地支出),微软放弃算力优先购买权
+  - 原文:OpenAI has contracted to purchase an incremental $250B of Azure services, and Microsoft will no longer have a right of first refusal to be OpenAI's compute provider.
+  - https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/
+- **C4** [官方(财报/SEC/官方博客)|2026-04-27|中性] 2026 年 4 月修约:OpenAI 向微软的收入分成持续到 2030 年,比例不变但设总额上限(媒体报道约 20%、上限 $38B);微软的 IP 许可改为非独占
+  - 原文:Revenue share payments from OpenAI to Microsoft continue through 2030, independent of OpenAI's technology progress, at the same percentage but subject to a total cap.
+  - https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/
+- **C5** [官方(财报/SEC/官方博客)|2025-11-03|卖铲子赢] AWS 与 OpenAI 签约 $38B,期限 7 年(GB200/GB300 GPU)
+  - 原文:$38 billion agreement
+  - https://www.aboutamazon.com/news/aws/aws-open-ai-workloads-compute-infrastructure
+- **C6** ★ [官方(财报/SEC/官方博客)|2026-09|中性] Oracle RPO $664B(上年 $455B),只有约 13% 在 12 个月内确认;同季 FCF -$5.4B(capex $28.5B)。上游的截留目前仍是合同,还没变成现金利润
+  - 原文:Remaining performance obligations were $ 664 billion as of August 31, 2026 , of which we expect to recognize approximately 13 % as revenues over the next twelve months
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+- **C7** [媒体转述|2026-07-22|卖铲子赢] OpenAI 把 2030 年前的计划算力支出上调到约 $750B(此前 $600B),与 Altman 提到的 $1.4T 名义基础设施承诺口径不同
+  - 原文:OpenAI has raised its projected computing-power spending through 2030 to about $750 billion
+  - https://finance.yahoo.com/technology/ai/articles/openai-lifts-planned-compute-spending-144917731.html
+- **C8** ★ [官方(财报/SEC/官方博客)|2026-05-28|卖铲子赢] Anthropic 未来云/算力/基础设施义务 $518B(泄露 S-1)。官方公告:与 Amazon 签至多 5GW、与 Google/Broadcom 签 5GW TPU;另有 $30B Azure 承诺,同时微软和英伟达投资至多 $15B(供应商同时是投资人,循环融资)
+  - 原文:We signed agreements with Amazon for up to five gigawatts of new capacity, with Google and Broadcom for five gigawatts of next-generation TPU capacity.
+  - https://www.anthropic.com/news/series-h
+- **D1** ★ [分析机构|2025-03-12|模型商品化] Epoch:达到给定基准分的价格年降 9×-900×(中位数约 50×);GPT-4 级 GPQA 表现的价格年降 40×;最快的下降集中在最近一年,未必能持续
+  - 原文:The fastest price drops in that range have occurred in the past year, so it's less clear that those will persist.
+  - https://epoch.ai/data-insights/llm-inference-price-trends
+- **D2** ★ [分析机构|2026-09-22|模型商品化] Epoch 新报告:给定性能的成本自 2023 年起每季降约 47%(约 13×/年);刚成为 SOTA 时降得最快(66%/季,75×/年),两年后降速减半(32%/季);新能力可以短暂收溢价
+  - 原文:when a performance level is first achieved, AI companies can briefly charge a premium for it, before competition and technological improvement quickly drive down the price. In time, that dynamic slows.
+  - https://epoch.ai/publications/the-plunging-price-of-thought
+- **D3** [分析机构|2024-11-12|模型商品化] a16z LLMflation:同等能力(MMLU 42)的推理成本年降 10×,三年从 $60 降到 $0.06/百万 token(VC 口径,有投资利益)
+  - 原文:the cost is decreasing by 10x every year
+  - https://a16z.com/llmflation-llm-inference-cost/
+- **D4** ★ [同行评审|2026-03|前沿赢家通吃] MIT FutureTech 预印本:给定性能的价格年降 5-10×,但运行前沿级模型的成本年升 3-18×。前沿使用成本不降反升
+  - 原文:the price of running frontier-level models has nonetheless risen approximately exponentially (about 3–18× per year)
+  - https://arxiv.org/abs/2511.23455
+- **D5** ★ [官方(财报/SEC/官方博客)|2026-10-05|前沿赢家通吃] OpenAI 官方 API 旗舰价逐代上调(每百万 token 输入/输出):GPT-5 $1.25/$10 → gpt-5.4 $2.5/$15 → gpt-5.5 $5/$30;gpt-5.5-pro $30/$180
+  - 原文:gpt-5.5 (<272K context length) 5 ... 30; gpt-5.5-pro (<272K context length) 30 ... 180
+  - https://developers.openai.com/api/docs/pricing
+- **D6** [官方(财报/SEC/官方博客)|2026-10-05|前沿赢家通吃] Anthropic 官方定价新增顶档 Fable 5.1,$10/$50 每百万 token;Opus 5.5 为 $4/$20,低于 Opus 4.8 的 $5/$25;消费者 Max 档从 $100/月起。顶档上探与同名档位降价同时发生
+  - 原文:Fable 5.1 Next generation intelligence for long-running agents ... Input $10 / MTok Output $50 / MTok
+  - https://claude.com/pricing
+- **E1** ★ [分析机构|2026-05-29|模型商品化] Epoch:最强开源权重模型落后闭源前沿平均约 4 个月(ECI 差约 8 点),比 2025-10 测得的约 3 个月略有扩大,差距没有收窄
+  - 原文:The most capable open-weight models have lagged frontier closed models by an average of four months
+  - https://epoch.ai/data-insights/open-closed-eci-gap
+- **E2** [厂商自报|2024-12|模型商品化] DeepSeek-V3 的 $5.576M 仅是最后一次正式训练的租用算力成本(2.788M H800 小时 × $2),不含此前的研究和消融实验
+  - 原文:Note that the aforementioned costs include only the official training of DeepSeek-V3, excluding the costs associated with prior research and ablation experiments on architectures, algorithms, or data.
+  - https://arxiv.org/abs/2412.19437
+- **E3** [官方(财报/SEC/官方博客)|2026-10-05|模型商品化] DeepSeek 官方 API 定价:V4-Pro 峰时输入 $1.32、输出 $3.96 每百万 token(离峰半价),约为 gpt-5.5 的 1/4 到 1/8
+  - 原文:1M OUTPUT TOKENS OFF-PEAK $0.6 $1.98 PEAK $1.2 $3.96
+  - https://api-docs.deepseek.com/quick_start/pricing
+- **E4** [厂商自报|2026-02-23|模型商品化] Anthropic 指控 DeepSeek、Moonshot、MiniMax 用约 2.4 万个假账号与 Claude 做了 1600 万次以上交互来蒸馏能力。蒸馏会削弱前沿实验室的护城河(利益相关方自述)
+  - 原文:competitors can use it to acquire powerful capabilities from other labs in a fraction of the time, and at a fraction of the cost, that it would take to develop them independently
+  - https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks
+- **E5** ★ [分析机构|2025-11-19|前沿赢家通吃] Linux Foundation 工作论文(OpenRouter 数据,约占全球 API 支出 1%):闭源模型约占 80% 用量、96% 收入,平均价格是开源的 6 倍;未实现的节省约 $24.8B/年
+  - 原文:closed models account for roughly 80% of model usage and 96% of revenue, even though they cost, on average, six times more than competing open models
+  - https://www.linuxfoundation.org/blog/revealing-the-hidden-economics-of-open-models-in-the-ai-era
+- **E6** [媒体转述|2026-09-17|模型商品化] OpenRouter 上中国开源权重模型的 token 份额从 2024 年末不到 2% 升到 2026-04 峰值 46%;2026-08 用量前十中有八个是开源。按 token 量看开源大幅追赶,但按收入看仍不成比例(媒体转述)
+  - 原文:from under 2% of OpenRouter weekly tokens in late 2024 to a peak of 46% by April 2026
+  - https://www.techtimes.com/articles/327646/20260917/chinese-open-weight-ai-handles-most-developer-tokens-closed-models-capture-96-revenue.htm
+- **E7** ★ [分析机构|2025-12-09|前沿赢家通吃] Menlo 企业调查(495 人,2025-11):企业 LLM 支出份额 Anthropic 40%、OpenAI 27%、Google 21%;开源份额从 19% 降到 11%。为调查口径,且 Menlo 投资了 Anthropic
+  - 原文:Anthropic now earns 40% of enterprise LLM spend, up from 24% last year and 12% in 2023 ... Open-source LLMs hold only 11% of today's market
+  - https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/
+- **F1** ★ [官方(财报/SEC/官方博客)|2026-07-22|聚合者通吃] Alphabet 不单列模型层损益:模型 API 每分钟处理约 220 亿 token(上季 160 亿),Gemini App 950M MAU,AI Mode 单次回答成本降到上线以来最低;模型层经济被整合进 Search 和 Cloud(Cloud 经营利润率 35.6%,积压 $514B)
+  - 原文:Our model APIs are now processing approximately 22 billion tokens per minute. That's up from 16 billion just a quarter ago.
+  - https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf
+- **F2** [分析机构|2025-01-13|卖铲子赢] Epoch:前沿模型最后一次训练运行的硬件和能源摊销成本自 2016 年起每年增长 2.4 倍;构成中硬件占 47-67%、人员 29-49%、能源仅 2-6%
+  - 原文:the amortized hardware and energy cost for the final training run of frontier models has grown rapidly, at a rate of 2.4x per year since 2016
+  - https://epoch.ai/blog/how-much-does-it-cost-to-train-frontier-ai-models
+
+### 交叉口径问题
+- run-rate 和确认收入差约一倍:Anthropic 2025 年确认收入约 $4.6B,年末 run-rate $9B;OpenAI 2026 年预测确认收入 $36B、H1 确认 $12.4B,而 9 月 ARR 约 $70B。不可混比
+- Anthropic 的'毛利 80%+'(FT 2026-09)剔除了渠道分成(Amazon 等)和训练成本,与 The Information 报道的 2025 年毛利 40% 不是同一口径;收入可能按总额确认、渠道分成记为成本
+- 经营利润口径不同:OpenAI 季度经营亏损含 SBC(接近 GAAP),Anthropic 的'盈利'是 adjusted(剔除 SBC 和一次性项目),WSJ 称其方法不清楚;OpenAI Q1 的 -122% 是 non-GAAP 经营利润率,含 SBC 的 GAAP 经营亏损为 $9.3B
+- GAAP 净亏损被非现金重估扭曲:Anthropic 2025 年净亏 $42B 中约 $34B 为可转换工具重估;微软 FY26 来自 OpenAI 的净收益 $5.0B 主要是稀释收益,非经营性
+- 微软 FY26 来自 OpenAI 的收入 $24.1B 按微软财年(7 月至次年 6 月)计,含 Azure 消费与分成;OpenAI 收入按日历年计
+- 承诺额与落地额:OpenAI 的 $250B Azure、$38B AWS、Oracle $300B 合同,Anthropic 的 $518B 义务,都是多年名义值;Oracle RPO 只有 13% 在 12 个月内确认;$1.4T 名义承诺与 WSJ 报道的 $750B 2030 年前算力支出口径不同
+- 价格下降统计口径:Epoch/a16z 测的是达到固定能力的最低价,不是前沿模型价格;OpenAI 旗舰标价逐代上涨,MIT 测得运行前沿模型的成本年升 3-18×
+- 开源份额方向相反:OpenRouter(开发者路由,token 量,约占全球 API 支出 1%)显示开源 token 份额上升;Menlo(企业调查,支出口径,投资方有利益)显示开源份额从 19% 降到 11%;Linux Foundation 按收入口径为 4%
+- Anthropic 财务来自泄露的保密 S-1(Reuters/FT 审阅),非 SEC 公开文件,上市前可能修订;Fortune 与 TNW 对'连续第二个盈利季度'具体是 Q1+Q2 还是 Q2+Q3 的表述不一致
+- DeepSeek $5.576M 只是最后一次训练的租用成本,不含研究和消融实验,不能与前沿实验室的全年训练支出(如 Anthropic 2025 年约 $4.1B)直接比
+- xAI、Mistral 的数字来自二手汇总(Sacra 等),未找到原始报道,只能作背景;ChatGPT 订阅价官方页返回 403,只有二手来源
+
+## APP-distribution
+
+### 要点
+1) 截至 2026 年 10 月,AI 带来的"当下利润"在应用/分发层主要被握有分发的现有巨头拿走,AI 原生应用公司拿到的不多。Google Services 2026Q2 经营利润率 41.8%(上年同期 40.1%),Search & other 增长 17%;微软 Productivity & Business Processes 经营利润率 57.9%;Apple Services 毛利约 75.6%,九个月 capex 反而下降;Meta 广告收入增长 27%,管理层把增长归因于 GEM/生成式推荐器。AI 并没有颠覆这些聚合者,反而让它们更稳。2) AI 原生应用公司增长快、毛利薄:Bessemer 统计的 Supernova 类公司平均毛利 25%;Lovable 36%(泄露的融资材料);Replit 2025 年毛利在 36% 到 -14% 之间波动;Cursor 在 2026 年 1 月止的季度毛利为 -23%,到 2026 年 4 月才"微弱转正",而且只有企业客户是正毛利,个人账户仍亏钱。Perplexity 报的约 60% 毛利,是把免费用户的推理成本排除在外算出来的。3) 上游挤压 wrapper 有实证:Anthropic 2025 年 6 月对 Windsurf 断供;2026 年 1-4 月逐步禁止第三方 harness 使用订阅 OAuth;Cursor 和 GitHub 被迫从按次/包月改成按 token 用量计费,GitHub 官方的说法是原有模式"no longer sustainable"。4) 应用公司的反击是纵向下沉:Cursor 在开源的 Kimi K2.5 上自研 Composer 模型,同时依靠企业客户。这说明开源模型追平,恰恰是应用层毛利的救星。5) 模型公司在吃应用层:Claude Code 的 run-rate 2026 年 2 月已超 $2.5B(超过一半来自企业);OpenAI 在 2026 年 2 月上线广告,8 月广告 run-rate 接近 $1B,企业收入也已超过消费者收入;另外在推 Instant Checkout 购物功能,但据报道效果受挫。6) 纯 wrapper 的结局往往是被收购或被拆分出售:Windsurf 被拆给 Google(作价 $2.4B 授权+挖人)和 Cognition;Cursor 被 SpaceX 以约 15 倍 run-rate 收入、$60B 收购。7) 企业端:Menlo 调查估计 2025 年企业 GenAI 支出 $37B,其中应用占 $19B,初创公司拿到 63%。但现有 SaaS 巨头的 AI 加价兑现有限:Salesforce Agentforce ARR $1.5B,这个口径还扩大过,而总营收只增长 11%;微软则把 Copilot Chat 捆进 M365 套件涨价。8) 反方证据:Chegg 收入下降 39%,应用层的"中间人"被 AI Overviews 和 ChatGPT 直接替代;2026 年 2 月 Claude Cowork 插件引发 SaaS 股抛售。9) 要区分当下与长期。当下,利润落在分发巨头和上游;长期,应用层能否变"厚",取决于企业工作流锁定以及能否用开源或自研模型压低推理成本。目前只有零星证据,例如 Cursor 的企业客户毛利转正。
+
+### 论断
+- **APP-01** ★ [官方(财报/SEC/官方博客)|2026-07-22|聚合者通吃] Alphabet 2026Q2(季末 6/30):Google Search & other 收入 $63.27B,同比+17%(上年 $54.19B);Google Services 经营利润 $39.54B,利润率约 41.8%(上年 $33.06B,约 40.1%)。这是 GAAP 分部口径。AI Overviews/AI Mode 普及期间,搜索收入和利润率都在上升。
+  - 原文:Google Services revenues increased 15% to $94.5 billion, led by 17% growth in Google Search & other
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm
+- **APP-02** ★ [官方(财报/SEC/官方博客)|2026-07-22|聚合者通吃] Pichai 称 AI Mode 带来搜索查询量的增量,AI Mode 月活超 10 亿,每周仍向外部网站导出数十亿次点击;同季 AI Mode 单次回答成本降到上线以来最低。说明聚合者在用 AI 加固入口,同时压低推理成本。注意:点击数和成本都是公司自报,没有绝对值。
+  - 原文:AI Mode is driving an incremental increase in Search queries overall, and we're now sending billions of clicks to websites every week through AI features in Search.
+  - https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/
+- **APP-03** [官方(财报/SEC/官方博客)|2026-07-22|聚合者通吃] Alphabet 2026Q2 的流量获取成本(TAC)为 $16.18B,同比+10%,慢于 Google 广告收入的+14%;TAC 占广告收入比约 19.8%(上年约 20.6%)。分发成本率没有因为 AI 竞争而上升,这一点按季报两期 TAC 自行计算。
+  - 原文:TAC $ 14,705 $ 16,179
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm
+- **APP-04** ★ [官方(财报/SEC/官方博客)|2026-07-29|聚合者通吃] Meta 2026Q2:广告收入 $59.4B,同比+27%,单位广告价格+12%。管理层称 GEM 加上用户理解模型,使 Facebook 广告点击+8.3%、转化+15.7%;Advantage+ 的年化 run-rate 超过 $75B。口径提醒:15.7% 只是 Facebook 单平台、多个模型合计的效果,不能直接归因到整体收入;Advantage+ 是 run-rate。
+  - 原文:Combined with our GEM model for ads ranking and sequence learning, these advancements generated an 8.3% increase in ad clicks and a 15.7% uplift in conversions on Facebook.
+  - https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf
+- **APP-05** ★ [官方(财报/SEC/官方博客)|2026-07-29|卖铲子赢] Meta 的 AI 利润代价体现在资本开支:2026Q2 capex(含融资租赁本金)$31.08B,自由现金流只有 $0.78B(non-GAAP),全年 capex 指引 $130-145B。聚合者靠 AI 推高了收入,但这份利润大部分又流向了上游的芯片和数据中心。
+  - 原文:Cash flow from operating activities was $31.86 billion, and free cash flow was $784 million.
+  - https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/Meta-06-30-2026-Exhibit-99-1-FINAL.pdf
+- **APP-06** ★ [官方(财报/SEC/官方博客)|2026-07-29|聚合者通吃] 微软 FY26Q4(季末 2026-06-30):M365 Copilot 付费席位超过 3000 万,季度净增席位翻倍以上。但微软没有披露 ARPU,按约 4.64 亿商业 M365 用户算渗透率约 6.5%(第三方推算)。Productivity & Business Processes 分部经营利润 $21.9B,利润率约 57.9%(GAAP)。
+  - 原文:Microsoft 365 Copilot reached over 30 million paid seats
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm
+- **APP-07** [官方(财报/SEC/官方博客)|2026-07-29|中性] 微软管理层称 Copilot 定价正从按席位转向'席位+用量',GitHub Copilot 用户达 5000 万、Copilot 收入环比增长超 60%(没有给绝对额)。纯按席位定价撑不住 agent 的推理成本,连现有巨头也一样。
+  - 原文:beyond per-seat to per-seat-plus-consumption, further expanding our TAM
+  - https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+- **APP-08** [媒体转述|2026-07|聚合者通吃] 微软 M365 商业套件 2026-07-01 起涨价(E3 $36→$39,E5 $57→$60),同时把 Copilot Chat 基础能力捆进套件。AI 加价是通过套件整体涨价兑现的,无法单独拆出 AI 溢价。这一条是第三方/媒体转述,还没对照微软官方定价页核实。
+  - 原文:Microsoft 365 E3 went from $36 to $39 per user per month, E5 from $57 to $60
+  - https://www.uscloud.com/blog/microsoft-365-price-increase-july-1-2026-what-enterprise-buyers-need-to-know-part-1/
+- **APP-09** ★ [官方(财报/SEC/官方博客)|2026-07-30|聚合者通吃] Apple FY26Q3(季末 2026-06-27):Services 收入 $30.74B,对应成本 $7.49B,毛利率约 75.6%。前九个月 capex $6.80B,低于上年同期的 $9.47B。Apple 的前沿模型外采 Gemini,不自建,是典型的'轻资产聚合者'。
+  - 原文:Payments for acquisition of property, plant and equipment (6,799) (9,473)
+  - https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/a8-kex991q3202606272026.htm
+- **APP-10** ★ [官方(财报/SEC/官方博客)|2026-01-12|聚合者通吃] 2026-01-12 Apple 与 Google 发联合声明:下一代 Apple Foundation Models 基于 Gemini。据彭博报道 Apple 每年付约 $1B(媒体转述)。对比之下,2022 年 Google 为默认搜索付给 Apple 约 $20B(Mehta 判决引用的数字)。手握分发的 Apple 向模型商付的钱,远少于它从搜索分发拿到的钱。
+  - 原文:the next generation of Apple Foundation Models will be based on Google's Gemini models and cloud technology
+  - https://blog.google/company-news/inside-google/company-announcements/joint-statement-google-apple/
+- **APP-11** [媒体转述|2025-09-02|聚合者通吃] Mehta 法官 2025-09 的救济裁决:禁止 Google 签独家分发协议,范围涵盖 Search、Chrome、Assistant 和 Gemini;但仍允许 Google 为预装和位置付费,合同期限限一年。AI 助手的入口争夺因此也受监管约束,分发方可以向多家模型商收费。
+  - 原文:Google will not be barred from making payments or offering other consideration to distribution partners for preloading or placement
+  - https://techcrunch.com/2025/09/02/google-avoids-breakup-but-has-to-give-up-exclusive-search-deals-in-antitrust-trial/
+- **APP-12** ★ [分析机构|2025-08|模型商品化] Bessemer State of AI 2025 统计:约 10 家高速增长的 'Supernova' AI 应用公司平均毛利只有 25%,用利润换分发;'Shooting Stars' 类平均毛利 60%。样本小,包括 Cursor、Perplexity 等,属分析机构口径。
+  - 原文:On average, these AI Supernovas have only 25% gross margins, often trading distribution for profit in the short term.
+  - https://www.bvp.com/atlas/the-state-of-ai-2025
+- **APP-13** ★ [媒体转述|2025-08-10|前沿赢家通吃] Cursor 在 2025 年中毛利为负(消息源说法),主要成本是付给 Anthropic 的推理账单。另据 The Information(经二手转述),截至 2026 年 1 月的季度毛利为 -23%,当时 run-rate 接近 $2B。
+  - 原文:Cursor has negative gross margins, according to sources familiar with the figures.
+  - https://www.newcomer.co/p/cursors-popularity-has-come-at-a
+- **APP-14** ★ [媒体转述|2026-04-17|模型商品化] 到 2026 年 4 月,Cursor 靠自研 Composer 和更便宜的模型(如 Kimi)实现'微弱正毛利'。但只有大企业客户是正毛利,个人开发者账户仍在亏钱。公司预测 2026 年底 run-rate 超 $6B(run-rate=近月收入×12,不是确认收入)。
+  - 原文:the company has reached positive gross margins on its sales to large enterprises, but continues to lose money on individual developer accounts.
+  - https://techcrunch.com/2026/04/17/sources-cursor-in-talks-to-raise-2b-at-50b-valuation-as-enterprise-growth-surges/
+- **APP-15** ★ [媒体转述|2026-03-23|模型商品化] Cursor 的 Composer 2 是在 Moonshot 开源权重模型 Kimi K2.5 上继续预训练并做 RL 得到的,经 Fireworks 推理,Cursor 联创 Aman Sanger 已公开确认。这是应用公司借开源模型脱离前沿实验室、修复毛利的样板,支持'模型商品化'叙事。
+  - 原文:Kimi K2.5 'proved to be the strongest'
+  - https://dataconomy.com/2026/03/23/cursor-admits-composer-2-based-on-moonshot-ais-kimi-2-5/
+- **APP-16** [厂商自报|2025-07-04|前沿赢家通吃] Cursor 官方 2025-07 为定价风波道歉。理由是新模型处理长程任务时,最难的请求成本比简单请求高一个数量级,所以改为按 API 用量计费,并对 6/16 到 7/4 的意外用量退款。这是 wrapper 把上游 token 成本转嫁给用户的实证。
+  - 原文:the hardest requests cost an order of magnitude more than simple ones. API-based pricing is the best way to reflect that.
+  - https://cursor.com/blog/june-2025-pricing
+- **APP-17** [官方(财报/SEC/官方博客)|2026-04-27|中性] GitHub(微软旗下)2026-04-27 宣布,Copilot 从 2026-06-01 起改为按 token 计费的 AI Credits。官方承认 GitHub 一直在吸收不断上升的推理成本,原有的 premium request 模式已不可持续。即使是握分发的巨头,应用层定价也会被推理成本倒逼。
+  - 原文:GitHub has absorbed much of the escalating inference cost behind that usage, but the current premium request model is no longer sustainable.
+  - https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/
+- **APP-18** ★ [媒体转述|2025-06-03|前沿赢家通吃] Anthropic 在 2025-06 提前不到五天切断 Windsurf 对 Claude 3.x 的大部分一手访问,当时正值 OpenAI 传出要收购 Windsurf。Windsurf CEO 公开表示愿意为全部容量付费。这是供应商出于竞争关系对 wrapper 断供的典型案例。
+  - 原文:We have been very clear to Anthropic that this is not our desire — we wanted to pay them for the full capacity
+  - https://techcrunch.com/2025/06/03/windsurf-says-anthropic-is-limiting-its-direct-access-to-claude-ai-models
+- **APP-19** [媒体转述|2025-07-14|聚合者通吃] Windsurf 的结局:Google 付 $2.4B 拿到非独家技术授权,并挖走 CEO 和研发团队;Cognition 收购剩下的公司,当时 ARR 为 $82M。OpenAI 约 $3B 的收购流产。被上游'断粮'的 wrapper,团队和技术最终被大厂以授权加挖人的方式拿走。
+  - 原文:Cognition to buy AI startup Windsurf days after Google poached CEO in $2.4 billion licensing deal
+  - https://www.cnbc.com/2025/07/14/cognition-to-buy-ai-startup-windsurf-days-after-google-poached-ceo.html
+- **APP-20** ★ [从业者博客|2026-02-19|前沿赢家通吃] Anthropic 从 2026-01-09 起在服务端拒绝第三方工具(OpenCode、Cline 等)使用 Claude 订阅的 OAuth,2026-02-19 写进服务条款,2026-04-04 起订阅不再覆盖第三方 harness。模型公司用补贴后的订阅价把用户留在自家应用(Claude Code)里,同时挤压第三方 wrapper。来源是从业者博客和媒体,条款原文待核。
+  - 原文:OAuth tokens from Free, Pro, and Max plans may not be used with third-party tools or the Agent SDK
+  - https://paddo.dev/blog/anthropic-walled-garden-crackdown/
+- **APP-21** ★ [厂商自报|2026-02-12|前沿赢家通吃] Anthropic 官方称 Claude Code 的 run-rate 收入超过 $2.5B,自 2026 年初以来翻了一倍多,企业用量占 Claude Code 收入的一半以上;同期公司总 run-rate 为 $14B。到 2026-05 底,公司总 run-rate 已超 $47B(厂商自报 run-rate,不是确认收入)。模型公司直接做应用,拿走了编码应用层的大块收入。
+  - 原文:Claude Code's run-rate revenue has grown to over $2.5 billion; this figure has more than doubled since the beginning of 2026
+  - https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation
+- **APP-22** [厂商自报|2026-05-28|前沿赢家通吃] Anthropic Series H 公告(2026-05-28)称 run-rate 收入已超 $47B,对应 $965B 投后估值。属厂商自报 run-rate,没有毛利或利润披露;媒体对其 2026Q2 'adjusted operating profit' 的估算尚未经证实。
+  - 原文:our run-rate revenue crossed $47 billion earlier this month
+  - https://www.anthropic.com/news/series-h
+- **APP-23** ★ [媒体转述|2026-08-14|前沿赢家通吃] OpenAI CFO Friar 在 2026-08-14 投资者会上说,年初消费者与企业收入之比为 60:40,现在企业收入已经超过消费者;总 run-rate 约 $40B,广告 run-rate 接近 $1B。来源是 CNBC 经 TNW 转述。口径提醒:OpenAI 的'enterprise'包含 API、ChatGPT 企业席位和 Codex,不等于纯模型层;另有第三方称 9 月达 $70B,未核实。
+  - 原文:We entered the year at 60-40, but enterprise has accelerated much faster than expected
+  - https://thenextweb.com/news/openai-enterprise-revenue-overtakes-consumer-friar
+- **APP-24** [媒体转述|2026-03-20|聚合者通吃] OpenAI 在往聚合者方向扩张:2026-02-09 起在美国 Free 和 Go 层投放广告,2026-05-05 开放自助 Ads Manager;2025-09-29 推出 Instant Checkout(第三方称向商户收约 4% 交易费)。但 CNBC 2026-03 报道称 Instant Checkout 受挫,OpenAI 转向与零售商合作做 ChatGPT 内 app。DevDay(2026-09-29)称 ChatGPT 周活 12 亿(媒体转述,openai.com 原文抓取被拒)。
+  - 原文:OpenAI's first try at agentic shopping stumbled. It's trying again
+  - https://www.cnbc.com/2026/03/20/open-ai-agentic-shopping-etsy-shopify-walmart-amazon.html
+- **APP-25** [媒体转述|2025|模型商品化] Perplexity 的毛利口径有问题:据 The Information(二手转述),它报告的约 60% 毛利把免费和试用用户的推理成本排除在 cost of revenue 之外,计入后为负毛利;曾有一年模型与 web 服务支出至少 $57M,其中 $33M 用于非付费用户。属于口径陷阱。
+  - 原文:had Perplexity counted costs for free-tier and trial users as 'cost of revenue,' the company would have shown a negative gross profit margin
+  - https://thedeepdive.ca/did-perplexity-fudge-its-numbers/
+- **APP-26** [媒体转述|2025|前沿赢家通吃] Replit 2025 年毛利在 36% 到 -14% 之间波动,主要受 coding agent 调用 LLM 的成本驱动;2026-04 run-rate 约 $525M(The Information 标题和二手汇总)。
+  - 原文:Replit's Margins Illustrate the High Costs of Coding Agents
+  - https://www.theinformation.com/articles/replits-margins-illustrate-high-costs-coding-agents
+- **APP-27** [媒体转述|2025-12|模型商品化] 据 Sifted 获得的泄露融资材料,Lovable 当时毛利只有 36%,目标是 2026 年底做到 65%。另有报道称其计划做应用商店并收取类似 Apple 的'平台税',即从 wrapper 转型为分发者。
+  - 原文:Leaked pitch deck reveals Lovable's 65% margin target
+  - https://sifted.eu/articles/lovable-margins-leaked-pitch-deck
+- **APP-28** [媒体转述|2026-06-16|中性] SpaceX 2026-06-16 宣布以 $60B 全股票收购 Anysphere(Cursor),按约 $4B run-rate 计约 15 倍收入,据报 2026-08 完成。这是市场仍愿为应用层的用户关系和工作流付高价的证据,但交易对价是股票。
+  - 原文:SpaceX to acquire AI coding firm Cursor in $60 billion all-stock deal
+  - https://www.investing.com/news/stock-market-news/spacex-to-acquire-ai-coding-firm-cursor-60-billion-allstock-deal-4744354
+- **APP-29** ★ [分析机构|2025-12-09|中性] Menlo Ventures 调查估计(495 名美国企业 AI 决策者,2025 年 11 月):2025 年企业 GenAI 支出 $37B,其中应用层 $19B,超过一半;初创公司拿到 63%,大致是现有巨头的 2 倍;编码支出 $4B;76% 的方案是外购而非自建。属调查加估算口径,'应用'的边界由 Menlo 自定。
+  - 原文:Startups captured nearly $2 in revenue for every $1 earned by incumbents—63% of the market
+  - https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/
+- **APP-30** ★ [官方(财报/SEC/官方博客)|2026-08-26|模型商品化] Salesforce Q2 FY27(季末 2026-07-31):Agentforce ARR 超 $1.5B,同比+240%,但从本季起口径扩大到 Slackbot 和 Headless 360;总营收 $11.35B,同比只+11%(含 Informatica 的 $456M)。订阅与支持成本 $2.02B,同比+23%,快于收入增速。现有 SaaS 的 AI 加价对总收入的拉动有限,且可能压低毛利。
+  - 原文:Agentforce ARR exceeded $1.5 billion, up over 240% Y/Y. Effective Q2 FY27, Agentforce ARR includes our AI offerings, Slackbot and Headless 360
+  - https://www.sec.gov/Archives/edgar/data/1108524/000110852426000187/crm-q2fy27xexhibit991.htm
+- **APP-31** [官方(财报/SEC/官方博客)|2026-02|聚合者通吃] Chegg 10-K(FY2025)把 Google AI Overviews 和学生转用生成式 AI 列为流量和订阅下滑的原因,全年营收 $376.9M,同比-39%。依附于搜索流量的'中间人'应用,利润被聚合者和模型直接吸走。
+  - 原文:Recent technological shifts, notably Google's AI Overviews search experience, or AIO, and continued increase in adoption of free and paid generative AI services by students, have created and are expected to continue to create headwinds for our industry and our business
+  - https://www.sec.gov/Archives/edgar/data/1364954/000136495426000021/chgg-20251231.htm
+- **APP-32** [媒体转述|2026-02-05|前沿赢家通吃] 2026-01-30 Anthropic 发布 Claude Cowork 及法律、销售、财务等插件后,2 月初软件和信息服务股约 $285B 市值在 48 小时内蒸发(Thomson Reuters -16%,RELX -14%,具体数字为媒体转述)。市场在为'模型公司吃掉 SaaS 应用层'定价,但这是估值反应,不是利润数据。
+  - 原文:Anthropic's Claude plugins spark $285 billion software stock selloff as AI targets entire SaaS workflows
+  - https://techstartups.com/2026/02/05/anthropics-claude-plugins-spark-285-billion-software-stock-selloff-as-ai-targets-entire-saas-workflows/
+- **APP-33** [媒体转述|2026|聚合者通吃] 微软自己也外采 Anthropic:Copilot Cowork 由 Claude 驱动(2026-03),据报道微软每年付给 Anthropic 约 $5 亿,并下调了原定至少 $10 亿的预期(媒体转述)。微软一边从模型商采购,一边按 $30 附加许可或 $99 的 E7 套件对外收费,定价权留在分发方手里。
+  - 原文:Microsoft now spends roughly $500 million per year on Anthropic's AI across its products
+  - https://finance.yahoo.com/news/microsoft-500-million-ai-pivot-183704017.html
+
+### 交叉口径问题
+- run-rate/ARR(Cursor、Anthropic、OpenAI、Lovable、Replit、Salesforce Agentforce)都是近月收入×12 或合同年化,不是 GAAP 确认收入;不能和财报季度收入直接比,也不能加总。
+- Salesforce Agentforce ARR 自 Q2 FY27 起口径扩大(纳入 Slackbot 和 Headless 360),同比+240% 不是可比口径。
+- 毛利口径不一致:Perplexity 剔除了免费用户推理成本;Cursor 区分企业(正)和个人(负);OpenAI 的'compute margin'和 Anthropic 的'inference margin'都不等于 GAAP 毛利。
+- OpenAI 的'enterprise'收入包含 API、ChatGPT Business/Enterprise 席位和 Codex,不能把它全部当作模型层或应用层;9 月 $70B run-rate 只有第三方说法,与 8 月 CNBC 的 $40B 冲突,尚未核实。
+- 微软的 3000 万 Copilot 席位没有披露 ARPU,而且 2026-07-01 起 Copilot Chat 捆入 M365 涨价,AI 加价和套件涨价混在一起,无法拆开。
+- Meta 的 +15.7% 转化只是 Facebook 单平台、多个模型合计的效果;Advantage+ 的 $75B 是 run-rate,不是 AI 增量收入。
+- 财年和日历年:Microsoft FY26Q4 = 2026 年 4-6 月;Apple FY26Q3 季末为 2026-06-27;Salesforce Q2 FY27 季末为 2026-07-31;Alphabet 和 Meta 是日历年 Q2。
+- Menlo 的 $37B/$19B 是调查加估算,'应用'包含 Copilot 类现有巨头产品,而且是 2025 年全年数据,不是 2026 年。
+- Apple 付 Google 的约 $1B/年和 Google 付 Apple 的约 $20B 年份不同(前者 2026 年报道,后者 2022 年判决数字),只能作为量级对比。
+- Cursor 被收购的 $60B 以 SpaceX 股票支付,15 倍收入的倍数按 run-rate 计算。
+- Google Services 的利润率上升混合了 AI 以外的因素(订阅、YouTube、成本控制),不能全部归因给 AI Overviews。
+
+## FLOW-crosslayer
+
+### 要点
+(1) 当下利润分布(截至 2026-10):利润仍压倒性集中在芯片层。NVIDIA Q2 FY27 收入 $96.2B、毛利率 75%、经营利润 $63.7B;CoreWeave Q2 2026 经营亏损 $49M,利息费用 $640M;Oracle 单季资本开支 $28.5B,高于当季收入 $19.3B,FCF −$5.4B。从业者估算,半导体拿走 AI 生态约 79% 的毛利美元。
+(2) 新的结构性事实:前沿实验室的估值正大规模记入上游公司的 GAAP 利润,形式是股权未实现收益。Amazon Q2 2026 税前 $80.9B 中有 $50.5B 来自 Anthropic 股权上调,经营利润只有 $27.5B;Alphabet Q2 其他收益 $98B;Microsoft FY26 从 OpenAI 得到 $6.5B 稀释收益;NVIDIA H1 FY27 其他收益 $24.1B,约占税前利润 17%。模型层创造的价值,以纸面权益的形式沉淀在云和芯片的资产负债表上。
+(3) 资金流是闭环:上游用股权、信用或服务额度把钱给实验室,实验室再用算力合同把钱付回云和芯片。Microsoft FY26 来自 OpenAI 的收入为 $24.1B;AWS 与 OpenAI、与 Anthropic 各扩大 $100B 以上的承诺;Amazon 给 Anthropic 的融资额度随算力交付里程碑释放。
+(4) 承诺额与落地额差距很大。NVIDIA 对 OpenAI 的 up to $100B 意向,实际落地为 $30B 股权加上一笔 $105B 上限的租约残值担保;AMD 认股权截至 2026-06 零归属;Abilene 扩建已取消;OpenAI 给出的算力支出口径从 $1.4T 降到 $600B,又升到 $856B。
+(5) 风险从模型层回流到芯片层和云层。NVIDIA 明说实验室缺乏投资级融资能力,并预计「靠我们资产负债表撑起的实验室需求」约占明年业务四分之一;分析师加总 NVIDIA 的承诺与担保约 $500B;Oracle 和 Microsoft 分别有 $288B、$329B 未起租、未入表的数据中心租约。
+(6) 收入缺口测算一年内急剧上调:Bain 从 2030 年需 $2T(缺口 $800B)调到 2031 年需 $6T(缺口约 $4.2T);Cahn 的数字从 $200B、$600B、$840B 一路到 $1.5T。
+(7) 反向证据:Anthropic 自报 run-rate 超过 $65B、调整后经营利润转正;超大厂 RPO 合计超过 $2.3T。需求在兑现,只是确认收入远远落后于承诺。NVIDIA 收购 Hugging Face,是芯片商主动让互补品(模型)商品化的直接证据。区分:当下利润在芯片层,长期利润落点取决于实验室能否在纸面估值之外产生现金,以及担保会不会被触发。
+
+### 论断
+- **FLOW-01** ★ [从业者博客|2024-06-20|中性] Sequoia/Cahn 的 $600B 算法(2024-06):NVIDIA 数据中心 run-rate ×2(GPU 约占 TCO 一半)×2(终端用户 50% 毛利)。得出的是推算的应得终端年收入,不是实测收入。
+  - 原文:take Nvidia's run-rate revenue forecast and multiply it by 2x to reflect the total cost of AI data centers (GPUs are half of the total cost of ownership...). Then you multiply by 2x again, to reflect a 50% gross margin for the end-user of the GPU
+  - https://sequoiacap.com/article/ais-600b-question/
+- **FLOW-02** [从业者博客|2025-06-17|中性] Cahn 2025-06 更新:假设 NVIDIA 2025 年底数据中心 run-rate 约 $210B,缺口升至约 $840B。
+  - 原文:AI's $600B Question is now roughly AI's $840B Question, assuming that Nvidia reaches something like $210B in run-rate data center revenue by year-end 2025.
+  - https://sequoiacap.com/article/why-ai-labs-are-starting-to-look-like-sports-teams
+- **FLOW-03** ★ [从业者博客|2026-07-08|卖铲子赢] Cahn 2026-07「AI's $1.5T Question」:$1.5T 是 2026 单年 capex(约 $750B 超大厂数据中心 capex ×2)对应的终身终端收入需求;$3T 是 ChatGPT 以来的累计数。媒体写成「需要 $3T 收入证明 2026 投入」是口径错误。
+  - 原文:This analysis arrives at the lifetime end-customer revenue requirement for a single year of CapEx. ... you'd add up the numbers and arrive at roughly $3T of lifetime required revenue thus far.
+  - https://dcahn.substack.com/p/ais-15t-question
+- **FLOW-04** ★ [分析机构|2025-09-23|中性] Bain 2025 年报告:2030 年需要 $2T 年收入支撑算力。算法是 $500B/年 capex 按云厂商可持续 capex/收入比折算;即便本地 IT 预算全部上云并再投入 AI 节省,仍差 $800B。
+  - 原文:Two trillion dollars in annual revenue is what's needed to fund computing power needed to meet anticipated AI demand by 2030. ... Even with AI-related savings, the world is still $800 billion short to keep pace with demand.
+  - https://www.prnewswire.com/news-releases/2-trillion-in-new-revenue-needed-to-fund-ais-scaling-trend---bain--companys-6th-annual-global-technology-report-302563362.html
+- **FLOW-05** ★ [分析机构|2026-09-29|中性] Bain 2026 年报告(第 7 份):2031 年 AI 基建年支出可达 $1.5T,按 capex 约占行业收入 25% 计,需要约 $6T 年收入;现有消费+企业 AI 只能贡献 $1.2–1.8T,约 $4.2T 需要来自新品类。缺口估算一年内约扩大 5 倍。
+  - 原文:By 2031, annual spending on AI infrastructure could reach $1.5 trillion ... If we assume that capital expenditures amount to about 25% of industry revenue ... sustaining this level of investment would require an AI market approaching $6 trillion annually.
+  - https://www.bain.com/insights/new-innovation-is-required-to-fund-ais-6-trillion-buildout-technology-report-2026/
+- **FLOW-06** [媒体转述|2025-11|中性] JPMorgan(2025-11,媒体转述):要让 2030 年前的 AI 投资获得 10% 回报,需要约 $650B/年的永续收入;全球 AI/数据中心 capex 至 2030 年约 $5T 以上。
+  - 原文:$650 billion in annual revenue required to deliver mere 10% return on AI buildout
+  - https://www.tomshardware.com/tech-industry/artificial-intelligence/usd650-billion-in-annual-revenue-required-to-deliver-10-percent-return-on-ai-buildout-investment-j-p-morgan-claims-equivalent-to-usd35-payment-from-every-iphone-user-or-usd180-from-every-netflix-subscriber-in-perpetuity
+- **FLOW-07** [分析机构|2025-07|电力稀缺] Morgan Stanley(2025-07,PDF 未抓到原文,数据据转述):2028 年前全球数据中心 capex 约 $2.9T(硬件 $1.6T、基建 $1.3T)。超大厂自有现金流覆盖约 $1.4T,融资缺口约 $1.5T,其中私募信贷约 $800B。
+  - 原文:
+  - https://www.morganstanley.com/content/dam/msdotcom/en/assets/pdfs/Research_Bridging-Data-Center-Gap.pdf
+- **FLOW-08** ★ [从业者博客|2026-04-01|卖铲子赢] 从业者分层估算(2026-04):AI 生态总收入约 $435B,半导体约 $300B(69%)、基础设施约 $75B、应用约 $60B。毛利美元:半导体约 $225B(GM 约 73%)、基础设施约 $40B(约 55%)、应用约 $20B(约 33%),即半导体占 79% 的毛利美元。数据为作者自建表,非审计;应用层用 run-rate 口径。
+  - 原文:Semis capture 79% of all gross profit dollars in the AI ecosystem
+  - https://tailwinds.substack.com/p/the-economics-of-generative-ai-two
+- **FLOW-09** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA Q2 FY27(截至 2026-07-26,GAAP):收入 $96.2B(同比 +106%),数据中心 $89.0B(+117%),毛利率 75.0%,经营利润 $63.7B,净利润 $59.7B。
+  - 原文:Revenue was $96.2 billion, up 106% from a year ago and up 18% sequentially. Data Center revenue was $89.0 billion, up 117% from a year ago
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **FLOW-10** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA H1 FY27 的 GAAP 税前利润 $141.4B 中,有 $24.1B 是其他收益,主要为股权投资收益(净 $23.7B),约占 17%。非上市股权余额从 $3.8B(2025-07)涨到 $47.9B(2026-07)。另有 $25B 股权投资承诺,投向 AI model makers 和 infrastructure financiers。
+  - 原文:Gains from equity securities, net 7,771 2,247 23,707 2,073 ... Equity investments – We committed to make certain equity investments in AI model makers, infrastructure financiers, and other private companies, subject to certain contingencies.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **FLOW-11** ★ [官方(财报/SEC/官方博客)|2026-08-17|前沿赢家通吃] NVIDIA 2026-08 与 SB Energy 签残值担保,替 OpenAI 约 4.25GW、租期 20 年的租约做信用支持,上限 $105B,换取场地独家部署 NVIDIA。OpenAI 取得满意信用评级后担保终止;OpenAI 同意偿付 NVIDIA 已付金额。这是 2025-09「up to $100B」意向换了一种方式落地。
+  - 原文:NVIDIA's aggregate payment obligation is cumulatively capped at $105 billion for its initial commitment under the Agreements. ... OpenAI has agreed to reimburse and indemnify NVIDIA for any and all amounts actually paid by NVIDIA to the Lessor
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000069/nvda-20260817.htm
+- **FLOW-12** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA 在 10-Q 中承认 AI 云和模型商缺乏长期合同与投资级融资能力,所以由 NVIDIA 提供土地、电力、机房和容量担保。芯片商在用自己的资产负债表为下游需求托底。
+  - 原文:We believe AI clouds and AI model makers have significant demand for training and inference compute and currently lack the ability to secure long-term infrastructure contracts and investment-grade financing capacity to secure the AI infrastructure necessary to grow.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **FLOW-13** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA CFO 在电话会上说:已向前沿实验室投资近 $50B;与六家资管搭建融资平台,拟募 $500B 以上第三方资本;OpenAI 现有加计划承诺约 12GW NVIDIA 算力;另为一家实验室约 2GW 做信用增级;预计这类靠 NVIDIA 资产负债表撑起的实验室需求约占明年业务四分之一。
+  - 原文:we expect demand from the AI labs for which we expect to leverage our balance sheet to contribute toward roughly a quarter of our business next year.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **FLOW-14** ★ [官方(财报/SEC/官方博客)|2026-08-26|卖铲子赢] NVIDIA 公开回应循环融资批评,同时推出新云收入分成结构:NVIDIA 对部分容量给 take-or-pay 和最低收入担保,换取底线以上的租金分成,自称 get paid twice。
+  - 原文:we know some will call this circular financing. We see it differently. ... In this model, we get paid twice, once on the hardware sale and again through the share of rental revenue
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **FLOW-15** [分析机构|2026-08-26|模型商品化] BofA 分析师把 NVIDIA 披露的承诺与担保加总,多年合计约 $500B;并指出 OpenAI(Jalapeño)和 Anthropic 都在做自研芯片,与 NVIDIA 的投资关系存在张力。
+  - 原文:When I just add up everything that's in the CFO commentary, I get to a number of about $500 billion or so, obviously, over the next several years.
+  - https://s201.q4cdn.com/141608511/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf
+- **FLOW-16** [官方(财报/SEC/官方博客)|2026-08-26|中性] NVIDIA 的供应与产能承诺一个季度内从 $119B 升到 $279B,总承诺 $366B,其中包括回租云服务 $29B。另外 NVIDIA 估计有一家 AI 研究公司通过向 NVIDIA 客户购买云服务,贡献了 meaningful 的收入。
+  - 原文:We estimate that one AI research and deployment company contributed a meaningful amount of our revenue by purchasing cloud services from our customers
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+- **FLOW-17** ★ [媒体转述|2026-03-04|中性] NVIDIA $100B 意向的落地:2026-02 OpenAI 融资中 NVIDIA 出资 $30B(全轮收于 $122B,投后估值 $852B)。Huang 2026-03-04 表示 $100B 投资 probably not in the cards,对 Anthropic 的 $10B 大概率也是最后一笔(媒体转述)。
+  - 原文:The opportunity to invest $100 billion in OpenAI is probably not in the cards
+  - https://finance.yahoo.com/news/nvidia-not-able-invest-100-185513816.html
+- **FLOW-18** [媒体转述|2026-02-27|聚合者通吃] OpenAI 2026-02 融资中,Amazon 承诺至多 $50B,其中 $35B 附条件(AGI 或年底前 IPO);OpenAI 承诺至少 2GW Trainium,AWS 合作扩大 $100B;相当部分出资以服务而非现金形式提供(媒体转述)。
+  - 原文:$35 billion of Amazon's investment could be contingent on the company either achieving AGI or making its IPO by the end of the year
+  - https://techcrunch.com/2026/02/27/openai-raises-110b-in-one-of-the-largest-private-funding-rounds-in-history/
+- **FLOW-19** ★ [官方(财报/SEC/官方博客)|2026-07-31|聚合者通吃] Amazon 对 OpenAI 的 $50B 已全部落地:H1 投入 $28.7B 的 Series C,2026-06-30 之后又付清剩余 $21.3B。AWS 与 OpenAI 的 $38B 承诺扩大 $100B/8 年,含 AWS 自研芯片性能义务。
+  - 原文:Subsequent to June 30, 2026, we funded the remaining Commitment Amount of $21.3 billion.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+- **FLOW-20** ★ [官方(财报/SEC/官方博客)|2026-07-31|前沿赢家通吃] Amazon Q2 2026:经营利润 $27.5B,其他收益 $53.4B,税前 $80.9B;私营公司股权上调 $50.5B,主要来自 Anthropic 优先股。模型层的估值增长,以 GAAP 未实现收益形式进入云厂商利润,是非现金利润。
+  - 原文:The upward adjustments relating to equity investments in private companies of $ 50.5 billion in Q2 2026 ... reflect observable changes in prices, primarily from our nonvoting preferred stock in Anthropic.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+- **FLOW-21** ★ [官方(财报/SEC/官方博客)|2026-07-31|卖铲子赢] Amazon 与 Anthropic:2023–2025 投 $8B 可转债,2026Q2 再投 $10B;另设不超过 $20B 的融资额度,按 AWS 算力交付里程碑释放(资金与算力采购直接挂钩)。AWS 与 Anthropic 承诺再扩 $100B 以上/10 年。
+  - 原文:as we reach certain delivery milestones of compute capacity under the amended commercial arrangement, amounts under this facility are made available for Anthropic to draw upon at its discretion.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+- **FLOW-22** [官方(财报/SEC/官方博客)|2026-07-23|中性] Alphabet Q2 2026:经营利润 $40.8B,其他收益 $98.0B(股权净收益 $99.0B,来自 SpaceX 和一家未具名私营公司;是否为 Anthropic 属推断,未经证实),税前 $138.8B。Google Cloud 积压订单 $513.9B。
+  - 原文:OI&E of $98.0 billion for the three months ended June 30, 2026 included net gains on equity securities of $99.0 billion, primarily related to unrealized gains in our equity securities portfolio from SpaceX and a private company.
+  - https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+- **FLOW-23** [媒体转述|2026-04-24|聚合者通吃] Google 2026-04 对 Anthropic 先投 $10B(估值 $350B),达标后再投 $30B;Google Cloud 未来五年新增 5GW 容量(媒体转述)。Anthropic 2026-04 官方称与 Google/Broadcom 签下多 GW 级 TPU,2027 年起上线。
+  - 原文:committing to invest $10 billion now, at a $350 billion valuation for Anthropic, with another $30 billion to follow if Anthropic hits certain performance targets
+  - https://techcrunch.com/2026/04/24/google-to-invest-up-to-40b-in-anthropic-in-cash-and-compute/
+- **FLOW-24** [官方(财报/SEC/官方博客)|2025-11-18|卖铲子赢] Anthropic、Microsoft、NVIDIA 三方交易(2025-11):Anthropic 承诺购买 $30B Azure 算力;NVIDIA 至多投 $10B、Microsoft 至多 $5B;初始至多 1GW。投资额与算力采购额同时成交,是典型的双向流。
+  - 原文:Anthropic has committed to purchase $30 billion of Azure compute capacity
+  - https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships
+- **FLOW-25** ★ [官方(财报/SEC/官方博客)|2026-07-29|聚合者通吃] Microsoft FY26(截至 2026-06-30):来自 OpenAI 商业安排的收入(含收入分成)$24.1B,应收 $6.0B;已出资 $11.9B(承诺 $13.0B)。资金双向流动:股权进,算力和分成收入出。
+  - 原文:For fiscal year 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 24.1 billion, and accounts receivable from OpenAI as of June 30, 2026 was $ 6.0 billion.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **FLOW-26** [官方(财报/SEC/官方博客)|2026-07-29|中性] Microsoft FY26 GAAP 其他收益中有来自 OpenAI 投资的净收益 $6.5B,主要是重组带来的稀释收益(FY25 为净亏损 $4.8B);non-GAAP 口径剔除这一项。
+  - 原文:Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net losses for fiscal years 2026 and 2025, respectively, from investments in OpenAI ... primarily relate to the dilution gain from the OpenAI Recapitalization.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **FLOW-27** ★ [官方(财报/SEC/官方博客)|2025-10-29|聚合者通吃] 2025-10 重组时,OpenAI 签约增购 $250B Azure 服务,Microsoft 放弃算力优先权,持股约 27%。
+  - 原文:Under the new agreement, OpenAI has contracted to purchase an incremental $ 250 billion of Azure services, and Microsoft will no longer have a right of first refusal to be OpenAI's compute provider.
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm
+- **FLOW-28** ★ [官方(财报/SEC/官方博客)|2026-04-27|前沿赢家通吃] 2026-04 再修订:OpenAI 向 Microsoft 的收入分成持续到 2030 年,比例不变但设总上限;Microsoft 不再向 OpenAI 付分成;Microsoft 对 OpenAI IP 的许可改为非独占。云层对模型层的抽成被封顶,模型层的分发不再绑定单一云。
+  - 原文:Revenue share payments from OpenAI to Microsoft continue through 2030, independent of OpenAI's technology progress, at the same percentage but subject to a total cap.
+  - https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/
+- **FLOW-29** [官方(财报/SEC/官方博客)|2026-07-29|中性] Microsoft FY26:商业 RPO 增长 84% 至 $678B;Microsoft Cloud 毛利率降至 66%(原因是 AI 基建投入);资本开支 $115.9B;另有 $329.1B 未起租的数据中心租约。
+  - 原文:As of June 30, 2026, we had additional leases, primarily for datacenters, that had not yet commenced of $ 329.1 billion
+  - https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+- **FLOW-30** ★ [官方(财报/SEC/官方博客)|2026-09-11|中性] Oracle Q1 FY27(截至 2026-08-31):RPO $664B,仅约 13% 在 12 个月内确认;当季收入 $19.3B,资本开支 $28.5B,FCF −$5.4B(non-GAAP);当季通过 ATM 卖股融资 $20B。承诺额与落地额差距最大的一层。
+  - 原文:Remaining performance obligations were $ 664 billion as of August 31, 2026 , of which we expect to recognize approximately 13 % as revenues over the next twelve months
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+- **FLOW-31** ★ [官方(财报/SEC/官方博客)|2026-09-11|电力稀缺] Oracle 当季经营现金流 $23.1B 中,含 $11.4B 带重大融资成分的客户预付款;另有 $288B 未起租、未入表的数据中心租约。新签 AI 合同经过结构设计,不增加融资需求,显示出由客户预付或自带资本承担成本的倾向。
+  - 原文:we had $ 288 billion of additional lease commitments, substantially all related to data center arrangements ... that were not reflected on our condensed consolidated balance sheets
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+- **FLOW-32** [官方(财报/SEC/官方博客)|2025-06-30|中性] Oracle 2025-06 的 8-K 只披露:某份合同预计自 FY28 起贡献每年 $30B 以上收入。对手方是 OpenAI、总额 $300B/5 年,均出自媒体与 OpenAI 4.5GW 公告,不在 Oracle 文件中。
+  - 原文:we signed multiple large cloud services agreements including one that is expected to contribute more than $30 billion in annual revenue starting in FY28.
+  - https://www.sec.gov/Archives/edgar/data/1341439/000119312525152035/d136779d8k.htm
+- **FLOW-33** [媒体转述|2026-03-06|模型商品化] Oracle 与 OpenAI 于 2026-03 终止 Abilene 旗舰园区的扩建(原计划从 1.2GW 扩到约 2GW),原因是融资谈判拖延、OpenAI 需求预测变动;另有报道称 OpenAI 放弃自建 Stargate,改为租赁(媒体转述)。
+  - 原文:
+  - https://www.bloomberg.com/news/articles/2026-03-06/oracle-and-openai-end-plans-to-expand-flagship-data-center
+- **FLOW-34** ★ [官方(财报/SEC/官方博客)|2026-08-12|卖铲子赢] CoreWeave Q2 2026:收入 $2.58B(同比翻倍),经营亏损 $49M,净利息费用 $640M,净亏损 $626M;RPO $103.7B;NVIDIA 2026-01 以私募方式认购 $2.0B 股票;存量票据利率 8.5%–9.75%。GPU 新云层收入在增长,但利润被利息吞掉。
+  - 原文:In January 2026, we entered into a securities purchase agreement with NVIDIA Corporation for a private placement of approximately 23 million shares of our Class A common stock at a purchase price of $87.20 per share, for aggregate gross proceeds of $2.0 billion.
+  - https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+- **FLOW-35** [官方(财报/SEC/官方博客)|2026-08-05|中性] AMD 与 OpenAI(2025-10)、与 Meta(2026-02)各签至多 6GW 协议,各发 1.6 亿股、行权价 $0.01 的认股权,按采购里程碑和股价门槛归属;截至 2026-06-27 尚无任何股份归属,对报表无影响(承诺额未落地)。
+  - 原文:As of June 27, 2026, no warrant shares had vested or become exercisable, and the warrants had no impact on the Condensed Consolidated Financial Statements
+  - https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm
+- **FLOW-36** ★ [媒体转述|2026-09-19|前沿赢家通吃] OpenAI 的算力支出口径一年内反复变化(厂商对投资人口径,媒体转述):Altman 称 $1.4T 承诺;2026-02 对投资人称 2030 年前约 $600B;2026-07 推介材料为 $856B。2026–2030 年负 FCF 约 $278B;2026 年收入约 $36B,2030 年目标 $350B。支出上调而烧钱下降,原因是 NVIDIA、Oracle、SB Energy 用自己的资产负债表承担了基建。
+  - 原文:
+  - https://thenextweb.com/news/openai-856bn-compute-vs-600bn-reset-burn-improved
+- **FLOW-37** ★ [厂商自报|2026-04-06|前沿赢家通吃] Anthropic 收入:官方称 2026-04 run-rate 超过 $30B(2025 年底约 $9B);8 月对投资人更新称 7 月底 run-rate 超过 $65B,Q2 初步收入超过 $11.5B(去年同期 $787M),调整后经营利润为正(厂商口径,经媒体转述;run-rate 与确认收入要分开看)。
+  - 原文:Our run-rate revenue has now surpassed $30 billion—up from approximately $9 billion at the end of 2025
+  - https://www.anthropic.com/news/google-broadcom-partnership-compute
+- **FLOW-38** ★ [官方(财报/SEC/官方博客)|2026-09-03|模型商品化] NVIDIA 2026-09 宣布以约 $11.9B 收购 Hugging Face,并在 8-K 中直言开源模型需求会推动 NVIDIA 产品使用。芯片层在主动商品化互补品(模型),是「模型商品化有利于卖铲子」的直接证据。
+  - 原文:Demand for open-source foundation models and applications based on them promotes the use of our products worldwide and sustains the Hugging Face platform.
+  - https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm
+- **FLOW-39** ★ [官方(财报/SEC/官方博客)|2026-07-31|中性] 超大厂积压订单(RPO)合计:Microsoft 商业 RPO $678B、AWS 约 $496B、Google Cloud $513.9B、Oracle $664B、CoreWeave $103.7B,合计超过 $2.4T。其中相当部分来自 OpenAI 和 Anthropic 这两个现金流为负或刚转正的对手方,积压订单的质量取决于模型层的信用。
+  - 原文:For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026.
+  - https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+
+### 交叉口径问题
+- Cahn 2026 的 $1.5T 是单一年(2026)capex 对应的终身终端收入需求,$3T 是 ChatGPT 以来累计;媒体(TechCrunch 等)写成需要 $3T 年收入证明 2026 投入,口径错误。另外 2026 版公式的起点从 NVIDIA run-rate 改成了超大厂 capex($750B ×2),与 2023/2024 版不完全可比。
+- Bain 2025 版(2030 年,$500B/yr capex → $2T,按云厂商可持续 capex/收入比)与 2026 版(2031 年,$1.5T/yr → $6T,capex 约占收入 25%)的年份、capex 口径和缺口定义都不同。$800B 缺口是在假设本地 IT 全部上云、再投入 AI 节省之后的剩余;$4.2T 是扣除消费+企业 AI $1.2–1.8T 之后的新品类收入。
+- Amazon $50.5B、Alphabet $99.0B、NVIDIA $23.7B、Microsoft $6.5B 都是 GAAP 其他收益里的股权未实现或稀释收益,属于非现金、非经营利润。计算各层利润时必须用经营利润,否则会把模型层估值重复计入云和芯片层。Microsoft 的 non-GAAP 已剔除 OpenAI 损益。
+- Alphabet 那笔 private company 未具名,把它说成 Anthropic 属推断。
+- RPO、积压与承诺额 vs 确认收入:Oracle RPO $664B 只有 13% 在 12 个月内确认;CoreWeave 写明 RPO 已扣除可变对价并包含 up to 型合同;AMD 6GW 协议是 intends to deploy up to,认股权零归属。
+- NVIDIA 对 OpenAI:up to $100B LOI(非约束)、$30B 实际股权、$105B 担保上限(只在违约时才付,且 OpenAI 有偿付义务)、约 12GW 采购承诺,四个数字不能相加。分析师加总的约 $500B 混合了供应承诺、股权承诺和担保。
+- Amazon 对 OpenAI 的 $50B:媒体称 $35B 附带 AGI/IPO 条件,但 10-Q 显示 2026-06-30 后已付清 $21.3B。条件如何满足或修改未见披露;另外媒体称部分以服务而非现金形式出资,与 10-Q 的 Series C 现金投资口径需要核对。
+- OpenAI 和 Anthropic 都没有公开 S-1(仅为保密递交),所有收入、利润和毛利数字都是厂商对投资人的口径,经 The Information、Bloomberg、CNBC 转述。run-rate(月收入 ×12)与确认收入不同;adjusted operating income 是 non-GAAP。
+- 财年与日历年:NVIDIA Q2 FY27 截至 2026-07-26;Oracle Q1 FY27 截至 2026-08-31;Microsoft FY26 截至 2026-06-30;Amazon、Alphabet、CoreWeave 为日历 Q2 2026。
+- Oracle $300B/5 年与 OpenAI 这个对手方,Oracle 文件均未写明,只有每年超过 $30B、自 FY28 起这一口径。
+- Microsoft 的 OpenAI 收入 $24.1B 包含收入分成,分成是 OpenAI 收入的一个比例,不完全等于 Azure 算力销售。
+- 从业者分层估算(Agrawal)中应用层用的是 run-rate,半导体层用的是确认收入,时间窗口不一致;它反映的是当下分布,不能代表长期落点。
+- Morgan Stanley $2.9T / $1.5T 来自 2025-07 的转述,PDF 原文未抓取成功。

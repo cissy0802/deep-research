@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 赚的钱最后落在谁手里?做模型的是不是在给人做嫁衣(易读版) — BigCat Deep Research</title>
+<meta name="description" content="存储芯片的利润率已经超过 NVIDIA,做模型的还在大亏——但上游一边收实验室的算力钱,一边为实验室的信用兜底。易读版:五层并排、一个资金圈、两条价格曲线,以及十一条可检验的判断。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+h2:nth-of-type(13){--h2:#f0b429}
+h2:nth-of-type(14){--h2:#52b788}
+h2:nth-of-type(15){--h2:#e8794b}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="ai-profit-pools-plain.html" class="active">中文</a><a href="ai-profit-pools-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>AI 赚的钱最后落在谁手里?做模型的是不是在给人做嫁衣(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="ai-profit-pools-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">AI 的钱现在在哪?越靠近物理上的稀缺越多:存储芯片的利润率已经超过 NVIDIA,NVIDIA 超过台积电,台积电超过云业务,出租 GPU 的公司被利息吃掉利润,做模型的还在大亏。云的高利润率有三个前提,每个都有反例;做模型的收入已经拉开差距,但只有一家在一个季度里按自定义口径赚了钱。最值得注意的是钱在转圈:实验室付算力钱给上游,上游又投钱、做担保把实验室撑住,实验室估值一涨,上游就记一笔账面利润——Amazon 一个季度这样记的钱是它云业务利润的 3 倍。所以「做模型的给人做嫁衣」只对了一半:真正该问的是,万一实验室出问题,谁来买单。电费只占小头,但「能马上通电」很值钱;同样水平的 AI 每年便宜一个数量级,用最强的模型办事却越来越贵。</div></div>
+<div class="chips"><span class="chip c1">越靠近物理稀缺越赚钱</span><span class="chip c2">电费小,通电贵</span><span class="chip c3">「嫁衣」只对了一半</span><span class="chip c4">先问谁在兜底</span></div>
+<blockquote><p>这是易读版,写给没读过财报的人。每个数字的出处、原文引语和证据等级,见<a href="https://hub.cissychen.com/deep-research/ai-profit-pools-deep.html">深入版</a>。所有数字截至 2026 年 10 月初。</p></blockquote>
+<h2>先说清楚:我们在问什么</h2>
+<p>AI 这门生意可以粗分成五层:造芯片的、发电和盖机房的、出租算力的云厂商、做模型的实验室、做应用和握着用户的公司。大家都在问同一个问题:钱最后落在哪一层?</p>
+<p>流行的答案有四个,而且互相打架:「淘金热里卖铲子的赢」(芯片);「模型会越来越便宜,终将不值钱」;「谁握着用户谁赢」(Google、微软、Apple 这样的公司);「最强的那家实验室通吃」。最近又多了一个:「电才是最稀缺的」。</p>
+<p>每个答案都能找到数字撑腰,一个原因是大家用的尺子不一样。这篇文章先统一尺子:</p>
+<ul><li><strong>看「做生意本身赚的钱」(经营利润),不看最后的净利润。</strong> 2026 年,几家大公司的净利润里混进了巨额的「账面收益」——它们持有的 AI 实验室股份涨价了。比如 Amazon 一个季度从 Anthropic 股份上记了约 505 亿美元税前收益,是它整个云业务当季经营利润的 3 倍。用净利润比,会把同一份价值重复算好几遍。</li><li><strong>看实际确认的收入,不看「年化收入」。</strong> 「年化」是把最近一个月的收入乘以 12,在快速增长的公司身上常常是实际收入的两倍。</li><li><strong>分清「已经发生的钱」和「签了合同的钱」。</strong> 几千亿的订单、几百亿的担保,大多是未来好几年的承诺。</li><li><strong>分清「现在钱在哪」和「将来钱会在哪」。</strong> 前者能从财报读出来;后者只能给几种可能,以及怎么提前看出是哪一种。</li></ul>
+<h2>两种说法:利润往哪里走</h2>
+<p><strong>第一种说法来自哈佛商学院教授 Christensen。</strong> 他认为,当一个环节变成谁都能做的标准件,利润就会搬到旁边的环节;而在产品「还不够好」的阶段,把各部分紧密整合在一起做的公司最赚钱。他本人写明这「还是一个假说」。放到 AI 上:如果最强的模型对客户来说还不够好,那么把模型和产品绑在一起做的实验室会赚钱;如果已经够好,模型就会变成标准件。</p>
+<p><strong>第二种说法来自分析师 Ben Thompson。</strong> 他认为在互联网时代,握住用户的一方能把供应商压成没有议价权的商品。按这个说法,钱最终落在用户入口那里。</p>
+<p>有意思的是,Thompson 本人 2026 年就改了三次口:3 月说,如果 AI 助手需要把模型和外壳紧密整合,做模型的实验室可能比想象中更赚钱;6 月说目前最大的赢家是 NVIDIA、台积电和存储厂,长期最值钱的还是用户入口;9 月又从一个事件推断,客户已经开始觉得现有能力「够好」了,「纯粹的能力不再直接等于护城河」。一位跟踪这个行业最紧的分析师一年里换了三次判断,这本身就说明问题有多难。</p>
+<p>两种说法给出的答案相反,但它们都指向同样两件可以观察的事:<strong>客户是否觉得最强模型已经「够好」</strong>,以及<strong>芯片、存储、电力这些物理瓶颈是否解除</strong>。文章最后会用这两件事搭出四种可能。</p>
+<h2>历史上谁拿走了利润</h2>
+<p><strong>电脑时代。</strong> 2000 年前后,Intel 和微软两家的经营利润合计约 213 亿美元;Dell 全公司加上 Compaq 的两个电脑部门约 31 亿美元,差约 7 倍(两边口径不完全一致,换算法在 6 到 8 倍之间)。掌握标准的芯片和操作系统很厚,组装整机的很薄。</p>
+<p><strong>光纤和铁路。</strong> 2000 年前后铺光纤的公司大量破产,但这些光纤后来被很便宜地接手,撑起了今天几乎免费的互联网。英国 19 世纪中叶的铁路狂热,据一位学者估算,投资人亏掉了约三分之一(这是估算,也有学者不同意)。规律是:修路的承担风险,用路的拿走好处。</p>
+<p><strong>这次可能不一样。</strong> 光纤和铁路能用几十年,建设者破产后,后来者能捡便宜接着用。AI 的芯片会计上按 5 到 6 年折旧,实际被新一代淘汰得可能更快。如果这一轮建过头了,留下来能被捡便宜的是厂房、电力设施和接好电网的地,不是算力本身。</p>
+
+<figure>
+<svg viewBox="0 0 700 276" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">历史上谁拿走了利润,以及这次哪里不一样</text>
+  <text x="24" y="54" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">2000 年前后的经营利润(SEC 10-K)</text>
+  <text x="318" y="80" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Intel + 微软</text><rect x="330" y="66" width="234" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="572" y="80" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $213 亿</text><text x="318" y="110" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Dell 全公司 + Compaq 两个 PC 分部</text><rect x="330" y="96" width="34" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="372" y="110" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $31 亿</text>
+  <text x="330" y="140" fill="#e4e6eb" font-size="12" font-family="-apple-system,sans-serif">→ 约 7 倍(换口径在 6.2–7.7 倍之间)</text>
+  <text x="24" y="170" fill="#b9a8ff" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">基建能被后来者用多久</text>
+  <text x="318" y="194" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">铁路、光纤</text><rect x="330" y="180" width="150" height="19" rx="4" fill="#7b61ff" opacity="0.85"/><text x="488" y="194" fill="#b9a8ff" font-size="11.5" font-family="-apple-system,sans-serif">数十年,破产后被廉价接手</text><text x="318" y="240" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">GPU</text><rect x="330" y="226" width="24" height="19" rx="4" fill="#7b61ff" opacity="0.85"/><text x="362" y="240" fill="#b9a8ff" font-size="11.5" font-family="-apple-system,sans-serif">会计折旧 5–6 年,实际可能更短</text>
+</svg>
+<figcaption>示意:上半为 SEC 原始数字(财年最多错开约 8 个月,非严格同口径);下半条长为示意。光纤与铁路的「建设者破产、使用者受益」依赖资产寿命长,GPU 不满足这个条件</figcaption>
+</figure>
+<h2>芯片:现在最赚钱,但钱在往存储走</h2>
+<p>NVIDIA 截至 2026 年 7 月的那个季度,收入约 962 亿美元,每卖 100 美元有约 66 美元是经营利润。三年前这个数字只有约 16 美元。</p>
+<p>但现在比 NVIDIA 更赚钱的是做存储芯片的。美光最近一个季度每 100 美元收入有约 81 美元经营利润,韩国的 SK 海力士约 76 美元。原因是 AI 把整个存储市场买空了,价格飞涨。</p>
+<p>一个反直觉的细节:最赚钱的不是 AI 专用的那种高端存储(HBM),而是普通的内存和闪存——缺货涨价涨得更凶。美光自己说要在 2027 年大幅提高 HBM 的价格,来追平普通内存的利润。</p>
+<p>NVIDIA 的报表也在印证这一点:它下调了毛利预期,财务主管说原因是「存储价格极端」;它签下的采购承诺从 1,190 亿美元跳到 2,790 亿美元,主要用来买存储。不过 NVIDIA 也说了,打算靠自己涨价把利润拉回来。所以这次「钱往存储走」可能只是暂时的。</p>
+<p><strong>还有两个提醒。</strong> 一是 Google、Amazon 等公司在自研芯片,但这并没有让芯片层的利润消失,只是在芯片层内部重新分。二是有一位投资人估算,芯片层占整个 AI 生态毛利的比例从两年前的约 87% 降到了约 79%——还是压倒性的,但在下降。</p>
+
+<figure>
+<svg viewBox="0 0 700 328" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">稀缺租金上移到存储,而最厚的不是 HBM</text>
+  <text x="24" y="60" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">Micron 全年 GAAP 毛利率</text><text x="250" y="86" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">FY25</text><rect x="262" y="72" width="159" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="429" y="86" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">39.8%</text><text x="250" y="116" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">FY26</text><rect x="262" y="102" width="323" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="593" y="116" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">80.7%</text><text x="24" y="154" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">Micron FQ4 FY26 各事业部毛利率</text><text x="250" y="180" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Cloud Memory(含 HBM)</text><rect x="262" y="166" width="332" height="19" rx="4" fill="#ff6ec4" opacity="0.85"/><text x="602" y="180" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">83%</text><text x="250" y="210" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Core Data Center</text><rect x="262" y="196" width="360" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="630" y="210" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">90%</text><text x="250" y="240" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Mobile &amp; Client</text><rect x="262" y="226" width="360" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="630" y="240" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">90%</text><text x="24" y="276" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">同期 NVIDIA:采购承诺 $1,190 亿 → $2,790 亿,「主要用于采购存储」</text><text x="24" y="293" fill="#e4e6eb" font-size="11.5" font-family="-apple-system,sans-serif">NVIDIA 正式毛利指引降到 74%</text>
+</svg>
+<figcaption>示意:Micron 8-K 与 prepared remarks;NVIDIA 8-K。含 HBM 的事业部毛利反而最低,AI 造成的是整个存储市场的缺货涨价。NVIDIA 口头预计 FY28 靠自身提价把毛利拉回 72%–73%,迁移可能是暂时的</figcaption>
+</figure>
+<h2>云:利润率高,但建立在三个前提上</h2>
+<p>Amazon、Google、微软的云业务,每 100 美元收入有 35 到 41 美元经营利润,看起来很赚钱。但这个数字有三个前提:</p>
+<ul><li><strong>研发不算进去。</strong> Google 训练模型的大笔费用记在集团层面,不摊给云业务。</li><li><strong>假设一块 GPU 能用 5 到 6 年。</strong> 几家公司都把服务器的折旧年限拉长到了 5.5 到 6 年,这让每年的成本看起来更低。Amazon 却反过来缩短了一部分,理由是 AI 技术迭代太快。</li><li><strong>假设出租 GPU 的利润会涨上来。</strong> 唯一的具体数字来自媒体:据媒体援引 Oracle 内部文件报道,2025 年夏天它出租 NVIDIA 芯片的毛利只有约 14%。Oracle 说按经调整口径,长期能做到 30% 到 40%,但这至今没在财报里兑现。</li></ul>
+<p>现金方面,不能笼统说「云厂商在烧钱」。真正入不敷出的是 Amazon(过去一年)和 Oracle;Google 有一个季度为负,并罕见地在股市融资了约 496 亿美元;微软仍有大量现金流入。</p>
+<p>云厂商手里的合同订单加起来约 2.46 万亿美元,听起来很吓人,但不能当作 AI 需求的总量:里面有大量非 AI 合同,而且同几家 AI 实验室在好几家云厂商那里重复下单。</p>
+<h2>租算力的公司和电力:被利息吃掉的利润,和一份没被算进去的稀缺</h2>
+<p><strong>专门出租 GPU 的新公司,利润被利息吃掉了。</strong> 以 CoreWeave 为例:2026 年第二季度收入约 26 亿美元,扣掉折旧前看起来很赚钱,扣掉折旧后几乎不赚,再扣掉约 6.4 亿美元利息,一个季度亏了约 6.3 亿美元。它背着约 351 亿美元债,股东的钱只有 50 亿美元。这种结构是大云厂商有意留给它们的:微软 CEO 说过,他不想被某一代硬件套牢四五年。</p>
+<p><strong>GPU 的租金没有暴跌八成。</strong> 常听到的「H100 从每小时 8 美元跌到 1.7 美元」,是把两种不同的价格拼在一起算的。按同一种价格比:大云厂商的挂牌价只跌了约两成;一年期合同价从 2025 年 10 月的低点反弹了约四成。2026 年是出租方说了算的市场,CoreWeave 7 月把各型号价格上调了约 25%。</p>
+<p><strong>电费只占小头。</strong> 多个独立测算都显示,电费只占一座 AI 数据中心总成本的约 7% 到 17%,大头是芯片本身。</p>
+<p><strong>但这不等于「卖电的赚不到钱」。</strong> 从「电费占比小」推出「卖电的赚不到钱」,这个推论站不住。正因为电费在总账里不重要,用户根本不在乎电价,只在乎能不能马上通电。粗算下来,一座大型 AI 机房晚通电一年,闲置的芯片损失约是全年电费的 10 倍。所以「能马上通电」很值钱。这笔钱主要没有流到受价格管制的电力公司手里(美国最大的电网区域,容量电价已经连续三次撞到政府设的上限,上限一直延到 2030 年),而是流向了造燃气轮机的厂商、手里有并网名额的开发商、已经通好电的机房。</p>
+
+<figure>
+<svg viewBox="0 0 700 266" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">1 GW AI 数据中心:电费很小,晚一年通电很贵</text>
+  <text x="262" y="56" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">每年,每 GW(美元)</text>
+  <line x1="262" y1="64" x2="262" y2="252" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <line x1="40" y1="190" x2="660" y2="190" stroke="#3a4256" stroke-width="1"/>
+  <text x="250" y="85" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">服务器(年化)</text><rect x="262" y="70" width="230" height="20" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="500" y="85" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $50 亿</text><text x="250" y="129" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">其余(设施、运维等)</text><rect x="262" y="114" width="133" height="20" rx="4" fill="#5a8bb0" opacity="0.85"/><text x="403" y="129" fill="#5a8bb0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $29 亿</text><text x="250" y="173" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">电费</text><rect x="262" y="158" width="28" height="20" rx="4" fill="#52b788" opacity="0.85"/><text x="298" y="173" fill="#52b788" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $6 亿(约 7%)</text><text x="250" y="231" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">晚通电一年的机会成本</text><rect x="262" y="216" width="299" height="20" rx="4" fill="#ff6ec4" opacity="0.85"/><text x="569" y="231" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $60–70 亿(粗算)</text>
+</svg>
+<figcaption>示意:前三行为 Epoch AI 风格化模型(全部 GB200、美国平均工业电价 8.34 美分/度,年化总成本约 $85 亿);其他独立测算的电费占比在约 7%–17%。最后一行是本期方法学审计席按 Epoch 年化口径的粗算,不是测量:正因为电费占比小,「能马上通电」才值钱</figcaption>
+</figure>
+<h2>做模型的:收入拉开了差距,利润还没出现</h2>
+<p>做模型的实验室都没上市,它们的财务数字全部来自公司自述、泄露文件或媒体报道,只能参考。</p>
+<p><strong>收入出现了一次超越。</strong> 据报道,2026 年第二季度 Anthropic 的收入约 115 亿美元,OpenAI 约 67 亿美元,Anthropic 第一次超过 OpenAI。但两家记账方式不同:Anthropic 把通过 Amazon、Google 云卖出的收入全额记账,OpenAI 把给微软的分成先扣掉。口径拉平后,Anthropic 仍然领先,但不是标题里的 1.7 倍,而在 1.3 到 1.6 倍之间。</p>
+<p><strong>利润几乎还没有。</strong> Anthropic 只在第二季度一个季度、按它自己定义的「调整后」口径(扣除了给员工的股票报酬等)实现了盈利,约 5.6 亿美元;2025 年全年它的经营亏损约 81 亿美元。OpenAI 第二季度的经营亏损约 123 亿美元,是收入的约 1.8 倍;它给投资人的预测是 2026 到 2030 年累计还要净流出约 2,780 亿美元现金。</p>
+<p><strong>它们欠上游的账很大。</strong> 泄露的文件显示,Anthropic 对六家云和芯片伙伴有约 5,180 亿美元、大部分不可撤销的十年期算力合同。</p>
+<p>所以「做模型的整体在给人做嫁衣」这个说法太粗了:收入已经在头部之间拉开,要按公司分开看;但目前还没有哪一家真正赚到了按正式口径算的利润。</p>
+<h2>两条价格曲线:为什么两派都觉得自己对</h2>
+<p>「模型会越来越便宜」和「最强的模型越来越值钱」两派吵了两年。其实他们看的是两条不同的线。</p>
+<p><strong>第一条:同样水平的 AI,价格每年降约一个数量级。</strong> 研究机构 Epoch 测得,达到某个固定能力水平的最低成本,每年降约 13 倍(换算法在 9 到 30 倍之间);其他团队测得 5 到 50 倍不等,方向一致。觉得「模型会商品化」的人,看的是这条线。</p>
+<p><strong>第二条:用最强的模型办一件事,越来越贵。</strong> MIT 的研究者测得,用当时最强的模型跑完一套测试,成本每年上涨 3 到 18 倍,主要因为新模型会「想」得更久、用掉更多文字量。觉得「前沿有溢价」的人,看的是这条线。</p>
+<p><strong>标价本身并没有一路涨。</strong> 「最强模型的价格逐代上涨」这个说法不成立:OpenAI 的旗舰标准档确实从 GPT-5 的每百万个词元(token,模型处理文字的单位)10 美元涨到了最新顶档的 50 美元(输出价),但它同时推出了只要 10 美元的主力档;Anthropic 最贵一档反而比 2025 年便宜。现在的格局是:最贵的往上走,同时出现了便宜好用的主力档。</p>
+<p><strong>开源模型落后约 4 个月,但大部分钱还是付给了闭源模型。</strong> 一项工作论文显示,在一个开发者常用的平台上(它只占全球模型调用支出的约 1%),闭源模型占了约 80% 的用量和 96% 的收入,价格平均是开源的 6 倍。</p>
+<p>模型公司能不能赚钱,取决于客户的钱留在哪条线上:是继续为最强能力付越来越高的账单,还是转向便宜的「够好就行」。编程工具 Cursor 就是靠把自家模型的底座换成开源的 Kimi,才把亏本的毛利扭成了微利。</p>
+
+<figure>
+<svg viewBox="0 0 700 432" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">两条价格曲线:两派看的不是同一条线</text>
+  <line x1="90" y1="60" x2="90" y2="300" stroke="#5a6378" stroke-width="1.5"/>
+  <line x1="90" y1="300" x2="610" y2="300" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="96" y="56" fill="#7c8593" font-size="11" font-family="-apple-system,sans-serif">成本(对数刻度)</text>
+  <text x="110" y="318" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">2023</text><text x="270" y="318" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">2024</text><text x="430" y="318" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">2025</text><text x="590" y="318" fill="#7c8593" font-size="11.5" text-anchor="middle" font-family="Menlo,monospace">2026</text>
+  <polyline points="110,116 270,170 430,222 590,272" fill="none" stroke="#4cc9f0" stroke-width="3"/>
+  <polyline points="110,262 270,212 430,160 590,104" fill="none" stroke="#ff6ec4" stroke-width="3"/>
+  <circle cx="590" cy="272" r="4" fill="#4cc9f0"/><circle cx="590" cy="104" r="4" fill="#ff6ec4"/>
+  <text x="575" y="292" fill="#4cc9f0" font-size="11" text-anchor="end" font-family="-apple-system,sans-serif">「商品化」看的是这条</text>
+  <text x="128" y="282" fill="#ff6ec4" font-size="11" font-family="-apple-system,sans-serif">「前沿溢价」看的是这条</text>
+  <line x1="40" y1="352" x2="70" y2="352" stroke="#4cc9f0" stroke-width="3"/>
+  <text x="80" y="356" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">固定能力水平的最低成本</text>
+  <text x="80" y="373" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">约每年降 13 倍(Epoch;各家测得 5–50 倍)</text>
+  <line x1="40" y1="398" x2="70" y2="398" stroke="#ff6ec4" stroke-width="3"/>
+  <text x="80" y="402" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="-apple-system,sans-serif">用当时最强模型跑完一套测试的成本</text>
+  <text x="80" y="419" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">每年升 3–18 倍(MIT FutureTech,推理 token 暴增)</text>
+</svg>
+<figcaption>示意:斜率按 Epoch 与 MIT FutureTech 的估计画出,两条线的取样口径不同(前者是达到固定能力的最便宜方式,后者是前沿模型的每任务开销),不能直接相比。每 token 标价则是分层的:顶档上探,同时出现更便宜的主力档</figcaption>
+</figure>
+<h2>应用:钱在本来就握着用户的人手里</h2>
+<p><strong>老巨头没有被 AI 颠覆,反而更稳了。</strong> Google 搜索收入第二季度涨了 17%,搜索和广告业务每 100 美元收入有约 42 美元经营利润(不含记在集团层面的 AI 研发成本);微软办公软件业务约 58 美元;Apple 的服务业务毛利约 76%,而且它几乎不用自己砸钱建 AI 机房——Apple 下一代基础模型将基于 Google 的 Gemini。对比一下:据彭博签约前的报道,Apple 付给 Google 的模型费每年约 10 亿美元(正式条款未披露),而法院查明 2022 年 Google 为了当 iPhone 的默认搜索,付给 Apple 超过 200 亿美元。握着用户的一方,收的远比付的多。</p>
+<p>(Meta 第二季度合并经营利润下降 8%,常被说成「AI 成本太高」。其实主要是一次性的法律费用和裁员补偿,扣掉后利润是增长的。)</p>
+<p><strong>新的 AI 应用公司,增长快、利润薄、命门在别人手里。</strong> 一家风投统计的十家增长最快的 AI 应用公司,平均毛利只有约 25%,常常为负。Cursor 直到最近才从亏本转为微利。更要命的是上游可以随时断供:据编程工具 Windsurf 的 CEO 说,Anthropic 在 2025 年提前不到五天切断了它对 Claude 3.x 模型的几乎全部直接供应;2026 年 8 月 SpaceX 以约 600 亿美元收购 Cursor 后,OpenAI 随即停止向它提供模型。</p>
+<p><strong>做模型的公司也在亲自下场做应用。</strong> Anthropic 的编程工具 Claude Code 年化收入在 2026 年 2 月已超过 25 亿美元;OpenAI 开始卖广告。</p>
+<h2>并排看:现在的钱在哪一层</h2>
+<p>把各层放在同一把尺子上(最近一个季度,每 100 美元收入里的经营利润):存储约 76 到 81 美元,NVIDIA 约 66 美元,台积电约 60 美元,云业务约 36 到 41 美元,出租 GPU 的 CoreWeave 约亏 2 美元,OpenAI 约亏 184 美元(媒体报道)。</p>
+<p>结论很清楚:<strong>现在的钱,越靠近物理上的稀缺(存储、先进芯片、晶圆代工)越多,越靠近模型越少。</strong>「卖铲子的赢」在当下是对的。</p>
+<p>撑住这条线需要下游赚多少钱?咨询公司贝恩 2026 年估计,到 2031 年 AI 基建一年要花约 1.5 万亿美元,对应需要一个接近 6 万亿美元的年市场,而现有的 AI 产品只能贡献 1.2 到 1.8 万亿,缺口约 4.2 到 4.8 万亿。一年前它针对 2030 年的估算,在假设企业把全部本地 IT 预算迁上云的前提下,缺口约 8,000 亿。</p>
+
+<figure>
+<svg viewBox="0 0 700 383" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">最近一季 GAAP 经营利润率:越靠近物理稀缺越厚</text>
+  <line x1="262" y1="54" x2="262" y2="343" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="250" y="78" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Micron(存储,FQ4)</text><rect x="262" y="64" width="339" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="609" y="78" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">80.7%</text><text x="250" y="109" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">SK hynix(存储,2Q)</text><rect x="262" y="95" width="319" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="589" y="109" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">76%</text><text x="250" y="140" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">NVIDIA(GPU,Q2 FY27)</text><rect x="262" y="126" width="278" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="548" y="140" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">66.2%</text><text x="250" y="171" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">TSMC(代工,2Q)</text><rect x="262" y="157" width="253" height="19" rx="4" fill="#4cc9f0" opacity="0.85"/><text x="523" y="171" fill="#4cc9f0" font-size="12.5" font-weight="700" font-family="Menlo,monospace">60.3%</text><text x="250" y="202" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">微软 Intelligent Cloud</text><rect x="262" y="188" width="171" height="19" rx="4" fill="#7b61ff" opacity="0.85"/><text x="441" y="202" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">40.6%</text><text x="250" y="233" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">AWS</text><rect x="262" y="219" width="165" height="19" rx="4" fill="#7b61ff" opacity="0.85"/><text x="435" y="233" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">39.4%</text><text x="250" y="264" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Google Cloud</text><rect x="262" y="250" width="150" height="19" rx="4" fill="#7b61ff" opacity="0.85"/><text x="420" y="264" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">35.6%</text><text x="250" y="295" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">CoreWeave(算力租赁)</text><rect x="258" y="285" width="4" height="11" fill="#ff6ec4"/><text x="272" y="295" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">−1.9%</text><text x="250" y="326" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">OpenAI(模型,媒体报道)</text><rect x="258" y="316" width="4" height="11" fill="#ff6ec4"/><text x="272" y="326" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">−184%(亏损约为收入 1.8 倍)</text>
+  <rect x="262" y="355" width="12" height="12" rx="2" fill="#4cc9f0"/><text x="280" y="365" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">芯片与存储</text><rect x="402" y="355" width="12" height="12" rx="2" fill="#7b61ff"/><text x="420" y="365" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">云分部</text><rect x="542" y="355" width="12" height="12" rx="2" fill="#ff6ec4"/><text x="560" y="365" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">算力租赁与模型</text>
+</svg>
+<figcaption>示意:各家最近一个财季,截止日最多错开约两个月;云为分部口径,未摊入 AI 研发;SK hynix 为韩国会计准则;OpenAI 为 WSJ 报道的含股权激励经营亏损除以收入,未经审计</figcaption>
+</figure>
+<h2>钱在转圈:「嫁衣」只对了一半</h2>
+<p>如果只看现金,做模型的确实在给上游打工:微软一个财年(2026 财年)从 OpenAI 收了约 241 亿美元,大部分是云算力的钱。</p>
+<p>但把别的钱也画进来,就是一个圈:</p>
+<ul><li><strong>现金往上走</strong>:实验室付算力钱给云厂商和芯片商。</li><li><strong>股份和信用往下走</strong>:NVIDIA 已经向前沿实验室投了近 500 亿美元,并预计明年约四分之一的业务来自「靠 NVIDIA 资产负债表撑着」的实验室;它在财报里直说,这些实验室和新云公司「缺乏拿到投资级融资的能力」。Amazon 给 Anthropic 的一笔融资额度,干脆写明按 AWS 交付算力的进度来放款——投资和买算力被写进了同一份合同。</li><li><strong>估值又回到上游的利润表</strong>:实验室融资估值一涨,持股的 Amazon、NVIDIA、微软就记一笔账面收益。Amazon 那一季的 505 亿美元就是这么来的。</li></ul>
+<p>所以「做模型的在给人做嫁衣」在现金上对,在风险上反了:<strong>上游在为实验室的信用兜底。</strong>NVIDIA 明年的一大块生意、云厂商订单里的一大块、Amazon 这一季税前利润的一大半,都系在少数几家实验室能不能继续融到钱上。真正该问的,已经不只是「哪一层利润率最高」,而是「万一实验室出问题,谁来买单」。</p>
+
+<figure>
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="28" fill="#e4e6eb" font-size="14" font-weight="700" font-family="-apple-system,sans-serif">资金在转圈:现金向上,股权与信用向下,估值回到上游利润表</text>
+  <rect x="30" y="96" width="160" height="150" rx="12" fill="#4cc9f0" opacity="0.10" stroke="#4cc9f0" stroke-width="1.5"/><text x="110" y="164" fill="#4cc9f0" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">芯片与存储</text><text x="110" y="186" fill="#9aa3b2" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">NVIDIA、Broadcom…</text><rect x="270" y="96" width="160" height="150" rx="12" fill="#7b61ff" opacity="0.10" stroke="#7b61ff" stroke-width="1.5"/><text x="350" y="164" fill="#7b61ff" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">云厂商</text><text x="350" y="186" fill="#9aa3b2" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">微软、Amazon、Google、Oracle</text><rect x="510" y="96" width="160" height="150" rx="12" fill="#ff6ec4" opacity="0.10" stroke="#ff6ec4" stroke-width="1.5"/><text x="590" y="164" fill="#ff6ec4" font-size="15" font-weight="700" text-anchor="middle" font-family="-apple-system,sans-serif">前沿实验室</text><text x="590" y="186" fill="#9aa3b2" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">OpenAI、Anthropic</text>
+  <line x1="510.0" y1="130.0" x2="440.0" y2="130.0" stroke="#4cc9f0" stroke-width="2.2"/><polygon points="430.0,130.0 440.0,125.0 440.0,135.0" fill="#4cc9f0"/><text x="470" y="122" fill="#4cc9f0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">①</text><line x1="430.0" y1="172.0" x2="500.0" y2="172.0" stroke="#7b61ff" stroke-width="2.2"/><polygon points="510.0,172.0 500.0,177.0 500.0,167.0" fill="#7b61ff"/><text x="470" y="164" fill="#b9a8ff" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">④</text><line x1="510.0" y1="214.0" x2="440.0" y2="214.0" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="6,5"/><polygon points="430.0,214.0 440.0,209.0 440.0,219.0" fill="#ff6ec4"/><text x="470" y="206" fill="#ff6ec4" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">⑤</text><line x1="270.0" y1="150.0" x2="200.0" y2="150.0" stroke="#4cc9f0" stroke-width="2.2"/><polygon points="190.0,150.0 200.0,145.0 200.0,155.0" fill="#4cc9f0"/><text x="230" y="142" fill="#4cc9f0" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">②</text><polyline points="110,246 110,286 590,286" fill="none" stroke="#7b61ff" stroke-width="2.2"/><line x1="590.0" y1="286.0" x2="590.0" y2="257.0" stroke="#7b61ff" stroke-width="2.2"/><polygon points="590.0,247.0 595.0,257.0 585.0,257.0" fill="#7b61ff"/><text x="350" y="280" fill="#b9a8ff" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">③ 股权与信用</text><polyline points="590,96 590,64 110,64" fill="none" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="6,5"/><line x1="110.0" y1="64.0" x2="110.0" y2="85.0" stroke="#ff6ec4" stroke-width="2.2" stroke-dasharray="6,5"/><polygon points="110.0,95.0 105.0,85.0 115.0,85.0" fill="#ff6ec4"/><text x="350" y="58" fill="#ff6ec4" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">⑤ 账面收益(估值上调)</text>
+  <text x="40" y="316" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">① 现金:算力合同</text><text x="255" y="316" fill="#4cc9f0" font-size="11" font-family="-apple-system,sans-serif">② 现金:资本开支</text><text x="470" y="316" fill="#b9a8ff" font-size="11" font-family="-apple-system,sans-serif">④ 股权(按算力交付放款)</text>
+  <text x="30" y="344" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">① 微软 FY26 从 OpenAI 确认收入 $241 亿;Anthropic 约 $5,180 亿十年算力义务(泄露草案)</text><text x="30" y="363" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">③ NVIDIA 近 $500 亿投资前沿实验室,预计明年约 1/4 业务靠其资产负债表;$1,050 亿为或有担保上限</text><text x="30" y="382" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">④ Amazon 对 Anthropic 至多 $200 亿额度,按 AWS 算力交付里程碑释放</text><text x="30" y="401" fill="#9aa3b2" font-size="11" font-family="-apple-system,sans-serif">⑤ Amazon 2026Q2 对 Anthropic 估值上调约 $505 亿(税前);NVIDIA 上半年约 17% 税前利润来自股权收益</text>
+</svg>
+<figcaption>示意:箭头只表示资金或价值的方向,粗细不代表金额。数字均为 SEC 文件或电话会口径,Anthropic 义务来自泄露的 S-1 草案</figcaption>
+</figure>
+
+<figure>
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="32" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">Amazon 2026 年第二季度:一笔账面收益是云业务利润的 3 倍</text>
+  <line x1="262" y1="54" x2="262" y2="186" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  <text x="250" y="79" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">AWS 分部经营利润</text><rect x="262" y="64" width="73" height="20" rx="4" fill="#7b61ff" opacity="0.85"/><text x="343" y="79" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">$166 亿</text><text x="250" y="123" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">Amazon 合并经营利润</text><rect x="262" y="108" width="121" height="20" rx="4" fill="#7b61ff" opacity="0.85"/><text x="391" y="123" fill="#7b61ff" font-size="12.5" font-weight="700" font-family="Menlo,monospace">$275 亿</text><text x="250" y="167" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="Menlo,monospace">对 Anthropic 的估值上调(非经营)</text><rect x="262" y="152" width="222" height="20" rx="4" fill="#ff6ec4" opacity="0.85"/><text x="492" y="167" fill="#ff6ec4" font-size="12.5" font-weight="700" font-family="Menlo,monospace">约 $505 亿(税前)</text>
+</svg>
+<figcaption>示意:Amazon 10-Q。估值上调依据 Anthropic 融资的可观察价格;上半年合计约 $628 亿,为此计提约 $159 亿离散所得税。同一次重估在 Anthropic 一侧表现为非现金亏损(2025 年约 $340 亿,泄露草案)</figcaption>
+</figure>
+<h2>以后会怎样:两个变量,四种可能</h2>
+<p>前面说的两件可以观察的事——<strong>最强模型是否「够好」</strong>、<strong>物理瓶颈是否解除</strong>——交叉起来,得到四种可能:</p>
+<ol><li><strong>瓶颈还在,最强模型还不够好</strong>:芯片存储和最强的实验室一起赚钱。</li><li><strong>瓶颈还在,模型已经够好</strong>:模型变成可替换的零件,钱被芯片、存储、通好电的机房吸走。</li><li><strong>瓶颈解除,最强模型还不够好</strong>:算力变便宜,把模型和产品绑在一起做的实验室赢。</li><li><strong>瓶颈解除,模型已经够好</strong>:模型和算力都变便宜,钱回到握着用户的 Google、微软、Apple、Meta 手里。</li></ol>
+<p>截至 2026 年 10 月,现实更接近第 1 和第 2 种之间:瓶颈明显还在(存储利润创纪录、租金反弹、电价撞上限),「够好」的迹象刚刚冒头,还不能确认。</p>
+
+<figure>
+<svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">长期落点:两个可观测变量,四种情景</text>
+  <rect x="150" y="70" width="262" height="122" rx="10" fill="#4cc9f0" opacity="0.08" stroke="#4cc9f0" stroke-width="1"/><text x="162" y="100" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">① 物理层 + 整合的前沿实验室</text><text x="162" y="124" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">信号:实验室 GAAP 经营利润转正</text><rect x="420" y="70" width="262" height="122" rx="10" fill="#7b61ff" opacity="0.08" stroke="#7b61ff" stroke-width="1"/><text x="432" y="100" fill="#7b61ff" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">③ 整合者赢(模型 + 产品)</text><text x="432" y="124" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">信号:租价回落,前沿支出份额仍升</text><rect x="150" y="200" width="262" height="122" rx="10" fill="#4cc9f0" opacity="0.08" stroke="#4cc9f0" stroke-width="1"/><text x="162" y="230" fill="#4cc9f0" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">② 物理层独占</text><text x="162" y="254" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">信号:存储利润率持续高于 NVIDIA</text><rect x="420" y="200" width="262" height="122" rx="10" fill="#ff6ec4" opacity="0.08" stroke="#ff6ec4" stroke-width="1"/><text x="432" y="230" fill="#ff6ec4" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">④ 用户触点赢</text><text x="432" y="254" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">Google、微软、Apple、Meta</text><text x="432" y="271" fill="#9aa3b2" font-size="10.5" font-family="-apple-system,sans-serif">信号:开源份额回升,巨头资本开支占比下降</text>
+  <text x="140" y="134" fill="#e4e6eb" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">还不够好</text>
+  <text x="140" y="264" fill="#e4e6eb" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">已经够好</text>
+  <text x="24" y="58" fill="#7c8593" font-size="10.5" font-family="-apple-system,sans-serif">前沿能力对客户</text>
+  <text x="281" y="345" fill="#e4e6eb" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">持续</text>
+  <text x="551" y="345" fill="#e4e6eb" font-size="11.5" text-anchor="middle" font-family="-apple-system,sans-serif">解除</text>
+  <text x="416" y="368" fill="#7c8593" font-size="10.5" text-anchor="middle" font-family="-apple-system,sans-serif">物理瓶颈(存储、芯片、电力接入)</text>
+  <circle cx="300" cy="196" r="7" fill="#ffd166"/>
+  <text x="290" y="186" text-anchor="end" fill="#ffd166" font-size="11.5" font-weight="700" font-family="-apple-system,sans-serif">2026-10 读数</text>
+</svg>
+<figcaption>示意:两个变量来自 Christensen(性能是否「够好」)与 Thompson(稀缺解除后价值回到用户触点)。截至 2026 年 10 月,物理瓶颈明显持续,「够好」的证据刚出现,读数落在①与②之间</figcaption>
+</figure>
+<h2>最要紧的几件事</h2>
+<p><strong>现在的钱在上游,而且越靠近物理稀缺越多。</strong> 存储 &gt; 芯片 &gt; 代工 &gt; 云 &gt; 出租算力的公司 &gt; 做模型的。这是有正式财报支撑的,是本文最硬的结论。</p>
+<p><strong>钱正在从 GPU 往存储走,但可能是暂时的。</strong> 而且最赚的是普通内存的缺货涨价,不是 AI 专用存储。</p>
+<p><strong>云的高利润率有前提。</strong> 研发不算、GPU 按 5 到 6 年折旧、出租 GPU 的利润会涨上来——三个前提都有反例。Amazon 和 Oracle 的现金已经入不敷出。</p>
+<p><strong>做模型的收入拉开了,利润还没出现。</strong> 只有一家、一个季度、按自定义口径赚了钱。</p>
+<p><strong>「嫁衣」只对了一半。</strong> 现金往上流,风险往下压:上游在为实验室兜底,实验室的估值又被记成了上游的利润。该问「谁在承担实验室的风险」。</p>
+<p><strong>电费小,但「能马上通电」很值钱。</strong> 这份钱主要没流到电力公司,而是流向了燃机厂商和手里有并网名额的人。</p>
+<p><strong>以后会怎样,取决于两件能观察的事:模型是否「够好」,瓶颈是否解除。</strong></p>
+<h2>这篇文章的判断,怎么检验</h2>
+<p>按把握从大到小排:</p>
+<ol><li><strong>按最近一季的正式口径,存储和芯片公司的经营利润率(约 60% 到 81%)高于云业务(约 36% 到 41%),远高于出租 GPU 的公司(亏)和做模型的实验室(大亏)。</strong> 怎么推翻:看接下来几个季度的财报,如果云业务或某家实验室的利润率追上了芯片公司。</li><li><strong>实验室的估值正被记成上游公司的利润,用净利润比各层会重复算。</strong> Amazon 一个季度记了约 505 亿美元(税前),是其云业务当季经营利润的 3 倍。怎么推翻:如果哪家实验室估值下调,上游利润表里应该出现同样大的反向亏损。</li><li><strong>专门出租 GPU 的公司,付的利息比赚的经营利润还多。</strong> 怎么推翻:CoreWeave 的经营利润首次盖过利息,或者同类公司不是这样。</li><li><strong>云厂商的现金已经分化:利润率很高,但 Amazon 和 Oracle 的现金入不敷出,Google 开始在股市融资。</strong> 怎么推翻:看 2026 年下半年的现金流。</li><li><strong>同样水平的 AI 每年便宜约一个数量级,而用最强模型办事越来越贵;两派看的是不同的线。</strong> 怎么推翻:如果用最强模型办事的成本也开始逐年下降。</li><li><strong>钱已经从 GPU 往存储走,而且主要在普通内存。</strong> 怎么推翻:2027 年存储扩产后,如果存储公司的利润率掉回 NVIDIA 以下、NVIDIA 利润率回升,说明只是暂时的。</li><li><strong>AI 应用的钱主要被握着用户的老巨头拿走,新的 AI 应用公司利润薄、还会被上游断供。</strong> 怎么推翻:哪家 AI 原生应用公司公开披露长期稳定、高于 50% 的毛利。</li><li><strong>NVIDIA 明年约四分之一的生意靠自己的资产负债表撑着。</strong> 怎么推翻或坐实:看它下一财年的实际披露,以及给 OpenAI 机房做的担保会不会被触发。</li><li><strong>做模型的收入已经拉开,利润还没集中到谁身上:截至 2026 年 10 月,只有 Anthropic 一个季度按自定义口径盈利,没有一家按正式口径盈利过一个季度。</strong> 怎么推翻:Anthropic 正式公开上市文件,或公布第三季度实绩。</li><li><strong>电费只占 AI 机房成本的约一成上下,但「能马上通电」值约 10 倍电费,这份钱主要流向燃机厂商、手握并网名额的开发商和通好电的机房,不在电力公司手里。</strong> 怎么推翻:看这些公司的利润率,以及 2030 年电价上限到期后的价格。</li><li><strong>长期钱落在哪,取决于「模型是否够好」和「瓶颈是否解除」;现在的读数偏向「瓶颈还在」。</strong> 怎么推翻:盯下面四件事。</li></ol>
+<p><strong>值得盯什么。</strong> 四件事一旦发生,这篇文章的判断就该改:</p>
+<p>一是<strong>存储公司的利润率掉回 NVIDIA 以下</strong>——物理瓶颈开始松动了。</p>
+<p>二是<strong>某家实验室第一次按正式口径盈利</strong>,或者反过来,<strong>某家实验室融资时估值下调</strong>——后者会在上游公司的利润表上留下一笔反向的账。</p>
+<p>三是<strong>企业花在开源或便宜主力档模型上的钱占比回升</strong>——这是「够好就行」最直接的信号。</p>
+<p>四是 <strong>NVIDIA 给 OpenAI 机房做的担保、给新云公司的兜底承诺被实际触发</strong>——那是这个资金圈子受压的第一个硬信号。</p>
+<h2>附:这篇文章自己被推翻的地方</h2>
+<p>审稿把原稿改了很多处。挑最重要的说:</p>
+<ul><li>原稿说「最强模型的价格逐代上涨」——其实 OpenAI 同时推出了便宜的主力档,Anthropic 最贵一档还降价了。</li><li>原稿说「电费占比小,所以电力层赚不到钱」——审稿认为这个推理不成立:电费占比小,恰恰说明用户不在乎电价,只在乎能不能马上通电。</li><li>原稿说「微软从 OpenAI 收的钱超过了 OpenAI 一年的收入」——两边的时间段不同,对照数也来自媒体,不能这么比;更准确的说法是这笔钱主要来自 OpenAI 融到的钱。</li><li>原稿说「Anthropic 已经连续两个季度盈利」——其实只有一个季度,第二个是公司对未来的预期。</li><li>原稿说「GPU 租金暴跌八成后又反弹六到九成」——是把不同价格拼起来算的。</li><li>原稿说「存储公司最赚钱的是 AI 专用的 HBM」——其实是普通内存更赚。</li><li>原稿说「Meta 的利润被 AI 成本吃掉了」——主要是一次性费用。</li></ul>
+<p><strong>几乎每一个让某一层显得更极端的数字——跌得更狠的租金、更薄的电力利润、涨得更快的模型价格、更集中的利润——送回原文之后都温和了一些。</strong></p>
+<p>想看完整论证和出处,请读<a href="https://hub.cissychen.com/deep-research/ai-profit-pools-deep.html">深入版</a>。本站相关的易读版:<a href="https://hub.cissychen.com/deep-research/ai-capex-1999-plain.html">《AI 大基建是不是又一个 1999?像的、不像的、别信的》</a>、<a href="https://hub.cissychen.com/deep-research/ai-hardware-power-plain.html">《AI 真的造成了硬件短缺和电力短缺吗?还要缺多久?》</a>。</p>
+<footer>BigCat Deep Research · 2026-10 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
