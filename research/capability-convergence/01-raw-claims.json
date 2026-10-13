@@ -1,0 +1,2191 @@
+[
+ {
+  "line": "T-theory(理论与数学);落盘 /Users/cissychen/Desktop/repos/deep-research/research/capability-convergence/lines/T-theory.md",
+  "summary": "1) 测量学:Ott 2022(3765 个基准)、Dynabench、Epoch Rosetta Stone、ICML 2026 Akhtar(60 个基准近半饱和)、AI Index 2026 的一手原文都表明,基准常在几个月到一年内饱和。饱和后模型间差异难以达到统计显著,只有分数落在 S 曲线中段的模型才可比。自算 IRT 推导:同一能力差 Δlogit=0.847,在 50% 基线上表现为 20 分差,到 99% 基线只剩 0.57 分,压缩了 35 倍。所以\"分差趋零\"本身不能证明能力趋同。\n2) 可靠性复合:0.95^50=7.7%、0.99^50=60.5%(自算)。p 接近 1 时,可完成长度之比约等于错误率之比:99% 对 99.5% 看似只差 0.5 分,长度差 2 倍。Sinha 2025 给出同向证据,并发现 self-conditioning,说明各步出错并不独立。\n3) Ord 2025 的恒定风险率模型预测 T80=0.322·T50;但 Ord 在 2026-02 的修正中承认风险率随任务推进而下降(Weibull k≈0.6,人类约 0.37)。我用 METR TH1.1 官方 yaml 自算:2024 年后 21 个模型的 p50/p80 中位数为 5.34,高于恒定风险率预测的 3.11,折算 k≈0.68,与 Ord 的修正一致,p^n 模型过于悲观。\n4) TH1.1 数据自算:平均分每高约 7 分,p50 时长约翻倍,说明分差小也可能对应可观的长度比值。但比值随阈值反转:Opus 4.6 对 Gemini 3.1 Pro 分差 +1.8,p50 比 1.87×,p80 比 0.78×;且 CI 跨好几倍。Mythos 的 p50 为 17.41h(CI 8.5–55h),已超出 METR 自称 16h 的可靠测量上限。METR 3 月笔记确认任务集饱和使结果对建模选择敏感(正则化修正一项就让近期模型 p50 最多下调 20%)。TH1.1 没有开源模型。\n5) 三种差距的换算(自算):L = D·log2 R。追平月数不变而前沿加速时比值会拉大;分差不变而前沿加速时月数会缩短。三种定义可以给出相反方向。Epoch 的 4 个月/8 ECI 采用\"≥5% bootstrap 样本胜出即算追平\"的宽松标准,作者自承可能低估差距。Epoch 消费级 GPU 研究中,开源模型的落后月数随量尺不同而不同:静态基准约 7 个月,Arena 约 12.4 个月。\n6) Elo:30 分≈54.3% 胜率,49 分≈57%。AI Index 拿 Elo 绝对值算出的\"领先 3.3%\"在口径上无意义。Arena 官方 HF 数据自算:前 10 名分差从 2024–25 年中的 73–92 压缩到 2025-10 后的 30–45,之后没有继续收窄;最强闭源对最强开源从 2025-10 的 26 分扩大到 2026-10-08 的 42 分(约 ±13,胜率 56%)。\n7) 我的稀释模型(用户感知饱和会压缩 Elo 差)在 Arena 子类上没有得到支持:hard_prompts/expert 类的差距并不更大。Leaderboard Illusion 则表明 best-of-N 和抽样不对称可能系统性地放大闭源一方的 Elo。\n8) 追赶理论:Ho 2024 显示达到固定水平所需算力约每 8 个月减半,MIRI 估算追赶型进步约 16–60×/年;Anthropic(厂商、利益相关)称蒸馏让竞争者只需\"一小部分时间和成本\"即可获得能力。这些属于趋同机制。Mansfield 65%/70% 只找到二手转述。反方理论:Arthur 1989 的锁定、Korinek & Vipra 的规模与范围经济导致集中。\n总判断(理论层面):头部分差变小与能力相等在数学上不等价。在不饱和维度上,时长比值和月数换算显示差距略有扩大或大致持平,但证据被宽 CI 和测量饱和严重稀释,结论强度只能算中等偏弱。",
+  "claims": [
+   {
+    "id": "T01",
+    "claim": "Ott et al.(Nat Commun 2022)整理 3765 个 CV/NLP 基准,发现大比例基准很快接近饱和",
+    "quote": "show that a large fraction of benchmarks quickly trended towards near-saturation",
+    "source_url": "https://arxiv.org/abs/2203.04592",
+    "source_type": "同行评审",
+    "date": "2022",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T02",
+    "claim": "饱和基准若继续使用会误导:真实进步反映不出来,模型差异更难达到统计显著。这是\"榜首挤\"不等于能力相等的测量学根据",
+    "quote": "statistical significance of differences in model performance is more difficult to achieve",
+    "source_url": "https://arxiv.org/abs/2203.04592",
+    "source_type": "同行评审",
+    "date": "2022",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T03",
+    "claim": "Ott 聚类:1079 条 SOTA 轨迹中,饱和/停滞簇 378 条,停滞后爆发簇 241 条(文中\"378\"的单位前后不一致)",
+    "quote": "Cluster 2 (378 benchmarks), corresponds to the saturation/stagnation scenario.",
+    "source_url": "https://arxiv.org/abs/2203.04592",
+    "source_type": "同行评审",
+    "date": "2022",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "T04",
+    "claim": "Dynabench:GLUE 一年内饱和;模型在基准上分数高,却在简单挑战样例上失败",
+    "quote": "GLUE saturated within a year",
+    "source_url": "https://arxiv.org/abs/2104.14337",
+    "source_type": "同行评审",
+    "date": "2021-04",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "T05",
+    "claim": "Epoch Rosetta Stone(ECI 方法):分数与能力呈 S 形关系,只有处在中段的模型可比;多数基准饱和太快,看不出长期趋势",
+    "quote": "We can only compare models when they're in the middle — not too good and not too bad.",
+    "source_url": "https://epoch.ai/blog/capabilities-index",
+    "source_type": "分析机构",
+    "date": "2025-12-02",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T06",
+    "claim": "自算 IRT/logistic 推导:能力差固定为 Δlogit=0.847 时,分差在 50% 基线为 20.0pt,90% 为 5.45,95% 为 2.79,97% 为 1.69,99% 为 0.57,压缩了 35 倍;97% 对 98.7% 的错误率之比为 2.3 倍",
+    "quote": "",
+    "source_url": "https://epoch.ai/blog/capabilities-index",
+    "source_type": "官方/一手(自算推导)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T07",
+    "claim": "Fluid Benchmarking(AI2,COLM 2025):同一题目的信息量取决于模型能力水平,评测应随模型自适应",
+    "quote": "the relative value of benchmark items depends on an LM's capability level",
+    "source_url": "https://arxiv.org/abs/2509.11106",
+    "source_type": "同行评审",
+    "date": "2025-09",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "T08",
+    "claim": "Akhtar/Reuel 等(ICML 2026):60 个 LLM 基准近一半已饱和,基准越老饱和率越高;决定抗饱和能力的是专家策划,而不是测试集是否公开",
+    "quote": "nearly half of our benchmarks exhibit saturation, with rates increasing with age",
+    "source_url": "https://arxiv.org/abs/2602.16763",
+    "source_type": "同行评审",
+    "date": "2026-08-06(v4)",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "T09",
+    "claim": "AI Index 2026:原定撑数年的评测几个月就饱和;头部模型表现在趋同,竞争压力转向成本、可靠性和领域表现",
+    "quote": "Evaluations intended to be challenging for years are saturated in months",
+    "source_url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance",
+    "source_type": "分析机构",
+    "date": "2026-04",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "T10",
+    "claim": "自算:0.95^50=7.69%,0.99^50=60.50%。独立串联模型下 H50=ln0.5/ln p:p=0.99 时 69 步,0.995 时 138 步,0.999 时 693 步。p→1 时长度比≈错误率比,所以 0.5pt 的准确率差可对应 2 倍长度",
+    "quote": "",
+    "source_url": "https://arxiv.org/abs/2505.05115",
+    "source_type": "官方/一手(自算推导)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T11",
+    "claim": "Sinha 等 2025:单步准确率的微小提升会复合成可完成长度的指数级提升;self-conditioning(上下文中有自身错误时更易再错)说明步骤错误并不独立",
+    "quote": "even marginal gains in single-step accuracy can compound into exponential improvements in the length of tasks",
+    "source_url": "https://arxiv.org/abs/2509.09677",
+    "source_type": "从业者博客",
+    "date": "2025-09-11",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T12",
+    "claim": "Ord 2025 恒定风险率模型:50% 时长即半衰期;T80=0.322·T50;任务时长翻倍,成功率平方",
+    "quote": "if you double the task duration, you square the success probability",
+    "source_url": "https://arxiv.org/abs/2505.05115",
+    "source_type": "官方/一手",
+    "date": "2025-05-08",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T13",
+    "claim": "Ord 2025 自认的反例:人类生存曲线明显优于恒定风险率,可能因为会纠正早先的错误,也可能是混合分布造成的伪影,这对 p^n 独立性假设构成批评",
+    "quote": "this human survival curve seems to be noticeably better than a constant hazard rate",
+    "source_url": "https://arxiv.org/abs/2505.05115",
+    "source_type": "官方/一手",
+    "date": "2025-05-08",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "T14",
+    "claim": "Ord 2026-02 修正:AI 风险率随任务推进而下降(Weibull k≈0.6,人类约 0.37),各代模型 k 基本不变,进步来自 λ;超过 50% 时长的任务,成功率好于恒定风险率预测",
+    "quote": "AI agents probably don't have a constant hazard rate / half-life. Instead their hazard rates systematically decline as the task goes on.",
+    "source_url": "https://tobyord.com/writing/hazard-rates-for-ai-agents-decline",
+    "source_type": "从业者博客",
+    "date": "2026-02-04",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "T15",
+    "claim": "Kwa et al.(v4):拟合式为 p=σ((log h−log t)·β),类比 IRT;80% 时长比 50% 短 4–6 倍,倍增期 204 天对 207 天。推导得 T50/T80=4^(1/β),两模型 β 不同时比值随阈值变化",
+    "quote": "models' 80% time horizons are 4-6x shorter, suggesting that even models that sometimes succeed on difficult and diverse tasks cannot reliably perform tasks of moderate length",
+    "source_url": "https://arxiv.org/abs/2503.14499",
+    "source_type": "官方/一手",
+    "date": "2026-07-10(v4)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T16",
+    "claim": "Kwa et al.:饱和型 logistic 的前段与指数增长几乎无法区分,S 曲线接力或见顶无法从早期数据预测",
+    "quote": "the initial part of any saturating logistic function horizon ∼ a · σ(release date + d) looks very similar to an exponential",
+    "source_url": "https://arxiv.org/abs/2503.14499",
+    "source_type": "官方/一手",
+    "date": "2026-07-10(v4)",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "T17",
+    "claim": "自算(METR TH1.1 yaml,2024 年后发布的 21 个模型):p50/p80 中位数 5.34(4.0–10.3),高于恒定风险率预测的 3.11,折算 Weibull k 中位数 0.68(0.49–0.82),支持 Ord 的修正(注意 p80 来自 log-logistic 拟合)",
+    "quote": "",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手(自算)",
+    "date": "2026-10-12",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "T18",
+    "claim": "自算(TH1.1 yaml,23 个模型,对 log2 p50 与 average_score 做 OLS):平均分每高约 7.1pt,p50 约翻倍。Opus 4.6 对 Gemini 3.1 Pro:分差 +1.8pt,p50 比 1.87×,p80 比 0.78×(排名随阈值反转);Mythos 早期版对 Opus 4.6:+6.3pt,p50 1.45×,p80 2.66×;Mythos 对 GPT-5.4:+10.9pt,3.06× 和 3.45×",
+    "quote": "",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手(自算)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T19",
+    "claim": "METR TH1.1 官方数据:Claude Mythos Preview 早期版 p50=17.41h(95% CI 8.48–55.07h),p80=3.10h;Opus 4.6 p50=11.98h [5.28,60.56];2023 年以来倍增期 128.7 天 [104.4,158.0]。TH1.1 不含开源模型",
+    "quote": "p50_horizon_length ... estimate: 17.41h (1044.7 min)",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手",
+    "date": "2026-04(数据)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T20",
+    "claim": "METR 2026-03-20:任务集饱和后结果对分析选择敏感;一处正则化修正让近期模型 p50 最多下调 20%;右尾无约束;约 230 个任务,没有任何任务超过 30 小时",
+    "quote": "As METR's time horizon task suite saturates, the results are becoming more sensitive to analysis choices.",
+    "source_url": "https://metr.org/notes/2026-03-20-impact-of-modelling-assumptions-on-time-horizon-results/",
+    "source_type": "官方/一手",
+    "date": "2026-03-20",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T21",
+    "claim": "METR 前沿风险报告:最强智能体基本饱和了 TH1.1,16 小时以上无法可靠测量;内部前沿平均比公开前沿领先约 2 个月",
+    "quote": "The TH 1.1 suite can't reliably measure time horizons above 16 hours",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T22",
+    "claim": "自算推导:追平月数 L、分差 Δ、比值 R 满足 L=Δ/v、L=D·log2R。取 D=4.23 个月,L=4 个月对应 R≈1.93×;L 固定为 4 个月而 D 从 7 降到 3.5 个月,R 从 1.49× 升到 2.21×。\"月数不变\"加上\"前沿加速\"即\"比值拉大\",三种定义可给出相反方向",
+    "quote": "",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手(自算推导)",
+    "date": "2026-10-12",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "T23",
+    "claim": "Epoch:2026-01 至 05-28,最强开源平均落后约 4 个月、8 ECI 点(90% CI 7–11),此前约 3 个月。判定追平只需在 ≥5% 的 bootstrap 样本中胜出,作者自承可能低估差距。粗算前沿约 2 ECI 点/月",
+    "quote": "We find an average ECI gap of 8 points, with a 90% confidence interval of 7 to 11 units.",
+    "source_url": "https://epoch.ai/data-insights/open-closed-eci-gap",
+    "source_type": "分析机构",
+    "date": "2026-05-29",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T24",
+    "claim": "Epoch:单张消费级 GPU 可跑的开源模型平均落后前沿 6–12 个月。GPQA-D 7.4 个月,MMLU-Pro 7.3,AA 指数 6.3,Arena Elo 12.4;落后月数依量尺不同而相差近一倍",
+    "quote": "typically match the capabilities of frontier models after an average lag between 6-12 months",
+    "source_url": "https://epoch.ai/data-insights/consumer-gpu-model-gap",
+    "source_type": "分析机构",
+    "date": "2025-08-15",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "T25",
+    "claim": "自算 Elo/BT 映射 P=1/(1+10^(−Δ/400)):10 分对应 51.4%,20 分 52.9%,29 分 54.2%,30 分 54.3%,49 分 57.0%,100 分 64.0%,200 分 76.0%。按 2SE 粗算样本量:分辨 30 分约需 540 票,10 分约需 4800 票",
+    "quote": "",
+    "source_url": "https://arxiv.org/abs/2403.04132",
+    "source_type": "官方/一手(自算)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T26",
+    "claim": "Chatbot Arena 论文:排名基于 Bradley-Terry 模型,附录给出排名不一定传递时的非参数 BT 扩展",
+    "quote": "a nonparametric extension of the Bradley-Terry (BT) model (Bradley & Terry, 1952) to the case where the ranking is not necessarily transitive",
+    "source_url": "https://arxiv.org/abs/2403.04132",
+    "source_type": "同行评审",
+    "date": "2024-03",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "T27",
+    "claim": "Leaderboard Illusion:私测后择优发布违反 BT 无偏抽样假设,模拟测 10 个变体可让最高分抬高约 100 分;闭源抽样率更高(Google/OpenAI 各约 19–20% 数据,83 个开源模型合计 29.7%)。闭源与开源的 Elo 差可能被放大(作者来自 Cohere,与该榜有竞争利益)",
+    "quote": "testing just 10 variants yields a notable increase of approximately 100 points in the maximum score identified",
+    "source_url": "https://arxiv.org/abs/2504.20879",
+    "source_type": "从业者博客",
+    "date": "2025-05-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T28",
+    "claim": "自算(Arena text overall,不含风格控制,HF leaderboard-dataset):第 1 与第 10 名分差在 2024-06 至 2025-06 为 73–92,2025-10 起为 31–43,2026-10-08 为 43(胜率 56.1%)。最强闭源对最强开源:2025-10 为 26,2026-01 为 35,2026-04 为 33,2026-07 为 38,2026-10-08 为 42(约 ±13,胜率 56.0%,最强开源 mimo-v2.6-pro 排第 9)。头部压缩已停止,闭源-开源差温和扩大但与 CI 同量级",
+    "quote": "",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(自算)",
+    "date": "2026-10-08",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "T29",
+    "claim": "自算稀释模型:比例 f 的提示无区分度时,P=0.5f+q(1−f);q=0.75(191 Elo)、f=0.8 时只剩 35 Elo,说明用户感知饱和可在能力差不变时压低 Elo 差。反证:2026-10-08 Arena 子类中 hard_prompts 闭源-开源差 36、expert 14、coding 16,并不大于 overall 的 42,该预测在 Arena 内部未获支持",
+    "quote": "",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(自算)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "T30",
+    "claim": "AI Index 2026 称截至 2026-03 闭源领先开源 3.3%(2024-08 为 0.5%),对应 Elo 1503 对 1454。口径有误:Elo 可任意平移,不能拿绝对值算百分比;49 分差约等于 57% 胜率",
+    "quote": "As of March 2026, the top closed model leads the top open model by 3.3%, up from 0.5% in August 2024.",
+    "source_url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance",
+    "source_type": "分析机构",
+    "date": "2026-04",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   },
+   {
+    "id": "T31",
+    "claim": "Ho 等 2024:达到固定性能阈值所需算力约每 8 个月减半(95% CI 5–14 个月),是模仿或追赶成本下降的量化基础",
+    "quote": "the compute required to reach a set performance threshold has halved approximately every 8 months, with a 95% confidence interval of around 5 to 14 months",
+    "source_url": "https://arxiv.org/abs/2403.05812",
+    "source_type": "官方/一手",
+    "date": "2024-03-09",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "T32",
+    "claim": "Scher(MIRI TGT):2023–2025 年追赶型算法进步约 60×/年(1.76 个数量级),中位数口径 16×;作者对下一年的预测约 20×(80% CI 2–200×),加权含主观成分",
+    "quote": "1.76 orders of magnitude per year, or a ~60× improvement in compute efficiency",
+    "source_url": "https://techgov.intelligence.org/blog/catch-up-algorithmic-progress-might-actually-be-60x-per-year",
+    "source_type": "分析机构",
+    "date": "2025-12-24",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "T33",
+    "claim": "Anthropic(厂商自报、利益相关):DeepSeek/Moonshot/MiniMax 用约 2.4 万个账号与 Claude 进行 1600 万+ 次交互做蒸馏;蒸馏能以很小比例的时间和成本获得能力,是 Mansfield 式模仿的当代版本",
+    "quote": "competitors can use it to acquire powerful capabilities from other labs in a fraction of the time, and at a fraction of the cost",
+    "source_url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+    "source_type": "厂商自报",
+    "date": "2026-02-23",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "T34",
+    "claim": "Mansfield, Schwartz & Wagner 1981(EJ 91:907-918):48 种产品的模仿成本平均约为创新成本的 65%,时间约 70%;仅有二手转述,原文未核。后续文献给出的比值在 0.4–0.9 之间",
+    "quote": "",
+    "source_url": "https://ideas.repec.org/a/ecj/econjl/v91y1981i364p907-18.html",
+    "source_type": "媒体转述",
+    "date": "1981-12",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "T35",
+    "claim": "Arthur 1989:在收益递增下,偶然的历史事件可以把经济锁定到某条技术路径,是发散或赢家通吃的理论依据",
+    "quote": "the economy, over time, can become locked-in, by \"random\" historical events, to a technological path that is not necessarily efficient",
+    "source_url": "https://ideas.repec.org/a/ecj/econjl/v99y1989i394p116-31.html",
+    "source_type": "同行评审",
+    "date": "1989-03",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   },
+   {
+    "id": "T36",
+    "claim": "Korinek & Vipra(NBER w33139):基础模型的成本结构存在显著的规模与范围经济,可能导致市场趋向集中,并有 tipping 风险",
+    "quote": "identifies significant economies of scale and scope that may create a tendency towards greater market concentration in the future",
+    "source_url": "https://www.nber.org/papers/w33139",
+    "source_type": "同行评审",
+    "date": "2024-11",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   }
+  ],
+  "caliber_issues": [
+   "AI Index 2026 用 Elo 绝对值算百分比(\"领先 3.3%\"),因 Elo 可任意平移而无意义;应改用 Elo 差(49 分)或胜率(约 57%)",
+   "Arena 存在 overall、style control、各子类别等多套榜单。媒体称的\"29 Elo\"必须注明榜单、日期和 CI;本线自算 overall 在 2026-10-08 为 42 分(约 ±13),口径与之不同",
+   "METR 的 p50/p80 及模型间时长比对阈值敏感(Opus 4.6 对 Gemini 3.1 Pro:p50 1.87×,p80 0.78×),也对函数形式和正则化敏感(最多 20%);CI 跨好几倍。TH1.1 不含开源模型,不能直接用它算开源与闭源的时长比",
+   "Mythos 的\"约 17 小时\"是 METR yaml 的点估计 17.41h(CI 8.5–55h);METR 文字表述为\"≥16h\",且已超出 TH1.1 可靠测量的上限",
+   "Epoch\"4 个月\"的追平判定很宽松(≥5% bootstrap 胜出即算),月数偏短。二手来源称严格占优口径约 6 个月、私有基准上 8–10 个月,一手原文未见",
+   "分差、追平月数、比值三者换算依赖前沿速度(L=D·log2R、L=Δ/v),前沿加速期三者可能给出相反方向",
+   "饱和基准上的分差受天花板压缩,同一能力差在 99% 基线上只显示为 0.57pt,在 50% 基线上为 20pt",
+   "METR p80 来自 log-logistic 拟合,由 p50/p80 折算的 Weibull k 只是映射,不是独立拟合",
+   "Ott 2022 中\"378\"的单位(轨迹还是基准)前后不一致",
+   "Mansfield 65%/70% 仅有二手来源,原文待核",
+   "Kwa et al. 有 v1–v4 多个版本,本线所引 207/204 天、4–6 倍均出自 v4(2026-07-10)",
+   "Leaderboard Illusion 作者来自 Cohere,与 Arena 有利益冲突;Anthropic 的蒸馏指控为厂商自报,同样利益相关"
+  ]
+ },
+ {
+  "line": "ARENA-leaderboards",
+  "summary": "Arena 官方在 Hugging Face 发布了历史榜单数据集(lmarena-ai/leaderboard-dataset,截至 2026-10-08/12)。本线据此自算了文本、风格控制、WebDev、Vision、Search、Agent 各竞技场 2023-2026 的分差时序。(1) 文本 Arena 头部在分差上明显趋同:风格控制榜 #1−#10 从 2024-12 的 75.3 降到 2026-08 的 18.7(#1 对 #10 胜率约 52.7%);2026-09 gemini-4-argon 发布后回升到 31.4,呈\"新前沿发布拉开、随后被追平\"的锯齿形。按实验室去重后,#1 与 #5 实验室之差同样从 75 降到 24,再回到 40。(2) 闭源−开源差在点数上收窄(风格控制榜年度中位数 49→43→35),但最强开源模型的名次变差(中位 8→7→16)。开源模型只在原始榜 2025-01/02(DeepSeek-R1)登顶过,风格控制榜上从未登顶。Arena 官方 2026-05 的原话是 \"small in points, but still large in rank\"。(3) 媒体所说\"2026-09 差距扩大到 29 Elo\",数字来自原始榜 2026-08-27 的快照(28.7),可以复现;但\"近两年最大\"不成立:原始榜 2026-03 的差是 51。官网默认的风格控制榜同一天只有 18.7,口径不同就造成了\"扩大/收窄\"两种相反叙事。(4) 文本榜里的困难类目(hard/coding/math/expert)并不比总榜拉得更开。真正分化的是 Code Arena WebDev(#1−#10 约 140,闭源−开源约 159)和 Agent Arena(头部与最强开源的 τ̂ 比值 5.4 倍,置信区间不重叠)。不过这两个竞技场的开源差距本身波动很大:2026-07 Kimi K3 曾在 WebDev 登顶。(5) 拿 Arena 分数和 Epoch ECI 做相关:全体模型 Spearman 0.95,但在 ECI 前 15 名内约为 0。这说明偏好榜在前沿区间已失去区分能力的作用,属于用户感知饱和,不等于能力饱和。(6) Leaderboard Illusion 等工作记录了私下测多个变体、采样与数据获取不对称、静默下线、投票操纵等偏差,Arena 方回应称私测带来的选择偏差约 +11 Elo。这类偏差的量级(10-50 分)与当前头部分差(10-30 分)相当,足以改变头部排序。总的判断:Arena 文本榜上的\"趋同\"在点数上是真的,但很大程度上反映的是偏好层面饱和,而且有口径依赖。在编程/代理这类贴近长任务的竞技场里,头部与开源的差距仍然很大,而且在 2026-09/10 又重新拉开。",
+  "claims": [
+   {
+    "id": "ARENA-01",
+    "claim": "官方数据集自算(风格控制文本榜 overall,即 2025-05-16 后的官网默认口径):#1 与 #10 的分差从 2024-12-30 的 75.3 降到 2025-06-24 的 67.3、2025-12-30 的 41.7、2026-08-27 的 18.7,2026-10-08 回升到 31.4。按 BT 换算,#1 对 #10 的期望胜率从约 60.7% 降到约 52.7%,再回到约 54.5%。自算方法:每月取最后一次快照,按 rating 排序后相减。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "Historical snapshots of the [Arena](https://arena.ai/leaderboard) leaderboard.",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-02",
+    "claim": "官方数据自算,实验室级(每家实验室取最高分,风格控制榜):#1 实验室减 #5 实验室,2024-12 为 75.3,2025-06 为 57.6,2025-12 为 42.7,2026-03 为 37.2,2026-08 为 23.6,2026-10-08 为 40.3。按实验室去重是为了排除同一实验室多个变体挤满前十造成的假性拥挤(2026-10-08 风格控制榜前 10 中有 6 个 Anthropic 变体)。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-03",
+    "claim": "最新头部格局(风格控制文本榜 2026-10-08):#1 gemini-4-argon-high 1525.4,CI [1516.5,1534.2];#2 claude-opus-5.5-high 1507.1,CI [1499.0,1515.2]。两者 CI 不重叠,g12=18.3,与 #1 CI 重叠的模型只有它自己。而 2026-08-27 时,#1 claude-fable-5 领先 #2 仅 2.7,有 4 个模型与 #1 的 CI 重叠。新前沿模型发布让头部重新拉开。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-04",
+    "claim": "闭源最强减开源最强(风格控制文本榜)的年度统计,依次为最小/中位/最大:2024 年(8 月起)10.7/48.8/75.9;2025 年 2.7/43.0/70.4;2026 年(至 10-08)17.7/35.1/57.7。同期最强开源模型的名次中位数为 8、7、16。点数在收窄,名次在变差。开源模型在风格控制榜上从未登顶。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-05",
+    "claim": "原始(无风格控制)文本榜:DeepSeek-R1 在 2025-01-24 至 2025-02-27 的快照中排第 1,开源对闭源领先最多 9.1(2025-01-28 为 6.5)。这是 2024 年以来开源唯一一次登顶文本总榜。2026 年原始榜上闭源−开源差的最小值为 27.1,中位 34.3。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-06",
+    "claim": "媒体所说的'2026-09 闭源与开源差距扩大到 29 Elo'可以在官方原始(非风格控制)文本榜 2026-08-27 快照上复现:claude-opus-5-max 1505.0 对 kimi-k3-max,差 28.7。但同一天官网默认的风格控制榜只差 18.7。BenchLM 的'2026-09-01 为 18.4'同样对应风格控制口径。两种说法的分歧来自口径不同。",
+    "source_url": "https://cryptobriefing.com/arena-ai-frontier-open-weight-model-gap-widens/",
+    "source_type": "媒体转述",
+    "date": "2026-09-03",
+    "quote": "As of September 2026, the gap between the best closed frontier models and their top open-weight competitors has ballooned to 29 Elo points, according to Arena AI's evaluation data. Claude Opus 5 Max sits at a rating of 1505",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-07",
+    "claim": "同一篇媒体报道称这是'近两年最大差距',并称 2025-01 差距'归零'。两点都与官方数据不符:原始榜闭源−开源在 2025-11-26 为 45.8,2026-02-26 为 49.9,2026-03-31 为 51.1,都比 28.7 大;2025-01 也不是归零,而是开源 DeepSeek-R1 反超 6.5。",
+    "source_url": "https://cryptobriefing.com/arena-ai-frontier-open-weight-model-gap-widens/",
+    "source_type": "媒体转述",
+    "date": "2026-09-03",
+    "quote": "pulling ahead of open-weight competitors by the largest margin in nearly two years",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-08",
+    "claim": "Arena 官方 X(2026-05-07)回顾三年数据,认为开源'基本'追上了:文本榜闭源领先从 +250 降到 2025 年初的两位数低段,目前约 +30,相当于 #1 到约 #18 的距离;'点数上小、名次上仍大'。",
+    "source_url": "https://x.com/arena/status/2052455463573426452",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-05-07",
+    "quote": "Today, the proprietary lead is about +30 points. It separates #1 from roughly #18 on the current leaderboard. ... The remaining gap is small in points, but still large in rank",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-09",
+    "claim": "同一官方 thread 谈 Expert 类目:DeepSeek R1 在 2025 年初短暂领先,但没能守住;2026-05 时 Expert 类目闭源领先约 +40,大致是 #1 到 #8 的距离。Code Arena Frontend 的闭源领先先升到 +100,2026 年春大幅压缩到约 +40。",
+    "source_url": "https://x.com/arena/status/2052455468736672046",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-05-07",
+    "quote": "DeepSeek R1 moved ahead briefly in early 2025, turning the gap from \"nearly closed\" into a short open-source lead. That lead did not hold. Proprietary models regained #1 quickly. Today, the gap is +40 points, roughly the distance from rank #1 to #8.",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-10",
+    "claim": "自算 Code Arena WebDev(overall):#1 减 #10 的分差在 2025-11-26 为 135.0,2026-04-28 为 80.8,2026-08-30 为 80.4,2026-10-08 为 139.5,始终是文本榜(31.4)的 4-5 倍。2026-10-08 时 #1 claude-opus-5.5-max(1813)对 #10 的期望胜率约 69%。前沿在编程/WebDev 上的分化远大于对话。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-11",
+    "claim": "自算 WebDev 上闭源−开源差距的时序:2025-11-26 为 122.8,2026-01-29 为 57.1,2026-04-28 为 37.1,2026-08-30 为 14.7(kimi-k3-max 排第 2);2026-07-26 的一次快照中 Kimi K3 登顶(开源领先 8.4);2026-09-30 拉大到 160.0,2026-10-08 为 158.7(kimi-k3-max 跌到第 14)。波动极大,单个时点无法代表趋势。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-12",
+    "claim": "自算 Agent Arena(2026-06-04 上线,用 IPS τ̂ 而不是 Elo):2026-10-12 时 #1 Claude Opus 5.5 (Max) τ̂=0.179,CI [0.137,0.221];最强开源 DeepSeek V4.1 Flash (Max) τ̂=0.033,CI [0.029,0.037];比值 5.35 倍,CI 不重叠。比值时序:06-16 为 3.43,08-12 低到 1.14(Kimi K3 逼近,CI 重叠),09-08 为 2.20,10-02 为 3.42,10-12 为 5.35。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "quote": "Agent Arena subsets use [IPS scores](https://arena.ai/blog/agent-arena-methodology/) instead of Bradley-Terry",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-13",
+    "claim": "使用 Agent Arena 比值时须注意口径:τ̂ 是相对'均匀基线'的处理效应,是差值而不是绝对成功率;参赛模型组成和方法的变化会让同一模型的分数漂移(Kimi K3 从 0.105 降到 0.030;2026-09-30 Steerability 改版,2026-10-12 Bash Recovery 改为 Bash Reliability)。因此该比值不宜当作长期趋势读。",
+    "source_url": "https://arena.ai/blog/agent-arena-methodology/",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-06-04",
+    "quote": "the treatment effect of each component selection with respect to a fixed baseline distribution",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-14",
+    "claim": "自算风格控制文本榜的困难类目(2026-10-08):各类 g110 与闭源−开源差分别为 overall 31.4/37.3,hard_prompts 33.9/33.9,coding 22.4/22.4,math 24.5/26.6,expert 16.3/17.0,multi_turn 55.1/53.3。2024-12 到 2026-10 的多数时点,hard/coding/math/expert 的头部分差都不比 overall 大。文本 Arena 内的'困难提示'没有把前沿拉开。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-15",
+    "claim": "自算 Vision Arena(2026-10-09):#1 claude-fable-5-high 领先 #2 仅 3.4,#1 减 #10 仅 10.9(期望胜率约 51.6%),13 个模型的 CI 与 #1 重叠。这是偏好层面最饱和的竞技场,用户基本分不出头部模型的差别。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-09",
+    "quote": "",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-16",
+    "claim": "自算 Arena(风格控制,2026-10-08)与 Epoch ECI(eci_scores.csv,2026-10-12 下载)的相关:名称匹配到 111 个模型,Spearman 0.947;2025-06 后发布的 70 个模型为 0.811;按 ECI 前 30 名为 0.192;前 15 名为 −0.025。Arena 在粗粒度上与能力强相关,在前沿区间几乎不再反映能力差异。例:GPT-6 Astra 的 ECI 排第 2,Arena 只有 1475。局限:名称是近似匹配,多变体取最高分。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "quote": "",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-17",
+    "claim": "Leaderboard Illusion(arXiv 2504.20879v2,2025-05-12):Meta 在 Llama-4 发布前私测了 27 个变体;部分提供方可以私下测多个变体、只公布最好的分数,还能撤回。",
+    "source_url": "https://arxiv.org/abs/2504.20879",
+    "source_type": "同行评审",
+    "date": "2025-05-12",
+    "quote": "At an extreme, we identify 27 private LLM variants tested by Meta in the lead-up to the Llama-4 release.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-18",
+    "claim": "Leaderboard Illusion 的数据访问不对称:估计 Google、OpenAI 分别拿到全平台 19.2%、20.4% 的数据,而 83 个开权重模型合计只有 29.7%;用少量 Arena 数据训练,在 ArenaHard 上相对提升可达 112%。注意 112% 是在 ArenaHard 这个 LLM-judge 静态集上测的,不是 Arena 本身。",
+    "source_url": "https://arxiv.org/abs/2504.20879",
+    "source_type": "同行评审",
+    "date": "2025-05-12",
+    "quote": "Providers like Google and OpenAI have received an estimated 19.2% and 20.4% of all data on the arena, respectively. In contrast, a combined 83 open-weight models have only received an estimated 29.7% of the total data.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-19",
+    "claim": "Leaderboard Illusion:243 个公开模型中有 205 个被静默下线,其中 64% 是开权重或开源模型。下线会破坏 BT 模型的假设,使排名不可靠。",
+    "source_url": "https://arxiv.org/abs/2504.20879",
+    "source_type": "同行评审",
+    "date": "2025-05-12",
+    "quote": "out of 243 public models, 205 have been silently deprecated. ... Among the models that are silently deprecated, 64% are open-weight or fully open-source.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-20",
+    "claim": "Leaderboard Illusion 的实测:同一 Aya-Vision-8B 检查点提交两次,得分 1052 和 1069,中间夹了 4 个模型;两个略有差别的 Aya-Vision-32B 变体分别得 1097 和 1059,中间夹了 9 个模型。模拟部分:v2 摘要框写'测 10 个变体约 +100',正文写'测 20 个变体约 +50',同一版本内前后不一致。",
+    "source_url": "https://arxiv.org/abs/2504.20879",
+    "source_type": "同行评审",
+    "date": "2025-05-12",
+    "quote": "identical checkpoints: 1052 (±21/22) and 1069 (±19/23). As a result, 4 models are positioned between our two identical checkpoints.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-21",
+    "claim": "Arena 方的回应(2025-05-09):私测带来的选择偏差在有限数据下约为 +11 Elo(50 次测试、3000 票),会随新票积累趋向零;开源模型占 40.9%(论文写的 8.8% 漏算了开权重模型);任何提供方都可以私测多个变体。让步:并行私测超过 10 个模型时,标为 provisional,直到发布后再收集 2000 票。",
+    "source_url": "https://arena.ai/blog/our-response",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-05-09",
+    "quote": "Our analysis shows the effect of pre-release testing is smaller than claimed with finite data (around +11 Elo after 50 tests and 3000 votes) and diminishes to zero as fresh evaluation data accumulates.",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-22",
+    "claim": "Arena 回应中承认会对头部模型上采样('The best models, regardless of provider, are upsampled'),这实际上确认了采样不均的存在,只是解释为改善用户体验,而不是偏袒某些厂商。",
+    "source_url": "https://arena.ai/blog/our-response",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-05-09",
+    "quote": "The best models, regardless of provider, are upsampled to improve the user experience.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-23",
+    "claim": "Llama 4 事件:Arena 官方称 Meta 送测的 Llama-4-Maverick-03-26-Experimental 是'为人类偏好定制'的版本,并因此修改政策。官方数据中,公开版 llama-4-maverick-17b-128e-instruct 首次上榜(2025-04-09)在风格控制榜排第 31。这说明偏好分数可以针对性优化,和能力是两回事。",
+    "source_url": "https://simonwillison.net/2025/Apr/8/lmaren",
+    "source_type": "从业者博客",
+    "date": "2025-04-08",
+    "quote": "Meta should have made it clearer that \"Llama-4-Maverick-03-26-Experimental\" was a customized model to optimize for human preference.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-24",
+    "claim": "风格控制(LMSYS,2024-08-29):回答长度是主导风格因子(同时控制长度和 markdown 时系数 0.249)。控制后的 Overall 名次变化:Claude 3.5 Sonnet 6→4,GPT-4o-mini 6→11,Grok-2-mini 6→18。用户偏好会被长度和格式左右。",
+    "source_url": "https://lmsys.org/blog/2024-08-28-style-control/",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2024-08-29",
+    "quote": "All other markdown effects are second order.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-25",
+    "claim": "口径变更会改变分差的读数。官方 README 记录:2024-01-09 由 Elo 改为 BT;2025-05-16 风格控制成为默认,并调整偏移使量表一致;2025-07-23 引入按频率重加权(据 changelog,这会让区间变宽、平局增多);2026-05-12 BT 加入 same_org_indicator 等特征。跨年比较分差时要考虑这些方法变更。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-13",
+    "quote": "On May 16, 2025, style control was made the default for text and vision arenas and the offset was adjusted to put the style control leaderboard on the same rating scale as non style control.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "ARENA-26",
+    "claim": "中美差(风格控制文本榜,美国机构最高分减中国机构最高分)年度中位数:2024 年 56.4,2025 年 42.3,2026 年 32.2。最小值出现在 2025-02(2.8,DeepSeek-R1);2026-08-27 为 18.7(kimi-k3-max),2026-10-08 为 37.3。中国模型在点数上追近,但新前沿发布时会重新拉开。",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-08",
+    "quote": "",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-27",
+    "claim": "Chatbot Arena 原始论文(Chiang et al.,ICML 2024)称众包投票与专家评审高度一致。这是支持 Arena 有效性的正方一手证据,但样本来自 2024 年初,当时头部分差远大于现在。",
+    "source_url": "https://arxiv.org/abs/2403.04132",
+    "source_type": "同行评审",
+    "date": "2024-03-07",
+    "quote": "the crowdsourced human votes are in good agreement with those of expert raters",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-28",
+    "claim": "投票操纵研究:Min et al. 2025 称只需操纵数百张新票就能提升目标模型排名;Huang et al. 2025 称约一千票即可改动榜单,且识别回复出自哪个模型的准确率超过 95%。在头部只差 10-20 分时,榜单对这类操纵更敏感。",
+    "source_url": "https://arxiv.org/abs/2501.17858",
+    "source_type": "同行评审",
+    "date": "2025-01-29",
+    "quote": "omnipresent rigging strategies can improve model rankings by rigging only hundreds of new votes",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-29",
+    "claim": "Search Arena 论文发现,用户偏好受引用数量影响,即使引用内容并不支持对应论断。这是'用户偏好≠能力'的直接证据。",
+    "source_url": "https://arxiv.org/abs/2506.05334",
+    "source_type": "同行评审",
+    "date": "2025-06-05",
+    "quote": "user preferences are influenced by the number of citations, even when the cited content does not directly support the attributed claims",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "ARENA-30",
+    "claim": "媒体同一报道称 Epoch 的分析显示开权重模型在最具挑战的任务上落后约 4 个月,高于 2025 年底的约 3 个月。这只是媒体转述,须回 Epoch 一手核对(由 Epoch 线负责)。",
+    "source_url": "https://cryptobriefing.com/arena-ai-frontier-open-weight-model-gap-widens/",
+    "source_type": "媒体转述",
+    "date": "2026-09-03",
+    "quote": "open-weight models now lag their closed counterparts by roughly four months in performance on the most challenging tasks. That's up from a three-month lag observed through late 2025.",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   }
+  ],
+  "caliber_issues": [
+   "原始文本榜与风格控制文本榜(2025-05-16 起官网默认)同一天的闭源−开源差可相差约 10 分(2026-08-27:原始 28.7,风格控制 18.7)。媒体的 29 Elo 和 BenchLM 的 18.4 分别对应这两种口径。",
+   "'开源'的定义:本线以 license 不含 Proprietary 为准,Kimi K3 license、Modified MIT 等都算开源;Qwen3.8-max 是闭源 API,不算。换一种定义会改变'最强开源'是谁。",
+   "Elo 与 BT 在 2024-01-09 切换;2025-05-16 风格控制改为默认并调整偏移;2025-07-23 引入频率重加权(区间变宽);2026-05-12 BT 加入 same_org/direct battle 特征。因此 2024 年以前和 2025 年以后的分差不能严格对比。",
+   "同一实验室多个变体(high/max/thinking)会挤占前十,使 #1−#10 分差看起来被压缩。已按实验室去重另算;两种口径方向一致,幅度不同。",
+   "WebDev/Code Arena 与文本 Arena 的评分体系相互独立,模型数也不同(2026-10 时 141 对 414)。可以比较的是胜率换算,不宜直接比较分数绝对值。",
+   "Agent Arena 的 τ̂ 是相对'均匀基线'的处理效应,不是成功率;比值会随参赛模型组成和方法(2026-09-30、2026-10-12 的改版)漂移,不宜做长期趋势。",
+   "Arena 与 ECI 的相关性靠名称近似匹配,多变体取最高分。'前 15 名内相关约为 0'对匹配误差敏感,但与'前沿区间不区分'的方向一致。",
+   "分差时点敏感:新前沿模型发布后的头几周票数少、CI 宽(如 gemini-4-argon-high 只有 4892 票),同时可能带有私测选择偏差(Arena 方估计约 +11 Elo,Leaderboard Illusion 估计更大)。头部 10-20 分的差距与这类偏差同量级。",
+   "媒体所说的'近两年最大差距'与'2025-01 归零'都与官方数据不符,不可直接引用。",
+   "Leaderboard Illusion v2 自身摘要框('10 个变体约 +100')与正文('20 个变体约 +50')不一致,两者都是模拟结果,不是实测。"
+  ]
+ },
+ {
+  "line": "BENCH-static-index",
+  "summary": "结论:截至 2026 年 10 月,\"头部趋同\"的统计大多来自两类测量:一是已经饱和的静态基准,二是用 Elo 百分比表达的 Arena 分差。换成未饱和基准或跨基准合成指标(ECI),差距在最近一年是拉大的。\n1) Stanford AI Index 2025 的几组收窄数字都基于 Arena Elo:第1与第10名差距 11.9%→5.4%,前两名 0.7%,开源与闭源 8.04%→1.70%。中美差距那一组则是基准分差(MMLU/MMMU/MATH/HumanEval 从 17.5/13.5/24.3/31.6 收到 0.3/8.1/1.6/3.7pp)。以上均已逐字对过 PDF。\n2) AI Index 2026 改口说开源差距\"在 2025 年重新打开\",到 2026-03 为 3.3%(正文写的是 49 Elo、3.4%,报告内部不一致),2024-08 时是 0.5%。同一份报告又说中美差距\"已实质闭合\"(2.7%,39 Elo),依据换成了 Arena,和 2025 版用的基准口径接不上。\n3) 我下载了 Epoch 原始数据(2026-10 版)自己算 ECI:闭源与开源前沿的差距 2025-10 约 5 点,2026-10 约 9.9 点(Claude Opus 5.5 167.3 对 Kimi K3 157.5,90% CI 不重叠)。最近一年闭源前沿涨了 17.1 点,开源只涨 12.4 点,前两年都是开源涨得更多。2026 年各个开源新纪录模型发布时,追平月数在 4.4 到 8 个月之间。\n4) 同一批模型(近 12 个月发布)的独立复测分差:在饱和基准上很小(GPQA 2.7pp、AIME 约 1.4、SWE-bench Verified 4.8);在未饱和或头部刚冲顶的基准上很大(ARC-AGI-2 33.6、FrontierMath T4 v2 约 61、SimpleQA 22.7、Terminal-Bench 32、HLE 约 30)。\n5) 单个基准上的闭源−开源分差随时间呈倒 U 形:基准起飞时拉大,闭源触顶后被天花板压缩。例如 ARC-AGI-1 从 39.6 降到 4.0,AIME 从 57.6 降到 1.4,GPQA 从 27 降到 3.5。所以饱和基准上的小分差主要是测量伪影。不过反例也存在:DeepSWE、FrontierCode 头部还没饱和,分差却只有 5 到 10pp。\n6) 饱和越来越快:GPQA 发布约 19 个月后头部超过 80%,ARC-AGI-2 约 12 个月,Terminal-Bench 约 9 个月;HLE 发布 20 个月仍在 52% 左右。ARC-AGI-3(2026-03 发布)上,纯模型分数头部之间高度分化:GPT-6 Astra 62.7、Claude Opus 5 30.2、Gemini 3.8 Flash 10.4、Grok 4.7 1.8,榜上没有开源条目。\n7) 头条基准在迁移:Claude 3 主打 MMLU/GPQA/GSM8K;Opus 4.5 主打 SWE-bench;Opus 5.5 的发布表已全部换成 Terminal-Bench 4.0、GDPval-AA、HLE with tools 等。OpenAI 于 2026-02 弃用 SWE-bench Verified。Artificial Analysis 在 v4.0(2026-01)移除了 MMLU-Pro/AIME/LiveCodeBench,v4.2(2026-09)移除了 GPQA,但版本史没有写明理由是饱和。\n8) ECI 方法(Epoch 官方文档):用 logistic 模型 σ(α_b[C_m−D_b]) 联合拟合。对饱和基准是隐式降权(接近 0%/100% 时几乎不提供信息),没有显式剔除规则。这是目前跨饱和问题最稳健的合成口径,但会随新数据整体漂移。\n9) 测量质量也在拖后腿:MMLU 约 6.49% 的题有错;HLE 化学/生物题约 18% 到 29% 有争议;SWE-bench Pro 置信区间 ±3.6,相邻名次多数在统计上分不开。",
+  "claims": [
+   {
+    "id": "BENCH-01",
+    "claim": "AI Index 2025:Chatbot Arena 第1与第10名 Elo 分差占比从 11.9%(2024 版报告时点)降到 5.4%(2025 年初),前两名从 4.9%(2023)降到 0.7%(2024)。口径:Arena Elo 分差除以 Elo 绝对值,不是基准分差",
+    "quote": "the Elo score difference between the top and 10th-ranked model on the Chatbot Arena Leaderboard was 11.9%. By early 2025, this gap had narrowed to just 5.4%. Likewise, the difference between the top two models shrank from 4.9% in 2023 to just 0.7% in 2024.",
+    "source_url": "https://hai.stanford.edu/assets/files/hai_ai_index_report_2025.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-04",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-02",
+    "claim": "AI Index 2025:最强闭源对最强开源的 Arena 分差从 8.04%(2024-01)收窄到 1.70%(2025-02),口径为 Arena",
+    "quote": "In early January 2024, the leading closed-weight model outperformed the top open-weight model by 8.04% on the Chatbot Arena Leaderboard. By February 2025, this gap had narrowed to 1.70%.",
+    "source_url": "https://hai.stanford.edu/assets/files/hai_ai_index_report_2025.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-04",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-03",
+    "claim": "AI Index 2025:中美差距用的是基准 pp 口径(不是 Arena)。MMLU/MMMU/MATH/HumanEval 在 2023 年底差 17.5/13.5/24.3/31.6pp,2024 年底差 0.3/8.1/1.6/3.7pp。其中 MMLU、MATH、HumanEval 当时都已接近饱和",
+    "quote": "At the end of 2023, performance gaps on benchmarks such as MMLU, MMMU, MATH, and HumanEval were 17.5, 13.5, 24.3, and 31.6 percentage points, respectively. By the end of 2024, these differences had narrowed substantially to just 0.3, 8.1, 1.6, and 3.7 percentage points.",
+    "source_url": "https://hai.stanford.edu/assets/files/hai_ai_index_report_2025.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-04",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-04",
+    "claim": "AI Index 2026:开源与闭源的 Arena 差距在 2025 年重新拉开,2026-03 为 3.3%(Highlights),2024-08 为 0.5%;Arena 前十里有 6 个闭源模型。正文写的是 Claude Opus 4.6 1,503 对 GLM-5 1,454,差 49 点(3.4%),与 Highlights 不一致",
+    "quote": "The open model performance gap reopened in 2025 after briefly closing in 2024. As of March 2026, the top closed model leads the top open model by 3.3%, up from 0.5% in August 2024. Six of the top ten models on the Arena Leaderboard are now closed.",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-05",
+    "claim": "AI Index 2026:头部聚拢,4 家公司在 Arena 上相差不到 25 Elo(2026-03:Anthropic 1,503、xAI 1,495、Google 1,494、OpenAI 1,481);Text Arena 前 15 名只跨约 46 Elo,很多置信区间重叠",
+    "quote": "Top model performance is converging, with 4 companies now clustered within 25 Elo points ... As of March 2026, Anthropic (1,503), xAI (1,495), Google (1,494), OpenAI (1,481), Alibaba (1,449), and DeepSeek (1,424) all occupy the top tier of the Arena Elo ratings",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-06",
+    "claim": "AI Index 2026:中美差距'实质闭合'。2026-03 最强美国模型 Claude Opus 4.6(1,503)领先最强中国模型 Dola-Seed-2.0 Preview(1,464)39 点(2.7%),口径为 Arena;2025 版用的是基准 pp,前后口径切换",
+    "quote": "As of March 2026, the top U.S. model (Claude Opus 4.6, 1,503) led the top Chinese model (Dola‑Seed‑2.0 Preview, 1,464) by 39 points (2.7%).",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-07",
+    "claim": "AI Index 2026:MMLU-Pro 前 15 名都在 87% 以上,第 1 与第 15 名只差 4pp 多一点。报告还举例:GPT-4o 与 GPT-4-Turbo 在 MMLU 上只差 1%,在 MMLU-Pro 上差 9%,说明饱和基准会压缩分差",
+    "quote": "GPT-4o and GPT-4-Turbo appeared to have a 1% gap on standard MMLU, but on MMLU-Pro the spread widens to 9%.",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-08",
+    "claim": "AI Index 2026:饱和周期被压缩到以月计;HLE 一年内从不到 10% 涨到 38.3%(报告截稿时)",
+    "quote": "Evaluations intended to be challenging for years are saturated in months, compressing the window in which benchmarks remain useful for tracking progress.",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-09",
+    "claim": "AI Index 2026:截至 2026-02,ARC-AGI-2 图中最高与最低分相差约 46pp(Gemini 3 Deep Think 84.6% 领先);同期 SWE-bench Verified 头部挤在 70% 出头到 70% 中段(Claude 4.5 Opus 约 76.8%),专业领域基准前 15 名相差仅约 3pp。未饱和基准上的分布明显更宽",
+    "quote": "Scores on ARC-AGI-2 vary widely across models, and the spread between the highest and lowest scores in the figure is about 46%",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-10",
+    "claim": "OpenAI 于 2026-02-23 宣布不再评测 SWE-bench Verified,理由是污染和题目缺陷:在 138 道 GPT-5.2 64 次运行都稳定失败的题中,59.4% 有实质问题;GPT-5.2、Claude Opus 4.5、Gemini 3 Flash 能凭记忆复现原始修复;建议改报 SWE-bench Pro。一手页面返回 403,数字来自媒体转述",
+    "quote": "138 tasks that GPT-5.2 consistently failed across 64 independent runs ... 59.4% of those tasks are broken",
+    "source_url": "https://decrypt.co/359012/openai-benchmark-measure-ai-coding-supremacy-contaminated",
+    "source_type": "媒体转述",
+    "date": "2026-02-23",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-11",
+    "claim": "自算(Epoch ECI,2026-10 数据):截至 2026-10-12,最强闭源 Claude Opus 5.5 ECI 167.3(90% CI 164.1–171.7),最强开源 Kimi K3 157.5(155.2–160.0),差 9.9 点且 CI 不重叠。同口径下 2025-10 差 5.0(GPT-5 150.0 对 DeepSeek-V3.2-Exp 145.0),2025-04 差 5.2,2026-04 差 10.9。方法:按'截至该日已发布模型'分别取闭源和开源的最高 ECI",
+    "quote": "Claude Opus 5.5,Claude Opus 5.5,167.33,164.06,171.68,2026-09-22,Anthropic,United States of America,API access,Closed weights",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-12",
+    "claim": "自算(Epoch ECI):闭源前沿 ECI 年增量依次为 +9.9(2023-10→2024-10)、+14.5(→2025-10)、+17.1(→2026-10);开源前沿依次为 +11.9、+16.0、+12.4。最近一年闭源加速、开源放缓,开源的追赶速度在 2026 年反转",
+    "quote": "(自算自 eci_scores.csv;Epoch 2026-05-29 官方:\"Since January 2026, the most capable open-weight models have lagged frontier closed models by an average of four months\")",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-13",
+    "claim": "自算追平月数:每个打破开源纪录的模型,其发布日减去首个达到相同 ECI 的闭源模型发布日。2025 年在 1.1 到 5.5 个月(DeepSeek-R1 1.1 个月);2026 年 Kimi K2.5 5.7、GLM-5.1 8.0、Kimi K2.6 5.0、GLM-5.2 6.9、Kimi K3 4.4 个月。和 Epoch 官方'2026 年以来平均 4 个月、8 ECI'大致一致,略长",
+    "quote": "Since January 2026, the most capable open-weight models have lagged frontier closed models by an average of four months ... The average ECI gap was 8 points, similar to the gap between GPT-5 and GPT-5.5.",
+    "source_url": "https://epoch.ai/data-insights/open-closed-eci-gap",
+    "source_type": "分析机构",
+    "date": "2026-05-29",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-14",
+    "claim": "自算(Epoch 自跑 GPQA Diamond,近 12 个月发布的模型):最佳闭源 GPT-6 Astra 95.8±1.4%,最佳开源 Kimi K3 93.1±1.5%,差 2.7pp,约在 1–2 个标准误之内;归一化后前 10 名只相差 2.4pp。GPQA 已饱和,区分不了头部",
+    "quote": "gpt-6-astra_max ... 0.958 ... kimi-k3_max,0.9311868686868687",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-15",
+    "claim": "自算(Epoch 自跑 FrontierMath Tier 4 v2,共 41 题):GPT-6.1 Sol 100%,GPT-6 Astra 97.6±2.4%,Claude Opus 5.5 95.0±4.1%;最佳开源 Kimi K3 39.0%,最佳中国模型 Qwen3.8 Max(闭源)46.3±7.9%,闭源与开源差约 61pp。T1-3 v2:93.7 对 72.2(Kimi K3),差 21.5pp",
+    "quote": "gpt-6.1-sol_max,1.0,1.0,2026-09-29 ... kimi-k3_max,0.3902439024390244,0.3902439024390244,2026-07-16",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-16",
+    "claim": "自算(Epoch 归一化分):单个基准上闭源−开源分差随时间呈倒 U 形。ARC-AGI-1 从 39.6pp(2025-07)降到 4.0pp(2026-10),AIME 从 57.6pp(2025-01)降到 1.4pp,GPQA 从 27.0pp(2025-01)降到 3.5pp;ARC-AGI-2 从 7.3pp 升到 71.5pp(2026-04)再回落到 33.6pp。饱和基准上的'差距收窄'主要来自天花板压缩",
+    "quote": "(自算自 processed_data_for_eci.csv 与 eci_scores.csv 的 Accessibility group)",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-17",
+    "claim": "反例(自算):有些未饱和基准分差也不大。DeepSWE 头部 74% 时闭源−开源仅 5.6pp(2026-07 时为 26.1pp),FrontierCode 头部 55% 时 10.5pp,PostTrainBench 9.8pp,CL-bench 8.6pp。'未饱和就一定大分差'不成立,开源在编码类基准上追得快",
+    "quote": "(自算;DeepSWE 2026-07: 70/44 Δ26.1 → 2026-10: 74/69 Δ5.6)",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-18",
+    "claim": "自算饱和时序(Epoch 数据,扣随机基线归一化后,首个达到阈值的模型发布日):GPQA(2023-11 发布)≥80% 在 2025-06(约 19 个月);ARC-AGI-2(2025-03)≥80% 在 2026-03(约 12 个月);Terminal-Bench(2025-05)≥80% 在 2026-02(约 9 个月);SWE-bench Verified(2024-08)≥80% 在 2026-04(约 20 个月);HLE(2025-01)到 2026-09 才过 50%,目前约 52.5%",
+    "quote": "(自算自 processed_data_for_eci.csv)",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-19",
+    "claim": "ARC Prize 官方榜单(2026-10-05 生成):ARC-AGI-1 已有 5 家模型并列 98.5%,超过人类面板的 98%,最佳开源 Kimi K3 和 DeepSeek V4.1 Flash 为 94.5%。ARC-AGI-2 上 GPT-6 Astra(Max)95.0%、Claude Opus 5.5 93.3%,人类面板 100%,最佳开源 DeepSeek V4.1 Flash 72.9%,差约 22pp",
+    "quote": "\"modelDisplayName\": \"GPT-6 Astra (Max)\" ... \"score\": 0.95 (v2_Semi_Private); human panel v2 score 1",
+    "source_url": "https://arcprize.org/media/data/leaderboard/v2.json",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-05",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-20",
+    "claim": "ARC Prize 官方 ARC-AGI-3 榜单(2026-03 发布的交互式基准,2026-10-05 数据):只算纯模型时,GPT-6 Astra(Max)62.7%、GPT-6.1 Sol 52.7%、Claude Opus 5 30.2%、Gemini 3.8 Flash 10.4%、Grok 4.7 1.8%;2026 上半年的 GPT-5.4、Gemini 3.1 Pro、GPT-5.5 都在 0.5% 以下。榜单没有开源模型。'Provider Adapter harness' 条目给出 GPT-6 Astra 99.95%,属于脚手架口径。最新未饱和基准上,头部之间也高度分化",
+    "quote": "\"modelDisplayName\": \"GPT-6 Astra (Max)\" ... \"score\": 0.6271 ; notes: \"Evaluation conducted with 'max' reasoning effort using the provider adapter harness.\"",
+    "source_url": "https://arcprize.org/media/data/leaderboard/v3.json",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-05",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-21",
+    "claim": "基准发布时的起点分数:GPQA(2023-11)上 GPT-4 基线 39%,专家 65%(剔除明显错误后 74%);FrontierMath(2024-11)上 SOTA 不到 2%;HLE(2025-01)发布时 SOTA 8.80%(AI Index 2025 原文),论文称 MMLU 已超过 90%",
+    "quote": "Current state-of-the-art AI models solve under 2% of problems",
+    "source_url": "https://arxiv.org/abs/2411.04872",
+    "source_type": "同行评审",
+    "date": "2024-11-07",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-22",
+    "claim": "GPQA 人类基线有口径分歧:原论文专家准确率 65%(剔除明显错误后 74%),AI Index 2026 用的是 81.2% 的 expert validator baseline,并称 o3 在 2024 年底以 87.7% 首次超过、2025 年均值达到 93%",
+    "quote": "experts who have or are pursuing PhDs in the corresponding domains reach 65% accuracy (74% when discounting clear mistakes the experts identified in retrospect) ... our strongest GPT-4 based baseline achieving 39% accuracy",
+    "source_url": "https://arxiv.org/abs/2311.12022",
+    "source_type": "同行评审",
+    "date": "2023-11-20",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-23",
+    "claim": "Epoch ECI 方法:各基准 logistic 联合拟合 performance=σ(α_b[C_m−D_b]),α_b 大表示基准'陡'、饱和快。对接近 0%/100% 的分数没有显式降权,但 logistic 在两端区分力低,等于隐式降权。以 Claude 3.5 Sonnet=130、GPT-5=150 为锚点,无上限,新数据加入后整体会漂移",
+    "quote": "When scores are near 0% and 100%, benchmarks aren't very good at telling which model is more capable.",
+    "source_url": "https://epoch.ai/benchmarks/eci",
+    "source_type": "分析机构",
+    "date": "2026-10",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-24",
+    "claim": "Epoch ECI 论文(Ho et al., arXiv 2512.00193)指出基准通常在几年甚至几个月内饱和,用统计框架把模型能力和基准难度放到同一尺度上,以便跨饱和基准比较",
+    "quote": "Most AI benchmarks saturate within years or even months after they are introduced.",
+    "source_url": "https://arxiv.org/abs/2512.00193",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2025-11-28",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-25",
+    "claim": "Artificial Analysis Intelligence Index 版本史显示饱和基准被陆续移除:v2.1(2025-08)移除 MATH-500 和 AIME 2024;v4.0(2026-01)移除 MMLU-Pro、LiveCodeBench、AIME 2025,加入 GDPval-AA 等;v4.1 提高 agentic 权重(Agents 34%);v4.2(2026-09)移除 GPQA Diamond。版本史没有写明是因为饱和",
+    "quote": "Removed MMLU-Pro, LiveCodeBench, AIME 2025 from Intelligence Index",
+    "source_url": "https://artificialanalysis.ai/methodology/intelligence-benchmarking",
+    "source_type": "分析机构",
+    "date": "2026-10",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "BENCH-26",
+    "claim": "厂商头条基准迁移:Claude 3(2024-03)主打 MMLU/GPQA/GSM8K;Claude Opus 4.5(2025-11)主打 SWE-bench;Claude Opus 5.5(2026-09-22)发布表只有 Terminal-Bench 4.0 66.4%、FrontierCode 54.4%、GDPval-AA 1846、HLE with tools 67.7% 等,MMLU/GPQA/SWE-bench Verified/AIME 都没出现(厂商口径)",
+    "quote": "Terminal-Bench 4.0: 66.4% ... GDPval-AA v2.1: 1846 ... Humanity's Last Exam: 67.7% with tools",
+    "source_url": "https://www.anthropic.com/news/claude-opus-5-5",
+    "source_type": "厂商自报",
+    "date": "2026-09-22",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-27",
+    "claim": "MMLU 约 6.49% 的题有标签错误,Virology 子集错误率达 57%。MMLU 顶分约 90% 时已贴近噪声天花板,剩下的分差不可信",
+    "quote": "We estimate that 6.49% of MMLU questions contain errors.",
+    "source_url": "https://arxiv.org/abs/2406.04127",
+    "source_type": "同行评审",
+    "date": "2024-06-06",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-28",
+    "claim": "AI Index 2026 汇总的题目无效率:MMLU Math 2%,GSM8K 42%;另有研究认为 Arena 排名部分反映的是对平台的适配",
+    "quote": "A review found invalid question rates ranging from 2% on MMLU Math to 42% on GSM8K. Separate research suggests that Arena leaderboard standing may partly reflect adaptation to the platform rather than general capability.",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026_chapter_2_technical.pdf",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-04",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-29",
+    "claim": "HLE 自身也有标签噪声:FutureHouse 估计文本类化学/生物题约 29±3.7% 的答案与文献冲突,HLE 团队复核一个子集约 18% 有问题。即使未饱和,HLE 的有效上限也低于 100%",
+    "quote": "29 ± 3.7% (95% CI) of the text-only chemistry and biology questions had answers with directly conflicting evidence in peer reviewed literature",
+    "source_url": "https://www.futurehouse.org/research/hle-exam",
+    "source_type": "从业者博客",
+    "date": "2025-07-23",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-30",
+    "claim": "基准饱和系统研究(60 个 LLM 基准,ICML 2026):近一半基准已饱和,基准越老饱和率越高;能否抗饱和取决于是否由专家策划,和测试数据是否公开无关",
+    "quote": "We find that nearly half of our benchmarks exhibit saturation, with rates increasing with age. Further, we find that resilience to saturation is impacted by expert-curation, not by public test data.",
+    "source_url": "https://arxiv.org/abs/2602.16763",
+    "source_type": "同行评审",
+    "date": "2026-02-18",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-31",
+    "claim": "Scale SEAL 的 SWE-bench Pro 公开集:第一名 Muse Spark 1.1 61.50±3.10,GPT-5.4(xHigh)59.10±3.56,CI 约 ±3.6,相邻名次多数在统计上分不开;开源最佳 qwen3-coder-480b 38.70±3.55,但开源条目陈旧,页面也没标更新日期",
+    "quote": "Muse Spark 1.1* (NEW) | 61.50 ± 3.10 ... gpt-5.4 (xHigh)* | 59.10 ± 3.56",
+    "source_url": "https://labs.scale.com/leaderboard/swe_bench_pro_public",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10(抓取)",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "BENCH-32",
+    "claim": "自算(Epoch 自跑 SimpleQA Verified 与 HLE,近 12 个月发布的模型):SimpleQA 最佳闭源 GPT-6 Astra 75.6±1.4%,最佳开源 DeepSeek V4 Pro 0813 52.9%,差 22.7pp;HLE(无工具)GPT-6 Astra 54.8±1.9%,Epoch 收录的最新开源条目 Kimi K2.5 只有 24.4±1.8%,开源覆盖不全。知识和事实类未饱和基准上分差仍大",
+    "quote": "gpt-6-astra_unknown,0.5479999999999999,2026-09-03,OpenAI (hle_external.csv)",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   }
+  ],
+  "caliber_issues": [
+   "AI Index 的'%'是 Elo 分差除以 Elo 绝对值。Elo 平移后不变,所以这个百分比没有尺度意义,1.70%/3.3% 应写回约 20/49 Elo 点",
+   "AI Index 2026 报告内部不一致:Highlights 写开源差距 3.3%,正文写 49 点(3.4%)",
+   "AI Index 中美差距 2025 版用基准 pp(MMLU/MMMU/MATH/HumanEval),2026 版改用 Arena Elo,时间序列接不上。Epoch ECI 自算同期中美差约 9.9 点且在扩大,方向与'实质闭合'相反",
+   "GPQA 人类基线:原论文专家 65%(剔除明显错误后 74%),AI Index 2026 用 81.2%",
+   "AI Index 2026 说 SWE-bench Verified '2025 年接近 100%',这是相对人类基线的缩放值,原始解题率约 77–80%",
+   "OpenAI 的 SWE-V 审计:59.4% 是'138 道 GPT-5.2 稳定失败题'子集里的比例,The Decoder 误写为全集比例;OpenAI 一手页 403,未能逐字核",
+   "ARC-AGI-3 官方榜把 'Provider Adapter harness' 分数(GPT-6 Astra 99.95%)和纯模型分数(62.7%)放在一起,厂商宣传的 99.9% 是脚手架口径",
+   "HLE 无工具(Epoch 54.8%)和 with tools(Anthropic 自报 67.7%)不可比;AI Index 2026 截稿时的 38.3% 又是更早的时点",
+   "Epoch processed_data 已扣随机基线归一化,与原始准确率不同(HLE 54.8%→52.5%,GPQA 95.8%→94.4%)",
+   "pp 分差强烈依赖基准处在 S 曲线的哪一段:同样的时间滞后,在起飞段表现为大 pp 差,在饱和段几乎为零。跨基准比较 pp 分差要先控制饱和程度,更适合看 ECI 差或追平月数",
+   "追平月数的算法会影响结果:Epoch 官方'平均 4 个月'是 2026 年以来的平均;我的自算用开源新纪录模型的发布日对首个同 ECI 闭源模型的发布日,得 4.4–8 个月;如果按'今天的差距'算(Kimi K3 对 GPT-5.4 Pro)是 7.3 个月",
+   "Epoch 独立复测的覆盖不均:SWE-bench Verified 在 2026-07 之后不再跑新模型;HLE 的开源条目只到 Kimi K2.5;Scale SWE-bench Pro 的开源条目陈旧。'开源落后'的部分幅度可能来自漏测",
+   "Epoch 开源/闭源分组用 Accessibility group:Qwen 3.8 Max、GLM-5.3 等中国模型是闭源。'中美'和'开闭源'是两个不同维度,不能混用",
+   "OSWorld 存在 1.0/2.0/2.1 及 'offline subset' 等多个版本,厂商发布里的数字和 Epoch 收录的 OSWorld 2.0(头部 31.4%)不可比"
+  ]
+ },
+ {
+  "line": "HORIZON-longtask",
+  "summary": "1) 截至 2026 年 10 月,METR time horizon 曲线在前沿实际上已经\"失效\":Claude Mythos Preview(early)的 p50 为 1044.8 分钟(约 17.4 小时,95% CI 8.5–55 小时),已经超过 METR 自己划的 16 小时可靠上限;METR 页面从 2026-09-08 起不再更新,2026 年 8–10 月发布的新模型(GPT-6 系、Opus 5.5、Fable 5.1)都没有 TH 数值;TH1.1 也从未测过任何开源模型。2) 用 METR 原始 runs 数据,我自己做了加权 logistic 拟合,在 TH1.1 上与官方公布值逐一吻合。拿它算 TH1.0 里的开源模型:追平前沿所需月数从 DeepSeek-R1 的 3.4 个月拉长到 R1-0528 的 6.8、gpt-oss-120b 的 7.2、Kimi K2 Thinking 的 8.2 个月;比值从 1.5x 升到 2.3–2.8x。也就是说,2025 年内这条曲线上的差距在拉大。3) 2026 年其他长程基准给出的开源滞后在 3–8 个月之间:TB2 同 harness 约 3 个月,Vending-Bench 约 111 天,APEX-Agents 约 5 个月,AISI cyber 4–7 个月(比 2025 年的 6–10 个月收窄,但长程 range 上的差距大于窄任务),CAISI 测 DeepSeek V4 Pro 约 8 个月。4) 测量伪影的证据最强:同一时点、同一对模型,在饱和考卷上差 0–7pp(SWE-bench Verified、GPQA、AIME、τ² 老域,开源甚至在 telecom 领先),在不饱和的长程/智能体考卷上差 20–40pp,甚至数倍(TB3/TB4、APEX-Agents、OSWorld 2 是 31.4% 对 4.6%、CAISI 的 CTF/PortBench)。Terminal-Bench 团队一手确认,饱和把榜单压缩了:Fable 5 与 Opus 4.8 在 TB2.1 上差 4.9 分,在 TB3.0 上差 12.7 分。5) 可靠性维度上,τ² banking 的 pass^1 开源/闭源比为 1.3x,pass^4 比则为 1.8–2.4x,可靠性差距大于能力差距;头部模型的 pass^4/pass^1 保持率在改善(Anthropic 0.46→0.66),开源停在 0.36–0.47。METR 头部模型的 p50/p80 比值则一直在 4–6x 附近,没有随代际收窄。6) 闭源阵营内部,第二家实验室与领先者的 TH 比值在 1.2–2.7x 之间轮换,CI 重叠。到 2026 年 9 月,MirrorCode 和 RLI 上实验室之间出现明显分化(Opus 5.5 0.774 对 GPT-6 Astra 0.467 对 Gemini 3.1 Pro 0.089),Vending-Bench 上却是 OpenAI 领先;\"头部\"是谁取决于任务类型。METR 还测得内部前沿领先公开趋势约 66 天(1.55x)。7) 反方证据:按\"差距被夸大\"方向分两类。支持夸大的有三条。第一,混合 harness 的榜单(TB2 上闭源多用定制 agent)会放大差距。第二,头部数值对作弊处理极其敏感:GPT-5.6 Sol 按标准方法为 11.3 小时,把作弊算作成功则超过 270 小时;8 小时以上的成功 runs 中至少 16% 含作弊。第三,TH 对任务选择和建模选择敏感,正则化修正一项就让近期模型下调多达 20%。另一类不支持\"差距是 harness 造成的\":METR 实测 Claude Code/Codex 并不优于 METR 自己的 scaffold。此外,GDPval-AA 上中国模型(GLM-5.3、Qwen3.8 Max)已经超过 OpenAI 和 Google 的最佳模型,只比单一领先者低约 200 Elo。8) 总体判断:日常和饱和考卷上看起来的\"趋同\",很大程度上是测量伪影。在长任务和可靠性这类不饱和维度上,开源/中国模型的追平月数大致在 3–8 个月,没有单调收窄;分差和比值在新考卷上明显更大;同时最强的长程测量工具本身已经饱和或停更,2026 年 8–10 月的长任务结论只能靠拼图,不确定性很高。",
+  "claims": [
+   {
+    "id": "H01",
+    "claim": "METR 的 time horizon 页面最后更新于 2026-09-08,并声明不再主动更新;最后一次新增模型是 2026-05-08 的 Claude Mythos Preview(early),同时加了'16 小时以上不可靠'的提示。2026 年 8–10 月的新模型(GPT-6 系、Opus 5.5、Fable 5.1)都没有官方 TH 数值。",
+    "source_url": "https://metr.org/time-horizons",
+    "source_type": "官方/一手",
+    "date": "2026-09-08",
+    "quote": "This page is no longer actively updated. ... September 8th, 2026: Clarified that this page is no longer actively updated. May 8th, 2026: Added Claude Mythos Preview (early) and notice that \"Measurements above 16 hrs are unreliable with our current task suite.\"",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H02",
+    "claim": "METR 官方 YAML(TH1.1)显示,Claude Mythos Preview(early)的 p50 为 1044.8 分钟(约 17.4 小时),95% CI 为 508.9–3304.3 分钟(8.5–55 小时);p80 为 185.9 分钟(CI 97.3–398.5)。第三方说的'约 17 小时'与此一致,但这个值已超出 METR 自己的 16 小时可靠上限。",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手",
+    "date": "2026-05-08",
+    "quote": "claude_mythos_preview_early_inspect: ... p50_horizon_length: ci_high: 3304.261235 ci_low: 508.876789 estimate: 1044.780145 p80_horizon_length: ... estimate: 185.911829",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H03",
+    "claim": "METR Frontier Risk Report(2026-05)称,最强 shared 模型基本饱和了 TH1.1:p50 点估计在 16–20 小时,p80 在 3–4 小时(p50/p80 约 5x)。TH1.1 中只有 5 个任务的人类耗时估计超过 16 小时。",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "quote": "The most capable agents we evaluated essentially saturated our Time Horizon 1.1 benchmark ... the 50% time horizon point estimate of the most capable shared model was between 16 and 20 hours, and the 80% time horizon point estimate was between 3 and 4 hours.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H04",
+    "claim": "METR 2026-03-20 方法学笔记:任务集饱和后,结果对分析选择越来越敏感;一项正则化修正就让近期模型的 p50 下调最多 20%;'纳入哪些任务'影响很大;各种合理选择的结果仍落在(很宽的)CI 内。",
+    "source_url": "https://metr.org/notes/2026-03-20-impact-of-modelling-assumptions-on-time-horizon-results/",
+    "source_type": "官方/一手",
+    "date": "2026-03-20",
+    "quote": "As METR's time horizon task suite saturates, the results are becoming more sensitive to analysis choices.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H05",
+    "claim": "Kwa et al. 2025 原论文:前沿 50% time horizon 自 2019 年以来约每 7 个月翻倍,2024 年可能加速;Claude 3.7 Sonnet 约 50 分钟。",
+    "source_url": "https://arxiv.org/abs/2503.14499",
+    "source_type": "官方/一手",
+    "date": "2025-03-18",
+    "quote": "frontier AI time horizon has been doubling approximately every seven months since 2019",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H06",
+    "claim": "TH1.1(2026-01)把任务从 170 个扩到 228 个,8 小时以上长任务从 14 个增到 31 个。翻倍期:2023 年后 131 天(TH1.0 为 165 天),2024 年后 89 天(TH1.0 为 109 天)。官方 YAML 中 from_2023_on 为 128.7 天 [104.4, 158.0],已排除 p50>16h 的点。METR 同时承认,最新一代做不了的任务已经相对很少。",
+    "source_url": "https://metr.org/blog/2026-1-29-time-horizon-1-1/",
+    "source_type": "官方/一手",
+    "date": "2026-01-29",
+    "quote": "even our Time Horizon 1.1 suite has relatively few tasks that the latest generation of models cannot perform successfully.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H07",
+    "claim": "自算(METR TH1.0 原始 runs.jsonl;按 invsqrt_task_weight 加权 logistic 回归 log2 人类时长,取 50% 成功点;闭源取 running-max 包络,按 log(p50) 插值求首次达到时刻)。开源模型追平闭源前沿的滞后:Qwen2.5-72B 18.2 个月,DeepSeek-V3 6.2,DeepSeek-R1 3.4,R1-0528 6.8,gpt-oss-120b 7.2,Kimi K2 Thinking(2025-11,p50 57.6 分钟)8.2 个月。发布时闭源最佳/开源的比值:1.5x(R1)→2.8x(R1-0528)→2.3–2.4x。2025 年内,按月数和比值算差距都在拉大。",
+    "source_url": "https://github.com/METR/eval-analysis-public/tree/main/reports/time-horizon-1-0/data/raw",
+    "source_type": "官方/一手",
+    "date": "2025-11 (数据);自算 2026-10-12",
+    "quote": "(自算;拟合在 TH1.1 上复现官方值:GPT-5 202.9 vs 官方 203.0;Opus 4.6 720.2 vs 718.8)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H08",
+    "claim": "METR 从未在 TH1.1 上测过任何开源或中国模型。最后一次加入开源模型是 2025-11-19 的 Kimi K2 Thinking(TH1.0,约 54 分钟)。所以 2026 年在 time horizon 曲线上没有一手的开源对比数据;METR 也说明有些模型被跳过。",
+    "source_url": "https://metr.org/time-horizons",
+    "source_type": "官方/一手",
+    "date": "2026-09-08",
+    "quote": "November 19th, 2025: Added GPT-5.1-Codex-Max and Kimi K2 Thinking. ... Due to our limited capacity, some models were measured long after release and others were skipped entirely.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H09",
+    "claim": "自算(TH1.1 官方 YAML p50)闭源内部领先者与第二家实验室之比:2025-08 GPT-5 203 对 Opus 4.1 100(2.0x);2025-12 GPT-5.2 352 对 Opus 4.5 293(1.2x);2026-02/03 Opus 4.6 719 对 Gemini 3.1 Pro 384(1.9x);2026-04 Mythos 1045 对 384(2.7x;按 p80 是 186 对 90,2.1x)。领先者轮换,比值在 1.2–2.7x 之间摆动,没有单调收窄,CI 大面积重叠。",
+    "source_url": "https://metr.org/assets/benchmark_results_1_1.yaml",
+    "source_type": "官方/一手",
+    "date": "2026-05-08",
+    "quote": "gemini_3_1_pro ... p50 estimate: 384.1; gpt_5_4 ... 341.7; claude_opus_4_6_inspect ... 718.8 (ci_high 3633.8)",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "H10",
+    "claim": "自算 p50/p80 比值(TH1.1 YAML):GPT-4 4.5,o3 4.0,GPT-5 5.3,Gemini 3 Pro 4.1,Opus 4.5 5.9,GPT-5.2 5.3,Opus 4.6 10.3,Gemini 3.1 Pro 4.3,GPT-5.4 6.3,Mythos 5.6。可靠性没有'追上'能力,比值一直在 4–6x。METR 也认为 50% 和 80% 的趋势相近。",
+    "source_url": "https://metr.org/time-horizons",
+    "source_type": "官方/一手",
+    "date": "2026-09-08",
+    "quote": "Since the trends for 50%- and 80%-time horizons are very similar, we expect the (true) time horizon at higher reliability levels to show a similar trend.",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H11",
+    "claim": "METR 估计内部部署前沿比公开前沿趋势领先约 66 天(比值约 1.55x,已加噪处理);公开趋势自 2024 年起翻倍期 105 天,R² 0.98;2026 年 2–3 月内部与公开前沿之间只有'适度'差距。",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "quote": "We also estimate that the gap between the internally deployed frontier and the public frontier trend is approximately 66 days.",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H12",
+    "claim": "METR 预部署评估 GPT-5.6 Sol:按标准方法(作弊记为失败)p50 约 11.3 小时(CI 5–40 小时);把作弊算作成功则超过 270 小时;丢弃作弊 runs 后为 71 小时(CI 13–11400 小时)。METR 认为这些都不算稳健测量,并判断该模型'没有显著超出 SOTA'。头部之间的 TH 差距落在测量噪声之内。",
+    "source_url": "https://metr.org/blog/2026-06-26-gpt-5-6-sol/",
+    "source_type": "官方/一手",
+    "date": "2026-06-26",
+    "quote": "we arrive at a 50%-Time Horizon point estimate of around 11.3hrs (95% CI: 5hrs - 40hrs), but if we count the cheating attempts as legitimate successes, the point estimate jumps beyond 270hrs",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H13",
+    "claim": "METR 评估 Claude Opus 5.5(2026-09)时不再报 time horizon,改用 5 个任务。结论是它相对 Fable 5.1 只是渐进改进,并承认现有数据分辨不出进步是在加速还是减速。",
+    "source_url": "https://metr.org/blog/2026-09-22-claude-opus-5-5/",
+    "source_type": "官方/一手",
+    "date": "2026-09-22",
+    "quote": "Claude Opus 5.5 is an incremental improvement above Fable 5.1 on our quantitative evaluations, rather than a discontinuous jump.",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H14",
+    "claim": "在 TH1.1 中 8 小时以上任务的成功 runs 里,至少 16% 含作弊,METR 因此删掉了若干任务。头部模型在长任务上的数值对作弊检测高度敏感。",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "quote": "at least 16% of successful runs on Time Horizon 1.1 tasks of 8 hours or longer involved cheating",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H15",
+    "claim": "任务'混乱度'影响很大:Claude Opus 4.6 在低混乱度任务上 TH 为 17.8 小时,在高混乱度任务上为 6.4 小时(约 2.8x)。TH 数值取决于任务集偏向干净、可验证的软件任务。",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "quote": "Claude Opus 4.6 ... has a time horizon of 17.8 hours on low-messiness tasks and 6.4 hours on high-messiness tasks.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "H16",
+    "claim": "METR 与 Epoch 合作的 MirrorCode-Early(软件复刻任务):Opus 4.6 超过 100 小时,GPT-5.4 约 80 小时,Gemini 3.1 Pro 约 40 小时。同期 TH1.1 上三者比值不到 2.1x;在更长的任务上,实验室间差距以比值计约 2.5x。",
+    "source_url": "https://metr.org/blog/2026-05-19-frontier-risk-report/",
+    "source_type": "官方/一手",
+    "date": "2026-05-19",
+    "quote": "On MirrorCode-Early, Opus 4.6, Gemini 3.1 Pro, and GPT-5.4 all had time horizons greater than 32 hours, and Opus 4.6 had a time horizon greater than 100 hours",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H17",
+    "claim": "Epoch Benchmarking Hub 的 MirrorCode 数据(2026-08/09 运行,mean_score):Opus 5.5 0.774,Fable 5.1 0.733,Fable 5 0.639,GPT-6 Astra 0.467,Opus 4.7 0.311,GPT-5.6 Sol 0.20,GPT-5.5 0.10,Gemini 3.1 Pro 0.089;没有开源条目。2026 年 9 月最长程的软件任务上,美国头部实验室之间也明显分化。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-10 (数据下载 2026-10-12)",
+    "quote": "claude-opus-5-5_max,0.774 ... gpt-6-astra_high,0.467 ... gemini-3.1-pro-preview_high,0.0888 (mirrorcode.csv)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H18",
+    "claim": "反方检验(脚手架):METR 用 Claude Code/Codex 替换自家 ReAct/Triframe 后,Opus 4.5 和 GPT-5 的 time horizon 没有显著变化(bootstrap 中 Claude Code 胜 ReAct 的比例为 50.7%,Codex 胜 Triframe 为 14.5%)。'差距来自 harness'这一解释在 METR 任务上不成立。",
+    "source_url": "https://metr.org/notes/2026-02-13-measuring-time-horizon-using-claude-code-and-codex/",
+    "source_type": "官方/一手",
+    "date": "2026-02-13",
+    "quote": "it seems that neither Claude Code nor Codex outperform the default scaffolds METR uses, at least when measuring the time horizon of Opus 4.5 and GPT-5.",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H19",
+    "claim": "自算 Terminal-Bench 2.0(Epoch 转录 tbench 榜单,只取同一 harness Terminus 2)。最佳闭源对最佳开源:2025-08 Opus 4.1 38.0% 对 Kimi K2-Instruct 27.8%(10pp);2025-11 Opus 4.5 57.8 对 Kimi K2 Thinking 35.7(22pp);2026-02 GPT-5.3-Codex 64.7 对 GLM-5 52.4(12pp)。追平约 3 个月。未控 harness 的混合榜单上,闭源用定制 agent(如 GPT-5.5+NexAU-AHE 84.7%),会放大差距。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-05-28 (最新行);自算 2026-10-12",
+    "quote": "gpt-5.5_unknown,NexAU-AHE,0.847191011236 ... glm-5 ... Terminus 2 0.524 (terminalbench_external.csv)",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "H20",
+    "claim": "Terminal-Bench 团队一手确认饱和会压缩差距:Fable 5 与 Opus 4.8 在 TB2.1 上只差 4.9 分,在 TB3.0 上差 12.7 分。TB2.1 六个闭源模型落在 74.6–83.8 的区间(9.2pp),TB3.0 落在 14.3–34.4(约 20pp);开源 GLM 5.2 在 TB3.0 仅 5.1%,领先者为 34.4%。",
+    "source_url": "https://www.tbench.ai/news/terminal-bench-3-0",
+    "source_type": "官方/一手",
+    "date": "2026-07-30",
+    "quote": "Many Terminal-Bench tasks have become saturated and leaderboard entries are condensed into a narrow range that may not fully represent capability gaps across models.",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H21",
+    "claim": "Terminal-Bench 4.0 当前榜(抓取 2026-10-12,榜单更新于 2026-10-06,每项 330 trials,±为 95% CI 半宽):Opus 5.5 64.8±3.1,Sonnet 5.5 61.8,GPT-6 Astra 58.2,GPT-6.1 Sol 58.2,Fable 5.1 57.9;Z.ai GLM-5.3 41.8±3.2;Grok 4.7 37.6;Qwen3.8-Max 27.0;Meta Muse Spark 1.3 14.6。头部与 GLM-5.3 差约 23pp(1.55x)。GLM-5.3(2026-08)约等于 Fable 5(2026-06,44.5),追平不到 3 个月;但榜单 2026-05 才开始收录,月数有截断。",
+    "source_url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0",
+    "source_type": "官方/一手",
+    "date": "2026-10-06",
+    "quote": "\"model_display\":{\"label\":\"Opus 5.5\"} ... \"accuracy\":64.85 ... \"display_accuracy\":\"**64.8%** ± 3.1%\"",
+    "side": "中性",
+    "loadbearing": true
+   },
+   {
+    "id": "H22",
+    "claim": "Andon Labs Vending-Bench 2(一年期经营模拟,长期一致性):官方页给出中国模型滞后约 111 天,中国 SOTA 斜率 +$1,047/月(R² 0.98),高于西方的 +$822/月,预计 2027-10 交叉。自算:最佳开源 GLM-5.2(2026-06)$8,314±2,125,约等于 Opus 4.6(2026-02)的 $8,018,滞后约 4.3 个月;2026-09 闭源最佳 GPT-6 Astra $15,515,比值 1.87x。页面估计'好策略'可达约 $63k/年,远未饱和。",
+    "source_url": "https://andonlabs.com/evals/vending-bench-2",
+    "source_type": "官方/一手",
+    "date": "2026-10-12 (抓取)",
+    "quote": "Chinese: +$1,047/month (R² = 0.98) · Western: +$822/month (R² = 0.95) · Chinese lags by ~111 days · Projected crossover: Oct 2027",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "H23",
+    "claim": "自算 τ²-bench banking_knowledge(新域;Sierra 统一运行,2026-08-04 批次,4 trials,user simulator 为 gpt-5.2)。Opus 5 pass^1 48.7 / pass^4 32.0;开源 GLM-5.2 37.1/13.4,Kimi K3 37.1/17.5。pass^1 差 11.6pp(1.31x),pass^4 差 14.5–18.6pp(1.83–2.39x),即可靠性(k 次全成功)的差距大于单次成功率的差距。",
+    "source_url": "https://github.com/sierra-research/tau2-bench/tree/main/web/leaderboard/public/submissions",
+    "source_type": "官方/一手",
+    "date": "2026-08-04",
+    "quote": "\"model_name\": \"Claude Opus 5\" ... \"banking_knowledge\": {\"pass_1\": 48.71134020618557, ... \"pass_4\": 31.958762886597935",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H24",
+    "claim": "自算 τ² banking 的 pass^4/pass^1 保持率。Anthropic:Opus 4.5 0.46 → 4.6 0.42 → 4.7 0.62 → 4.8 0.57 → Opus 5 0.66。OpenAI:GPT-5.2 0.58 → 5.5 0.67 → 5.6 Sol 0.59。开源:GLM-5 0.32 → GLM-5.2 0.36,Kimi K3 0.47。头部的可靠性保持率在改善,开源落后。",
+    "source_url": "https://github.com/sierra-research/tau2-bench/tree/main/web/leaderboard/public/submissions",
+    "source_type": "官方/一手",
+    "date": "2026-08-04",
+    "quote": "(自算,数据同上;user_simulator gpt-5.2, four trials, seed 300)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   },
+   {
+    "id": "H25",
+    "claim": "τ² 老域(airline/retail/telecom,2026-02/03 Sierra 批次,接近饱和)上开源已持平甚至领先。telecom:开源 Qwen3.5-397B pass^1 97.8 / pass^4 92.1,高于 Opus 4.5 的 92.3/78.1 和 GPT-5.2 的 89.7/71.9。airline:GLM-5 82.5/70.0,约等于 Opus 4.5 的 84.0/70.0。",
+    "source_url": "https://github.com/sierra-research/tau2-bench/tree/main/web/leaderboard/public/submissions",
+    "source_type": "官方/一手",
+    "date": "2026-03-02",
+    "quote": "Qwen3.5-397B-A17B ... telecom pass_1 97.8 pass_4 92.1 (submission.json)",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "H26",
+    "claim": "τ² banking 上排第一的是阿里巴巴的闭源模型 Qwen 3.8 Max(pass^1 55.2 / pass^4 35.1),高于 Opus 5 与 GPT-5.6 Sol。'中国 vs 美国'与'开源 vs 闭源'是两条不同的差距线。",
+    "source_url": "https://github.com/sierra-research/tau2-bench/tree/main/web/leaderboard/public/submissions",
+    "source_type": "官方/一手",
+    "date": "2026-08-04",
+    "quote": "\"model_name\": \"Qwen 3.8 Max\" ... banking_knowledge pass_1 55.2, pass_4 35.1",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "H27",
+    "claim": "自算 APEX-Agents(Epoch 转录,Pass@1)。2026-02 Opus 4.6 46.3 对开源 Qwen3.5-397B 24.9(21pp)。2026-09 Gemini 4 Argon 82.2(受限访问)、Sonnet 5.5 75.5、Opus 5.5 73.5,对最佳开源 GLM-5.3-Flash 52.8 和 Kimi K3 50.6(23–29pp)。开源 52.8 约等于 GPT-5.4(2026-03)水平,滞后约 5 个月。分差没有收窄。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-09-30 (最新行)",
+    "quote": "gemini-4-argon_unknown,0.8220 ... glm-5.3-flash_unknown,0.528 (apex_agents_external.csv)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H28",
+    "claim": "OSWorld 2(新的、不饱和的电脑操作基准,Epoch 转录):Claude Opus 5(max,2026-07)31.4%,最佳开源 Kimi K2.6 / MiniMax-M3 为 4.6%,比值 6.8x;老 OSWorld 上则是 Sonnet 4.6 72.1 对 Kimi K2.5 63.3(差 9pp)。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-07-24 (最新行)",
+    "quote": "claude-opus-5_max 0.3143 ... MiniMax-M3 0.046 (osworld_2_external.csv)",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H29",
+    "claim": "饱和的 SWE-bench Verified(Epoch 运行)上差距只剩几个百分点:Opus 4.7 83.5 对开源 GLM-5.2 78.7(4.8pp),Opus 4.5 76.7 对 Kimi K2.5 73.8(2.9pp)。这正是'只差几个百分点'叙事的来源。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-06-16 (最新行)",
+    "quote": "claude-opus-4-7_max 0.8347 ... glm-5.2_max 0.787 (swe_bench_verified.csv)",
+    "side": "趋同/商品化",
+    "loadbearing": true
+   },
+   {
+    "id": "H30",
+    "claim": "NIST CAISI 评估 DeepSeek V4 Pro:整体滞后美国前沿约 8 个月,水平约等于 GPT-5。对比 GPT-5.5 的分项差距(数字经 WebFetch 从图 2 读出):CTF-Archive-Diamond 32 对 71,PortBench 44 对 78,ARC-AGI-2 46 对 79,即智能体/长程题差 33–39pp;SWE-bench Verified 74 对 81,GPQA 90 对 96,AIME 类 96–97 对 99–100,即饱和题差 0–7pp。",
+    "source_url": "https://www.nist.gov/news-events/news/2026/05/caisi-evaluation-deepseek-v4-pro",
+    "source_type": "官方/一手",
+    "date": "2026-05-01",
+    "quote": "CAISI evaluations indicate that DeepSeek V4's capabilities lag behind the frontier by about 8 months",
+    "side": "测量伪影",
+    "loadbearing": true
+   },
+   {
+    "id": "H31",
+    "claim": "UK AISI(2026-07):开源模型在 cyber 上落后闭源前沿 4–7 个月,比 2025 年内部测量的 6–10 个月收窄。但在长程多步的 cyber range 上差距更大:GLM-5.2 在窄任务上约等于 Opus 4.6(约 4 个月前),在 range 上只到 Opus 4.5(不到 7 个月前)。AISI 承认 range 样本较小,且可能略微低估了开源模型。",
+    "source_url": "https://www.aisi.gov.uk/blog/how-far-behind-the-frontier-are-leading-open-weight-models-on-cyber",
+    "source_type": "官方/一手",
+    "date": "2026-07-17",
+    "quote": "recent open weight models lag frontier closed models' cyber capabilities by 4 to 7 months ... The gap here is larger than on our narrow cyber tasks.",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": true
+   },
+   {
+    "id": "H32",
+    "claim": "METR(2026-03):mid-2024 到 mid/late-2025 的 agent 写的、能通过 SWE-bench Verified 测试的 PR,约一半不会被维护者合并;维护者合并率比自动评分低约 24pp,每年的改进速度慢约 9.6pp(作者称此项证据较弱)。",
+    "source_url": "https://metr.org/notes/2026-03-10-many-swe-bench-passing-prs-would-not-be-merged-into-main/",
+    "source_type": "官方/一手",
+    "date": "2026-03-10",
+    "quote": "roughly half of test-passing SWE-bench Verified PRs written by mid-2024 to mid/late-2025 agents would not be merged into main by repo maintainers",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "H33",
+    "claim": "METR 开发者 RCT:2025 年初,AI 使有经验的开源开发者完成任务慢 19%(CI +2% 至 +39%)。2025-08 起的新研究中,原开发者子集为 -18%(CI -38% 至 +9%),新招募者为 -4%(CI -15% 至 +9%);但选择效应严重,METR 判定该数据不可靠,真实提速可能更高。",
+    "source_url": "https://metr.org/blog/2026-02-24-uplift-update/",
+    "source_type": "官方/一手",
+    "date": "2026-02-24",
+    "quote": "we believe that the data from our new experiment gives us an unreliable signal of the current productivity effect of AI tools.",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H34",
+    "claim": "Remote Labor Index(Epoch 收录,真实外包项目完成率)远未饱和:GPT-6 Astra 20.8%,Fable 5.1 17.9%,Fable 5 16.1%,Opus 4.8 8.3%,GPT-5.5 6.25%,Gemini 3.8 Flash 5.8%;没有开源条目。头部在一年内从约 4%(Opus 4.5)升到约 21%。",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "分析机构",
+    "date": "2026-09-03 (最新行)",
+    "quote": "gpt-6-astra_unknown,0.20829999999999999 ... claude-fable-5-1_unknown,0.17920000000000003 (rli_external.csv)",
+    "side": "长任务分化/赢家通吃",
+    "loadbearing": false
+   },
+   {
+    "id": "H35",
+    "claim": "τ-bench 原论文(2024)提出 pass^k:gpt-4o 成功率低于 50%,在 retail 上 pass^8 低于 25%。这是 k 次全成功率随 k 衰减的基线。",
+    "source_url": "https://arxiv.org/abs/2406.12045",
+    "source_type": "同行评审",
+    "date": "2024-06-17",
+    "quote": "succeed on <50% of the tasks, and are quite inconsistent (pass^8 <25% in retail)",
+    "side": "中性",
+    "loadbearing": false
+   },
+   {
+    "id": "H36",
+    "claim": "反方/方法学:Jonas Moss(LessWrong 从业者分析)认为 METR 数据分辨不出指数与超指数增长,且 80% horizon 被高估约一个数量级(METR 的 Barry 在评论中称自算只差约 2 倍)。Nguyen & Fithian(NeurIPS 2026 workshop)用样条加 IRT 重算,发现 2–15 分钟区间的难度曲线近乎平坦,但指数趋势仍在。",
+    "source_url": "https://www.lesswrong.com/posts/sBEzomgnYJmYHki9T/updated-metr-s-data-can-t-distinguish-between-trajectories",
+    "source_type": "从业者博客",
+    "date": "2026-02-13",
+    "quote": "The METR data cannot distinguish exponential from superexponential growth.",
+    "side": "测量伪影",
+    "loadbearing": false
+   },
+   {
+    "id": "H37",
+    "claim": "Artificial Analysis GDPval-AA v2.1(独立复测的知识工作 Elo;数字经 WebFetch 读取,未逐字核验):Opus 5.5 (Max) 1866,Qwen3.8 Max 1667,GLM-5.3 (Max) 1651,Gemini 4 Argon 1624,DeepSeek V4.1 Flash 1600,GPT-6.1 Sol 1592,Kimi K3 1536。中国模型已超过 OpenAI/Google 的最佳,但与单一领先者差约 200 Elo。",
+    "source_url": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+    "source_type": "分析机构",
+    "date": "2026-10",
+    "quote": "(WebFetch 表格读取:Claude Opus 5.5 (Max, Default Fallback) 1866; GLM-5.3 (Max) 1651; GPT-6.1 Sol (Max) 1592)",
+    "side": "趋同/商品化",
+    "loadbearing": false
+   },
+   {
+    "id": "H38",
+    "claim": "GDPval 原论文:前沿模型表现大致随时间线性提升,最佳模型的交付物质量接近行业专家。厂商口径的后续数值显示该基准趋于饱和:媒体转述 GPT-5.4 为 82%,聚合站称某模型 87.9%(均未核实)。",
+    "source_url": "https://arxiv.org/abs/2510.04374",
+    "source_type": "厂商自报",
+    "date": "2025-10",
+    "quote": "frontier model performance on GDPval is improving roughly linearly over time",
+    "side": "中性",
+    "loadbearing": false
+   }
+  ],
+  "caliber_issues": [
+   "METR time horizon 在 2026-05 后不可用于前沿比较:p50>16h 不可靠(Mythos 17.4h,CI 8.5–55h),页面 2026-09-08 停更;2026 年 8–10 月的模型(GPT-6、Opus 5.5、Fable 5.1)都没有 TH 值,'刷新到 2026 年 8–10 月'只能用其他基准拼图。",
+   "TH1.0 与 TH1.1 不可混比:同一模型在两套任务上数值不同(GPT-5 为 130.8 对 203 分钟,Opus 4.5 为 247 对 293 分钟)。开源对比只能在 TH1.0 内做(TH1.1 无开源),2026-03 的正则化修正又让近期模型下调最多 20%。",
+   "'差距'三口径给出的方向不同:追平月数(TH1.0 自算,开源 3.4→8.2 个月,在拉大;AISI cyber 6–10→4–7 个月,在收窄;Vending-Bench 中国斜率更高,预测交叉);分差(饱和题 0–7pp,长程题 20–40pp);比值(TH 1.5→2.8x;τ² pass^4 1.8–2.4x 对 pass^1 1.3x;OSWorld 2 6.8x)。",
+   "追平月数受榜单起始日期截断:TB4.0 与 OSWorld 2 只从 2026 年 5 月或 2 月开始收录,算出的'<3 个月'是下界或被截断的值。",
+   "Harness/scaffold 混杂:TB2.0 混合榜上闭源多用定制 agent(ForgeCode、NexAU-AHE、Droid),开源多用 Terminus 2,必须按同一 harness 比较;TB3/4 中 Anthropic 用 Claude Code、OpenAI 用 Codex、Google 用 mini-SWE-agent,harness 不统一;METR 证明 Claude Code/Codex 在其任务上不比自家 scaffold 好,但这不能外推到其他基准。",
+   "作弊处理决定头部数值:GPT-5.6 Sol 的 TH 在 11.3h 与 >270h 之间取决于作弊记法;8h+ 成功 runs 中至少 16% 含作弊;Gemini 4 Argon 的 Vending-Bench 高分有作弊指控(媒体转述)。",
+   "'开源'与'中国'是不同集合:Qwen 3.8 Max、GLM-5.3(Epoch 标 API access)是中国闭源/API 模型,GLM-5.3-Flash、GLM-5.2、Kimi K3、DeepSeek V4 是开放权重;Kimi K3 的许可证各来源说法不一。",
+   "推理档位(effort)影响很大:TB4.0 上 Opus 5 从 low 到 max 为 34.9–53.9;τ² 上 GPT-5.2 none 与默认差 30pp。比较时必须用同档或各自最佳档,否则分差会被放大或缩小。",
+   "p50/p80 比值的不确定性:Opus 4.6 的 p50 CI 上限达 3634 分钟,比值 10.3 可能只是噪声;Moss 认为 80% horizon 被系统性高估(METR 内部称约 2x)。",
+   "Epoch Benchmarking Hub 是转录加自跑的混合数据:Terminal-Bench、APEX、OSWorld 多为外部来源转录,MirrorCode、SWE-bench Verified 为 Epoch 自跑,口径与 trials 数不一。",
+   "CAISI 的分项数字和 GDPval-AA 的 Elo 由 WebFetch 摘要模型读出,未逐字核验;CAISI 用了两个不可公开验证的私有基准,其 8 个月结论有争议。",
+   "τ² 的 pass^k 方差混入了 user simulator(gpt-5.2)的随机性,不完全是被测 agent 本身的不一致。"
+  ]
+ },
+ {
+  "line": "CATCHUP-open-china",
+  "summary": "截至 2026 年 10 月,\"开源/中国在追赶\"的结论高度依赖用哪把尺子。(1) 综合指数(Epoch ECI)上,开源滞后在 2025 年约 3–3.5 个月,最窄的时刻是 2025-01 DeepSeek-R1 发布时,约 1 个月。Epoch 2026-05-29 官方给出 2026 年约 4 个月/8 ECI 点。我用 2026-10 版 ECI 及其 500 次 bootstrap 复算,2026 年同期约 5.9 个月/9.8 点。整体呈锯齿:8 月 Kimi K3、DeepSeek V4 Pro 0813 发布后压到 3.8 个月/5.3 点,9 月 GPT-6、Claude Opus 5.5 发布后又拉回约 5.5 个月/10 点。无论用时间差还是分差,2026 年都比 2025 年宽。(2) 用户偏好口径(Arena 文本榜官方快照)几乎收敛:要求票数 ≥1 万时,8–10 月开源第一与闭源第一只差 16–19 Elo,相当于闭源胜率约 52–53%。但 Arena 已分不出 Opus 4.6 与 Opus 5.5,Kimi K3 还排在 ECI 高出约 9 点的 GPT-6.1 Sol 之上,所以这是用户感知饱和,不是能力收敛。媒体说的\"9 月 29 Elo\",官方快照里找不到对应。(3) 政府/私有基准口径(NIST CAISI)的滞后更长:DeepSeek V4 Pro 约 8 个月,而它按 DeepSeek 自报数据只落后约 2 个月;GLM-5.2 整体约等于 GPT-5.2(约 6 个月);GLM-5.3 网络安全约落后 4 个月,但任务成功率只有美国最好成绩的 0.2–0.45。(4) 长任务/agent 上,同一时点开源与闭源的分数比值明显更低:METR TH50 0.27、FrontierSWE 0.55、Terminal-Bench 0.66、APEX-Agents 0.78。对照组 GPQA 0.98、SWE-bench Verified 0.94。Arena Agent 榜前 15 名全是闭源。但也有反例:FrontierCode(私有任务)0.87,DeepSWE 0.94。(5) METR 最后一次测开源模型是 Kimi K2 Thinking(2025-11,54 分钟),时长页面 2026-09 已停更。长任务维度的开源追赶因此缺乏独立测量,这个覆盖缺口本身就是口径问题。(6) 蒸馏:R1 论文证明短的、可验证的推理可以高效蒸馏。Gudibande 2023、MEM1、PivotRL 则显示,模仿/SFT 在长程和分布外任务上泛化弱。Anthropic 与 OpenAI 的蒸馏指控属于厂商口径,带有支持出口管制的利益立场,也没有量化蒸馏对追赶的贡献。(7) 时序汇总:Epoch 2024 报告 5–22 个月 → METR 2025-02 约 6 个月 → 2025-10 Epoch 3.5 个月 → 2026 年 4–8 个月(按口径不同)。\"差距在缩小\"只在 Arena 偏好和饱和基准上成立。",
+  "claims": [
+   {
+    "id": "CATCHUP-01",
+    "claim": "Epoch 2026-05-29:窗口 2026-01-01 至 05-28,最强开源模型平均落后闭源前沿 4 个月(ECI)。判定标准是开源模型在 ≥5% 的配对 bootstrap 中不低于该 SOTA;如果要求点估计严格更高,则为 6 个月。平均 ECI 分差 8 点,90% CI 7–11。",
+    "quote": "Since January 2026, the most capable open-weight models have lagged frontier closed models by an average of four months in the Epoch Capabilities Index (ECI)... The average ECI gap was 8 points, similar to the gap between GPT-5 and GPT-5.5.",
+    "source_url": "https://epoch.ai/data-insights/open-closed-eci-gap",
+    "source_type": "分析机构",
+    "date": "2026-05-29",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-02",
+    "claim": "Epoch 自述两项局限都会让差距被低估:开源模型在私有基准上表现更差(疑似更积极地对公开基准爬分);闭源实验室并不总是发布最强模型。",
+    "quote": "evidence suggests that open-weight models tend to perform worse on private benchmarks compared to closed models, plausibly because they more aggressively hillclimb on public benchmarks.",
+    "source_url": "https://epoch.ai/data-insights/open-closed-eci-gap",
+    "source_type": "分析机构",
+    "date": "2026-05-29",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-03",
+    "claim": "Epoch 2025-10-30:窗口 2023-01 至 2025-10,时间差 3.5 个月(90% CI 1.1–5.3),ECI 分差 7 点(90% CI 0–14);差距有时完全闭合,例如 Llama 3.1-405B 在 o1-mini 发布前与 Claude 3.5 Sonnet 持平。方法用两条包络线的水平距离,与 2026 版的逐日+bootstrap 方法不同。",
+    "quote": "We find an average \"horizontal\" time gap of 3.5 months, with a 90% confidence interval of 1.1 to 5.3 months. Along the vertical dimension, we find an average gap of 7 ECI points, with a 90% confidence interval of 0 to 14 units.",
+    "source_url": "https://epoch.ai/data-insights/open-weights-vs-closed-weights-models",
+    "source_type": "分析机构",
+    "date": "2025-10-30",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-04",
+    "claim": "自算(Epoch benchmark_data.zip 2026-10 版 eci_scores.csv + eci_bootstraps.json,按 Epoch 2026 方法近似复刻:逐日取开源 ECI 最高者;找它在 ≥5% 配对 bootstrap 中不低于的最近一个前沿模型;差距 = 当日 − 下一个前沿模型的发布日)。各半年平均时间差/ECI 分差:2024H1 7.8 月/6.4,2024H2 1.7/5.3,2025H1 2.8/5.5,2025H2 4.1/6.1,2026H1 5.9/9.9,2026-07-01~10-12 4.6/7.6。全年:2025 年 3.4 月/5.8 点,2026 年至今约 5.4 月/8.9 点。两种定义都显示 2026 比 2025 宽。",
+    "quote": "(自算;方法依据) For each day, we identify the open-weight model with the highest ECI score available by that date. We then compare that model to the historical state-of-the-art ECI frontier",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-05",
+    "claim": "同一窗口(2026-01-01~05-28)用 2026-10 版数据复算得 5.9 个月/9.8 点(严格口径 7.0 个月),高于 Epoch 5 月发布的 4 个月/8 点。说明 ECI 每次数据更新都会整体重拟合,滞后估计对数据版本和'追平'的判定细节敏感,不同时间发布的 Epoch 数字不能直接拼成时间序列。",
+    "quote": "This estimate would grow to six months if we required that the open-weight model's point estimate for ECI be strictly higher than the closed-weight model it is catching up to",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-06",
+    "claim": "自算月度锯齿(ECI):2026-08 最窄,3.8 个月/5.3 点(Kimi K3 2026-07-16 ECI 157.45;DeepSeek V4 Pro 0813 155.31);闭源 Claude Fable 5.1(164.7,09-01)、GPT-6 Astra(166.45,09-03)、Claude Opus 5.5(167.33,09-22)发布后,10 月回到 5.5 个月/9.9 点。",
+    "quote": "Claude Opus 5.5,Claude Opus 5.5,167.33,164.06,171.68,2026-09-22,Anthropic",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-07",
+    "claim": "Epoch 2024-11 报告:单基准上开源落后 5–22 个月,训练算力上落后约 15 个月;报告点名'刷榜'和数据污染可能抬高开源分数,并预测次年滞后会缩短。2025 年 ECI 滞后确实缩到约 3 个月,但开源领军者从 Meta 换成了中国实验室。",
+    "quote": "In terms of benchmark performance, the best open large language models (LLMs) have lagged the best closed LLMs by 5 to 22 months.",
+    "source_url": "https://epoch.ai/blog/open-models-report",
+    "source_type": "分析机构",
+    "date": "2024-11",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-08",
+    "claim": "METR 2025-02-12 DeepSeek-V3 报告:开源模型在 METR agent 任务上与 6 个月前的 SOTA 相当,此前落后得更多。",
+    "quote": "Overall, the performance of open-weight models on our tasks is on par with state-of-the-art models from 6 months ago, whereas they had previously lagged significantly further behind.",
+    "source_url": "https://metr.org/evaluations/deepseek-v3-report/",
+    "source_type": "官方/一手",
+    "date": "2025-02-12",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-09",
+    "claim": "METR 2025-06-27:mid-2025 的 DeepSeek 模型(含 R1-0528)自主能力约等于 late-2024 前沿,即约 6–9 个月。METR 自承每个模型只花约一个工作日做能力引出(elicitation)。",
+    "quote": "We found that the level of autonomous capabilities of mid-2025 DeepSeek models is similar to the level of capabilities of frontier models from late 2024.",
+    "source_url": "https://metr.org/evaluations/deepseek-qwen-report/",
+    "source_type": "官方/一手",
+    "date": "2025-06-27",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-10",
+    "claim": "自算(METR TH1.1 数据的 Epoch 镜像 metr_time_horizons_external.csv)TH50 开源/同期闭源最佳比值:DeepSeek-R1 27 分钟 vs o1 39 分钟 → 0.69;R1-0528 31 vs o3 120 → 0.26;Kimi K2 Thinking(2025-11)54 [CI 25–98] vs GPT-5 high 203 → 0.27,闭源最早在 Claude 3.7 Sonnet(2025-02,56–60 分钟)达到该水平,即追平约需 8.4 个月。按比值口径,R1 之后的长任务差距在拉大。",
+    "quote": "kimi-k2-thinking,54.194148 ... gpt-5-2025-08-07_high,203.0 (Time horizon minutes, METR-Horizon-v1.1 mirror)",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-11",
+    "claim": "METR 时长页:Claude Mythos Preview(early)2026-05-08 加入,并声明 16 小时以上的测量在当前任务集下不可靠。镜像数据给出 TH50 1044.8 分钟 ≈ 17.4 小时(CI 8.5–55 小时)、TH80 185.9 分钟。该页 2026-09-08 起不再更新;2026 年开源旗舰无 METR 时长测量。",
+    "quote": "May 8th, 2026: Added Claude Mythos Preview (early) and notice that \"Measurements above 16 hrs are unreliable with our current task suite.\"",
+    "source_url": "https://metr.org/time-horizons/",
+    "source_type": "官方/一手",
+    "date": "2026-09-08",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-12",
+    "claim": "NIST CAISI 2025-09-30(美国商务部机构,执行'AI Action Plan'评估对手 AI):DeepSeek V3.1 在几乎所有基准上落后最佳美国模型,软件工程和网络安全差距最大,美国模型多解 20–80% 的任务(新闻稿措辞为 'over 20%')。知识类几乎持平:MMLU-Pro Opus 4 90.2 vs V3.1 89.0;agentic 差近一倍:Cybench 73.5 vs 40.0,CVE-Bench 66.7 vs 36.7。",
+    "quote": "The gap is largest for software engineering and cyber tasks, where the best U.S. model solves 20-80% more tasks than the best DeepSeek model.",
+    "source_url": "https://www.nist.gov/document/caisi-evaluation-deepseek-ai-models-report",
+    "source_type": "官方/一手",
+    "date": "2025-09-30",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-13",
+    "claim": "CAISI 新闻稿由商务部长做政治定调,说明评估方有利益立场,数字应与 Epoch/METR 等交叉核对。",
+    "quote": "The report is clear that American AI dominates, with DeepSeek trailing far behind.",
+    "source_url": "https://www.nist.gov/news-events/news/2025/09/caisi-evaluation-deepseek-ai-models-finds-shortcomings-and-risks",
+    "source_type": "官方/一手",
+    "date": "2025-09-30",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-14",
+    "claim": "CAISI 2026-05-01:DeepSeek V4 Pro 落后前沿约 8 个月(基于 IRT 的综合能力,16 个基准、35 个模型)。按 DeepSeek 自报数据只落后约 2 个月(≈Opus 4.6/GPT-5.4),CAISI 含非公开基准的测评则约等于 GPT-5。",
+    "quote": "According to DeepSeek's data, DeepSeek V4 is about as capable as Opus 4.6 and GPT-5.4, which were released about 2 months ago. However, CAISI's evaluations, which include non-public benchmarks, indicate that DeepSeek V4 performs similarly to GPT-5, which was released about 8 months ago",
+    "source_url": "https://www.nist.gov/news-events/news/2026/05/caisi-evaluation-deepseek-v4-pro",
+    "source_type": "官方/一手",
+    "date": "2026-05-01",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-15",
+    "claim": "CAISI V4 Pro 分项(%,GPT-5.5 xhigh / Opus 4.6 max / V4 Pro max):非公开 PortBench 78/60/44;CTF-Archive-Diamond 71/46/32;ARC-AGI-2 semi-private 79/63/46;GPQA 96/91/90;OTIS-AIME 100/92/97;IRT Elo 1260±28 / 999±27 / 800±28。数学/GPQA 已饱和、几乎持平,私有 agentic 和网络安全差距大。",
+    "quote": "As shown in Figure 1, the U.S. capability frontier tends to lead the PRC frontier by roughly 8 months.",
+    "source_url": "https://www.nist.gov/news-events/news/2026/05/caisi-evaluation-deepseek-v4-pro",
+    "source_type": "官方/一手",
+    "date": "2026-05-01",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-16",
+    "claim": "CAISI 2026-07-17:GLM-5.2(2026-06-16 发布)整体约等于 GPT-5.2(2025-12),即约 6 个月;网络安全约等于 Opus 4.6(2026-02),即约 4 个月。",
+    "quote": "GLM-5.2's overall capabilities are similar to that of GPT-5.2, released in December 2025. GLM-5.2's cyber capabilities are similar to that of Opus 4.6, released in February 2026.",
+    "source_url": "https://www.nist.gov/news-events/news/2026/07/caisi-assessment-zais-glm-52",
+    "source_type": "官方/一手",
+    "date": "2026-07-17",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-17",
+    "claim": "CAISI 2026-09-17:GLM-5.3 网络安全综合指标约落后美国前沿 4 个月;但同期任务成功率差距很大:SEC-Bench Pro 40.4% vs 90.2%、ExploitGym 9.4% vs 44.4%、私有 OSS-Fuzz 7.7% vs 23.2%。对照组'美国前沿最佳'含 trusted-access 发布,也未与未发布模型比较。这是'追平月数小'与'成功率比值低'同时成立的实例。",
+    "quote": "GLM-5.3 lags the capability level of the U.S. frontier by about four months in an aggregate measure of performance across CAISI cyber benchmarks",
+    "source_url": "https://www.nist.gov/news-events/news/2026/09/caisis-assessment-zais-glm-53-cyber-capabilities",
+    "source_type": "官方/一手",
+    "date": "2026-09-17",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-18",
+    "claim": "UK AISI/CAISI 2026-07-23 Kimi K3 网络安全:32 步模拟企业网络攻击中,K3 平均到达第 17 步,美国最强模型 28.5 步;ExploitBench 上 ACE 0/41 vs 前沿平均 20/41。注意美国闭源模型是在关闭系统级防护的情况下测的。",
+    "quote": "on average, Kimi K3 reached step 17 of this 32-step attack path, while the most cyber-capable U.S. models reached 28.5 steps on average.",
+    "source_url": "https://www.aisi.gov.uk/blog/preliminary-assessment-of-kimi-k3s-cyber-capabilities",
+    "source_type": "官方/一手",
+    "date": "2026-07-23",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-19",
+    "claim": "自算(Epoch 基准中心 2026-10 版,开源最佳 vs 发布日不晚于它的闭源最佳,比值):GPQA Diamond 0.98(Kimi K3 0.931 vs GPT-5.4 Pro 0.946);SWE-bench Verified 0.94(GLM-5.2 0.787 vs Opus 4.7 0.835);DeepSWE 0.94;OSWorld 0.95;FrontierMath T1-3 0.81;APEX-Agents 0.78(GLM-5.3-Flash 0.528 vs 0.678);Terminal-Bench 2.0 0.66(GLM-5 0.524 vs Opus 4.6 0.798);HLE 0.65;FrontierSWE 0.55(Kimi K3 0.259 vs Claude Fable 5 0.470);METR TH 0.27。饱和/知识型 ≈0.94–0.98,长程 agentic/前沿 ≈0.27–0.78。",
+    "quote": "(自算) frontierswe: best open kimi-k3_max 2026-07-16 = 0.259; best closed at that date claude-fable-5_max = 0.470",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-20",
+    "claim": "覆盖缺口:Epoch 镜像中 Terminal-Bench、HLE 收录的最新开源条目停在 2026-01/02(GLM-5、Kimi K2.5);METR 无 2026 年开源条目;新基准(FrontierSWE)只收录 2026-06 之后的闭源模型。因此'追平月数'在新基准上被人为压短(FrontierSWE 算出 1.2 个月),'当前分差'又可能高估开源落后。",
+    "quote": "terminalbench_external open 2026: {'glm-5': 0.524, 'MiniMax-M2.7': 0.451, 'kimi-k2.5': 0.432 ...}",
+    "source_url": "https://epoch.ai/data/benchmark_data.zip",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-13",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-21",
+    "claim": "Stanford AI Index 2026:美中差距'实际上已闭合'。2025-02 DeepSeek-R1(1400)只比 o1(1405)低 5 Arena 分(0.4%);2026-03 Claude Opus 4.6(1503)领先 Dola-Seed-2.0 Preview(1464)39 分(2.7%)。开/闭源:2023-05 差 174 分(15.2%),2024-08 7 分(0.5%),2026-03 Opus 4.6 vs GLM-5 差 49 分(3.4%)。'%'是 Elo 差除以 Elo 分,口径存疑;按 Elo 公式自算,39 分 ≈ 头部胜率 55.6%,49 分 ≈ 57.0%。",
+    "quote": "As of March 2026, the top U.S. model (Claude Opus 4.6, 1,503) led the top Chinese model (Dola‑Seed‑2.0 Preview, 1,464) by 39 points (2.7%).",
+    "source_url": "https://hai.stanford.edu/assets/files/ai_index_report_2026.pdf",
+    "source_type": "官方/一手",
+    "date": "2026-04",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-22",
+    "claim": "自算(Arena 官方历史快照 HF lmarena-ai/leaderboard-dataset,text_style_control,overall,license≠Proprietary 视为开源,每月最后一个快照)闭源第一 − 开源第一 Elo:2025-01 6.2,2025-02 2.8(R1),2025-06 53.8,2025-11 61.6(Gemini 3 Pro),2026-03 48.5,2026-05 28.3,2026-07 21.8,2026-08 18.7,2026-09-01 18.4,2026-09-13 20.9;09-30 起为 36.8,因为 Gemini 4 Argon 预览上榜(1525,仅约 4.9k 票)。限闭源 ≥1 万票时:2026-08 18.7、09 17.5、10 16.3,是 2025-02 以来最窄,闭源胜率约 52–53%。",
+    "quote": "(自算) 2026-10 claude-opus-4-6-high 1504.36 vs kimi-k3-max 1488.08, gap 16.3 (votes>=10000)",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-08",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-23",
+    "claim": "媒体所称'Arena 2026-09 闭源 vs 开源差距扩大到 29 Elo'与官方快照不符:9 月大部分快照约 18–21 Elo,9-30 之后约 37,没有 29 对应的快照;方向上 2026 年 Arena 差距是收窄,不是扩大。",
+    "quote": "(自算) 2026-09-13 claude-fable-5 1506 vs kimi-k3-max 1485 gap 20.9; 2026-09-30 gemini-4-argon-high 1525 (4942 votes) vs kimi-k3-max 1488 gap 36.8",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-08",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-24",
+    "claim": "Arena 文本榜已不区分前沿代差:2026-10-08 榜上 Claude Opus 4.6 high(2026-02,1504)排第 3,与 Claude Opus 5.5 high(1507)CI 重叠;Kimi K3 max(1488,第 16)高于 GPT-6.1 Sol max(1484,第 21)。而 Epoch ECI 中 Opus 4.6 155.2 vs Opus 5.5 167.3,GPT-6.1 Sol 166.1 vs Kimi K3 157.5。说明偏好榜的收敛是用户感知饱和,不是能力饱和。",
+    "quote": "(数据) claude-opus-4-6-high 1504.36 rank 3; claude-opus-5.5-high 1507.08 rank 2; kimi-k3-max 1488.08 rank 16; gpt-6.1-sol-max 1483.72 rank 21",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-08",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "CATCHUP-25",
+    "claim": "Arena Agent 榜(2026-10-12,score 指标):前 15 名全部闭源;最佳开源 DeepSeek V4.1 Flash 0.033(第 16),Kimi K3 0.030,头部 Claude Opus 5.5 Max 0.179、GPT 6.1 Sol 0.138。同一平台上,文本榜开源追到前沿 20 Elo 以内,agent 榜开源只有头部的约 1/5。",
+    "quote": "(数据) Claude Opus 5.5 (Max) 0.178894 ... Deepseek V4.1 Flash (Max) MIT 0.033433",
+    "source_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset",
+    "source_type": "官方/一手(官方榜单数据,自算)",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-26",
+    "claim": "Artificial Analysis 2026-04-30:最佳开源(Kimi K2.6、MiMo V2.5 Pro 54)距 GPT-5.5(60)3–6 点,一年前差约 13 点(22 vs 35);但在最难的推理和 agentic 编码上差距仍大:TerminalBench Hard 43–46% vs 61%,CritPt 4–12% vs 27%。前 10 名开源模型全部来自中国实验室。",
+    "quote": "The gap to proprietary remains wide on the hardest reasoning and agentic coding evaluations.",
+    "source_url": "https://artificialanalysis.ai/articles/recent-open-weights-model-launches",
+    "source_type": "分析机构",
+    "date": "2026-04-30",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-27",
+    "claim": "Artificial Analysis 模型页(Intelligence Index v4.3,2026-10-12):Claude Opus 5.5 Max 58,GPT-6 Astra 53,Gemini 4 Argon 53;最佳开源 MiMo-V2.6-Pro 46,Kimi K3 Max 44 → 分差 12 点、比值 0.79(4 月是 6 点、0.90)。指数版本已更换,跨版本不可直接比较。",
+    "quote": "Claude Opus 5.5 (Max, Default Fallback) scores 58 on the Artificial Analysis Intelligence Index ... MiMo-V2.6-Pro scores 46 on the Artificial Analysis Intelligence Index",
+    "source_url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-28",
+    "claim": "反例:FrontierCode 1.1(Cognition 私有任务,'能否被维护者合并',AA 统一 harness)上,开源接近前沿:Claude Opus 5.5 52%,MiMo-V2.6-Pro 45%,DeepSeek V4.1 Flash 和 Kimi K3 44%,比值约 0.87;9 个模型(6 家实验室)集中在 43–52%。",
+    "quote": "MiMo-V2.6-Pro is the leading open weights model at 45%, followed by DeepSeek V4.1 Flash (max) and Kimi K3 (max) at 44%",
+    "source_url": "https://artificialanalysis.ai/articles/frontiercode",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-29",
+    "claim": "DeepSeek-R1(2025-01-20,厂商口径)自报与 o1-1217 持平:AIME24 79.8 vs 79.2,MATH-500 97.3 vs 96.4,SWE Verified 49.2 vs 48.9;但 GPQA 71.5 vs 75.7、Aider-Polyglot 53.3 vs 61.7、SimpleQA 30.1 vs 47.0。o1 的分数取自 OpenAI 官方报告。论文承认软件工程未做大规模 RL,相比 V3 提升不大。R1 相对 o1-preview 晚约 4 个月,相对 o1-1217 晚约 1 个月。",
+    "quote": "DeepSeek-R1 achieves performance comparable to OpenAI-o1-1217 on reasoning tasks.",
+    "source_url": "https://arxiv.org/abs/2501.12948",
+    "source_type": "厂商自报",
+    "date": "2025-01-22",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "CATCHUP-30",
+    "claim": "R1 论文的蒸馏结论:把大模型蒸馏到小模型远优于小模型自己做大规模 RL(R1-Distill-Qwen-32B AIME24 72.6 vs R1-Zero-Qwen-32B 47.0);但突破智能边界仍需要更强的基座和更大规模的 RL。也就是说,蒸馏擅长追平,不擅长超越。",
+    "quote": "while distillation strategies are both economical and effective, advancing beyond the boundaries of intelligence may still require more powerful base models and larger-scale reinforcement learning.",
+    "source_url": "https://arxiv.org/abs/2501.12948",
+    "source_type": "厂商自报",
+    "date": "2025-01-22",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-31",
+    "claim": "Gudibande et al.(arXiv 2305.15717,ICLR 2024):对 ChatGPT 的模仿微调学到了风格,没学到事实性;在模仿数据覆盖不足的任务上几乎没有缩小差距,而且人工评审察觉不到。",
+    "quote": "imitation models close little to none of the gap from the base LM to ChatGPT on tasks that are not heavily supported in the imitation data.",
+    "source_url": "https://arxiv.org/abs/2305.15717",
+    "source_type": "同行评审",
+    "date": "2023-05-25",
+    "loadbearing": false,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-32",
+    "claim": "长程 agent 上 SFT/轨迹模仿泛化弱的证据:MEM1 中 SFT 模型在目标数超过 6 时崩溃,RL 模型保持稳健;NVIDIA PivotRL(2026-03)称 SFT 常出现分布外退化,端到端 RL 保住分布外能力但算力昂贵。",
+    "quote": "when the number of objectives exceeds six, the performance of the SFT model collapses, whereas the RL-trained model continues to demonstrate strong robustness and scalability.",
+    "source_url": "https://arxiv.org/abs/2506.15841",
+    "source_type": "官方/一手(论文预印本)",
+    "date": "2025-07-17",
+    "loadbearing": false,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "CATCHUP-33",
+    "claim": "Anthropic 2026-02-23 指控 DeepSeek、Moonshot、MiniMax 通过约 2.4 万个欺诈账号与 Claude 进行了 1600 万余次交互用于蒸馏,目标是 agentic 推理、工具使用和编码,并称这些实验室的进展'在相当程度上'依赖提取的能力。厂商口径,带有支持出口管制的利益立场,未量化蒸馏贡献。",
+    "quote": "These labs generated over 16 million exchanges with Claude through approximately 24,000 fraudulent accounts, in violation of our terms of service and regional access restrictions.",
+    "source_url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+    "source_type": "厂商自报",
+    "date": "2026-02-23",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-34",
+    "claim": "OpenAI 2026-02-12 致美国众议院中国问题特别委员会的备忘录(仅见路透/彭博等媒体转述,未见原文)指 DeepSeek 用混淆路由等方式蒸馏美国模型,'搭便车'。",
+    "quote": "ongoing efforts to free-ride on the capabilities developed by OpenAI and other U.S. frontier labs",
+    "source_url": "https://restofworld.org/2026/openai-deepseek-distillation-dispute-us-china/",
+    "source_type": "媒体转述",
+    "date": "2026-02-12",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "CATCHUP-35",
+    "claim": "Ihle(LessWrong 2026-05-28,约 17 个基准,多数取自 Epoch):私有基准上开源落后 8–10 个月,公开基准上 4–6 个月;差距在 2025-01 R1 时最小,此后扩大。作者自承有赢家诅咒偏差,且部分'私有'基准并不完全私有。",
+    "quote": "the gap was smallest around the time of DeepSeek R1, in Jan 2025, and since then the gap has been growing.",
+    "source_url": "https://www.lesswrong.com/posts/rJcCrXyEsJKmmDpWG/how-far-behind-are-open-models",
+    "source_type": "从业者博客",
+    "date": "2026-05-28",
+    "loadbearing": true,
+    "side": "测量伪影"
+   }
+  ],
+  "caliber_issues": [
+   "\"差距\"有三种定义,会给出相反的读数。GLM-5.3 网络安全按时间差只落后约 4 个月,但任务成功率只有美国最好成绩的 0.2–0.45(CAISI 2026-09)。Arena 胜率差只剩 2–3 个百分点,ECI 时间差却约 5 个月。前沿每月进步很快,所以几个月的滞后对应的是成功率上的数倍差距。",
+   "Epoch ECI 每次数据更新都会整体重拟合。用 2026-10 版数据复算 2026-01~05 窗口得 5.9 个月/9.8 点,Epoch 5 月发布的是 4 个月/8 点。不同时点发布的 Epoch 数字不能直接拼成趋势;2025 版(包络线水平距离)和 2026 版(逐日 + 5% bootstrap 判定)方法也不一样。",
+   "'追平'的阈值会改变结论:≥5% bootstrap 判定得 4 个月,点估计严格更高得 6 个月(Epoch 自述)。我的复算是 5.9 对 7.0 个月。",
+   "Stanford AI Index 的'2.7%/3.4%'是 Elo 差除以 Elo 分。Elo 是区间尺度,这个百分比没有意义。应换算成胜率:39 Elo ≈ 55.6%,49 Elo ≈ 57%。",
+   "Arena 文本榜已出现用户感知饱和:Opus 4.6(2026-02)和 Opus 5.5 的 CI 重叠,Kimi K3 排在 ECI 高 9 点的 GPT-6.1 Sol 之上。Arena 差距收窄不能当作能力收敛的证据。",
+   "Arena 的'闭源第一'对预览模型很敏感。Gemini 4 Argon 只有约 4.9k 票,一上榜就让差距从约 20 跳到 37。需要统一最低票数门槛;媒体的'9 月 29 Elo'与官方快照对不上。",
+   "覆盖偏差:METR TH1.1 没有测过 2026 年的开源模型,页面 2026-09 已停更;Epoch 镜像中 Terminal-Bench、HLE 的开源条目停在 2026-01/02;新基准只收录近期闭源模型。结果是'追平月数'被压短,'当前分差'被抬高。两者都要先说明覆盖情况。",
+   "厂商口径和独立口径差很多:DeepSeek V4 按自报只落后约 2 个月,CAISI(含私有基准)给出约 8 个月。R1 对 o1 的对比也是厂商自报,o1 分数取自 OpenAI 报告。",
+   "公开基准和私有基准会给出不同的滞后:Ihle 估计公开 4–6 个月、私有 8–10 个月;Epoch 也承认开源模型在私有基准上表现更差。综合指数里公开饱和基准占比越高,开源看起来就越近。",
+   "评测方的利益位置:CAISI 是执行'AI Action Plan'的政府机构,由商务部长做政治定调;UK AISI/CAISI 测美国模型时关闭了系统级防护,'美国前沿最佳'还包含 trusted-access 模型;Anthropic 和 OpenAI 的蒸馏指控同时服务于出口管制主张。",
+   "'开源'不等于'中国':2025 年起开源前沿几乎全是中国实验室,美国开源(gpt-oss、Gemma 4、Nemotron、Inkling)明显更低;Meta 转向闭源 Muse Spark。中国也有闭源模型(Qwen Max、GLM-5.3 首发时闭源)。'开源 vs 闭源'和'中国 vs 美国'是两个不同的比较。",
+   "Artificial Analysis 指数在换版本(v4.x→v4.3,同一前沿模型的分数从 60 左右降到 53–58)。4 月的'3–6 点'和 10 月的'12 点'不能直接比,只能比同版本下的比值。",
+   "同一时点比较时要用'发布日不晚于开源模型的闭源最佳'。如果拿当前闭源最佳去比几个月前的开源模型,差距会被高估。"
+  ]
+ },
+ {
+  "line": "LOCKIN-compute(输入侧锁定:算力/资本/RL/人才)",
+  "summary": "截至 2026 年 10 月,输入侧集中度在上升。Epoch 数据显示,五大 hyperscaler 持有的全球累计 AI 算力份额从 2024Q1 的 63% 升到 2025Q4 的 71%;单体数据中心算力纪录约每 7 个月翻一倍(约 3.3×/年)。自算 Epoch Frontier Data Centers 数据:单站达到 50 万 H100e 以上的设施只服务约 5 家美国实验室(OpenAI、Anthropic、Google、Meta、xAI),美国站点占已追踪算力的 86%(该数据集偏重美国,中国覆盖低)。\n中美输入差距很大:IFP 估计 2026 年新增 AI 算力美国是中国的 21-49 倍;Epoch 估计华为 2026 年算力产出不到 Nvidia 的 4%;林俊旸称美国算力可能高出中国 1-2 个数量级。自算 Epoch 模型库:已估算的最大闭源训练(GPT-6 Astra,约 1e27,CI 5e26-2e27)约为最大开源(Kimi K3,约 2e25,speculative)的 50 倍。\n但输入差距没有按比例变成能力差距。自算 Epoch ECI:2024 年以来前沿每年约涨 15.6 分,所以现在约 10 分的开源差距只相当于约 7.7 个月、约 2.8 倍算力,而不是 50 倍算力对应的约 2.4 年。还有,算力第一梯队里的 Meta(使用算力最多)和 xAI(Colossus 2 所有者),2026-09 的 ECI 仍比前沿低约 10.5 分,和中国最佳开源模型同档。算力是门槛,不是保证。\n三种口径的方向不同。分差:最佳开源与前沿的差距从 2025 年的 5-6 分扩大到 2026 年的约 10 分。追平月数:基本稳定在 4-8 个月(Epoch 官方 3→4 个月,CAISI 测 DeepSeek V4 Pro 约 8 个月)。前沿 6 分以内的机构数:从 2025 年的 3-5 家降到 2026 年中以后的 2 家(Anthropic、OpenAI);Google 最新 Pro 级模型未被打分,这个数可能偏低。\n反方力量是真实的:同等性能的成本每年降约 13 倍(Epoch 2026-09);推理时计算在可解题上能让小模型胜过 14 倍大的模型;前沿 R&D 只有约 10% 花在最终训练上,追随者能省掉探索成本;另有蒸馏(Anthropic 指控 1600 万次交互,属厂商自报)。不过,MIT 的 Gundlach 等(ICML 2026)指出,算法进步高度依赖规模、偏向大算力玩家,这削弱了\"追随者靠效率追平\"的说法。\nRL 数据和环境飞轮目前看不出是可靠护城河:xAI 在预训练规模上做 RL 后并未留在前沿;Epoch 认为环境支出远小于算力支出,而且内部自建在增多;Cursor 在开源 Kimi 底座上做用户实时 RL,说明使用数据飞轮并不专属前沿实验室。人才方面,Anthropic 留存率和净流入领先(SignalFire 2025),DeepMind 收紧论文发表,有利于知识封闭;但 Meta 的高薪挖人没能换来前沿地位。\n2023 年 Google 备忘录\"We Have No Moat\"说的\"开源紧随\"在 2026 年仍成立,但它预言的\"差距快速收窄\"在分差口径上没有兑现。",
+  "claims": [
+   {
+    "id": "LK1",
+    "claim": "Epoch 估计五大 hyperscaler(Amazon/Google/Meta/Microsoft/Oracle)持有的全球累计 AI 算力份额(H100e)从 2024Q1 的 63% 升至 2025Q4 的 71%:输入侧集中度在上升",
+    "quote": "collectively hold an estimated 71% of the world's cumulative AI compute as of Q4 2025 ... up from 63% in Q1 2024",
+    "source_url": "https://epoch.ai/data-insights/hyperscalers-control-most-compute",
+    "source_type": "分析机构",
+    "date": "2026-04-14",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK2",
+    "claim": "Epoch:最大 AI 数据中心的算力纪录约每 7 个月翻一倍(约 3.3×/年,模拟区间 2.3-5.1×,只有 10 个历史点);2027H2 之前不会有站点明显超过 Colossus 2;数据集只覆盖全球 AI 算力约 26%,偏美国",
+    "quote": "the record for the largest AI data center by computing capacity has doubled every seven months",
+    "source_url": "https://epoch.ai/data-insights/largest-data-center-compute",
+    "source_type": "分析机构",
+    "date": "2026-06-11",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK3",
+    "claim": "Epoch trends 面板(2026-02-05 更新):前沿 LLM 训练算力自 2020 年起每年约 5×,训练成本每年 3.5×,AI 芯片存量算力每年 3.4×",
+    "quote": "Training compute for frontier language models has been growing at 5× per year since 2020",
+    "source_url": "https://epoch.ai/data/trends",
+    "source_type": "分析机构",
+    "date": "2026-02-05",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "LK4",
+    "claim": "自算(Epoch Frontier Data Centers CSV,2026-10-12 下载,94 站):当前合计约 14.6M H100e,美国 86.3%、马来西亚 8.8%、中国 2.2%(只有 4 站);单站 ≥50 万 H100e 的设施共 7 个,其中 6 个在美国,服务 OpenAI、Anthropic、Google、Meta、xAI 五家实验室(另一个是马来西亚 DayOne,用户未标明)。口径:靠卫星和许可证追踪,中国明显低估",
+    "quote": "Colossus 2, 1111672 H100e, 946 MW, Users: Anthropic, Cursor, SpaceXAI (CSV row)",
+    "source_url": "https://epoch.ai/data/data_centers/data_centers.csv",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK5",
+    "claim": "Epoch(Josh You):2025 年底 OpenAI 约 1.7M H100e,Anthropic 超过 1M,xAI 0.6-0.7M,Meta 总计约 2.3M(含推荐系统);五大前沿开发者合计可能仍不到全球一半",
+    "quote": "probably still under half of the world total",
+    "source_url": "https://epoch.ai/gradient-updates/frontier-labs-dont-use-most-ai-compute",
+    "source_type": "分析机构",
+    "date": "2026-05-20",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "LK6",
+    "claim": "自算(Epoch all_ai_models.csv,2026-10-12):已估算训练算力 ≥1e26 FLOP 的只有 4 个模型(Grok 3、GPT-4.5、Grok 4、GPT-6 Astra),≥1e25 的 25 个;2026 年 Anthropic/Google/OpenAI 的多数前沿模型没有算力估计(不披露),所以计数严重低估。Epoch 2025-05 曾预测 2026 年约 10 个模型超过 1e26",
+    "quote": "Model counts rapidly grow from 10 above 1e26 FLOP by 2026, to over 200 by 2030.",
+    "source_url": "https://epoch.ai/tools/model-counts",
+    "source_type": "分析机构",
+    "date": "2025-05-30",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "LK7",
+    "claim": "自算:Epoch 对 GPT-6 Astra(2026-09-03)的估计约 1e27 FLOP(CI 5e26-2e27),最大开源 Kimi K3 约 2e25(speculative),DeepSeek-V4-Pro 约 9.7e24。已估最大闭源与最大开源之比约 50×(粗略区间 25-100×),相当于前沿算力增长约 2.4 年",
+    "quote": "This suggests around 1e27 FLOP (corresponding to ~100k GB200s over 90 days at 25% FP8 MFU) ... yielding a CI of ~[5e26, 2e27] FLOP.",
+    "source_url": "https://epoch.ai/data/all_ai_models.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK8",
+    "claim": "IFP:在不出口、不走私的前提下,2026 年新生产的 AI 算力美国约为中国的 21-49 倍(取决于 FP4/FP8 口径);若 H200 无限制出口,降至 6.7-1.2 倍;中国 AI 芯片产量 2026 年只有美国的 1-2%",
+    "quote": "With no AI chip exports to China and no smuggling, we estimate the US would hold a 21–49x advantage in 2026-produced AI compute",
+    "source_url": "https://ifp.org/wp-content/uploads/IFP-Should-the-US-Sell-Hopper-Chips-to-China.pdf",
+    "source_type": "分析机构",
+    "date": "2025-12-07",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK9",
+    "claim": "Epoch(Somala):华为 2026 年算力产出不到 Nvidia 的 4%;Ascend 950 性能约为 H100 的一半;HBM 是关键瓶颈;只用国产 HBM 的话,到 2028 年约为 Nvidia 的 1%",
+    "quote": "Huawei will produce less than 4% of Nvidia's compute output this year.",
+    "source_url": "https://epoch.ai/publications/huaweis-roadmap-to-2031",
+    "source_type": "分析机构",
+    "date": "2026-09-04",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK10",
+    "claim": "林俊旸(时任 Qwen 技术负责人,AGI-Next 2026-01-10):美国算力可能比中国高 1-2 个数量级;中国实验室的算力大多被交付占满,美国则大量投入下一代研究;3-5 年内领先公司是中国公司的概率约 20%,而且这已经很乐观",
+    "quote": "U.S. compute may overall exceed ours by one to two orders of magnitude.",
+    "source_url": "https://www.chinatalk.media/p/the-all-star-chinese-ai-conversation",
+    "source_type": "媒体转述",
+    "date": "2026-01-13",
+    "loadbearing": false,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK11",
+    "claim": "Epoch(Erdil,2024):出口管制给美国在训练前沿模型上约 4 年的硬件领先,但在推理服务上几乎没有领先(内存带宽未受限)。这意味着输入锁定主要卡在训练端,不卡在部署端",
+    "quote": "a hardware lead of around 4 years when it comes to training frontier models ... essentially no lead when it comes to serving those models to users",
+    "source_url": "https://epoch.ai/gradient-updates/us-export-controls-china-ai",
+    "source_type": "分析机构",
+    "date": "2024-12-06",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "LK12",
+    "claim": "Epoch ECI:2026 年 1 月以来,最强开源权重模型平均落后闭源前沿 4 个月、8 个 ECI 点(此前 2023-01 至 2025-10 为 3 个月),差距略有扩大",
+    "quote": "Since January 2026, the most capable open-weight models have lagged frontier closed models by an average of four months",
+    "source_url": "https://epoch.ai/data-insights/open-closed-eci-gap",
+    "source_type": "分析机构",
+    "date": "2026-05-29",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK13",
+    "claim": "Epoch:2023 年以来中国模型平均落后美国前沿 7 个月(最少 4、最多 14);2023 年以来所有处在 ECI 前沿的模型都是美国开发的(数据截至 2025 年底)",
+    "quote": "Since 2023, every model at the frontier of AI capabilities ... has been developed in the United States.",
+    "source_url": "https://epoch.ai/data-insights/us-vs-china-eci",
+    "source_type": "分析机构",
+    "date": "2026-01-02",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "LK14",
+    "claim": "NIST CAISI:DeepSeek V4 Pro 落后美国前沿约 8 个月(性能约等于 GPT-5),是目前最强的中国模型;方法含私有基准,受到批评",
+    "quote": "CAISI evaluations indicate that DeepSeek V4's capabilities lag behind the frontier by about 8 months",
+    "source_url": "https://www.nist.gov/news-events/news/2026/05/caisi-evaluation-deepseek-v4-pro",
+    "source_type": "官方/一手(论文、官方报告、官方榜单)",
+    "date": "2026-05-01",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "LK15",
+    "claim": "自算(Epoch eci_scores.csv,2026-10-12,274 模型):按季末算,前沿与最佳开源的 ECI 分差 2025-03 为 5.2、2025-06 为 6.1、2025-09 为 5.0,2025-12 为 9.1、2026-03 为 10.9、2026-06 为 10.3、2026-09 为 9.9(Claude Opus 5.5 167.3,CI 164.1-171.7,对 Kimi K3 157.5,CI 155.2-160.0)。分差口径在扩大",
+    "quote": "Claude Opus 5.5, eci 167.33, ci 164.06-171.68, 2026-09-22 (CSV row)",
+    "source_url": "https://epoch.ai/data/eci_scores.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK16",
+    "claim": "自算(同一 ECI 数据):追平月数口径(季末与前沿首次达到该开源分数日期之差)2024-12 为 3.6、2025-03 为 3.4、2025-09 为 5.5、2025-12 为 8.5、2026-03 为 7.8、2026-06 为 7.4、2026-09 为 6.9 个月(按开源模型发布日算,2026-09 为 4.4 个月)。月数口径大致稳定,和分差扩大并不矛盾:前沿在加速,追随者以同样速度跟进",
+    "quote": "Kimi K3, Moonshot, Open weights, eci 157.45, 2026-07-16 (CSV row)",
+    "source_url": "https://epoch.ai/data/eci_scores.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "中性"
+   },
+   {
+    "id": "LK17",
+    "claim": "自算(同一 ECI 数据):最佳模型落在前沿 6 个 ECI 点以内的机构数,2025-03 为 4、2025-09 为 5(OpenAI/Anthropic/xAI/GDM/DeepSeek),2026-06 和 2026-09 都只有 2 家(Anthropic、OpenAI)。口径:Google 2026-02 之后只有 Flash 模型被打分,Gemini 4 Argon(2026-09-30,限量)未打分,所以可能低估",
+    "quote": "GPT-6.1 Sol, OpenAI, eci 166.09, 2026-09-29; Gemini 3.7 Flash, eci 157.27 (CSV rows)",
+    "source_url": "https://epoch.ai/data/eci_scores.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK18",
+    "claim": "自算:Meta(按使用者算前沿数据中心算力最多,约 2.5M H100e)的最佳模型 Muse Spark 1.3 ECI 为 156.75,xAI/SpaceXAI(Colossus 2 所有者)的最佳 Grok 4.6 为 156.44,都比前沿 167.3 低约 10.5 分,和中国开源 Kimi K3(157.45)同档。算力是必要条件,不是充分条件",
+    "quote": "Muse Spark 1.3, Meta AI, eci 156.75; Grok 4.6, xAI, eci 156.44 (CSV rows)",
+    "source_url": "https://epoch.ai/data/eci_scores.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK19",
+    "claim": "自算换算:2024 年以来 ECI 前沿纪录的线性斜率约 15.6 分/年,所以 10 个 ECI 点约等于 7.7 个月、约 2.8 倍前沿算力(按 5×/年)。而训练算力差约 50 倍(约 2.4 年)。输入差距(数十倍)远大于输出差距(约 8 个月),追随者把算力转成能力的效率高得多",
+    "quote": "Training compute for frontier language models has been growing at 5× per year since 2020",
+    "source_url": "https://epoch.ai/data/eci_scores.csv",
+    "source_type": "分析机构",
+    "date": "2026-10-12",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK20",
+    "claim": "Epoch(Denain & Wu):OpenAI 2024 年 R&D 算力约 50 亿美元,最终训练只占约 9.6%(MiniMax 22.6%,Z.ai 12.3%);学习前沿经验的追随者可以用一小部分成本复制结果(只有三个数据点,证据不确定)",
+    "quote": "a competitor who learns what works from the frontier could replicate the results for a fraction of the original cost",
+    "source_url": "https://epoch.ai/gradient-updates/r-and-d-vs-training-compute",
+    "source_type": "分析机构",
+    "date": "2026-03-23",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK21",
+    "claim": "Anthropic 自报:DeepSeek、Moonshot、MiniMax 通过约 2.4 万个欺诈账户与 Claude 进行了 1600 多万次交互来蒸馏能力;Anthropic 认为蒸馏让对手用一小部分时间获得能力、绕过出口管制。蒸馏是输入锁定的漏水口(被指控方未回应)",
+    "quote": "16 million exchanges with Claude through approximately 24,000 fraudulent accounts",
+    "source_url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+    "source_type": "厂商自报",
+    "date": "2026-02-23",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK22",
+    "claim": "Ho 等(Epoch,2024):达到固定性能所需的算力约每 8 个月减半(95% CI 5-14 个月),即算法进步约 3×/年。这是追赶者用更少算力追平的主要论据",
+    "quote": "the compute required to reach a set performance threshold has halved approximately every 8 months",
+    "source_url": "https://arxiv.org/abs/2403.05812",
+    "source_type": "同行评审",
+    "date": "2024-03-09",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK23",
+    "claim": "Gundlach 等(MIT FutureTech,ICML 2026)反驳:2012-2023 年号称 22,000× 的算法效率增益里,小规模消融只能解释不到 10×(加文献共不到 100×);Transformer 和 Chinchilla 再平衡这两项依赖规模的创新,外推到 2025 前沿时占 91%;算法效率度量强烈依赖参照规模。算法进步偏向大算力玩家,削弱了追随者靠效率追平的叙事",
+    "quote": "measures of algorithmic efficiency are strongly reference-dependent",
+    "source_url": "https://arxiv.org/abs/2511.21622",
+    "source_type": "同行评审",
+    "date": "2025-11-26",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK24",
+    "claim": "Epoch(Emberson & Roodman):自 2023 年起,同等性能的成本每季度降约 47%(13×/年);刚达到 SOTA 时每季降约 66%,两年后降约 32%;近 SOTA 的价格竞争主要在闭源之间(8 条轨迹里只有 1 条的第二名是开源)",
+    "quote": "In only one of the eight traces in the figure does the model responsible for the second dot have open weights",
+    "source_url": "https://epoch.ai/publications/the-plunging-price-of-thought",
+    "source_type": "分析机构",
+    "date": "2026-09-22",
+    "loadbearing": true,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK25",
+    "claim": "Cottier 等 'The Price of Progress':前沿模型达到固定基准表现的价格每年降 5-10×,算法效率约 3×/年;但运行前沿模型的价格每年上升 3-18×(模型更大、推理 token 更多)。同等成本比较和同模型比较给出的差距方向相反",
+    "quote": "the price of running frontier models is rising between 3× to 18× per year",
+    "source_url": "https://arxiv.org/abs/2511.23455",
+    "source_type": "同行评审",
+    "date": "2025-11-28",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "LK26",
+    "claim": "Snell 等:在算力对齐(FLOPs-matched)的比较下,推理时计算可以让小模型胜过 14 倍大的模型,但只在小模型已有一定成功率的题上成立,效果强烈依赖题目难度。弱模型多花 token 能在中等难度上追平,难题上不行",
+    "quote": "test-time compute can be used to outperform a 14x larger model",
+    "source_url": "https://arxiv.org/abs/2408.03314",
+    "source_type": "同行评审",
+    "date": "2024-08-06",
+    "loadbearing": true,
+    "side": "测量伪影"
+   },
+   {
+    "id": "LK27",
+    "claim": "Toby Ord 分析 OpenAI 图表:RL 训练扩展要获得与推理扩展同样的收益,需要约两倍的数量级(10× RL ≈ 3× 推理)。RL 算力回报偏低,意味着 RL 规模本身是昂贵但不陡峭的优势",
+    "quote": "a 10x scaling of RL is required to get the same performance boost as a 3x scaling of inference",
+    "source_url": "https://tobyord.com/writing/how-well-does-rl-scale",
+    "source_type": "从业者博客",
+    "date": "2025-10-20",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "LK28",
+    "claim": "xAI 称 Grok 4 在 20 万 GPU 上做了预训练规模的 RL,算力比以往高一个数量级以上(厂商自报);但到 2026-09,xAI 最佳 ECI(Grok 4.6 156.4,Grok 4.7 153.5)仍落后前沿 11-14 分。大规模 RL 算力不等于护城河",
+    "quote": "reinforcement learning at pretraining scale",
+    "source_url": "https://x.ai/blog/grok-4",
+    "source_type": "厂商自报",
+    "date": "2025-07-09",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK29",
+    "claim": "Epoch RL 环境 FAQ:引 The Information 称 Anthropic 讨论过一年花 10 亿美元以上买 RL 环境;合同常为每季度六到七位数;独家交易贵 4-5 倍;内部自建在增多;但算力支出仍远超环境支出。环境本身是可购买的投入,不是天然壁垒",
+    "quote": "compute spending will still dwarf RL environment spending",
+    "source_url": "https://epoch.ai/gradient-updates/state-of-rl-envs",
+    "source_type": "分析机构",
+    "date": "2026-01-12",
+    "loadbearing": false,
+    "side": "中性"
+   },
+   {
+    "id": "LK30",
+    "claim": "Cursor:用真实用户交互做实时 RL,一轮约 5 小时;A/B 测试中编辑保留率 +2.28%,不满追问 -3.13%(厂商自报)。Composer 2.5 建在开源 Kimi K2.5 底座上,说明用户数据飞轮可以由应用层玩家在开源模型上搭建,不专属前沿实验室",
+    "quote": "it lets us use real environments and real users, eliminating this source of modeling uncertainty",
+    "source_url": "https://cursor.com/en/blog/real-time-rl-for-composer",
+    "source_type": "厂商自报",
+    "date": "2026-03-26",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK31",
+    "claim": "SignalFire:两年留存率 Anthropic 80%、DeepMind 78%、OpenAI 67%、Meta 64%;从 OpenAI 跳槽到 Anthropic 的工程师是反向的 8 倍,DeepMind 约 11 倍。人才向少数实验室净流入(VC 数据平台口径)",
+    "quote": "Engineers are 8 times more likely to leave OpenAI for Anthropic than the reverse.",
+    "source_url": "https://www.signalfire.com/blog/signalfire-state-of-talent-report-2025",
+    "source_type": "分析机构",
+    "date": "2025-05-20",
+    "loadbearing": false,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK32",
+    "claim": "FT 报道(媒体转述):Google DeepMind 对战略性生成式 AI 论文设 6 个月禁发期,部分论文完全禁止发表。前沿知识外溢变慢,是锁定信号",
+    "quote": "I cannot imagine us putting out the transformer papers for general use now",
+    "source_url": "https://www.tipranks.com/news/googles-deepmind-tightens-research-release-amid-ai-competition",
+    "source_type": "媒体转述",
+    "date": "2025-04-01",
+    "loadbearing": false,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK33",
+    "claim": "Meta 收购 Scale AI 49% 股权(143 亿美元)并高薪组建 MSL;首个模型 Muse Spark(2026-04-08)闭源,Meta 自承在长程智能体和编码上存在差距;Epoch ECI 显示到 2026-09 仍落后前沿约 10 分。钱和人才不能直接买到前沿地位",
+    "quote": "long-horizon agentic systems and coding workflows",
+    "source_url": "https://the-decoder.com/metas-muse-spark-is-its-first-frontier-model-and-its-first-without-open-weights/",
+    "source_type": "媒体转述",
+    "date": "2026-04-08",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK34",
+    "claim": "2026 年资本开支指引(2026-07 财报):Amazon 约 2200 亿美元,Alphabet 1950-2050 亿,Meta 1300-1450 亿,Microsoft 约 1750 亿(租赁口径调整前 1900 亿),四家合计超过 7350 亿;高盛估计阿里、腾讯、百度、字节 2026 年合计约 1020 亿。负担得起下一代 10 倍规模的是少数美国玩家,另有 OpenAI 约 30GW、1.4 万亿美元承诺和 Anthropic 多 GW TPU 合同",
+    "quote": "We now believe we will spend approximately $220 billion in cash CapEx in 2026",
+    "source_url": "https://platformonomics.com/2026/07/follow-the-capex-q2-2026-scoreboard/",
+    "source_type": "从业者博客",
+    "date": "2026-07-31",
+    "loadbearing": true,
+    "side": "长任务分化/赢家通吃"
+   },
+   {
+    "id": "LK35",
+    "claim": "Google 内部备忘录(SemiAnalysis 2023-05-04 刊出)称 Google 和 OpenAI 都没有护城河,开源差距'惊人地快速'收窄,小模型快速迭代长期会胜过大模型。对照 2026 数据:开源仍紧随(4-8 个月),但分差没有收窄,前沿反而由大算力闭源玩家领跑,'小模型必胜'的预测没有兑现",
+    "quote": "the gap is closing astonishingly quickly",
+    "source_url": "https://newsletter.semianalysis.com/p/google-we-have-no-moat-and-neither",
+    "source_type": "媒体转述",
+    "date": "2023-05-04",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   },
+   {
+    "id": "LK36",
+    "claim": "Epoch:单张消费级 GPU 能运行的最佳开源模型通常在 6-12 个月内追上前沿能力;小模型更可能针对基准优化,真实落后可能更长",
+    "quote": "Frontier AI performance becomes accessible on consumer hardware within a year",
+    "source_url": "https://epoch.ai/data-insights/consumer-gpu-model-gap",
+    "source_type": "分析机构",
+    "date": "2025-08-15",
+    "loadbearing": false,
+    "side": "趋同/商品化"
+   }
+  ],
+  "caliber_issues": [
+   "训练算力计数口径:Epoch 模型库只对披露了参数/token 的模型有算力估计,2026 年闭源前沿(Claude 5.x、Gemini 3.x/4、多数 GPT)缺失,中国开源反而有估计。用 '>1e26 模型数' 当扩散信号会严重低估前沿,用最大闭源/最大开源之比(约 50×)则依赖 GPT-6 Astra 这一个点估计(CI 5e26-2e27)",
+   "训练算力只含预训练估计,不含 RL 后训练、实验和合成数据(最终训练只占 R&D 约 10-23%);'算力差 50×' 不等于总投入差",
+   "Epoch Frontier Data Centers 数据集只覆盖全球 AI 算力约 26%、偏美国,中国站点严重缺失;CSV 的 'current' 值与 2026-06 Data Insight 的数字不一致(Meta Prometheus:CSV 5.36e5 对 Insight 7.6e5 H100e)",
+   "ECI 分差 vs 追平月数:2025→2026 分差从约 5 扩到约 10 分,月数却稳定在 4-8 个月,因为前沿 ECI 斜率在加快;季末口径与开源发布日口径相差 2-3 个月(2026-09:6.9 对 4.4 个月)",
+   "前沿 6 分内机构数从 3-5 降到 2,部分原因是 Google 最新 Pro 级模型(Gemini 4 Argon 限量)未被 ECI 打分,不能直接解读为 Google 掉队",
+   "开源/闭源差距与中/美差距不是同一个量:2026 年最佳开源恰好都是中国模型,但 Meta/xAI 这类闭源美国模型与中国开源同档",
+   "出口管制估计都是情景模型(IFP 21-49× 取决于 FP4/FP8 采用率),林俊旸的 1-2 数量级是口头估计;华为产量有计划数(Bloomberg 60 万颗 910C)与 HBM 约束估计(Epoch 不到 Nvidia 4%)的分歧",
+   "同成本比较 vs 同模型比较:推理时计算和价格下降(13×/年)让固定性能变便宜,但运行前沿模型的成本每年上升 3-18×;用同等成本衡量会显得趋同,用最强模型衡量会显得分化",
+   "CAISI 8 个月(含私有基准、IRT 打分)与 Stanford AI Index 公开榜单 2.7% 分差对同一中美差距给出不同结论,反映基准选择与饱和问题",
+   "资本开支数字来自分析博客对财报原话的汇总,Microsoft 因融资租赁口径变动(190B→175B)不可直接横比;中国 hyperscaler 1020 亿来自 Goldman 经媒体转述"
+  ]
+ }
+]

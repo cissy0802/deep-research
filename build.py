@@ -3926,7 +3926,312 @@ def fig_pp_scenarios(lang: str) -> str:
 </figure>"""
 
 
+CV_COL = {"a": "#4cc9f0", "b": "#7b61ff", "c": "#ff6ec4", "d": "#5a6378"}
+
+
+def _cv_bars(title, rows, cap, vmax, legend=None, label_end=300, bar_max=280, sub=None):
+    """Horizontal bars; label right-aligned to the axis on the bar's vertical centre."""
+    out = []
+    y = 70 if sub else 58
+    for label, v, txt, k in rows:
+        c = CV_COL[k]
+        w = max(3, v / vmax * bar_max)
+        out.append(f'<text x="{label_end - 10}" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        out.append(f'<rect x="{label_end}" y="{y}" width="{w:.0f}" height="19" rx="4" fill="{c}" opacity="0.85"/>')
+        out.append(f'<text x="{label_end + w + 8:.0f}" y="{y + 14}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 31
+    lg = []
+    if legend:
+        lx = 24
+        for name, k in legend:
+            lg.append(f'<rect x="{lx}" y="{y + 10}" width="12" height="12" rx="2" fill="{CV_COL[k]}"/>'
+                      f'<text x="{lx + 18}" y="{y + 20}" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">{name}</text>')
+            lx += 18 + sum(12 if ord(ch) > 0x2e80 else 6.4 for ch in name) + 26
+        y += 26
+    subt = f'<text x="24" y="50" fill="#7c8593" font-size="11.5" font-family="-apple-system,sans-serif">{sub}</text>' if sub else ''
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 22}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{title}</text>
+  {subt}
+  <line x1="{label_end}" y1="{50 if sub else 44}" x2="{label_end}" y2="{y - (26 if legend else 0) - 6}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(out)}
+  {''.join(lg)}
+</svg>
+<figcaption>{cap}</figcaption>
+</figure>"""
+
+
+def fig_cv_threegaps(lang: str) -> str:
+    """Same 4-month lag, different frontier doubling time -> different ratio."""
+    t = {
+        "zh": dict(title="同样落后 4 个月:前沿翻倍越快,差的倍数越大",
+                   sub="比值 R = 2^(落后月数 ÷ 前沿倍增期)",
+                   rows=[("前沿每 7 个月翻一倍", 1.49, "1.49 倍", "d"),
+                         ("每 4.23 个月(METR 2023 年起实测)", 1.93, "1.93 倍", "a"),
+                         ("每 3.5 个月翻一倍", 2.21, "2.21 倍", "c")],
+                   cap="示意:自算,前提是倍增期恒定的指数增长、追赶者与领先者沿同一条曲线。4.23 个月取自 METR 1.1 版数据 2023 年以来的倍增期点估计(128.7 天,95% 区间约 3.4–5.2 个月)。「追平月数不变」与「比值拉大」可以同时成立"),
+        "en": dict(title="Same 4-month lag: the faster the frontier doubles, the bigger the ratio",
+                   sub="Ratio R = 2^(months behind ÷ frontier doubling time)",
+                   rows=[("Frontier doubles every 7 months", 1.49, "1.49×", "d"),
+                         ("Every 4.23 months (METR, since 2023)", 1.93, "1.93×", "a"),
+                         ("Frontier doubles every 3.5 months", 2.21, "2.21×", "c")],
+                   cap="Schematic: own calculation, assuming exponential growth with a constant doubling time and that follower and leader travel the same curve. 4.23 months is the point estimate of METR's v1.1 doubling time since 2023 (128.7 days, 95% interval about 3.4–5.2 months). \"The lag in months is unchanged\" and \"the ratio is widening\" can both be true"),
+    }[lang]
+    return _cv_bars(t['title'], t['rows'], t['cap'], 2.5, sub=t['sub'])
+
+
+def fig_cv_ceiling(lang: str) -> str:
+    """Same ability gap, shrinking score gap near the ceiling."""
+    t = {
+        "zh": dict(title="同一个能力差,离满分越近,分差越小",
+                   sub="固定的 logistic 能力差;横轴为较弱模型的得分",
+                   rows=[("较弱模型得 50% 时", 20.0, "20.0 个百分点", "a"),
+                         ("较弱模型得 90% 时", 5.45, "5.45", "b"),
+                         ("较弱模型得 95% 时", 2.79, "2.79", "b"),
+                         ("较弱模型得 99% 时", 0.57, "0.57", "c")],
+                   cap="示意:自算。设定能力差使 50% 对应 70%(20 个百分点是设定值,不是实测);以较弱模型为基线压缩约 35 倍,以较强模型为基线约 15 倍。在快被做满的考卷上,「只差零点几分」不等于「能力相同」"),
+        "en": dict(title="Same ability gap: the nearer the ceiling, the smaller the score gap",
+                   sub="Fixed logistic ability gap; baseline is the weaker model's score",
+                   rows=[("Weaker model at 50%", 20.0, "20.0 points", "a"),
+                         ("Weaker model at 90%", 5.45, "5.45", "b"),
+                         ("Weaker model at 95%", 2.79, "2.79", "b"),
+                         ("Weaker model at 99%", 0.57, "0.57", "c")],
+                   cap="Schematic: own calculation. The gap is set so that 50% maps to 70% (the 20 points is a chosen value, not a measurement); compression is about 35× with the weaker model as baseline, about 15× with the stronger one. On a nearly maxed-out test, \"a fraction of a point apart\" is not \"equally capable\""),
+    }[lang]
+    return _cv_bars(t['title'], t['rows'], t['cap'], 22, sub=t['sub'])
+
+
+def fig_cv_rulers(lang: str) -> str:
+    """Open/closed ratio by benchmark, same moment."""
+    t = {
+        "zh": dict(title="同一时点,开源能做到同期闭源的几成?看考哪张卷",
+                   rows=[("GPQA Diamond", 0.98, "0.98", "a"), ("旧版 OSWorld", 0.95, "0.95", "a"),
+                         ("SWE-bench Verified", 0.94, "0.94", "a"), ("DeepSWE", 0.94, "0.94", "a"),
+                         ("APEX-Agents", 0.87, "0.87", "b"), ("Terminal-Bench 2.0(同一框架)", 0.83, "0.83", "b"),
+                         ("FrontierMath 1–3 级", 0.81, "0.81", "b"), ("FrontierSWE", 0.55, "0.55", "c")],
+                   lg=[("知识类 / 接近饱和", "a"), ("较难的 agent 与数学", "b"), ("最难的长程工程", "c")],
+                   cap="示意:自算,Epoch 基准数据(2026 年 10 月下载);比值 = 开源最佳 ÷ 发布日不晚于它的闭源最佳。APEX-Agents 计入 Epoch 漏标的开放权重模型 MiMo-V2.6-Pro;开源含 Kimi K3 这类非商用许可。DeepSWE 与旧版 OSWorld 本身是 agent 任务,比值仍在 0.94 以上"),
+        "en": dict(title="At the same moment, how close do open models get? It depends on the test",
+                   rows=[("GPQA Diamond", 0.98, "0.98", "a"), ("OSWorld (original)", 0.95, "0.95", "a"),
+                         ("SWE-bench Verified", 0.94, "0.94", "a"), ("DeepSWE", 0.94, "0.94", "a"),
+                         ("APEX-Agents", 0.87, "0.87", "b"), ("Terminal-Bench 2.0 (same harness)", 0.83, "0.83", "b"),
+                         ("FrontierMath Tiers 1–3", 0.81, "0.81", "b"), ("FrontierSWE", 0.55, "0.55", "c")],
+                   lg=[("Knowledge / near-saturated", "a"), ("Harder agent & math", "b"), ("Hardest long-horizon eng.", "c")],
+                   cap="Schematic: own calculation from Epoch benchmark data (downloaded October 2026); ratio = best open model ÷ best closed model released no later than it. APEX-Agents includes MiMo-V2.6-Pro, an open-weight model Epoch had not labelled as such; \"open\" includes non-commercial licences such as Kimi K3's. DeepSWE and the original OSWorld are themselves agent tasks, yet their ratios exceed 0.94"),
+    }[lang]
+    return _cv_bars(t['title'], t['rows'], t['cap'], 1.0, legend=t['lg'], label_end=270, bar_max=300)
+
+
+def fig_cv_arena_eci(lang: str) -> str:
+    """Spearman between Arena and ECI by sample; top-15 decoupling."""
+    t = {
+        "zh": dict(title="偏好榜与能力指数:放眼全体高度一致,到了前沿几乎不相关",
+                   rows=[("全部 111 个模型", 0.95, "0.95", "a"), ("只看 2026 年发布", 0.72, "0.72", "a"),
+                         ("ECI 前 30 名", 0.19, "0.19", "b"), ("ECI 前 15 名", -0.03, "≈0(−0.6 到 0.5)", "c"),
+                         ("对照:前 15 名内,其他能力基准两两之间", 0.69, "0.69(中位数)", "d")],
+                   cap="示意:自算,Arena 风格控制文本榜(2026-10-08)× Epoch ECI(2026 年 10 月版),按模型名对齐,Spearman 排序相关;前 15 名的区间为 bootstrap 95% 区间。脱钩不只是样本范围变窄造成的——同一批模型在其他基准之间仍然相关。Arena 在头部仍能把模型排开(105 对中 39 对置信区间不重叠),只是排的不是同一样东西"),
+        "en": dict(title="Preference board vs capability index: aligned overall, nearly unrelated at the frontier",
+                   rows=[("All 111 models", 0.95, "0.95", "a"), ("Released in 2026 only", 0.72, "0.72", "a"),
+                         ("ECI top 30", 0.19, "0.19", "b"), ("ECI top 15", -0.03, "≈0 (−0.6 to 0.5)", "c"),
+                         ("Control: other benchmarks, pairwise, top 15", 0.69, "0.69 (median)", "d")],
+                   cap="Schematic: own calculation, Arena style-controlled text board (2026-10-08) × Epoch ECI (October 2026 version), matched by model name, Spearman rank correlation; the top-15 interval is a bootstrap 95% interval. The decoupling is not just a narrower range — the same models still correlate across other benchmarks. Arena still separates the top (39 of 105 pairs have non-overlapping intervals); it is ranking something else"),
+    }[lang]
+    out = []
+    le, zero, scale = 300, 300 + 0.6 * 300 / 1.6, 300 / 1.6
+    y = 58
+    for label, v, txt, k in t['rows']:
+        c = CV_COL[k]
+        out.append(f'<text x="{le - 10}" y="{y + 14}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="-apple-system,sans-serif">{label}</text>')
+        if v >= 0:
+            w = max(3, v * scale)
+            out.append(f'<rect x="{zero:.0f}" y="{y}" width="{w:.0f}" height="19" rx="4" fill="{c}" opacity="0.85"/>')
+            tx = zero + w + 8
+        else:
+            w = max(3, -v * scale)
+            out.append(f'<rect x="{zero - w:.0f}" y="{y}" width="{w:.0f}" height="19" rx="4" fill="{c}" opacity="0.85"/>')
+            lo, hi = zero - 0.6 * scale, zero + 0.5 * scale
+            out.append(f'<line x1="{lo:.0f}" y1="{y + 9.5}" x2="{hi:.0f}" y2="{y + 9.5}" stroke="{c}" stroke-width="2"/>'
+                       f'<line x1="{lo:.0f}" y1="{y + 3}" x2="{lo:.0f}" y2="{y + 16}" stroke="{c}" stroke-width="2"/>'
+                       f'<line x1="{hi:.0f}" y1="{y + 3}" x2="{hi:.0f}" y2="{y + 16}" stroke="{c}" stroke-width="2"/>')
+            tx = hi + 8
+        out.append(f'<text x="{tx:.0f}" y="{y + 14}" fill="{c}" font-size="12.5" font-weight="700" font-family="Menlo,monospace">{txt}</text>')
+        y += 31
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 30}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{zero:.0f}" y1="46" x2="{zero:.0f}" y2="{y}" stroke="#5a6378" stroke-width="1.5"/>
+  <text x="{zero:.0f}" y="{y + 18}" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">0</text>
+  <text x="{zero + scale:.0f}" y="{y + 18}" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">1.0</text>
+  <text x="{zero - 0.5 * scale:.0f}" y="{y + 18}" fill="#7c8593" font-size="11" text-anchor="middle" font-family="Menlo,monospace">−0.5</text>
+  {''.join(out)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_cv_eci_gap(lang: str) -> str:
+    """Quarter-end ECI gap, closed frontier minus open frontier, one fit."""
+    t = {
+        "zh": dict(title="ECI 上闭源前沿减开源前沿(季末,同一次拟合)",
+                   q=["25-03", "25-06", "25-09", "25-12", "26-03", "26-06", "26-09"],
+                   avg1="2025 逐日平均 5.78", avg2="2026 至今 9.09",
+                   cap="示意:自算,Epoch ECI 2026 年 10 月版。分差呈锯齿状:Kimi K3 发布后的 2026 年 8 月曾回落到 5.3。只能说 2026 年「没有收窄」——ECI 每次重新拟合会让同一对模型的分差漂移约 3 点,Artificial Analysis 的指数在 2025-04 到 2026-04 给出相反读数,「扩大一倍」不成立"),
+        "en": dict(title="ECI gap, closed frontier minus open frontier (quarter-end, one fit)",
+                   q=["25-03", "25-06", "25-09", "25-12", "26-03", "26-06", "26-09"],
+                   avg1="2025 daily average 5.78", avg2="2026 to date 9.09",
+                   cap="Schematic: own calculation, Epoch ECI October 2026 version. The gap is a sawtooth: it fell back to 5.3 in August 2026 after Kimi K3. All that holds is that 2026 \"did not narrow\" — each ECI refit shifts the same pair's gap by about 3 points, and Artificial Analysis's index gave the opposite reading from April 2025 to April 2026, so \"doubled\" does not hold"),
+    }[lang]
+    vals = [5.2, 6.1, 5.0, 9.1, 10.9, 10.3, 9.9]
+    base, top, h = 250, 70, 180
+    sc = h / 12
+    bars = []
+    for i, (q, v) in enumerate(zip(t['q'], vals)):
+        x = 90 + i * 80
+        c = "#4cc9f0" if i < 4 else "#7b61ff"
+        bars.append(f'<rect x="{x}" y="{base - v * sc:.0f}" width="44" height="{v * sc:.0f}" rx="4" fill="{c}" opacity="0.85"/>'
+                    f'<text x="{x + 22}" y="{base - 10}" fill="#0f1117" font-size="12" font-weight="700" text-anchor="middle" font-family="Menlo,monospace">{v}</text>'
+                    f'<text x="{x + 22}" y="{base + 18}" fill="#9aa3b2" font-size="11" text-anchor="middle" font-family="Menlo,monospace">{q}</text>')
+    y1, y2 = base - 5.78 * sc, base - 9.09 * sc
+    return f"""<figure>
+<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="70" y1="{base}" x2="660" y2="{base}" stroke="#5a6378" stroke-width="1.5"/>
+  {''.join(bars)}
+  <line x1="80" y1="{y1:.0f}" x2="404" y2="{y1:.0f}" stroke="#ffd166" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="400" y1="{y2:.0f}" x2="654" y2="{y2:.0f}" stroke="#ffd166" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="80" y="{y1 - 52:.0f}" fill="#ffd166" font-size="11.5" font-family="-apple-system,sans-serif">{t['avg1']} ┄</text>
+  <text x="654" y="{y2 - 46:.0f}" fill="#ffd166" font-size="11.5" text-anchor="end" font-family="-apple-system,sans-serif">┄ {t['avg2']}</text>
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_cv_metr(lang: str) -> str:
+    """How the long-task ruler ran out in 2026."""
+    t = {
+        "zh": dict(title="最该看的尺子先到头了:METR 时长量尺,2025-11 → 2026-09",
+                   ev=[("2025-11", "最后一次测开源模型(Kimi K2 Thinking,1.0 版任务集,约 54–58 分钟)", "d"),
+                       ("2026-01", "1.1 版任务集上线;此后只测过 Anthropic、OpenAI、Google 的模型", "a"),
+                       ("2026-05", "Mythos Preview 约 17.4 小时(区间约 8.5–55 小时);声明 16 小时以上不可靠", "b"),
+                       ("2026-05", "8 小时以上任务的成功 run 中至少 16% 含作弊", "c"),
+                       ("2026-06", "GPT-5.6 Sol:作弊记失败约 11.3 小时,记成功则超过 270 小时", "c"),
+                       ("2026-09", "页面停止更新;对 Claude Opus 5.5 不再给出时长", "d")],
+                   cap="示意:METR 一手页面与数据。结果:2026 年没有任何独立量尺能在长任务上同时测量闭源前沿与开源模型"),
+        "en": dict(title="The ruler that matters ran out first: METR's time-horizon scale, Nov 2025 → Sep 2026",
+                   ev=[("2025-11", "Last open model measured (Kimi K2 Thinking, v1.0 suite, about 54–58 minutes)", "d"),
+                       ("2026-01", "v1.1 suite launched; since then only Anthropic, OpenAI and Google models measured", "a"),
+                       ("2026-05", "Mythos Preview ≈ 17.4 hours (interval ≈ 8.5–55 h); above 16 hours declared unreliable", "b"),
+                       ("2026-05", "At least 16% of successful runs on 8-hour-plus tasks involved cheating", "c"),
+                       ("2026-06", "GPT-5.6 Sol: ≈ 11.3 h with cheating as failure, over 270 h with it as success", "c"),
+                       ("2026-09", "Page no longer updated; no time horizon given for Claude Opus 5.5", "d")],
+                   cap="Schematic: METR primary pages and data. Result: in 2026 no independent scale measures both the closed frontier and open models on long tasks"),
+    }[lang]
+    rows = []
+    y = 66
+    for d, txt, k in t['ev']:
+        c = CV_COL[k]
+        rows.append(f'<circle cx="112" cy="{y}" r="6" fill="{c}"/>'
+                    f'<text x="96" y="{y + 4}" fill="#9aa3b2" font-size="11.5" text-anchor="end" font-family="Menlo,monospace">{d}</text>'
+                    f'<text x="128" y="{y + 4}" fill="#e4e6eb" font-size="12" font-family="-apple-system,sans-serif">{txt}</text>')
+        y += 38
+    return f"""<figure>
+<svg viewBox="0 0 700 {y}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="112" y1="60" x2="112" y2="{y - 32}" stroke="#5a6378" stroke-width="1.5"/>
+  {''.join(rows)}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_cv_reliability(lang: str) -> str:
+    """tau2-bench banking: pass^1 vs pass^4."""
+    t = {
+        "zh": dict(title="做对一次 vs 四次全对:可靠性的差距更大",
+                   m=["Qwen 3.8 Max(开放权重系 API 版)", "Claude Opus 5", "Kimi K3(开源)", "GLM-5.2(开源)"],
+                   l1="做对一次(pass^1)", l4="四次全对(pass^4)",
+                   cap="示意:τ²-bench banking 域,Sierra 2026-08-04 统一批次,97 题 × 4 次,用户由 GPT-5.2 模拟。Opus 5 对开源:单次 1.31 倍,四次全对约 1.8–2.4 倍。小样本;榜首是基于开放权重模型的 API 版,不是一条干净的开源/闭源分界"),
+        "en": dict(title="Right once vs right four times: the reliability gap is larger",
+                   m=["Qwen 3.8 Max (API on open weights)", "Claude Opus 5", "Kimi K3 (open)", "GLM-5.2 (open)"],
+                   l1="Right once (pass^1)", l4="Right all four (pass^4)",
+                   cap="Schematic: τ²-bench banking domain, Sierra's 2026-08-04 unified batch, 97 tasks × 4 trials, user simulated by GPT-5.2. Opus 5 vs open models: 1.31× on a single try, about 1.8–2.4× on all four. Small sample; the leader is an API version built on open weights — not a clean open/closed split"),
+    }[lang]
+    vals = [(55.2, 35.1), (48.7, 32.0), (37.1, 17.5), (37.1, 13.4)]
+    out = []
+    y = 58
+    le, sc = 290, 340 / 60
+    for name, (a, b) in zip(t['m'], vals):
+        out.append(f'<text x="{le - 10}" y="{y + 18}" fill="#9aa3b2" font-size="12" text-anchor="end" font-family="-apple-system,sans-serif">{name}</text>')
+        out.append(f'<rect x="{le}" y="{y}" width="{a * sc:.0f}" height="13" rx="3" fill="#4cc9f0" opacity="0.85"/>'
+                   f'<text x="{le + a * sc + 6:.0f}" y="{y + 11}" fill="#4cc9f0" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{a}</text>')
+        out.append(f'<rect x="{le}" y="{y + 16}" width="{b * sc:.0f}" height="13" rx="3" fill="#ff6ec4" opacity="0.85"/>'
+                   f'<text x="{le + b * sc + 6:.0f}" y="{y + 27}" fill="#ff6ec4" font-size="11.5" font-weight="700" font-family="Menlo,monospace">{b}</text>')
+        y += 44
+    lg = (f'<rect x="{le}" y="{y + 4}" width="12" height="12" rx="2" fill="#4cc9f0"/><text x="{le + 18}" y="{y + 14}" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">{t["l1"]}</text>'
+          f'<rect x="{le + 170}" y="{y + 4}" width="12" height="12" rx="2" fill="#ff6ec4"/><text x="{le + 188}" y="{y + 14}" fill="#9aa3b2" font-size="11.5" font-family="-apple-system,sans-serif">{t["l4"]}</text>')
+    return f"""<figure>
+<svg viewBox="0 0 700 {y + 34}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <text x="24" y="30" fill="#e4e6eb" font-size="14.5" font-weight="700" font-family="-apple-system,sans-serif">{t['title']}</text>
+  <line x1="{le}" y1="50" x2="{le}" y2="{y - 10}" stroke="#5a6378" stroke-width="1.5" stroke-dasharray="2,4"/>
+  {''.join(out)}
+  {lg}
+</svg>
+<figcaption>{t['cap']}</figcaption>
+</figure>"""
+
+
+def fig_cv_inputs(lang: str) -> str:
+    """Input gap vs output gap, both expressed in months of frontier progress."""
+    t = {
+        "zh": dict(title="输入差几十倍,输出差几个月(都折算成「前沿进步的月数」)",
+                   rows=[("训练算力差约 50 倍(25–100 倍)", 29, "约 29 个月(24–35)", "c"),
+                         ("能力差约 10 个 ECI 点", 7.7, "约 7.7 个月", "a")],
+                   cap="示意:自算换算,依赖作者假设。算力:GPT-6 Astra 约 1e27 FLOP 对 2026 年最大开放权重模型 Kimi K3 约 2e25(推测级),按前沿算力每年约 5 倍折算;能力:2024 年以来 ECI 前沿纪录约每年 15.6 点。另一个证据:握有第一梯队算力的 Meta 与 xAI,ECI 分别落后前沿 10.6 和 10.9 点,与开源 Kimi K3 同档——算力是门槛,不是保证"),
+        "en": dict(title="Tens of times apart in input, months apart in output (both as months of frontier progress)",
+                   rows=[("Training compute ≈ 50× apart (25–100×)", 29, "≈ 29 months (24–35)", "c"),
+                         ("Capability ≈ 10 ECI points apart", 7.7, "≈ 7.7 months", "a")],
+                   cap="Schematic: own conversion, resting on the author's assumptions. Compute: GPT-6 Astra ≈ 1e27 FLOP vs Kimi K3, the largest open-weight model of 2026, ≈ 2e25 (speculative), converted at roughly 5× frontier compute growth per year; capability: the ECI frontier record has risen about 15.6 points a year since 2024. Further evidence: Meta and xAI, with first-tier compute, sit 10.6 and 10.9 ECI points behind the frontier, level with the open Kimi K3 — compute is a threshold, not a guarantee"),
+    }[lang]
+    return _cv_bars(t['title'], t['rows'], t['cap'], 36, label_end=290, bar_max=260)
+
+
 FIGURES = {
+    "capability-convergence-deep": [
+        ("zh", "0. ", fig_cv_threegaps, "end"),
+        ("en", "0. ", fig_cv_threegaps, "end"),
+        ("zh", "1. ", fig_cv_ceiling, "end"),
+        ("en", "1. ", fig_cv_ceiling, "end"),
+        ("zh", "2. ", fig_cv_arena_eci, "end"),
+        ("en", "2. ", fig_cv_arena_eci, "end"),
+        ("zh", "3. ", fig_cv_rulers, "end"),
+        ("en", "3. ", fig_cv_rulers, "end"),
+        ("zh", "4. ", fig_cv_eci_gap, "end"),
+        ("en", "4. ", fig_cv_eci_gap, "end"),
+        ("zh", "5. ", fig_cv_metr, "end"),
+        ("en", "5. ", fig_cv_metr, "end"),
+        ("zh", "5. ", fig_cv_reliability, "end"),
+        ("en", "5. ", fig_cv_reliability, "end"),
+        ("zh", "8. ", fig_cv_inputs, "end"),
+        ("en", "8. ", fig_cv_inputs, "end"),
+    ],
+    "capability-convergence-plain": [
+        ("zh", "先说清楚", fig_cv_threegaps, "end"),
+        ("en", "First, what does", fig_cv_threegaps, "end"),
+        ("zh", "为什么考卷", fig_cv_ceiling, "end"),
+        ("en", "Why tests make", fig_cv_ceiling, "end"),
+        ("zh", "排行榜:", fig_cv_arena_eci, "end"),
+        ("en", "Leaderboards:", fig_cv_arena_eci, "end"),
+        ("zh", "换几张", fig_cv_rulers, "end"),
+        ("en", "Switch to hard tests", fig_cv_rulers, "end"),
+        ("zh", "综合打分", fig_cv_eci_gap, "end"),
+        ("en", "Composite scores", fig_cv_eci_gap, "end"),
+        ("zh", "长任务:", fig_cv_metr, "end"),
+        ("en", "Long tasks:", fig_cv_metr, "end"),
+        ("zh", "长任务:", fig_cv_reliability, "end"),
+        ("en", "Long tasks:", fig_cv_reliability, "end"),
+        ("zh", "算力差几十倍", fig_cv_inputs, "end"),
+        ("en", "Tens of times the compute", fig_cv_inputs, "end"),
+    ],
     "ai-profit-pools-deep": [
         ("zh", "2. ", fig_pp_history, "end"),
         ("en", "2. ", fig_pp_history, "end"),
@@ -4441,6 +4746,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("capability-convergence-deep", "zh", "deep",
+     "AI 能力最终会趋同吗?——排行榜挤压、天花板效应与长任务上的分化(深入版)",
+     "把「差距」拆成分差、追平月数、比值三种可检验的定义,逐把尺子量一遍:饱和考卷与偏好排行榜会机械地压扁差距;换到未饱和的量尺,2026 年开源与闭源的差距没有收窄;追赶者滞后稳定在几个月;而最直接测量长任务的那把尺子已经到头。27 组承重论断 × 3 票对抗验证,另含 4 条单源实证的双席审计。",
+     "2026-10"),
+    ("capability-convergence-deep", "en", "deep",
+     "Will AI Capabilities Eventually Converge? Leaderboard Compression, Ceiling Effects, and Divergence on Long Tasks (Deep Dive)",
+     "Split \"the gap\" into three testable definitions — score gap, months to catch up, ratio — and measure it ruler by ruler: saturated tests and preference leaderboards mechanically squash gaps; on unsaturated scales the open–closed gap did not narrow in 2026; the follower lag holds at a few months; and the scale that most directly measures long tasks has run out. 27 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of four single-source findings.",
+     "2026-10"),
+    ("capability-convergence-plain", "zh", "plain",
+     "AI 模型真的越来越像了吗?排行榜说「差不多」,难题说「还差得远」(易读版)",
+     "快被做满的考卷会把差距压扁,网友投票的排行榜在最顶尖处已和真实能力对不上;换成难题,开源一直落后几个月,而最能说明问题的长任务恰好量不出来了。易读版:三种量差距的办法、八张图,以及十条可检验的判断。",
+     "2026-10"),
+    ("capability-convergence-plain", "en", "plain",
+     "Are AI Models Really Becoming Alike? The Leaderboards Say \"Close Enough,\" the Hard Tests Say \"Not Even Close\" (Plain-Language Edition)",
+     "Nearly maxed-out tests squash the gap, and crowd-voted leaderboards no longer track real ability at the very top; on hard tests, open models stay months behind, and long tasks — the place that matters most — can no longer be measured. Plain edition: three ways to measure a gap, eight charts, and ten testable judgments.",
+     "2026-10"),
     ("ai-profit-pools-deep", "zh", "deep",
      "AI 价值链的利润池会落在哪一层?——五层账本与一个转圈的资金环(深入版)",
      "把芯片与存储、电力与数据中心、云、模型、应用五层放到同一把尺子(分部经营利润)上:当下利润压倒性在上游,稀缺租金正从 GPU 迁往存储;云层的高利润率建立在三个假设上;模型层收入分化而利润未现;资金在层间转圈,上游在为模型层的信用托底。31 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
@@ -4756,6 +5077,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("capability-convergence-deep", "zh"):
+        "「头部模型越挤越近、开源只差几个百分点」与「长任务上赢家通吃」两种叙事说的都是「差距」,却用了不同的尺子。差距至少有三种可检验的定义——分差、追平月数、比值——而前沿加速时,「落后月数不变」就意味着「比值拉大」。截至 2026 年 10 月:饱和的考卷会机械地压扁分差,同一能力差在 99% 附近只显示为 0.57 分;AI Index 被广泛引用的百分比,分母是可任意平移的分数绝对值;网友投票的 Arena 在前沿区间与能力指数的排序基本不相关(ECI 前 15 名 Spearman 约 0),而其他基准之间仍有 0.69。换到未饱和的量尺,同一批模型的开源/闭源比值从知识类的 0.94–0.98 降到最难长程工程题的 0.55;合成指数 ECI 上 2026 年差距没有收窄(逐日平均 5.78→9.09 点),但「翻倍」站不住;独立测量的追赶滞后稳定在约 3–9 个月,厂商自报系统性更短(DeepSeek 自报 2 个月,CAISI 与 Epoch 都约 8 个月)。最该看的长任务恰好量不出来:METR 时长量尺已饱和、停更,且从未在新版上测过开源。算力差几十倍,能力只差几个月——趋同的是昨天的前沿。十个可检验主张收尾,并列出验证推翻的原稿表述。",
+    ("capability-convergence-deep", "en"):
+        "\"The top models are bunching up and open models trail by a few points\" and \"the winner takes all on long tasks\" both talk about \"the gap\" while using different rulers. A gap has at least three testable definitions — score gap, months to catch up, ratio — and when the frontier accelerates, \"the same lag in months\" means \"a widening ratio.\" As of October 2026: saturated tests mechanically squash score gaps, so the same ability gap shows up as 0.57 points near 99%; the AI Index's widely cited percentages divide by an absolute score that can be shifted at will; and crowd-voted Arena rankings are essentially unrelated to the capability index at the frontier (Spearman ≈ 0 across ECI's top 15), while other benchmarks still correlate at 0.69. On unsaturated scales, the same models' open/closed ratio falls from 0.94–0.98 on knowledge tests to 0.55 on the hardest long-horizon engineering; on the ECI composite the gap did not narrow in 2026 (daily average 5.78 → 9.09 points), though \"doubled\" does not hold; independently measured catch-up lags hold at roughly 3–9 months, and vendor self-reports are systematically shorter (DeepSeek claims 2 months; CAISI and Epoch both put it near 8). Long tasks, where it matters most, can no longer be measured: METR's time-horizon scale is saturated, no longer updated, and never measured an open model on its new version. Tens of times apart in compute, months apart in capability — what converges is yesterday's frontier. Ten testable claims close the piece, with the draft statements verification overturned.",
+    ("capability-convergence-plain", "zh"):
+        "「AI 模型越来越像」主要是尺子造成的:快被做满的考卷会把差距压扁,网友投票的排行榜到了最顶尖已经和真实能力对不上,被广泛引用的「差几个百分点」算法本身有问题。换成没做满的难题,差距还在,2026 年没有缩小,开源一直落后几个月;公司自己报的追赶速度总比别人量的快。最该看的「长任务」恰好量不出来了。算力差几十倍,能力只差几个月——变便宜、变普通的,是昨天的最强。",
+    ("capability-convergence-plain", "en"):
+        "\"AI models are becoming alike\" is mostly an artifact of the ruler: nearly maxed-out tests squash the gap, crowd-voted leaderboards no longer track real ability at the very top, and the widely cited \"a few percent apart\" is computed in a way that does not hold up. On hard tests nobody has maxed out, the gap is still there, did not shrink in 2026, and open models stay months behind; companies' own catch-up claims are always faster than what others measure. Long tasks, the place that matters most, can no longer be measured. Tens of times apart in compute, months apart in ability — what becomes cheap and ordinary is yesterday's best.",
     ("ai-profit-pools-deep", "zh"):
         "「做模型的是不是在给人做嫁衣」有四套流行答案:卖铲子的赢、模型终将商品化、聚合者通吃、前沿实验室赢家通吃。用同一把尺子(最近一季 GAAP 分部经营利润率)量五层,截至 2026 年 10 月的分布很清楚:存储(Micron 80.7%、SK hynix 76%)> 芯片(NVIDIA 66.2%)> 代工(TSMC 60.3%)> 云分部(35.6%–40.6%)> neocloud(CoreWeave 经营亏损,利息高于调整后经营利润)> 前沿实验室(OpenAI 经营亏损约为收入 1.8 倍)。芯片层内部的稀缺租金正迁往存储,而且落在通用 DRAM/NAND 而非 HBM;云层的高利润率依赖研发不摊入、GPU 按 5.5–6 年折旧、AI 租赁毛利会爬升三个假设,现金流已经分化;模型层收入在头部之间分化,但利润只有一家、一个季度、一个调整后口径。最重要的结构是资金在转圈:现金从实验室流向上游,股权和信用从上游流回实验室(NVIDIA 近 $500 亿投资、预计明年约四分之一业务靠其资产负债表),实验室的估值又以账面收益回到上游利润表(Amazon 一季对 Anthropic 的估值上调约为 AWS 当季经营利润 3 倍)。「嫁衣」在现金上成立,在风险上反了。电费只占数据中心成本约一成上下,但「能马上通电」的影子价格很高;固定能力价格每年降约一个数量级,而用最强模型办事在变贵。长期落点取决于两个可观测变量:前沿是否「够好」、物理瓶颈是否解除。十一个可检验主张收尾,并列出验证推翻的原稿表述。",
     ("ai-profit-pools-deep", "en"):
@@ -4912,6 +5241,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("capability-convergence-deep", "zh"): [
+        ("c1", "81 票对抗验证 · 约 210 处改写"), ("c2", "前沿区间:偏好榜 ≈ 不反映能力"), ("c3", "开源滞后约 3–9 个月,不趋于零"), ("c4", "10 个可检验主张"),
+    ],
+    ("capability-convergence-deep", "en"): [
+        ("c1", "81 adversarial votes · ~210 rewrites"), ("c2", "at the frontier, preference ≠ capability"), ("c3", "open lag ~3–9 months, not shrinking to zero"), ("c4", "10 testable claims"),
+    ],
+    ("capability-convergence-plain", "zh"): [
+        ("c1", "做满的考卷把差距压扁"), ("c2", "自报 2 个月 vs 实测 4–9 个月"), ("c3", "长任务:尺子到头了"), ("c4", "趋同的是昨天的前沿"),
+    ],
+    ("capability-convergence-plain", "en"): [
+        ("c1", "maxed-out tests squash the gap"), ("c2", "claimed 2 months vs measured 4–9"), ("c3", "long tasks: the ruler ran out"), ("c4", "what converges is yesterday's frontier"),
+    ],
     ("ai-profit-pools-deep", "zh"): [
         ("c1", "93 票对抗验证 · 70 余处改写"), ("c2", "存储利润率 > NVIDIA"), ("c3", "一笔账面收益 = 3× AWS 利润"), ("c4", "11 个可检验主张"),
     ],
@@ -5452,6 +5793,15 @@ INDEX_ENTRIES = [
      "93 adversarial votes · 11 testable claims",
      [("t1", "价值链", "Value chains"), ("t2", "半导体", "Semiconductors"), ("t3", "云计算", "Cloud computing"),
       ("t4", "AI 商业模式", "AI business models"), ("t5", "公司财务", "Corporate finance")]),
+    ("capability-convergence", "2026-10",
+     "AI 能力最终会趋同吗?",
+     "Will AI Capabilities Eventually Converge?",
+     "排行榜说头部模型只差几分,研究级数学难题上开源最好的只做对四成——同一批模型,换一把尺子,差距相差一个数量级。把「趋同」的证据送回原始数据,覆盖考卷饱和与天花板的算术、偏好排行榜在前沿的脱钩、合成能力指数、长任务与可靠性的测量、厂商自报与独立评测,以及算力输入与能力输出之间的落差。",
+     "Leaderboards say the top models are a few points apart, yet on research-grade math the best open model solves about four problems in ten — same models, different ruler, gaps an order of magnitude apart. The evidence for convergence returned to its raw data, covering the arithmetic of saturated tests and ceilings, the decoupling of preference leaderboards at the frontier, composite capability indices, the measurement of long tasks and reliability, vendor self-reports versus independent evaluation, and the gap between compute in and capability out.",
+     "81 票对抗验证 · 10 个可检验主张",
+     "81 adversarial votes · 10 testable claims",
+     [("t1", "基准评测", "Benchmarks"), ("t2", "开源模型", "Open-weight models"), ("t3", "排行榜", "Leaderboards"),
+      ("t4", "AI 智能体", "AI agents"), ("t5", "测量方法", "Measurement")]),
 ]
 
 
