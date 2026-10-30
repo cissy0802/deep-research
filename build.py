@@ -4746,6 +4746,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("release-detection-deep", "zh", "deep",
+     "AI 能接住坏发布吗?——离线验证漏掉的问题,上线后多快被发现(深入版)",
+     "把一次坏发布拆成检测、定位、缓解三段,逐段送回一手原文:公开大事故里监控几分钟就看见问题,止血却要几小时;配置和数据通道绕过渐进发布,是 canary 最大的盲区;大厂检测器「近乎完美的召回」都是代理口径;LLM 用在告警之后的定位,严格口径下找对一到五成。15 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
+     "2026-10"),
+    ("release-detection-deep", "en", "deep",
+     "Can AI Catch Bad Releases? What Offline Checks Miss, and How Fast It Gets Found in Production (Deep Dive)",
+     "Split a bad release into detection, diagnosis, and mitigation, and send each stage back to primary sources: in public outages monitoring sees the problem within minutes, but stopping the bleeding takes hours; config and data channels that bypass progressive rollout are canary's biggest blind spot; big-company detectors' \"near-perfect recall\" rests on proxy definitions; and LLMs work after the alert, on diagnosis, getting roughly 10–50% right under strict scoring. 15 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of three single-source findings.",
+     "2026-10"),
+    ("release-detection-plain", "zh", "plain",
+     "坏代码上线了,AI 能帮忙发现吗?大事故几分钟就被看见,难的是后面几小时(易读版)",
+     "上线前的测试总有漏网的。大事故通常几分钟内就被监控发现,慢的是找原因和止血;最危险的是几秒推到全球的配置;大公司检测系统的成绩是自己报的;AI 运维产品帮的是找原因,不是发现。易读版:三步拆解、九起大事故的时间线,以及七件最要紧的事。",
+     "2026-10"),
+    ("release-detection-plain", "en", "plain",
+     "Bad Code Shipped — Can AI Help Find It? Big Outages Are Spotted in Minutes; the Hard Part Is the Hours After (Plain-Language Edition)",
+     "Pre-release testing always lets something through. Big outages are usually spotted by monitoring within minutes; what's slow is finding the cause and stopping the damage. The most dangerous changes are configs pushed worldwide in seconds; big companies' detection scores are self-reported; and AI ops tools help find causes, not spot problems. Plain edition: three steps, nine outage timelines, and seven things that matter most.",
+     "2026-10"),
     ("capability-convergence-deep", "zh", "deep",
      "AI 能力最终会趋同吗?——排行榜挤压、天花板效应与长任务上的分化(深入版)",
      "把「差距」拆成分差、追平月数、比值三种可检验的定义,逐把尺子量一遍:饱和考卷与偏好排行榜会机械地压扁差距;换到未饱和的量尺,2026 年开源与闭源的差距没有收窄;追赶者滞后稳定在几个月;而最直接测量长任务的那把尺子已经到头。27 组承重论断 × 3 票对抗验证,另含 4 条单源实证的双席审计。",
@@ -5077,6 +5093,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("release-detection-deep", "zh"):
+        "「AI 能接住坏发布」要拆成三段来答:检测、定位、缓解。截至 2026 年 10 月的一手证据显示:「约 70% 事故来自变更」是一句没有口径的经验断言,Google 唯一可追溯的 68% 只是前八类触发因素内部的份额;在 9 起由发布引起的公开大事故里,首个检测信号在影响开始后 1–25 分钟出现(中位 3–5 分钟),主要缓解中位却约 1.8–3 小时,相差数十倍;最贵的几次输在不分阶段的配置和数据通道、被坏变更污染的回滚基线,以及潜伏数天到数月才被触发的代码路径。检测缺口在别处:Microsoft 的数据里,高严重度和 GenAI 服务有三成上下靠人发现,客户报告的事故检测要慢约 10 倍。大厂检测器的成绩全是自评:Gandalf 控制面按自家计数 recall 约 95%(不是 99.8%),FBDetect 可核精度约 70%,「100% recall」「13 年一次误报」被否决;没有任何第三方用生产数据复测过。离线异常检测分数系统性虚高(point-adjust 让随机分数打败 SOTA)。LLM 用在告警之后的定位,宽松口径的 42%、0.766 换成严格口径只剩一到五成,厂商数字没有分母;「AI 缩短了 TTD」至今没有测量。十个可检验主张收尾,并列出验证推翻的原稿表述。",
+    ("release-detection-deep", "en"):
+        "\"Can AI catch bad releases?\" has to be answered in three stages: detection, diagnosis, mitigation. As of October 2026, primary evidence shows: \"about 70% of outages come from changes\" is a rule of thumb with no denominator, and Google's only traceable figure, 68%, is a share within the top eight trigger categories; across nine release-caused public outages, the first detection signal came 1–25 minutes after impact began (median 3–5), while primary mitigation took a median of roughly 1.8–3 hours — tens of times longer; the costliest ones were lost to unstaged config and data channels, rollback baselines poisoned by the bad change, and code paths that lay dormant for days to months. The detection gap lies elsewhere: in Microsoft's data, around a third of high-severity and GenAI incidents were found by people, and customer-reported incidents took about 10 times longer to detect. Big-company detector results are all self-evaluations: Gandalf's control-plane recall is about 95% by its own counts (not 99.8%), FBDetect's checkable precision is about 70%, and \"100% recall\" and \"one false positive every 13 years\" were vetoed; no third party has re-tested any of them on production data. Offline anomaly-detection scores are systematically inflated (point-adjust lets random scores beat the state of the art). LLMs work after the alert, on diagnosis: the lenient 42% and 0.766 shrink to roughly 10–50% under strict scoring, vendor figures lack denominators, and \"AI shortened TTD\" has never been measured. Ten testable claims close the piece, with the draft statements verification overturned.",
+    ("release-detection-plain", "zh"):
+        "大事故的「发现」已经很快:公开复盘里,监控通常在出事后几分钟内就报警了;慢的是找原因和止血,要几个小时。最危险的是几秒钟推到全球的配置和数据,以及潜伏很久才被触发的坏代码。大公司检测系统的成绩都是自己报的,「100% 召回」「13 年一次误报」送回原文都站不住。AI 运维产品是在告警响了之后帮忙找原因,严格标准下能找对一到五成;「AI 让发现变快了」至今没人测过。",
+    ("release-detection-plain", "en"):
+        "\"Spotting\" a big outage is already fast: in public postmortems, monitoring usually alerts within minutes of trouble starting; what's slow is finding the cause and stopping the damage, which takes hours. The most dangerous changes are configs and data pushed worldwide in seconds, and bad code that lies dormant until something triggers it. Big companies' detection scores are self-reported, and \"100% recall\" and \"one false alarm every 13 years\" don't survive a look at the source. AI ops tools step in after the alarm to help find the cause, getting roughly 10–50% right under strict scoring; \"AI makes detection faster\" has never been measured.",
     ("capability-convergence-deep", "zh"):
         "「头部模型越挤越近、开源只差几个百分点」与「长任务上赢家通吃」两种叙事说的都是「差距」,却用了不同的尺子。差距至少有三种可检验的定义——分差、追平月数、比值——而前沿加速时,「落后月数不变」就意味着「比值拉大」。截至 2026 年 10 月:饱和的考卷会机械地压扁分差,同一能力差在 99% 附近只显示为 0.57 分;AI Index 被广泛引用的百分比,分母是可任意平移的分数绝对值;网友投票的 Arena 在前沿区间与能力指数的排序基本不相关(ECI 前 15 名 Spearman 约 0),而其他基准之间仍有 0.69。换到未饱和的量尺,同一批模型的开源/闭源比值从知识类的 0.94–0.98 降到最难长程工程题的 0.55;合成指数 ECI 上 2026 年差距没有收窄(逐日平均 5.78→9.09 点),但「翻倍」站不住;独立测量的追赶滞后稳定在约 3–9 个月,厂商自报系统性更短(DeepSeek 自报 2 个月,CAISI 与 Epoch 都约 8 个月)。最该看的长任务恰好量不出来:METR 时长量尺已饱和、停更,且从未在新版上测过开源。算力差几十倍,能力只差几个月——趋同的是昨天的前沿。十个可检验主张收尾,并列出验证推翻的原稿表述。",
     ("capability-convergence-deep", "en"):
@@ -5241,6 +5265,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("release-detection-deep", "zh"): [
+        ("c1", "45 票对抗验证 · 4 个数字被否决"), ("c2", "检测几分钟,止血几小时"), ("c3", "LLM 在告警之后,不在之前"), ("c4", "10 个可检验主张"),
+    ],
+    ("release-detection-deep", "en"): [
+        ("c1", "45 adversarial votes · 4 figures vetoed"), ("c2", "detected in minutes, mitigated in hours"), ("c3", "LLMs work after the alert, not before"), ("c4", "10 testable claims"),
+    ],
+    ("release-detection-plain", "zh"): [
+        ("c1", "大事故 3–5 分钟被看见"), ("c2", "配置几秒推到全球"), ("c3", "检测成绩都是自报"), ("c4", "AI 帮找原因,不帮发现"),
+    ],
+    ("release-detection-plain", "en"): [
+        ("c1", "big outages seen in 3–5 minutes"), ("c2", "configs go global in seconds"), ("c3", "detection scores are self-reported"), ("c4", "AI finds causes, not problems"),
+    ],
     ("capability-convergence-deep", "zh"): [
         ("c1", "81 票对抗验证 · 约 210 处改写"), ("c2", "前沿区间:偏好榜 ≈ 不反映能力"), ("c3", "开源滞后约 3–9 个月,不趋于零"), ("c4", "10 个可检验主张"),
     ],
@@ -5801,6 +5837,15 @@ INDEX_ENTRIES = [
      "81 票对抗验证 · 10 个可检验主张",
      "81 adversarial votes · 10 testable claims",
      [("t1", "基准评测", "Benchmarks"), ("t2", "开源模型", "Open-weight models"), ("t3", "排行榜", "Leaderboards"),
+      ("t4", "AI 智能体", "AI agents"), ("t5", "测量方法", "Measurement")]),
+    ("release-detection", "2026-10",
+     "AI 能接住坏发布吗?",
+     "Can AI Catch Bad Releases?",
+     "公开大事故里,监控几分钟就看见了问题,止血却要几小时——瓶颈不在「发现」。把「AI 接住坏发布」的证据拆成检测、定位、缓解三段送回一手原文,覆盖「70% 事故来自变更」的考古、谁先发现事故、九起大事故的时间线、canary 的结构性盲区、大厂检测器的自评成绩、低底率下的告警信任,以及 LLM 根因分析的真实口径。",
+     "In public outages, monitoring sees the problem within minutes, yet stopping the damage takes hours — the bottleneck isn't detection. The evidence for \"AI catches bad releases\" split into detection, diagnosis, and mitigation and returned to primary sources, covering the origins of \"70% of outages come from changes,\" who finds incidents first, nine outage timelines, canary's structural blind spots, big companies' self-reported detector results, alert trust at low base rates, and what LLM root-cause accuracy figures actually measure.",
+     "45 票对抗验证 · 10 个可检验主张",
+     "45 adversarial votes · 10 testable claims",
+     [("t1", "可靠性工程", "Reliability engineering"), ("t2", "AIOps", "AIOps"), ("t3", "事故复盘", "Incident postmortems"),
       ("t4", "AI 智能体", "AI agents"), ("t5", "测量方法", "Measurement")]),
 ]
 
