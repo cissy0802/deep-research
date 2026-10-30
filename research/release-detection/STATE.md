@@ -43,3 +43,5 @@
 - 2026-10-30: B3-R 完成,Round 2 全部完成:45 份判决,子论断判决 397 次(231 HOLDS / 166 CORRECTED / 0 REFUTED);组级票型 44 CORRECTED / 1 HOLDS(G15-R)/ 0 REFUTED。Round 3 有 4 个数字被否决(Gandalf 控制面 99.8%、数据面 100%、FBDetect 13 年一次误报、Walmart MTTD)。另:ITBench-AA 榜首已为 56.2%;SCELM 有 FSE'25 Industry 版;AnoFusion 非独立复现。下一步:3 个锁定口径子代理 → locked/part{1,2,3}.md → 合并 05-locked-calibers.md。
 - 2026-10-30: 锁定口径完成 → 05-locked-calibers.md(part1 49 子论断+案例表 / part2 37 条 / part3 36 条)。逐票合计 HOLDS 55+73+106?见各 part 统计。下一步:成文。
 - 2026-10-30: 成文 zh deep/plain 写完;一致性回查子代理运行中(06-consistency-check.md)。
+- 2026-10-30: 一致性回查改 46 处;主循环再处理疑点 2/3/4/6/7/8/10(区间改为一成到五成、Quicksilver 限定、Slack 无因果、CAS/Workbook 分开、§9 归因收窄)。统计以 05 逐条重数为准:396/234/162。
+- 2026-10-30: 翻译完成;build.py 注册四处,构建无 WARN;只保留本期 4 页 + index(其余重建页面已还原以保留 TTS);TOPICS 归档 + 候选池 1 条。待 BigCat 确认后 push。
