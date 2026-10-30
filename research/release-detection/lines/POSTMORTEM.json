@@ -1,0 +1,474 @@
+{
+ "as_of": "2026-10",
+ "side_legend": "pro=支持「自动化能快速接住坏发布」;con=反对或揭示局限;neutral=事实锚点",
+ "cases": [
+  {
+   "id": "CS-2024",
+   "name": "CrowdStrike Falcon Channel File 291",
+   "incident_date": "2024-07-19",
+   "source_urls": [
+    "https://www.crowdstrike.com/blog/falcon-content-update-preliminary-post-incident-report/",
+    "https://www.crowdstrike.com/blog/falcon-update-for-windows-hosts-technical-details/",
+    "https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf",
+    "https://homeland.house.gov/wp-content/uploads/2024/09/2024-09-24-HRG-CIP-Testimony-Meyers.pdf"
+   ],
+   "trigger_type": "数据/内容文件(Rapid Response Content)",
+   "progressive_rollout": "否;Sensor Content 走 staged rollout,Rapid Response Content 不走;事后承诺 staggered deployment starting with a canary",
+   "change_time_utc": "2024-07-19 04:09",
+   "impact_start_utc": "未披露",
+   "detected_utc": "未披露",
+   "detection_source": "未披露",
+   "rca_utc": "未披露",
+   "mitigation_start_utc": "未披露",
+   "mitigation_complete_utc": "revert 05:27;主机恢复未披露",
+   "auto_rollback": "否(人工 revert)",
+   "ttd_min_derived": null,
+   "rca_min_derived": null,
+   "mitigation_derived": "发布→revert 78 分钟(非 TTD/非恢复)",
+   "lessons": "Content Validator bug;实施 canary+分阶段;客户可控投放"
+  },
+  {
+   "id": "GCP-2025",
+   "name": "Google Cloud Service Control",
+   "incident_date": "2025-06-12",
+   "source_urls": [
+    "https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW"
+   ],
+   "trigger_type": "代码二进制(05-29 潜伏)+ 策略数据触发",
+   "progressive_rollout": "代码 region by region rollout,失败路径未被执行;无 feature flag;策略数据 replicated globally within seconds",
+   "change_time_utc": "代码 2025-05-29;策略 ~2025-06-12 17:45 (~10:45 PDT)",
+   "impact_start_utc": "2025-06-12 17:49 (10:49 PDT)",
+   "detected_utc": "≤~17:51(Within 2 minutes SRE triaging)",
+   "detection_source": "未明说",
+   "rca_utc": "≤~17:59(Within 10 minutes)",
+   "mitigation_start_utc": "red-button ~18:14 就绪",
+   "mitigation_complete_utc": "~18:29 red-button 推完;19:48 除 us-central1 外;20:49 结束",
+   "auto_rollback": "否(人工 red-button)",
+   "ttd_min_derived": 2,
+   "rca_min_derived": 10,
+   "mitigation_derived": "~40 分钟开始恢复 / 2h59m 结束",
+   "lessons": "关键二进制变更必须 feature flag 默认关;全局复制数据须增量传播"
+  },
+  {
+   "id": "CF-2019",
+   "name": "Cloudflare WAF regex",
+   "incident_date": "2019-07-02",
+   "source_urls": [
+    "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/"
+   ],
+   "trigger_type": "配置/规则(WAF Managed Rules)",
+   "progressive_rollout": "否;SOP allowed … globally into production without a staged rollout",
+   "change_time_utc": "2019-07-02 13:42",
+   "impact_start_utc": "~13:42(未单列)",
+   "detected_utc": "13:45",
+   "detection_source": "自动(外部合成测试 PagerDuty)",
+   "rca_utc": "14:00",
+   "mitigation_start_utc": "14:07 global terminate",
+   "mitigation_complete_utc": "14:09 流量恢复;14:52 修复重启用",
+   "auto_rollback": "否(人工 global kill)",
+   "ttd_min_derived": 3,
+   "rca_min_derived": 18,
+   "mitigation_derived": "27 分钟",
+   "lessons": "规则改为 staged rollout;流量下跌告警太慢;CPU 未测"
+  },
+  {
+   "id": "FASTLY-2021",
+   "name": "Fastly global outage",
+   "incident_date": "2021-06-08",
+   "source_urls": [
+    "https://www.fastly.com/blog/summary-of-june-8-outage"
+   ],
+   "trigger_type": "代码二进制(05-12 潜伏)+ 客户合法配置触发",
+   "progressive_rollout": "未披露",
+   "change_time_utc": "代码 2021-05-12;客户配置时刻未披露",
+   "impact_start_utc": "2021-06-08 09:47",
+   "detected_utc": "09:48",
+   "detection_source": "自动(Fastly monitoring)",
+   "rca_utc": "10:27",
+   "mitigation_start_utc": "10:36",
+   "mitigation_complete_utc": "11:00 多数恢复;12:35 mitigated;17:25 修复开始部署",
+   "auto_rollback": "否(禁用配置)",
+   "ttd_min_derived": 1,
+   "rca_min_derived": 40,
+   "mitigation_derived": "2h48m",
+   "lessons": "查明 QA 为何漏检"
+  },
+  {
+   "id": "META-2021",
+   "name": "Meta/Facebook backbone BGP",
+   "incident_date": "2021-10-04",
+   "source_urls": [
+    "https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/",
+    "https://engineering.fb.com/2021/10/04/networking-traffic/outage/"
+   ],
+   "trigger_type": "基础设施操作(维护命令;审计工具 bug)",
+   "progressive_rollout": "不适用/未披露",
+   "change_time_utc": "未披露",
+   "impact_start_utc": "未披露",
+   "detected_utc": "未披露",
+   "detection_source": "未披露",
+   "rca_utc": "未披露",
+   "mitigation_start_utc": "未披露(现场派工程师)",
+   "mitigation_complete_utc": "未披露",
+   "auto_rollback": "否",
+   "ttd_min_derived": null,
+   "rca_min_derived": null,
+   "mitigation_derived": "未披露",
+   "lessons": "加强测试与 storm 演练"
+  },
+  {
+   "id": "AWS-2025",
+   "name": "AWS us-east-1 DynamoDB DNS",
+   "incident_date": "2025-10-20",
+   "source_urls": [
+    "https://aws.amazon.com/message/101925/"
+   ],
+   "trigger_type": "基础设施自动化潜伏竞态(非人为变更)",
+   "progressive_rollout": "不适用",
+   "change_time_utc": "无变更",
+   "impact_start_utc": "2025-10-20 06:48 (10-19 11:48 PM PDT)",
+   "detected_utc": "未披露(immediately engaged);次生 NLB 13:52 monitoring",
+   "detection_source": "未披露;次生 NLB 自动监控",
+   "rca_utc": "07:38 (12:38 AM PDT)",
+   "mitigation_start_utc": "08:15 临时缓解",
+   "mitigation_complete_utc": "09:25 DNS 恢复;09:40 DynamoDB;21:20 整体结束",
+   "auto_rollback": "否;事后全球停用该自动化",
+   "ttd_min_derived": null,
+   "rca_min_derived": 50,
+   "mitigation_derived": "2h52m(DNS)/14h32m(全部)",
+   "lessons": "修竞态;NLB velocity control;DWFM 恢复测试"
+  },
+  {
+   "id": "AFD-2025-10-09",
+   "name": "Azure Front Door QNBQ-5W8",
+   "incident_date": "2025-10-09",
+   "source_urls": [
+    "https://azure.status.microsoft/en-us/status/history/?trackingId=QNBQ-5W8"
+   ],
+   "trigger_type": "基础设施操作(人工清理绕过保护系统)",
+   "progressive_rollout": "控制面按 safe deployment;保护系统被 temporarily bypassed",
+   "change_time_utc": "2025-10-09 07:30",
+   "impact_start_utc": "07:50",
+   "detected_utc": "08:13",
+   "detection_source": "自动(telemetry)",
+   "rca_utc": "09:04",
+   "mitigation_start_utc": "09:08 自动重启+人工",
+   "mitigation_complete_utc": "12:50 可用性恢复;16:00 宣布缓解",
+   "auto_rollback": "部分(自动重启)",
+   "ttd_min_derived": 23,
+   "rca_min_derived": 74,
+   "mitigation_derived": "5h00m / 8h10m",
+   "lessons": "禁止绕过保护系统"
+  },
+  {
+   "id": "AFD-2025-10-29",
+   "name": "Azure Front Door YKYN-BWZ",
+   "incident_date": "2025-10-29",
+   "source_urls": [
+    "https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ"
+   ],
+   "trigger_type": "数据/配置(客户配置元数据)+ 数据面潜伏 bug",
+   "progressive_rollout": "有多阶段+健康门控;异步崩溃约 5 分钟后才出现,通过门控,LKG 被污染",
+   "change_time_utc": "2025-10-29 15:35",
+   "impact_start_utc": "15:41",
+   "detected_utc": "15:43 自动冻结 / 15:48 监控告警",
+   "detection_source": "自动",
+   "rca_utc": "16:15(聚焦配置)",
+   "mitigation_start_utc": "17:10 人工改 LKG;17:40 部署",
+   "mitigation_complete_utc": "18:30 开始恢复;10-30 00:05 缓解",
+   "auto_rollback": "自动冻结有;自动回滚未用(LKG 被污染)",
+   "ttd_min_derived": 2,
+   "rca_min_derived": 34,
+   "mitigation_derived": "8h24m",
+   "lessons": "pre-canary 阶段;延长 bake time;同步处理;恢复从 ~4.5h 降到 ~1h"
+  },
+  {
+   "id": "CF-2025-11-18",
+   "name": "Cloudflare Bot Management feature file",
+   "incident_date": "2025-11-18",
+   "source_urls": [
+    "https://blog.cloudflare.com/18-november-2025-outage/"
+   ],
+   "trigger_type": "数据库权限变更→生成的特征文件(数据)",
+   "progressive_rollout": "DB 变更逐步推;特征文件全网快速传播,每 5 分钟生成",
+   "change_time_utc": "2025-11-18 11:05",
+   "impact_start_utc": "11:28(表格)/11:20(正文)",
+   "detected_utc": "11:31",
+   "detection_source": "自动(automated test)",
+   "rca_utc": "13:37(确认 Bot Management 文件;曾误判 DDoS)",
+   "mitigation_start_utc": "14:24 停止传播",
+   "mitigation_complete_utc": "14:30 主要恢复;17:06 全部",
+   "auto_rollback": "否(人工换旧文件)",
+   "ttd_min_derived": 3,
+   "rca_min_derived": 129,
+   "mitigation_derived": "3h02m / 5h38m",
+   "lessons": "像对待用户输入一样加固内部配置文件;更多全局 kill switch"
+  },
+  {
+   "id": "CF-2025-12-05",
+   "name": "Cloudflare FL1 WAF killswitch",
+   "incident_date": "2025-12-05",
+   "source_urls": [
+    "https://blog.cloudflare.com/5-december-2025-outage/"
+   ],
+   "trigger_type": "配置(全局配置系统)",
+   "progressive_rollout": "第一个变更渐进;第二个走 does not perform gradual rollouts 的全局配置系统",
+   "change_time_utc": "2025-12-05 08:47",
+   "impact_start_utc": "08:47(08:48 全量)",
+   "detected_utc": "08:50",
+   "detection_source": "自动(Automated alerts)",
+   "rca_utc": "未单列(identified shortly after)",
+   "mitigation_start_utc": "09:11 revert",
+   "mitigation_complete_utc": "09:12",
+   "auto_rollback": "否(人工 revert)",
+   "ttd_min_derived": 3,
+   "rca_min_derived": null,
+   "mitigation_derived": "25 分钟",
+   "lessons": "配置/威胁数据也要健康验证与快速回滚"
+  },
+  {
+   "id": "CF-2026-02-20",
+   "name": "Cloudflare BYOIP prefixes",
+   "incident_date": "2026-02-20",
+   "source_urls": [
+    "https://blog.cloudflare.com/cloudflare-outage-february-20-2026/"
+   ],
+   "trigger_type": "代码二进制(Addressing API 子任务 bug)",
+   "progressive_rollout": "applied iteratively and not instantaneously(25% BYOIP 前缀受影响)",
+   "change_time_utc": "代码 2026-02-20 17:46(合并 02-05)",
+   "impact_start_utc": "17:56(表格)/17:48(正文)",
+   "detected_utc": "18:13 engaged for failures on one.one.one.one",
+   "detection_source": "未明说",
+   "rca_utc": "18:46",
+   "mitigation_start_utc": "19:11",
+   "mitigation_complete_utc": "23:03",
+   "auto_rollback": "否(人工终止+人工恢复)",
+   "ttd_min_derived": 17,
+   "rca_min_derived": 50,
+   "mitigation_derived": "5h07m",
+   "lessons": "staging mock 数据不足;变更过快/过广熔断;快照化部署"
+  }
+ ],
+ "claims": [
+  {
+   "id": "C1",
+   "claim": "11 案中 6 案原文明确触发变更走全局/无渐进/绕过保护路径(CS、GCP 数据、CF-2019、CF-11、CF-12、AFD-09)",
+   "quote": "The SOP allowed a non-emergency rule change to go globally into production without a staged rollout.",
+   "source_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+   "source_type": "official_postmortem",
+   "date": "2019-07-02",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C2",
+   "claim": "代码走渐进发布而配置/数据不走,4 案原文直说",
+   "quote": "This system does not perform gradual rollouts, but rather propagates changes within seconds to the entire fleet of servers in our network",
+   "source_url": "https://blog.cloudflare.com/5-december-2025-outage/",
+   "source_type": "official_postmortem",
+   "date": "2025-12-05",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C3",
+   "claim": "可计算 TTD 的 8 案中位数约 3 分钟(派生;范围 1-23 分钟)",
+   "quote": "09:48 Global disruption identified by Fastly monitoring",
+   "source_url": "https://www.fastly.com/blog/summary-of-june-8-outage",
+   "source_type": "official_postmortem",
+   "date": "2021-06-08",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "C4",
+   "claim": "首次发现来源原文明确为自动信号 6/11,明确客户报告 0/11,5 案未明说或未披露",
+   "quote": "The first automated test detected the issue at 11:31 and manual investigation started at 11:32.",
+   "source_url": "https://blog.cloudflare.com/18-november-2025-outage/",
+   "source_type": "official_postmortem",
+   "date": "2025-11-18",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "C5",
+   "claim": "TTD≤5 分钟的 6 案中 4 案主要缓解超过 1 小时:检测快、定位/缓解慢",
+   "quote": "We were confident that the Bot Management configuration file was the trigger for the incident.",
+   "source_url": "https://blog.cloudflare.com/18-november-2025-outage/",
+   "source_type": "official_postmortem",
+   "date": "2025-11-18",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C6",
+   "claim": "11 案无一主要靠自动回滚缓解;自动化最多做到停止传播或自动重启",
+   "quote": "Since the latest ‘last known good’ (LKG) version was updated with the conflicting metadata, we chose not to revert to it.",
+   "source_url": "https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ",
+   "source_type": "official_pir",
+   "date": "2025-10-29",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C7",
+   "claim": "离线验证漏检的共性:合法但未见过的输入形状触发潜伏代码路径,常有延迟(14 天、27 天、6 周、15 天、约 5 分钟)",
+   "quote": "This defect escaped detection due to a gap in our pre-production validation, since not all features are validated across different control plane build versions.",
+   "source_url": "https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ",
+   "source_type": "official_pir",
+   "date": "2025-10-29",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C8",
+   "claim": "canary 结构性盲区:延迟发作的故障与需要别的变更才触发的代码路径",
+   "quote": "the code path that failed was never exercised during this rollout due to needing a policy change that would trigger the code.",
+   "source_url": "https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW",
+   "source_type": "official_incident_report",
+   "date": "2025-06-12",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C8b",
+   "claim": "异步崩溃让健康门控放行坏配置",
+   "quote": "Because the data plane crash surfaced asynchronously, after approximately five minutes, the configuration passed through the protection safeguards and propagated to later stages.",
+   "source_url": "https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ",
+   "source_type": "official_pir",
+   "date": "2025-10-29",
+   "loadbearing": true,
+   "side": "con"
+  },
+  {
+   "id": "C8c",
+   "claim": "渐进应用限制了爆炸半径(正例)",
+   "quote": "This incident did not impact all BYOIP customers because the configuration change was applied iteratively and not instantaneously across all BYOIP customers.",
+   "source_url": "https://blog.cloudflare.com/cloudflare-outage-february-20-2026/",
+   "source_type": "official_postmortem",
+   "date": "2026-02-20",
+   "loadbearing": false,
+   "side": "pro"
+  },
+  {
+   "id": "C9",
+   "claim": "定位慢的原因:误判为攻击、间歇症状、工具依赖故障设施",
+   "quote": "After we initially wrongly suspected the symptoms we were seeing were caused by a hyper-scale DDoS attack",
+   "source_url": "https://blog.cloudflare.com/18-november-2025-outage/",
+   "source_type": "official_postmortem",
+   "date": "2025-11-18",
+   "loadbearing": false,
+   "side": "con"
+  },
+  {
+   "id": "C10",
+   "claim": "缓解后恢复长尾(群体效应/积压)常长于检测+定位",
+   "quote": "It took up to ~2h 40 mins to fully resolve in us-central-1 as we throttled task creation",
+   "source_url": "https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW",
+   "source_type": "official_incident_report",
+   "date": "2025-06-12",
+   "loadbearing": false,
+   "side": "con"
+  },
+  {
+   "id": "K1",
+   "claim": "CrowdStrike 04:09 发布、05:27 revert(78 分钟为发布→revert,非 TTD)",
+   "quote": "The defect in the content update was reverted on Friday, July 19, 2024 at 05:27 UTC.",
+   "source_url": "https://www.crowdstrike.com/blog/falcon-content-update-preliminary-post-incident-report/",
+   "source_type": "official_pir",
+   "date": "2024-07-19",
+   "loadbearing": true,
+   "side": "neutral"
+  },
+  {
+   "id": "K2",
+   "claim": "Google 2 分钟内 SRE 分诊、10 分钟内定位、40 分钟内 red-button 推完",
+   "quote": "Within 2 minutes, our Site Reliability Engineering team was triaging the incident. Within 10 minutes, the root cause was identified",
+   "source_url": "https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW",
+   "source_type": "official_incident_report",
+   "date": "2025-06-12",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "K3",
+   "claim": "AFD-29 15:41 影响开始,15:48 监控检测,15:43 保护系统自动冻结",
+   "quote": "The issue started at 15:41 UTC and was detected by monitoring at 15:48 UTC, prompting our investigation.",
+   "source_url": "https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ",
+   "source_type": "official_pir",
+   "date": "2025-10-29",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "K4",
+   "claim": "AFD-09 影响 07:50 开始,遥测 08:13 检测(23 分钟)",
+   "quote": "08:13 UTC on 09 October 2025 – Our telemetry detected resource availability loss across multiple AFD edge sites.",
+   "source_url": "https://azure.status.microsoft/en-us/status/history/?trackingId=QNBQ-5W8",
+   "source_type": "official_pir",
+   "date": "2025-10-09",
+   "loadbearing": true,
+   "side": "neutral"
+  },
+  {
+   "id": "K5",
+   "claim": "AWS 50 分钟定位到 DynamoDB DNS(11:48 PM→12:38 AM PDT)",
+   "quote": "By 12:38 AM on October 20, our engineers had identified DynamoDB’s DNS state as the source of the outage.",
+   "source_url": "https://aws.amazon.com/message/101925/",
+   "source_type": "official_summary",
+   "date": "2025-10-20",
+   "loadbearing": true,
+   "side": "neutral"
+  },
+  {
+   "id": "K6",
+   "claim": "CF-2019 部署后 3 分钟首个 PagerDuty(外部合成测试)",
+   "quote": "Three minutes later the first PagerDuty page went out indicating a fault with the WAF.",
+   "source_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+   "source_type": "official_postmortem",
+   "date": "2019-07-02",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "K7",
+   "claim": "CF-12 08:50 自动告警声明事故,25 分钟恢复",
+   "quote": "08:50 / INCIDENT declared / Automated alerts",
+   "source_url": "https://blog.cloudflare.com/5-december-2025-outage/",
+   "source_type": "official_postmortem",
+   "date": "2025-12-05",
+   "loadbearing": true,
+   "side": "pro"
+  },
+  {
+   "id": "K8",
+   "claim": "CF-2026 影响 17:56,18:13 因 1.1.1.1 故障介入,18:46 定位",
+   "quote": "2026-02-20 18:13 / Cloudflare engaged / Cloudflare engaged for failures on one.one.one.one",
+   "source_url": "https://blog.cloudflare.com/cloudflare-outage-february-20-2026/",
+   "source_type": "official_postmortem",
+   "date": "2026-02-20",
+   "loadbearing": true,
+   "side": "neutral"
+  },
+  {
+   "id": "K9",
+   "claim": "Meta 官方复盘无任何时间戳;审计工具 bug 未拦住命令",
+   "quote": "Our systems are designed to audit commands like these to prevent mistakes like this, but a bug in that audit tool prevented it from properly stopping the command.",
+   "source_url": "https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/",
+   "source_type": "official_postmortem",
+   "date": "2021-10-05",
+   "loadbearing": false,
+   "side": "con"
+  },
+  {
+   "id": "K10",
+   "claim": "CF-2019 自认流量下跌告警太慢",
+   "quote": "The first alert for the global traffic drop took too long to fire.",
+   "source_url": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+   "source_type": "official_postmortem",
+   "date": "2019-07-02",
+   "loadbearing": false,
+   "side": "con"
+  }
+ ]
+}
