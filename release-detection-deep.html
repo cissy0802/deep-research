@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AI 能接住坏发布吗?——离线验证漏掉的问题,上线后多快被发现(深入版) — BigCat Deep Research</title>
-<meta name="description" content="把一次坏发布拆成检测、定位、缓解三段,逐段送回一手原文:公开大事故里监控几分钟就看见问题,止血却要几小时;配置和数据通道绕过渐进发布,是 canary 最大的盲区;大厂检测器「近乎完美的召回」都是代理口径;LLM 用在告警之后的定位,严格口径下找对一到五成。15 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。">
+<meta content="把一次坏发布拆成检测、定位、缓解三段,逐段送回一手原文:公开大事故里监控几分钟就看见问题,止血却要几小时;配置和数据通道绕过渐进发布,是 canary 最大的盲区;大厂检测器「近乎完美的召回」都是代理口径;LLM 用在告警之后的定位,严格口径下找对一到五成。15 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。" name="description"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
@@ -71,35 +72,35 @@ h2:nth-of-type(13){--h2:#f0b429}
 </style>
 </head><body>
 <div class="topbar">
-  <a href="release-detection-deep.html" class="active">中文</a><a href="release-detection-deep.en.html">EN</a>
+<a class="active" href="release-detection-deep.html">中文</a><a href="release-detection-deep.en.html">EN</a>
 </div>
 <div class="container">
 <a class="backlink" href="index.html">← Deep Research</a>
 <div class="kicker">深度研究 · 深入版</div>
-<h1>AI 能接住坏发布吗?——离线验证漏掉的问题,上线后多快被发现(深入版)</h1>
+<h1 data-tts="15f0ae478b05311c">AI 能接住坏发布吗?——离线验证漏掉的问题,上线后多快被发现(深入版)</h1>
 <div class="version-note">本文是<strong>深入版</strong> · <a href="release-detection-plain.html">查看易读版(精简直白)→</a></div>
 <div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">「AI 能接住坏发布」要拆成三段来答:检测、定位、缓解。截至 2026 年 10 月的一手证据显示:「约 70% 事故来自变更」是一句没有口径的经验断言,Google 唯一可追溯的 68% 只是前八类触发因素内部的份额;在 9 起由发布引起的公开大事故里,首个检测信号在影响开始后 1–25 分钟出现(中位 3–5 分钟),主要缓解中位却约 1.8–3 小时,相差数十倍;最贵的几次输在不分阶段的配置和数据通道、被坏变更污染的回滚基线,以及潜伏数天到数月才被触发的代码路径。检测缺口在别处:Microsoft 的数据里,高严重度和 GenAI 服务有三成上下靠人发现,客户报告的事故检测要慢约 10 倍。大厂检测器的成绩全是自评:Gandalf 控制面按自家计数 recall 约 95%(不是 99.8%),FBDetect 可核精度约 70%,「100% recall」「13 年一次误报」被否决;没有任何第三方用生产数据复测过。离线异常检测分数系统性虚高(point-adjust 让随机分数打败 SOTA)。LLM 用在告警之后的定位,宽松口径的 42%、0.766 换成严格口径只剩一到五成,厂商数字没有分母;「AI 缩短了 TTD」至今没有测量。十个可检验主张收尾,并列出验证推翻的原稿表述。</div></div>
 <div class="chips"><span class="chip c1">45 票对抗验证 · 4 个数字被否决</span><span class="chip c2">检测几分钟,止血几小时</span><span class="chip c3">LLM 在告警之后,不在之前</span><span class="chip c4">10 个可检验主张</span></div>
 <blockquote><p>方法学说明:本期拆 5 条调研线(事故来源、渐进发布与 canary、生产回归检测、LLM 根因分析、公开事故复盘),收集 140 条论断。从中抽出 15 组承重论断,每组派 3 个独立验证 agent,分逐字、反证、口径三个镜头,要求尽力反驳,所有引语回到一手原文做子串比对,所有派生数字重算。45 票中 44 票判「需修正」、1 票判「原样成立」、0 票判「推翻」;子论断层面共 396 次判决,234 次原样成立、162 次需修正、0 次推翻。「0 推翻」本身值得警惕,所以另对 3 条单一来源承担关键结论的实证加做反证搜索席与方法学审计席(共 6 份审计):3 条全部被降级,其中 4 个数字被否决、不得承重(Gandalf 控制面 recall 99.8%、Gandalf 数据面 recall 100%、FBDetect「每 13 年一次误报」、Walmart 的 MTTD 缩短)。因为 token 成本,本期比标准运行小一档:5 条调研线、15 组承重论断。数据截至 2026 年 10 月。文中每个数字后标证据分级:多源证实 / 单源已核 / 方向存争 / 厂商口径 / 未验证。</p></blockquote>
-<h2>0. 先把一次事故拆成三段</h2>
+<h2 data-tts="ca20bf9093e60e20">0. 先把一次事故拆成三段</h2>
 <p>「AI 能接住坏发布」这句话里藏着三件不同的事。一次坏发布上线之后,要经过三段时间才算被「接住」:</p>
 <ul><li><strong>检测(TTD)</strong>:从影响开始(或从变更生效)到有人或有系统意识到出事了。</li><li><strong>定位(RCA)</strong>:从意识到出事,到确认是哪一次变更、哪一个组件。</li><li><strong>缓解</strong>:从确认原因,到影响停止(回滚、关开关、换回旧文件)。</li></ul>
 <p>业界最常用的 MTTR 把这三段混成一个数。DORA 在 2023 年把 MTTR 改名为「失败部署恢复时间」,只计软件变更引起的故障,但它衡量的仍是恢复全程,不是检测。【单源已核】Meta 的自动排障平台 DrP 报告「MTTR 平均改善 20%」,它的 MTTR 定义是「解决时间戳减检测时间戳」——本身就不含检测段。【单源已核】所以下文凡是看到「把 MTTR 降低 X%」,都不能读作「更快发现了坏发布」。</p>
 <p>即使只看一个数,均值也很脆弱。Google SRE Štěpán Davidovič 用三家公司的事故数据做 Monte Carlo:假设某个工具让每起事故真的缩短 10%,MTTR 的前后差值仍有 20%–40% 的概率是负的;反过来,什么都不做,也有 10%–23% 的概率看到 30 分钟以上的「改善」。【单源已核】VOID 报告认为事故时长呈正偏态,不该用单一平均数衡量可靠性。【厂商口径:Verica 当时是混沌工程厂商】John Allspaw 更进一步:事故本就没有客观的开始和结束时间。【单源已核:从业者观点】这意味着 TTD 的起点本身是事后建构的,任何「从 X 分钟降到 Y 分钟」都要先问起点怎么定。</p>
 <p>下面八节按这三段展开,再给判决。</p>
-<h2>1. 坏发布从哪来:「70%」的考古</h2>
+<h2 data-tts="b55f761717d48b6d">1. 坏发布从哪来:「70%」的考古</h2>
 <p>「约 70% 的事故来自变更」是这个领域引用最多的数字。它出自 Google SRE 书(2016)第 1 章「Change Management」一节,原文没有分子、分母、时间窗,也没有数据来源,是一句经验断言。同一章把「new type of user traffic」也算作 change,所以书里的「变更」比代码或配置推送宽得多。【单源已核】</p>
 <p>最接近可追溯数据的是两年后的 SRE Workbook 附录 C:从 2010–2017 年数千份 postmortem 中抽样,统计前八类 outage 触发因素,binary push 占 37%、configuration push 占 31%,合计 68%。但这八类加起来恰好是 100%——<strong>68% 是前八类触发因素内部的份额,不是占全部 outage 的比例</strong>;真实占比 ≤68%,具体多少未知。而且它统计的是触发因素(trigger),不是根因;样本只含写了 postmortem 的事故。【单源已核:Google 内部数据】</p>
 <p>换一把尺子,数字差得很远:</p>
 <ul><li>公开报道口径:Gunawi 等(SoCC'16)分析 32 个互联网服务 2009–2015 年的 597 起非计划 outage,59.5% 根因未知;换算成占全部事故的比例,升级类约 9%,升级加配置约 15%。【单源已核】</li><li>Facebook:Tang 等(SOSP'15)人工分析某三个月窗口的高影响事故,16% 与配置管理相关。【单源已核:自家数据】</li><li>一家大型商业银行:SCWarn 论文(ESEC/FSE'21,作者含 AIOps 厂商)称约 50.4% 的事故由坏变更引起,分母与窗口未披露。【单源已核:仅摘要层】</li></ul>
 <p>这几个数分母互不相同,不能合成一个区间,只能分别列出。能站住的是方向:<strong>变更是事故的主要触发之一</strong>。【多源证实:方向】而那句 70% 在十年后仍被原样转引——ING 与 TU Delft 的 ICSE-SEIP 2026 论文在引言里写「据 Google 报告约 70%」,正文另一处已漂成「up to 70%」。【单源已核】</p>
 <p>还要记住 Richard Cook 的提醒:事故需要多个各自不充分的因素共同作用,事后归于单一「根因」本身就是错的。【单源已核:论证性经典】「X% 来自变更」是把多因素事故压成一个触发标签的统计。</p>
-<h2>2. 谁先发现:监控,还是人</h2>
+<h2 data-tts="43c57e8688b815dd">2. 谁先发现:监控,还是人</h2>
 <p>如果坏发布大多由自动监控在几分钟内抓到,「AI 能不能接住」就主要是定位问题;如果相当比例要靠客户报告,检测本身就是缺口。数据给出的答案取决于看哪一层:</p>
 <ul><li><strong>Microsoft 306 个服务、2022 年全部事故(不限严重度)</strong>:96.7% 由监控检出。但由客户或工程师报告的那 3.3% 里,客户报告的事故检测平均耗时约为监控报告的 10.7 倍(工程师报告约 9.96 倍),缓解约为 3.75 倍。漏检的修复项里,超过 40% 是「根本没有相关监控」,30% 是监控逻辑错误或缺信号。【单源已核:Ganatra 等 ESEC/FSE'23;10.7× 与 3.75× 仅一席核到原文】</li><li><strong>Microsoft Teams 一年的 152 起 Sev 0–2 事故</strong>:约 55% 由自动 watchdog 检出;29% 由外部用户或客户报告,10% 由微软内部伙伴团队发现,6% 由服务团队自己发现。约 17% 的事故缺监控或缺遥测。【单源已核:Ghosh 等 SoCC'22,单一服务,已过滤约 35% 无完整 postmortem 的事故】</li><li><strong>Microsoft GenAI 相关事故(2020-06 至 2024-02)</strong>:38.3% 由人(工程师或客户)报告,对照服务为 13.7%;监控报出的事故中事后被标为 False Alarm 的,GenAI 11.0%、对照 3.8%。作者归因于近半 GenAI 服务处在开发或预览期,监控沿用旧框架。【单源已核:未经评审的预印本;Round 3 降级——无置信区间、预览期混杂未分层、没有检出时延数据】</li></ul>
 <p>这三个数<strong>不能排成一条趋势</strong>:分母分别是全严重度、高严重度、GenAI 关键词识别(严重度未说明,推断为混合)。另一篇 Microsoft 预印本称某 LLM 推理服务 2025 年 4–6 月的 156 起 Sev2/2.5 事故中约 74% 在客户报告之前由健康探针或 DRI 流水线告警【单源已核】,但它和 38.3% 的时间、范围、定义都不同,也都来自同一个事故库,不是独立复测。还要注意,「由人报告」包括内部工程师,不等于「用户先发现」。</p>
 <p>可以说的是:<strong>在高严重度和新类型服务上,靠人发现的比例不小,而且人发现的那部分恰好落在检测最慢的尾部。</strong>【单源已核:全部为 Microsoft 数据】Microsoft 之外,我们没有找到「事故由谁发现」的量化比例。独立证据只有定性个案,例如 Anthropic 2025-09 的复盘:质量退化先被用户感知,离线评估没抓到。【单源已核:定性个案】</p>
-<h2>3. 公开复盘里的时钟:分钟级发现,小时级止血</h2>
+<h2 data-tts="07c8d36f98da12d0">3. 公开复盘里的时钟:分钟级发现,小时级止血</h2>
 <p>公开复盘是唯一能看到完整时间线的材料。我们逐案核了 11 份官方复盘,剔除两起不是由发布引起的(AWS 2025-10 是自动化系统的潜伏竞态,Meta 2021 是运维命令),剩 9 案:</p>
 <div class="tw"><table><thead><tr><th>案例</th><th>触发</th><th>是否走渐进发布</th><th>影响→检测</th><th>发现来源</th><th>主要缓解</th></tr></thead><tbody><tr><td>CrowdStrike 2024-07</td><td>内容文件</td><td>否(该内容通道不分阶段)</td><td>未披露</td><td>未披露</td><td>发布→人工 revert 78 分钟(不是 TTD)</td></tr><tr><td>Google Cloud 2025-06</td><td>潜伏代码 + 策略数据</td><td>代码逐区域发布,但故障路径从未被执行;策略数据数秒内全球复制</td><td>≤2 分钟(SRE 开始分诊,代理)</td><td>未披露</td><td>40 分钟–3 小时(视口径)</td></tr><tr><td>Cloudflare 2019-07</td><td>WAF 规则</td><td>否</td><td>3 分钟</td><td>自动(外部合成测试)</td><td>27 分钟</td></tr><tr><td>Fastly 2021-06</td><td>潜伏代码 + 客户合法配置</td><td>未披露</td><td>1 分钟</td><td>自动</td><td>49 分钟–2h48m(视口径)</td></tr><tr><td>Azure Front Door 2025-10-09</td><td>人工清理绕过保护系统</td><td>有保护,被人工绕过</td><td>23 分钟</td><td>自动(遥测)</td><td>5h00m–8h10m(视口径)</td></tr><tr><td>Azure Front Door 2025-10-29</td><td>客户配置 + 数据面潜伏 bug</td><td>有,多阶段 + 健康门控,仍被穿透</td><td>2 或 7 分钟</td><td>自动</td><td>2h49m–8h24m(视口径)</td></tr><tr><td>Cloudflare 2025-11-18</td><td>数据库权限变更 → 特征文件</td><td>特征文件每 5 分钟生成并快速全网传播</td><td>3–11 分钟</td><td>自动(自动化测试)</td><td>约 3 小时</td></tr><tr><td>Cloudflare 2025-12-05</td><td>全局配置</td><td>否</td><td>3 分钟</td><td>自动</td><td>25 分钟</td></tr><tr><td>Cloudflare 2026-02-20</td><td>代码</td><td>逐步施加</td><td>≤17–25 分钟(代理上界)</td><td>未明说</td><td>约 5 小时</td></tr></tbody></table></div>
 <p>【厂商口径:逐案为官方复盘一手原文;Cloudflare 2025-11-18 与 2026-02-20 的影响起点在各自复盘的正文和表格里写法不一致,两个值都列出】</p>
@@ -107,7 +108,7 @@ h2:nth-of-type(13){--h2:#f0b429}
 <ul><li><strong>检测是分钟级。</strong> 可算的 8 案,从影响开始到首个检测信号,范围 1–25 分钟,中位数 3–5 分钟(取决于两处原文自相矛盾的起点);从变更时刻起算,中位数约 8–13 分钟。【厂商口径;Round 3 降级】</li><li><strong>止血是小时级。</strong> 主要缓解的中位数约 1.8–3 小时,与检测相差数十倍。确定在 1 小时内止血的只有两案(另有两案视口径而定),用的都是现成的全局开关或直接 revert。【方向多源证实;具体倍数为厂商口径】</li><li><strong>定位的差异最大。</strong> Google 10 分钟、Cloudflare 2019 18 分钟、Azure Front Door 10-29 34 分钟、Fastly 40 分钟,而 Cloudflare 2025-11-18 用了约 2 小时——团队先以为是超大规模 DDoS,特征文件好坏交替生成,系统反复「恢复—失败」。【单源已核】</li><li><strong>没有一案主要靠自动回滚止损。</strong> Azure Front Door 10-29 自动冻结了传播,但回滚基线(last known good)已被坏配置污染,只能人工改写。【单源已核:样本内】</li></ul>
 <p>最后一条最容易被误读。Round 3 的两位审计员都指出,这个样本是<strong>按结局选出来的</strong>:全是炸得响的全局故障,Cloudflare 占四案。被自动回滚接住的坏发布不会写成公开大复盘。Slack 自述 2024 年 4 月引入自动回滚后,客户影响小时数下降 90%(2024-02 至 2025-01 的前后对比,没有因果设计);Cloudflare 自述其二进制发布能无人工干预地自动回滚。【厂商口径:没有回滚次数与误回滚数】反方向的偏差同样存在:样本里没有一案原文写「客户先发现」(6 案明确是自动信号,3 案未披露),但 Atlassian 2022-04 的那次事故,首个信号就是客户工单;第 2 节里 Teams Sev≤2 事故有 29% 由外部客户报告,GenAI 服务 38.3% 由人报告。【样本内计数单源已核;作为一般结论方向存争】</p>
 <p>所以这张表能回答的问题很窄:<strong>响亮的大故障会在几分钟内被看见,然后要花几小时才能止住。</strong> 它回答不了安静的回归要多久才被发现。第 2 节里那些由客户报告、检测要慢约 10 倍的事故,在这类公开复盘里几乎看不到。</p>
-<h2>4. canary 看不见什么</h2>
+<h2 data-tts="aec6e4591dfa039c">4. canary 看不见什么</h2>
 <p>渐进发布和 canary 是「发布后检测」的主力机制。Google 说得很直白:即使发布流水线完全自动化,在真实流量打到服务之前,也不可能检测出所有与发布相关的缺陷;canary 本质上是一次 A/B 测试。【单源已核】问题是这次 A/B 测试看不见什么。</p>
 <p><strong>第一个结构性缺口:配置和数据走的是另一条更快的通道。</strong> 至少四家厂商的一手材料显示,代码和配置/数据的发布节奏不对称:</p>
 <ul><li>Cloudflare 自述二进制有「员工流量→免费用户→逐步扩大、检出异常自动回滚」的门禁,但新建 DNS 记录、安全规则这类配置变更通过 Quicksilver 在数秒内到达约 90% 的服务器,不经门禁;2025-11-18 与 2025-12-05 两次事故都出在这一侧。【单源已核】</li><li>Google Cloud 2025-06:代码逐区域发布,但触发故障的策略数据「数秒内全球复制」。【单源已核】</li><li>CrowdStrike:官方 RCA 的发现之一就是「每个 Template Instance 都应分阶段发布」,反推事发时该内容通道不分阶段。【单源已核】</li><li>Microsoft Azure Front Door:服务代码约 2–3 周、客户配置按「行业预期」约 5–10 分钟到全球——两次事故都出在客户配置这一类。【未验证:一席未能复核原文,方向有整改项支持】</li></ul>
@@ -118,7 +119,7 @@ h2:nth-of-type(13){--h2:#f0b429}
 <div class="tw"><table><thead><tr><th>盲区</th><th>机制</th><th>一手例证</th></tr></thead><tbody><tr><td>规模或负载不足</td><td>canary 小或在低峰期,压不出全量才出现的问题</td><td>Facebook:一次配置把移动端请求导向罕见路径、压垮存储,小规模 canary 没暴露,事后加了数千台的集群级阶段</td></tr><tr><td>潜伏 / 时间延迟</td><td>问题在观测窗口结束后才显现</td><td>Microsoft:NIC 固件与驱动冲突,部署后 24–72 小时才 OS 崩溃(该案最终在 Canary 阶段被 Gandalf 检出)</td></tr><tr><td>未执行的路径与不分阶段的数据变更</td><td>canary 只验证被流量走到的路径</td><td>Google Cloud 2025-06</td></tr><tr><td>跨组件交互</td><td>变更本身正确,但触发了别处的 bug</td><td>Facebook:合法配置触发新代码路径上的竞态 bug,占其配置相关高影响事故的 22%(三个月窗口,仅一席核)</td></tr><tr><td>低流量路径 / 数据缺失</td><td>低频路径样本太少或没数据,统计判定放行</td><td>Spinnaker/Kayenta 默认把 canary 期间无数据的指标判为 Nodata、不扣分</td></tr><tr><td>低于单次 MDE 的累积回退</td><td>每次都低于最小可检测效应,累积成大问题</td><td>假设算例:每次 +0.05% CPU、每周 100 次,一年 +260%</td></tr></tbody></table></div>
 <p>【各例证单源已核;第五类的低流量盲区机制为推断;第六类为假设算例,「单次 canary 看不见」为未验证推论】</p>
 <p>离线验证漏掉的东西也有共性:<strong>合法但没见过的输入形态,触发了潜伏的代码路径。</strong> Google Cloud 的空字段策略、Fastly 的合法客户配置、CrowdStrike 第 21 个字段第一次用了非通配匹配(Content Validator 按 21 个输入放行,解释器只给了 20 个值)。坏代码在生产里潜伏到被触发的时间:Google Cloud 14 天、Fastly 27 天、CrowdStrike 的那个模板类型约 5 个月。【单源已核:逐案】测试和 canary 测的都是「已经见过的输入」。</p>
-<h2>5. 大厂检测器的成绩单</h2>
+<h2 data-tts="4ae8b8c52bb053b2">5. 大厂检测器的成绩单</h2>
 <p>「AI 能接住坏发布」的正方证据,几乎全部来自大厂对自家系统的论文。把它们送回原文,数字都比流传的版本窄。</p>
 <p><strong>Microsoft Gandalf(NSDI 2020,Azure 的发布安全分析服务)。</strong></p>
 <ul><li>数据面:在 2018 年的一个窗口里「捕获了 155 个关键故障」,precision 报为 92.4%。这个比例无法由 155 重算,告警总数和误报数都未披露,只能写「约 92%,分母未披露」。论文的「recall 100%」操作定义是「没有 Sev0–2 事故由坏发布引起」——只有酿成高严重度事故的漏报才被计入。【Round 3 否决:代理真值,不得承重】</li><li>控制面:1200 多次区域级部署,提交 39 个 incident,2 个误报,漏掉 2 个。按标准定义,precision 和 recall 都是 37/39 ≈ 94.9%(Wilson 95% 区间约 83%–99%)。论文报的「recall 99.8%」无法由标准定义得到,数值上与「1 − 漏报/全部部署」、specificity、NPV 三者都吻合,分母无法判定。【99.8% 被 Round 3 否决;94.9% 为单源已核,厂商自评】</li><li>「约 5 分钟出决策」是流式层的数据处理加决策延迟,不是从坏发布生效到被检出的时间。论文没有报告 TTD 分布;案例里的故障信号可以在发布后 24–72 小时才出现。【单源已核】</li><li>论文结论段说「拦下了 99.2% 的坏 rollout」,但正文里这个比例的分母是「被判为可疑的 rollout」(含误报),是以检出为条件的比例。【单源已核:结论段的写法不得引用】</li></ul>
@@ -128,20 +129,20 @@ h2:nth-of-type(13){--h2:#f0b429}
 <p><strong>其他公司。</strong> 2024–2025 年其他公司公开的数字都是没有分母的结果指标:Slack 的「客户影响小时数降 90%」,Atoms(原 CloudKitchens)的「一个季度拦下 1,100 多次坏发布」,都没有总发布数、误回滚数或检出率。【厂商口径】Walmart 的「MTTD 缩短 7 分钟以上」来自一个通用异常检测平台,63% 的覆盖率分母只是 4 个案例客户的 58 起事故,没有 MTTD 基线。【Round 3 否决作为发布检测证据】</p>
 <p>Round 3 反证席的结论是:<strong>我们没有找到任何第三方用生产数据复测过 Gandalf、FBDetect、Kayenta 或 CAS。</strong> 唯一的外部比较来自一篇竞品作者的预印本,在别家数据上把 Gandalf 当基线跑出平均 F1 约 0.87,实验细节缺失。【「无生产独立复测」为多源证实;外部 F1 为未验证】业界也没有公开过带分母的拦截率、误回滚率,或自动回滚采用率的调查。</p>
 <p>能站住的说法是:<strong>大厂自报的漏报很少、精度中等(约 70%–95%),但「召回」都是代理或假设,检出也不等于拦下。</strong></p>
-<h2>6. 低底率:检出了,也不一定有人信</h2>
+<h2 data-tts="64b2847a5397a84a">6. 低底率:检出了,也不一定有人信</h2>
 <p>为什么一个 70% 精度的检测器在生产里就算好成绩?因为坏发布本身很少。一个自算的示意(假设,不是实测):每天 1000 次发布,1% 是坏的,检测器能检出其中 95%。</p>
 <ul><li>每次发布的误报率 2% 时,每天约 9.5 次真报、19.8 次误报,告警 precision 约 32%;</li><li>误报率 0.5% 时,precision 约 66%;</li><li>误报率 0.1% 时,precision 约 91%。</li><li>如果每次发布同时看 100 个指标、每个指标误报率 0.1%,且指标相互独立,每次发布至少一个误报的概率约 9.5%(指标相关时会更低,所以这是上界式示意)。</li></ul>
 <p>【自算,三席重算无误;方向有 Meta、Google 一手材料同向】底率低时,误报率决定告警能不能被信任。对性能回归,真实底率可能更低——Meta 的发布前回放测试 ServiceLab 只在 0.3% 的被测变更上报了回归,A/A 实验中 p90、p99 指标的误报率分别是 40%、64%。【单源已核:仅一席核到原文】</p>
 <p>误报的代价不是多看几封告警,而是侵蚀处置。一手材料里有四类同向个案:</p>
 <ul><li>FBDetect 的 2 起被检出的事故都没有被及时处理。【单源已核】</li><li>Gandalf 给出正确的 no-go,团队凭经验认为无关,release manager 要求绕过;推进到下一阶段再次 no-go,深入调查才确认是回归,此时已有客户报告。【单源已核:n=1】</li><li>Facebook:canary 因实例崩溃拒绝了一次配置变更,工程师认定「一定是 canary 误报」并推翻,结果引发更多崩溃。【单源已核】</li><li>Google:CAS 出过用户无视 canary 失败、推送坏版本的事故;另一面,如果用户反复重试一个真正危险的推送,CAS 的自适应学习最终会把它当成常态、不再告警。【单源已核:定性】Google SRE Workbook 另指出,噪声大的 canary 会被运维禁用或无视。【厂商口径:指南论证】</li></ul>
 <p><strong>检出不等于处置。</strong>【方向多源证实:四家厂商个案,没有任何公开的人工推翻率统计】缩短 TTD 不会自动缩短影响;人和机器之间的交接是独立的瓶颈。这和本站《自动化的反讽》的结论一致:自动化越可靠,人在少数关键时刻越难判断它这次是不是对的。</p>
-<h2>7. 离线评测为什么系统性虚高</h2>
+<h2 data-tts="33f34de4d90b12c3">7. 离线评测为什么系统性虚高</h2>
 <p>如果大厂生产数据里的检测成绩都要打折,学术基准上的成绩就更要打折。时序异常检测(KPI 告警的主力方法)在评测上有三个已知的抬分机制:</p>
 <ul><li><strong>point-adjust(PA)。</strong> 多数论文规定异常段里只要命中一点就算整段命中。Kim 等(AAAI-22)发现,在 SWaT、WADI、MSL、SMAP 四个数据集上,均匀随机分数在 PA 下的 F1 为 0.93–0.97,高于表中 7 个深度方法;去掉 PA 后,随机分数的 F1 只有 0.11–0.23。所有分数还都取事后最优阈值。【单源已核;方向已被后续工作普遍接受,未找到反驳】</li><li><strong>基准本身。</strong> Wu 和 Keogh(TKDE)发现 Yahoo 基准 367 条序列中 316 条(86.1%)可以被一行表达式解出——表达式参数是逐条借助标签搜出来的,但这正说明这些题太容易。作者认为近年进展「可能是幻觉」。【单源已核】</li><li><strong>新方法没赢。</strong> TSB-AD(1070 条精筛序列、40 种算法)发现简单架构与统计方法往往更好;ICLR 2026 的一篇论文测了五个时序基础模型族,其异常检测表现与一行代码的基线没有显著差异。【单源已核】</li></ul>
 <p>生产里的数字也印证这一点:Microsoft 的 SR-CNN 在自家 372 条业务 KPI 上 F1 约 0.5,precision 0.44–0.47,低于所有基线。【单源已核:Microsoft 自评】</p>
 <p>专门针对「坏变更」的检测器也一样。SCWarn 在作者数据上平均 F1 0.95,换到同一学术圈后续论文的故障注入任务上降到 0.45–0.73(换了任务,不算独立复现);一篇用 LLM 做坏变更检测的预印本报 F1 1.000/0.942/0.925,但实验设置一节只有提纲。【SCWarn 方向存争;LLM 预印本未验证】</p>
 <p><strong>离线检测分数不能当作上线后能接住问题的证据。</strong>【方向接近多源证实】</p>
-<h2>8. LLM 进的是定位段,不是检测段</h2>
+<h2 data-tts="7d1248d17e550d7c">8. LLM 进的是定位段,不是检测段</h2>
 <p>2025–2026 年最热的说法是「AI SRE」:让 LLM agent 调查事故、找根因。把各家材料按「三段」归位,结论很清楚:<strong>在公开的产品流程里,调查主要由告警触发,也有人工发起;LLM 不负责首次发现异常。</strong>【多源证实:AWS、Google、Datadog 官方一手】AWS 的示例工作流第一步就是「a CloudWatch alarm fires」;同一篇 AWS 博客里也有反例:一次「监控上什么都没显示」、由团队手动把问题贴给 agent 的调查。少数厂商宣称在做主动检测(例如「检查每个变更,在成为事故前修复回归」),但没有给出任何检出率、误报率或提前量。【厂商口径:只有宣称】所以「AI SRE 缩短了 TTD」目前是推断,不是测量。【未验证】</p>
 <p>在定位段,常被引用的准确率几乎都是宽松口径:</p>
 <ul><li><strong>Meta 42%</strong>:回放评估,只限 web monorepo 的历史调查,判定为根因落在 <strong>top-5</strong> 候选代码变更里;回放集规模与分母都没披露。Meta 承认 AI 可能给出错误根因,低置信答案不展示,但展示率没披露。【厂商口径】</li><li><strong>Microsoft RCACopilot 0.766</strong>:单个邮件服务一年 653 起事故上预测<strong>根因类别</strong>的 Micro-F1(Macro-F1 0.533),依赖 OCE 按告警类型手工构建的诊断 handler;24.96% 的事故属于新类别。【单源已核】</li><li><strong>Microsoft Ahmed 等(ICSE'23)</strong>:事故 owner 先从模型给出的 5 个候选里挑最好的一条再打分,正确性得分 2.28–3.16(满分 5)。【单源已核】</li><li><strong>Microsoft Triangle 的「up to 97%」/「as much as 91%」</strong>:是「事故派给哪个团队」的分派准确率和接手时间,不是根因准确率。【单源已核:摘要口径】</li></ul>
@@ -150,23 +151,23 @@ h2:nth-of-type(13){--h2:#f0b429}
 <p>这些基准都没有人类 SRE 基线。</p>
 <p>厂商的生产数字更难解读:AWS DevOps Agent 的「根因准确率 94%」来自「预览期客户和伙伴报告」,没有分母、事件集合和评判者;Azure SRE Agent 的「mitigated 35,000 多起事故」没有定义「mitigated」;Datadog 没有公开任何准确率数字,只说比自己上一版快约 2 倍。【厂商口径】Datadog 的工程博客倒是坦承了一个失败模式:agent 在 12 次工具调用中有一次已经找到真根因,却被上游服务的噪声信号带偏,输出了错误答案。</p>
 <p>一个完整的 n=1 案例来自 Grafana(2026-01):一次变更在 staging 运行正常、通过 CI、经过充分代码评审,上线后搞坏了数据库;人工排查的大部分时间花在「确认是不是我们的部署」上;AI 助手在后台并行排查,8 分钟找到根因,比 on-call 团队早 20 分钟。【厂商口径:n=1】这正是本文问题的典型路径:离线验证漏掉,上线后被发现(触发方式原文未明确),AI 加速的是定位。</p>
-<h2>9. 判决</h2>
+<h2 data-tts="e0bcecc03a160742">9. 判决</h2>
 <p>回到标题。<strong>「AI 能接住坏发布吗」要拆成三问来答。</strong></p>
 <p><strong>检测:响亮的坏发布不需要 AI 来接,安静的坏发布 AI 也还没接住。</strong> 公开大事故里,首个检测信号在影响开始后 1–25 分钟内出现(中位 3–5 分钟)。【厂商口径,按结局选样】真正的检测缺口在另外两处:一是没有被埋点的故障——Microsoft 的漏检类修复项里,超过四成是根本没有相关监控,而客户报告的那部分检测要慢约 10 倍【单源已核】;二是绕过渐进发布的配置和数据通道,以及潜伏数天到数月才被触发的代码路径【多源证实:方向】。统计和 ML 检测器在大厂内部有效,但「召回」是代理,精度在 70%–95% 之间,而且没有任何第三方用生产数据复测过。【单源已核:厂商自评】LLM 目前不在检测段。</p>
 <p><strong>定位:这是 AI 真正在做的地方,收益可能是真的,但没有被测清楚。</strong> 公开大事故里,定位从 10 分钟到约 2 小时不等,最慢的那一次是误判(把坏配置当成 DDoS)。LLM 在严格口径下能找对约 10%–50% 的根因,宽松口径下更高;生产数字只有厂商口径。</p>
 <p><strong>缓解:瓶颈在这里,而它主要不是 AI 问题。</strong> 止血中位约 1.8–3 小时,与检测相差数十倍。能在 30 分钟内止血的,靠的都是现成的全局开关和 revert;最长的几次里,有的是回滚基线已被坏配置污染(Azure Front Door 10-29),有的是坏数据已在几秒内复制到全球(Google Cloud),也有人工绕过保护之后的长尾修复(Azure Front Door 10-09)。</p>
 <p>所以,与其问「AI 能不能更快发现坏发布」,更有用的问题是三个工程问题:<strong>配置和数据有没有走渐进发布?回滚目标会不会被坏变更污染?告警的误报率低到值得人信吗?</strong> 这三件事都不需要 AI,而公开复盘里最贵的几次事故,恰恰都输在这里。</p>
 <p>这也意味着,任何一个「AI 把 MTTR 降低 X%」的宣称,都应该先回答:降的是哪一段?起点怎么定?分母是什么?按本期的锁定口径,我们没有见到一个能同时回答这三个问题的公开数字。</p>
-<h2>10. 十个可检验主张</h2>
+<h2 data-tts="d07d2591146158d9">10. 十个可检验主张</h2>
 <p>按证据强度从强到弱排列。</p>
 <ol><li><strong>在公开的 AI SRE 产品流程里,LLM 调查由告警或人工触发,不负责首次发现异常。</strong>【多源证实】检验方式:任何一家厂商公开「LLM 先于告警发现坏发布」的次数、误报率和提前量。</li><li><strong>代码与配置/数据的发布节奏不对称,大故障集中在不分阶段的那一侧。</strong>【多源证实:方向】检验方式:Cloudflare Snapstone 等「配置也走渐进发布」的改造上线一年后,同类全局事故是否减少。</li><li><strong>离线异常检测分数系统性高于生产表现。</strong>【接近多源证实】检验方式:新方法在不用 point-adjust、不用事后最优阈值的协议下,是否仍能稳定胜过随机分数和一行基线。</li><li><strong>检出不等于处置。</strong>【方向多源证实:厂商个案】检验方式:任何一家公开「自动 no-go 被人工推翻」的比例,以及其中事后证明推翻错误的比例。</li><li><strong>公开大事故里,检测是分钟级,主要缓解是小时级,相差数十倍。</strong>【方向多源证实;数字为厂商口径】检验方式:未来 12 个月有完整时间线的大厂复盘,中位 TTD 是否仍在 10 分钟以内、主要缓解是否仍在 1 小时以上。</li><li><strong>LLM 根因分析在严格口径下的准确率在一成到五成之间。</strong>【单源已核:多个基准】检验方式:OpenRCA、ITBench-AA 的官方验证榜单是否出现严格口径 70% 以上的成绩,以及是否补上人类 SRE 基线。</li><li><strong>大厂发布检测器的公开精度在 70%–95%,召回没有可信的独立数字。</strong>【单源已核:厂商自评】检验方式:第三方用生产数据复测 Gandalf、FBDetect 或同类系统。</li><li><strong>在高严重度事故和新类型服务上,靠人发现的比例不低(Teams 29% 外部报告,GenAI 38.3% 由人报告)。</strong>【单源已核:仅 Microsoft】检验方式:Microsoft 以外的公司公开按检测来源分的事故统计。</li><li><strong>客户报告的事故检测比监控发现的慢约一个数量级。</strong>【单源已核:仅一席核到原文】检验方式:其他公司按检测来源拆分的 TTD 分布。</li><li><strong>AI SRE 产品缩短了 TTD。</strong>【未验证:目前只有宣称】检验方式:任何一家公开按检测、定位、缓解三段拆开的前后对比,并给出分母与起点定义。</li></ol>
 <p><strong>值得盯什么。</strong> 四件事一旦发生,本文的判断就该改:一是<strong>有厂商公开 LLM 主动检测的检出率与误报率</strong>——那会第一次让 LLM 进入检测段变得可检验;二是<strong>OpenRCA 或 ITBench 出现官方验证、带人类基线的榜单</strong>;三是<strong>Cloudflare 等「配置也走渐进发布」的改造有了前后对比</strong>;四是<strong>Microsoft 以外出现按检测来源分的大样本事故统计</strong>。</p>
-<h2>附:方法学与本期的自我修正</h2>
+<h2 data-tts="75054c41f0999218">附:方法学与本期的自我修正</h2>
 <p>本期 15 组承重论断各派 3 个独立验证 agent,分逐字、反证、口径三个镜头,要求尽力反驳。45 票中 44 票判「需修正」;另对 3 条单源实证加做双席审计,3 条全部降级。</p>
 <p>被验证推翻或改写的原稿表述,挑最重要的列出:</p>
 <ol><li><strong>「Google 统计 68% 的事故来自推送」被改写。</strong> 68% 是前八类触发因素内部的份额,八类加总恰好 100%,不是占全部事故的比例。</li><li><strong>「Gandalf 控制面 recall 99.8%」被否决。</strong> 按论文自己给的计数,标准 recall 是 37/39 ≈ 94.9%。</li><li><strong>「Gandalf 数据面 recall 100%」被否决。</strong> 这是「没有 Sev0–2 事故由坏发布引起」的代理定义。</li><li><strong>「FBDetect 每 13 年才遇一次误报」被否决。</strong> 这是按开发者人头摊薄的指标;可核子集的 precision 约 70%。</li><li><strong>「公开复盘中 TTD≤5 分钟的 6 案里 4 案缓解超过 1 小时」被撤销。</strong> 结果随锚点变化,改为「主要缓解中位约 1.8–3 小时」。</li><li><strong>「公开复盘里客户先发现的是 0」被降级。</strong> 只在样本内成立;Teams 有 29% 由外部客户报告,Atlassian 2022 是客户工单先到。</li><li><strong>「样本里没有一案靠自动回滚,说明自动回滚不管用」被判为选样伪影。</strong> 被自动回滚接住的坏发布不会写成公开大复盘。</li><li><strong>「OpenRCA 从 11% 进步到 35%」被判死。</strong> 35% 是厂商图表里的自报数字,同一框架下的独立复测是 3.9%–12.5%。</li><li><strong>「AI SRE 产品都由告警触发」被改写。</strong> 主要由告警触发,也有人工发起。</li><li><strong>「Walmart AI 检测覆盖 63% 重大事故、MTTD 缩短 7 分钟」被否决作为发布检测证据。</strong> 63% 的分母是 4 个案例客户的 58 起事故,且没有 MTTD 基线。</li><li><strong>「Facebook 的 canary 约 10 分钟就能检出」被改写。</strong> 10 分钟是 canary 测试的运行时长,不是检测时间。</li><li><strong>「Gandalf 5 分钟检出坏发布」被改写。</strong> 5 分钟是决策流水线延迟,论文没有报告 TTD 分布。</li></ol>
 <p>这些修正有一个共同方向:<strong>几乎每一个让「检测已经很快、AI 已经很准」显得更强的数字——近乎完美的召回、几十年一遇的误报、三倍的进步、分钟级的检测——送回原文后都变窄了。</strong> 窄的地方,往往就是它的分母:只计酿成大事故的漏报、只看被确认的报告、只看响亮的故障。</p>
-<h2>附:主要来源</h2>
+<h2 data-tts="4a03ed472fdd7901">附:主要来源</h2>
 <p><strong>事故来源与度量</strong>:Google SRE 书第 1 章(https://sre.google/sre-book/introduction/)、SRE Workbook 附录 C(https://sre.google/workbook/postmortem-analysis/)、Gunawi 等 SoCC'16(https://ucare.cs.uchicago.edu/pdf/socc16-cos.pdf)、Tang 等 SOSP'15(https://sigops.org/s/conferences/sosp/2015/current/2015-Monterey/printable/008-tang.pdf)、DORA 指标说明(https://dora.dev/insights/dora-metrics-history/)、Davidovič《Incident Metrics in SRE》(https://sre.google/resources/practices-and-processes/incident-metrics-in-sre/)、Cook《How Complex Systems Fail》(https://how.complexsystems.fail/)</p>
 <p><strong>谁先发现</strong>:Ghosh 等 SoCC'22(https://www.microsoft.com/en-us/research/wp-content/uploads/2022/09/3542929.3563482.pdf)、Ganatra 等 ESEC/FSE'23(https://jonathanmace.github.io/papers/ganatra2023detection.pdf)、Yan 等(https://arxiv.org/abs/2504.08865)、Ranganathan 等(https://arxiv.org/pdf/2511.07424)</p>
 <p><strong>公开复盘</strong>:CrowdStrike RCA(https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf)、Google Cloud 2025-06-12(https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW)、Cloudflare 2025-11-18(https://blog.cloudflare.com/18-november-2025-outage/)、Cloudflare 2025-12-05(https://blog.cloudflare.com/5-december-2025-outage/)、Cloudflare 2019-07-02(https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/)、Fastly 2021-06-08(https://www.fastly.com/blog/summary-of-june-8-outage)、Azure Front Door PIR 2025-10-29(https://azure.status.microsoft/en-us/status/history/?trackingId=YKYN-BWZ)、Azure Front Door PIR 2025-10-09(https://azure.status.microsoft/en-us/status/history/?trackingId=QNBQ-5W8)</p>
@@ -176,8 +177,8 @@ h2:nth-of-type(13){--h2:#f0b429}
 <p><strong>本站相关研究</strong>:离线验证这一侧的上限见<a href="https://hub.cissychen.com/deep-research/machine-oracles-deep.html">《机器裁判全景:LLM 能把软件验证的 oracle 做大多少?》</a>,其中 Argus 的低底率机制与本文第 6 节同构;人推翻正确告警、自动化越好人越难判断,见<a href="https://hub.cissychen.com/deep-research/automation-irony-deep.html">《自动化的反讽》</a>;发布前的验证瓶颈见<a href="https://hub.cissychen.com/deep-research/ai-code-review-deep.html">《AI code review:验证瓶颈的解药,还是套娃?》</a>;故障快于人类反应时组织该如何设计,见<a href="https://hub.cissychen.com/deep-research/ai-native-deep.html">《当代码变得便宜:传统软件组织向 AI-native 转型的理论与证据》</a>。</p>
 <footer>BigCat Deep Research · 2026-10 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
 </div>
-<script src="https://hub.cissychen.com/comments.js" defer></script>
-<script src="https://hub.cissychen.com/search.js" defer></script>
-<script src="https://hub.cissychen.com/index-button.js" defer></script>
-<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+<script defer="" src="https://hub.cissychen.com/comments.js"></script>
+<script defer="" src="https://hub.cissychen.com/search.js"></script>
+<script defer="" src="https://hub.cissychen.com/index-button.js"></script>
+<script defer="" src="https://hub.cissychen.com/i18n-tts.js"></script>
 </body></html>
