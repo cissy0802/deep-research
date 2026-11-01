@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「以牙还牙」真的是最好的策略吗?一场 1980 年的电脑比赛,和它被讲歪的四十年(易读版) — BigCat Deep Research</title>
+<meta name="description" content="1980 年的电脑比赛里,最简单的「以牙还牙」两次夺冠,但只赢了不到 1%;「它最终占领了整个种群」是外推出来的;世界一会出错,赢家就是更宽容的版本;勒索策略能赢每一局却赢不了比赛;2004 年一个团队报了一半的参赛程序;AI 大模型没有稳定的「厂商性格」。易读版:原始比赛、四十年的修正,以及七件最要紧的事。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="axelrod-tournament-plain.html" class="active">中文</a><a href="axelrod-tournament-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>「以牙还牙」真的是最好的策略吗?一场 1980 年的电脑比赛,和它被讲歪的四十年(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="axelrod-tournament-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">1980 年的电脑比赛里,最简单的「以牙还牙」两次拿了总分第一,但第一届只赢了不到 1%,真正的差距在善良和不善良的程序之间。「它最终占领了整个种群」是外推,Axelrod 自己后来也改了口。世界一会出错,以牙还牙就会陷入报复循环,赢家是更宽容的版本。勒索策略能赢每一局,却赢不了整场比赛。2004 年一个团队报了一半的参赛程序,靠合谋包揽前三。四十年后站得住的是一种性格:不先背叛、被背叛就报复、留出原谅的余地。</div></div>
+<div class="chips"><span class="chip c1">第一届只赢不到 1%</span><span class="chip c2">会出错时宽容者赢</span><span class="chip c3">勒索赢一局,输一场</span><span class="chip c4">没有「厂商性格」</span></div>
+<blockquote><p>这是易读版,写给没学过博弈论的人。每个数字的出处、原文引语和证据等级,见<a href="https://hub.cissychen.com/deep-research/axelrod-tournament-deep.html">深入版</a>。所有数字截至 2026 年 10 月。</p></blockquote>
+<h2>先说清楚:这是一场什么比赛</h2>
+<p>囚徒困境是一个两人游戏:每人选「合作」或「背叛」。都合作,各得 3 分;一方背叛、一方合作,背叛的得 5 分,合作的得 0 分;都背叛,各得 1 分。只玩一次的话,不管对方怎么选,背叛都更划算,所以两个「理性」的人会一起背叛、各拿 1 分——明明一起合作能各拿 3 分。</p>
+<p>如果同两个人反复玩很多轮,事情就不一样了:今天背叛,明天可能被报复。1980 年,政治学家 Robert Axelrod 想知道,在反复玩的情况下什么策略最好,于是办了一场比赛:请各路专家把自己的策略写成电脑程序,让程序两两对打,比总分。</p>
+<p>冠军是最简单的一个程序,叫「以牙还牙」(Tit for Tat,下文简称 TFT):第一步合作,之后每一步照抄对方上一步。他又办了第二届,TFT 又赢了。Axelrod 据此写了一本很有名的书《合作的进化》,总结出四条:<strong>不先背叛、被背叛就报复、报复完就原谅、让对手看得懂你。</strong></p>
+<p>这个故事被讲了四十年,讲着讲着就变了样。我们把它送回原始论文和后来的研究,逐句核对。</p>
+<h2>第一届:冠军只赢了不到 1%</h2>
+<p>第一届有 14 个参赛程序,主办方另加了一个随机出招的程序,共 15 个。每两个程序打一局,每局 200 步,整个比赛跑了 5 遍。</p>
+<ul><li>TFT 平均每局 504.5 分,第二名 500.4 分,只差 0.82%。</li><li>真正拉开差距的是另一件事:<strong>前八名全都从不先背叛,后七名全都会先背叛。</strong>善良的程序得分在 472 到 504 之间,最好的不善良程序只有 401。所以第一届最可靠的结论不是「TFT 最好」,而是「善良的程序整体上远远好过不善良的」。</li><li>TFT 的冠军很脆弱。把「双方都背叛」的得分从 1 改成 2,冠军就换了人,TFT 掉到第四。</li><li>主办方寄给参赛者的示例程序叫「以牙还二牙」(对方连续背叛两次才报复)。如果有人交了它,它会赢——但没人交。</li></ul>
+<p>几个流行细节,有的对、有的不对:</p>
+<ul><li><strong>「TFT 只有四行代码」</strong>:对,是用 FORTRAN 写的四行,参赛程序里最短。</li><li><strong>「TFT 从来没赢过任何一局」</strong>:对,而且注定如此——它只在对方背叛之后才背叛,所以一局里得分永远不会高于对手。它拿冠军,靠的是跟谁打都「还不错」。</li><li><strong>「TFT 是一匹黑马」</strong>:不对。参赛者事先收到过一份预赛报告,知道 TFT 很强,很多人就是照着 TFT 改的。</li></ul>
+<h2>第二届:「平均 200 步」是错的</h2>
+<p>第二届有 62 个参赛程序,加上随机程序共 63 个。参赛者都看过第一届的详细分析。流行版本说「大家都想打败 TFT,结果还是输了」——原文里没有这句话,这是后人加上去的。</p>
+<p>第二届最大的变化是:每局不再固定 200 步,而是每走一步都有一个很小的概率结束,这样谁也不知道哪一步是最后一步。很多文章写「平均 200 步」,其实设计目标是「一半的对局短于 200 步」,按这个概率算,平均应该是 289 步。而 Axelrod 实际只抽了 5 个局长给所有对局共用,平均只有 151 步。</p>
+<p>2025 年,有研究者用 Axelrod 留下的原始代码把第二届重新跑了 25,000 次。TFT 仍然是第一,但只在约 63% 的情况下夺冠;再加一点「手滑」的噪声,它就不再是第一了。研究者的评价是,原比赛「对 TFT 格外有利」。</p>
+<h2>「TFT 最终占领了整个种群」:这句话是外推出来的</h2>
+<p>Axelrod 还做了一个「进化」模拟:把第二届的 63 个程序当成一个种群,每一代得分高的程序繁殖得多,得分低的繁殖得少。他和生物学家 Hamilton 1981 年在《科学》杂志上写:长期看,TFT 取代了所有其他程序。</p>
+<p>但这句话引用的那篇论文,模拟只跑到第 1000 代。那时 TFT 是份额最大、增长最快的程序,但据转述只占约 14.5%,离「占领」还差得很远。1988 年,Axelrod 自己改了口,说 TFT「迅速成为最常见的策略」,不再说「占领」。同年另一篇研究直接写明:TFT 不会接近 100%。</p>
+<p>更准确的说法是:<strong>在这场模拟里,活下来的是一批善良的、会报复的程序,TFT 是其中最多的一个。</strong></p>
+<h2>理论怎么看:合作能维持,但答案不止 TFT 一个</h2>
+<p>博弈论学者后来证明了几件事:</p>
+<ul><li>在反复玩的囚徒困境里,只要「下次还会再见」的可能性足够大,合作就能维持下去——但能维持的方式有无数种,理论本身挑不出 TFT。</li><li>严格意义上,没有任何一个固定策略能永远不被别的策略取代。</li><li>Axelrod 那四条原则,书里的原话限定在「长期反复的囚徒困境」里,不是普适的人生规律。</li></ul>
+<h2>噪声:世界一会出错,TFT 就会陷入报复循环</h2>
+<p>原比赛里,程序从不出错。Axelrod 后来承认,这是简单互惠的一个「根本缺陷」。</p>
+<p>想象两个 TFT 对打,其中一个手滑背叛了一次。对方下一步报复,它再报复回去,两边就陷入「你合作我背叛、我合作你背叛」的来回拉锯。长期下来,两个人平均每步只拿 2.25 分,而一直合作能拿 3 分。</p>
+<p>解药是多一点宽容:</p>
+<ul><li><strong>慷慨版 TFT</strong>:对方背叛后,有一定概率仍然合作。在标准得分下,这个概率最多可以到三分之一。</li><li><strong>悔过版 TFT</strong>:自己手滑之后,接受对方一次报复,不再回击。</li><li><strong>「赢了就留,输了就换」</strong>:上一步得分好就保持,不好就改。它能自动纠错,但遇到只会背叛的对手容易被占便宜。</li></ul>
+<p>1995 年 Axelrod 自己把第二届放进有 1% 噪声的环境重跑:慷慨版 TFT 的得分高过全部 63 个原程序;在进化模拟里,悔过版 TFT 最后占了 97%。</p>
+<p>人类实验也是一样:没有噪声时,人常用 TFT 一类的策略;加了噪声,人会自发地变得「慢于发怒、快于原谅」,TFT 只剩 7% 的人在用。</p>
+<h2>「勒索策略」没有推翻 Axelrod</h2>
+<p>2012 年,两位物理学家发现了一类叫「零行列式」的策略,其中「勒索」型可以保证:无论对方怎么做,自己的超额收益总是对方的几倍。媒体一度写成「自私和聪明最终胜出」。</p>
+<p>后来的研究把它放回种群里看,结论反了过来:</p>
+<ul><li>勒索者能赢每一场对局,但总分输给慷慨的策略——因为勒索者之间互相不合作。</li><li>在大一点的种群里,勒索者会被淘汰。</li><li>真人面对电脑勒索者时,会故意少合作来「惩罚」它,哪怕自己也少拿分。结果勒索者每局都赢,总收入却比慷慨策略低。</li></ul>
+<p>所以勒索策略推翻的只是「善良的人在单场对局里不吃亏」,而这本来就没人主张过。</p>
+<h2>2004 年:一半参赛者来自同一个团队</h2>
+<p>2004 年,为纪念 Axelrod 比赛二十周年,有人重办了比赛。英国南安普顿大学的团队报了 112 个程序,占全部 223 个的一半多(当年媒体写的「60 个」是错的)。</p>
+<p>这些程序开局用一段约定好的动作互相「对暗号」:认出自己人后,「仆人」程序一直合作,让「主人」程序背叛刷分;遇到外人,就一直背叛,压低对方的分数。结果南安普顿的三个「主人」包揽前三,TFT 排第 12。团队负责人后来说:「我们报得太多了,其实大约 20 个就能赢。」</p>
+<p>第二年主办方限制每家最多 20 个程序,还开了一个「每人只准报一个」的赛道。在这个赛道里,冠军是「赢了就留,输了就换」的一个变体,第二名是 TFT 的一个变体。</p>
+<p>这件事说明的是<strong>比赛规则决定谁赢</strong>,而不是「合谋比 TFT 更好」。</p>
+<h2>今天的大比赛:TFT 排在中游,但前面的多是它的亲戚</h2>
+<p>开源程序库 Axelrod-Python 里有两百多种策略,可以随时重跑大比赛:</p>
+<ul><li>在最新的常设比赛里,TFT 在 236 个策略中排第 82;加噪声后排第 61。</li><li>排在它前面的,有不少是它的改良版:会识别对手的 TFT、渐进报复的策略、记仇的 TFT。</li><li>冠军是用电脑训练出来的策略,但它和其他顶尖策略一样,从不先背叛。</li></ul>
+<p>要注意两点:这些研究都出自同一个团队、用同一个程序库,不能算多次独立验证;训练出来的策略是对着同一批对手练的,换一批对手可能就没那么强。</p>
+<h2>动物和战壕</h2>
+<ul><li><strong>吸血蝙蝠</strong>会把吸来的血吐给挨饿的同伴,而且更多给过去帮过自己的那一只。但它更像是慢慢建立的「交情」,不是逐轮记账的以牙还牙。</li><li>动物学界的主流看法是:<strong>严格意义上的互惠,在动物里证据很少。</strong>也有学者认为,这是因为大家把 TFT 当成了互惠的标准,定义太严了。</li><li><strong>一战战壕</strong>里双方士兵「你不打我、我不打你」的默契,是 Axelrod 书里最著名的现实案例。但他自己也承认,士兵的报复常常是「以二还一、以三还一」,不是一比一,这套默契最后是被上级下令的突袭打破的。</li></ul>
+<h2>大模型下场:没有稳定的「厂商性格」</h2>
+<p>近两年,研究者开始让 AI 大模型打这个游戏:</p>
+<ul><li>有研究发现,GPT-4 被对方背叛一次后就再也不合作,非常记仇;但告诉它「对方可能会失误」,它就会恢复合作。</li><li>2025 年一篇传播很广的论文说「Gemini 冷酷、OpenAI 爱合作、Claude 最宽恕」。但这篇论文还没经过同行评审,每种条件只跑了一次,出错时代码会把结果默认记成「合作」,「Claude 最宽恕」只来自一场比赛里的一个小模型。</li><li>其他团队的研究只部分支持这个说法,而且换一种提示措辞,大多数模型就会在「全背叛」和「全合作」之间切换。</li></ul>
+<p>所以「AI 公司有各自的性格」目前站不住,最多只能说「某个版本的模型、在某种提示下有某种倾向」。</p>
+<h2>最要紧的几件事</h2>
+<ol><li><strong>TFT 两届都拿了总分第一,但赢得非常窄</strong>:第一届只领先 0.82%,改一个得分数字就会掉到第四。</li><li><strong>「TFT 最终占领了整个种群」是外推出来的</strong>,Axelrod 自己后来也改了口。活下来的是一批善良的、会报复的程序。</li><li><strong>四十年后最站得住的,是一种性格,而不是那一个程序</strong>:不先背叛,被背叛就报复,并且留出原谅的余地。</li><li><strong>在会出错的世界里,赢家比 TFT 更宽容</strong>:慷慨一点,或者自己犯错时认个错。</li><li><strong>比赛规则决定赢家</strong>:允许一个团队报 112 个程序,合谋就能包揽前三。</li><li><strong>「勒索」能赢每一局,但赢不了整场比赛</strong>,在大种群里会被淘汰。</li><li><strong>大模型有「厂商性格」的说法证据不足</strong>,提示词的影响比厂商之间的差别还大。</li></ol>
+<footer>BigCat Deep Research · 2026-10 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

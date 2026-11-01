@@ -4746,6 +4746,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("axelrod-tournament-deep", "zh", "deep",
+     "以牙还牙还是赢家吗?——Axelrod 锦标赛与它四十年后的命运(深入版)",
+     "把「以牙还牙两届夺冠、最终占领种群」的故事送回一手原文:第一届只领先 0.82%,改一个收益数字就掉到第四;第二届「平均 200 步」实为五个共用局长、平均 151;「走向固定」是外推,Axelrod 1988 年已改口;噪声下赢家是更宽容的变体;零行列式勒索赢单局、输种群;2004 年一个团队报了 223 个程序中的 112 个;大模型的「厂商性格」站不住。14 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
+     "2026-10"),
+    ("axelrod-tournament-deep", "en", "deep",
+     "Is Tit for Tat Still the Winner? Axelrod's Tournaments and Their Fate Forty Years On (Deep Dive)",
+     "The story of tit for tat winning twice and taking over the population, returned to primary sources: it led the first tournament by 0.82% and drops to fourth if one payoff changes; the second tournament's \"average 200 moves\" was really five shared game lengths averaging 151; \"went to fixation\" was an extrapolation Axelrod himself walked back in 1988; under noise the winners are more forgiving variants; zero-determinant extortion wins matches but loses populations; in 2004 one team entered 112 of 223 programs; and LLM \"vendor personalities\" don't hold up. 14 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of three single-source findings.",
+     "2026-10"),
+    ("axelrod-tournament-plain", "zh", "plain",
+     "「以牙还牙」真的是最好的策略吗?一场 1980 年的电脑比赛,和它被讲歪的四十年(易读版)",
+     "1980 年的电脑比赛里,最简单的「以牙还牙」两次夺冠,但只赢了不到 1%;「它最终占领了整个种群」是外推出来的;世界一会出错,赢家就是更宽容的版本;勒索策略能赢每一局却赢不了比赛;2004 年一个团队报了一半的参赛程序;AI 大模型没有稳定的「厂商性格」。易读版:原始比赛、四十年的修正,以及七件最要紧的事。",
+     "2026-10"),
+    ("axelrod-tournament-plain", "en", "plain",
+     "Is \"Tit for Tat\" Really the Best Strategy? A 1980 Computer Tournament and Forty Years of Retelling It Wrong (Plain-Language Edition)",
+     "In a 1980 computer tournament the simplest program, tit for tat, won twice — by less than 1%. \"It eventually took over the whole population\" was an extrapolation; once the world makes mistakes, the winners are more forgiving versions; extortion strategies win every match but lose the tournament; in 2004 one team entered half the programs; and AI models have no stable \"vendor personality.\" Plain edition: the original contest, forty years of corrections, and seven things that matter most.",
+     "2026-10"),
     ("release-detection-deep", "zh", "deep",
      "AI 能接住坏发布吗?——离线验证漏掉的问题,上线后多快被发现(深入版)",
      "把一次坏发布拆成检测、定位、缓解三段,逐段送回一手原文:公开大事故里监控几分钟就看见问题,止血却要几小时;配置和数据通道绕过渐进发布,是 canary 最大的盲区;大厂检测器「近乎完美的召回」都是代理口径;LLM 用在告警之后的定位,严格口径下找对一到五成。15 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
@@ -5093,6 +5109,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("axelrod-tournament-deep", "zh"):
+        "「以牙还牙(TFT)两届夺冠、最终占领种群」要拆开核对。截至 2026 年 10 月的一手证据显示:第一届 15 条规则,TFT 504.5 分只比第二名高 0.82%,把互相背叛收益从 1 改成 2 它就掉到第四,而真正的大差距在善良规则(471.8–504.5)与不善良规则(最高 401)之间;第二届「平均 200 步」实为五个共用局长、平均 151,2025 年用原始 Fortran 重跑 25,000 次,TFT 只在约 63% 的种子下夺冠;生态模拟里 TFT 到第 1000 代份额最大、仍在增长,「走向固定」是 1981 年的外推,Axelrod 1988 年已改口。理论上合作能维持但民间定理挑不出 TFT;噪声下 TFT 陷入报复回声,赢家是慷慨版、悔过版等更宽容的变体,人类实验里加噪声后 TFT 只占 7%。零行列式勒索赢每一局、在大种群里被慷慨策略淘汰。2004 年南安普顿报了 223 个程序中的 112 个,合谋包揽标准联赛前三。今天的大锦标赛里 TFT 排在中游,前面多是它的改良版,冠军仍从不先背叛。大模型的「厂商性格」被方法学审计否决。十个可检验主张收尾。",
+    ("axelrod-tournament-deep", "en"):
+        "\"Tit for tat won twice and took over the population\" has to be checked piece by piece. As of October 2026, primary evidence shows: in the first tournament of 15 rules, TFT's 504.5 beat second place by just 0.82%, and changing the mutual-defection payoff from 1 to 2 drops it to fourth — the big gap was between nice rules (471.8–504.5) and the rest (best 401); the second tournament's \"average 200 moves\" was really five shared game lengths averaging 151, and a 2025 rerun of the original Fortran 25,000 times has TFT winning in only about 63% of seeds; in the ecological simulation TFT had the largest and still-growing share at generation 1000, while \"went to fixation\" was a 1981 extrapolation Axelrod walked back in 1988. Theory says cooperation can be sustained, but the folk theorem doesn't single out TFT; under noise TFT falls into retaliation echoes and the winners are more forgiving variants (generous, contrite), and in human experiments with noise TFT drops to 7%. Zero-determinant extortion wins every match but is eliminated by generous strategies in large populations. In 2004 Southampton entered 112 of 223 programs and colluded its way to the top three of the standard league. In today's large tournaments TFT sits mid-table, mostly behind its own refinements, and the winners still never defect first. LLM \"vendor personalities\" were vetoed by the methodology audit. Ten testable claims close the piece.",
+    ("axelrod-tournament-plain", "zh"):
+        "1980 年的电脑比赛里,最简单的「以牙还牙」两次拿了总分第一,但第一届只赢了不到 1%,真正的差距在善良和不善良的程序之间。「它最终占领了整个种群」是外推,Axelrod 自己后来也改了口。世界一会出错,以牙还牙就会陷入报复循环,赢家是更宽容的版本。勒索策略能赢每一局,却赢不了整场比赛。2004 年一个团队报了一半的参赛程序,靠合谋包揽前三。四十年后站得住的是一种性格:不先背叛、被背叛就报复、留出原谅的余地。",
+    ("axelrod-tournament-plain", "en"):
+        "In a 1980 computer tournament the simplest program, tit for tat, twice came first on total points — but in the first round by less than 1%, and the real gap was between nice and not-nice programs. \"It eventually took over the whole population\" was an extrapolation that Axelrod himself later walked back. Once the world makes mistakes, tit for tat falls into retaliation loops and the winners are more forgiving versions. Extortion strategies win every match but lose the tournament. In 2004 one team entered half the programs and colluded its way to the top three. What survives forty years is a temperament: don't defect first, retaliate when defected on, and leave room to forgive.",
     ("release-detection-deep", "zh"):
         "「AI 能接住坏发布」要拆成三段来答:检测、定位、缓解。截至 2026 年 10 月的一手证据显示:「约 70% 事故来自变更」是一句没有口径的经验断言,Google 唯一可追溯的 68% 只是前八类触发因素内部的份额;在 9 起由发布引起的公开大事故里,首个检测信号在影响开始后 1–25 分钟出现(中位 3–5 分钟),主要缓解中位却约 1.8–3 小时,相差数十倍;最贵的几次输在不分阶段的配置和数据通道、被坏变更污染的回滚基线,以及潜伏数天到数月才被触发的代码路径。检测缺口在别处:Microsoft 的数据里,高严重度和 GenAI 服务有三成上下靠人发现,客户报告的事故检测要慢约 10 倍。大厂检测器的成绩全是自评:Gandalf 控制面按自家计数 recall 约 95%(不是 99.8%),FBDetect 可核精度约 70%,「100% recall」「13 年一次误报」被否决;没有任何第三方用生产数据复测过。离线异常检测分数系统性虚高(point-adjust 让随机分数打败 SOTA)。LLM 用在告警之后的定位,宽松口径的 42%、0.766 换成严格口径只剩一到五成,厂商数字没有分母;「AI 缩短了 TTD」至今没有测量。十个可检验主张收尾,并列出验证推翻的原稿表述。",
     ("release-detection-deep", "en"):
@@ -5265,6 +5289,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("axelrod-tournament-deep", "zh"): [
+        ("c1", "42 票对抗验证 · 20 处表述被否决"), ("c2", "冠军只领先 0.82%"), ("c3", "「占领种群」是外推"), ("c4", "10 个可检验主张"),
+    ],
+    ("axelrod-tournament-deep", "en"): [
+        ("c1", "42 adversarial votes · 20 statements vetoed"), ("c2", "the winner led by 0.82%"), ("c3", "\"took over\" was an extrapolation"), ("c4", "10 testable claims"),
+    ],
+    ("axelrod-tournament-plain", "zh"): [
+        ("c1", "第一届只赢不到 1%"), ("c2", "会出错时宽容者赢"), ("c3", "勒索赢一局,输一场"), ("c4", "没有「厂商性格」"),
+    ],
+    ("axelrod-tournament-plain", "en"): [
+        ("c1", "first round won by under 1%"), ("c2", "with mistakes, the forgiving win"), ("c3", "extortion wins matches, loses tournaments"), ("c4", "no \"vendor personality\""),
+    ],
     ("release-detection-deep", "zh"): [
         ("c1", "45 票对抗验证 · 4 个数字被否决"), ("c2", "检测几分钟,止血几小时"), ("c3", "LLM 在告警之后,不在之前"), ("c4", "10 个可检验主张"),
     ],
@@ -5847,6 +5883,15 @@ INDEX_ENTRIES = [
      "45 adversarial votes · 10 testable claims",
      [("t1", "可靠性工程", "Reliability engineering"), ("t2", "AIOps", "AIOps"), ("t3", "事故复盘", "Incident postmortems"),
       ("t4", "AI 智能体", "AI agents"), ("t5", "测量方法", "Measurement")]),
+    ("axelrod-tournament", "2026-10",
+     "以牙还牙还是赢家吗?",
+     "Is Tit for Tat Still the Winner?",
+     "最简单的「以牙还牙」两次夺冠,第一届却只领先 0.82%,「最终占领种群」是外推。把这个被讲了四十年的故事送回一手原文,覆盖两届锦标赛的真实口径、生态模拟、稳定性理论、噪声与更宽容的变体、零行列式勒索、2004 年的合谋参赛、今天的大规模开源锦标赛、人类与动物证据,以及大模型下场打囚徒困境。",
+     "The simplest program, tit for tat, won twice — yet led the first round by only 0.82%, and \"it took over the population\" was an extrapolation. A forty-year-old story returned to primary sources, covering the real setup of both tournaments, the ecological simulation, stability theory, noise and more forgiving variants, zero-determinant extortion, the 2004 colluding entries, today's large open-source tournaments, human and animal evidence, and LLMs playing the prisoner's dilemma.",
+     "42 票对抗验证 · 10 个可检验主张",
+     "42 adversarial votes · 10 testable claims",
+     [("t1", "博弈论", "Game theory"), ("t2", "合作的演化", "Evolution of cooperation"), ("t3", "科学史", "History of science"),
+      ("t4", "大语言模型", "Large language models"), ("t5", "测量方法", "Measurement")]),
 ]
 
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is "Tit for Tat" Really the Best Strategy? A 1980 Computer Tournament and Forty Years of Retelling It Wrong (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="In a 1980 computer tournament the simplest program, tit for tat, won twice — by less than 1%. "It eventually took over the whole population" was an extrapolation; once the world makes mistakes, the winners are more forgiving versions; extortion strategies win every match but lose the tournament; in 2004 one team entered half the programs; and AI models have no stable "vendor personality." Plain edition: the original contest, forty years of corrections, and seven things that matter most.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+h2:nth-of-type(9){--h2:#4cc9f0}
+h2:nth-of-type(10){--h2:#7b61ff}
+h2:nth-of-type(11){--h2:#ff6ec4}
+h2:nth-of-type(12){--h2:#5eead4}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="axelrod-tournament-plain.html">中文</a><a href="axelrod-tournament-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>Is "Tit for Tat" Really the Best Strategy? A 1980 Computer Tournament and Forty Years of Retelling It Wrong (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="axelrod-tournament-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">In a 1980 computer tournament the simplest program, tit for tat, twice came first on total points — but in the first round by less than 1%, and the real gap was between nice and not-nice programs. "It eventually took over the whole population" was an extrapolation that Axelrod himself later walked back. Once the world makes mistakes, tit for tat falls into retaliation loops and the winners are more forgiving versions. Extortion strategies win every match but lose the tournament. In 2004 one team entered half the programs and colluded its way to the top three. What survives forty years is a temperament: don't defect first, retaliate when defected on, and leave room to forgive.</div></div>
+<div class="chips"><span class="chip c1">first round won by under 1%</span><span class="chip c2">with mistakes, the forgiving win</span><span class="chip c3">extortion wins matches, loses tournaments</span><span class="chip c4">no "vendor personality"</span></div>
+<blockquote><p>This is the plain-language edition, written for people who haven't studied game theory. For the source of every number, the original quotes and the strength of the evidence, see the <a href="https://hub.cissychen.com/deep-research/axelrod-tournament-deep.en.html">deep dive</a>. All figures are as of October 2026.</p></blockquote>
+<h2>First, what kind of tournament was this?</h2>
+<p>The Prisoner's Dilemma is a two-player game: each player picks "cooperate" or "defect." If both cooperate, each gets 3 points. If one defects and the other cooperates, the defector gets 5 and the cooperator gets 0. If both defect, each gets 1. If you only play once, defecting pays better no matter what the other player does, so two "rational" players will both defect and take 1 point each—even though cooperating would have given them 3 each.</p>
+<p>If the same two people play many rounds, things change: defect today, and you might get punished tomorrow. In 1980, the political scientist Robert Axelrod wanted to know which strategy works best when the game is played over and over, so he ran a tournament: he invited experts from many fields to write their strategies as computer programs, had the programs play each other in pairs, and compared total scores.</p>
+<p>The winner was the simplest program of all, called "Tit for Tat" (TFT for short below): cooperate on the first move, then copy whatever the other player did on the previous move. He ran a second tournament, and TFT won again. From this Axelrod wrote a famous book, <em>The Evolution of Cooperation</em>, which boiled the lesson down to four rules: <strong>don't be the first to defect, retaliate when defected against, forgive once you've retaliated, and be easy for the other side to read.</strong></p>
+<p>This story has been told for forty years, and it has drifted in the telling. We took it back to the original papers and the later research and checked it sentence by sentence.</p>
+<h2>The first tournament: the winner won by less than 1%</h2>
+<p>The first tournament had 14 entries, plus one program the organizer added that moved at random—15 in all. Every pair of programs played one game of 200 moves, and the whole tournament was run 5 times.</p>
+<ul><li>TFT averaged 504.5 points per game; second place had 500.4—a gap of only 0.82%.</li><li>What really separated the field was something else: <strong>the top eight programs never defected first, and the bottom seven all did.</strong> The "nice" programs scored between 472 and 504; the best not-nice program got only 401. So the most reliable conclusion from the first tournament isn't "TFT is best," but "nice programs as a group did far better than not-nice ones."</li><li>TFT's win was fragile. Change the score for "both defect" from 1 to 2, and the winner changes—TFT drops to fourth.</li><li>The sample program the organizer mailed to entrants was "Tit for Two Tats" (retaliate only after the other side defects twice in a row). Had anyone submitted it, it would have won—but nobody did.</li></ul>
+<p>Some popular details, some right and some wrong:</p>
+<ul><li><strong>"TFT was only four lines of code"</strong>: True—four lines of FORTRAN, the shortest of all the entries.</li><li><strong>"TFT never won a single game"</strong>: True, and it couldn't have—it only defects after the other side defects, so within any one game it can never outscore its opponent. It took first place by doing "pretty well" against everyone.</li><li><strong>"TFT was a dark horse"</strong>: False. Entrants had received a preliminary-round report in advance and knew TFT was strong; many of them built their programs as tweaks of TFT.</li></ul>
+<h2>The second tournament: "200 moves on average" is wrong</h2>
+<p>The second tournament had 62 entries, plus the random program—63 in all. Every entrant had read the detailed analysis of the first tournament. The popular version says "everyone tried to beat TFT, and still lost"—that line isn't in the original; it was added later.</p>
+<p>The biggest change in the second tournament: games no longer had a fixed 200 moves. Instead, after each move there was a small chance the game would end, so no one knew which move was the last. Many articles say "200 moves on average," but the design goal was actually "half of the games are shorter than 200 moves." At that probability, the average should be 289 moves. And in practice Axelrod drew only 5 game lengths and used them for every pairing, which averaged just 151 moves.</p>
+<p>In 2025, researchers used Axelrod's original code to rerun the second tournament 25,000 times. TFT still came first overall, but it won only about 63% of the time; add a little "slip of the hand" noise, and it was no longer first. The researchers' verdict was that the original tournament was "particularly favorable to TFT."</p>
+<h2>"TFT ended up taking over the whole population": an extrapolation</h2>
+<p>Axelrod also ran an "evolution" simulation: he treated the 63 programs from the second tournament as a population, and in each generation the high-scoring programs reproduced more and the low-scoring ones less. In 1981, he and the biologist Hamilton wrote in the journal <em>Science</em>: in the long run, TFT displaced all the other programs.</p>
+<p>But in the paper that sentence cites, the simulation only ran to generation 1,000. At that point TFT was the largest and fastest-growing program, but by secondhand accounts it made up only about 14.5%—a long way from "taking over." In 1988 Axelrod himself changed his wording, saying TFT "quickly became the most common strategy," and no longer said "took over." Another study that same year stated outright: TFT does not approach 100%.</p>
+<p>A more accurate way to put it: <strong>in this simulation, what survived was a group of nice programs that retaliate, and TFT was the most numerous among them.</strong></p>
+<h2>What theory says: cooperation can last, but TFT isn't the only answer</h2>
+<p>Game theorists later proved several things:</p>
+<ul><li>In the repeated Prisoner's Dilemma, as long as the chance of "meeting again next time" is high enough, cooperation can be sustained—but there are countless ways to sustain it, and the theory itself can't single out TFT.</li><li>Strictly speaking, no fixed strategy can avoid ever being displaced by some other strategy.</li><li>Axelrod's four rules are, in the book's own words, limited to the "long-term repeated Prisoner's Dilemma"; they aren't universal laws of life.</li></ul>
+<h2>Noise: once the world makes mistakes, TFT gets stuck in revenge loops</h2>
+<p>In the original tournament, programs never made mistakes. Axelrod later admitted this was a "fundamental flaw" of simple reciprocity.</p>
+<p>Picture two TFTs playing each other, and one of them slips and defects once. The other retaliates on the next move, the first retaliates back, and the two get stuck in a back-and-forth of "you cooperate while I defect, I cooperate while you defect." Over the long run, each gets only 2.25 points per move on average, versus 3 for cooperating all the way.</p>
+<p>The cure is a bit more forgiveness:</p>
+<ul><li><strong>Generous TFT</strong>: after the other side defects, still cooperate with some probability. Under the standard scores, that probability can go as high as one third.</li><li><strong>Contrite TFT</strong>: after slipping up yourself, accept one round of retaliation without hitting back.</li><li><strong>"Win-stay, lose-shift"</strong>: if the last move scored well, keep doing it; if not, switch. It corrects mistakes automatically, but it's easily exploited by an opponent who only ever defects.</li></ul>
+<p>In 1995, Axelrod himself reran the second tournament with 1% noise: Generous TFT outscored all 63 original programs, and in the evolution simulation, Contrite TFT ended up at 97%.</p>
+<p>Experiments with people show the same thing: without noise, people often use TFT-like strategies; add noise, and people spontaneously become "slower to anger, quicker to forgive," with only 7% still using TFT.</p>
+<h2>"Extortion strategies" didn't overturn Axelrod</h2>
+<p>In 2012, two physicists discovered a class of strategies called "zero-determinant" strategies. The "extortion" type can guarantee that, whatever the other side does, its own surplus is always several times the other side's. For a while the media wrote this up as "selfishness and cleverness win in the end."</p>
+<p>Later research put these strategies back into a population, and the conclusion flipped:</p>
+<ul><li>Extortioners win every individual game, but lose on total score to generous strategies—because extortioners don't cooperate with each other.</li><li>In larger populations, extortioners get weeded out.</li><li>When real people face a computer extortioner, they deliberately cooperate less to "punish" it, even at a cost to themselves. The result: the extortioner wins every game, but its total earnings are lower than a generous strategy's.</li></ul>
+<p>So what extortion strategies overturned was only "nice players don't lose out in a single game"—and no one had ever claimed that in the first place.</p>
+<h2>2004: half the entries came from one team</h2>
+<p>In 2004, to mark the 20th anniversary of Axelrod's tournament, someone ran it again. A team from the University of Southampton in the UK entered 112 programs—more than half of the 223 total (the "60" reported by the media at the time is wrong).</p>
+<p>These programs opened with a pre-agreed sequence of moves to "exchange a secret handshake": once they recognized one of their own, the "servant" programs cooperated all the way so the "master" programs could defect and rack up points; when they met an outsider, they defected all the way to push the outsider's score down. As a result, Southampton's three "masters" took the top three places, and TFT came 12th. The team's leader later said: "We entered too many; about 20 would actually have been enough to win."</p>
+<p>The next year, the organizers capped each group at 20 programs and also opened a "one entry per person" track. In that track, the winner was a variant of "win-stay, lose-shift," and second place was a variant of TFT.</p>
+<p>What this shows is that <strong>the rules of the tournament decide who wins</strong>, not that "collusion beats TFT."</p>
+<h2>Today's big tournaments: TFT is mid-table, but many ahead of it are its relatives</h2>
+<p>The open-source library Axelrod-Python contains more than two hundred strategies and can rerun big tournaments at any time:</p>
+<ul><li>In the latest standing tournament, TFT ranks 82nd out of 236 strategies; with noise added, it ranks 61st.</li><li>Many of those ranked above it are improved versions of it: a TFT that identifies its opponent, a strategy that retaliates gradually, a TFT that holds grudges.</li><li>The winner is a computer-trained strategy, but like the other top strategies, it never defects first.</li></ul>
+<p>Two caveats: these studies all come from the same team using the same library, so they don't count as multiple independent confirmations; and the trained strategies were trained against the same set of opponents, so against a different set they might not be as strong.</p>
+<h2>Animals and trenches</h2>
+<ul><li><strong>Vampire bats</strong> regurgitate blood they've fed on to starving companions, and they give more to those that helped them in the past. But this looks more like a slowly built "friendship" than tit-for-tat bookkeeping round by round.</li><li>The mainstream view among animal-behavior researchers is: <strong>evidence for reciprocity in the strict sense is scarce in animals.</strong> Some scholars argue this is because everyone has treated TFT as the standard for reciprocity, making the definition too strict.</li><li>In the <strong>trenches of World War I</strong>, the "you don't shoot me, I don't shoot you" understanding between soldiers on both sides is the most famous real-world case in Axelrod's book. But he himself admitted that the soldiers' retaliation was often "two for one, three for one," not one for one, and that this understanding was ultimately broken by raids ordered from above.</li></ul>
+<h2>Large language models join the game: no stable "company personality"</h2>
+<p>In the past two years, researchers have started having AI large language models play this game:</p>
+<ul><li>One study found that once GPT-4 is defected against, it never cooperates again—very unforgiving. But tell it "the other side might make mistakes," and it goes back to cooperating.</li><li>A widely shared 2025 paper claimed "Gemini is ruthless, OpenAI loves to cooperate, Claude is the most forgiving." But the paper hasn't been peer-reviewed yet, each condition was run only once, when an error occurred the code recorded the result as "cooperate" by default, and "Claude is the most forgiving" came from a single small model in a single tournament.</li><li>Other teams' research only partly supports this claim, and with a different wording of the prompt, most models flip between "always defect" and "always cooperate."</li></ul>
+<p>So "each AI company has its own personality" doesn't hold up for now. The most you can say is "a certain version of a model, under a certain prompt, has a certain tendency."</p>
+<h2>The Things That Matter Most</h2>
+<ol><li><strong>TFT took first place in total score in both tournaments, but it won by a very narrow margin</strong>: in the first it led by only 0.82%, and changing one scoring number drops it to fourth.</li><li><strong>"TFT ended up taking over the whole population" is an extrapolation</strong>, and Axelrod himself later changed his wording. What survived was a group of nice programs that retaliate.</li><li><strong>What holds up best forty years on is a character, not that one program</strong>: don't defect first, retaliate when defected against, and leave room for forgiveness.</li><li><strong>In a world that makes mistakes, the winners are more forgiving than TFT</strong>: be a little generous, or own up when you slip.</li><li><strong>The rules decide the winner</strong>: let one team enter 112 programs, and collusion can sweep the top three.</li><li><strong>"Extortion" wins every game but can't win the tournament</strong>, and it gets weeded out in large populations.</li><li><strong>The evidence for "company personalities" in large language models is thin</strong>: the wording of the prompt matters more than the differences between companies.</li></ol>
+<footer>BigCat Deep Research · 2026-10 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>
