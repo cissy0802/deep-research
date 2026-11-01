@@ -18,11 +18,12 @@ Axelrod 1980 两届锦标赛到底发生了什么(口径)?TFT 夺冠与「四原
 ## 运行日志
 - 2026-10-31: 登记 #23(c1f55f0);STATE 落盘;Round 1 派 5 个调研子代理。
 
-## 下一步
+## 下一步(已完成)
 等 5 条线返回 → 合并 01-raw-claims.md → 抽组。
 - 2026-10-31: Round 1 全部完成:ORIGIN 30 / NOISE 30 / ZD 28 / MODERN 30 / EVIDENCE 32 = 150 论断。要点:第一届 14+RANDOM、TFT 504.5 vs 500.4;「四行」= FORTRAN 四行;参赛者事先收到预赛报告(TFT 非黑马);生态模拟 Science「fixation」vs 1980b 第 1000 代 14.5% 冲突;南安普顿 112 个(Wired 60 为媒体口径);Wu-Axelrod 1995 带噪重跑 GTFT/CTFT 胜;Knight 2025 复现第二届只 63.3% 种子夺冠;Payne 2025 LLM 锦标赛为未评审 v1。
 - 2026-10-31: 01-raw-claims.md 合并;抽 14 组(groups/G01–G14,groups.py 生成)。Round 2:2 批(B1 G01–G07 / B2 G08–G14)× 3 镜头(逐字 V / 反证 R / 口径 K)= 6 个验证子代理,判决落 verdicts/<G>-<镜头>.md。
 - 2026-10-31: Round 2 派出 6 个验证子代理(B1/B2 × V/R/K)。Round 3 并行派出 3 条单源承重实证 × 反证席/方法席 = 6 子代理:R1 生态模拟「fixation」vs 14.5% 与原锦标赛方法学;R2 Payne & Alloui-Cros LLM 策略指纹(未评审单篇);R3 现代大规模锦标赛(同一团队同一库)+ 南安普顿合谋数字。产出 r3/R*-{X,M}.md。
 
-## 下一步
+## 下一步(已完成)
 等 12 个子代理 → 汇总 02-verified-claims.md / 03 / 04 → 锁口径 → 成文 zh deep → zh plain → en。
+- 2026-10-31: Round 2/3 全部返回(42 票:19 HOLDS / 23 修正 / 0 组级推翻;6 份审计全部降级,20 处否决)。成文 zh deep/plain,en 由子代理翻译后人工回改 4 处引语为逐字原文、3 个站内链接标题;build.py 注册四处,构建通过(其余页面 build 后还原以保留已烘焙 TTS)。TOPICS 归档。待 BigCat 确认后 push。
