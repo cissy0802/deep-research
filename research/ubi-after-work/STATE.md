@@ -30,5 +30,7 @@
 
 - 2026-11-03: Round 2 全部返回:66 票 = 4 HOLDS / 62 修正 / 0 组级推翻;子论断推翻 2 处(I22 德国「意义延迟」、R09 Andersen-Ross 引语),W16「80%」禁写。Round 3 全部返回:10 份审计,5 条全部降级或拆分,34 项否决;3 处方向升级多源。限制:WebSearch 共享配额在 Round 2 后段至 Round 3 耗尽,部分反证检索改为 DOI 直取与引用追踪(已在 04 披露)。02/03/04 落盘。非降级运行(3 票制与双席均由独立子代理完成)。
 
-## 下一步
-成文 zh deep → zh plain → en(子代理翻译后回核引语)→ build.py 注册 → TOPICS 归档 → 钩子。
+- 2026-11-03: 成文 zh deep/plain;en 由 2 个子代理忠实翻译,回核 33 段英文引语全部原样保留,plain en 改 3 处措辞(去掉 "only"/"changed his tune"/"his veto");标题回改。build.py 注册四处,python3 build.py 构建通过(其余页面 build 后还原以保留已烘焙 TTS)。TOPICS 归档 #24、候选池 +2;钩子 → psychology Day 62(单独 commit)。待用户确认后 push(deep-research 与 psychology 两仓均未 push)。
+
+## 下一步(已完成)
+待用户确认 → push。#20 发布后,回来把文中 #20 的文字提及改成链接(四版)。

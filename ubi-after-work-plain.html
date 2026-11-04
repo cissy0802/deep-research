@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如果 AI 之后政府真的给每个人发钱:人会躺平吗,会更快乐吗,还有没有说话的分量?(易读版) — BigCat Deep Research</title>
+<meta name="description" content="发钱不会让人躺平,但在富裕国家会让人每周少干一两个小时;怎么发比发不发更要紧;钱让人对生活更满意,却不太让人每天更开心;失业的伤害有一块钱补不上,但退休的人没那么痛苦;「国家不需要你,你就没分量」有道理,但证据只支持窄的版本。易读版:今天的试验测到了什么,离 AI 之后的未来还差多远,以及七件最要紧的事。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="ubi-after-work-plain.html" class="active">中文</a><a href="ubi-after-work-plain.en.html">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.html">← Deep Research</a>
+<div class="kicker">深度研究 · 易读版</div>
+<h1>如果 AI 之后政府真的给每个人发钱:人会躺平吗,会更快乐吗,还有没有说话的分量?(易读版)</h1>
+<div class="version-note">本文是<strong>易读版</strong> · <a href="ubi-after-work-deep.html">查看深入版(完整论证与出处)→</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">今天世界上所有的发钱试验,都不是「AI 之后给所有人、永远发」的那种。在这个前提下:发钱不会让人躺平,穷国几乎不影响干活,富国每周少干一两个小时;「挣得越多扣得越多」的设计最容易让人不去上班。钱让人对生活更满意,却不太让人每天更开心,对精神健康的改善一两年就退了。失业的伤害有一块是钱补不上的,但退休的人没有失业者那么痛苦。「国家不需要你,你就没分量」是合理的担忧,证据只支持窄的版本。听科技领袖谈发钱,先问钱从哪来、谁受益。</div></div>
+<div class="chips"><span class="chip c1">不会躺平,但会少干一点</span><span class="chip c2">怎么发比发不发要紧</span><span class="chip c3">更满意,不更开心</span><span class="chip c4">钱从哪来,谁受益</span></div>
+<blockquote><p>这是易读版,写给没学过经济学和心理学的人。每个数字的出处、原文引语和证据等级,见<a href="https://hub.cissychen.com/deep-research/ubi-after-work-deep.html">深入版</a>。所有数字截至 2026 年 11 月。</p></blockquote>
+<h2>先说清楚:这篇在问什么</h2>
+<p>很多科技公司的老板说:AI 会取代大量工作,到时候政府应该给每个人发钱,这叫「全民基本收入」(UBI)。反对的人说:发钱会养懒汉,而且人不工作会失去意义。</p>
+<p>本站下一期(#20,待发布)问的是「经济会不会恢复、钱会不会不再重要」。这一篇假设最坏的情况真的来了,政府真的开始发钱,然后问三件事:</p>
+<ol><li>发了钱,人会少干多少活?健康和心情会变好吗?</li><li>工作除了挣钱,还给了我们什么?钱能不能补上?</li><li>如果国家不再需要普通人的劳动和税,普通人还有没有说话的分量?</li></ol>
+<p>先交代一个前提:<strong>今天世界上所有的发钱试验,都不是「AI 之后给所有人、永远发」的那种。</strong>它们要么只发给一部分穷人,要么只发两三年,要么金额不够过日子,要么发生在大家还都有工作可找的时候。所以下面每个结论,都只是「离那个未来最近的线索」。</p>
+<h2>一、发钱之后,人会躺平吗</h2>
+<p><strong>不会躺平,但在富裕国家会少干一点。</strong></p>
+<ul><li><strong>在穷国</strong>:肯尼亚的一个大试验,给整村人每月发约 22.5 美元、发 12 年。两年后,家里干活的总时间没变,只是从给别人打零工,变成了自己做小买卖。其他几个国家的研究也差不多:钱几乎不让人少干活。</li><li><strong>在美国</strong>:最大的试验叫 ORUS,给 1,000 个低收入的年轻人每月 1,000 美元、发 3 年(对照组每月 50 美元)。结果是每周少工作约 1 个多小时;有工作的人的比例下降了 2 到 7 个百分点,具体多少取决于用问卷数据还是政府的就业记录。德国类似的试验也测到每周少干一个多小时(样本小,统计上不显著),有工作的人的比例几乎没变。</li><li><strong>设计很要紧</strong>:西班牙巴塞罗那的试验是「穷才发,挣得越多扣得越多」,两年后有工作的人比对照组少了约 10 个百分点。原因不难理解:多挣一块钱就少领一块钱,上班就不划算了。芬兰的试验则是拿基本收入<strong>换掉</strong>原来的失业救济,失业者到手的钱没变,结果就业几乎没变化。</li></ul>
+<p>那省下来的时间去哪了?美国试验的时间日记显示,主要是普通的休闲,不是去学习、创业或者照顾家人——但也没有去「彻底躺平」。</p>
+<p><strong>所以,「发钱养懒汉」和「发钱完全不影响工作」都太简单了。</strong></p>
+<h2>二、发了钱,人会更快乐吗</h2>
+<p>先要分清楚「快乐」这个词其实指好几样东西:</p>
+<ul><li><strong>你对自己的生活打几分</strong>(满意度);</li><li><strong>你今天心情好不好</strong>(情绪);</li><li><strong>你觉得活得有没有意义</strong>;</li><li><strong>精神健康量表的分数</strong>(焦虑、抑郁)。</li></ul>
+<p>钱对这几样的影响完全不同。</p>
+<ul><li><strong>在美国,改善来得快、走得也快。</strong>ORUS 里,拿钱的人压力变小、不用为下一顿饭发愁,但这种改善很快就消退了,到第二年,精神健康已经看不出差别。另一个给低收入新手妈妈发钱的试验,4 年后母亲的抑郁、焦虑和孩子的发育都没有改善。</li><li><strong>一大笔永久的钱(比如中彩票)</strong>:瑞典的研究跟踪了几千名中奖者,发现他们给自己生活打的分会更高,而且十多年都不回落——主要是因为对自己的财务状况更满意了。但他们每天的心情、精神健康量表的分数,和没中奖的人没有可测的差别。</li><li><strong>德国试验是个例外</strong>:它报告心理健康、生活满意度、人生意义都明显改善。但这些指标不是试验事先登记要测的;换一种更保守的算法,「人生意义」的提升就不显著了;而且参加的人 91% 本来就有工作。所以它不能用来说明「不工作的人被供养以后过得好」。</li><li><strong>在穷国,钱确实让人更开心一点</strong>,但一旦停发,效果就慢慢退掉了。</li></ul>
+<p>一句话:<strong>钱能让你对生活更满意,但不太能让你每天更开心,也没有证据说它能让你觉得活得更有意义。</strong></p>
+<h2>三、工作除了钱,还给了我们什么</h2>
+<p>1930 年,奥地利一个叫马林塔尔的村子,纺织厂倒闭,几乎全村人同时失业。研究者让失业者逐小时记下自己在干什么,有个男人在上午 10 点到 11 点那一栏写:「……等着等着就到中午了。」整个村子变得疲惫、认命、对什么都不关心。</p>
+<p>参与研究的心理学家 Jahoda 后来总结:工作除了给钱,还给了我们五样东西——<strong>规律的作息、家人以外的人际关系、和别人一起做成一件事、一个社会身份、每天必须去做的事。</strong>失业的人失去了这五样。</p>
+<p>今天的数据怎么说?</p>
+<ul><li><strong>失业确实伤人,而且伤得久。</strong>失业的人给生活打的分会明显下降,而且几乎不会自己恢复,就算后来找到工作,也回不到原来的水平。</li><li><strong>失业救济补不平这个缺口。</strong>救济越慷慨,失业者越好受一点,但没有哪个国家的救济能让失业者和有工作的人一样满意。</li><li><strong>但关键的转折是:「不工作」不等于「失业」。</strong>退休的人同样没有工作、同样缺那五样东西,却没有失业者那么痛苦。德国有研究发现,长期失业的男性一到年龄正式退休,对生活的满意度就回升了一些——他们每天的生活没太大变化,变的是身份:从「该工作却没工作的人」,变成了「退休的人」。不过同时,他们的收入也变得更稳定了,也不用再被要求找工作,所以没法确定到底是哪一样起了作用。</li></ul>
+<p>这说明失业的伤害里,有一块来自「别人都在工作,只有我没有」的那种身份上的难堪。如果将来大家都不工作了,这一块会不会消失?<strong>没人知道,因为人类历史上还没发生过。</strong></p>
+<h2>四、国家不再需要你,你还有没有说话的分量</h2>
+<p>有一种担忧叫「资源诅咒」:靠卖石油发财的国家,不需要向老百姓收税,也就不太在乎老百姓的意见。有人把它推广到 AI 上,叫「智能诅咒」(intelligence curse):如果 AI 能干所有的活,国家和大公司就没有理由再在普通人身上投资了。</p>
+<p>证据怎么说?</p>
+<ul><li><strong>石油诅咒是真的,但比流行说法窄得多。</strong>几十年的研究吵下来,能站住的是:石油在 1970 年代被各国收归国有之后,让<strong>本来就不民主</strong>的国家更难变民主。对已经民主的国家,看不到这个效应。挪威有石油,也很民主。</li><li><strong>历史上普通人最硬的筹码,是国家需要你的身体。</strong>研究发现,富人多交税(累进税)主要是在大规模战争动员之后才出现的——国家要征你去打仗,就得给你一些东西作交换。光有选举权,效果反而不大。这正是 AI 让人担心的地方:如果打仗、生产都不再需要普通人,这个筹码就没了。<strong>但这是推理,还没有哪个国家真的经历过。</strong></li><li><strong>发钱本身不会让人对政治冷漠。</strong>美国阿拉斯加州每年把石油收入分给每个居民一笔钱(约 1,000–2,000 美元),分红多的年份投票率还略高一些。美国 ORUS 试验里,拿了钱的人政治参与没有任何变化,反而更觉得工作重要。</li><li><strong>但「分红是权利」这一层很薄。</strong>阿拉斯加的分红并没有写进州宪法,2016 年被州长否决砍到约一半,州最高法院后来判决:分红每年都要和其他开支一样去争预算。领分红的人投票更积极,也没能保住原来的分红公式。</li></ul>
+<p>「智能诅咒」目前是一个有道理的论证,不是被证实的结论。</p>
+<h2>五、谁在说话</h2>
+<p>主张发钱的科技领袖,自己也是利益相关方,他们的话要放在这个背景下听:</p>
+<ul><li><strong>Sam Altman(OpenAI 老板)</strong>资助了美国最大的发钱试验。他 2021 年提议对大公司和土地征税、给每个成年人分钱,说十年后每人每年能分约 13,500 美元,但自己也说这只是「抛砖引玉」;后来改口说可能「每人分一份 AI 算力」,而算力正是他公司卖的东西。</li><li><strong>Elon Musk(特斯拉、xAI 老板)</strong>说过未来会是「全民高收入」,钱由政府发支票,但没说钱从哪来、怎么发。</li><li><strong>Dario Amodei(Anthropic 老板)</strong>主张对 AI 公司征税,但没给具体税率,并说这些办法只是「争取时间」。</li><li>三个人都没有做出有金额、有时间表的承诺。</li></ul>
+<p>反对的一方:美国好几个州立法禁止地方政府搞「无条件」发钱,但要求工作或培训才发的项目不禁——<strong>大家吵的往往不是要不要发钱,而是要不要附条件。</strong>2020 年美国民调里,54% 的人反对给所有成年人每月发 1,000 美元,45% 支持。</p>
+<h2>最要紧的几件事</h2>
+<ol><li><strong>今天的发钱试验都不是「AI 之后给所有人、永远发」</strong>,每个结论都隔着一道外推的鸿沟。</li><li><strong>发钱不会让人躺平</strong>:穷国几乎不影响干活,富国每周少干一两个小时。</li><li><strong>怎么发比发不发更要紧</strong>:「挣得越多扣得越多」的设计,最容易让人不去上班。</li><li><strong>钱让人对生活更满意,但不太让人每天更开心</strong>,对精神健康的改善一两年就退了。</li><li><strong>失业的伤害有一部分是钱补不上的</strong>,但退休者的例子说明,不工作本身没那么可怕,可怕的是「别人都工作、只有我没有」。</li><li><strong>「国家不需要你,你就没分量」是一个合理的担忧</strong>,但证据只支持窄的版本:它主要发生在本来就不民主的地方。</li><li><strong>听科技领袖谈发钱时,先问一句:钱从哪来,谁受益?</strong></li></ol>
+<footer>BigCat Deep Research · 2026-11 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

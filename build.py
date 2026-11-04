@@ -4746,6 +4746,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("ubi-after-work-deep", "zh", "deep",
+     "被供养之后:UBI 的实测效果、劳动议价权的消失,与「不工作的人靠什么活得好」(深入版)",
+     "假设 AI 真的让政府开始大规模发钱,把发钱之后的事送回一手证据:低收入国家里现金几乎不减少劳动,富裕国家里工时每周少一两个小时、就业率效应在 0 到 −7 个百分点之间;钱提高生活满意度,却不太改变日常情绪和精神健康;失业的伤害有一块钱补不上,但退休者的数据说明它不全是「不工作」本身;石油诅咒收窄到「1970 年代后、阻碍威权国家民主化」,发钱没有让人去政治化,intelligence curse 仍是论证。22 组承重论断 × 3 票对抗验证,另含 5 条单源实证的双席审计。",
+     "2026-11"),
+    ("ubi-after-work-deep", "en", "deep",
+     "When People Are Provided For: What UBI Trials Measured, Labor's Lost Bargaining Power, and How People Who Don't Work Can Live Well (Deep Dive)",
+     "Suppose AI really does push governments into paying people at scale. What happens after the money arrives, returned to primary evidence: in low-income countries cash barely reduces work; in rich ones hours fall by one to two a week and the employment effect sits between 0 and −7 percentage points; money raises life satisfaction but barely moves daily mood or mental health; part of the harm of unemployment is beyond money's reach, yet retirees show it isn't simply \"not working\"; the oil curse narrows to \"after the 1970s, blocking democratization in autocracies,\" cash did not depoliticize anyone, and the intelligence curse remains an argument. 22 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of five single-source findings.",
+     "2026-11"),
+    ("ubi-after-work-plain", "zh", "plain",
+     "如果 AI 之后政府真的给每个人发钱:人会躺平吗,会更快乐吗,还有没有说话的分量?(易读版)",
+     "发钱不会让人躺平,但在富裕国家会让人每周少干一两个小时;怎么发比发不发更要紧;钱让人对生活更满意,却不太让人每天更开心;失业的伤害有一块钱补不上,但退休的人没那么痛苦;「国家不需要你,你就没分量」有道理,但证据只支持窄的版本。易读版:今天的试验测到了什么,离 AI 之后的未来还差多远,以及七件最要紧的事。",
+     "2026-11"),
+    ("ubi-after-work-plain", "en", "plain",
+     "If Governments Really Start Handing Everyone Money After AI: Will People Stop Working, Will They Be Happier, and Will They Still Have a Say? (Plain-Language Edition)",
+     "Handing out money doesn't make people stop working, but in rich countries they work an hour or two less a week; how you hand it out matters more than whether you do; money makes people more satisfied with their lives but not much happier day to day; part of the harm of unemployment is beyond money's reach, yet retirees suffer far less; \"if the state doesn't need you, you lose your say\" makes sense, but the evidence only backs a narrow version. Plain edition: what today's trials measured, how far they are from a post-AI future, and seven things that matter most.",
+     "2026-11"),
     ("axelrod-tournament-deep", "zh", "deep",
      "以牙还牙还是赢家吗?——Axelrod 锦标赛与它四十年后的命运(深入版)",
      "把「以牙还牙两届夺冠、最终占领种群」的故事送回一手原文:第一届只领先 0.82%,改一个收益数字就掉到第四;第二届「平均 200 步」实为五个共用局长、平均 151;「走向固定」是外推,Axelrod 1988 年已改口;噪声下赢家是更宽容的变体;零行列式勒索赢单局、输种群;2004 年一个团队报了 223 个程序中的 112 个;大模型的「厂商性格」站不住。14 组承重论断 × 3 票对抗验证,另含 3 条单源实证的双席审计。",
@@ -5109,6 +5125,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("ubi-after-work-deep", "zh"):
+        "假设 AI 让政府真的开始大规模发钱,本期只问发钱之后的事。截至 2026 年 11 月的一手证据显示:今天没有任何试验是「全民、永久、足以不工作」的,所有结论都隔着外推缺口。工作:低收入国家里现金几乎不减少劳动,常从打工转向自营;富裕国家里无条件现金让工时每周少约 1–2 小时(美国 ORUS、德国试验、彩票同向),就业率效应在 ORUS 里按口径是 −2.3 到 −6.6 个百分点、在德国、阿拉斯加、芬兰约为零;「挣得越多扣得越多」的经济审查型救助抑制更明显(巴塞罗那 −10.2 个百分点)。幸福:富裕国家的压力改善很快消退,精神健康第二年看不出差别;彩票让生活满意度持续上升十余年,但日常情绪不变;德国试验的「意义感」提升是未预注册的探索性结果。意义:失业降低生活满意度且几乎不适应,救济补不平;但退休者和非劳动力受伤小得多,长期失业男性退休后满意度部分追回,机制拆不开。议价权:石油诅咒收窄为「1970 年代后、阻碍威权国家民主化」,发钱没有让人去政治化,阿拉斯加分红却每年由政治决定;intelligence curse 只是论证。科技领袖的表态无金额、无时间表。九个可检验主张收尾。",
+    ("ubi-after-work-deep", "en"):
+        "Suppose AI really does push governments into paying people at scale; this issue asks only what happens after the money arrives. As of November 2026, primary evidence shows: no trial so far is universal, permanent and large enough to live on, so every conclusion carries an extrapolation gap. Work: in low-income countries cash barely reduces labor and often shifts people from wage work to self-employment; in rich countries unconditional cash cuts hours by about 1–2 a week (the US ORUS study, the German trial and lotteries agree), while ORUS's employment effect is −2.3 to −6.6 percentage points depending on the data and Germany, Alaska and Finland show roughly zero; means-tested schemes that claw back benefits as earnings rise suppress work more (Barcelona: −10.2 points). Wellbeing: in rich countries stress relief fades fast and mental health shows no difference by year two; lottery wins raise life satisfaction for more than a decade but not daily mood; the German trial's gain in meaning is an exploratory, non-preregistered result. Meaning: unemployment lowers life satisfaction with almost no adaptation, and benefits don't close the gap; but retirees and people outside the labor force are hurt far less, and long-term unemployed men recover part of the gap when they retire, by mechanisms that can't be separated. Bargaining power: the oil curse narrows to \"after the 1970s, blocking democratization in autocracies,\" cash did not depoliticize recipients, yet Alaska's dividend is set by politics every year; the intelligence curse is an argument only. Tech leaders' statements carry no amounts and no timelines. Nine testable claims close the piece.",
+    ("ubi-after-work-plain", "zh"):
+        "今天世界上所有的发钱试验,都不是「AI 之后给所有人、永远发」的那种。在这个前提下:发钱不会让人躺平,穷国几乎不影响干活,富国每周少干一两个小时;「挣得越多扣得越多」的设计最容易让人不去上班。钱让人对生活更满意,却不太让人每天更开心,对精神健康的改善一两年就退了。失业的伤害有一块是钱补不上的,但退休的人没有失业者那么痛苦。「国家不需要你,你就没分量」是合理的担忧,证据只支持窄的版本。听科技领袖谈发钱,先问钱从哪来、谁受益。",
+    ("ubi-after-work-plain", "en"):
+        "No cash experiment in the world today is the kind that gives everyone money forever after AI. With that caveat: handing out money doesn't make people stop working — in poor countries it barely changes work, in rich ones people work an hour or two less a week, and designs that take benefits away as you earn more do the most to keep people from working. Money makes people more satisfied with their lives but not much happier day to day, and mental-health gains fade within a year or two. Part of the harm of unemployment is beyond money's reach, yet retirees suffer far less than the unemployed. \"If the state doesn't need you, you lose your say\" is a reasonable worry, but the evidence only backs a narrow version. When tech leaders talk about handing out money, first ask where it comes from and who benefits.",
     ("axelrod-tournament-deep", "zh"):
         "「以牙还牙(TFT)两届夺冠、最终占领种群」要拆开核对。截至 2026 年 10 月的一手证据显示:第一届 15 条规则,TFT 504.5 分只比第二名高 0.82%,把互相背叛收益从 1 改成 2 它就掉到第四,而真正的大差距在善良规则(471.8–504.5)与不善良规则(最高 401)之间;第二届「平均 200 步」实为五个共用局长、平均 151,2025 年用原始 Fortran 重跑 25,000 次,TFT 只在约 63% 的种子下夺冠;生态模拟里 TFT 到第 1000 代份额最大、仍在增长,「走向固定」是 1981 年的外推,Axelrod 1988 年已改口。理论上合作能维持但民间定理挑不出 TFT;噪声下 TFT 陷入报复回声,赢家是慷慨版、悔过版等更宽容的变体,人类实验里加噪声后 TFT 只占 7%。零行列式勒索赢每一局、在大种群里被慷慨策略淘汰。2004 年南安普顿报了 223 个程序中的 112 个,合谋包揽标准联赛前三。今天的大锦标赛里 TFT 排在中游,前面多是它的改良版,冠军仍从不先背叛。大模型的「厂商性格」被方法学审计否决。十个可检验主张收尾。",
     ("axelrod-tournament-deep", "en"):
@@ -5289,6 +5313,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("ubi-after-work-deep", "zh"): [
+        ("c1", "66 票对抗验证 · 34 处表述被否决"), ("c2", "富国工时每周少 1–2 小时"), ("c3", "钱改评价,不改情绪"), ("c4", "9 个可检验主张"),
+    ],
+    ("ubi-after-work-deep", "en"): [
+        ("c1", "66 adversarial votes · 34 statements vetoed"), ("c2", "rich countries: 1–2 fewer hours a week"), ("c3", "money moves ratings, not mood"), ("c4", "9 testable claims"),
+    ],
+    ("ubi-after-work-plain", "zh"): [
+        ("c1", "不会躺平,但会少干一点"), ("c2", "怎么发比发不发要紧"), ("c3", "更满意,不更开心"), ("c4", "钱从哪来,谁受益"),
+    ],
+    ("ubi-after-work-plain", "en"): [
+        ("c1", "no dropping out, a bit less work"), ("c2", "how you pay matters most"), ("c3", "more satisfied, not happier"), ("c4", "who pays, who benefits"),
+    ],
     ("axelrod-tournament-deep", "zh"): [
         ("c1", "42 票对抗验证 · 20 处表述被否决"), ("c2", "冠军只领先 0.82%"), ("c3", "「占领种群」是外推"), ("c4", "10 个可检验主张"),
     ],
@@ -5892,6 +5928,15 @@ INDEX_ENTRIES = [
      "42 adversarial votes · 10 testable claims",
      [("t1", "博弈论", "Game theory"), ("t2", "合作的演化", "Evolution of cooperation"), ("t3", "科学史", "History of science"),
       ("t4", "大语言模型", "Large language models"), ("t5", "测量方法", "Measurement")]),
+    ("ubi-after-work", "2026-11",
+     "被供养之后",
+     "When People Are Provided For",
+     "假设 AI 让政府真的开始大规模发钱:人会少干多少,健康和幸福会不会变好,工作的非收入功能钱补不补得上,不被需要的公民还有没有议价权。把 UBI 与现金试验、彩票与退休、失业心理学、食利国家与 intelligence curse 的证据送回一手原文,并写清每一步外推到「AI 之后全民永久 UBI」的缺口。",
+     "Suppose AI really does push governments into paying people at scale: how much less will people work, will health and happiness improve, can money replace what work gives besides income, and do citizens who are no longer needed keep any bargaining power? Evidence from UBI and cash trials, lotteries and retirement, the psychology of unemployment, rentier states and the intelligence curse, returned to primary sources, with every extrapolation gap to a post-AI universal, permanent UBI spelled out.",
+     "66 票对抗验证 · 9 个可检验主张",
+     "66 adversarial votes · 9 testable claims",
+     [("t1", "基本收入", "Basic income"), ("t2", "劳动经济学", "Labor economics"), ("t3", "幸福感研究", "Wellbeing research"),
+      ("t4", "政治经济学", "Political economy"), ("t5", "测量方法", "Measurement")]),
 ]
 
 
