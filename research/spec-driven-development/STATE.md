@@ -47,5 +47,7 @@
 - 2026-11-11: Round 2 十二个验证子代理全部返回,96 票:10 HOLDS / 86 修正 / 0 组级推翻;伪引用 4 处(H27 OMG、V30 Claude Code 文档、V26 Grove 口号、M31 Tessl),子论断推翻约 40 处,禁写清单见 03。Uvik 原始 CSV 存 data/。上游修订(AGENTbench v3、METR 2026-02 更新)影响已发布 #14/#0,已作为独立修正任务提出,不在本期处理。03-verification-round2.md 落盘。
 - 2026-11-11: Round 3 brief(brief-r3.md)与 6 个靶子(r3/targets.md)落盘;派 12 个子代理(R1–R6 × X 反证搜索席 / M 方法学审计席)。
 
+- 2026-11-11: Round 3 十二份审计全部返回:R1 Hill B/D、R2 Uvik **D**、R3 Spec Kit Agents C、R4 TiCoder C(标题 D)、R5 活性测量 C、R6 形式基准 **B**;47 项否决;R6 方向获独立证实(两团队逐题 κ=0.74)。主线程回一手补核 SpecFirst(arXiv 2607.27167)。04 与 02(承重论断 + 证据分级)落盘;复算脚本存 r3/scripts/。
+
 ## 下一步(恢复点)
-等 Round 3 十二份判决(r3/R*-{X,M}.md)→ 汇总 04-verification-round3.md → 02-verified-claims.md(承重论断 + 证据分级)→ 成文 zh deep/plain → en 翻译 → build.py 注册构建 → TOPICS 归档 + 钩子收割。
+成文:zh deep(sources/spec-driven-development-deep.zh.md)→ zh plain → en 忠实翻译(子代理)→ build.py 注册四处 + 构建 → TOPICS 归档 + 钩子收割。
