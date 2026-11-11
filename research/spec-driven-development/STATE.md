@@ -42,5 +42,7 @@
 - 2026-11-11: **网络约束**:环境网络策略拦截 arxiv.org、openreview、dl.acm.org、ieeexplore、drops.dagstuhl.de、martinfowler.com、uvik.net、dev.to、kiro.dev、tessl.io、thoughtworks.com、github.blog、youtube.com、web.archive.org 等(CONNECT 403);尝试 update_environment 添加白名单被服务拒绝,需用户在环境设置中放行。一手原文主要经 GitHub 取得(作者仓库/LaTeX 源/复现包/博客源仓库)。ADOPT 现场测量脚本与数据存 adopt-measure/。
 - 2026-11-11: groups.py 合并 01-raw-claims.md;抽 32 组(groups/G01–G32),分 4 批(B1 G01–G08 / B2 G09–G16 / B3 G17–G24 / B4 G25–G32)。
 
+- 2026-11-11: 网络已改为不受限(arXiv/Dagstuhl/martinfowler/uvik/kiro 可达;dl.acm.org 站方 403)。Round 2 brief 落盘(brief-r2.md);派 12 个验证子代理(B1–B4 × Q/X/K),判决落 verdicts/<G>-<镜头>.md,共 96 票。
+
 ## 下一步(恢复点)
-Round 2:4 批 × 3 镜头(逐字 Q / 反证 X / 口径 K)= 12 个独立验证子代理,refute-by-default,判决落 verdicts/<G>-<镜头>.md → 汇总 03-verification-round2.md。启动前确认网络白名单是否已放行(否则方法学前言须披露受限核验)。
+等 12 个验证子代理返回 → 汇总 03-verification-round2.md;识别单源承重实证(候选:Hill ESEM、Uvik、TiCoder 用户研究、SpecMine/ADOPT 活性测量、ProofNet-Verified、AutoCLRS SPOT)→ Round 3 双席。
