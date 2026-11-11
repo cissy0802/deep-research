@@ -49,5 +49,7 @@
 
 - 2026-11-11: Round 3 十二份审计全部返回:R1 Hill B/D、R2 Uvik **D**、R3 Spec Kit Agents C、R4 TiCoder C(标题 D)、R5 活性测量 C、R6 形式基准 **B**;47 项否决;R6 方向获独立证实(两团队逐题 κ=0.74)。主线程回一手补核 SpecFirst(arXiv 2607.27167)。04 与 02(承重论断 + 证据分级)落盘;复算脚本存 r3/scripts/。
 
-## 下一步(恢复点)
-成文:zh deep(sources/spec-driven-development-deep.zh.md)→ zh plain → en 忠实翻译(子代理)→ build.py 注册四处 + 构建 → TOPICS 归档 + 钩子收割。
+- 2026-11-11: 成文 zh deep/plain;en 由 2 个子代理忠实翻译(deep 65 条英文引语逐字校验 1 处仅括号差异;plain 4 处被回译的引语由主线程改回原文;分级标签统一为 house 口径 Single-source verified)。build.py 注册四处,python3 build.py 构建通过,其余页面 build 后还原以保留已烘焙 TTS;手机宽度渲染无横向滚动。TOPICS 归档 #25、候选池 +3(钩子收割,Second Brain 站未在本会话可达,未反哺)。上游修订(AGENTbench v3、METR 2026-02)对 #14/#0 的修正已作为独立任务提出。
+
+## 下一步(已完成)
+全部步骤完成并已推送。待办:#14/#0 的上游修订修正(独立任务)。
