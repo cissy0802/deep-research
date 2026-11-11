@@ -174,6 +174,14 @@
 - **实证锚点**:Anthropic RSP、GDM FSF、OpenAI Preparedness Framework 各版本全文与修订日期(逐条对齐修订与前后评估读数,检验修订是否系统性发生在逼近阈值时——#17 已记录 RSP AI 研发阈值 18 个月内多次重写、FSF v3.0 删去「2×」与基准年份、OpenAI High 阈值在系统卡复述中口径漂移,待回一手复核);竞争对手发布后的发布节奏变化(事件研究);首尔/布莱切利/巴黎峰会承诺文本与兑现情况;OpenAI 章程原文;实验室负责人关于"协调放缓"的公开表态(逐字回一手)。
 - **注意**:"表态"一律按厂商口径,不得当偏好证据,判别只能靠行为;博弈结构判定必须先给可检验定义(什么行为模式对应 PD、什么对应猎鹿),否则不可证伪;区分商业层/安全层/国家层三层,不得混论;发布节奏事件研究要处理混杂(算力到货、季度节点);阈值修订"逼近时发生"的检验需注意小样本与事后解释风险。与 #3(scalable oversight)、#9(capex 1999)、#17(RSI)、#18(利润池)、#19(能力趋同)交叉,成文时互链。
 
+### 25. Spec-driven development:AI 编程的新纪律,还是瀑布/MDA 的第三次复活?
+- **一句话**:"先写规约、再让 agent 实现"(GitHub Spec Kit、AWS Kiro、Tessl、BMAD、OpenSpec)被包装成 vibe coding 之后的工程纪律、"spec 是新的代码"——它到底让 agent 产出更好、更省,还是把瀑布式前置文档与模型驱动架构(MDA)的失败模式换了一身衣服?把叙事拆成三个可分别检验的主张:(1)先写 spec 提升 agent 产出(现在可检验);(2)spec 保持活性、不与代码漂移(可用返工率/漂移率检验);(3)spec 成为唯一事实源、代码可再生(Tessl 路线,多为预测,只给条件与信号)。
+- **为什么适合**:流行叙事强(厂商工具链 + "specs are the new code" 口号);争议直接对撞("waterfall strikes back" vs "活 spec 不是冻结 spec");一手证据开始出现且方向不一——ESEM 2026 PR 工作流实证报告 spec 制品**不降低缺陷**、Uvik 50 工单五臂对照(含无 spec 对照组,数据 CC BY 4.0 可复跑)显示增益依工单类型而定、单人实验见 token 约 3×;历史前科丰富且多为可考古的伪常识。吸收候选池「Autoformalization 的规约层危机」(钩子·源自 #5)作为形式化一端的调研线。
+- **理论底座**:需求工程与"规约—意图鸿沟"(Jackson/Zave 需求问题框架、规约的可验证性与可确认性之分);Royce 1970 原文(本身反对单趟瀑布)与"瀑布"概念的考古;Boehm 缺陷修复成本曲线及 Bossavit《Leprechauns of Software Engineering》对其的溯源;MDA/UML/可执行 UML 与 CASE 工具的兴衰;BDD/Cucumber、TDD meta 分析(效果方向存争);literate programming;LLM 侧——计划先行(self-planning、CodePlan)、需求澄清(ClarifyGPT)、TiCoder 测试驱动意图形式化、autoformalization 忠实率与形式数学基准题面错位;验证瓶颈的转移(审代码 → 审 spec)。
+- **关键争议/正反**:spec 是更好的 agent 上下文还是更长的上下文(与 #14 AGENTbench/context rot 同构);增益集中在多文件/特性型任务、小改动是否净负(流程税);spec 写出后谁维护、漂移率多少;"spec 当源码"在 LLM 非确定性下能否成立(MDA 刚性 × 生成非确定性);spec 审阅是否真比代码审阅便宜(#2 验证瓶颈、#5 裁判座次);厂商与咨询方(工具商、Thoughtworks/martinfowler.com 实操评测)谁在说话、谁受益。
+- **实证锚点**:ESEM 2026《Specification Artifacts in Open-Source Pull Request Workflows Do Not Reduce Defects》(单源承重候选,R3 必审:样本、选样、缺陷口径、混杂);Uvik SDD benchmark(厂商口径,原始数据复跑);Böckeler 对 Kiro/Spec Kit/Tessl 的实操评测(martinfowler.com,"小 bug → 4 user stories + 16 acceptance criteria"待回一手);Scott Logic、Marmelab 实操;ETH AGENTbench(arXiv 2602.11988,#14 已核,含审计否决)与 Shepard & Albrecht 反向结果;METR 2025 RCT(#0 已核);Spec Kit/Kiro/Tessl 官方文档与发布口径、GitHub 采用数据(star ≠ 使用);TiCoder 用户研究;Royce 1970 原文、Boehm 1981 原始数据;MDA 采用率的历史调查。
+- **注意**:先给"spec"分型(PRD/需求文档、plan.md/任务分解、形式契约/类型、可执行测试/验收标准),不同类型的证据不得混引;厂商自测(Uvik、Kiro、Tessl、Augment)一律厂商口径,方向可参考、程度不承重;GitHub star/下载量 ≠ 采用 ≠ 效果;"成本 100×"类历史数字必须回一手,找不到按伪常识处理;效果指标口径(合并率/缺陷率/token/墙钟时间/返工率)逐条标注、不得互换;生成侧非确定性需要多次采样,单次运行结果按假精度审计。与 #0(METR)、#2(AI code review)、#5(机器 Oracle)、#6(Agile 转型尸检)、#7(自动化的反讽)、#14(agent README)交叉,成文时互链;#14 已验证的口径直接复用、不重复论证。
+
 ## 候选池(未排期)
 
 - 福利悬崖与扣减率:经济审查型救助到底压低了多少工作?#24 发现巴塞罗那 B-MINCOME(−10.2pp)、西班牙 IMV(−3pp)、法国 RMI(−7–10%)方向一致,但「扣减率是关键调节变量」只在 B-MINCOME 一种数据源上显著、IMV 降扣减后负效应未减轻;美国 EITC 退坡区、福利悬崖(多项目叠加的有效边际税率 >100%)的实证与「福利陷阱」叙事之间缺一次口径体检(钩子·源自 #24)
@@ -192,7 +200,7 @@
 - 报告伪影的全球体检:美国青少年心理数据的两次断裂(2011 筛查扩张、2016-10 意念编码指令)已被量化(全国意念就诊 +459% vs 自杀死亡 +66%),但其他国家的对应断点无人系统盘点——英国 ONS 2018 自杀裁定标准放宽、ICD-10 各国实施时点差异、北欧登记册口径变更;若把各国「趋势」逐一扣掉制度性断点,还剩多少真实恶化(钩子·源自 #11)
 - 抓取工具摘要层的编造率实测:本期查实网页抓取工具的摘要模型为一篇 arXiv 论文**编造了四条不存在的逐字引语**,并把三列表格读串产生假名单。这类"看起来像原文的伪引"在多大比例的抓取中发生?用可核验的一手文件做基准,实测主流抓取/摘要工具的引语保真率与表格解析错误率(钩子·源自 #16)
 - AI 是不是一场管理时尚?用 Abrahamson 时尚周期理论给 AI 话语做实测曲线(财报电话会提及/认证量/岗位名/文献计量的钟形检验),与真实能力曲线(METR 等)对照——时尚理论第一次遇到内在能力持续上升的宿主,钟形消退预测是否失效(钩子·源自 #6)
-- Autoformalization 的规约层危机:当"证明⊢陈述"被验证器守死,风险全部上移到"陈述=意图"——形式数学基准半数题面错位、autoformalization 忠实率、spec-intent 鸿沟的可测性与工程后果(钩子·源自 #5)
+- ~~Autoformalization 的规约层危机~~(已吸收进待研究 #25 spec-driven development,作为形式化一端的调研线)(钩子·源自 #5)
 - 神经神话为什么杀不死:学习风格、多元智能、左右脑的传播动力学——师训体系为何成为误念的主要传染源,揭穿式干预的实效边界(信念降 37% 但行为传导仅半)(钩子·源自 #4)
 - ~~形式化方法的 LLM 复兴~~(已折叠进已发布 #5 机器 Oracle 全景,作为形式验证格)(钩子·源自 #3)
 - Agent 协议标准化会不会重演 TCP/IP 沙漏(第 0 篇 Headless Firm 线的深挖)
