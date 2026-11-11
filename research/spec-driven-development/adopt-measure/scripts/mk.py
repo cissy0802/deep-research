@@ -1,0 +1,146 @@
+import json
+C=[]
+def a(**k): C.append(k)
+GH="本线自测(2026-11-11 UTC),GitHub REST API 原始输出"
+a(id="A01",claim="Stack Overflow 2025 开发者调查:在'不打算用 AI 做'的工作类型中,项目规划(project planning)有 69% 受访者表示不打算用 AI,仅次于部署与监控(76%)。样本 49,009 份(166 国,2025-05-29 至 06-23)。这是唯一找到的与'规划先行'相关的大样本题项,且方向是'抗拒用 AI 规划',不是 SDD 采用率。",
+  quote="",source_url="https://survey.stackoverflow.co/2025/ai",source_title="Stack Overflow, 2025, 2025 Developer Survey — AI section, survey.stackoverflow.co",date="2025-07",source_type="【官方】",spec_type="T2",design="调查",confidence="secondhand",
+  notes="一手页面被本会话网络策略拦截(survey.stackoverflow.co 403),数字来自 WebSearch 摘要且与 the-decoder 等二手转述一致。题项问的是'不打算用 AI 做项目规划',不能反推'人写 spec 喂 agent'的流行度。自选样本,偏 Stack Overflow 用户。")
+a(id="A02",claim="Stack Overflow 2025:AI agent 使用口径不一——调查 AI agents 页称 52% '不用 agent 或只用更简单的 AI 工具'、38% 无采用计划;新闻稿称 31% 正在使用、17% 计划使用;The New Stack 报 23% 至少每周使用、另 8% 偶尔使用。三种框法不可混引。",
+  quote="",source_url="https://survey.stackoverflow.co/2025/ai",source_title="Stack Overflow, 2025, Developer Survey AI agents / press release; The New Stack 2025 '23% of Devs Regularly Use AI Agents'",date="2025-07",source_type="【官方】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="同一调查三种分母/频率定义;作为 SDD 采用的'上限背景'(没有 agent 就谈不上 spec→agent 工作流)。一手页未能打开。")
+a(id="A03",claim="Stack Overflow 2026 开发者调查(2026-10 发布):在使用 AI 编码助手/agent 的受访者中 73% 每日使用;AI 使用类别中'AI agents or automated workflows'为 26.2%;受访人数据摘要报约 16,664(远低于 2025 的 49,009,口径待核)。检索未发现任何 spec-driven / plan-first 题项。",
+  quote="",source_url="https://stackoverflow.blog/2026/10/06/the-results-of-the-2026-developer-survey-are-here/",source_title="Stack Overflow, 2026, The results of the 2026 Developer Survey are here!, stackoverflow.blog",date="2026-10",source_type="【官方】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="样本量骤降(若属实)与 2026 年'仅限人类开发者'开放说明有关,需回一手核。26.2% 与脉冲调查 59% 定义不同。'无 SDD 题项'是阴性检索结论,需在一手题目表中复核。")
+a(id="A04",claim="Stack Overflow 2026 年 4-5 月脉冲调查(约 1,100 人):工作中任意频率使用 agent 59%(2025 主调查为 31%),每日使用 37%(2025 为 14%);69% 当前 agent 工作流只用单个 agent。",
+  quote="",source_url="https://stackoverflow.blog/2026/05/27/agents-on-a-leash-agentic-ai-remains-mostly-monitored-at-work/",source_title="Stack Overflow, 2026, Agents on a leash: Agentic AI remains mostly single-agent and monitored at work",date="2026-05",source_type="【官方】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="脉冲调查样本小、渠道不同,与主调查不可直接比较(跨调查口径);一手未打开。")
+a(id="A05",claim="JetBrains State of Developer Ecosystem 2025(2025-04 至 06,清洗后 24,534 人):85% 经常使用 AI 工具编程,62% 日常工作流中使用至少一种 AI 编码助手/agent/AI 编辑器(agent 未单列)。未发现 spec/plan-first 题项。",
+  quote="",source_url="https://blog.jetbrains.com/research/2025/10/state-of-developer-ecosystem-2025/",source_title="JetBrains Research, 2025, State of Developer Ecosystem 2025",date="2025-10",source_type="【厂商】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="JetBrains 是 IDE/AI 工具厂商(Junie 等),调查方即利益相关方;一手 403。agent 与助手合并计数。")
+a(id="A06",claim="JetBrains AI Pulse(2026-01,约 11,000 名开发者):90% 在工作中使用 AI,但仅 13% 在整个 SDLC 中使用 AI。",
+  quote="",source_url="https://www.jetbrains.com/lp/annualreport-2026/",source_title="JetBrains, 2026, AI Pulse survey(经二手转述)",date="2026-01",source_type="【厂商】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="仅单个二手搜索摘要提及,URL 为推测落点,未定位一手;'整个 SDLC'含需求/设计阶段,可作为'规划阶段 AI 渗透低'的弱旁证,不承重。")
+a(id="A07",claim="DORA 2025《State of AI-assisted Software Development》(近 5,000 名技术从业者):AI 采用率 90%(较上年 +14 点),'AI 是放大器';提出 7 项 AI Capabilities Model(含小批量工作、以用户为中心、AI 可访问的内部数据、强版本控制、质量内部平台等)。检索未见 spec/plan-first 题项;小批量(small batches)能力与'大块前置 spec'方向相反。",
+  quote="",source_url="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf",source_title="Google Cloud DORA, 2025, State of AI-assisted Software Development",date="2025-09",source_type="【厂商】",spec_type="n/a",design="调查",confidence="secondhand",
+  notes="Google Cloud 出品(Gemini Code Assist 利益相关);PDF 被网络策略拦截,能力清单来自二手。'小批量 vs 前置 spec'是本线推论,非报告结论。")
+a(id="A08",claim="GitHub Octoverse 2025(数据窗 2024-09-01 至 2025-08-31):1.8 亿+ 开发者、6.3 亿项目、11.2 亿贡献、每月合并 PR 4,320 万;检索未发现报告对 AGENTS.md、spec-kit 或 spec 目录给出计数——即 GitHub 自己的年度报告没有为其 Spec Kit 提供采用数据。",
+  quote="",source_url="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/",source_title="GitHub, 2025, Octoverse: A new developer joins GitHub every second as AI leads TypeScript to #1",date="2025-10",source_type="【厂商】",spec_type="n/a",design="观察",confidence="secondhand",
+  notes="Spec Kit 发布于 2025-08,几乎落在数据窗末尾;Octoverse 2026 截至检索未见。github.blog 403。阴性结论需一手复核。")
+a(id="A09",claim="Thoughtworks Technology Radar:'Spec-driven development' 2025-11 列入 Assess 环(当前版已不在榜);GitHub Spec Kit 2026-04-15 列 Assess(团队主要在既有系统上试用,'有扎实整洁代码与架构实践的资深工程师'获益最多);OpenSpec 列 Assess(赞其 spec delta 而非整份前置 spec)。原 blip 指出部分工具生成冗长难审的 spec。",
+  quote="",source_url="https://www.thoughtworks.com/radar/techniques/spec-driven-development",source_title="Thoughtworks, 2025-2026, Technology Radar blips: spec-driven development / GitHub Spec Kit / OpenSpec",date="2026-04",source_type="【媒体】",spec_type="mixed",design="评论",confidence="secondhand",
+  notes="咨询公司实践判断,非测量;Böckeler(CON 线)同属 Thoughtworks。'Assess'=值得探索,不是'Adopt/Trial'。一手 403,逐字未核。")
+a(id="A10",claim="GitHub 代码搜索(遗留 REST code search,默认分支、非 fork):`filename:constitution.md path:.specify/memory` 返回 total_count=14,176 个文件;前 100 条结果分属 100 个不同仓库(spec-kit 每仓一个 constitution,故文件数≈仓库数上界)。这是'安装过 spec-kit 脚手架'的仓库数量级,非'在用'。",
+  quote="{\"total_count\":14176,...}(API 返回;连续 3 次查询一致)",source_url="https://api.github.com/search/code?q=filename:constitution.md+path:.specify/memory",source_title=GH+":search/code",date="2026-11",source_type="【研究】",spec_type="T2",design="观察",confidence="verbatim-checked",
+  notes="total_count 为 GitHub 估计值;只索引默认分支、排除 fork、文件<384KB;私有仓不可见。constitution 由 `specify init` 生成,未填写的模板也计入(见 A17)。可复跑。")
+a(id="A11",claim="GitHub 代码搜索:`filename:requirements.md path:.kiro/specs` total_count=38,336 个文件,design.md 41,408,tasks.md 36,928;前 100 个 requirements.md 分属 76 个仓库(每个功能一个子目录,文件≫项目)。注意 `path:.kiro filename:tasks.md` 同样返回 38,336,与 requirements 精确相同,疑似 total_count 分桶/近似,只能作数量级。",
+  quote="kiro_req total_count 38336; kiro_kiro_dir (path:.kiro filename:tasks.md) total_count 38336",source_url="https://api.github.com/search/code?q=filename:requirements.md+path:.kiro/specs",source_title=GH+":search/code",date="2026-11",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="#14 教训:代码搜索计文件不计项目。按样本 100 文件/76 仓粗估项目数需除以每仓功能数(克隆样本中位 4 个,A18),Kiro 项目数量级约 1 万,与 SpecMine 2026-07 Kiro 普查 12,910 仓(A14)同量级。")
+a(id="A12",claim="GitHub 代码搜索其他 SDD 工具足迹:OpenSpec `filename:project.md path:openspec` 2,368 文件(样本 100→100 仓);`filename:AGENTS.md path:openspec` 620;BMAD `path:.bmad-core` 3,680 文件但样本 100 文件仅来自 16 个仓库(每仓数十个 agent 文件);Tessl `filename:tessl.json` 285;spec-kit 命令文件 `.claude/commands/speckit.specify.md` 224、`.github/prompts/speckit.specify.prompt.md` 169。",
+  quote="openspec_proj 2368 100 100; bmad 3680 100 16; tessl 285 100 84",source_url="https://api.github.com/search/code",source_title=GH+":search/code",date="2026-11",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="OpenSpec 新版本可能不再生成 project.md(改 config),故低估;BMAD 文件数不能当项目数。各工具目录约定不同,不可横向比文件数。")
+a(id="A13",claim="对照基数:同日代码搜索 `filename:AGENTS.md` total_count=1,247,232,`filename:CLAUDE.md` 1,028,096,`filename:.cursorrules` 30,976。spec-kit constitution(14,176)约为 AGENTS.md 文件数的 1.1%——'给 agent 写上下文文件'远比'走 SDD 脚手架'普遍(两者都是 T1/T2 边界的弱形态)。",
+  quote="agents_md 1247232; claude_md 1028096; cursorrules 30976",source_url="https://api.github.com/search/code?q=filename:AGENTS.md",source_title=GH+":search/code",date="2026-11",source_type="【研究】",spec_type="n/a",design="观察",confidence="verbatim-checked",
+  notes="AGENTS.md 可出现在子目录,文件数>仓库数(样本 100→100 仓,但总体未知)。比值仅数量级。")
+a(id="A14",claim="SpecMine v1.0(CMU Agarwal & Vasilescu,快照 2026-07)全量普查:17 个命名工具的 spec.md/specs.md 共 470,795 个 spec 文件分布于 73,030 个仓库;Kiro `.kiro/specs` 普查 98,574 个工件 / 12,910 个仓库;OpenSpec change 工件 266,230 个;spec-touching PR 层(≥10 star 仓)5,979 个 PR / 581 个仓库。这是目前唯一按'项目'计数、可复跑的公开 SDD 普查。",
+  quote="Broad census (`spec.md`/`specs.md`, 17 named tools) | 470,795 specs / 73,030 repos ... Kiro census (`.kiro/specs` requirements/design/tasks) | 98,574 artifacts / 12,910 repos ... PR layer (spec-touching PRs, ≥10-star repos) | 5,979 PRs / 581 repos",source_url="https://github.com/shyamagarwal13/specmine-official",source_title="Agarwal & Vasilescu, 2026, SpecMine v1.0 dataset README (MSR 2027 Mining Challenge sample), GitHub / Zenodo doi:10.5281/zenodo.22102779",date="2026-07",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="学术方,无工具利益;'17 named tools'含 path bucket(specs_generic、docs_embedded 等),并非全部是 SDD 工具产物。仅 PR 层限 ≥10 star。可与 A10-A12 代码搜索交叉。")
+a(id="A15",claim="SpecMine 全量语料的长尾结构:仅 1.3% 的仓库 ≥100 star、39% 有许可证;92% 的 spec 首次提交于 2026 年。即 SDD 工件绝大多数在 2026 年才出现,集中在小型/个人仓库。",
+  quote="61% of its broad-census repositories have ≥100 stars and 82% are licensed, against 1.3% and 39% in the full corpus; its specs also skew more recent (97.5% first committed in 2026 vs 92%).",source_url="https://github.com/shyamagarwal13/specmine-official",source_title="Agarwal & Vasilescu, 2026, SpecMine README",date="2026-07",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="'92% 首次提交于 2026'同时受'pre-2024 文件被过滤'规则影响;不能直接读作采用增长率。企业私有仓不可见,公开仓偏个人项目。")
+a(id="A16",claim="GitHub star(2026-11-11 repo search 读数):github/spec-kit 149,227 star / 13,399 fork(创建于 2025-08-21);Fission-AI/OpenSpec 74,564;bmad-code-org/BMAD-METHOD 55,241;kirodotdev/Kiro 4,455(仅为 issue/文档仓,产品闭源)。spec-kit star 与 constitution 文件数(14,176)之比约 10:1——star≠采用。",
+  quote="github/spec-kit 149227 13399 2025-08-21T22:54:31Z 2026-11-10T23:14:57Z",source_url="https://api.github.com/search/repositories?q=repo:github/spec-kit",source_title=GH+":search/repositories",date="2026-11",source_type="【研究】",spec_type="n/a",design="观察",confidence="verbatim-checked",
+  notes="star 是关注度指标;Kiro 是 IDE,其采用不体现在 star。spec-kit 星数来自 GitHub 自家项目,受官方推广放大。")
+a(id="A17",claim="对代码搜索返回的前 100 个 spec-kit constitution.md 逐一抓取原文:8/100 仍含未填写占位符([PROJECT_NAME] / [PRINCIPLE_1_NAME]),即装了脚手架但从未定义'宪法'。",
+  quote="{'ok': 100, 'placeholder': 8, 'fail': 0}",source_url="https://raw.githubusercontent.com/<repo>/HEAD/.specify/memory/constitution.md",source_title=GH+" + raw.githubusercontent.com 抓取",date="2026-11",source_type="【研究】",spec_type="T2",design="观察",confidence="verbatim-checked",
+  notes="样本是 best-match 排序前 100,非随机,可能偏向内容丰富的仓;真实空模板率可能更高。")
+a(id="A18",claim="克隆样本(代码搜索前 60 个仓库/工具,treeless clone,2026-11-11):spec-kit 60 仓中 17 个(28%)装有 .specify/ 但 specs/*/spec.md 功能 spec 为 0,中位每仓 2 个功能 spec;Kiro 60 仓中位 4 个 .kiro/specs 功能(1 仓为 0);OpenSpec 60 仓中位 40 个 openspec/ md 文件(5 仓为 0)。'装了'与'用了'之间存在显著落差。",
+  quote="sk n=60 nspec0 17 median nspec 2.0; kiro n=60 nspec0 1 median nspec 4.0; os n=60 nspec0 5 median nspec 40.0",source_url="https://github.com/ (git clone --filter=blob:none, 本线脚本)",source_title=GH+" + git clone 本线测量",date="2026-11",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="非随机样本、n=60/工具;spec-kit spec 可能放在自定义目录(SPECIFY_FEATURE_DIRECTORY),会低估使用;只看默认分支(spec 可能留在 feature 分支未合并)。")
+a(id="A19",claim="同一克隆样本的'活性'指标:自工具首次加入以来,触及 spec 目录的非合并提交占全部提交的中位比例:spec-kit 7.4%、Kiro 11.6%、OpenSpec 20%;最后一次改 spec 之后仓库仍有 ≥20 次提交且间隔 ≥60 天('spec 冻结、代码继续')的仓库占比:spec-kit 18%、Kiro 15%、OpenSpec 5%。另:最近 3 个月无任何提交的仓库占比 spec-kit 27%、Kiro 57%、OpenSpec 50%。",
+  quote="sk median share commits touching spec dir 0.074; kiro 0.116; os 0.2; stale sk 0.183 kiro 0.15 os 0.05",source_url="https://github.com/ (git log 本线脚本)",source_title=GH+" + git log 本线测量",date="2026-11",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="'spec 冻结'是漂移的粗代理,不等于 spec 与代码不一致(功能完工后不改 spec 可能是正常的 spec-first 用法,见 Böckeler 分型)。OpenSpec 的 change→archive 流程天然产生更多 spec 提交。单次测量、无置信区间,按假精度审计。")
+a(id="A20",claim="SpecMine 500 仓样本(本线以 DuckDB 计算):只有 1 次提交(创建后从未修改)的 spec 文件占比:speckit 76.4%(1,863 个 spec / 85 仓)、openspec 84.1%(22,132 / 147 仓)、specs_generic 78.5%;按生命周期角色:living 51.0%、feature 77.1%、archived 96.6%。",
+  quote="speckit 1863 85 1.52 0.764; openspec 22132 147 1.43 0.841; living 4985 0.510",source_url="https://github.com/shyamagarwal13/specmine-official",source_title="SpecMine sample data/spec_files.parquet(file_total_commits, spec_tool, spec_role),本线计算",date="2026-07",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="README 明言样本按 star 精选、'not representative ... not to estimate population rates';提交计数截至 2026-07-11 爬取,新文件天然少提交。仅作方向参考,不承重。")
+a(id="A21",claim="SpecMine 样本 PR 层:5,322 个触及 spec 的 PR 中 80.5% 同时改动 spec 目录外的代码文件(openspec 83.0%/3,523;speckit 79.4%/1,482;moai 43.9%/187)。即在 ≥10 star 的活跃仓里,spec 改动多数与代码同 PR 共变,而不是独立先行合入。",
+  quote="openspec 3523 2924.0 0.830; speckit 1482 1176.0 0.794; prs 5322 share 0.805",source_url="https://github.com/shyamagarwal13/specmine-official",source_title="SpecMine sample data/pull_requests.parquet(touches_code),本线计算",date="2026-07",source_type="【研究】",spec_type="mixed",design="观察",confidence="verbatim-checked",
+  notes="样本含 PR 最丰富的 229 仓,即全量 PR 层的 ~40%;共变不等于 spec 被同步更新为正确(也可能是 agent 顺手改 tasks.md 勾选框)。")
+a(id="A22",claim="PR 标题检索(search/issues,`\"remove spec kit\" in:title is:pr`)共 158 条(前 100 条分属 95 仓);按月:2025-09 为 0,2025-10~2026-01 每月 2-3,2026-05 13,2026-09 22,2026-10 34。同期 `\"add spec kit\" in:title is:pr` 每月 41-192。移除/新增比由约 5% 升至约 18%(2026-10)。弃用信号在上升,但绝对量小。",
+  quote="2025-09 0 43 | 2026-02 9 64 | 2026-06 15 94 | 2026-09 22 157 | 2026-10 34 192",source_url="https://api.github.com/search/issues?q=%22remove+spec+kit%22+in:title+is:pr",source_title=GH+":search/issues 月度切片",date="2026-11",source_type="【研究】",spec_type="T2",design="观察",confidence="verbatim-checked",
+  notes="短语匹配把 spec-kit/spec kit 视为同一;'add spec kit' 含'add spec kit extension'等非采用 PR;大量移除 PR 不写这个标题(直接 commit),严重低估;同一组织批量移除(AstralDeep 一天 5 仓)造成尖峰。2026-11 仅 11 天。")
+a(id="A23",claim="其他工具的移除 PR(标题短语):`remove speckit` 134、`remove kiro` 258、`remove openspec` 606、`remove bmad` 133。抽读正文:Kiro 的移除多为撤掉 Kiro CLI/IDE 配置或认证问题(如 moor #93 因企业 IAM 下 KIRO_API_KEY 被管理员禁用),不是放弃 spec 工作流本身。",
+  quote="kiro-cli's only headless auth mode is `KIRO_API_KEY` (a Kiro portal key), which is **admin-gated** on enterprise IAM Identity Center orgs and confirmed disabled for ours",source_url="https://github.com/daneb/moor/pull/93",source_title="daneb/moor PR #93, 2026-11, Remove Kiro agent support",date="2026-11",source_type="【媒体】",spec_type="mixed",design="案例",confidence="verbatim-checked",
+  notes="移除≠因 SDD 无效;理由需逐条编码。'remove openspec' 606 vs 'add openspec' 5,010 不可比(OpenSpec 工作流本身产生大量'add ...'标题的 change PR)。")
+a(id="A24",claim="实践者弃用理由(NetPace #317,2026-09):多阶段 spec-kit 流水线(spec→clarify→checklist→plan→test plan→tasks→analyze→implement)只在'完整 spec 路线'用过,实际所有工作都走了轻量路线——经评审确认的 issue 本身就是 spec;14 个 skill、.specify/ 树等'承担成本却不承担工作',故移除,只保留 issue 起草/评审/确认关卡。",
+  quote="In practice every piece of work has gone through the lighter route: a reviewed, confirmed issue *is* the specification. The pipeline's assets — 14 skills, the `.specify/` tree, two planning slash-commands, the traceability gate — were carrying cost without carrying work.",source_url="https://github.com/FrankRay78/NetPace/pull/317",source_title="FrankRay78/NetPace PR #317, 2026-09-29, Remove Speckit",date="2026-09",source_type="【媒体】",spec_type="T1",design="案例",confidence="verbatim-checked",
+  notes="单个开源项目自述;说明弃的是 T2 重流程,保留的是 T1(issue 即验收标准)——分型差异是关键,不是'spec 无用'。")
+a(id="A25",claim="实践者弃用理由(simonjamesrowe-dev-monorepo #190,2026-09):SpecKit 已不再用于规划工作,但仍留着 71 个被跟踪文件,并向每个 agent 会话注入 23 个 speckit* skill/命令;移除工具、保留 constitution 移到 docs/。体现 SDD 工具的'上下文税'。",
+  quote="SpecKit is no longer how work is planned in this repo, but it still installed 71 tracked files and injected 23 `speckit*` skills/commands into every agent session.",source_url="https://github.com/simonjamesrowe/simonrowe-dev-monorepo/pull/190",source_title="simonjamesrowe/simonrowe-dev-monorepo PR #190, 2026-09-26, chore: remove SpecKit and move the constitution to docs/",date="2026-09",source_type="【媒体】",spec_type="T2",design="案例",confidence="verbatim-checked",
+  notes="个人仓;常见模式是'弃工具、留 constitution'(AstralDeep 5 仓、remote-cam #10 同类),即 T1/规则层留存、T2 流程层被弃。")
+a(id="A26",claim="企业开源仓的弃用(EPAM ketcher #11517,2026-08):项目当前不使用 OpenSpec,因此从 CLAUDE.md 中删除其引用,以免误导 agent。",
+  quote="At the moment OpenSpec not used in the project, so I cleaned up it's reference in CLAUDE.md to avoid agents misleading",source_url="https://github.com/epam/ketcher/pull/11517",source_title="epam/ketcher PR #11517, 2026-08-31, docs: remove OpenSpec references from CLAUDE.md",date="2026-08",source_type="【媒体】",spec_type="T2",design="案例",confidence="verbatim-checked",
+  notes="唯一抽到的大型企业组织(EPAM)公开仓弃用记录;'不再使用的 spec 指令会误导 agent'与 Pant 等'过期 spec 比无 spec 更糟'论点同向。单例。")
+a(id="A27",claim="spec-kit 官方仓 reactions 最多的 issue(#1191,2025-11-15,105 个 👍):用户难以在不新建分支与冗余工件的情况下更新/细化既有 spec;`/speckit.specify` 为全新功能优化,缺少 brownfield 迭代与'随功能演化保持 spec 同步'的流程。即'spec 保持活性'(主张 2)是工具自身头号未满足需求。",
+  quote="The current workflow for `/speckit.specify` is optimized for net-new feature creation, but real-world projects often require: ... Keeping specs in sync as features evolve",source_url="https://github.com/github/spec-kit/issues/1191",source_title="github/spec-kit issue #1191, 2025-11, Spec-Driven Editing Flow: Can't Easily Update or Refine Existing Specs",date="2025-11",source_type="【媒体】",spec_type="T2",design="案例",confidence="verbatim-checked",
+  notes="reactions 是关注度,不是频率测量;次高为 #442'缺少实现后调试修复流程'(45 👍)。后续版本是否已解决需 VENDOR 线核对 release notes。")
+a(id="A28",claim="GitHub 仓库 topic `spec-driven-development` 共 2,949 仓(2026-11-11);按创建季度:2025H1 13、2025Q3 45、2025Q4 107、2026Q1 370、2026Q2 825、2026Q3 984、2026Q4(至 11-11)575。topic 自标的多为 SDD 工具/模板/演示仓——反映'造工具'热度而非用户采用。",
+  quote="topic:spec-driven-development 2949; 2026-04-01..2026-06-30 825; 2026-07-01..2026-09-30 984",source_url="https://api.github.com/search/repositories?q=topic:spec-driven-development",source_title=GH+":search/repositories",date="2026-11",source_type="【研究】",spec_type="n/a",design="观察",confidence="verbatim-checked",
+  notes="供给侧指标;不得与使用量混引。")
+a(id="A29",claim="Agarwal、Singhal、Macvean、Vasilescu、Breaux(arXiv 2608.25202,v4 2026-10-15)《Spec-Driven Development as Prescribed and as Practiced》:Reddit 讨论主题分析 + 21 名实践者访谈(含 8 名工具作者)+ 266 个活跃仓库;据摘要转述:SDD 被选择性使用,主要用于新功能;spec 写入越多实现细节越早'腐坏';spec-代码核对多在变更完成时而非持续进行;多数受访者报告代码与 spec 发生分歧;收益是 agent 行为更可靠,代价是更多规划与评审时间。",
+  quote="",source_url="https://arxiv.org/abs/2608.25202",source_title="Agarwal et al., 2026, Spec-Driven Development as Prescribed and as Practiced, arXiv 2608.25202",date="2026-10",source_type="【研究】",spec_type="mixed",design="观察",confidence="secondhand",
+  notes="预印本未同行评审;arXiv 被网络策略拦截(403),发现均来自搜索摘要/DEV 转述,需回原文核对措辞和计数。作者含 Google(Macvean)研究者;与 SpecMine 同组。动机自述'实践证据主要来自推广它的厂商'。高优先级回一手。")
+a(id="A30",claim="Asana 内部报告(Staff Engineer Walter Li,inside-asana):7 名工程师、524 个合并 PR、4 个月,以每人首次明确使用 /spec-driven 为界前后对比:每周 PR 数 +38%,实现代码新增 2.66×(剔除一段异常高产窗口后仍 +66%);显式 revert 率 spec-driven 工作 1.2% vs 其他 PR 1.66%。作者自承 PR 与新增行数是不完美的生产率代理。",
+  quote="",source_url="https://asana.com/inside-asana/spec-driven-development",source_title="Asana (Walter Li), 2026, Spec-driven development: The Good Parts - and what we learned after three months",date="2026",source_type="【厂商】",spec_type="T2",design="观察",confidence="secondhand",
+  notes="企业自述(Asana 推广自家 AI 工作管理),非 SDD 工具厂商但有品牌利益;前后对比无对照组,7 人小样本,revert 差 0.46 个百分点无推断统计;PR 数≠质量。asana.com 403,数字来自搜索摘要。")
+a(id="A31",claim="AWS 发布的 Kiro 客户案例:PKFARE 测试与开发团队在约 5 周内完成 10 万行技术支持工单系统并上线,原型验证'从数月到数天';Loyola Marymount 大学称某任务降到半天;Socure 'Scala→Go 迁移 2 天(原估 3 周)'仅见于 The New Stack 二手;广为流传的 Rackspace '52 周工作 3 周完成、效率 +90%' 未能定位到一手(检索仅见 Rackspace 展会页'最高 87.5% 时间节省')。",
+  quote="",source_url="https://aws.amazon.com/solutions/case-studies/pkfare/",source_title="AWS, 2026, PKFARE customer case study; AWS Public Sector Blog LMU; The New Stack (Socure)",date="2026",source_type="【厂商】",spec_type="T2",design="案例",confidence="secondhand",
+  notes="全部为 Kiro 厂商或其合作伙伴发布,无基线定义、无对照;'估算工期 vs 实际工期'口径不可验证。Rackspace 数字按疑似二手夸大处理,不得引用。")
+a(id="A32",claim="独立企业级测量缺位:本线检索未找到任何非厂商、非自述、带对照组的企业 SDD 落地报告;可得'企业案例'均为工具厂商(AWS/Kiro)、平台方或企业自述(Asana)。",
+  quote="",source_url="",source_title="本线检索结论(见 searched_angles)",date="2026-11",source_type="【研究】",spec_type="n/a",design="观察",confidence="paraphrase-checked",
+  notes="阴性结论受网络限制影响(多数站点 403),需验证阶段复检。")
+a(id="A33",claim="2026 话语场(反方/质疑):François Zaninotto(Marmelab,2025-11)《Spec-Driven Development: The Waterfall Strikes Back》称其让人想起要求大量前置文档的瀑布模型;Kent Beck(2026-02 newsletter《Earn *And* Learn》)认为'spec-driven 与否不是问题,先问在玩哪种游戏',SDD 隐含'终点线游戏'假设,在'复利游戏'中不成立;Ayman Nadeem(Nuanced 创始人,前 GitHub 工程师,2026-09)《Plan mode is dead》称独立规划步骤已失效,HN 上一位自称 Claude Code 开发者的评论认为 plan mode 本质只是附加在消息上的提醒。",
+  quote="",source_url="https://marmelab.com/blog/2025/11/12/spec-driven-development-waterfall-strikes-back.html",source_title="Zaninotto 2025 (Marmelab); Beck 2026 newsletter.kentbeck.com/p/earn-and-learn; Nadeem 2026 'Plan mode is dead'",date="2026-09",source_type="【媒体】",spec_type="mixed",design="评论",confidence="secondhand",
+  notes="引语均来自搜索摘要,未逐字核(站点 403);Beck 句子'Spec-driven or not spec-driven is not the question'需回原文;Nadeem 有自家产品转向的利益;HN 评论者身份未核。")
+a(id="A34",claim="2026 话语场(辩护方):Marc Brooker(AWS 杰出工程师,2026-04-09 个人博客《Spec Driven Development isn't Waterfall》)称 SDD 不是把设计'提前',而是把设计'提升'——迭代的对象是 spec 而非实现;Roger Wong(2026-03)承认相似但称 agent 让构建变便宜、反馈环改变;Utsab Pant 提醒'过期的 spec 比没有 spec 更糟,因为 agent 会忠实地把它当真'。",
+  quote="",source_url="https://brooker.co.za/blog/2026/04/09/waterfall-vs-spec.html",source_title="Brooker 2026 (brooker.co.za); Wong 2026 (rogerwong.me); Pant (utsabpant.com)",date="2026-04",source_type="【媒体】",spec_type="mixed",design="评论",confidence="secondhand",
+  notes="Brooker 是 AWS(Kiro 出品方)高管工程师——利益相关,辩护意见方向可参考;引语未逐字核。")
+a(id="A35",claim="Hacker News 话语(二手转述):InfoQ 报道部分 HN 开发者称 spec-driven 拖慢开发;HN 评论认为 Spec Kit 教程过于基础,不适用于'对巨大遗留代码库做增量改进或重构';Kiro 发布帖曾登 HN 榜首(1,063 分,二手博客数字)。",
+  quote="",source_url="https://www.infoq.com/news/2025/08/aws-kiro-spec-driven-agent",source_title="InfoQ 2025-08 AWS Kiro spec-driven agent; GeekNews(news.hada.io)HN 评论汇编",date="2025-08",source_type="【媒体】",spec_type="mixed",design="评论",confidence="secondhand",
+  notes="news.ycombinator.com 与 hn.algolia.com 均被网络策略拦截,未能取得原帖、作者 ID 与时间戳;具名作者要求未满足,验证阶段需补。")
+J={"line":"ADOPT","claims":C,
+"searched_angles":[
+ "Stack Overflow 2025 AI 页 / 2026 结果页 / 2026 脉冲调查:仅经 WebSearch 摘要(survey.stackoverflow.co、stackoverflow.blog 均 403);未找到 spec/plan-first 题项,唯一相关为 2025'项目规划不打算用 AI 69%'",
+ "JetBrains State of Developer Ecosystem 2025、AI Pulse 2026:仅二手;未找到 spec/plan 题项",
+ "DORA 2025 PDF(services.google.com 403):仅二手;未找到 spec 题项;DORA 2026 未检索到",
+ "GitHub Octoverse 2025:未找到 AGENTS.md / spec-kit 计数;Octoverse 2026 未见",
+ "GitHub code search(可复跑,2026-11-11):constitution.md@.specify/memory、tasks-template.md@.specify/templates、spec.md/plan.md@specs、requirements/design/tasks.md@.kiro/specs、.kiro/steering、openspec project.md/AGENTS.md、.bmad-core、tessl.json、speckit 命令文件、AGENTS.md/CLAUDE.md/.cursorrules 对照",
+ "GitHub 短语+内容检索 '\"Feature Specification\" \"Feature Branch\"' 返回 74,496 而 plan.md 版本仅 2,672——遗留搜索对引号短语匹配不可靠,未采用",
+ "repo search:spec-kit/OpenSpec/BMAD/Kiro star;topic:spec-driven-development/spec-kit/kiro;tessl-labs/tessl 查询失败(名称不确)",
+ "raw.githubusercontent 抓取 100 个 constitution.md 检测占位符",
+ "git treeless clone 180 仓(spec-kit/Kiro/OpenSpec 各 60)计算功能 spec 数、spec 提交占比、spec 冻结",
+ "SpecMine 数据集(GitHub 样本仓,README + parquet,DuckDB 计算);Zenodo/HuggingFace 全量未能访问",
+ "search/issues:remove/add spec kit|speckit|kiro|openspec|bmad 标题 PR 计数与月度切片;移除 PR 正文抽读编码理由",
+ "search/commits:'remove spec-kit' 582、'remove kiro specs' 704(未采用为主数字,全文模糊匹配)",
+ "spec-kit 官方仓 issue 按 reactions 排序(#1191、#442、#467)",
+ "企业案例:AWS Kiro(PKFARE、LMU、Dynata、Rackspace、Socure)、Asana 内部报告;独立企业报告——未找到",
+ "Thoughtworks Radar(SDD、Spec Kit、OpenSpec blip)——仅二手",
+ "话语场:Marmelab/Zaninotto、Kent Beck、Marc Brooker、Roger Wong、Utsab Pant、Yuval Yeret、Ayman Nadeem、Simon Willison(仅二手、与 SDD 关联弱)、Armin Ronacher/Dave Farley(未找到相关原话)",
+ "HN 原帖(news.ycombinator.com、hn.algolia.com 403)——未取得,具名作者缺失",
+ "arXiv 2608.25202(Agarwal et al.)、2611.05094(gated spec-driven workflow audit-trail,未找到内容)、2608.30572(PBL 教学报告,未读)——arxiv.org 403",
+ "npm/PyPI 下载量(api.npmjs.org、pypistats 403)——未取得;spec-kit 经 uvx 从 git 安装,PyPI 下载本就不代表采用",
+ "Reddit 弃用帖——未检索(reddit 不可达且无具名作者)"],
+"cross_caliber_issues":[
+ "文件 vs 项目:代码搜索 total_count 计文件(Kiro 每功能 3 文件、BMAD 每仓数十文件);SpecMine 按仓库计——引用时必须写明单位",
+ "GitHub 遗留 code search 的 total_count 是估计值且疑似分桶(requirements.md 与 path:.kiro tasks.md 同为 38,336),只能作数量级;只覆盖默认分支、非 fork、公开仓",
+ "安装 ≠ 使用:constitution.md 存在 ≠ 写过功能 spec(28% 克隆样本为 0 个 spec;8% constitution 是空模板)",
+ "star(149k)≠ 安装(~14k 仓)≠ 使用 ≠ 效果;topic 自标仓是供给侧",
+ "SpecMine 500 仓样本按 star 精选,README 明言不可估总体比率;A20/A21 只能作方向",
+ "'spec 冻结'(功能完工后不再改 spec)≠ 漂移(spec 与代码不一致);spec-first 用法下冻结是预期行为——需按 Böckeler spec-first/anchored/as-source 分型解读",
+ "Stack Overflow 2025 agent 使用 31%/23% 周用/52% 不用 三种口径;2026 主调查 26.2% 与脉冲 59% 定义不同;2026 样本量疑似骤降需核",
+ "调查题项'不打算用 AI 做项目规划'(T2 规划由 AI 做)与 SDD(人写 spec 给 agent)方向不同,不得互换",
+ "移除 PR 计数:标题短语匹配严重低估且被同组织批量操作放大;'remove kiro' 多为撤工具非撤 spec;移除/新增比例不可跨工具比较",
+ "企业案例全部为厂商/自述:Kiro 案例的'估算工期 vs 实际工期'无基线;Asana 前后对比无对照、7 人;Rackspace 52 周→3 周 未定位一手",
+ "弃用常见模式是'弃 T2 流程工具、留 T1 规则/issue 验收标准'——不可将弃用读作'spec 本身无用'",
+ "Agarwal et al. 2608.25202 与 SpecMine 同组,二者不是独立来源"]}
+json.dump(J,open('/home/user/deep-research/research/spec-driven-development/lines/ADOPT.json','w'),ensure_ascii=False,indent=1)
+print(len(C))

@@ -38,5 +38,9 @@
 - 2026-11-11: 登记 #25(ae757bb),吸收候选池「Autoformalization 的规约层危机」。STATE 落盘,调研线 7 条。
 - 2026-11-11: Round 1 通用 brief 落盘(brief.md);并行派 7 个调研子代理(PRO/CON/HIST/VENDOR/MEASURE/FORMAL/ADOPT),产出 lines/<LINE>.{json,md}。
 
+- 2026-11-11: Round 1 七线全部返回:PRO 31 / CON 35 / HIST 34 / VENDOR 34 / MEASURE 35 / FORMAL 34 / ADOPT 35 = 238 论断,153 个独立来源 URL;confidence:verbatim 129 / paraphrase 23 / secondhand 86。
+- 2026-11-11: **网络约束**:环境网络策略拦截 arxiv.org、openreview、dl.acm.org、ieeexplore、drops.dagstuhl.de、martinfowler.com、uvik.net、dev.to、kiro.dev、tessl.io、thoughtworks.com、github.blog、youtube.com、web.archive.org 等(CONNECT 403);尝试 update_environment 添加白名单被服务拒绝,需用户在环境设置中放行。一手原文主要经 GitHub 取得(作者仓库/LaTeX 源/复现包/博客源仓库)。ADOPT 现场测量脚本与数据存 adopt-measure/。
+- 2026-11-11: groups.py 合并 01-raw-claims.md;抽 32 组(groups/G01–G32),分 4 批(B1 G01–G08 / B2 G09–G16 / B3 G17–G24 / B4 G25–G32)。
+
 ## 下一步(恢复点)
-Round 1:按 7 条调研线派子代理,产出 `lines/<LINE>.{json,md}` → 合并 `01-raw-claims.md`(每条标注来源类型 + spec 分型 T1–T4)+ 文末「交叉口径问题」清单。
+Round 2:4 批 × 3 镜头(逐字 Q / 反证 X / 口径 K)= 12 个独立验证子代理,refute-by-default,判决落 verdicts/<G>-<镜头>.md → 汇总 03-verification-round2.md。启动前确认网络白名单是否已放行(否则方法学前言须披露受限核验)。
