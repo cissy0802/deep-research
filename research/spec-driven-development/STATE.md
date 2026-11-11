@@ -36,6 +36,7 @@
 
 ## 运行日志
 - 2026-11-11: 登记 #25(ae757bb),吸收候选池「Autoformalization 的规约层危机」。STATE 落盘,调研线 7 条。
+- 2026-11-11: Round 1 通用 brief 落盘(brief.md);并行派 7 个调研子代理(PRO/CON/HIST/VENDOR/MEASURE/FORMAL/ADOPT),产出 lines/<LINE>.{json,md}。
 
 ## 下一步(恢复点)
 Round 1:按 7 条调研线派子代理,产出 `lines/<LINE>.{json,md}` → 合并 `01-raw-claims.md`(每条标注来源类型 + spec 分型 T1–T4)+ 文末「交叉口径问题」清单。
