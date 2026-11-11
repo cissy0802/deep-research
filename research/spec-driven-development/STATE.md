@@ -44,5 +44,8 @@
 
 - 2026-11-11: 网络已改为不受限(arXiv/Dagstuhl/martinfowler/uvik/kiro 可达;dl.acm.org 站方 403)。Round 2 brief 落盘(brief-r2.md);派 12 个验证子代理(B1–B4 × Q/X/K),判决落 verdicts/<G>-<镜头>.md,共 96 票。
 
+- 2026-11-11: Round 2 十二个验证子代理全部返回,96 票:10 HOLDS / 86 修正 / 0 组级推翻;伪引用 4 处(H27 OMG、V30 Claude Code 文档、V26 Grove 口号、M31 Tessl),子论断推翻约 40 处,禁写清单见 03。Uvik 原始 CSV 存 data/。上游修订(AGENTbench v3、METR 2026-02 更新)影响已发布 #14/#0,已作为独立修正任务提出,不在本期处理。03-verification-round2.md 落盘。
+- 2026-11-11: Round 3 brief(brief-r3.md)与 6 个靶子(r3/targets.md)落盘;派 12 个子代理(R1–R6 × X 反证搜索席 / M 方法学审计席)。
+
 ## 下一步(恢复点)
-等 12 个验证子代理返回 → 汇总 03-verification-round2.md;识别单源承重实证(候选:Hill ESEM、Uvik、TiCoder 用户研究、SpecMine/ADOPT 活性测量、ProofNet-Verified、AutoCLRS SPOT)→ Round 3 双席。
+等 Round 3 十二份判决(r3/R*-{X,M}.md)→ 汇总 04-verification-round3.md → 02-verified-claims.md(承重论断 + 证据分级)→ 成文 zh deep/plain → en 翻译 → build.py 注册构建 → TOPICS 归档 + 钩子收割。
