@@ -59,10 +59,10 @@ t4.py 对 v2 Table IV(PDF p.12,第 680–695 行)穷举:{全部 7 模型 / 4 旧
 - 版本谱系:2208.05950(2022,Codex)摘要「22.49%–37.71%(MBPP)、24.79%–53.98%(HumanEval)」→ v1 38.43% → v2/TSE 45.97%(摘要)/45.73%(正文)。TSE 摘要(S2)= 45.97%,且摘要仍写「four different … LLMs」而表为 7 个模型。
 
 **F10 v1→v2 只有 Output 列被整体上调,baseline 与 PassFail 列逐字未变。**
-对 8 个共有行比较:baseline pass@1/pass@100 与 PassFail m=1…5 全部相同;Output 列全部上调(如 CodeGen-6B HE m=5 33.14→48.12,+14.98;text-davinci-003 MBPP m=1 73.67→77.00)。同一缓存、同一模拟用户,只有一种设置的数值变化,论文无任何说明(在 v2 全文 grep 范围内)。这是未解释的版本漂移,直接推高标题数字(38→46)。
+对 8 个共有行程序比对:baseline pass@1/pass@100 与 PassFail m=1…5 共 56 个数逐一相同;Output 列 40 个数全部上调(+0.92 至 +14.98 pp)(如 CodeGen-6B HE m=5 33.14→48.12,+14.98;text-davinci-003 MBPP m=1 73.67→77.00)。同一缓存、同一模拟用户,只有一种设置的数值变化,论文无任何说明(在 v2 全文 grep 范围内)。这是未解释的版本漂移,直接推高标题数字(38→46)。
 
 **F11 v2 的文字结论被其自己的新表推翻。**
-- 「T I C ODER -PASS FAIL … always stays within 9% of the benefits of T I C ODER -O UTPUT」(第 758–760、770 行):v1 表下成立(最大差 6.46 pp);**v2 表下 5 行超 9 pp**:CodeGen-6B HE 18.56、CodeGen-6B MBPP 12.89、CodeGen2.5-7B HE 15.92、CodeGen2.5-7B MBPP 10.84、code-davinci-002 HE 10.13。句子是从 v1 遗留的。
+- 「T I C ODER -PASS FAIL … always stays within 9% of the benefits of T I C ODER -O UTPUT」(第 758–760、770 行):此句在 v1 中不存在(v1 全文 grep 无「within 9」),是 v2 新增;按 v1 表本可成立(最大差 6.46 pp),**但按 v2 自己上调后的表有 5 行超 9 pp**:CodeGen-6B HE 18.56、CodeGen-6B MBPP 12.89、CodeGen2.5-7B HE 15.92、CodeGen2.5-7B MBPP 10.84、code-davinci-002 HE 10.13(Output m=5 − PassFail m=5)。即 v2 的结论句与 v2 的表不一致,疑在 Output 列上调前撰写。
 - 「text-davinci-003 … T I C ODER -O UTPUT … This increases to 38.55% with 5 queries」(第 732–733 行):按表 83.75−49.16 = **34.59 pp**;38.55 = 87.71(code-davinci-002 的 m=5)− 49.16(text-davinci-003 的 baseline),跨行混算。v1 同处更乱:写「text-davinci-003 from 48.25% to 68.42%」实为 code-davinci-002 行数字。
 
 **F12 Table IV 的「增益」不能归因于用户交互。**
