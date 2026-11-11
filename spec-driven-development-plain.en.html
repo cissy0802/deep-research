@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is It Really Better to Write a Spec First and Then Let AI Write the Code? (Plain-Language Edition) — BigCat Deep Research</title>
+<meta name="description" content="Saying clearly what you want does make AI write better code, but the benefit is shrinking and the cost is real; there is no reliable evidence that a dedicated spec-tool workflow beats one clearly written paragraph, only that it is slower and costs more; specs drift out of step with code, and the biggest tool doesn't even keep its own; "edit only the spec and regenerate the code" has already hit a wall in mathematics. Plain edition: three questions, the shaky numbers on both sides, and six things that matter most.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,"Noto Serif SC",sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0a0e1a 100%);color:#dde1ea;line-height:1.85;min-height:100vh}
+.container{max-width:760px;margin:0 auto;padding:56px 24px 90px}
+.kicker{font-size:0.78rem;color:#4cc9f0;letter-spacing:2px;text-transform:uppercase;font-family:"SF Mono",Menlo,monospace;margin-bottom:10px}
+h1{font-size:1.9rem;font-weight:800;line-height:1.4;background:linear-gradient(135deg,#4cc9f0 0%,#7b61ff 55%,#ff6ec4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+h2{font-size:1.32rem;font-weight:700;color:#fff;margin:46px 0 14px;padding:10px 0 8px;border-top:1px solid rgba(255,255,255,0.08)}
+h2::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:10px;background:var(--h2,#4cc9f0);transform:translateY(1px)}
+h3{font-size:1.08rem;font-weight:700;color:#c9d4ff;margin:30px 0 10px}
+p{margin:0 0 16px}
+ul,ol{margin:0 0 16px 1.4em}
+li{margin-bottom:8px}
+strong{color:#fff}
+em{color:#8be0e8;font-style:normal}
+code{font-family:"SF Mono",Menlo,monospace;font-size:0.85em;background:rgba(123,97,255,0.15);padding:1px 6px;border-radius:4px;color:#c9d4ff}
+a{color:#4cc9f0;text-decoration:none;border-bottom:1px dotted rgba(76,201,240,0.4)}
+a:hover{color:#7b61ff}
+blockquote{border-left:3px solid #4cc9f0;background:rgba(76,201,240,0.06);padding:14px 18px;margin:0 0 20px;border-radius:0 8px 8px 0;font-size:0.92rem;color:#a8b4d0}
+blockquote p{margin-bottom:8px}
+blockquote p:last-child{margin-bottom:0}
+hr{border:none;border-top:1px solid rgba(255,255,255,0.12);margin:36px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid rgba(76,201,240,0.18);border-radius:10px}
+.tw table{border-collapse:collapse;width:100%;font-size:0.86rem;line-height:1.6}
+.tw th,.tw td{padding:9px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.06)}
+.tw th:last-child,.tw td:last-child{border-right:none}
+.tw tbody tr:last-child td{border-bottom:none}
+.tw th{background:rgba(76,201,240,0.09);color:#cfe6f5;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;letter-spacing:0.4px;font-weight:600;white-space:nowrap}
+.tw td{color:#a8b4d0}
+.tw tbody tr:nth-child(even){background:rgba(255,255,255,0.022)}
+.tw strong{color:#fff}
+figure{margin:26px 0;padding:18px 16px 12px;background:rgba(255,255,255,0.025);border:1px solid rgba(76,201,240,0.18);border-radius:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{margin-top:10px;font-size:0.8rem;color:#7c8593;text-align:center;font-family:"SF Mono",Menlo,monospace;line-height:1.55}
+.tl{background:linear-gradient(135deg,rgba(76,201,240,0.10),rgba(123,97,255,0.10));border:1px solid rgba(76,201,240,0.35);border-radius:12px;padding:18px 20px;margin:24px 0 8px}
+.tl .tl-label{font-family:"SF Mono",Menlo,monospace;font-size:0.72rem;letter-spacing:2px;color:#4cc9f0;margin-bottom:8px}
+.tl .tl-text{font-size:0.98rem;color:#e8ecf5;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 30px}
+.chip{font-family:"SF Mono",Menlo,monospace;font-size:0.74rem;font-weight:700;padding:5px 13px;border-radius:14px;border:1px solid;white-space:nowrap}
+.chip.c1{color:#4cc9f0;border-color:rgba(76,201,240,0.5);background:rgba(76,201,240,0.08)}
+.chip.c2{color:#ff6ec4;border-color:rgba(255,110,196,0.5);background:rgba(255,110,196,0.08)}
+.chip.c3{color:#5eead4;border-color:rgba(94,234,212,0.5);background:rgba(94,234,212,0.08)}
+.chip.c4{color:#f0b429;border-color:rgba(240,180,41,0.5);background:rgba(240,180,41,0.08)}
+.topbar{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:100;font-family:"SF Mono",Menlo,monospace;font-size:0.75rem}
+.topbar a{background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 13px;color:#a0a8c0;border-bottom:none}
+.topbar a.active{background:#7b61ff;color:#fff;font-weight:700}
+.topbar a:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff}
+.version-note{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:0.76rem;color:#4cc9f0;border:1px solid rgba(76,201,240,0.35);border-radius:14px;padding:3px 12px;margin:6px 0 6px}
+.version-note a{border-bottom:none;font-weight:700}
+.backlink{font-family:"SF Mono",Menlo,monospace;font-size:0.8rem;margin-bottom:18px;display:inline-block;border-bottom:none;color:#7b61ff}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.1);font-size:0.75rem;color:#5a6378;font-family:"SF Mono",Menlo,monospace}
+footer a{border-bottom:none}
+.mmd-lang-toggle{display:none!important}
+@media(max-width:700px){.container{padding:44px 16px 70px}h1{font-size:1.5rem}.topbar{top:8px;right:8px}}
+h2:nth-of-type(1){--h2:#4cc9f0}
+h2:nth-of-type(2){--h2:#7b61ff}
+h2:nth-of-type(3){--h2:#ff6ec4}
+h2:nth-of-type(4){--h2:#5eead4}
+h2:nth-of-type(5){--h2:#f0b429}
+h2:nth-of-type(6){--h2:#52b788}
+h2:nth-of-type(7){--h2:#e8794b}
+h2:nth-of-type(8){--h2:#a29bfe}
+</style>
+</head><body>
+<div class="topbar">
+  <a href="spec-driven-development-plain.html">中文</a><a href="spec-driven-development-plain.en.html" class="active">EN</a>
+</div>
+<div class="container">
+<a class="backlink" href="index.en.html">← Deep Research</a>
+<div class="kicker">Deep Research · Plain-language</div>
+<h1>Is It Really Better to Write a Spec First and Then Let AI Write the Code? (Plain-Language Edition)</h1>
+<div class="version-note">This is the <strong>plain-language edition</strong> · <a href="spec-driven-development-deep.en.html">read the deep dive (full arguments &amp; sources) →</a></div>
+<div class="tl"><div class="tl-label">TL;DR</div><div class="tl-text">Saying clearly what you want does make AI write better code — but the stronger the model, the smaller the benefit, and it costs half again to more than double the money. Whether running a dedicated spec tool's full workflow beats writing one clear paragraph has no reliable evidence today: both comparisons we found fail inspection, and all we can say is that it's slower. Specs drift out of step with code, and we can't even measure how much; the biggest tool doesn't keep its own specs. "Edit only the spec and regenerate the code" has already hit a wall in mathematics: computers can check whether a proof is right, not whether the problem was stated right. The popular numbers on both sides don't hold up, and the likeliest ending looks like UML: keep the habit of thinking it through first, drop the heavy tooling.</div></div>
+<div class="chips"><span class="chip c1">being clear helps</span><span class="chip c2">no evidence for the workflow</span><span class="chip c3">specs go stale</span><span class="chip c4">right proof, wrong problem</span></div>
+<blockquote><p>This is the plain-language edition, written for people who don't write code, or who have only just started using AI to write code. For the source of every number, the original quotes and the strength of the evidence, see the <a href="https://hub.cissychen.com/deep-research/spec-driven-development-deep.en.html">deep dive</a>. All figures are as of November 2026.</p></blockquote>
+<h2>First, what is this piece asking?</h2>
+<p>Lots of people now use AI to write programs. The earliest approach was "say whatever comes to mind" and let the AI guess as it writes, which came to be called vibe coding. Since 2025 a new approach has caught on: <strong>first write up what you want built as a detailed instruction document (a spec), then have the AI write the code by following it.</strong> This is called "spec-driven development." GitHub, Amazon (AWS) and quite a few startups have all launched dedicated tools for it.</p>
+<p>Supporters say: AI programming finally has some rules. Critics say: isn't this just the "waterfall development" of decades ago—lock down the documents first, then start building—under a new name?</p>
+<p>There are really three questions wrapped up in this:</p>
+<ol><li>If you write a spec first, does the AI produce something better?</li><li>Once the spec is written, will it gradually drift out of step with the code?</li><li>In the future, could you change only the spec and have the AI regenerate the code automatically?</li></ol>
+<h2>1. Spelling out what you want first really does make AI write better</h2>
+<p><strong>There is solid evidence for this.</strong> Several groups of researchers have run the same kind of experiment: for the same task, the more complete the instructions given to the AI, the more it gets right; strip the instructions away bit by bit and the success rate drops bit by bit; add them back and it rises again. Having the AI list a plan before writing code helps too.</p>
+<p>But there are two caveats:</p>
+<ul><li><strong>The stronger the model, the smaller this benefit.</strong> Older models from 2023 gained a lot from "plan first"; today's strong models gain much less.</li><li><strong>The cost is not small.</strong> In one 2026 study, having the AI write a spec before writing code passed a few more percentage points of tests, but cost anywhere from half again to more than double the money.</li></ul>
+<h2>2. But there's no evidence that "running the full process with a dedicated tool" is better</h2>
+<p>This is the crux. What those experiments show is that "<strong>stating your intent clearly</strong>" helps—not that "<strong>following some spec tool's seven-step process</strong>" helps. The real comparison should be: given the same information, which is better—writing it as one clear paragraph and handing it straight to the AI, or going through the whole Spec Kit process?</p>
+<p>The two comparisons of this kind that we found both fail to hold up under scrutiny:</p>
+<ul><li>One is a paper that hasn't been formally published. The two sides were given different amounts of time (90 minutes for one, 40 minutes for the other), and only the finished attempts were scored, so the two scores can't be compared. It shows only one thing: <strong>running the full process is slower.</strong></li><li>The other is a test run by an outsourcing company itself, and it has spread widely online. We recalculated its published raw data line by line and found that dozens of rows described as a "re-run by different people" were in fact the first round's data with some edits; the way costs were calculated was also inconsistent. <strong>We use none of its numbers.</strong></li></ul>
+<p>Several experienced engineers have tried it themselves, and their impressions agree: to fix one small bug, the tool generated 16 acceptance criteria, "like using a sledgehammer to crack a nut"; one tech lead said that without this process he was "around ten times faster", and the code the process produced was no better either.</p>
+<h2>3. Will the spec gradually drift out of step with the code?</h2>
+<p><strong>Yes—and right now we can't even measure how much accurately.</strong></p>
+<ul><li>The biggest spec tool, GitHub Spec Kit, says in its documentation that "Specifications stay in sync with code because they generate it." Yet in its own code repository, it has set the spec folders to be ignored by version control, so they are never saved.</li><li>The complaint this tool's users raise most often: <strong>once written, the specs are hard to change and can't keep up with changes to features.</strong></li><li>One research team interviewed 21 people using this method, and most said their specs and code had fallen out of step.</li><li>In public data, roughly 20% to 40% of projects that installed this tool have never written a single formal spec.</li><li>Some people have removed it from their projects, for a typical reason: "a reviewed, confirmed issue <em>is</em> the specification," and the process tools "were carrying cost without carrying work."</li></ul>
+<p>This is a lot like the UML diagramming tools of twenty years ago: a survey of 50 developers back then found not one who was using them fully; most drew a sketch to think things through and then threw it away.</p>
+<h2>4. Change only the spec and have the code generated automatically—can that work?</h2>
+<p><strong>Mathematics has already tried it for us, and the results aren't encouraging.</strong></p>
+<p>Mathematicians write proofs in a language that a computer can check line by line. The computer can guarantee that "the proof is correct," but it can't guarantee that "the statement being proved is the statement you originally meant to prove." Two independent teams went through the same set of math problems one by one and found that <strong>a large number of problems had been translated into statements with a different meaning</strong>; across all the problems, more than a quarter had been translated into statements that can be proved false. The computer still "correctly" finished the proofs.</p>
+<p>Software is the same. Microsoft researchers had AI write specs, code and proofs for more than 50 classic algorithms, and every one passed the computer's checks; on closer inspection, the specs themselves had holes for 8 of the algorithms—for example, letting a wrong answer through. Another study found that <strong>an empty program that does nothing and just replies "OK" can pass every test written from the spec.</strong></p>
+<p>Specs written in everyday language don't even have the "computer checks the proof" step. So for "just change the spec," there's no workable path in sight today. The company that pushed this hardest (Tessl) no longer says so on its current homepage.</p>
+<h2>5. The most-quoted numbers on both sides don't hold up</h2>
+<ul><li>Supporters often say "research shows up to 50% fewer errors": traced back to the source, the article being cited contains no data at all.</li><li>Supporters also say "73% fewer security vulnerabilities": that was one person writing the same program twice.</li><li>Critics often say "research proves specs don't reduce bugs": what that study actually measured was "whether a code change had a task number attached," and the classifier it used was faulty, misclassifying about 14% of the samples.</li><li>The slogan "specs are the new code" is often attributed to a researcher at OpenAI. He didn't say it; it's the web address of the talk's page.</li><li>"Fixing an error costs $1 at the requirements stage and $100 after launch": this comes from a chart about large projects in the 1970s whose original data was never made public; for small projects the difference is only two to four times.</li></ul>
+<p>There's also a historical joke: the 1970 paper treated as the origin of "waterfall development" never uses the word "waterfall" anywhere in it. The author actually considered going straight through in one pass "risky and invites failure," and his prescription was <strong>to write more documentation</strong>—even more than today's spec tools ask for.</p>
+<h2>6. Who is doing the talking</h2>
+<ul><li>The companies selling the tools (GitHub, Amazon, Tessl) have never published controlled experiments showing their own tools make code better. Amazon's pricing, on the other hand, admits it costs more: requests run through the spec process, once over the allowance, cost 5 times as much per request as ordinary ones.</li><li>These companies themselves also say: small changes don't need to go through the whole process.</li><li>Among the people online defending and criticizing this method, there are interested parties on both sides: some work at companies selling the tools, and some draw their examples from their own products.</li></ul>
+<h2>The things that matter most</h2>
+<ol><li><strong>Spelling out what you want really does make AI write better</strong>—but the benefit is shrinking, and the cost is not small.</li><li><strong>There's no reliable evidence that a "dedicated spec-tool process" beats "one clearly written paragraph"</strong>; what is certain is that it's slower and more expensive.</li><li><strong>Specs drift out of step with code</strong>, and today we can't even measure it accurately; the biggest tool doesn't even save its own specs.</li><li><strong>"Change only the spec and have the code generated automatically" has already hit a wall in mathematics</strong>: a computer can check whether a proof is right, but not whether the problem statement is right.</li><li><strong>The popular numbers on both sides don't stand up</strong>; when you hear "research shows," first ask: what did it measure, and who did it?</li><li><strong>The most likely ending looks like UML</strong>: people keep the habit of "think it through first and write it down," and drop the heavy tools and processes.</li></ol>
+<footer>BigCat Deep Research · 2026-11 · <a href="https://cissy0802.github.io/">Learning Hub</a></footer>
+</div>
+<script src="https://hub.cissychen.com/comments.js" defer></script>
+<script src="https://hub.cissychen.com/search.js" defer></script>
+<script src="https://hub.cissychen.com/index-button.js" defer></script>
+<script src="https://hub.cissychen.com/i18n-tts.js" defer></script>
+</body></html>

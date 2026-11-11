@@ -4746,6 +4746,22 @@ ARTICLE_TMPL = """<!DOCTYPE html>
 
 # slug, lang, version(plain|deep), title, desc, date
 ARTICLES = [
+    ("spec-driven-development-deep", "zh", "deep",
+     "Spec-driven development:AI 编程的新纪律,还是瀑布与 MDA 的第三次复活?(深入版)",
+     "把「先写 spec 再让 agent 实现」拆成三个主张送回一手证据:说清意图确实让 agent 更成功(多项受控消融同向),但「走完整 SDD 流程 vs 直接实现」的公开对照都过不了审计,只剩「更慢、更贵」的方向;公开提交史测不出 spec 漂移,能站住的只有「装了≠用了」与实践者自述分叉;形式数学基准里「证明对了、命题错了」被两个独立团队逐题证实;最大的观察研究测的是工单号,不是 SDD。32 组承重论断 × 3 票对抗验证,另含 6 条单源实证的双席审计。",
+     "2026-11"),
+    ("spec-driven-development-deep", "en", "deep",
+     "Spec-Driven Development: A New Discipline for AI Coding, or the Third Resurrection of Waterfall and MDA? (Deep Dive)",
+     "\"Write the spec first, then let the agent implement it\" split into three claims and returned to primary evidence: stating intent more completely does make agents more successful (several controlled ablations agree), but every public comparison of a full SDD workflow against direct implementation fails audit, leaving only the direction \"slower and more expensive\"; public commit history cannot measure spec drift, and all that stands is \"installed is not used\" and practitioners' own reports of divergence; in formal-math benchmarks, \"the proof is right but the statement is wrong\" is confirmed problem by problem by two independent teams; the largest observational study measures ticket numbers, not SDD. 32 load-bearing claim groups × 3 adversarial votes, plus a two-seat audit of six single-source findings.",
+     "2026-11"),
+    ("spec-driven-development-plain", "zh", "plain",
+     "先写说明书再让 AI 写代码,真的更好吗?(易读版)",
+     "把要做什么说清楚,AI 确实写得更好,但好处在变小、代价不小;没有可靠证据说明专门的 spec 工具流程比一段写清楚的话更好,能确定的是更慢更贵;说明书会和代码对不上,最大的工具自己都不保存说明书;「只改说明书、代码自动生成」在数学界已经碰壁。易读版:三个问题、两边靠不住的热门数字,和六件最要紧的事。",
+     "2026-11"),
+    ("spec-driven-development-plain", "en", "plain",
+     "Is It Really Better to Write a Spec First and Then Let AI Write the Code? (Plain-Language Edition)",
+     "Saying clearly what you want does make AI write better code, but the benefit is shrinking and the cost is real; there is no reliable evidence that a dedicated spec-tool workflow beats one clearly written paragraph, only that it is slower and costs more; specs drift out of step with code, and the biggest tool doesn't even keep its own; \"edit only the spec and regenerate the code\" has already hit a wall in mathematics. Plain edition: three questions, the shaky numbers on both sides, and six things that matter most.",
+     "2026-11"),
     ("ubi-after-work-deep", "zh", "deep",
      "被供养之后:UBI 的实测效果、劳动议价权的消失,与「不工作的人靠什么活得好」(深入版)",
      "假设 AI 真的让政府开始大规模发钱,把发钱之后的事送回一手证据:低收入国家里现金几乎不减少劳动,富裕国家里工时每周少一两个小时、就业率效应在 0 到 −7 个百分点之间;钱提高生活满意度,却不太改变日常情绪和精神健康;失业的伤害有一块钱补不上,但退休者的数据说明它不全是「不工作」本身;石油诅咒收窄到「1970 年代后、阻碍威权国家民主化」,发钱没有让人去政治化,intelligence curse 仍是论证。22 组承重论断 × 3 票对抗验证,另含 5 条单源实证的双席审计。",
@@ -5125,6 +5141,14 @@ KICKERS = {
 }
 
 TLDRS = {
+    ("spec-driven-development-deep", "zh"):
+        "「spec-driven development」捆着三个主张,证据完全不同。截至 2026 年 11 月:(1)先写 spec 让 agent 更好——机制成立:规约越完整成功率越高(Specification Gap 89%→56%→89%、TD Bank 段落 27/30 清单 30/30 无 spec 2/30、SpecFirst 绝对 +2.7–7.2 个百分点但成本 +48–130%),先计划在论文内有消融(MapCoder 去计划 −10pp);但「走完整 Spec Kit/Kiro 流程 vs 直接让 agent 做」的两项公开对照都没过审计:一项预印本两臂时间预算 90 vs 40 分钟、只给幸存者打分,一项厂商基准的原始数据里复跑行是首跑行加扰动、同模型各臂单价不一——只剩「更慢、更贵」的方向。(2)spec 保持活性——公开提交史测不出漂移(数据集作者自认),spec 停更与 README 同量级;能站住的只有约两到四成装了 spec-kit 的仓库没有功能 spec、多数受访实践者自述分叉;Spec Kit 自家仓库把 specs/ 加进了 .gitignore。(3)spec 即源码——形式数学基准里两个独立团队逐题证实大量形式陈述与原题不符(约 28% 可被证明为假),机检通过的算法规约仍有实质缺口,空桩能通过全部 spec 派生测试。最大的观察研究(88,052 个 PR)测的是工单号,分类器缺陷误判 13.9%。Royce 1970 原文没有「waterfall」一词,要的文档比 SDD 还多。十个可检验主张收尾。",
+    ("spec-driven-development-deep", "en"):
+        "\"Spec-driven development\" bundles three claims with very different evidence. As of November 2026: (1) Writing a spec first makes agents better — the mechanism holds: the more complete the specification, the higher the success rate (Specification Gap 89%→56%→89%; TD Bank 27/30 with a prose spec, 30/30 with a checklist, 2/30 with no spec; SpecFirst +2.7 to +7.2 points absolute at +48–130% cost), and planning first has in-paper ablations (MapCoder −10 points without its planner); but both public comparisons of a full Spec Kit/Kiro workflow against letting the agent work directly fail audit — a preprint gave the two arms 90 vs 40 minutes and scored only survivors, and a vendor benchmark's raw data shows rerun rows that are first-run rows with noise added and different unit prices for arms on the same model — leaving only the direction \"slower and more expensive.\" (2) Specs stay alive — public commit history cannot measure drift (the dataset's own authors say so), and specs go stale at about the same rate as READMEs; what stands is that roughly 20–40% of repos with spec-kit installed have no feature spec and most interviewed practitioners report divergence; Spec Kit's own repo gitignores its specs/ folder. (3) Spec as source — in formal-math benchmarks two independent teams confirm, problem by problem, that many formal statements don't match the original problem (about 28% are provably false); machine-checked algorithm specs still have substantive gaps; and a do-nothing stub passes every spec-derived test. The largest observational study (88,052 PRs) measures ticket numbers, and a classifier bug mislabels 13.9%. Royce's 1970 paper never uses the word \"waterfall\" and asks for more documentation than SDD does. Ten testable claims close the piece.",
+    ("spec-driven-development-plain", "zh"):
+        "先把要做什么说清楚,AI 确实写得更好——但模型越强好处越小,而且多花一半到一倍多的钱。用专门的 spec 工具走完整套流程是否比写一段清楚的话更好,今天没有可靠证据:找到的两项比较都过不了检查,只能确定它更慢。说明书会和代码对不上,连量都量不准;最大的工具在自己仓库里都不保存说明书。「只改说明书、代码自动生成」在数学界已经碰壁:电脑能检查证明对不对,检查不了题目对不对。两边的热门数字都站不住,最可能的结局像 UML:留下「先想清楚」的习惯,丢掉沉重的工具。",
+    ("spec-driven-development-plain", "en"):
+        "Saying clearly what you want does make AI write better code — but the stronger the model, the smaller the benefit, and it costs half again to more than double the money. Whether running a dedicated spec tool's full workflow beats writing one clear paragraph has no reliable evidence today: both comparisons we found fail inspection, and all we can say is that it's slower. Specs drift out of step with code, and we can't even measure how much; the biggest tool doesn't keep its own specs. \"Edit only the spec and regenerate the code\" has already hit a wall in mathematics: computers can check whether a proof is right, not whether the problem was stated right. The popular numbers on both sides don't hold up, and the likeliest ending looks like UML: keep the habit of thinking it through first, drop the heavy tooling.",
     ("ubi-after-work-deep", "zh"):
         "假设 AI 让政府真的开始大规模发钱,本期只问发钱之后的事。截至 2026 年 11 月的一手证据显示:今天没有任何试验是「全民、永久、足以不工作」的,所有结论都隔着外推缺口。工作:低收入国家里现金几乎不减少劳动,常从打工转向自营;富裕国家里无条件现金让工时每周少约 1–2 小时(美国 ORUS、德国试验、彩票同向),就业率效应在 ORUS 里按口径是 −2.3 到 −6.6 个百分点、在德国、阿拉斯加、芬兰约为零;「挣得越多扣得越多」的经济审查型救助抑制更明显(巴塞罗那 −10.2 个百分点)。幸福:富裕国家的压力改善很快消退,精神健康第二年看不出差别;彩票让生活满意度持续上升十余年,但日常情绪不变;德国试验的「意义感」提升是未预注册的探索性结果。意义:失业降低生活满意度且几乎不适应,救济补不平;但退休者和非劳动力受伤小得多,长期失业男性退休后满意度部分追回,机制拆不开。议价权:石油诅咒收窄为「1970 年代后、阻碍威权国家民主化」,发钱没有让人去政治化,阿拉斯加分红却每年由政治决定;intelligence curse 只是论证。科技领袖的表态无金额、无时间表。九个可检验主张收尾。",
     ("ubi-after-work-deep", "en"):
@@ -5313,6 +5337,18 @@ TLDRS = {
 }
 
 CHIPS = {
+    ("spec-driven-development-deep", "zh"): [
+        ("c1", "96 票对抗验证 · 47 处表述被否决"), ("c2", "说清意图有用,流程未证"), ("c3", "公开数据测不出漂移"), ("c4", "10 个可检验主张"),
+    ],
+    ("spec-driven-development-deep", "en"): [
+        ("c1", "96 adversarial votes · 47 statements vetoed"), ("c2", "clear intent helps; the workflow is unproven"), ("c3", "public data can't measure drift"), ("c4", "10 testable claims"),
+    ],
+    ("spec-driven-development-plain", "zh"): [
+        ("c1", "说清楚有用"), ("c2", "工具流程没证据"), ("c3", "说明书会过时"), ("c4", "证对了也可能是错题"),
+    ],
+    ("spec-driven-development-plain", "en"): [
+        ("c1", "being clear helps"), ("c2", "no evidence for the workflow"), ("c3", "specs go stale"), ("c4", "right proof, wrong problem"),
+    ],
     ("ubi-after-work-deep", "zh"): [
         ("c1", "66 票对抗验证 · 34 处表述被否决"), ("c2", "富国工时每周少 1–2 小时"), ("c3", "钱改评价,不改情绪"), ("c4", "9 个可检验主张"),
     ],
@@ -5937,6 +5973,15 @@ INDEX_ENTRIES = [
      "66 adversarial votes · 9 testable claims",
      [("t1", "基本收入", "Basic income"), ("t2", "劳动经济学", "Labor economics"), ("t3", "幸福感研究", "Wellbeing research"),
       ("t4", "政治经济学", "Political economy"), ("t5", "测量方法", "Measurement")]),
+    ("spec-driven-development", "2026-11",
+     "Spec-driven development:新纪律,还是瀑布的第三次复活?",
+     "Spec-Driven Development: New Discipline or Waterfall's Third Return?",
+     "「先写 spec 再让 agent 实现」到底管不管用?把口号拆成三个主张——先写 spec 能否让 agent 写得更好、spec 会不会和代码渐行渐远、spec 能否成为唯一事实源——逐条送回一手证据:受控消融、厂商基准的原始数据复算、88,052 个 PR 的观察研究重跑、GitHub 现场测量、形式数学基准的逐题审计,以及 Royce、Boehm、UML 与 MDA 的前科考古。",
+     "Does \"write the spec first, then let the agent implement it\" actually work? The slogan split into three claims — whether a spec makes agents write better, whether specs drift away from code, whether a spec can be the single source of truth — each returned to primary evidence: controlled ablations, a recomputation of a vendor benchmark's raw data, a rerun of an 88,052-PR observational study, field measurements on GitHub, a problem-by-problem audit of formal-math benchmarks, and the archaeology of Royce, Boehm, UML and MDA.",
+     "96 票对抗验证 · 10 个可检验主张",
+     "96 adversarial votes · 10 testable claims",
+     [("t1", "软件工程", "Software engineering"), ("t2", "AI 编程", "AI coding"), ("t3", "形式化方法", "Formal methods"),
+      ("t4", "科学史", "History of science"), ("t5", "测量方法", "Measurement")]),
 ]
 
 
