@@ -18,7 +18,7 @@ This literature has three systematic traps; every conclusion below should be rea
 
 - **Lab failure rates are inflated.** In the classic complacency experiments, even the "high reliability" condition failed about 12% of the time — the original authors themselves called this "unrepresentative of any real automated system." Real systems fail orders of magnitude less often; extrapolating human miss rates is inference, not measurement. 【verified】
 - **The "deskilling" literature is almost entirely cross-sectional or before-after, rarely randomized.** The true RCTs (like Qazi in Chapter 6) measure "wrong advice misleads people right now," not "long-term use atrophies skill" — two claims that get conflated constantly.
-- **Perception is not measurement.** Self-reports of "feeling dumber/faster" chronically diverge from measured performance — in [When Code Becomes Cheap](https://cissy0802.github.io/deep-research/ai-native-deep.en.html), METR's experienced developers were 19% slower with AI while estimating themselves 20% faster. That is this rule's harshest footnote.
+- **Perception is not measurement.** Self-reports of "feeling dumber/faster" chronically diverge from measured performance — in [When Code Becomes Cheap](https://cissy0802.github.io/deep-research/ai-native-deep.en.html), METR's experienced developers were 19% slower with AI while estimating themselves 20% faster (early-2025 tools; METR's February 2026 follow-up measured a speedup instead, which METR itself calls unreliable due to selection effects — the perception-measurement gap is unaffected). That is this rule's harshest footnote.
 
 ## 2. Rereading the original: what those five 1983 pages said, and didn't
 
