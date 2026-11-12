@@ -4957,19 +4957,19 @@ ARTICLES = [
      "2026-07"),
     ("agent-readme-deep", "zh", "deep",
      "给 Agent 看的 README:上下文文件是基建还是货物崇拜?(深入版)",
-     "AGENTS.md/CLAUDE.md 的标准之争、厂商共识与第一批对照实证的正面对撞:三项研究互相矛盾、方法学审计否决两组流传数字、唯一带统计检验的收益是效率;含企业落地 playbook;三轮验证(105 票转述保真 + 反证搜索与方法学审计席)。",
+     "AGENTS.md/CLAUDE.md 的标准之争、厂商共识与第一批对照实证的正面对撞:三项研究互相矛盾、方法学审计否决两组流传数字、带统计检验的效率增益与成本上升符号相反;含企业落地 playbook;三轮验证(105 票转述保真 + 反证搜索与方法学审计席)。",
      "2026-07"),
     ("agent-readme-deep", "en", "deep",
      "The README for Agents: Are Context Files Infrastructure or Cargo Cult? (Deep Dive)",
-     "The AGENTS.md standards war, the vendor consensus, and the first controlled studies colliding head-on: three mutually contradicting studies, two widely quoted numbers struck down by methods audit, efficiency as the only statistically tested benefit; with an enterprise rollout playbook; three verification rounds (105 fidelity votes + contradiction-search and methods-audit seats).",
+     "The AGENTS.md standards war, the vendor consensus, and the first controlled studies colliding head-on: three mutually contradicting studies, two widely quoted numbers struck down by methods audit, tested efficiency gains and tested cost increases pointing opposite ways; with an enterprise rollout playbook; three verification rounds (105 fidelity votes + contradiction-search and methods-audit seats).",
      "2026-07"),
     ("agent-readme-plain", "zh", "plain",
      "都说要给代码库写 AGENTS.md,写了真的有用吗?(易读版)",
-     "对照研究互相打架,唯一带统计检验的收益是省时省 token;「短了更听话」没有证据;llms.txt 97% 零请求。易读版:主线结论 + 行动清单。",
+     "对照研究互相打架,省时省 token 与成本反涨各有一项带检验的研究;「短了更听话」没有证据;llms.txt 97% 零请求。易读版:主线结论 + 行动清单。",
      "2026-07"),
     ("agent-readme-plain", "en", "plain",
      "Everyone Says Your Repo Needs an AGENTS.md. Does It? (Plain-Language Edition)",
-     "The controlled studies fight each other; the only statistically tested win is saved time and tokens; 'shorter = more obedient' has no evidence; llms.txt gets zero requests 97% of the time. Plain edition: the main findings plus an action list.",
+     "The controlled studies fight each other; saved time and tokens and rising costs each have one tested study behind them; 'shorter = more obedient' has no evidence; llms.txt gets zero requests 97% of the time. Plain edition: the main findings plus an action list.",
      "2026-07"),
     ("seventy-percent-failure-deep", "zh", "deep",
      "「70% 转型失败」考古:上一轮转型的尸检报告,能预测 AI-native 吗?(深入版)",
@@ -5319,13 +5319,13 @@ TLDRS = {
     ("ai-code-review-deep", "en"):
         "The verification bottleneck is real and worsening (median review time +441.5%, zero-review merges +31.3%), but the supply side's evidence regime has failed: six self-run benchmarks, publisher first every time, the same tool varying 3.7× across exams; first-party production funnels put an order of magnitude between offline scores and production value (Meta 67.96%→19.75%); converging errors are dissolving the independence premise of AI-verifying-AI. The verdict is conditional: independent oracle + controlled false alarms + humans keeping the verdict = cure; otherwise, turtles. Closes with eight testable claims.",
     ("agent-readme-deep", "zh"):
-        "AGENTS.md 在标准之争中事实胜出(LF 中立托管、Cursor/Copilot/VS Code 原生消费),但互认不对称、symlink 仍是通用解;四厂商指南共识整齐却零对照组。第一批对照实证互相打架:效率增益(-28.64% 耗时、-16.58% token,p<0.05)是唯一带统计检验的效应,成功率方向三项研究互相矛盾且旗舰阴性研究的方向性数字被方法学审计否决(零推断统计、单次采样、有效 n=12);「怎么排版」四变量对遵从率无可检测效应,任务类型与会话深度才是主变量。llms.txt 是「采用≠消费」的多源证实盖棺案例(97% 零请求);上下文文件已是带 PoC 的攻击面。以六步落地 playbook 和十个可检验主张收尾。",
+        "AGENTS.md 在标准之争中事实胜出(LF 中立托管、Cursor/Copilot/VS Code 原生消费),但互认不对称、symlink 仍是通用解;四厂商指南共识整齐却零对照组。第一批对照实证互相打架:效率增益(-28.64% 耗时、-16.58% token,p<0.05)与旗舰研究 v3 补检验后显著的成本上升(+20%)符号相反;成功率方向三项研究互相矛盾,旗舰研究的方向性数字被方法学审计否决(单次采样、有效 n=12),作者 v3 补检验后也判为不显著,只剩人写优于 LLM 生成约 7%(边际显著);「怎么排版」四变量对遵从率无可检测效应,任务类型与会话深度才是主变量。llms.txt 是「采用≠消费」的多源证实盖棺案例(97% 零请求);上下文文件已是带 PoC 的攻击面。以六步落地 playbook 和十个可检验主张收尾。",
     ("agent-readme-deep", "en"):
-        "AGENTS.md has won the standards war on facts (LF neutral hosting; native consumption by Cursor/Copilot/VS Code), but recognition is asymmetric and the symlink remains the universal adapter; the four vendor guides agree neatly — with zero control groups. The first controlled studies fight each other: the efficiency gain (−28.64% wall-clock, −16.58% tokens, p<0.05) is the only statistically tested effect; on success rates three studies contradict one another, and the flagship negative study's directional numbers were struck down by methods audit (no inferential statistics, single sampling, effective n=12); the formatting folklore shows no detectable compliance effect — task identity and session depth dominate. llms.txt is the multi-source closed case for adoption ≠ consumption (97% zero requests); context files are now a PoC-backed attack surface. Closes with a six-step rollout playbook and ten testable claims.",
+        "AGENTS.md has won the standards war on facts (LF neutral hosting; native consumption by Cursor/Copilot/VS Code), but recognition is asymmetric and the symlink remains the universal adapter; the four vendor guides agree neatly — with zero control groups. The first controlled studies fight each other: the efficiency gain (−28.64% wall-clock, −16.58% tokens, p<0.05) runs opposite to the flagship study's cost increase (+20%), significant since its v3 added tests; on success rates three studies contradict one another, and the flagship study's directional numbers were struck down by methods audit (single sampling, effective n=12) — its v3 tests find them non-significant too, leaving only human-written beating LLM-generated by ~7% (marginally significant); the formatting folklore shows no detectable compliance effect — task identity and session depth dominate. llms.txt is the multi-source closed case for adoption ≠ consumption (97% zero requests); context files are now a PoC-backed attack surface. Closes with a six-step rollout playbook and ten testable claims.",
     ("agent-readme-plain", "zh"):
-        "给代码库写 AGENTS.md/CLAUDE.md 值得,但证据和口号不一样:省 28.64% 时间、16.58% token 是唯一带统计检验的数字;成功率方向三项研究互相打架,谁也没赢;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。",
+        "给代码库写 AGENTS.md/CLAUDE.md 值得,但证据和口号不一样:省 28.64% 时间、16.58% token 有统计检验,但另一项带检验的研究测得成本反涨两成;成功率方向三项研究互相打架,谁也没赢;「短了更听话」「重要的放开头」这些讲究在随机实验里全无效应。该写的是命令、禁令和 AI 猜不到的团队私规;该防的是把这个文件当攻击面的供应链注入。附六步行动清单。",
     ("agent-readme-plain", "en"):
-        "Writing an AGENTS.md/CLAUDE.md is worth it — but the evidence differs from the slogans: 28.64% time and 16.58% token savings are the only statistically tested numbers; on success rates, three studies fight each other and nobody has won; 'keep it short' and 'important things first' showed zero effect in the randomized test. Write commands, prohibitions, and the house rules AI can't guess; guard against supply-chain injection that treats the file as an attack surface. Six-step action list included.",
+        "Writing an AGENTS.md/CLAUDE.md is worth it — but the evidence differs from the slogans: 28.64% time and 16.58% token savings are statistically tested, but another tested study found costs up ~20%; on success rates, three studies fight each other and nobody has won; 'keep it short' and 'important things first' showed zero effect in the randomized test. Write commands, prohibitions, and the house rules AI can't guess; guard against supply-chain injection that treats the file as an attack surface. Six-step action list included.",
     ("ninety-five-percent-deep", "zh"):
         "「95% of organizations are getting zero return」是执行摘要里的一句话;报告内唯一可追溯的 5% 是定制工具漏斗(调研 60%→试点 20%→进生产 5%),而 80% 的组织根本没试点过——同一对 95%/5% 被套在三个互不等价的构念上,「成功」的定义是访谈里「有人夸」。Fortune 首发即换口径,并把 52 家访谈+153 份问卷写成 150+350,至今未更正;四位作者都在做或卖报告推荐的 agentic 框架,无利益冲突披露,被公开要求「公布数据或撤稿」后一年零回应。把口径排成阶梯,混战消失:自估口径 99% 有回报,感知口径约 74%,实测双收益 12%,EBIT 严归因约 6%——NANDA 的 5% 在严口径端并不孤单,孤单的是它的措辞与样本。官方统计的三个事实:用得快(三年 53%)、用得浅(强度使用 7%、中位支出 $11.38/人/月、丹麦注册数据精确零效应)、藏着用(57% 员工隐瞒)。三十年失败率考古显示这些数字几乎从不测量它声称测量的东西;四种理论对「95% 会不会自己好起来」给出互斥答案。十二个可检验主张收尾。",
     ("ninety-five-percent-deep", "en"):
@@ -5568,10 +5568,10 @@ CHIPS = {
         ("c1", "debate: 60% → 88% (conditional)"), ("c2", "self-check agreement: 76%"), ("c3", "inner monologue: 25-39%"), ("c4", "math proofs: incorruptible judge"),
     ],
     ("ai-native-plain", "zh"): [
-        ("c1", "90% 在用 AI"), ("c2", "实测 −19% vs 自感 +20%"), ("c3", "稳定性连续两年负相关"), ("c4", "迁移:1.5 人年 → 6 周"),
+        ("c1", "90% 在用 AI"), ("c2", "2025 实测 −19% vs 自感 +20%"), ("c3", "稳定性连续两年负相关"), ("c4", "迁移:1.5 人年 → 6 周"),
     ],
     ("ai-native-plain", "en"): [
-        ("c1", "90% use AI"), ("c2", "measured −19% vs felt +20%"), ("c3", "stability negative 2 yrs running"), ("c4", "migration: 1.5 eng-yrs → 6 wks"),
+        ("c1", "90% use AI"), ("c2", "2025: measured −19% vs felt +20%"), ("c3", "stability negative 2 yrs running"), ("c4", "migration: 1.5 eng-yrs → 6 wks"),
     ],
     ("ai-native-deep", "zh"): [
         ("c1", "86 个来源"), ("c2", "166 票对抗验证"), ("c3", "4 大理论光谱"), ("c4", "6 个可检验主张"),
@@ -5604,10 +5604,10 @@ CHIPS = {
         ("c1", "7 lines · 15 load-bearing claims"), ("c2", "45 adversarial votes"), ("c3", "9 held · 6 amended · 0 overturned"), ("c4", "8 testable claims"),
     ],
     ("agent-readme-deep", "zh"): [
-        ("c1", "三轮验证 · 审计否决 2 组流传数字"), ("c2", "唯一带统计检验的收益:-28.64% 耗时"), ("c3", "成功率:三项研究互相矛盾"), ("c4", "10 个可检验主张"),
+        ("c1", "三轮验证 · 审计否决 2 组流传数字"), ("c2", "效率:-28.64% vs +20%,两边都带检验"), ("c3", "成功率:三项研究互相矛盾"), ("c4", "10 个可检验主张"),
     ],
     ("agent-readme-deep", "en"): [
-        ("c1", "3 rounds · 2 famous numbers struck"), ("c2", "only tested win: −28.64% time"), ("c3", "success rates: 3 studies at war"), ("c4", "10 testable claims"),
+        ("c1", "3 rounds · 2 famous numbers struck"), ("c2", "efficiency: −28.64% vs +20%, both tested"), ("c3", "success rates: 3 studies at war"), ("c4", "10 testable claims"),
     ],
     ("agent-readme-plain", "zh"): [
         ("c1", "省时 28.64% · 省 token 16.58%"), ("c2", "成功率:研究互相打架"), ("c3", "写法讲究:随机实验全无效应"), ("c4", "六步行动清单"),
