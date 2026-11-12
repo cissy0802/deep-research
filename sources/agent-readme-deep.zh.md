@@ -1,6 +1,8 @@
 # 给 Agent 看的 README:上下文文件是基建还是货物崇拜?(深入版)
 
 > 本文的实证引用经过三轮分级验证。第一、二轮:35 组承重论断各投 3 票做**转述保真**核查(逐字核对一手原文、复算口径;105 票 0 组推翻、30 余处修正,含揪出"CLAUDE.md 一万词以内"这条官方文档中不存在的伪引用)。第三轮针对 6 组单源实证增设两个席位:**反证搜索席**(检索独立团队、独立数据的矛盾/证实测量)与**方法学审计席**(敌意审稿,有否决权)。第三轮改变了本文多处结论:2 组承重数字被审计否决(AGENTbench 的方向性成功率增减系假精度;"2,303 文件普查"的百分比分母有误)、成本方向被独立测量直接矛盾、3 组升级为多源证实。正文标签:【多源证实】=独立团队独立数据的测量同向;【单源已核】=仅此一次测量,转述保真且通过方法学审计;【方向存争】=独立测量互相矛盾;【已核】=对官方文档/源码逐字核验的机制性事实(工具行为、规范条文);【厂商口径】【现场核验】【未验证,来源】如字面。转述保真 ≠ 事实为真——单源论断的验证天花板是前者,这正是分级存在的原因。文末附来源索引。
+>
+> **2026-11 修订**:ETH 论文(arXiv 2602.11988)2026-09-29 发布 v3,自建基准由 AGENTbench 更名为 CTXbench,摘要结论从 v1 的「倾向于降低成功率」软化为「总体不提升成功率」,并补做了显著性检验——成功率差异全部不显著(p=0.87/0.37/0.21),成本上升显著(+20%/+23%),开发者手写文件优于 LLM 生成文件约 7%(p=0.038);开发者文件相对无文件的增益由 v1 的 +4% 改为 +2.4%。本文第 4 章的审计结论(方向性成功率数字不可承重)被作者自己的检验确认;但「效率增益是唯一带统计检验的效应」不再成立(ETH 的成本上升现在也带检验,方向相反),相关段落、主张 1 与摘要已同步改写。该上游变动由 #25 第二轮验证的反证席发现,本次修订经一手回读 v1/v3 原文核对(单线回读,非 3 票制)。
 
 ## 0. 一句听起来显然正确的话,和三个不配合的事实
 
@@ -8,13 +10,13 @@
 
 但对抗验证挖出了三个不配合的事实:
 
-**第一,对照证据刚出现就互相打架。**ETH Zurich 团队的多 agent 评测声称:上下文文件总体不提升成功率,推理成本反涨 20%+;另一团队对 Codex 的配对实验测得带文件时中位耗时 -28.64%、输出 token -16.58%;第三个团队测得 LLM 生成的指导文件把解决率提升 2.8-7.5 个百分点。三项全是 preprint;更要紧的是(见第 4 章),没有一项的**成功率方向性数字**能不掉级地通过本文的方法学审计。【方向存争】
+**第一,对照证据刚出现就互相打架。**ETH Zurich 团队的多 agent 评测声称:上下文文件总体不提升成功率(2026-09 的 v3 补做检验后,成功率差异均不显著),推理成本反涨 20%+(显著);另一团队对 Codex 的配对实验测得带文件时中位耗时 -28.64%、输出 token -16.58%;第三个团队测得 LLM 生成的指导文件把解决率提升 2.8-7.5 个百分点。三项全是 preprint;更要紧的是(见第 4 章),没有一项的**成功率方向性数字**能不掉级地通过本文的方法学审计。【方向存争】
 
 **第二,"文件要短、重要指令放开头"这类怎么写的民间智慧,第一次接受随机对照检验就全体翻车。**1,650 次 Claude Code 会话的因子实验里,文件大小、指令位置、单文件还是嵌套、相邻文件有没有矛盾——四个结构变量对 agent 遵从率全部没有可检测的效应。【单源已核】
 
 **第三,同类叙事里声量最大的 llms.txt,实测消费为零的比例是 97%。**Ahrefs 对 13.7 万个域名的服务器日志分析发现,发布了 llms.txt 的站点里 97% 在 2026 年 5 月一个请求都没收到——且至少四项独立测量同向。【多源证实】
 
-这三个事实不意味着"上下文文件没用"——后文会给出目前唯一带统计检验的收益(效率),以及生产环境里经得起逐字核验的写法。但它们意味着:这个领域的最佳实践几乎全部是厂商口径,独立实证刚刚起步,起步的几篇不但与厂商叙事不同向,互相之间也不同向。本站[《当代码变得便宜》](https://cissy0802.github.io/deep-research/ai-native-deep.html)的老话在这里同样适用:凡是没有对照组的数字,先问口径再引用。
+这三个事实不意味着"上下文文件没用"——后文会给出一项带统计检验的效率收益(但另一项带检验的研究测得成本反涨),以及生产环境里经得起逐字核验的写法。但它们意味着:这个领域的最佳实践几乎全部是厂商口径,独立实证刚刚起步,起步的几篇不但与厂商叙事不同向,互相之间也不同向。本站[《当代码变得便宜》](https://cissy0802.github.io/deep-research/ai-native-deep.html)的老话在这里同样适用:凡是没有对照组的数字,先问口径再引用。
 
 ## 1. 读数说明:三档证据,四条限定
 
@@ -57,23 +59,25 @@
 
 Anthropic 的内容取舍清单值得单独记录(它回答"写什么"而不只是"写多短"):该写的是 agent 猜不到的东西——bash 命令、非默认代码风格、测试指令、repo 礼仪、项目特有架构决策;不该写的是能从代码推断的内容、详细 API 文档、频繁变化的信息。可以用 IMPORTANT/YOU MUST 等强调词调节遵从度——这条同样没有引用任何实证数据。【厂商口径,已核】
 
-## 4. 实证体检 I:写了究竟有没有用?——三项研究互相打架,只有效率增益带统计检验
+## 4. 实证体检 I:写了究竟有没有用?——三项研究互相打架,连带检验的成本数字都符号相反
 
 2026 年上半年出现了三篇正面回答"写了有没有用"的对照研究。它们不但结论不一致,而且经过本文第三轮的方法学审计与反证搜索之后,能站住的东西比第一眼看到的少得多。逐项过堂:
 
-**其一:AGENTbench 对照(arXiv 2602.11988,ETH Zurich + LogicStar.ai,2026-02)——名气最大,数字最弱。**研究者组合了两个基准:SWE-bench Lite(300 个任务、11 个知名 Python repo,配 LLM 生成的上下文文件)和自建的 AGENTbench(138 个真实 PR 任务、12 个小众 Python repo,全部带开发者手写文件,从 5,694 个 PR 筛出;与 2023 年清华的同名基准无关)。三个 agent、四种模型配置。其声称:LLM 生成的文件普遍降解决率(SWE-bench Lite -0.5pp、AGENTbench -2pp),开发者手写的仅 +4%(且对 Claude Code 无效),成本推高约 20%;删除 README 后 LLM 生成文件转为 +2.7%。
+**其一:AGENTbench 对照(arXiv 2602.11988,ETH Zurich + LogicStar.ai,2026-02;2026-09 的 v3 更名为 CTXbench)——名气最大,数字最弱。**研究者组合了两个基准:SWE-bench Lite(300 个任务、11 个知名 Python repo,配 LLM 生成的上下文文件)和自建的 AGENTbench(v3 称 CTXbench,138 个真实 PR 任务、12 个小众 Python repo,全部带开发者手写文件,从 5,694 个 PR 筛出;与 2023 年清华的同名基准无关)。三个 agent、四种模型配置。其声称:LLM 生成的文件普遍降解决率(SWE-bench Lite -0.5pp、AGENTbench -2pp),开发者手写的仅 +4%(且对 Claude Code 无效),成本推高约 20%;删除 README 后 LLM 生成文件转为 +2.7%。以上是 v1(2026-02)口径。**v3(2026-09-29)的变化**:摘要从「context files tend to reduce task success rates」软化为「providing context files does not generally improve task success rates, while increasing inference cost by over 20% on average」;开发者手写文件相对无文件改为 +2.4%(p=21%);新增双侧 Cochran-Mantel-Haenszel 检验——SWE-bench 无文件 vs LLM 生成 p=0.87、CTXbench 无文件 vs LLM 生成 p=0.37、无文件 vs 开发者手写 p=0.21,结论原文为「neither statistically significant」;唯一显著的成功率对比是 **开发者手写 vs LLM 生成(约 +7%,p=0.038)**;成本上升 +20%/+23% 显著(p<0.001%);并称「the length of context files has no significant impact on our results」。
 
 本文的方法学审计**否决了其中所有方向性成功率数字作为证据**,理由有五:全文没有任何推断统计(无置信区间、无显著性检验,逐字检索确认);每个实例只采样一次,而 n=138 的二值结局下最小可检差异约 8-10 个百分点,±2-4pp 的"方向"是假精度;138 个实例聚在 12 个仓库里,"手写文件"命题的有效样本量是 12 不是 138;基准由被评测的 Codex/GPT-5.2 参与构建(筛任务、改描述、从标准补丁生成测试——循环);"有用"只被操作化为一次通过率+成本,而上下文文件宣称的收益(风格遵从、约定合规、可维护性)完全没测。它可靠支撑的只剩一句弱结论:**在该设置下没有观察到大的成功率效应**。【方向存争;方向性数字经审计否决】
 
-**其二:Codex 配对实验(arXiv 2601.20404,Lulla 等,JAWs@ICSE 2026)——数字最窄,但唯一带统计检验。**10 个仓库、124 个真实 PR 任务,同一任务各跑两遍(带/不带开发者手写的 AGENTS.md):中位完成时间 98.57 秒 → 70.34 秒(**-28.64%**),中位输出 token 2,925 → 2,440(**-16.58%**),Wilcoxon 配对检验 p<0.05,任务完成行为不变。二次分析显示均值口径的节省集中在少数原本会"来回打转"的高成本运行上——文件更像防最坏情况的护栏,而非均匀加速器。审计裁定:real-but-weak,窄范围内成立。【单源已核】限定:单 agent(gpt-5.2-codex)、小 PR(<100 行、≤5 文件)、仅根级单文件、作者自己用"关联"措辞。
+v3 补做的检验与本审计同向:作者自己也判定这些 ±pp 差异不显著,上面五条理由中的第一条(零推断统计)对 v3 不再成立,其余四条(单次采样、12 仓库聚类、构建循环、度量过窄)仍在。v3 新增的「手写优于 LLM 生成约 7%」值得记下,但要带两条限定:它是表中四项检验之一、p=0.038,按四项做 Bonferroni 校正(阈值 0.0125)即不显著;且仍是 12 个仓库上的单次采样。可用的写法是「人写倾向优于 LLM 生成,单源、边际显著」。成本上升(+20%/+23%)现在带检验,这改变了下文「成本方向」的证据格局。
+
+**其二:Codex 配对实验(arXiv 2601.20404,Lulla 等,JAWs@ICSE 2026)——数字最窄,但最早带统计检验。**10 个仓库、124 个真实 PR 任务,同一任务各跑两遍(带/不带开发者手写的 AGENTS.md):中位完成时间 98.57 秒 → 70.34 秒(**-28.64%**),中位输出 token 2,925 → 2,440(**-16.58%**),Wilcoxon 配对检验 p<0.05,任务完成行为不变。二次分析显示均值口径的节省集中在少数原本会"来回打转"的高成本运行上——文件更像防最坏情况的护栏,而非均匀加速器。审计裁定:real-but-weak,窄范围内成立。【单源已核】限定:单 agent(gpt-5.2-codex)、小 PR(<100 行、≤5 文件)、仅根级单文件、作者自己用"关联"措辞。
 
 **其三:Probe-and-Refine(arXiv 2606.20512,Shepard & Albrecht,Williams College,2026-06)——直接跟第一篇唱反调。**在文档完整的 SWE-bench Verified 上,LLM 生成的指导文件(tree-sitter 仓库地图 + 一次性通用指导)把平均解决率从 25.5% 提到 28.3%(+2.8pp),迭代精炼后到 33.0%(+7.5pp,4 次独立试验,精炼版 vs 无指导 p<0.001)。这与"LLM 生成文件降成功率"是方向相反的直接测量(注意:其指导文件含结构化仓库地图,与典型 `/init` 产物不同)。【单源已核】
 
-**成本方向也在打架**:ETH 说带文件成本 +20-23%,Lulla 测得 token -16.58%、耗时 -28.64%。两者任务型态(基准 issue 修复 vs 真实小 PR)、文件来源(LLM 生成 vs 开发者手写)、agent 都不同,目前无法裁决谁对——有综述文章明确把这两篇标记为"结论相反"。【方向存争】
+**成本方向也在打架**:ETH 说带文件成本 +20-23%(v3 起带显著性检验,p<0.001%),Lulla 测得 token -16.58%、耗时 -28.64%(Wilcoxon p<0.05)——两边如今都带检验、符号相反。两者任务型态(基准 issue 修复 vs 真实小 PR)、文件来源(LLM 生成 vs 开发者手写)、agent 都不同,目前无法裁决谁对——有综述文章明确把这两篇标记为"结论相反"。【方向存争】
 
 三篇拼起来的诚实读法:
 
-1. **效率增益(省时省 token)是这个领域目前唯一带统计检验的效应**,但只有一次测量,且方向上有另一项研究唱反调——別把它当铁律,当作"值得在你自己的仓库上复测的默认预期"。
+1. **效率增益(省时省 token)有一项带统计检验的测量**,但另一项同样带检验的研究(ETH v3)测得成本显著上升——两者文件来源与任务型态都不同,別把任何一方当铁律,当作"值得在你自己的仓库上复测的默认预期"。
 2. **成功率方向上,证据状态是"未定"**:三项 preprint 互相矛盾、各自功效或外部效度不足。"写了没用"和"写了有用"目前都不够格当结论。
 3. "价值来自不冗余信息"从已证结论降级为**假说**——但它有两个独立弱信号同向:ETH 的删文档消融(+2.7%,数字本身未过审计)与 Shepard 的静态指导增益(+2.8pp)。这是本领域最值得后续检验的机制假设。
 
@@ -141,7 +145,7 @@ llms.txt 常与 AGENTS.md 并列出现在"agent 时代文档基建"清单里,但
 
 **Step 4 monorepo 分层(按需)。**根文件放全局约定与路由,只给高价值/高风险的子包加嵌套文件,依赖"最近文件优先"语义(规范+四厂商一致【已核】;"根文件当路由器"是 Datadog 实践【未验证】)。警惕 Anthropic 自己承认的治理失效:约定漂移、文件过期、根文件没人认领【厂商口径,已核】——每个文件写个 owner。
 
-**Step 5 度量与期望管理(试点 2-4 周)。**向管理层报告时用诚实的预期:**效率收益(时间/token 下降)是本领域唯一带统计检验的效应,但只有一次测量且成本方向有研究唱反调;成功率方向证据未定**——所以试点度量不是锦上添花,是你唯一能拿到的本地真值。度量方法:选 1-2 个试点仓库,建一套"每类常见任务 1-2 条测试提示词"的小套件,改版前后各跑一轮,记录完成率、耗时、token(方法来自 Datadog 实践【未验证】,但它本质上就是给文档建回归测试,成本低且无需相信任何人的口径)。结构折腾(位置、拆分)优先级放最低——目前唯一的受控实验找不到效应【单源已核】。
+**Step 5 度量与期望管理(试点 2-4 周)。**向管理层报告时用诚实的预期:**效率收益(时间/token 下降)有一项带检验的测量,但另一项带检验的研究测得成本上升;成功率方向证据未定(相对无文件均不显著),人写文件倾向优于 LLM 生成**——所以试点度量不是锦上添花,是你唯一能拿到的本地真值。度量方法:选 1-2 个试点仓库,建一套"每类常见任务 1-2 条测试提示词"的小套件,改版前后各跑一轮,记录完成率、耗时、token(方法来自 Datadog 实践【未验证】,但它本质上就是给文档建回归测试,成本低且无需相信任何人的口径)。结构折腾(位置、拆分)优先级放最低——目前唯一的受控实验找不到效应【单源已核】。
 
 **Step 6 维护与安全(常态化)。**维护:上下文文件的改动走 PR review;大模型版本更新后重审一遍(给旧模型打的补丁规则会变成纯开销);可选 Stop hook 自动从会话记录提议更新(三条均为 Anthropic 官方建议【厂商口径】;"这些文件像配置代码一样高频演化"是实证观察【单源已核】)。安全:CI 对上下文文件的变更加 required review,特别拦截来自自动化 PR/依赖机器人对 AGENTS.md 的写入(NVIDIA 攻击路径【已核】);安全团队审一遍各编辑器的自动加载默认值【已核】。最后,**不要写 llms.txt**,除非你核实了某个你在乎的消费方真的读它【多源证实】。
 
@@ -149,8 +153,8 @@ llms.txt 常与 AGENTS.md 并列出现在"agent 时代文档基建"清单里,但
 
 ## 10. 结论:十个可检验主张
 
-1. **效率增益是本领域目前唯一带统计检验的效应**(-28.64% 中位耗时、-16.58% 中位输出 token,Wilcoxon p<0.05,单 agent 配对实验),但成本方向另有一项研究测得相反符号——两者的裁决需要第三方在统一设置下复测。【单源已核 + 方向存争】
-2. **成功率方向上,诚实的证据状态是"未定"**:声称负效应的研究其方向性数字系假精度(零推断统计、单次采样、有效 n=12),声称正效应的研究 +7.5pp 带 p<0.001 但指导文件形态特殊;"写了没用"与"写了有用"目前都不够格当结论。【方向存争】
+1. **效率方向两份带检验的测量符号相反**:Lulla 的单 agent 配对实验测得 -28.64% 中位耗时、-16.58% 中位输出 token(Wilcoxon p<0.05,开发者手写文件、真实小 PR);ETH v3 测得成本 +20%/+23%(p<0.001%,以 LLM 生成文件为主的基准任务)——裁决需要第三方在统一设置下复测。【单源已核 + 方向存争】
+2. **成功率方向上,诚实的证据状态是"未定"**:声称负效应的研究其方向性数字系假精度(v1 零推断统计、单次采样、有效 n=12;v3 作者补检验后自己也判为不显著,并把结论软化为「总体不提升」;唯一显著的对比是人写优于 LLM 生成约 7%,p=0.038、未校正多重比较),声称正效应的研究 +7.5pp 带 p<0.001 但指导文件形态特殊;"写了没用"与"写了有用"目前都不够格当结论。【方向存争】
 3. **"价值来自不冗余信息"是本领域最值得检验的机制假说**:两个独立弱信号同向(删文档消融转正、静态指导 +2.8pp),但都未达证据级。可被"在文档完备仓库上复测手写文件效应"直接检验。
 4. **"怎么排版"的民间智慧未获证实**:大小(25-500 行)、位置、架构、矛盾四变量对遵从率无可检测效应(大小与矛盾为贝叶斯确证零效应,位置与架构可能只是功效不足);任务类型与会话内位置才是主变量。单刺激设计、无复现——等第二个团队。【单源已核】
 5. **"短"的可靠论据是上下文预算与多源证实的长上下文退化,不是"短了更听话"**;注意退化实验的"聚焦"条件是神谕检索上界;Codex 的 32 KiB 静默截断把预算变成硬约束。【多源证实 + 已核】
@@ -170,7 +174,7 @@ llms.txt 常与 AGENTS.md 并列出现在"agent 时代文档基建"清单里,但
 
 **厂商官方文档**:Anthropic — code.claude.com/docs 的 best-practices、large-codebases、memory 页 · OpenAI — developers.openai.com/codex/guides/agents-md 与 codex 源码(codex-rs/core/src/agents_md.rs) · GitHub — docs.github.com Copilot custom instructions;github.blog "How to write a great agents.md: lessons from over 2,500 repositories"(Matt Nigh,2025-11) · Cursor — cursor.com/docs/rules · VS Code — v1.104 release notes 与 microsoft/vscode 源码
 
-**独立实证**:Gloaguen, Mündler, Müller, Raychev & Vechev, "Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?"(arXiv 2602.11988,ETH Zurich/LogicStar.ai) · Lulla, Mohsenimofidi, Galster, Zhang, Baltes & Treude, "On the Impact of AGENTS.md Files on the Efficiency of AI Coding Agents"(arXiv 2601.20404,JAWs@ICSE 2026) · Shepard & Albrecht, "Probe-and-Refine Tuning of Repository Guidance for Coding Agents"(arXiv 2606.20512,Williams College) · McMillan, "Instruction Adherence in Coding Agent Configuration Files"(arXiv 2605.10039) · Chatlatanagulchai 等, "Agent READMEs: An Empirical Study of Context Files for Agentic Coding"(arXiv 2511.12884) · Santos, Costa, Montandon & Valente(UFMG,arXiv 2511.09268,独立 328 文件样本) · Hong, Troynikov & Huber, "Context Rot"(Chroma 技术报告,2025-07;独立同向:NoLiMa(Adobe)、Du 等(EMNLP 2025)、Databricks、LongMemEval 原作者(ICLR 2025))
+**独立实证**:Gloaguen, Mündler, Müller, Raychev & Vechev, "Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?"(arXiv 2602.11988,ETH Zurich/LogicStar.ai;v1 2026-02-12,v3 2026-09-29,v3 起基准更名 CTXbench) · Lulla, Mohsenimofidi, Galster, Zhang, Baltes & Treude, "On the Impact of AGENTS.md Files on the Efficiency of AI Coding Agents"(arXiv 2601.20404,JAWs@ICSE 2026) · Shepard & Albrecht, "Probe-and-Refine Tuning of Repository Guidance for Coding Agents"(arXiv 2606.20512,Williams College) · McMillan, "Instruction Adherence in Coding Agent Configuration Files"(arXiv 2605.10039) · Chatlatanagulchai 等, "Agent READMEs: An Empirical Study of Context Files for Agentic Coding"(arXiv 2511.12884) · Santos, Costa, Montandon & Valente(UFMG,arXiv 2511.09268,独立 328 文件样本) · Hong, Troynikov & Huber, "Context Rot"(Chroma 技术报告,2025-07;独立同向:NoLiMa(Adobe)、Du 等(EMNLP 2025)、Databricks、LongMemEval 原作者(ICLR 2025))
 
 **llms.txt 体检**:Ahrefs, "We Analyzed 137K Sites: 97% of llms.txt Files Never Get Read"(2026-06) · OtterlyAI 自站 90 天日志 · Adobe AEM 千域名 LLM-bot 事件审计 · Originality.ai llms.txt 追踪研究 · John Mueller Bluesky 原帖(2025-06-17)与 Search Engine Roundtable/Journal 报道 · Chrome Lighthouse 13.3 agentic browsing 文档
 

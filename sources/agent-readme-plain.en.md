@@ -1,6 +1,6 @@
 # Everyone Says Your Repo Needs an AGENTS.md. Does It? (Plain-Language Edition)
 
-> This is the condensed edition of the deep dive of the same name. Every key number went through three rounds of independent checking (105 fidelity-to-source votes, plus 12 contradiction-search and hostile methods-audit verdicts — the audit struck down two widely circulated numbers, and the contradiction search surfaced studies that flatly disagree). For the full arguments, evidence tiers, and sources, read the deep dive.
+> This is the condensed edition of the deep dive of the same name. Every key number went through three rounds of independent checking (105 fidelity-to-source votes, plus 12 contradiction-search and hostile methods-audit verdicts — the audit struck down two widely circulated numbers, and the contradiction search surfaced studies that flatly disagree). For the full arguments, evidence tiers, and sources, read the deep dive. Revised 2026-11: the ETH paper released a third version in September 2026 that adds statistical tests and softens its conclusion; the affected passages here have been updated.
 
 ## A new kind of technical shaming, and what it's missing
 
@@ -8,13 +8,15 @@ For the past year or two, every AI coding vendor has been saying the same thing:
 
 What the logic is missing is a control group. We fact-checked every piece of primary evidence we could find, and the results are more interesting than the slogan.
 
-## Surprise one: the controlled studies fight each other — the only statistically tested win is time and money
+## Surprise one: the controlled studies fight each other — even the cost question is unsettled
 
-The first half of 2026 produced three with-vs-without controlled studies, and they contradict each other: an ETH Zurich team says success rates don't rise and costs go up ~20%; a second team's paired experiment measured **28.64% lower median time and 16.58% fewer output tokens with the file present** (the only number of the three that carries a statistical significance test); a third team measured LLM-generated guidance files *raising* resolve rates by 2.8–7.5 percentage points.
+The first half of 2026 produced three with-vs-without controlled studies, and they contradict each other: an ETH Zurich team says success rates don't rise and costs go up ~20%; a second team's paired experiment measured **28.64% lower median time and 16.58% fewer output tokens with the file present** (with a statistical significance test); a third team measured LLM-generated guidance files *raising* resolve rates by 2.8–7.5 percentage points.
 
 We ran a hostile methods audit on all three. Result: the most famous one (ETH) had its success-rate numbers struck down — no statistical tests anywhere in the paper, every task run exactly once, an effective sample of just 12 repositories; at that precision, a ±2–4-point "direction" simply cannot be read off.
 
-So the honest summary: **nobody currently knows whether these files move success rates; the only benefit left standing is saved time and tokens — and even that has been measured exactly once.** Use that framing with your boss: worth trying, worth measuring yourself, no capability miracles promised.
+What happened next bore the audit out: in September 2026 the ETH team released a third version that adds statistical tests of its own, and **none of the success-rate ups and downs is significant**; the conclusion changed from "reduces success rates" to "does not generally improve" them. But the third version also established two things. **The ~20% cost increase is significant** — which collides head-on with the time-and-token savings above: both results are now tested, and they point in opposite directions. And **developer-written files beat AI-generated ones by about 7% on average** — the only significant success-rate difference (only marginally so; it would not survive a correction for multiple comparisons).
+
+So the honest summary: **nobody currently knows whether these files move success rates; saved time and tokens has one tested measurement, but another tested study found costs going up — the setups differ, and nobody can adjudicate yet.** Use that framing with your boss: worth trying, worth measuring yourself, no capability miracles promised.
 
 ## Surprise two: most of the how-to-write folklore aims at the wrong target
 
@@ -46,9 +48,9 @@ So: context-file changes go through code review — especially ones arriving via
 
 1. **Inventory first**: which agents your teams use (this decides the filenames), and which repos have the worst documentation (documentation deserts gain the most; well-documented repos should expect little).
 2. **Pick one standard**: default to AGENTS.md as the single source of truth, add a symlink for Claude Code, and open the file by declaring "this is the only one — write nowhere else."
-3. **Spend 1–2 hours per repo on a minimum version**: commands you've run, a 3–5 line directory map, rules in three tiers (always / ask-first / never), under 200 lines. Bulk-AI-generate and commit sight-unseen? One study says harm, another says gain — nobody has won that fight; the robust route is generate a draft, prune by hand, and let step 5's measurements decide.
+3. **Spend 1–2 hours per repo on a minimum version**: commands you've run, a 3–5 line directory map, rules in three tiers (always / ask-first / never), under 200 lines. Bulk-AI-generate and commit sight-unseen? One study found AI-generated guidance files helped; another (ETH's third version) found human-written files beat AI-generated ones by about 7% (marginally significant); the robust route is generate a draft, prune by hand, and let step 5's measurements decide.
 4. **Layer for monorepos**: a root file for global rules, nested files only for high-risk subdirectories, and an owner named in every file.
-5. **Measure instead of believing**: pick one or two pilot repos, keep one or two test prompts per common task, run before and after. The published studies contradict each other, so your own measurement is the only local ground truth you'll get; expect saved time and money, and treat any success-rate gain as a bonus.
+5. **Measure instead of believing**: pick one or two pilot repos, keep one or two test prompts per common task, run before and after. The published studies contradict each other, so your own measurement is the only local ground truth you'll get; one study supports saved time and money and another found costs rising, so measure that too; treat any success-rate gain as a bonus.
 6. **Maintain it like code**: changes via PR; re-prune after major model releases (patches for an old model's quirks become dead weight); have security glance at your editors' auto-load defaults.
 
 And remember the state of this field: **plenty of vendor advice, very few controlled experiments — and the first controlled experiments side neither with the vendors nor with each other.** Use vendor guidance as defaults. Use your own measurement as the judge.
